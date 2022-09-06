@@ -11,7 +11,7 @@ import SwiftUI
 struct SMSWithoutBorders_ProductionApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmailView()
         }
     }
 }

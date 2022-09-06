@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
-		16F0E68528C6308600FDD12C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* ContentView.swift */; };
+		16F0E68528C6308600FDD12C /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
 		16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68628C6308800FDD12C /* Assets.xcassets */; };
 		16F0E68A28C6308800FDD12C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68928C6308800FDD12C /* Preview Assets.xcassets */; };
 		16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69328C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift */; };
 		16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */; };
 		16F0E6A028C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */; };
+		16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
+		16F0E6B528C80C0900FDD12C /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* Security.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +38,7 @@
 /* Begin PBXFileReference section */
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMSWithoutBorders-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionApp.swift; sourceTree = "<group>"; };
-		16F0E68428C6308600FDD12C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		16F0E68428C6308600FDD12C /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		16F0E68628C6308800FDD12C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16F0E68928C6308800FDD12C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +46,8 @@
 		16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITests.swift; sourceTree = "<group>"; };
 		16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoExportImportManager.swift; sourceTree = "<group>"; };
+		16F0E6B428C80C0900FDD12C /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +98,9 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
-				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
-				16F0E68428C6308600FDD12C /* ContentView.swift */,
+				16F0E6B328C80BBC00FDD12C /* Models */,
+				16F0E6B028C80B5700FDD12C /* Commons */,
+				16F0E6AC28C6320F00FDD12C /* Views */,
 				16F0E68628C6308800FDD12C /* Assets.xcassets */,
 				16F0E68828C6308800FDD12C /* Preview Content */,
 			);
@@ -125,6 +130,31 @@
 				16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */,
 			);
 			path = "SMSWithoutBorders-ProductionUITests";
+			sourceTree = "<group>";
+		};
+		16F0E6AC28C6320F00FDD12C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				16F0E68428C6308600FDD12C /* EmailView.swift */,
+				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		16F0E6B028C80B5700FDD12C /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		16F0E6B328C80BBC00FDD12C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				16F0E6B428C80C0900FDD12C /* Security.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16F0E68528C6308600FDD12C /* ContentView.swift in Sources */,
+				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
+				16F0E6B528C80C0900FDD12C /* Security.swift in Sources */,
+				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
