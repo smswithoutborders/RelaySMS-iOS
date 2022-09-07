@@ -19,7 +19,7 @@ func generateRSAKeyPair() throws -> String {
             [kSecAttrIsPermanent as String:    false,
              kSecAttrApplicationTag as String: tag]
     ]
-    // ["bsiz": 2048, "private": ["perm": false, "atag": 22 bytes], "type": 42]
+    // TODO: store in KeyChain
 
 
     print(attributes)
@@ -47,4 +47,25 @@ func generateRSAKeyPair() throws -> String {
     // return finalData.base64EncodedString()
     
     return exportableDERKey.base64EncodedString()
+}
+
+
+func decryptWithRSAKeyPair(privateKey: SecKey, encryptedData: String) {
+    // TODO: work on decryption
+    // TODO: should get privateKey from KeyChain not as input
+    var error: Unmanaged<CFError>?
+    
+    // let cfDataStr = encryptedData.data(using: .utf8)! as CFData
+    let cfDataStr = Data(base64Encoded: encryptedData, options: .ignoreUnknownCharacters)
+    let canDecrypt: Bool = SecKeyIsAlgorithmSupported(privateKey, .decrypt, .rsaEncryptionOAEPSHA1)
+    print("+ Can decrypt with algo: \(canDecrypt)")
+    
+    print("+ Decrypting: \(cfDataStr)")
+    guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA1, cfDataStr as! CFData, &error) else {
+        print("Some shit went down, check this out \(error)")
+        return
+    }
+    
+    print("+ Decrypted data: \(decryptedData)")
+    print(String(data: decryptedData as Data, encoding: .utf8))
 }
