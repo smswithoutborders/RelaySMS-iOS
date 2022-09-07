@@ -69,3 +69,33 @@ func decryptWithRSAKeyPair(privateKey: SecKey, encryptedData: String) {
     print("+ Decrypted data: \(decryptedData)")
     print(String(data: decryptedData as Data, encoding: .utf8))
 }
+
+func encryptWithRSAKeyPair(publicKeyStr: String, data: String) {
+    let exportImportManager = CryptoExportImportManager()
+    
+    let publicKey = Data(base64Encoded: publicKeyStr, options: .ignoreUnknownCharacters)!
+    print(publicKey)
+    
+    var error: Unmanaged<CFError>?
+    guard let publicKeyFinal = SecKeyCreateWithData(publicKey as NSData, [
+        kSecAttrKeyType: kSecAttrKeyTypeRSA,
+        kSecAttrKeySizeInBits: 2048,
+        kSecAttrKeyClass: kSecAttrKeyClassPublic,
+    ] as NSDictionary, &error) else {
+        print(error)
+        return
+    }
+    
+    print("* Final pub key: \(publicKeyFinal)")
+
+    let cfData: Data = data.data(using: String.Encoding.utf8)!
+    guard let encryptedData = SecKeyCreateEncryptedData(publicKeyFinal, .rsaEncryptionOAEPSHA1, cfData as CFData, &error) else {
+        // TODO: change this to throw instead
+        return
+    }
+    
+    print("+ Encrypted data: \(encryptedData)")
+    let encryptedDataFinal: Data = encryptedData as Data
+    
+    print(encryptedDataFinal.base64EncodedString())
+}
