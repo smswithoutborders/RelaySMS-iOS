@@ -15,7 +15,8 @@
 		16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */; };
 		16F0E6A028C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */; };
 		16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
-		16F0E6B528C80C0900FDD12C /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* Security.swift */; };
+		16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
+		16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,8 @@
 		16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITests.swift; sourceTree = "<group>"; };
 		16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoExportImportManager.swift; sourceTree = "<group>"; };
-		16F0E6B428C80C0900FDD12C /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRSAEncryption.swift; sourceTree = "<group>"; };
+		16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAESEncryption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +154,8 @@
 		16F0E6B328C80BBC00FDD12C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				16F0E6B428C80C0900FDD12C /* Security.swift */,
+				16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */,
+				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -288,7 +291,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
-				16F0E6B528C80C0900FDD12C /* Security.swift in Sources */,
+				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
+				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 			);
