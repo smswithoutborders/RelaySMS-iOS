@@ -8,21 +8,30 @@
 import SwiftUI
 
 
-func removePEMFormatsInKey(publicKey: String) -> String {
-    var formattedPublicKey: String  = publicKey.replacingOccurrences(
-        of: "-----BEGIN PUBLIC KEY-----\\n",
-        with: "")
-    
-    formattedPublicKey = formattedPublicKey.replacingOccurrences(
-        of: "\\n-----END PUBLIC KEY-----",
-        with: "")
-    
-    return formattedPublicKey
-}
 
 struct SynchronizeView: View {
-    var gatewayServerURL: String = "";
-    @State var syncStatement: String = "Goto sync link"
+    @State var syncSuccessful = false
+    @State var gatewayServerURL: String = "";
+    @State var syncStatement: String = "Sync Account now"
+    
+    var body: some View {
+        return Group {
+            if syncSuccessful {
+                PasswordView(userPassword: "")
+            }
+            else {
+                AppContentView(
+                    gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, syncSuccessful: $syncSuccessful)
+            }
+        }
+    }
+}
+
+struct AppContentView: View {
+    var gatewayServerURL: String;
+    var syncStatement: String
+    
+    @Binding var syncSuccessful: Bool
     
     var body: some View {
         VStack {
@@ -47,7 +56,6 @@ struct SynchronizeView: View {
                         
                         print("Gateway Server public-key: \(gatewayServerPublicKey)")
                         
-                        
                         let scheme: String = (gatewayServerURLObj?.scheme)!
                         let host: String = (gatewayServerURLObj?.host)!
                         let port: Int = (gatewayServerURLObj?.port)!
@@ -57,6 +65,9 @@ struct SynchronizeView: View {
                         
                         // TODO: password should be sent to this URL,
                         // TODO: navigate out of here and ask for the password
+                        
+                        // passwordViewActivated = true
+                        self.syncSuccessful = true
                     }
                     catch {
                         print("Some error occured: \(error)")

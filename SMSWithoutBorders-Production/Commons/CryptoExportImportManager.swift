@@ -297,3 +297,15 @@ public class CryptoExportImportManager: NSObject {
     }
     
 }
+
+func removePEMFormatsInKey(publicKey: String) -> String {
+    var formattedPublicKey: String  = publicKey.replacingOccurrences(
+        of: "-----BEGIN PUBLIC KEY-----\\n",
+        with: "")
+    
+    formattedPublicKey = formattedPublicKey.replacingOccurrences(
+        of: "\\n-----END PUBLIC KEY-----",
+        with: "")
+    
+    return formattedPublicKey
+}

@@ -29,7 +29,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                 switch navigationView {
                     
                 case 2:
-                    SynchronizeView(gatewayServerURL: absoluteURLString, syncStatement: "Sync now")
+                    SynchronizeView(gatewayServerURL: absoluteURLString, syncStatement: "Click to start handshake")
                     
                 default:
                     SynchronizeView()

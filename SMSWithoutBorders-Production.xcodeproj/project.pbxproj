@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37728CB347E00E50393 /* SynchronizeView.swift */; };
 		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
+		16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37D28CE5CA300E50393 /* PasswordView.swift */; };
 		16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
 		16F0E68528C6308600FDD12C /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
 		16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68628C6308800FDD12C /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
 		16EDE37B28CE055D00E50393 /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
+		16EDE37D28CE5CA300E50393 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionApp.swift; sourceTree = "<group>"; };
 		16F0E68428C6308600FDD12C /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				16EDE37728CB347E00E50393 /* SynchronizeView.swift */,
+				16EDE37D28CE5CA300E50393 /* PasswordView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
+				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
