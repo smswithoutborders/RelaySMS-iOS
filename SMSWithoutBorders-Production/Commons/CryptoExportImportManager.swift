@@ -6,7 +6,8 @@
 //  Copyright © 2015 Ignacio Nieto Carvajal. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Security
 
 /* 
 

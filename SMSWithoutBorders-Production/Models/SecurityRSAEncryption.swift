@@ -21,9 +21,6 @@ func generateRSAKeyPair() throws -> String {
     ]
     // TODO: store in KeyChain
 
-
-    print(attributes)
-
     var error: Unmanaged<CFError>?
 
     guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
@@ -34,15 +31,11 @@ func generateRSAKeyPair() throws -> String {
         throw error!.takeRetainedValue() as Error
     }
 
-    // print(publicKey)
-
     let finalData = publicKeyExportable as Data
     
     let exportImportManager = CryptoExportImportManager()
     
     let exportableDERKey = exportImportManager.exportRSAPublicKeyToDER(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: 2048)
-    
-    // print(exportableDERKey.base64EncodedString())
     
     // return finalData.base64EncodedString()
     
@@ -50,31 +43,25 @@ func generateRSAKeyPair() throws -> String {
 }
 
 
-func decryptWithRSAKeyPair(privateKey: SecKey, encryptedData: String) {
-    // TODO: work on decryption
-    // TODO: should get privateKey from KeyChain not as input
+func decryptWithRSAKeyPair(privateKey: SecKey, encryptedData: String) -> String {
     var error: Unmanaged<CFError>?
     
-    // let cfDataStr = encryptedData.data(using: .utf8)! as CFData
     let cfDataStr = Data(base64Encoded: encryptedData, options: .ignoreUnknownCharacters)
     let canDecrypt: Bool = SecKeyIsAlgorithmSupported(privateKey, .decrypt, .rsaEncryptionOAEPSHA1)
-    print("+ Can decrypt with algo: \(canDecrypt)")
     
-    print("+ Decrypting: \(cfDataStr)")
     guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA1, cfDataStr as! CFData, &error) else {
-        print("Some shit went down, check this out \(error)")
-        return
+        return ""
     }
     
-    print("+ Decrypted data: \(decryptedData)")
-    print(String(data: decryptedData as Data, encoding: .utf8))
+    let decryptedDataStr = String(data: decryptedData as Data, encoding: .utf8)!
+    
+    return decryptedDataStr
 }
 
-func encryptWithRSAKeyPair(publicKeyStr: String, data: String) {
+func encryptWithRSAKeyPair(publicKeyStr: String, data: String) -> String {
     let exportImportManager = CryptoExportImportManager()
     
     let publicKey = Data(base64Encoded: publicKeyStr, options: .ignoreUnknownCharacters)!
-    print(publicKey)
     
     var error: Unmanaged<CFError>?
     guard let publicKeyFinal = SecKeyCreateWithData(publicKey as NSData, [
@@ -82,20 +69,18 @@ func encryptWithRSAKeyPair(publicKeyStr: String, data: String) {
         kSecAttrKeySizeInBits: 2048,
         kSecAttrKeyClass: kSecAttrKeyClassPublic,
     ] as NSDictionary, &error) else {
-        print(error)
-        return
+        return ""
     }
     
-    print("* Final pub key: \(publicKeyFinal)")
-
     let cfData: Data = data.data(using: String.Encoding.utf8)!
     guard let encryptedData = SecKeyCreateEncryptedData(publicKeyFinal, .rsaEncryptionOAEPSHA1, cfData as CFData, &error) else {
         // TODO: change this to throw instead
-        return
+        return ""
     }
     
-    print("+ Encrypted data: \(encryptedData)")
     let encryptedDataFinal: Data = encryptedData as Data
     
-    print(encryptedDataFinal.base64EncodedString())
+    let encryptedDataStr = encryptedDataFinal.base64EncodedString()
+    
+    return encryptedDataStr
 }

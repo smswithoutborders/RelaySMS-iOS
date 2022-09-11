@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37728CB347E00E50393 /* SynchronizeView.swift */; };
+		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
 		16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
 		16F0E68528C6308600FDD12C /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
 		16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68628C6308800FDD12C /* Assets.xcassets */; };
@@ -37,7 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16F0E67F28C6308600FDD12C /* SMSWithoutBorders-Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMSWithoutBorders-Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16EDE37728CB347E00E50393 /* SynchronizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeView.swift; sourceTree = "<group>"; };
+		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
+		16EDE37B28CE055D00E50393 /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
+		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionApp.swift; sourceTree = "<group>"; };
 		16F0E68428C6308600FDD12C /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
 		16F0E68628C6308800FDD12C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,7 +96,7 @@
 		16F0E68028C6308600FDD12C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				16F0E67F28C6308600FDD12C /* SMSWithoutBorders-Production.app */,
+				16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */,
 				16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */,
 				16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */,
 			);
@@ -100,6 +106,8 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
+				16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */,
+				16EDE37928CBA1A300E50393 /* Info.plist */,
 				16F0E6B328C80BBC00FDD12C /* Models */,
 				16F0E6B028C80B5700FDD12C /* Commons */,
 				16F0E6AC28C6320F00FDD12C /* Views */,
@@ -139,6 +147,7 @@
 			children = (
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
+				16EDE37728CB347E00E50393 /* SynchronizeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -156,6 +165,7 @@
 			children = (
 				16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */,
 				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
+				16EDE37B28CE055D00E50393 /* Synchronization.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,7 +187,7 @@
 			);
 			name = "SMSWithoutBorders-Production";
 			productName = "SMSWithoutBorders-Production";
-			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders-Production.app */;
+			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
 			productType = "com.apple.product-type.application";
 		};
 		16F0E68E28C6308800FDD12C /* SMSWithoutBorders-ProductionTests */ = {
@@ -292,9 +302,11 @@
 			files = (
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
+				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
+				16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,11 +462,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -466,7 +480,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-Production";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SMSWithoutBorders;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -478,11 +492,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -494,7 +510,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-Production";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SMSWithoutBorders;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

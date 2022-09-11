@@ -1,6 +1,9 @@
 import Foundation
 import CommonCrypto
 
+
+// TODO: Read - https://developer.apple.com/forums/thread/687212
+
 protocol Cryptable {
     func encrypt(_ string: String) throws -> (ivValue: String, encryptedData: Data)
     func decrypt(_ data: Data, ivValue: String) throws -> String
