@@ -50,8 +50,6 @@ class Synchronization {
     
     
     func publicKeyExchange(gatewayServerUrl: String) -> URLSessionDataTask {
-        // TODO: get public and send to server
-        // TODO: receive public key from server and print to screen, this can happen many times
         var publicKey: String = ""
         do {
             publicKey = try generateRSAKeyPair()
@@ -65,6 +63,14 @@ class Synchronization {
         let jsonData = getDataInJson(jsonData: data)
         
         let task: URLSessionDataTask = jsonHTTPCall(url: gatewayServerUrl, jsonData: jsonData)
+        return task
+    }
+    
+    func passwordVerification(userPassword: String, verificationURL: String) -> URLSessionDataTask {
+        let data = ["password" : userPassword]
+        let jsonData = getDataInJson(jsonData: data)
+        
+        let task: URLSessionDataTask = jsonHTTPCall(url: verificationURL, jsonData: jsonData)
         return task
     }
 }

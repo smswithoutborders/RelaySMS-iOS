@@ -35,11 +35,12 @@ func generateRSAKeyPair() throws -> String {
     
     let exportImportManager = CryptoExportImportManager()
     
-    let exportableDERKey = exportImportManager.exportRSAPublicKeyToDER(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: 2048)
+    let exportablePEMKey = exportImportManager.exportRSAPublicKeyToPEM(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: 2048)
     
     // return finalData.base64EncodedString()
     
-    return exportableDERKey.base64EncodedString()
+    // return exportableDERKey.base64EncodedString()
+    return exportablePEMKey
 }
 
 
@@ -73,7 +74,7 @@ func encryptWithRSAKeyPair(publicKeyStr: String, data: String) -> String {
     }
     
     let cfData: Data = data.data(using: String.Encoding.utf8)!
-    guard let encryptedData = SecKeyCreateEncryptedData(publicKeyFinal, .rsaEncryptionOAEPSHA1, cfData as CFData, &error) else {
+    guard let encryptedData = SecKeyCreateEncryptedData(publicKeyFinal, .rsaEncryptionOAEPSHA256, cfData as CFData, &error) else {
         // TODO: change this to throw instead
         return ""
     }

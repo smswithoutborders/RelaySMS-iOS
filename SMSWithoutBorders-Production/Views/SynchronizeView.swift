@@ -14,14 +14,16 @@ struct SynchronizeView: View {
     @State var gatewayServerURL: String = "";
     @State var syncStatement: String = "Sync Account now"
     
+    @State var gatewayServerPublicKey: String = ""
+    @State var verificationURL: String = ""
+    
     var body: some View {
         return Group {
             if syncSuccessful {
-                PasswordView(userPassword: "")
+                PasswordView(gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL)
             }
             else {
-                AppContentView(
-                    gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, syncSuccessful: $syncSuccessful)
+                AppContentView(gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful)
             }
         }
     }
@@ -30,6 +32,9 @@ struct SynchronizeView: View {
 struct AppContentView: View {
     var gatewayServerURL: String;
     var syncStatement: String
+    
+    @Binding var gatewayServerPublicKey: String;
+    @Binding var verificationURL: String;
     
     @Binding var syncSuccessful: Bool
     
@@ -52,21 +57,17 @@ struct AppContentView: View {
                         let gatewayPEMPublicKey: String = jsonData["public_key"]!;
                         let verificationPath: String = jsonData["verification_url"]!;
                         
-                        let gatewayServerPublicKey = removePEMFormatsInKey(publicKey: gatewayPEMPublicKey)
                         
-                        print("Gateway Server public-key: \(gatewayServerPublicKey)")
                         
                         let scheme: String = (gatewayServerURLObj?.scheme)!
                         let host: String = (gatewayServerURLObj?.host)!
                         let port: Int = (gatewayServerURLObj?.port)!
                         
-                        let verificationURL = "\(scheme)://\(host):\(port)\(verificationPath)"
+                        self.gatewayServerPublicKey = removePEMFormatsInKey(publicKey: gatewayPEMPublicKey)
+                        self.verificationURL = "\(scheme)://\(host):\(port)\(verificationPath)"
+                        
+                        print("Gateway Server public-key: \(gatewayServerPublicKey)")
                         print("Verification URL: \(verificationURL)")
-                        
-                        // TODO: password should be sent to this URL,
-                        // TODO: navigate out of here and ask for the password
-                        
-                        // passwordViewActivated = true
                         self.syncSuccessful = true
                     }
                     catch {

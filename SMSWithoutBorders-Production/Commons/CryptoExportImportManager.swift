@@ -303,8 +303,15 @@ func removePEMFormatsInKey(publicKey: String) -> String {
         of: "-----BEGIN PUBLIC KEY-----\\n",
         with: "")
     
+    formattedPublicKey  = publicKey.replacingOccurrences(
+        of: "-----BEGIN PUBLIC KEY-----\n",
+        with: "")
+    
     formattedPublicKey = formattedPublicKey.replacingOccurrences(
         of: "\\n-----END PUBLIC KEY-----",
+        with: "")
+    formattedPublicKey = formattedPublicKey.replacingOccurrences(
+        of: "\n-----END PUBLIC KEY-----",
         with: "")
     
     return formattedPublicKey
