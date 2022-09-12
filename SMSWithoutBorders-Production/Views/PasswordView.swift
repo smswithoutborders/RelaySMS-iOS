@@ -10,6 +10,8 @@ import SwiftUI
 struct PasswordView: View {
     @State public var userPassword: String = ""
     
+    @State var privateKey: SecKey?
+    
     public var gatewayServerPublicKey: String;
     public var verificationURL: String;
     
@@ -37,6 +39,30 @@ struct PasswordView: View {
                 let synchronization = Synchronization(callbackFunction: { data, response, error in
                     print("data: \(data)")
                     print("response: \(response)")
+                    
+                    if let error = error {
+                        // self.handleClientError(error)
+                            // return
+                    }
+                    
+                    guard let httpResponse = response as? HTTPURLResponse,
+                        (200...299).contains(httpResponse.statusCode) else {
+                        
+                        // TODO: show an error message
+                        return
+                    }
+                    
+                    let jsonData: [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : Any]
+                    
+                    // Encrypted shared key, need to decrypt it with private RSA key
+                    let sharedKey: String = jsonData["shared_key"] as! String
+                    print(jsonData)
+                    
+                    print("My private key: \(privateKey)")
+                    
+                    let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
+                    print("Decrypted Shared key: \(decryptedSharedKey)")
+                    
                 })
                 
                 let task = synchronization.passwordVerification(

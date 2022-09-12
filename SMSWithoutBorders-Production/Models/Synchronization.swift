@@ -8,9 +8,9 @@
 import Foundation
 
 class Synchronization {
-    var callbackFunction: ((Data?, URLResponse?, Error?)->Void);
+    var callbackFunction: ((Data?, URLResponse?, Error?) throws ->Void);
     
-    init(callbackFunction: @escaping ((Data?, URLResponse?, Error?)->Void )) {
+    init(callbackFunction: @escaping ((Data?, URLResponse?, Error?) throws ->Void )) {
         self.callbackFunction = callbackFunction
     }
     
@@ -42,22 +42,19 @@ class Synchronization {
         print(request)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            self.callbackFunction(data, response, error)
+            do {
+                try self.callbackFunction(data, response, error)
+            }
+            catch {
+                print(error)
+            }
         })
         
         return task
     }
     
     
-    func publicKeyExchange(gatewayServerUrl: String) -> URLSessionDataTask {
-        var publicKey: String = ""
-        do {
-            publicKey = try generateRSAKeyPair()
-        }
-        catch {
-            print(error)
-        }
-        
+    func publicKeyExchange(publicKey: String, gatewayServerUrl: String) -> URLSessionDataTask {
         let data = ["public_key" : publicKey]
         
         let jsonData = getDataInJson(jsonData: data)

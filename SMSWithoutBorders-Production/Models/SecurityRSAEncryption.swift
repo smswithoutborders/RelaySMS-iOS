@@ -8,9 +8,10 @@
 import Foundation
 import Security
 
-func generateRSAKeyPair() throws -> String {
+let tag = "com.afkanerd.smswithoutborders.synchronization_keypair".data(using: .utf8)!
+
+func generateRSAKeyPair() throws -> (privateKey: SecKey, publicKey: String) {
     
-    let tag = "com.example.keys.mykey".data(using: .utf8)!
     // Dict
     let attributes: [String: Any] =
     [kSecAttrKeyType as String:           kSecAttrKeyTypeRSA,
@@ -19,10 +20,8 @@ func generateRSAKeyPair() throws -> String {
             [kSecAttrIsPermanent as String:    false,
              kSecAttrApplicationTag as String: tag]
     ]
-    // TODO: store in KeyChain
-
+    
     var error: Unmanaged<CFError>?
-
     guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
         throw error!.takeRetainedValue() as Error
     }
@@ -37,10 +36,7 @@ func generateRSAKeyPair() throws -> String {
     
     let exportablePEMKey = exportImportManager.exportRSAPublicKeyToPEM(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: 2048)
     
-    // return finalData.base64EncodedString()
-    
-    // return exportableDERKey.base64EncodedString()
-    return exportablePEMKey
+    return (privateKey, exportablePEMKey)
 }
 
 
@@ -50,7 +46,8 @@ func decryptWithRSAKeyPair(privateKey: SecKey, encryptedData: String) -> String 
     let cfDataStr = Data(base64Encoded: encryptedData, options: .ignoreUnknownCharacters)
     let canDecrypt: Bool = SecKeyIsAlgorithmSupported(privateKey, .decrypt, .rsaEncryptionOAEPSHA1)
     
-    guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA1, cfDataStr as! CFData, &error) else {
+    guard let decryptedData = SecKeyCreateDecryptedData(privateKey, .rsaEncryptionOAEPSHA256, cfDataStr as! CFData, &error) else {
+        print("Some error occured while decrypting: \(error)")
         return ""
     }
     

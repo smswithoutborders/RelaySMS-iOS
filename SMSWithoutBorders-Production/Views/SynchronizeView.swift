@@ -17,13 +17,15 @@ struct SynchronizeView: View {
     @State var gatewayServerPublicKey: String = ""
     @State var verificationURL: String = ""
     
+    @State var privateKey: SecKey?
+    
     var body: some View {
         return Group {
             if syncSuccessful {
-                PasswordView(gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL)
+                PasswordView(privateKey: privateKey, gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL)
             }
             else {
-                AppContentView(gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful)
+                AppContentView(gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful, privateKey: $privateKey)
             }
         }
     }
@@ -37,6 +39,8 @@ struct AppContentView: View {
     @Binding var verificationURL: String;
     
     @Binding var syncSuccessful: Bool
+    
+    @Binding var privateKey: SecKey?
     
     var body: some View {
         VStack {
@@ -57,8 +61,6 @@ struct AppContentView: View {
                         let gatewayPEMPublicKey: String = jsonData["public_key"]!;
                         let verificationPath: String = jsonData["verification_url"]!;
                         
-                        
-                        
                         let scheme: String = (gatewayServerURLObj?.scheme)!
                         let host: String = (gatewayServerURLObj?.host)!
                         let port: Int = (gatewayServerURLObj?.port)!
@@ -75,11 +77,21 @@ struct AppContentView: View {
                     }
                 })
                 
-                let task: URLSessionDataTask = synchronization.publicKeyExchange(
-                    gatewayServerUrl: gatewayServerURL)
-                
-                task.resume()
-                
+                do {
+                    let keyAssets = try generateRSAKeyPair()
+                    
+                    let publicKey: String = keyAssets.publicKey
+                    privateKey = keyAssets.privateKey
+                    
+                    let task: URLSessionDataTask = synchronization.publicKeyExchange(
+                        publicKey: publicKey, gatewayServerUrl: gatewayServerURL)
+                    
+                    task.resume()
+                }
+                catch {
+                    print("Some error occured: \(error)")
+                    return
+                }
             })
             .buttonStyle(.bordered)
         }
