@@ -58,13 +58,18 @@ class Synchronization {
         let data = ["public_key" : publicKey]
         
         let jsonData = getDataInJson(jsonData: data)
+        print("Transmission json: \(jsonData)")
         
         let task: URLSessionDataTask = jsonHTTPCall(url: gatewayServerUrl, jsonData: jsonData)
         return task
     }
     
     func passwordVerification(userPassword: String, verificationURL: String) -> URLSessionDataTask {
-        let data = ["password" : userPassword]
+        let encryptionHash = "sha256"
+        let decryptionHash = encryptionHash
+        
+        let data = ["password" : userPassword, "encryption_hash": encryptionHash, "decryption_hash": decryptionHash]
+        
         let jsonData = getDataInJson(jsonData: data)
         
         let task: URLSessionDataTask = jsonHTTPCall(url: verificationURL, jsonData: jsonData)

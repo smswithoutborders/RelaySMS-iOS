@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct PasswordView: View {
     @State public var userPassword: String = ""
     
@@ -37,10 +38,7 @@ struct PasswordView: View {
                 print("Encrypted password: \(encryptedPassword)")
                 
                 let synchronization = Synchronization(callbackFunction: { data, response, error in
-                    print("data: \(data)")
-                    print("response: \(response)")
-                    
-                    if let error = error {
+                    if error != nil {
                         // self.handleClientError(error)
                             // return
                     }
@@ -63,6 +61,13 @@ struct PasswordView: View {
                     let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
                     print("Decrypted Shared key: \(decryptedSharedKey)")
                     
+                    let cSecurity = CSecurity()
+                    if !cSecurity.storeInKeyChain(sharedKey: decryptedSharedKey) {
+                        print("Failed to store shared key, depending on the issue - should modify")
+                    }
+                    else {
+                        print("Stored data in keychain successfully")
+                    }
                 })
                 
                 let task = synchronization.passwordVerification(
