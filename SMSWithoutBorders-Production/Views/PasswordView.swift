@@ -7,14 +7,34 @@
 
 import SwiftUI
 
-
 struct PasswordView: View {
-    @State public var userPassword: String = ""
-    
+    @State var authenticated: Bool = false
     @State var privateKey: SecKey?
     
-    public var gatewayServerPublicKey: String;
-    public var verificationURL: String;
+    @State var gatewayServerPublicKey: String = ""
+    @State var verificationURL: String = ""
+    
+    var body: some View {
+        return Group {
+            if authenticated {
+                EmailView()
+            }
+            else {
+                AppContentPasswordView(privateKey: privateKey, gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL, authenticated: $authenticated)
+            }
+        }
+    }
+}
+
+
+struct AppContentPasswordView: View {
+    @State var userPassword: String = ""
+    @State var privateKey: SecKey?
+    
+    @State var gatewayServerPublicKey: String;
+    @State var verificationURL: String;
+    
+    @Binding var authenticated: Bool;
     
     var body: some View {
         VStack {
@@ -67,6 +87,7 @@ struct PasswordView: View {
                     }
                     else {
                         print("Stored data in keychain successfully")
+                        self.authenticated = true
                     }
                 })
                 
@@ -84,6 +105,6 @@ struct PasswordView: View {
 
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        PasswordView(gatewayServerPublicKey: "", verificationURL: "")
+        PasswordView()
     }
 }
