@@ -7,7 +7,18 @@
 
 import SwiftUI
 
+
+func formatEmailForPublishing(
+    platformLetter: String,
+    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
+        
+        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
+        
+        return formattedString
+}
+
 struct EmailView: View {
+    
     @State private var composeTo :String = ""
     @State private var composeCC :String = ""
     @State private var composeBCC :String = ""
@@ -57,7 +68,7 @@ struct EmailView: View {
             }
             Spacer()
             VStack(alignment: .leading) {
-                Text("Compose Email")
+                Text("Email Body")
                     .multilineTextAlignment(.leading)
                 TextEditor(text: $composeBody)
                     .frame(height: 450.0)

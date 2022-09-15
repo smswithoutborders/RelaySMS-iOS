@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import CoreData
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
@@ -14,24 +15,23 @@ struct SMSWithoutBorders_ProductionApp: App {
     // case 1: sync view with no gateway server url
     // case 2: sync view with gateway server url
     
-    @State var navigationView: Int;
-    @State var absoluteURLString: String;
+    @State var navigatingFromURL: Bool = false
+    @State var absoluteURLString: String = ""
+    
+    @StateObject private var dataController = DataController()
     
     init() {
         print("Starting up SMSWithoutBorders")
-        navigationView = 1
-        absoluteURLString = ""
     }
     
     var body: some Scene {
         WindowGroup {
             Group {
-                switch navigationView {
-                    
-                case 2:
+                if navigatingFromURL {
                     SynchronizeView(gatewayServerURL: absoluteURLString, syncStatement: "Click to start handshake")
-                    
-                default:
+                            .environment(\.managedObjectContext, dataController.container.viewContext)
+                }
+                else {
                     SynchronizeView()
                 }
             }
@@ -40,9 +40,21 @@ struct SMSWithoutBorders_ProductionApp: App {
                 
                 if(url.scheme == "apps") {
                     absoluteURLString = url.absoluteString.replacingOccurrences(of: "apps", with: "https")
-                    navigationView = 2
+                    navigatingFromURL = true
                 }
             }
         }
     }
+    
+    var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Datastore")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+                
+            }
+            
+        })
+        return container
+    }()
 }

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 
 struct SynchronizeView: View {
+    @Environment(\.managedObjectContext) var datastore
+    
     @State var syncSuccessful = false
     @State var gatewayServerURL: String = "";
     @State var syncStatement: String = "Sync Account now"
@@ -19,10 +21,14 @@ struct SynchronizeView: View {
     
     @State var privateKey: SecKey?
     
+    @State var persistentContainer: NSManagedObjectContext?
+    
     var body: some View {
         return Group {
             if syncSuccessful {
                 PasswordView(privateKey: privateKey, gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL)
+                            .environment(\.managedObjectContext, datastore)
+                
             }
             else {
                 AppContentView(gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful, privateKey: $privateKey)

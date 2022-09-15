@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct PasswordView: View {
+    @Environment(\.managedObjectContext) var datastore
+    
     @State var authenticated: Bool = false
     @State var privateKey: SecKey?
     
@@ -17,10 +20,12 @@ struct PasswordView: View {
     var body: some View {
         return Group {
             if authenticated {
-                EmailView()
+                AvailablePlatformsView()
+                    .environment(\.managedObjectContext, datastore)
             }
             else {
                 AppContentPasswordView(privateKey: privateKey, gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL, authenticated: $authenticated)
+                    .environment(\.managedObjectContext, datastore)
             }
         }
     }
@@ -28,6 +33,8 @@ struct PasswordView: View {
 
 
 struct AppContentPasswordView: View {
+    @Environment(\.managedObjectContext) var datastore
+    
     @State var userPassword: String = ""
     @State var privateKey: SecKey?
     
@@ -67,6 +74,7 @@ struct AppContentPasswordView: View {
                         (200...299).contains(httpResponse.statusCode) else {
                         
                         // TODO: show an error message
+                        print("Check your password might be wrong")
                         return
                     }
                     
@@ -84,10 +92,29 @@ struct AppContentPasswordView: View {
                     let cSecurity = CSecurity()
                     if !cSecurity.storeInKeyChain(sharedKey: decryptedSharedKey) {
                         print("Failed to store shared key, depending on the issue - should modify")
+                        
+                        return
                     }
-                    else {
-                        print("Stored data in keychain successfully")
-                        self.authenticated = true
+                    
+                    print("Stored data in keychain successfully")
+                    self.authenticated = true
+                    
+                    let platformsData = jsonData["user_platforms"] as! Array<Dictionary<String, Any>>
+                    
+                    for platformData in platformsData {
+                        let platform = PlatformsEntity(context: datastore)
+                        platform.platform_name = platformData["name"] as? String
+                        platform.type = platformData["type"] as? String
+                        platform.platform_letter = platformData["letter"] as? String
+                        
+                        print("Storing platform: \(String(describing: platform.platform_name))")
+                        
+                        do {
+                            try datastore.save()
+                        }
+                        catch {
+                            print("Failed to store platform: \(error)")
+                        }
                     }
                 })
                 

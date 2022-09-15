@@ -11,6 +11,10 @@
 		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
 		16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37D28CE5CA300E50393 /* PasswordView.swift */; };
 		16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
+		16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
+		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
+		16EDE38928D3511700E50393 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
+		16EDE38B28D356EB00E50393 /* AvailablePlatformsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsView.swift */; };
 		16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
 		16F0E68528C6308600FDD12C /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
 		16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68628C6308800FDD12C /* Assets.xcassets */; };
@@ -47,6 +51,10 @@
 		16EDE37B28CE055D00E50393 /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
 		16EDE37D28CE5CA300E50393 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		16EDE37F28D0D23000E50393 /* CSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSecurity.swift; sourceTree = "<group>"; };
+		16EDE38128D223F300E50393 /* PublisherHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherHandler.swift; sourceTree = "<group>"; };
+		16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlatformModels.xcdatamodel; sourceTree = "<group>"; };
+		16EDE38828D3511700E50393 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		16EDE38A28D356EA00E50393 /* AvailablePlatformsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformsView.swift; sourceTree = "<group>"; };
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionApp.swift; sourceTree = "<group>"; };
 		16F0E68428C6308600FDD12C /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
@@ -117,6 +125,7 @@
 				16F0E6AC28C6320F00FDD12C /* Views */,
 				16F0E68628C6308800FDD12C /* Assets.xcassets */,
 				16F0E68828C6308800FDD12C /* Preview Content */,
+				16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */,
 			);
 			path = "SMSWithoutBorders-Production";
 			sourceTree = "<group>";
@@ -153,6 +162,7 @@
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				16EDE37728CB347E00E50393 /* SynchronizeView.swift */,
 				16EDE37D28CE5CA300E50393 /* PasswordView.swift */,
+				16EDE38A28D356EA00E50393 /* AvailablePlatformsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,6 +182,8 @@
 				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
 				16EDE37B28CE055D00E50393 /* Synchronization.swift */,
 				16EDE37F28D0D23000E50393 /* CSecurity.swift */,
+				16EDE38128D223F300E50393 /* PublisherHandler.swift */,
+				16EDE38828D3511700E50393 /* DataController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,7 +318,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */,
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
+				16EDE38B28D356EB00E50393 /* AvailablePlatformsView.swift in Sources */,
+				16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
@@ -314,6 +329,7 @@
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
+				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
 				16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -641,6 +657,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */,
+			);
+			currentVersion = 16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */;
+			path = Datastore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 16F0E67728C6308600FDD12C /* Project object */;
 }
