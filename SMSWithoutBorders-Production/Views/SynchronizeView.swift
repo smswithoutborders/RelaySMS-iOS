@@ -52,7 +52,6 @@ struct AppContentView: View {
         VStack {
             Button(syncStatement, action: {
                 // Should use this for signup and login
-                // UIApplication.shared.open(NSURL(string: gatewayServerURL)! as URL)
                 
                 let gatewayServerURLObj = URL(string: self.gatewayServerURL)
                 if(gatewayServerURLObj == nil) {

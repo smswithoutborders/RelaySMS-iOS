@@ -35,6 +35,8 @@ struct PasswordView: View {
 struct AppContentPasswordView: View {
     @Environment(\.managedObjectContext) var datastore
     
+    @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+    
     @State var userPassword: String = ""
     @State var privateKey: SecKey?
     
@@ -42,6 +44,7 @@ struct AppContentPasswordView: View {
     @State var verificationURL: String;
     
     @Binding var authenticated: Bool;
+    
     
     var body: some View {
         VStack {
@@ -58,11 +61,8 @@ struct AppContentPasswordView: View {
                 // TODO: send encrypted password to server
                 
                 print("Plain password: \(userPassword)")
-                print("Gateway server pubkey: \(gatewayServerPublicKey)")
-                
                 let encryptedPassword = encryptWithRSAKeyPair(
                     publicKeyStr: gatewayServerPublicKey, data: userPassword)
-                print("Encrypted password: \(encryptedPassword)")
                 
                 let synchronization = Synchronization(callbackFunction: { data, response, error in
                     if error != nil {
@@ -82,40 +82,16 @@ struct AppContentPasswordView: View {
                     
                     // Encrypted shared key, need to decrypt it with private RSA key
                     let sharedKey: String = jsonData["shared_key"] as! String
-                    print(jsonData)
-                    
-                    print("My private key: \(privateKey)")
                     
                     let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
-                    print("Decrypted Shared key: \(decryptedSharedKey)")
+                    storeSharedKeyInKeyChain(decryptedSharedKey: decryptedSharedKey)
                     
-                    let cSecurity = CSecurity()
-                    if !cSecurity.storeInKeyChain(sharedKey: decryptedSharedKey) {
-                        print("Failed to store shared key, depending on the issue - should modify")
-                        
-                        return
-                    }
-                    
-                    print("Stored data in keychain successfully")
-                    self.authenticated = true
                     
                     let platformsData = jsonData["user_platforms"] as! Array<Dictionary<String, Any>>
                     
-                    for platformData in platformsData {
-                        let platform = PlatformsEntity(context: datastore)
-                        platform.platform_name = platformData["name"] as? String
-                        platform.type = platformData["type"] as? String
-                        platform.platform_letter = platformData["letter"] as? String
-                        
-                        print("Storing platform: \(String(describing: platform.platform_name))")
-                        
-                        do {
-                            try datastore.save()
-                        }
-                        catch {
-                            print("Failed to store platform: \(error)")
-                        }
-                    }
+                    resetPlatforms(platforms: platforms, datastore: datastore)
+                    storePlatforms(platformsData: platformsData, datastore: datastore)
+                    self.authenticated = true
                 })
                 
                 let task = synchronization.passwordVerification(
@@ -127,6 +103,44 @@ struct AppContentPasswordView: View {
             Spacer()
         }
         .padding()
+    }
+}
+
+func resetPlatforms(platforms: FetchedResults<PlatformsEntity>, datastore: NSManagedObjectContext) {
+    for platform in platforms {
+        datastore.delete(platform)
+    }
+    print("Datastore reset complete")
+}
+
+func storeSharedKeyInKeyChain(decryptedSharedKey: String) {
+    print("Decrypted Shared key: \(decryptedSharedKey)")
+    
+    let cSecurity = CSecurity()
+    if !cSecurity.storeInKeyChain(sharedKey: decryptedSharedKey) {
+        print("Failed to store shared key, depending on the issue - should modify")
+        
+        return
+    }
+    
+    print("Stored data in keychain successfully")
+}
+
+func storePlatforms(platformsData: Array<Dictionary<String, Any>>, datastore: NSManagedObjectContext) {
+    for platformData in platformsData {
+        let platform = PlatformsEntity(context: datastore)
+        platform.platform_name = platformData["name"] as? String
+        platform.type = platformData["type"] as? String
+        platform.platform_letter = platformData["letter"] as? String
+        
+        print("Storing platform: \(String(describing: platform.platform_name))")
+            
+        do {
+            try datastore.save()
+        }
+        catch {
+            print("Failed to store platform: \(error)")
+        }
     }
 }
 
