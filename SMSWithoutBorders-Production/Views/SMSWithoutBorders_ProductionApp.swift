@@ -20,6 +20,8 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @StateObject private var dataController = DataController()
     
+    let cSecurity = CSecurity()
+    
     init() {
         print("Starting up SMSWithoutBorders")
     }
@@ -31,8 +33,11 @@ struct SMSWithoutBorders_ProductionApp: App {
                     SynchronizeView(gatewayServerURL: absoluteURLString, syncStatement: "Click to start handshake")
                             .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
-                else {
+                else if cSecurity.findInKeyChain().isEmpty {
                     SynchronizeView()
+                }
+                else {
+                    EmailView()
                 }
             }
             .onOpenURL { url in
