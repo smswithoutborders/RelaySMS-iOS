@@ -83,6 +83,10 @@ struct EmailView: View {
                 Button("Send", action: {
                     // TODO: Get formatted input
                     let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
+                    
+                    let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
+                    
+                    print("Encrypted formatted content: \(encryptedFormattedContent)")
                 })
                 .buttonStyle(.bordered)
             }
