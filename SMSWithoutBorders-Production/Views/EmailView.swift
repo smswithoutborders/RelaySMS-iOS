@@ -30,69 +30,44 @@ struct EmailView: View {
     @State private var encryptedInput: String = ""
     var body: some View {
         VStack {
-            VStack {
-                HStack {
-                    Text("To: ")
-                    Spacer()
-                    TextEditor(text: $composeTo)
-                        .frame(width: 300.0, height: 50.0)
-                        .overlay(RoundedRectangle(cornerRadius: 1)
-                            .stroke(Color.black))
-                }
-                
-                HStack {
-                    Text("cc: ")
-                    Spacer()
-                    TextEditor(text: $composeCC)
-                        .frame(width: 300.0, height: 50.0)
-                        .overlay(RoundedRectangle(cornerRadius: 1)
-                            .stroke(Color.black))
-                }
-                
-                HStack {
-                    Text("bcc: ")
-                    Spacer()
-                    TextEditor(text: $composeBCC)
-                        .frame(width: 300.0, height: 50.0)
-                        .overlay(RoundedRectangle(cornerRadius: 1)
-                            .stroke(Color.black))
-                }
-                
-                HStack {
-                    Text("subject: ")
-                    Spacer()
-                    TextEditor(text: $composeSubject)
-                        .frame(width: 300.0, height: 50.0)
-                        .overlay(RoundedRectangle(cornerRadius: 1)
-                            .stroke(Color.black))
-                }
-                
-            }
-            Spacer()
-            VStack(alignment: .leading) {
-                Text("Email Body")
-                    .multilineTextAlignment(.leading)
-                TextEditor(text: $composeBody)
-                    .frame(height: 450.0)
-                    .foregroundColor(Color.gray)
+            TextField("to: ", text: $composeTo)
+                .overlay(RoundedRectangle(cornerRadius: 1)
+                    .stroke(Color.black))
+            
+            TextField("cc: ", text: $composeCC)
                     .overlay(RoundedRectangle(cornerRadius: 1)
                         .stroke(Color.black))
-                
-            }
-            VStack {
-                Button("Send", action: {
-                    // TODO: Get formatted input
-                    let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
-                    
-                    let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
-                    
-                    print("Encrypted formatted content: \(encryptedFormattedContent)")
-                })
-                .buttonStyle(.bordered)
-            }
-        }
-        .padding()
+            
+            TextField("bcc: ", text: $composeBCC)
+                .overlay(RoundedRectangle(cornerRadius: 1)
+                    .stroke(Color.black))
+            
+            TextField("subject: ", text: $composeSubject)
+                .overlay(RoundedRectangle(cornerRadius: 1)
+                    .stroke(Color.black))
+            
+            
+            Text("Email Body")
+                .multilineTextAlignment(.leading)
+            
+            TextEditor(text: $composeBody)
+                .frame(height: 450.0)
+                .foregroundColor(Color.gray)
+                .overlay(RoundedRectangle(cornerRadius: 1)
+                    .stroke(Color.black))
+        }.padding()
         
+        VStack {
+            Button("Send", action: {
+                // TODO: Get formatted input
+                let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
+                
+                let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
+                
+                print("Encrypted formatted content: \(encryptedFormattedContent)")
+            })
+            .buttonStyle(.bordered)
+        }
     }
 }
 
