@@ -55,9 +55,7 @@ struct EmailView: View {
                 .foregroundColor(Color.gray)
                 .overlay(RoundedRectangle(cornerRadius: 1)
                     .stroke(Color.black))
-        }.padding()
-        
-        VStack {
+            
             Button("Send", action: {
                 // TODO: Get formatted input
                 let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
@@ -67,7 +65,7 @@ struct EmailView: View {
                 print("Encrypted formatted content: \(encryptedFormattedContent)")
             })
             .buttonStyle(.bordered)
-        }
+        }.padding()
     }
 }
 
