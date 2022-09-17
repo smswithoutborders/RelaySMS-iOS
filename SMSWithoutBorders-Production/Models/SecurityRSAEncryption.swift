@@ -10,12 +10,14 @@ import Security
 
 let tag = "com.afkanerd.smswithoutborders.synchronization_keypair".data(using: .utf8)!
 
+let RSA_KEY_SIZE = 2048
+
 func generateRSAKeyPair() throws -> (privateKey: SecKey, publicKey: String) {
     
     // Dict
     let attributes: [String: Any] =
     [kSecAttrKeyType as String:           kSecAttrKeyTypeRSA,
-         kSecAttrKeySizeInBits as String:      2048,
+         kSecAttrKeySizeInBits as String:      RSA_KEY_SIZE,
          kSecPrivateKeyAttrs as String:
             [kSecAttrIsPermanent as String:    false,
              kSecAttrApplicationTag as String: tag]
@@ -34,7 +36,7 @@ func generateRSAKeyPair() throws -> (privateKey: SecKey, publicKey: String) {
     
     let exportImportManager = CryptoExportImportManager()
     
-    let exportablePEMKey = exportImportManager.exportRSAPublicKeyToPEM(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: 2048)
+    let exportablePEMKey = exportImportManager.exportRSAPublicKeyToPEM(finalData, keyType: kSecAttrKeyTypeRSA as String, keySize: RSA_KEY_SIZE)
     
     return (privateKey, exportablePEMKey)
 }
@@ -64,7 +66,7 @@ func encryptWithRSAKeyPair(publicKeyStr: String, data: String) -> String {
     var error: Unmanaged<CFError>?
     guard let publicKeyFinal = SecKeyCreateWithData(publicKey as NSData, [
         kSecAttrKeyType: kSecAttrKeyTypeRSA,
-        kSecAttrKeySizeInBits: 2048,
+        kSecAttrKeySizeInBits: RSA_KEY_SIZE,
         kSecAttrKeyClass: kSecAttrKeyClassPublic,
     ] as NSDictionary, &error) else {
         return ""

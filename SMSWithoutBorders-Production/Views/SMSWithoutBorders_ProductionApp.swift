@@ -37,7 +37,8 @@ struct SMSWithoutBorders_ProductionApp: App {
                     SynchronizeView()
                 }
                 else {
-                    EmailView()
+                    AvailablePlatformsView()
+                        .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }
             .onOpenURL { url in

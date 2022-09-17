@@ -14,8 +14,17 @@ struct AvailablePlatformsView: View {
     
     var body: some View {
         VStack {
-            List(platforms) { platform in
-                Text(platform.platform_name ?? "unknown")
+            NavigationView {
+                List(platforms) { platform in
+                    NavigationLink {
+                        if(platform.type == "email") {
+                            EmailView(platform: platform)
+                        }
+                    } label: {
+                        Text(platform.platform_name ?? "unknown")
+                    }
+                }
+                .navigationTitle("Available Platforms")
             }
         }
     }

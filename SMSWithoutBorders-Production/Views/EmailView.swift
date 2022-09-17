@@ -19,6 +19,8 @@ func formatEmailForPublishing(
 
 struct EmailView: View {
     
+    @State var platform: PlatformsEntity?
+    
     @State private var composeTo :String = ""
     @State private var composeCC :String = ""
     @State private var composeBCC :String = ""
@@ -79,6 +81,8 @@ struct EmailView: View {
             }
             VStack {
                 Button("Send", action: {
+                    // TODO: Get formatted input
+                    let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
                 })
                 .buttonStyle(.bordered)
             }
