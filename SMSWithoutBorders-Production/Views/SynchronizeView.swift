@@ -14,7 +14,6 @@ struct SynchronizeView: View {
     
     @State var syncSuccessful = false
     @State var gatewayServerURL: String = "";
-    @State var syncStatement: String = "Sync Account now"
     
     @State var gatewayServerPublicKey: String = ""
     @State var verificationURL: String = ""
@@ -31,7 +30,7 @@ struct SynchronizeView: View {
                 
             }
             else {
-                AppContentView(gatewayServerURL: gatewayServerURL, syncStatement: syncStatement, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful, privateKey: $privateKey)
+                AppContentView(gatewayServerURL: gatewayServerURL, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful, privateKey: $privateKey)
             }
         }
     }
@@ -39,7 +38,8 @@ struct SynchronizeView: View {
 
 struct AppContentView: View {
     var gatewayServerURL: String;
-    var syncStatement: String
+    
+    var smsWithoutBordersSyncUrl = "://smswithoutborders.com/dashboard/sync"
     
     @Binding var gatewayServerPublicKey: String;
     @Binding var verificationURL: String;
@@ -50,55 +50,66 @@ struct AppContentView: View {
     
     var body: some View {
         VStack {
-            Button(syncStatement, action: {
-                // Should use this for signup and login
+            
+            if gatewayServerURL.isEmpty {
+                Link("Signup", destination: URL(string: "https://smswithoutborders.com/sign-up?ari=" + URL(string: "apps" + smsWithoutBordersSyncUrl)!.absoluteString)!)
+                    .buttonStyle(.bordered)
                 
-                let gatewayServerURLObj = URL(string: self.gatewayServerURL)
-                if(gatewayServerURLObj == nil) {
-                    print("Not valid gateway server url")
-                    return
-                }
-                
-                let synchronization = Synchronization(callbackFunction: { data, response, error in
+                Link("Synchronize Account", destination: URL(string: "https" + smsWithoutBordersSyncUrl)!)
+                    .buttonStyle(.bordered)
+            }
+            
+            else {
+                Button("Start Synchronization", action: {
+                    // Should use this for signup and login
+                    
+                    let gatewayServerURLObj = URL(string: self.gatewayServerURL)
+                    if(gatewayServerURLObj == nil) {
+                        print("Not valid gateway server url")
+                        return
+                    }
+                    
+                    let synchronization = Synchronization(callbackFunction: { data, response, error in
+                        do {
+                            let jsonData: [String:String] = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : String]
+                            
+                            let gatewayPEMPublicKey: String = jsonData["public_key"]!;
+                            let verificationPath: String = jsonData["verification_url"]!;
+                            
+                            let scheme: String = (gatewayServerURLObj?.scheme)!
+                            let host: String = (gatewayServerURLObj?.host)!
+                            let port: Int = (gatewayServerURLObj?.port)!
+                            
+                            self.gatewayServerPublicKey = removePEMFormatsInKey(publicKey: gatewayPEMPublicKey)
+                            self.verificationURL = "\(scheme)://\(host):\(port)\(verificationPath)"
+                            
+                            print("Gateway Server public-key: \(gatewayServerPublicKey)")
+                            print("Verification URL: \(verificationURL)")
+                            self.syncSuccessful = true
+                        }
+                        catch {
+                            print("Some error occured: \(error)")
+                        }
+                    })
+                    
                     do {
-                        let jsonData: [String:String] = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : String]
+                        let keyAssets = try generateRSAKeyPair()
                         
-                        let gatewayPEMPublicKey: String = jsonData["public_key"]!;
-                        let verificationPath: String = jsonData["verification_url"]!;
+                        let publicKey: String = keyAssets.publicKey
+                        privateKey = keyAssets.privateKey
                         
-                        let scheme: String = (gatewayServerURLObj?.scheme)!
-                        let host: String = (gatewayServerURLObj?.host)!
-                        let port: Int = (gatewayServerURLObj?.port)!
+                        let task: URLSessionDataTask = synchronization.publicKeyExchange(
+                            publicKey: publicKey, gatewayServerUrl: gatewayServerURL)
                         
-                        self.gatewayServerPublicKey = removePEMFormatsInKey(publicKey: gatewayPEMPublicKey)
-                        self.verificationURL = "\(scheme)://\(host):\(port)\(verificationPath)"
-                        
-                        print("Gateway Server public-key: \(gatewayServerPublicKey)")
-                        print("Verification URL: \(verificationURL)")
-                        self.syncSuccessful = true
+                        task.resume()
                     }
                     catch {
                         print("Some error occured: \(error)")
+                        return
                     }
                 })
-                
-                do {
-                    let keyAssets = try generateRSAKeyPair()
-                    
-                    let publicKey: String = keyAssets.publicKey
-                    privateKey = keyAssets.privateKey
-                    
-                    let task: URLSessionDataTask = synchronization.publicKeyExchange(
-                        publicKey: publicKey, gatewayServerUrl: gatewayServerURL)
-                    
-                    task.resume()
-                }
-                catch {
-                    print("Some error occured: \(error)")
-                    return
-                }
-            })
-            .buttonStyle(.bordered)
+                .buttonStyle(.bordered)
+            }
         }
     }
 }

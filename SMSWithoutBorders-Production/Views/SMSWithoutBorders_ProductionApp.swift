@@ -20,23 +20,33 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @StateObject private var dataController = DataController()
     
+    
     let cSecurity = CSecurity()
     
     init() {
         print("Starting up SMSWithoutBorders")
     }
     
+    func hasPlatforms() -> Bool {
+        @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+        
+        // return platforms.isEmpty
+         return false
+    }
+    
     var body: some Scene {
         WindowGroup {
             Group {
                 if navigatingFromURL {
-                    SynchronizeView(gatewayServerURL: absoluteURLString, syncStatement: "Click to start handshake")
+                    SynchronizeView(gatewayServerURL: absoluteURLString)
                             .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
-                else if cSecurity.findInKeyChain().isEmpty {
+                else if cSecurity.findInKeyChain().isEmpty || !hasPlatforms(){
                     SynchronizeView()
                 }
                 else {
+//                    RecentsView()
+//                        .environment(\.managedObjectContext, dataController.container.viewContext)
                     AvailablePlatformsView()
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }

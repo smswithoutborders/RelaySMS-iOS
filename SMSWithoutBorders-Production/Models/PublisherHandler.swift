@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MessageUI
 
 func getEncryptedContent(contentToEncrypt: String) -> (iv: String, encryptedContent: Data) {
     let sharedKey = CSecurity().findInKeyChain()
@@ -39,3 +40,32 @@ func formatForPublishing(formattedContent: String) -> String {
     
     return Data(encryptedContentFormattedAssets.utf8).base64EncodedString()
 }
+
+
+class SMSSharing : UIViewController, MFMessageComposeViewControllerDelegate {
+    
+    func sendSMS(message: String, receipient: String) {
+        self.launchMessageComposeViewController(message: message, receipient: receipient)
+    }
+    
+    // prepend this function with @IBAction if you want to call it from a Storyboard.
+    private func launchMessageComposeViewController(message: String, receipient: String) {
+        if MFMessageComposeViewController.canSendText() {
+            let messageVC = MFMessageComposeViewController()
+            messageVC.messageComposeDelegate = self
+            messageVC.recipients = [receipient]
+            messageVC.body = message
+            self.present(messageVC, animated: true, completion: nil)
+        }
+        else {
+            print("User hasn't setup Messages.app")
+        }
+    }
+
+    // this function will be called after the user presses the cancel button or sends the text
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+

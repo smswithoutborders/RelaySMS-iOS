@@ -37,6 +37,8 @@ struct AppContentPasswordView: View {
     
     @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
+    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
+    
     @State var userPassword: String = ""
     @State var privateKey: SecKey?
     
@@ -89,8 +91,13 @@ struct AppContentPasswordView: View {
                     
                     let platformsData = jsonData["user_platforms"] as! Array<Dictionary<String, Any>>
                     
-                    resetPlatforms(platforms: platforms, datastore: datastore)
-                    storePlatforms(platformsData: platformsData, datastore: datastore)
+                    PlatformHandler.resetPlatforms(platforms: platforms, datastore: datastore)
+                    PlatformHandler.storePlatforms(platformsData: platformsData, datastore: datastore)
+                    
+                    let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                    
+                    gatewayClientHandler.addGatewayClients(datastore: datastore)
+                    
                     self.authenticated = true
                 })
                 
@@ -106,12 +113,6 @@ struct AppContentPasswordView: View {
     }
 }
 
-func resetPlatforms(platforms: FetchedResults<PlatformsEntity>, datastore: NSManagedObjectContext) {
-    for platform in platforms {
-        datastore.delete(platform)
-    }
-    print("Datastore reset complete")
-}
 
 func storeSharedKeyInKeyChain(decryptedSharedKey: String) {
     print("Decrypted Shared key: \(decryptedSharedKey)")
@@ -126,23 +127,6 @@ func storeSharedKeyInKeyChain(decryptedSharedKey: String) {
     print("Stored data in keychain successfully")
 }
 
-func storePlatforms(platformsData: Array<Dictionary<String, Any>>, datastore: NSManagedObjectContext) {
-    for platformData in platformsData {
-        let platform = PlatformsEntity(context: datastore)
-        platform.platform_name = platformData["name"] as? String
-        platform.type = platformData["type"] as? String
-        platform.platform_letter = platformData["letter"] as? String
-        
-        print("Storing platform: \(String(describing: platform.platform_name))")
-            
-        do {
-            try datastore.save()
-        }
-        catch {
-            print("Failed to store platform: \(error)")
-        }
-    }
-}
 
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {

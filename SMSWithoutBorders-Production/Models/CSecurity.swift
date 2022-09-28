@@ -76,7 +76,6 @@ class CSecurity {
             print("Some error occured while fetching shared key")
             return ""
         }
-        
         return String(data: sharedKey, encoding: .utf8)!
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 
 func formatEmailForPublishing(
@@ -18,7 +19,10 @@ func formatEmailForPublishing(
 }
 
 struct EmailView: View {
+    @Environment(\.managedObjectContext) var datastore
     
+    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
+
     @State var platform: PlatformsEntity?
     
     @State private var composeTo :String = ""
@@ -63,6 +67,14 @@ struct EmailView: View {
                 let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
                 
                 print("Encrypted formatted content: \(encryptedFormattedContent)")
+                
+                let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                
+                let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
+                
+                print("Default Gateway client: " + defaultGatewayClient)
+                
+                SMSSharing().sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
             })
             .buttonStyle(.bordered)
         }.padding()
