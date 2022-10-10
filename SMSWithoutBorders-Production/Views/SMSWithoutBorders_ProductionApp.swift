@@ -30,8 +30,8 @@ struct SMSWithoutBorders_ProductionApp: App {
     func hasPlatforms() -> Bool {
         @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
         
-        // return platforms.isEmpty
-         return false
+         return platforms.isEmpty
+//         return false
     }
     
     var body: some Scene {
@@ -45,9 +45,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     SynchronizeView()
                 }
                 else {
-//                    RecentsView()
-//                        .environment(\.managedObjectContext, dataController.container.viewContext)
-                    AvailablePlatformsView()
+                    RecentsView()
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }

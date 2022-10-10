@@ -20,7 +20,7 @@ struct PasswordView: View {
     var body: some View {
         return Group {
             if authenticated {
-                AvailablePlatformsView()
+                RecentsView()
                     .environment(\.managedObjectContext, datastore)
             }
             else {

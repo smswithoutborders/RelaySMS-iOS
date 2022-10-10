@@ -52,10 +52,10 @@ struct AppContentView: View {
         VStack {
             
             if gatewayServerURL.isEmpty {
-                Link("Signup", destination: URL(string: "https://smswithoutborders.com/sign-up?ari=" + URL(string: "apps" + smsWithoutBordersSyncUrl)!.absoluteString)!)
+                Link("Sign-up", destination: URL(string: "https://smswithoutborders.com/sign-up?ari=" + URL(string: "apps" + smsWithoutBordersSyncUrl)!.absoluteString)!)
                     .buttonStyle(.bordered)
                 
-                Link("Synchronize Account", destination: URL(string: "https" + smsWithoutBordersSyncUrl)!)
+                Link("Sign-in", destination: URL(string: "https" + smsWithoutBordersSyncUrl)!)
                     .buttonStyle(.bordered)
             }
             
