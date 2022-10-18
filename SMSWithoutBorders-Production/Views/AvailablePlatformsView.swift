@@ -12,16 +12,16 @@ struct AvailablePlatformsView: View {
     
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
+    @Binding var platformClicked: PlatformsEntity?
+    
     var body: some View {
         VStack {
             NavigationView {
                 List(platforms) { platform in
                     NavigationLink {
-                        if(platform.type == "email") {
-                            EmailView(platform: platform)
-                        }
+                        ComposeViewAdapter(platform: platform)
                     } label: {
-                        Text(platform.platform_name ?? "unknown")
+                        AvailablePlatformView(platform: platform)
                     }
                 }
                 .navigationTitle("Available Platforms")
@@ -31,7 +31,9 @@ struct AvailablePlatformsView: View {
 }
 
 struct AvailablePlatformsView_Previews: PreviewProvider {
+    @State static var platformClicked: PlatformsEntity?
+    
     static var previews: some View {
-        AvailablePlatformsView()
+        AvailablePlatformsView(platformClicked: $platformClicked)
     }
 }

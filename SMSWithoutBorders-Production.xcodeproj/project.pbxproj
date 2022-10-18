@@ -29,6 +29,8 @@
 		16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
 		16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
 		16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
+		16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */; };
+		16F19F2428FF5A4D00AC2F2B /* ComposeViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2328FF5A4D00AC2F2B /* ComposeViewAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoExportImportManager.swift; sourceTree = "<group>"; };
 		16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRSAEncryption.swift; sourceTree = "<group>"; };
 		16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAESEncryption.swift; sourceTree = "<group>"; };
+		16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformView.swift; sourceTree = "<group>"; };
+		16F19F2328FF5A4D00AC2F2B /* ComposeViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 				16EDE37D28CE5CA300E50393 /* PasswordView.swift */,
 				16EDE38A28D356EA00E50393 /* AvailablePlatformsView.swift */,
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
+				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
+				16F19F2328FF5A4D00AC2F2B /* ComposeViewAdapter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,9 +340,11 @@
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				16EDE38B28D356EB00E50393 /* AvailablePlatformsView.swift in Sources */,
 				16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */,
+				16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */,
 				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
+				16F19F2428FF5A4D00AC2F2B /* ComposeViewAdapter.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */,
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
@@ -515,6 +523,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -546,6 +555,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

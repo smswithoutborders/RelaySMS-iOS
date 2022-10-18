@@ -8,8 +8,26 @@
 import SwiftUI
 
 struct RecentsView: View {
+    
+    @State var platformClicked: PlatformsEntity?
+    
+    var body: some View {
+        NavigationView {
+            if platformClicked != nil {
+                EmailView()
+            }
+            else {
+                RecentsViewAdapter(platformClicked: $platformClicked)
+            }
+        }.navigationTitle("Recents")
+    }
+}
+
+struct RecentsViewAdapter: View {
     @Environment(\.managedObjectContext) var datastore
     @State var showPlatforms : Bool = false;
+    
+    @Binding var platformClicked: PlatformsEntity?
     
     var body: some View {
         NavigationView {
@@ -30,7 +48,7 @@ struct RecentsView: View {
                     x: 3,
                     y: 3)
             .sheet(isPresented: $showPlatforms) {
-                AvailablePlatformsView()
+                AvailablePlatformsView(platformClicked: $platformClicked)
                     .environment(\.managedObjectContext, datastore)
             }
         }
@@ -39,7 +57,9 @@ struct RecentsView: View {
 
 
 struct RecentsView_Previews: PreviewProvider {
+    @State static var platformClicked: PlatformsEntity?
+    
     static var previews: some View {
-        RecentsView()
+        RecentsViewAdapter(platformClicked: $platformClicked)
     }
 }
