@@ -20,6 +20,8 @@ func formatEmailForPublishing(
 
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
 
@@ -33,51 +35,99 @@ struct EmailView: View {
     
     @State private var encryptedInput: String = ""
     var body: some View {
-        VStack {
-            TextField("to: ", text: $composeTo)
-                .overlay(RoundedRectangle(cornerRadius: 1)
-                    .stroke(Color.black))
-            
-            TextField("cc: ", text: $composeCC)
-                    .overlay(RoundedRectangle(cornerRadius: 1)
-                        .stroke(Color.black))
-            
-            TextField("bcc: ", text: $composeBCC)
-                .overlay(RoundedRectangle(cornerRadius: 1)
-                    .stroke(Color.black))
-            
-            TextField("subject: ", text: $composeSubject)
-                .overlay(RoundedRectangle(cornerRadius: 1)
-                    .stroke(Color.black))
-            
-            
-            Text("Email Body")
-                .multilineTextAlignment(.leading)
-            
-            TextEditor(text: $composeBody)
-                .frame(height: 450.0)
-                .foregroundColor(Color.gray)
-                .overlay(RoundedRectangle(cornerRadius: 1)
-                    .stroke(Color.black))
-            
-            Button("Send", action: {
-                // TODO: Get formatted input
-                let formattedEmail = formatEmailForPublishing(platformLetter: platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
+        NavigationView {
+            VStack {
+                VStack{
+                    HStack {
+                        Text("To ")
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        TextField("", text: $composeTo)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                }
+                Spacer(minLength: 9)
                 
-                let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
+                VStack {
+                    HStack {
+                        Text("Cc ")
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        TextField("", text: $composeCC)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                }
+                Spacer(minLength: 9)
                 
-                print("Encrypted formatted content: \(encryptedFormattedContent)")
+                VStack {
+                    HStack {
+                        Text("Bcc ")
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        TextField("", text: $composeBCC)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                }
+                Spacer(minLength: 9)
                 
-                let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                VStack {
+                    HStack {
+                        Text("Subject ")
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        TextField("", text: $composeSubject)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                }
+                Spacer(minLength: 9)
                 
-                let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
-                
-                print("Default Gateway client: " + defaultGatewayClient)
-                
-                SMSSharing().sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
-            })
-            .buttonStyle(.bordered)
-        }.padding()
+                VStack {
+                    TextEditor(text: $composeBody)
+                        .accessibilityLabel("composeBody")
+                }
+            }
+        }
+        .padding()
+        .navigationBarTitle("Compose email", displayMode: .inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    // TODO: Get formatted input
+                    do {
+                        let formattedEmail = formatEmailForPublishing(platformLetter: self.platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
+                        
+                        let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
+                        
+                        print("Encrypted formatted content: \(encryptedFormattedContent)")
+                        
+                        let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                        
+                        let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
+                        
+                        print("Default Gateway client: " + defaultGatewayClient)
+                        
+                        SMSSharing().sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
+                    }
+                    catch {
+                        print(error)
+                    }
+                }) {
+//                    Image(systemName: "paperplane.circle.fill")
+//                        .imageScale(.large)
+                    Text("Send")
+                }
+            }
+        })
     }
 }
 

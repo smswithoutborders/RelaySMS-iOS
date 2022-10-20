@@ -20,18 +20,14 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @StateObject private var dataController = DataController()
     
-    
     let cSecurity = CSecurity()
+    var hasPlatforms: Bool;
     
     init() {
         print("Starting up SMSWithoutBorders")
-    }
-    
-    func hasPlatforms() -> Bool {
         @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
         
-         return platforms.isEmpty
-//         return false
+        self.hasPlatforms = !platforms.isEmpty
     }
     
     var body: some Scene {
@@ -41,7 +37,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     SynchronizeView(gatewayServerURL: absoluteURLString)
                             .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
-                else if cSecurity.findInKeyChain().isEmpty || !hasPlatforms(){
+                else if cSecurity.findInKeyChain().isEmpty || self.hasPlatforms == false {
                     SynchronizeView()
                 }
                 else {

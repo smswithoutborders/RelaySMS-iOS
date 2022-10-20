@@ -30,8 +30,13 @@ class GatewayClientHandler {
         let cellularProviders: [String: CTCarrier] = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders!
         
         for cellularProvider in cellularProviders {
-            // TODO: Actually check to find if matching default Gateway is present
-            print(cellularProvider)
+            let mobileCountryCode: String = cellularProvider.value.mobileCountryCode!;
+            let mobileNetworkCode: String = cellularProvider.value.mobileNetworkCode!;
+            let operatorId = mobileCountryCode + mobileNetworkCode
+            
+            if gatewayClient.operatorId == operatorId {
+                return true
+            }
         }
         return false
     }
@@ -46,6 +51,21 @@ class GatewayClientHandler {
         
         return matchingGateways
     }
+    
+    static func getOperatorProperties() -> Bool {
+        let cellularProviders: [String: CTCarrier] = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders!
+        
+        for cellularProvider in cellularProviders {
+            // TODO: Actually check to find if matching default Gateway is present
+            let carrierName: String = cellularProvider.value.carrierName!;
+            let mobileCountryCode: String = cellularProvider.value.mobileCountryCode!;
+            let mobileNetworkCode: String = cellularProvider.value.mobileNetworkCode!;
+            // print("Carrier name: \(carrierName), Country code: \(mobileCountryCode), Network code: \(mobileNetworkCode)")
+            let operatorCode = mobileCountryCode + mobileNetworkCode
+        }
+        return false
+    }
+    
     
     func toggleDefaultGatewayClient(defaultGatewayClientEntity: GatewayClientsEntity, datastore: NSManagedObjectContext) {
         for gatewayClientEntity in self.gatewayClientsEntities {
@@ -109,6 +129,7 @@ class GatewayClientHandler {
     }
     
     func getDefaultGatewayClientMSISDN() -> String {
+        // GatewayClientHandler.getOperatorProperties()
         for gatewayClientEntity in self.gatewayClientsEntities {
             print(gatewayClientEntity.msisdn)
             print(gatewayClientEntity.is_default)
