@@ -86,6 +86,7 @@ struct AppContentPasswordView: View {
                     let sharedKey: String = jsonData["shared_key"] as! String
                     
                     let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
+                    print("Decrypted shared key: \(decryptedSharedKey)")
                     storeSharedKeyInKeyChain(decryptedSharedKey: decryptedSharedKey)
                     
                     

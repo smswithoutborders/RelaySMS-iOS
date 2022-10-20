@@ -26,12 +26,33 @@ class CSecurity {
             if status == errSecDuplicateItem {
                 print("Seems the data is duplicated! - holy hell")
                 // TODO: modify key if this is the case
+                self.deleteInKeyChain()
                 
-                return self.updateInKeyChain(sharedKey: sharedKey)
+                print("Attempting second storage...")
+                return storeInKeyChain(sharedKey: sharedKey)
             }
             return false
         }
+        return true
+    }
+    
+    func deleteInKeyChain() -> Bool {
+        var attributes = self.query
+        attributes[kSecAttrAccount as String] = sharedKeyTagLable
         
+        let status = SecItemDelete(attributes as CFDictionary)
+        
+        guard status != errSecItemNotFound else {
+            print("Cannot update, shared key not even stored in the first place")
+            return false
+        }
+        
+//        guard status != errSecSuccess else {
+//            print("Failed to delete keys: \(status)")
+//            return false
+//        }
+        
+        print("successfully deleted keychain")
         return true
     }
     
