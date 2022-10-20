@@ -9,6 +9,24 @@ import SwiftUI
 import Foundation
 import CoreData
 
+struct mainViewAdapter: View {
+    @Environment(\.managedObjectContext) var datastore
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+    
+    let cSecurity = CSecurity()
+    
+    var body: some View {
+        if cSecurity.findInKeyChain().isEmpty || platforms.isEmpty {
+            SynchronizeView()
+        }
+        else {
+            RecentsView()
+                .environment(\.managedObjectContext, datastore)
+        }
+    }
+    
+}
+
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     // cases:
@@ -18,17 +36,7 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var navigatingFromURL: Bool = false
     @State var absoluteURLString: String = ""
     
-    @StateObject private var dataController = DataController()
-    
-    let cSecurity = CSecurity()
-    var hasPlatforms: Bool;
-    
-    init() {
-        print("Starting up SMSWithoutBorders")
-        @FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-        
-        self.hasPlatforms = !platforms.isEmpty
-    }
+    @StateObject private var dataController: DataController = DataController()
     
     var body: some Scene {
         WindowGroup {
@@ -37,11 +45,8 @@ struct SMSWithoutBorders_ProductionApp: App {
                     SynchronizeView(gatewayServerURL: absoluteURLString)
                             .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
-                else if cSecurity.findInKeyChain().isEmpty || self.hasPlatforms == false {
-                    SynchronizeView()
-                }
                 else {
-                    RecentsView()
+                    mainViewAdapter()
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }

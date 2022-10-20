@@ -20,7 +20,6 @@ struct SynchronizeView: View {
     
     @State var privateKey: SecKey?
     
-    @State var persistentContainer: NSManagedObjectContext?
     
     var body: some View {
         return Group {
