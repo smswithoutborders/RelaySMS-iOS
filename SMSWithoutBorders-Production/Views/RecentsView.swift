@@ -30,7 +30,7 @@ struct RecentsViewAdapter: View {
     @Binding var platformType: Int?
     @Binding var platform: PlatformsEntity?
     
-    var things: [String] = ["sample", "one"]
+    var things: [String: String] = ["sample":"one"]
     
     var body: some View {
         Button(action: {

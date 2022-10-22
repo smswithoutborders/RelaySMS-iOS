@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="EncryptedContentsEntity" representedClassName="EncryptedContentsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="encrypted_content" optional="YES" attributeType="String"/>
+        <attribute name="gateway_client_msisdn" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="platform_id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="platform_name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="GatewayClientsEntity" representedClassName="GatewayClientsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="is_default" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -8,13 +17,10 @@
         <attribute name="operator_name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="logo" optional="YES" attributeType="String"/>
         <attribute name="platform_letter" optional="YES" attributeType="String"/>
         <attribute name="platform_name" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
-    <elements>
-        <element name="PlatformsEntity" positionX="-63" positionY="-18" width="128" height="89"/>
-        <element name="GatewayClientsEntity" positionX="-63" positionY="9" width="128" height="104"/>
-    </elements>
 </model>

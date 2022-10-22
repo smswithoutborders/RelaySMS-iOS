@@ -119,6 +119,8 @@ struct EmailView: View {
                     
                     self.sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
                     
+                    EncryptedContentHandler.store(datastore: datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: platform?.platform_name ?? "unknown")
+                    
                     self.dismiss()
                 }) {
 //                    Image(systemName: "paperplane.circle.fill")

@@ -31,7 +31,7 @@
 		16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
 		16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */; };
 		16F19F2428FF5A4D00AC2F2B /* ComposeViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2328FF5A4D00AC2F2B /* ComposeViewAdapter.swift */; };
-		16F19F262901A08800AC2F2B /* SMSSharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F252901A08800AC2F2B /* SMSSharing.swift */; };
+		16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,7 @@
 		16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAESEncryption.swift; sourceTree = "<group>"; };
 		16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformView.swift; sourceTree = "<group>"; };
 		16F19F2328FF5A4D00AC2F2B /* ComposeViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewAdapter.swift; sourceTree = "<group>"; };
-		16F19F252901A08800AC2F2B /* SMSSharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSSharing.swift; sourceTree = "<group>"; };
+		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 				1697672328E4830B0021BFC5 /* GatewayClients.swift */,
 				1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */,
 				1697672728E489040021BFC5 /* PlatformsHandler.swift */,
-				16F19F252901A08800AC2F2B /* SMSSharing.swift */,
+				16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -340,12 +340,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */,
+				16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */,
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				16EDE38B28D356EB00E50393 /* AvailablePlatformsView.swift in Sources */,
 				16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */,
 				16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */,
 				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
-				16F19F262901A08800AC2F2B /* SMSSharing.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				16F19F2428FF5A4D00AC2F2B /* ComposeViewAdapter.swift in Sources */,
