@@ -18,6 +18,25 @@ func formatEmailForPublishing(
         return formattedString
 }
 
+func decodeForViewing(formattedString: String) -> String {
+    if let decodedData = Data(base64Encoded: formattedString) {
+        let decodedString = String(data: decodedData, encoding: .utf8)!
+        print("Decoded String: \(decodedString)")
+        let endIndex = decodedString.index(decodedString.startIndex, offsetBy: 16)
+        
+        let ivStr: String = String(decodedString[decodedString.startIndex..<endIndex])
+        let encodedEncryptedStr: String = String(decodedString[endIndex..<decodedString.endIndex])
+        print("IV string: \(ivStr)")
+        print("Encoded Encrypted String: \(encodedEncryptedStr)")
+        
+        if let decodedEncryptedData = Data(base64Encoded: encodedEncryptedStr) {
+            print("Decoded Encrypted Data: \(decodedEncryptedData)")
+        }
+    }
+    
+    return ""
+}
+
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
@@ -26,6 +45,7 @@ struct EmailView: View {
     @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
 
     @State var platform: PlatformsEntity?
+    @State var encryptedContent: EncryptedContentsEntity?
     
     @State private var composeTo :String = ""
     @State private var composeCC :String = ""
@@ -38,68 +58,70 @@ struct EmailView: View {
     @State private var encryptedInput: String = ""
     var body: some View {
         NavigationView {
-            VStack {
-                VStack{
-                    HStack {
-                        Text("To ")
-                            .foregroundColor(Color.gray)
-                        Spacer()
-                        TextField("", text: $composeTo)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
-                    }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
-                }
-                Spacer(minLength: 9)
-                
+            Group {
                 VStack {
-                    HStack {
-                        Text("Cc ")
-                            .foregroundColor(Color.gray)
-                        Spacer()
-                        TextField("", text: $composeCC)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
+                    VStack{
+                        HStack {
+                            Text("To ")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            TextField(decodeForViewing(formattedString: encryptedContent?.encrypted_content ?? "unknown"), text: $composeTo)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
                     }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
-                }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    HStack {
-                        Text("Bcc ")
-                            .foregroundColor(Color.gray)
-                        Spacer()
-                        TextField("", text: $composeBCC)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
+                    Spacer(minLength: 9)
+                    
+                    VStack {
+                        HStack {
+                            Text("Cc ")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            TextField("", text: $composeCC)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
                     }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
-                }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    HStack {
-                        Text("Subject ")
-                            .foregroundColor(Color.gray)
-                        Spacer()
-                        TextField("", text: $composeSubject)
+                    Spacer(minLength: 9)
+                    
+                    VStack {
+                        HStack {
+                            Text("Bcc ")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            TextField("", text: $composeBCC)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
                     }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
-                }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    TextEditor(text: $composeBody)
-                        .accessibilityLabel("composeBody")
+                    Spacer(minLength: 9)
+                    
+                    VStack {
+                        HStack {
+                            Text("Subject ")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            TextField("", text: $composeSubject)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
+                    }
+                    Spacer(minLength: 9)
+                    
+                    VStack {
+                        TextEditor(text: $composeBody)
+                            .accessibilityLabel("composeBody")
+                    }
                 }
             }
+            .padding()
         }
-        .padding()
         .navigationBarTitle("Compose email", displayMode: .inline)
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {

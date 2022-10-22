@@ -40,4 +40,3 @@ func formatForPublishing(formattedContent: String) -> String {
     return Data(encryptedContentFormattedAssets.utf8).base64EncodedString()
 }
 
-

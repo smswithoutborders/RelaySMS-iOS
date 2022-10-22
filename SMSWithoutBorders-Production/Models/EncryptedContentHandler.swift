@@ -11,23 +11,25 @@ import CoreData
 
 struct EncryptedContentHandler {
     
-    func clearStoredEncryptedContents() {
-        
+    static func clearStoredEncryptedContents(encryptedContents: FetchedResults<EncryptedContentsEntity>, datastore: NSManagedObjectContext) {
+        for encryptedContent in encryptedContents {
+            datastore.delete(encryptedContent)
+        }
+        print("Datastore reset complete")
     }
     
     static func store(datastore: NSManagedObjectContext, encryptedContentBase64: String, gatewayClientMSISDN: String, platformName: String) {
         let encryptedContentEntity = EncryptedContentsEntity(context: datastore)
+        encryptedContentEntity.encrypted_content = encryptedContentBase64
         encryptedContentEntity.platform_name = platformName
         encryptedContentEntity.gateway_client_msisdn = gatewayClientMSISDN
         
-        print("Storing encrypted content...")
-
         do {
             try datastore.save()
         }
         catch {
             print("Failed to store encrypted content: \(error)")
         }
-        
+        print("Successfully stored encrypted content: \(encryptedContentBase64)")
     }
 }
