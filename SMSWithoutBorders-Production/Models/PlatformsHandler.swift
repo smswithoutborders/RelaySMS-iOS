@@ -35,5 +35,69 @@ class PlatformHandler {
             }
         }
     }
+    
+    @ViewBuilder static func getView(platform: PlatformsEntity, encryptedContent: EncryptedContentsEntity?) -> some View {
+        // TODO: defaulting to return emailView - shitty solution
+        
+        if platform.type == "email" {
+            if encryptedContent != nil {
+                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!)
+                EmailView(composeTo: formattedOutput.to, composeCC: formattedOutput.cc, composeBCC: formattedOutput.bcc, composeSubject: formattedOutput.subject, composeBody: formattedOutput.body)
+            }
+            else {
+                EmailView(platform: platform, encryptedContent: encryptedContent)
+            }
+        }
+        EmptyView()
+    }
 
 }
+
+func formatEmailForPublishing(
+    platformLetter: String,
+    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
+        
+        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
+        
+        return formattedString
+}
+
+func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
+    let splitString = decryptedData.components(separatedBy: ":")
+    
+    let platformLetter: String = splitString[0]
+    let to: String = splitString[1]
+    let cc: String = splitString[2]
+    let bcc: String = splitString[3]
+    let subject: String = splitString[4]
+    let body: String = splitString[5]
+    
+    return (platformLetter, to, cc, bcc, subject, body)
+}
+
+func decodeForViewing(encryptedContent: EncryptedContentsEntity) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
+    var formattedEmail = ("", "", "", "", "", "")
+    
+    if let decodedData = Data(base64Encoded: encryptedContent.encrypted_content!) {
+        let decodedString = String(data: decodedData, encoding: .utf8)!
+        print("Decoded String: \(decodedString)")
+        let endIndex = decodedString.index(decodedString.startIndex, offsetBy: 16)
+        
+        let ivStr: String = String(decodedString[decodedString.startIndex..<endIndex])
+        let encodedEncryptedStr: String = String(decodedString[endIndex..<decodedString.endIndex])
+        print("IV string: \(ivStr)")
+        print("Encoded Encrypted String: \(encodedEncryptedStr)")
+        
+        if let decodedEncryptedData = Data(base64Encoded: encodedEncryptedStr) {
+            print("Decoded Encrypted Data: \(decodedEncryptedData)")
+            
+            let decryptedData: String = getDecryptedContent(contentToDecrypt: decodedEncryptedData, iv: ivStr)
+            print("Decrypted Data: \(decryptedData)")
+            
+            formattedEmail =  formatEmailForViewing( decryptedData: decryptedData)
+            print("formatted email: \(formattedEmail)")
+        }
+    }
+    return formattedEmail
+}
+

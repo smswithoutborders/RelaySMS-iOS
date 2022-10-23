@@ -9,34 +9,6 @@ import SwiftUI
 import MessageUI
 
 
-func formatEmailForPublishing(
-    platformLetter: String,
-    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
-        
-        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
-        
-        return formattedString
-}
-
-func decodeForViewing(formattedString: String) -> String {
-    if let decodedData = Data(base64Encoded: formattedString) {
-        let decodedString = String(data: decodedData, encoding: .utf8)!
-        print("Decoded String: \(decodedString)")
-        let endIndex = decodedString.index(decodedString.startIndex, offsetBy: 16)
-        
-        let ivStr: String = String(decodedString[decodedString.startIndex..<endIndex])
-        let encodedEncryptedStr: String = String(decodedString[endIndex..<decodedString.endIndex])
-        print("IV string: \(ivStr)")
-        print("Encoded Encrypted String: \(encodedEncryptedStr)")
-        
-        if let decodedEncryptedData = Data(base64Encoded: encodedEncryptedStr) {
-            print("Decoded Encrypted Data: \(decodedEncryptedData)")
-        }
-    }
-    
-    return ""
-}
-
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
@@ -47,15 +19,15 @@ struct EmailView: View {
     @State var platform: PlatformsEntity?
     @State var encryptedContent: EncryptedContentsEntity?
     
-    @State private var composeTo :String = ""
-    @State private var composeCC :String = ""
-    @State private var composeBCC :String = ""
-    @State private var composeSubject :String = ""
-    @State private var composeBody :String = ""
+    @State var composeTo :String = ""
+    @State var composeCC :String = ""
+    @State var composeBCC :String = ""
+    @State var composeSubject :String = ""
+    @State var composeBody :String = ""
     
+    var decoder: Decoder?
     private let messageComposeDelegate = MessageComposerDelegate()
     
-    @State private var encryptedInput: String = ""
     var body: some View {
         NavigationView {
             Group {
@@ -65,7 +37,7 @@ struct EmailView: View {
                             Text("To ")
                                 .foregroundColor(Color.gray)
                             Spacer()
-                            TextField(decodeForViewing(formattedString: encryptedContent?.encrypted_content ?? "unknown"), text: $composeTo)
+                            TextField(self.composeTo, text: $composeTo)
                                 .textContentType(.emailAddress)
                                 .autocapitalization(.none)
                         }
@@ -180,7 +152,9 @@ extension EmailView {
 }
 
 struct EmailView_Preview: PreviewProvider {
+    @State static var platforms: PlatformsEntity?
+    @State static var encryptedContent: EncryptedContentsEntity?
     static var previews: some View {
-        EmailView()
+        EmailView(platform: platforms, encryptedContent: encryptedContent)
     }
 }

@@ -11,11 +11,12 @@ struct RecentsView: View {
     @Environment(\.managedObjectContext) var datastore
     @State var platformType: Int? = 0
     @State var platform: PlatformsEntity?
+    @State var encryptedContent: EncryptedContentsEntity?
     
     var body: some View {
         NavigationView {
             if self.platform != nil && platformType != nil {
-                NavigationLink(destination: EmailView(platform: self.platform), tag: 1, selection:$platformType) {}
+                NavigationLink(destination: PlatformHandler.getView(platform: self.platform!, encryptedContent: encryptedContent!), tag: 1, selection:$platformType) {}
             }
             else {
                 RecentsViewAdapter(platformType: $platformType, platform: $platform)
@@ -41,15 +42,19 @@ struct RecentsViewAdapter: View {
         NavigationView {
             VStack {
                 ZStack(alignment: .bottomTrailing) {
-                    List(encryptedContents) { encryptedContent in
-                        NavigationLink {
-                            List(platforms) { platform in
+                    List {
+                        ForEach(encryptedContents) { encryptedContent in
+                            ForEach(platforms) { platform in
                                 if encryptedContent.platform_name == platform.platform_name {
-                                    EmailView(platform: platform, encryptedContent: encryptedContent)
+                                    // TODO: refactor to bind platform and encryptedcontent as env contents
+                                    NavigationLink {
+                                        PlatformHandler.getView(platform: platform, encryptedContent: encryptedContent)
+                                            .environment(\.managedObjectContext, datastore)
+                                    } label: {
+                                        Text(encryptedContent.encrypted_content ?? "unknown")
+                                    }
                                 }
                             }
-                        } label: {
-                            Text(encryptedContent.encrypted_content ?? "unknown")
                         }
                     }
                     

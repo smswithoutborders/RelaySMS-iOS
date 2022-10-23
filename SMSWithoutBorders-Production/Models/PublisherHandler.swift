@@ -27,6 +27,23 @@ func getEncryptedContent(contentToEncrypt: String) -> (iv: String, encryptedCont
     return ("", encryptedDataHolder)
 }
 
+func getDecryptedContent(contentToDecrypt: Data, iv: String) -> String {
+    let sharedKey = CSecurity().findInKeyChain()
+    print("Shared key: \(sharedKey)")
+    
+    var decryptedString: String = ""
+    do {
+        let aes = try AES(keyString: sharedKey)
+        decryptedString = try aes.decrypt(contentToDecrypt, ivValue: iv)
+    }
+    catch {
+        print("getting encrypted content error: \(error)")
+    }
+    
+    return decryptedString
+    
+}
+
 func formatForPublishing(formattedContent: String) -> String {
     let encryptedContentAssets = getEncryptedContent(contentToEncrypt: formattedContent)
     
