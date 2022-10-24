@@ -41,6 +41,14 @@ struct RecentsViewAdapter: View {
     var body: some View {
         NavigationView {
             VStack {
+                if encryptedContents.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("No Recent Messages")
+                            .font(.largeTitle)
+                    }
+                }
+                
                 ZStack(alignment: .bottomTrailing) {
                     List {
                         ForEach(encryptedContents) { encryptedContent in

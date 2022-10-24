@@ -47,7 +47,7 @@ struct AppContentPasswordView: View {
     
     @Binding var authenticated: Bool;
     
-    @State var authenticating: Bool = true
+    @State var authenticating: Bool = false
     @State private var errorOccured: Bool = false
     @State private var errorText: String = ""
     
@@ -69,7 +69,8 @@ struct AppContentPasswordView: View {
             .padding()
             
             if self.authenticating {
-                SpinnerView(stateText: "Authenticating...")
+//                SpinnerView(stateText: "Authenticating...")
+                Text("Authenticating! Please hold on...")
             }
             
             else {
