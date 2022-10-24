@@ -16,7 +16,8 @@ struct RecentsView: View {
     var body: some View {
         NavigationView {
             if self.platform != nil && platformType != nil {
-                NavigationLink(destination: PlatformHandler.getView(platform: self.platform!, encryptedContent: encryptedContent!), tag: 1, selection:$platformType) {}
+                NavigationLink(destination: PlatformHandler.getView(platform: self.platform!, encryptedContent: encryptedContent)
+                                .environment(\.managedObjectContext, datastore), tag: 1, selection:$platformType) {}
             }
             else {
                 RecentsViewAdapter(platformType: $platformType, platform: $platform)
@@ -24,6 +25,19 @@ struct RecentsView: View {
             }
         }
     }
+}
+
+func getPlatform(encryptedContent: EncryptedContentsEntity, platforms: FetchedResults<PlatformsEntity>) -> PlatformsEntity {
+    var retPlatform: PlatformsEntity?
+    
+    for platform in platforms {
+        if encryptedContent.platform_name == platform.platform_name {
+            retPlatform = platform
+            break
+        }
+    }
+    
+    return retPlatform!
 }
 
 struct RecentsViewAdapter: View {
@@ -50,19 +64,12 @@ struct RecentsViewAdapter: View {
                 }
                 
                 ZStack(alignment: .bottomTrailing) {
-                    List {
-                        ForEach(encryptedContents) { encryptedContent in
-                            ForEach(platforms) { platform in
-                                if encryptedContent.platform_name == platform.platform_name {
-                                    // TODO: refactor to bind platform and encryptedcontent as env contents
-                                    NavigationLink {
-                                        PlatformHandler.getView(platform: platform, encryptedContent: encryptedContent)
-                                            .environment(\.managedObjectContext, datastore)
-                                    } label: {
-                                        Text(encryptedContent.encrypted_content ?? "unknown")
-                                    }
-                                }
-                            }
+                    List(encryptedContents){ encryptedContent in
+                        NavigationLink {
+                            PlatformHandler.getView(platform: getPlatform(encryptedContent: encryptedContent, platforms: platforms), encryptedContent: encryptedContent)
+                                .environment(\.managedObjectContext, datastore)
+                        } label: {
+                            Text(encryptedContent.encrypted_content ?? "unknown")
                         }
                     }
                     

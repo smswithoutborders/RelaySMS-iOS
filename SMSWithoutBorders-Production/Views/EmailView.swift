@@ -31,7 +31,7 @@ struct EmailView: View {
     var body: some View {
         VStack {
             NavigationView {
-                ScrollView {
+                VStack {
                     VStack{
                         HStack {
                             Text("To ")
@@ -92,6 +92,7 @@ struct EmailView: View {
                     }
                 }
             }
+            .padding()
             .navigationBarTitle("Compose email", displayMode: .inline)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -111,7 +112,7 @@ struct EmailView: View {
                         
                         self.sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
                         
-                        EncryptedContentHandler.store(datastore: datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: platform?.platform_name ?? "unknown")
+                        EncryptedContentHandler.store(datastore: self.datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: self.platform?.platform_name ?? "unknown")
                         
                         self.dismiss()
                     }) {

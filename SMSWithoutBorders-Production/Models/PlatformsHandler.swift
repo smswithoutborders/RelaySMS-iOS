@@ -42,7 +42,7 @@ class PlatformHandler {
         if platform.type == "email" {
             if encryptedContent != nil {
                 let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!)
-                EmailView(composeTo: formattedOutput.to, composeCC: formattedOutput.cc, composeBCC: formattedOutput.bcc, composeSubject: formattedOutput.subject, composeBody: formattedOutput.body)
+                EmailView(platform: platform, composeTo: formattedOutput.to, composeCC: formattedOutput.cc, composeBCC: formattedOutput.bcc, composeSubject: formattedOutput.subject, composeBody: formattedOutput.body)
             }
             else {
                 EmailView(platform: platform, encryptedContent: encryptedContent)

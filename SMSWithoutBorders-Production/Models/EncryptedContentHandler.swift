@@ -20,6 +20,7 @@ struct EncryptedContentHandler {
     
     static func store(datastore: NSManagedObjectContext, encryptedContentBase64: String, gatewayClientMSISDN: String, platformName: String) {
         let encryptedContentEntity = EncryptedContentsEntity(context: datastore)
+        encryptedContentEntity.id = Double.random(in: 2.71828...3.14159)
         encryptedContentEntity.encrypted_content = encryptedContentBase64
         encryptedContentEntity.platform_name = platformName
         encryptedContentEntity.gateway_client_msisdn = gatewayClientMSISDN
