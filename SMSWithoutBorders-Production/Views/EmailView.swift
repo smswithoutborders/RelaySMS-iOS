@@ -29,15 +29,15 @@ struct EmailView: View {
     private let messageComposeDelegate = MessageComposerDelegate()
     
     var body: some View {
-        NavigationView {
-            Group {
-                VStack {
+        VStack {
+            NavigationView {
+                ScrollView {
                     VStack{
                         HStack {
                             Text("To ")
                                 .foregroundColor(Color.gray)
                             Spacer()
-                            TextField(self.composeTo, text: $composeTo)
+                            TextField("", text: $composeTo)
                                 .textContentType(.emailAddress)
                                 .autocapitalization(.none)
                         }
@@ -92,37 +92,36 @@ struct EmailView: View {
                     }
                 }
             }
-            .padding()
-        }
-        .navigationBarTitle("Compose email", displayMode: .inline)
-        .toolbar(content: {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    // TODO: Get formatted input
-                    let formattedEmail = formatEmailForPublishing(platformLetter: self.platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
-                    
-                    let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
-                    
-                    print("Encrypted formatted content: \(encryptedFormattedContent)")
-                    
-                    let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
-                    
-                    let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
-                    
-                    print("Default Gateway client: " + defaultGatewayClient)
-                    
-                    self.sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
-                    
-                    EncryptedContentHandler.store(datastore: datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: platform?.platform_name ?? "unknown")
-                    
-                    self.dismiss()
-                }) {
-//                    Image(systemName: "paperplane.circle.fill")
-//                        .imageScale(.large)
-                    Text("Send")
+            .navigationBarTitle("Compose email", displayMode: .inline)
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        // TODO: Get formatted input
+                        let formattedEmail = formatEmailForPublishing(platformLetter: self.platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
+                        
+                        let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
+                        
+                        print("Encrypted formatted content: \(encryptedFormattedContent)")
+                        
+                        let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                        
+                        let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
+                        
+                        print("Default Gateway client: " + defaultGatewayClient)
+                        
+                        self.sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
+                        
+                        EncryptedContentHandler.store(datastore: datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: platform?.platform_name ?? "unknown")
+                        
+                        self.dismiss()
+                    }) {
+    //                    Image(systemName: "paperplane.circle.fill")
+    //                        .imageScale(.large)
+                        Text("Send")
+                    }
                 }
-            }
         })
+        }
     }
 }
 

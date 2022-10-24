@@ -32,6 +32,7 @@
 		16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */; };
 		16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */; };
+		16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformView.swift; sourceTree = "<group>"; };
 		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
+		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
 				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
+				16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
+				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
@@ -514,6 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -522,6 +527,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SMSWoB;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -546,6 +553,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -554,6 +562,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SMSWoB;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -582,7 +592,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -602,7 +612,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -621,6 +631,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -639,6 +650,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

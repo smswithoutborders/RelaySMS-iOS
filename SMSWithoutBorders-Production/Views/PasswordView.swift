@@ -47,70 +47,114 @@ struct AppContentPasswordView: View {
     
     @Binding var authenticated: Bool;
     
+    @State var authenticating: Bool = true
+    @State private var errorOccured: Bool = false
+    @State private var errorText: String = ""
     
     var body: some View {
         VStack {
-            Spacer()
-            Text("Enter your password")
-                .font(.title)
-                .bold()
-            
-            SecureField("password...", text: $userPassword)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Button("Sign-in", action: {
-                // TODO: encrypt the password with server's pub key
-                // TODO: send encrypted password to server
-                
-                print("Plain password: \(userPassword)")
-                let encryptedPassword = encryptWithRSAKeyPair(
-                    publicKeyStr: gatewayServerPublicKey, data: userPassword)
-                
-                let synchronization = Synchronization(callbackFunction: { data, response, error in
-                    if error != nil {
-                        // self.handleClientError(error)
-                            // return
+            VStack {
+                Image("icon-white")
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(Circle())
+                    .overlay {
+                        Circle().stroke(.white, lineWidth: 4)
                     }
+                    .frame(width: 250.0)
+                    .shadow(radius: 7)
+                    .padding(.all)
+                
+            }
+            .padding()
+            
+            if self.authenticating {
+                SpinnerView(stateText: "Authenticating...")
+            }
+            
+            else {
+                VStack {
+                    Spacer()
+                    Text("Enter your password")
+                        .font(.title)
+                        .bold()
                     
-                    guard let httpResponse = response as? HTTPURLResponse,
-                        (200...299).contains(httpResponse.statusCode) else {
+                    SecureField("password...", text: $userPassword)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .alert(isPresented: $errorOccured) {
+                            Alert(title: Text("An error occured, stay calm!"), message: Text(errorText))
+                        }
+                    
+                    Button(action: {
+                        // TODO: encrypt the password with server's pub key
+                        // TODO: send encrypted password to server
                         
-                        // TODO: show an error message
-                        print("Check your password might be wrong")
-                        return
+                        print("Plain password: \(userPassword)")
+                        let encryptedPassword = encryptWithRSAKeyPair(
+                            publicKeyStr: gatewayServerPublicKey, data: userPassword)
+                        
+                        let synchronization = Synchronization(callbackFunction: { data, response, error in
+                            if error != nil {
+                                // self.handleClientError(error)
+                                // return
+                            }
+                            
+                            guard let httpResponse = response as? HTTPURLResponse,
+                                  (200...299).contains(httpResponse.statusCode) else {
+                                
+                                // TODO: show an error message
+                                print("Check your password might be wrong")
+                                self.errorOccured = true
+                                self.errorText = "Check your password might be wrong!"
+                                self.authenticating = false
+                                return
+                            }
+                            
+                            let jsonData: [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : Any]
+                            
+                            // Encrypted shared key, need to decrypt it with private RSA key
+                            let sharedKey: String = jsonData["shared_key"] as! String
+                            
+                            let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
+                            print("Decrypted shared key: \(decryptedSharedKey)")
+                            storeSharedKeyInKeyChain(decryptedSharedKey: decryptedSharedKey)
+                            
+                            
+                            let platformsData = jsonData["user_platforms"] as! Array<Dictionary<String, Any>>
+                            
+                            PlatformHandler.resetPlatforms(platforms: platforms, datastore: datastore)
+                            PlatformHandler.storePlatforms(platformsData: platformsData, datastore: datastore)
+                            
+                            let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
+                            
+                            gatewayClientHandler.addGatewayClients(datastore: datastore)
+                            
+                            self.authenticated = true
+                        })
+                        
+                        let task = synchronization.passwordVerification(
+                            userPassword: encryptedPassword, verificationURL: verificationURL)
+                        
+                        task.resume()
+                        self.authenticating = true
+                    }, label: {
+                        Text("Authenticate")
+                            .foregroundColor(.white)
+                            .frame(width: 200, height: 40)
+                            .background(.blue)
+                            .cornerRadius(15)
+                            .padding()
+                    })
+                    
+                    Spacer()
+                    VStack{
+                        Link("Read our privacy policy", destination: URL(string: "https://smswithoutborders.com/privacy-policy")!)
                     }
-                    
-                    let jsonData: [String:Any] = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : Any]
-                    
-                    // Encrypted shared key, need to decrypt it with private RSA key
-                    let sharedKey: String = jsonData["shared_key"] as! String
-                    
-                    let decryptedSharedKey = decryptWithRSAKeyPair(privateKey: privateKey!, encryptedData: sharedKey)
-                    print("Decrypted shared key: \(decryptedSharedKey)")
-                    storeSharedKeyInKeyChain(decryptedSharedKey: decryptedSharedKey)
-                    
-                    
-                    let platformsData = jsonData["user_platforms"] as! Array<Dictionary<String, Any>>
-                    
-                    PlatformHandler.resetPlatforms(platforms: platforms, datastore: datastore)
-                    PlatformHandler.storePlatforms(platformsData: platformsData, datastore: datastore)
-                    
-                    let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
-                    
-                    gatewayClientHandler.addGatewayClients(datastore: datastore)
-                    
-                    self.authenticated = true
-                })
-                
-                let task = synchronization.passwordVerification(
-                    userPassword: encryptedPassword, verificationURL: verificationURL)
-                
-                task.resume()
-            })
-                .buttonStyle(.bordered)
-            Spacer()
+                    .padding()
+                }
+            }
         }
-        .padding()
     }
 }
 
