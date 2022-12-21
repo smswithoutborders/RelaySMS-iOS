@@ -11,6 +11,7 @@
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
 		1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
+		16B43B202915CDDC004AEF1F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
 		16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37728CB347E00E50393 /* SynchronizeView.swift */; };
 		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
 		16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37D28CE5CA300E50393 /* PasswordView.swift */; };
@@ -57,6 +58,7 @@
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
 		1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsHandler.swift; sourceTree = "<group>"; };
 		1697672728E489040021BFC5 /* PlatformsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsHandler.swift; sourceTree = "<group>"; };
+		16B43B1F2915CDDC004AEF1F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		16EDE37728CB347E00E50393 /* SynchronizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeView.swift; sourceTree = "<group>"; };
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
 				16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */,
+				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */,
+				16B43B202915CDDC004AEF1F /* TextView.swift in Sources */,
 				16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */,
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				16EDE38B28D356EB00E50393 /* AvailablePlatformsView.swift in Sources */,
@@ -449,7 +453,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -503,9 +507,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

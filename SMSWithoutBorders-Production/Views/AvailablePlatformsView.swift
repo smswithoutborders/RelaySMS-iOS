@@ -23,9 +23,7 @@ struct AvailablePlatformsView: View {
                     AvailablePlatformView(platform: platform)
                         .onTapGesture {
                             self.platform = platform
-                            if platform.type == "email" {
-                                self.platformType = 1
-                            }
+                            self.platformType = 1
                             dismiss()
                         }
                 }

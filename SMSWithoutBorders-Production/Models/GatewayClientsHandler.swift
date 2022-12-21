@@ -86,6 +86,13 @@ class GatewayClientHandler {
             print("Failed to store intended default gateway client")
         }
     }
+    
+    func resetGatewayClients(datastore: NSManagedObjectContext) {
+        for gatewayClient in self.gatewayClientsEntities {
+            datastore.delete(gatewayClient)
+        }
+        print("Gateway Client reset complete")
+    }
 
     func addGatewayClients(datastore: NSManagedObjectContext) {
         let defaultGatewayClients: [GatewayClient] = getDefaultGatewayClients()
@@ -98,6 +105,7 @@ class GatewayClientHandler {
         for defaultGatewayClient in defaultGatewayClients {
             let gatewayClient = GatewayClientsEntity(context: datastore)
             
+            gatewayClient.id = Double.random(in: 2.71828...3.14159)
             gatewayClient.msisdn = defaultGatewayClient.MSISDN
             gatewayClient.country = defaultGatewayClient.country
             gatewayClient.operator_id = defaultGatewayClient.operatorId

@@ -91,7 +91,18 @@ struct RecentsViewAdapter: View {
                             y: 3)
                     .sheet(isPresented: $showPlatforms) {
                         AvailablePlatformsView(platform: $platform, platformType: $platformType)
-                            .environment(\.managedObjectContext, datastore)
+//                            .environment(\.managedObjectContext, datastore)
+//                        NavigationView {
+//                            List(platforms) { platform in
+//                                NavigationLink {
+////                                    PlatformHandler.getView(platform: platform, encryptedContent: nil)
+////                                        .environment(\.managedObjectContext, datastore)
+//                                    AvailablePlatformsView(platform: $platform, platformType: $platformType)
+//                                } label: {
+//                                    Text(platform.platform_name ?? "unknown")
+//                                }
+//                            }
+//                        }
                     }
                     .padding()
                 }

@@ -129,6 +129,7 @@ struct AppContentPasswordView: View {
                             
                             let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
                             
+                            gatewayClientHandler.resetGatewayClients(datastore: datastore)
                             gatewayClientHandler.addGatewayClients(datastore: datastore)
                             
                             self.authenticated = true

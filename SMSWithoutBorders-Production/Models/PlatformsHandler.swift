@@ -21,6 +21,7 @@ class PlatformHandler {
     static func storePlatforms(platformsData: Array<Dictionary<String, Any>>, datastore: NSManagedObjectContext) {
         for platformData in platformsData {
             let platform = PlatformsEntity(context: datastore)
+            platform.id = Double.random(in: 2.71828...3.14159)
             platform.platform_name = platformData["name"] as? String
             platform.type = platformData["type"] as? String
             platform.platform_letter = platformData["letter"] as? String
@@ -41,11 +42,20 @@ class PlatformHandler {
         
         if platform.type == "email" {
             if encryptedContent != nil {
-                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!)
-                EmailView(platform: platform, composeTo: formattedOutput.to, composeCC: formattedOutput.cc, composeBCC: formattedOutput.bcc, composeSubject: formattedOutput.subject, composeBody: formattedOutput.body)
+                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+                EmailView(platform: platform, composeTo: formattedOutput[1], composeCC: formattedOutput[2], composeBCC: formattedOutput[3], composeSubject: formattedOutput[4], composeBody: formattedOutput[5])
             }
             else {
                 EmailView(platform: platform, encryptedContent: encryptedContent)
+            }
+        }
+        else if platform.type == "text" {
+            if encryptedContent != nil {
+                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+                TextView(textBody: formattedOutput[0])
+            }
+            else {
+                TextView()
             }
         }
         EmptyView()
@@ -75,8 +85,9 @@ func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to
     return (platformLetter, to, cc, bcc, subject, body)
 }
 
-func decodeForViewing(encryptedContent: EncryptedContentsEntity) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
-    var formattedEmail = ("", "", "", "", "", "")
+func decodeForViewing(encryptedContent: EncryptedContentsEntity, type: String) -> Array<String> {
+    // var formattedEmail = ("", "", "", "", "", "")
+    var formattedOutput : Array<String> = []
     
     if let decodedData = Data(base64Encoded: encryptedContent.encrypted_content!) {
         let decodedString = String(data: decodedData, encoding: .utf8)!
@@ -94,10 +105,24 @@ func decodeForViewing(encryptedContent: EncryptedContentsEntity) -> (platformLet
             let decryptedData: String = getDecryptedContent(contentToDecrypt: decodedEncryptedData, iv: ivStr)
             print("Decrypted Data: \(decryptedData)")
             
-            formattedEmail =  formatEmailForViewing( decryptedData: decryptedData)
-            print("formatted email: \(formattedEmail)")
+            switch type {
+            case "email":
+                let formattedEmail =  formatEmailForViewing( decryptedData: decryptedData)
+                print("formatted email: \(formattedEmail)")
+                
+                formattedOutput.append(formattedEmail.platformLetter)
+                formattedOutput.append(formattedEmail.to)
+                formattedOutput.append(formattedEmail.cc)
+                formattedOutput.append(formattedEmail.bcc)
+                formattedOutput.append(formattedEmail.subject)
+                formattedOutput.append(formattedEmail.body)
+                break;
+                
+            default:
+                break;
+            }
         }
     }
-    return formattedEmail
+    return formattedOutput
 }
 

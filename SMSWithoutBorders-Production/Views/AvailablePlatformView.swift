@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct AvailablePlatformView: View {
-    let platform: PlatformsEntity
+    let platform: PlatformsEntity?
     
     var body: some View {
         HStack {
-            Text(platform.platform_name ?? "unknown")
+            Text(platform?.platform_name ?? "unknown")
             Spacer()
         }
     }
@@ -21,7 +21,7 @@ struct AvailablePlatformView: View {
 struct AvailablePlatormView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
     static var previews: some View {
-        AvailablePlatformView(platform: platform!)
-            .previewLayout(.fixed(width: 300, height: 70))
+        AvailablePlatformView(platform: platform )
+            .previewLayout(.fixed(width: .infinity, height: 70))
     }
 }
