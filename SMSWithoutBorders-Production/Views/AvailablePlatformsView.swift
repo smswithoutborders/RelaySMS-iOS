@@ -22,6 +22,7 @@ struct AvailablePlatformsView: View {
                 List(platforms) { platform in
                     AvailablePlatformView(platform: platform)
                         .onTapGesture {
+                            print("Requesting platform type: \(platform.type)")
                             self.platform = platform
                             self.platformType = 1
                             dismiss()

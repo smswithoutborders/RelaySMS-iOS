@@ -58,6 +58,15 @@ class PlatformHandler {
                 TextView()
             }
         }
+        else if platform.type == "messaging" {
+            if encryptedContent != nil {
+                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+                MessageView(textBody: formattedOutput[1], contactInformation: formattedOutput[0])
+            }
+            else {
+                MessageView()
+            }
+        }
         EmptyView()
     }
 
