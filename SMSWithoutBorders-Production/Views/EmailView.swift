@@ -9,6 +9,37 @@ import SwiftUI
 import MessageUI
 
 
+func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
+    let splitString = decryptedData.components(separatedBy: ":")
+    
+    let platformLetter: String = splitString[0]
+    let to: String = splitString[1]
+    let cc: String = splitString[2]
+    let bcc: String = splitString[3]
+    let subject: String = splitString[4]
+    let body: String = splitString[5]
+    
+    return (platformLetter, to, cc, bcc, subject, body)
+}
+
+func formatEmailForPublishing(
+    platformLetter: String,
+    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
+        
+        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
+        
+        return formattedString
+}
+
+extension EmailView {
+    private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
+        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+            // Customize here
+            controller.dismiss(animated: true)
+        }
+    }
+}
+
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
@@ -110,7 +141,7 @@ struct EmailView: View {
                         
                         print("Default Gateway client: " + defaultGatewayClient)
                         
-                        self.sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient)
+                        sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient, messageComposeDelegate: self.messageComposeDelegate)
                         
                         EncryptedContentHandler.store(datastore: self.datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: self.platform?.platform_name ?? "unknown")
                         
@@ -126,30 +157,6 @@ struct EmailView: View {
     }
 }
 
-extension EmailView {
-    public func sendSMS(message: String, receipient: String) {
-        let messageVC = MFMessageComposeViewController()
-        messageVC.messageComposeDelegate = self.messageComposeDelegate
-        messageVC.recipients = [receipient]
-        messageVC.body = message
-        
-        let vc = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
-        
-        if MFMessageComposeViewController.canSendText() {
-            vc?.present(messageVC, animated: true)
-        }
-        else {
-            print("User hasn't setup Messages.app")
-        }
-    }
-    
-    private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
-        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-            // Customize here
-            controller.dismiss(animated: true)
-        }
-    }
-}
 
 struct EmailView_Preview: PreviewProvider {
     @State static var platforms: PlatformsEntity?

@@ -52,19 +52,19 @@ class PlatformHandler {
         else if platform.type == "text" {
             if encryptedContent != nil {
                 let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
-                TextView(textBody: formattedOutput[0])
+                TextView(textBody: formattedOutput[1], platform: platform)
             }
             else {
-                TextView()
+                TextView(platform: platform, encryptedContent: encryptedContent)
             }
         }
         else if platform.type == "messaging" {
             if encryptedContent != nil {
                 let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
-                MessageView(textBody: formattedOutput[1], contactInformation: formattedOutput[0])
+                MessageView(platform: platform, messageBody: formattedOutput[2], messageContact: formattedOutput[1])
             }
             else {
-                MessageView()
+                MessageView(platform: platform, encryptedContent: encryptedContent)
             }
         }
         EmptyView()
@@ -72,27 +72,6 @@ class PlatformHandler {
 
 }
 
-func formatEmailForPublishing(
-    platformLetter: String,
-    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
-        
-        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
-        
-        return formattedString
-}
-
-func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
-    let splitString = decryptedData.components(separatedBy: ":")
-    
-    let platformLetter: String = splitString[0]
-    let to: String = splitString[1]
-    let cc: String = splitString[2]
-    let bcc: String = splitString[3]
-    let subject: String = splitString[4]
-    let body: String = splitString[5]
-    
-    return (platformLetter, to, cc, bcc, subject, body)
-}
 
 func decodeForViewing(encryptedContent: EncryptedContentsEntity, type: String) -> Array<String> {
     // var formattedEmail = ("", "", "", "", "", "")
@@ -125,6 +104,21 @@ func decodeForViewing(encryptedContent: EncryptedContentsEntity, type: String) -
                 formattedOutput.append(formattedEmail.bcc)
                 formattedOutput.append(formattedEmail.subject)
                 formattedOutput.append(formattedEmail.body)
+                break;
+                
+            case "text":
+                let formattedMessage = formatTextForViewing( decryptedData: decryptedData)
+                
+                formattedOutput.append(formattedMessage.platformLetter)
+                formattedOutput.append(formattedMessage.textBody)
+                break;
+                
+            case "messaging":
+                let formattedMessage = formatMessageForViewing( decryptedData: decryptedData)
+                
+                formattedOutput.append(formattedMessage.platformLetter)
+                formattedOutput.append(formattedMessage.messageContact)
+                formattedOutput.append(formattedMessage.messageBody)
                 break;
                 
             default:
