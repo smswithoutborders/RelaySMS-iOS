@@ -16,13 +16,15 @@ struct mainViewAdapter: View {
     let cSecurity = CSecurity()
     
     var body: some View {
-        if cSecurity.findInKeyChain().isEmpty || platforms.isEmpty {
-            SynchronizeView()
-        }
-        else {
-            RecentsView()
-                .environment(\.managedObjectContext, datastore)
-        }
+//        if cSecurity.findInKeyChain().isEmpty || platforms.isEmpty {
+//            SynchronizeView()
+//        }
+//        else {
+//            RecentsView()
+//                .environment(\.managedObjectContext, datastore)
+//        }
+        RecentsView()
+            .environment(\.managedObjectContext, datastore)
     }
     
 }
