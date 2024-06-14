@@ -10,11 +10,11 @@ import SwiftUI
 struct OnboardingWelcomeView: View {
     var body: some View {
         VStack {
+            Spacer()
             Text("Welcome to RelaySMS")
                 .font(.title)
                 .fontWeight(.semibold)
                 
-            Spacer()
                 
             VStack {
                 Text("Use SMS to make a post, send an email or message your closed ones")
@@ -32,7 +32,9 @@ struct OnboardingWelcomeView: View {
                     
                 }
                 .buttonStyle(.borderedProminent)
-                
+                .tint(.secondary)
+                .cornerRadius(38.5)
+
             }.padding()
             
             

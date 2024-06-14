@@ -38,26 +38,26 @@ struct ControllerView: View {
         HStack {
             if(self.onboadingViewIndex > 0) {
                 if(!lastOnboardingView) {
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "chevron.backward.circle.fill")
-                    }
-                    .buttonStyle(.borderedProminent)
-                        .padding()
-                    
+//                    Button(action: {
+//                        
+//                    }) {
+//                        Image(systemName: "chevron.backward.circle.fill")
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                        .padding()
+//                    
                     Button("skip") {
                         self.onboadingViewIndex += 1
                     }.frame(alignment: .bottom)
                         .padding()
                     
-                    Button(action: {
-                        
-                    }) {
-                        Image(systemName: "chevron.forward.circle.fill")
-                    }
-                    .buttonStyle(.borderedProminent)
-                        .padding()
+//                    Button(action: {
+//                        
+//                    }) {
+//                        Image(systemName: "chevron.forward.circle.fill")
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                        .padding()
 
                 } else {
                     Button("Finish") {

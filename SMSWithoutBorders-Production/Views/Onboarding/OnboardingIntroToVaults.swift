@@ -9,16 +9,22 @@ import SwiftUI
 
 struct OnboardingIntroToVaults: View {
     @State var currentTab = "intro"
-    
+    @State var loginSheetShown = false
+
     var body: some View {
         TabView(selection: $currentTab) {
             VStack {
                 Tab(buttonView:
                     Group {
                         Button("Login") {
-                            
+                            loginSheetShown = true
                         }
                         .buttonStyle(.borderedProminent)
+                        .sheet(isPresented: $loginSheetShown) {
+                            VStack {
+                                LoginSheetView()
+                            }
+                        }
                         
                         Button("Create new") {
                             
@@ -54,5 +60,5 @@ struct OnboardingIntroToVaults: View {
 }
 
 #Preview {
-    OnboardingIntroToVaults(currentTab: "example-store")
+    OnboardingIntroToVaults(currentTab: "intro")
 }

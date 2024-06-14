@@ -39,6 +39,7 @@
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
 		3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */; };
+		3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
 		3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTabAdapterView.swift; sourceTree = "<group>"; };
+		3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		16F0E6AC28C6320F00FDD12C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */,
 				3BAB09602C1B21B400664E90 /* Onboarding */,
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
@@ -388,6 +391,7 @@
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
+				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				164EF7D12954D431007F8C76 /* MessageView.swift in Sources */,
