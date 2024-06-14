@@ -31,7 +31,7 @@ struct Tab<ButtonView: View>: View {
             Text(description)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 60)
+                .padding()
 
 
             Image(imageName)

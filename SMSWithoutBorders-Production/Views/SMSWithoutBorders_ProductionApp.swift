@@ -10,9 +10,12 @@ import Foundation
 import CoreData
 
 struct ControllerView: View {
-    @State private var onboadingViewIndex: Int = 0
-    @State private var isFinished = false
+    @Binding var isFinished: Bool
     
+    @State private var onboadingViewIndex: Int = 0
+    @State private var lastOnboardingView = false
+    
+
     var body: some View {
         switch self.onboadingViewIndex {
         case ...0:
@@ -29,30 +32,65 @@ struct ControllerView: View {
         case 1:
             OnboardingIntroToVaults()
         default:
-            OnboardingFinish(isFinished: $isFinished)
+            OnboardingFinish(isFinished: $lastOnboardingView)
         }
         
-        if(self.onboadingViewIndex > 0 && !isFinished) {
-            Button("skip") {
-                self.onboadingViewIndex += 1
-            }.frame(alignment: .bottom)
-                .padding()
-        }
+        HStack {
+            if(self.onboadingViewIndex > 0) {
+                if(!lastOnboardingView) {
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "chevron.backward.circle.fill")
+                    }
+                    .buttonStyle(.borderedProminent)
+                        .padding()
+                    
+                    Button("skip") {
+                        self.onboadingViewIndex += 1
+                    }.frame(alignment: .bottom)
+                        .padding()
+                    
+                    Button(action: {
+                        
+                    }) {
+                        Image(systemName: "chevron.forward.circle.fill")
+                    }
+                    .buttonStyle(.borderedProminent)
+                        .padding()
+
+                } else {
+                    Button("Finish") {
+                        isFinished = true
+                    }.buttonStyle(.borderedProminent)
+                        .padding()
+                }
+            } 
+            
+        }.padding()
+        
     }
 }
 
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @State var isFinished = false
     var body: some Scene {
         WindowGroup {
             Group {
-                ControllerView()
+                if(!isFinished) {
+                    ControllerView(isFinished: $isFinished)
+                }
+                else {
+                    RecentsView()
+                }
             }
         }
     }
 }
 
 #Preview {
-    ControllerView()
+    @State var isFinished = false
+    return ControllerView(isFinished: $isFinished)
 }
