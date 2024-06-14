@@ -11,6 +11,7 @@ import CoreData
 
 struct ControllerView: View {
     @State private var onboadingViewIndex: Int = 0
+    @State private var isFinished = false
     
     var body: some View {
         switch self.onboadingViewIndex {
@@ -28,10 +29,10 @@ struct ControllerView: View {
         case 1:
             OnboardingIntroToVaults()
         default:
-            EmptyView()
+            OnboardingFinish(isFinished: $isFinished)
         }
         
-        if(self.onboadingViewIndex > 0) {
+        if(self.onboadingViewIndex > 0 && !isFinished) {
             Button("skip") {
                 self.onboadingViewIndex += 1
             }.frame(alignment: .bottom)

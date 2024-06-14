@@ -7,53 +7,6 @@
 
 import SwiftUI
 
-struct Tab<ButtonView: View>: View {
-    let buttonView: ButtonView
-    @State var title: String = "Let's get you started"
-    @State var subTitle: String
-    @State var description: String
-    @State var imageName: String
-    @State var subDescription: String
-    
-
-    var body: some View {
-        Text(title)
-            .font(.title)
-            .fontWeight(.semibold)
-        
-        Text(subTitle)
-            .font(.subheadline)
-            .fontWeight(.semibold)
-
-        Spacer()
-            
-        VStack {
-            Text(description)
-                .font(.headline)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 60)
-
-
-            Image(imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 200, height: 200)
-            
-            Text(subDescription)
-                .font(.subheadline)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 30)
-                .padding()
-            
-            self.buttonView
-
-        }.padding()
-        
-        Spacer()
-    }
-    
-}
-
 struct OnboardingIntroToVaults: View {
     @State var currentTab = "intro"
     
@@ -86,7 +39,8 @@ struct OnboardingIntroToVaults: View {
                     Button("Add Accounts") {
                         
                     }.buttonStyle(.borderedProminent),
-                    subTitle: "Add Accounts to Vault",
+                    title: "Add Accounts to Vault",
+                    subTitle: "Let's get you started",
                     description: "You can add accounts your Vault. This accounts are accessible to you when you are offline",
                     imageName: "OnboardingVaultOpen",
                     subDescription: "The Vault supports storing for multiple online paltforms. Click Add Accounts storage to see the list"
