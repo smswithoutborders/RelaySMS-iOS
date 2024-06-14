@@ -9,57 +9,49 @@ import SwiftUI
 import Foundation
 import CoreData
 
-struct mainViewAdapter: View {
-    @Environment(\.managedObjectContext) var datastore
-    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
-    let cSecurity = CSecurity()
+struct ControllerView: View {
+    @State private var onboadingViewIndex: Int = 0
     
     var body: some View {
-//        if cSecurity.findInKeyChain().isEmpty || platforms.isEmpty {
-//            SynchronizeView()
-//        }
-//        else {
-//            RecentsView()
-//                .environment(\.managedObjectContext, datastore)
-//        }
-        RecentsView()
-            .environment(\.managedObjectContext, datastore)
+        switch self.onboadingViewIndex {
+        case ...0:
+            OnboardingWelcomeView()
+            VStack {
+                Button("Get started!") {
+                    self.onboadingViewIndex += 1
+                }
+                .buttonStyle(.borderedProminent)
+                .padding()
+                Link("Read our privacy policy", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
+                    .font(.caption)
+            }
+        case 1:
+            OnboardingIntroToVaults()
+        default:
+            EmptyView()
+        }
+        
+        if(self.onboadingViewIndex > 0) {
+            Button("skip") {
+                self.onboadingViewIndex += 1
+            }.frame(alignment: .bottom)
+                .padding()
+        }
     }
-    
 }
+
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
-    // cases:
-    // case 1: sync view with no gateway server url
-    // case 2: sync view with gateway server url
-    
-    @State var navigatingFromURL: Bool = false
-    @State var absoluteURLString: String = ""
-    
-    @StateObject private var dataController: DataController = DataController()
-    
     var body: some Scene {
         WindowGroup {
             Group {
-                if navigatingFromURL {
-                    SynchronizeView(gatewayServerURL: absoluteURLString)
-                            .environment(\.managedObjectContext, dataController.container.viewContext)
-                }
-                else {
-                    mainViewAdapter()
-                        .environment(\.managedObjectContext, dataController.container.viewContext)
-                }
-            }
-            .onOpenURL { url in
-                print(url.absoluteString)
-                
-                if(url.scheme == "apps") {
-                    absoluteURLString = url.absoluteString.replacingOccurrences(of: "apps", with: "https")
-                    navigatingFromURL = true
-                }
+                ControllerView()
             }
         }
     }
+}
+
+#Preview {
+    ControllerView()
 }

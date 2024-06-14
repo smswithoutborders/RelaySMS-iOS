@@ -36,6 +36,7 @@
 		16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */; };
 		16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
+		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
+		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */,
+				3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
+				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,

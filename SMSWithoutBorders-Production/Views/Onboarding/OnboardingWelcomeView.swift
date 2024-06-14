@@ -13,16 +13,19 @@ struct OnboardingWelcomeView: View {
             Text("Welcome to RelaySMS")
                 .font(.title)
                 .fontWeight(.semibold)
-            
+                
             Spacer()
-            
+                
             VStack {
-                Text("Send Emails, Tweets and Messages using RelaySMS") .multilineTextAlignment(.center)
+                Text("Use SMS to make a post, send an email or message your closed ones")
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 30)
                 
                 Image("OnboardingWelcome")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
+                    .padding(.bottom, 20)
                 
 
                 Button("English", systemImage: "globe") {
@@ -30,20 +33,12 @@ struct OnboardingWelcomeView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 
-            }
+            }.padding()
             
             
             Spacer()
-            VStack {
-                Button("Get started!", systemImage: "arrow.right") {
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                Button("Read our privacy policy"){}
-                    .font(.caption)
-            }
         }
+            
     }
 }
 
