@@ -15,7 +15,8 @@ struct ControllerView: View {
     @State private var onboadingViewIndex: Int = 0
     @State private var lastOnboardingView = false
     
-
+    var appDelegate: AppDelegate
+    
     var body: some View {
         switch self.onboadingViewIndex {
         case ...0:
@@ -30,7 +31,7 @@ struct ControllerView: View {
                     .font(.caption)
             }
         case 1:
-            OnboardingIntroToVaults()
+            OnboardingIntroToVaults(appDelegate: appDelegate)
         default:
             OnboardingFinish(isFinished: $lastOnboardingView)
         }
@@ -76,11 +77,13 @@ struct ControllerView: View {
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     @State var isFinished = false
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             Group {
                 if(!isFinished) {
-                    ControllerView(isFinished: $isFinished)
+                    ControllerView(isFinished: $isFinished, appDelegate: appDelegate)
                 }
                 else {
                     RecentsView()
@@ -92,5 +95,7 @@ struct SMSWithoutBorders_ProductionApp: App {
 
 #Preview {
     @State var isFinished = false
-    return ControllerView(isFinished: $isFinished)
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    return ControllerView(isFinished: $isFinished, appDelegate: appDelegate)
 }

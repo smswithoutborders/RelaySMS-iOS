@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import AppAuthCore
+import AppAuth
 
 struct OnboardingIntroToVaults: View {
     @State var currentTab = "intro"
     @State var loginSheetShown = false
+    @State var authRequestSheetShown = false
+    
+    var appDelegate: AppDelegate
 
     var body: some View {
         TabView(selection: $currentTab) {
@@ -43,8 +48,9 @@ struct OnboardingIntroToVaults: View {
             VStack {
                 Tab(buttonView:
                     Button("Add Accounts") {
-                        
-                    }.buttonStyle(.borderedProminent),
+                        ViewController(appDelegate: appDelegate)
+                    }
+                    .buttonStyle(.borderedProminent),
                     title: "Add Accounts to Vault",
                     subTitle: "Let's get you started",
                     description: "You can add accounts your Vault. This accounts are accessible to you when you are offline",
@@ -60,5 +66,6 @@ struct OnboardingIntroToVaults: View {
 }
 
 #Preview {
-    OnboardingIntroToVaults(currentTab: "intro")
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    return OnboardingIntroToVaults(currentTab: "example-store", appDelegate: appDelegate)
 }

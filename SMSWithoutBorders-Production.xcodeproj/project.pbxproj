@@ -35,6 +35,10 @@
 		16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */; };
 		16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */; };
+		3B37F27E2C1DBB71008D5BE9 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */; };
+		3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F27F2C1DBC97008D5BE9 /* AppAuth */; };
+		3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F2812C1DBC97008D5BE9 /* AppAuthCore */; };
+		3B37F2842C1DBC97008D5BE9 /* AppAuthTV in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F2832C1DBC97008D5BE9 /* AppAuthTV */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -93,6 +97,7 @@
 		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
+		3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -105,6 +110,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B37F2842C1DBC97008D5BE9 /* AppAuthTV in Frameworks */,
+				3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */,
+				3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +156,7 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
+				3B37F27A2C1DBB1D008D5BE9 /* Modules */,
 				16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */,
 				16EDE37928CBA1A300E50393 /* Info.plist */,
 				16F0E6B328C80BBC00FDD12C /* Models */,
@@ -230,6 +239,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3B37F27A2C1DBB1D008D5BE9 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		3BAB09602C1B21B400664E90 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +274,11 @@
 			dependencies = (
 			);
 			name = "SMSWithoutBorders-Production";
+			packageProductDependencies = (
+				3B37F27F2C1DBC97008D5BE9 /* AppAuth */,
+				3B37F2812C1DBC97008D5BE9 /* AppAuthCore */,
+				3B37F2832C1DBC97008D5BE9 /* AppAuthTV */,
+			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
 			productType = "com.apple.product-type.application";
@@ -329,6 +351,9 @@
 				Base,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
+			packageReferences = (
+				3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -391,6 +416,7 @@
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
+				3B37F27E2C1DBB71008D5BE9 /* OAuth.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
@@ -576,7 +602,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-Production";
 				PRODUCT_NAME = SMSWithoutBorders;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -614,7 +640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-Production";
 				PRODUCT_NAME = SMSWithoutBorders;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -756,6 +782,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B37F27F2C1DBC97008D5BE9 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		3B37F2812C1DBC97008D5BE9 /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		3B37F2832C1DBC97008D5BE9 /* AppAuthTV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthTV;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */ = {
