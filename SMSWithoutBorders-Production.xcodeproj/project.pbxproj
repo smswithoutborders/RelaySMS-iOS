@@ -44,6 +44,22 @@
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
 		3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */; };
 		3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */; };
+		3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */; };
+		3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117712C28F3F4003D5BB6 /* GRPC */; };
+		3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */; };
+		3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117752C28F3F4003D5BB6 /* _GRPCCore */; };
+		3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */; };
+		3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177A2C28F5BA003D5BB6 /* GRPC */; };
+		3BF1177D2C28F5C0003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177C2C28F5C0003D5BB6 /* GRPC */; };
+		3BF117822C290679003D5BB6 /* vault.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117802C290679003D5BB6 /* vault.grpc.swift */; };
+		3BF117832C290679003D5BB6 /* vault.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1177F2C290679003D5BB6 /* vault.proto */; };
+		3BF117842C290679003D5BB6 /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117812C290679003D5BB6 /* vault.pb.swift */; };
+		3BF117852C290679003D5BB6 /* vault.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117802C290679003D5BB6 /* vault.grpc.swift */; };
+		3BF117862C290679003D5BB6 /* vault.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1177F2C290679003D5BB6 /* vault.proto */; };
+		3BF117872C290679003D5BB6 /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117812C290679003D5BB6 /* vault.pb.swift */; };
+		3BF117882C290679003D5BB6 /* vault.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117802C290679003D5BB6 /* vault.grpc.swift */; };
+		3BF117892C290679003D5BB6 /* vault.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1177F2C290679003D5BB6 /* vault.proto */; };
+		3BF1178A2C290679003D5BB6 /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117812C290679003D5BB6 /* vault.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +119,9 @@
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
 		3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTabAdapterView.swift; sourceTree = "<group>"; };
 		3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSheetView.swift; sourceTree = "<group>"; };
+		3BF1177F2C290679003D5BB6 /* vault.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = vault.proto; sourceTree = "<group>"; };
+		3BF117802C290679003D5BB6 /* vault.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.grpc.swift; sourceTree = "<group>"; };
+		3BF117812C290679003D5BB6 /* vault.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +130,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B37F2842C1DBC97008D5BE9 /* AppAuthTV in Frameworks */,
+				3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */,
+				3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */,
+				3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */,
+				3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */,
 				3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */,
+				3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
 				3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF1177D2C28F5C0003D5BB6 /* GRPC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +166,7 @@
 				16F0E69228C6308800FDD12C /* SMSWithoutBorders-ProductionTests */,
 				16F0E69C28C6308800FDD12C /* SMSWithoutBorders-ProductionUITests */,
 				16F0E68028C6308600FDD12C /* Products */,
+				3BF117792C28F5BA003D5BB6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +183,7 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
+				3BF1177E2C290650003D5BB6 /* Proto */,
 				3B37F27A2C1DBB1D008D5BE9 /* Modules */,
 				16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */,
 				16EDE37928CBA1A300E50393 /* Info.plist */,
@@ -258,6 +286,23 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		3BF117792C28F5BA003D5BB6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BF1177E2C290650003D5BB6 /* Proto */ = {
+			isa = PBXGroup;
+			children = (
+				3BF1177F2C290679003D5BB6 /* vault.proto */,
+				3BF117802C290679003D5BB6 /* vault.grpc.swift */,
+				3BF117812C290679003D5BB6 /* vault.pb.swift */,
+			);
+			path = Proto;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -278,6 +323,11 @@
 				3B37F27F2C1DBC97008D5BE9 /* AppAuth */,
 				3B37F2812C1DBC97008D5BE9 /* AppAuthCore */,
 				3B37F2832C1DBC97008D5BE9 /* AppAuthTV */,
+				3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */,
+				3BF117712C28F3F4003D5BB6 /* GRPC */,
+				3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */,
+				3BF117752C28F3F4003D5BB6 /* _GRPCCore */,
+				3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -297,6 +347,9 @@
 				16F0E69128C6308800FDD12C /* PBXTargetDependency */,
 			);
 			name = "SMSWithoutBorders-ProductionTests";
+			packageProductDependencies = (
+				3BF1177A2C28F5BA003D5BB6 /* GRPC */,
+			);
 			productName = "SMSWithoutBorders-ProductionTests";
 			productReference = 16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -315,6 +368,9 @@
 				16F0E69B28C6308800FDD12C /* PBXTargetDependency */,
 			);
 			name = "SMSWithoutBorders-ProductionUITests";
+			packageProductDependencies = (
+				3BF1177C2C28F5C0003D5BB6 /* GRPC */,
+			);
 			productName = "SMSWithoutBorders-ProductionUITests";
 			productReference = 16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -353,6 +409,7 @@
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
 				3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */,
 			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
@@ -409,6 +466,9 @@
 				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
+				3BF117882C290679003D5BB6 /* vault.grpc.swift in Sources */,
+				3BF117892C290679003D5BB6 /* vault.proto in Sources */,
+				3BF1178A2C290679003D5BB6 /* vault.pb.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */,
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
@@ -433,6 +493,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
+				3BF117822C290679003D5BB6 /* vault.grpc.swift in Sources */,
+				3BF117832C290679003D5BB6 /* vault.proto in Sources */,
+				3BF117842C290679003D5BB6 /* vault.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +504,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				16F0E6A028C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift in Sources */,
+				3BF117852C290679003D5BB6 /* vault.grpc.swift in Sources */,
+				3BF117862C290679003D5BB6 /* vault.proto in Sources */,
+				3BF117872C290679003D5BB6 /* vault.pb.swift in Sources */,
 				16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -792,6 +858,14 @@
 				minimumVersion = 1.7.5;
 			};
 		};
+		3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.23.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -809,6 +883,41 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuthTV;
+		};
+		3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = CGRPCZlib;
+		};
+		3BF117712C28F3F4003D5BB6 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPCReflectionService;
+		};
+		3BF117752C28F3F4003D5BB6 /* _GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = _GRPCCore;
+		};
+		3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
+		};
+		3BF1177A2C28F5BA003D5BB6 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		3BF1177C2C28F5C0003D5BB6 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
 		};
 /* End XCSwiftPackageProductDependency section */
 
