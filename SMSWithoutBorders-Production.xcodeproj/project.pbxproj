@@ -60,6 +60,14 @@
 		3BF117882C290679003D5BB6 /* vault.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117802C290679003D5BB6 /* vault.grpc.swift */; };
 		3BF117892C290679003D5BB6 /* vault.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1177F2C290679003D5BB6 /* vault.proto */; };
 		3BF1178A2C290679003D5BB6 /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117812C290679003D5BB6 /* vault.pb.swift */; };
+		3BF1178B2C2A2876003D5BB6 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
+		3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1178E2C2A2B67003D5BB6 /* Vault.swift */; };
+		3BF117912C2B3001003D5BB6 /* VaultTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117902C2B3001003D5BB6 /* VaultTest.swift */; };
+		3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */; };
+		3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */; };
+		3BF117972C2B4EB6003D5BB6 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117962C2B4EB6003D5BB6 /* _GRPCCore */; };
+		3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */; };
+		3BF1179C2C2B5050003D5BB6 /* Vault1Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +130,9 @@
 		3BF1177F2C290679003D5BB6 /* vault.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = vault.proto; sourceTree = "<group>"; };
 		3BF117802C290679003D5BB6 /* vault.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.grpc.swift; sourceTree = "<group>"; };
 		3BF117812C290679003D5BB6 /* vault.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.pb.swift; sourceTree = "<group>"; };
+		3BF1178E2C2A2B67003D5BB6 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		3BF117902C2B3001003D5BB6 /* VaultTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultTest.swift; sourceTree = "<group>"; };
+		3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault1Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +155,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */,
+				3BF117972C2B4EB6003D5BB6 /* _GRPCCore in Frameworks */,
 				3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */,
+				3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */,
+				3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				16F0E69328C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift */,
+				3BF117902C2B3001003D5BB6 /* VaultTest.swift */,
+				3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */,
 			);
 			path = "SMSWithoutBorders-ProductionTests";
 			sourceTree = "<group>";
@@ -271,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */,
+				3BF1178E2C2A2B67003D5BB6 /* Vault.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -349,6 +367,10 @@
 			name = "SMSWithoutBorders-ProductionTests";
 			packageProductDependencies = (
 				3BF1177A2C28F5BA003D5BB6 /* GRPC */,
+				3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */,
+				3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */,
+				3BF117962C2B4EB6003D5BB6 /* _GRPCCore */,
+				3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */,
 			);
 			productName = "SMSWithoutBorders-ProductionTests";
 			productReference = 16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */;
@@ -465,6 +487,7 @@
 				16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */,
 				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
+				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				3BF117882C290679003D5BB6 /* vault.grpc.swift in Sources */,
 				3BF117892C290679003D5BB6 /* vault.proto in Sources */,
@@ -494,7 +517,10 @@
 			files = (
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BF117822C290679003D5BB6 /* vault.grpc.swift in Sources */,
+				3BF1178B2C2A2876003D5BB6 /* OnboardingWelcomeView.swift in Sources */,
+				3BF1179C2C2B5050003D5BB6 /* Vault1Test.swift in Sources */,
 				3BF117832C290679003D5BB6 /* vault.proto in Sources */,
+				3BF117912C2B3001003D5BB6 /* VaultTest.swift in Sources */,
 				3BF117842C290679003D5BB6 /* vault.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,6 +649,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -656,7 +683,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = SMSWoB;
+				INFOPLIST_KEY_CFBundleDisplayName = RelaySMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -694,7 +721,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = SMSWoB;
+				INFOPLIST_KEY_CFBundleDisplayName = RelaySMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -918,6 +945,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPC;
+		};
+		3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = CGRPCZlib;
+		};
+		3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPCReflectionService;
+		};
+		3BF117962C2B4EB6003D5BB6 /* _GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = _GRPCCore;
+		};
+		3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
 		};
 /* End XCSwiftPackageProductDependency section */
 
