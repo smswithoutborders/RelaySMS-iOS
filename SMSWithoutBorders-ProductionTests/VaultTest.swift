@@ -1,33 +1,30 @@
 //
-//  VaultTest.swift
+//  Vault1Test.swift
 //  SMSWithoutBorders-ProductionTests
 //
 //  Created by sh3rlock on 25/06/2024.
 //
 
-//import Foundation
+import Testing
 import GRPC
 import NIO
 import XCTest
+import Logging
 
-@testable import SMSWithoutBorders
+struct VaultTest {
 
-class VaultTest: XCTestCase {
-    
-    var eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-    var phoneNumber = "+2371234567891"
-    
-    var channel: GRPCChannel?
-    override func setUpWithError() throws {
-        channel = try GRPCChannelPool.with(
-            target: .host("staging.smswithoutborders.com", port: 9050),
-            transportSecurity: .plaintext,
-            eventLoopGroup: eventLoopGroup)
-    }
-
-
-    func createEntityTest() throws {
-        let vaultEntityStub = Vault_V1_EntityNIOClient(channel: channel!)
+    @Test func entityCreationTest() throws {
+        let phoneNumber = "+2371234567891"
+        
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
+        let channel = ClientConnection
+            .usingPlatformAppropriateTLS(for: group)
+            .connect(host:"staging.smswithoutborders.com", port: 9050)
+        
+        let logger = Logger(label: "gRPC", factory: StreamLogHandler.standardOutput(label:))
+        let callOptions = CallOptions.init(logger: logger)
+        
+        let vaultEntityStub = Vault_V1_EntityNIOClient.init(channel: channel, defaultCallOptions: callOptions)
 
         let entityCreationRequest: Vault_V1_CreateEntityRequest = .with {
             $0.phoneNumber = phoneNumber
@@ -36,6 +33,8 @@ class VaultTest: XCTestCase {
         let call = vaultEntityStub.createEntity(entityCreationRequest)
         let entityCreationResponse = try call.response.wait()
         
+        print("message says: \(entityCreationResponse.message)")
+
         XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
     }
 

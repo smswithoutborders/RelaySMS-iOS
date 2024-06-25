@@ -62,12 +62,13 @@
 		3BF1178A2C290679003D5BB6 /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117812C290679003D5BB6 /* vault.pb.swift */; };
 		3BF1178B2C2A2876003D5BB6 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1178E2C2A2B67003D5BB6 /* Vault.swift */; };
-		3BF117912C2B3001003D5BB6 /* VaultTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117902C2B3001003D5BB6 /* VaultTest.swift */; };
 		3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */; };
 		3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */; };
 		3BF117972C2B4EB6003D5BB6 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117962C2B4EB6003D5BB6 /* _GRPCCore */; };
 		3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */; };
-		3BF1179C2C2B5050003D5BB6 /* Vault1Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */; };
+		3BF1179C2C2B5050003D5BB6 /* VaultTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179B2C2B5050003D5BB6 /* VaultTest.swift */; };
+		3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
+		3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,8 +132,9 @@
 		3BF117802C290679003D5BB6 /* vault.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.grpc.swift; sourceTree = "<group>"; };
 		3BF117812C290679003D5BB6 /* vault.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.pb.swift; sourceTree = "<group>"; };
 		3BF1178E2C2A2B67003D5BB6 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
-		3BF117902C2B3001003D5BB6 /* VaultTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultTest.swift; sourceTree = "<group>"; };
-		3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault1Test.swift; sourceTree = "<group>"; };
+		3BF1179B2C2B5050003D5BB6 /* VaultTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultTest.swift; sourceTree = "<group>"; };
+		3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gRPCHandler.swift; sourceTree = "<group>"; };
+		3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 		16F0E67628C6308600FDD12C = {
 			isa = PBXGroup;
 			children = (
+				3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */,
 				16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */,
 				16F0E69228C6308800FDD12C /* SMSWithoutBorders-ProductionTests */,
 				16F0E69C28C6308800FDD12C /* SMSWithoutBorders-ProductionUITests */,
@@ -224,8 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				16F0E69328C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift */,
-				3BF117902C2B3001003D5BB6 /* VaultTest.swift */,
-				3BF1179B2C2B5050003D5BB6 /* Vault1Test.swift */,
+				3BF1179B2C2B5050003D5BB6 /* VaultTest.swift */,
 			);
 			path = "SMSWithoutBorders-ProductionTests";
 			sourceTree = "<group>";
@@ -289,6 +291,7 @@
 			children = (
 				3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */,
 				3BF1178E2C2A2B67003D5BB6 /* Vault.swift */,
+				3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 			files = (
 				16F0E68A28C6308800FDD12C /* Preview Assets.xcassets in Resources */,
 				16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */,
+				3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +501,7 @@
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
+				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				3B37F27E2C1DBB71008D5BE9 /* OAuth.swift in Sources */,
@@ -518,9 +523,8 @@
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BF117822C290679003D5BB6 /* vault.grpc.swift in Sources */,
 				3BF1178B2C2A2876003D5BB6 /* OnboardingWelcomeView.swift in Sources */,
-				3BF1179C2C2B5050003D5BB6 /* Vault1Test.swift in Sources */,
+				3BF1179C2C2B5050003D5BB6 /* VaultTest.swift in Sources */,
 				3BF117832C290679003D5BB6 /* vault.proto in Sources */,
-				3BF117912C2B3001003D5BB6 /* VaultTest.swift in Sources */,
 				3BF117842C290679003D5BB6 /* vault.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,6 +613,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -664,6 +669,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};

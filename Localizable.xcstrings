@@ -1,0 +1,28 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "vault_url_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "staging.smswithoutborders.com"
+          }
+        }
+      }
+    },
+    "vault_url_production" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "staging.smswithoutborders.com"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
