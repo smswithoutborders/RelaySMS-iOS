@@ -1,6 +1,111 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "Add Accounts" : {
+
+    },
+    "Already have an account?" : {
+
+    },
+    "An error occured, stay calm!" : {
+
+    },
+    "Authenticate" : {
+
+    },
+    "Authenticating! Please hold on..." : {
+
+    },
+    "Available Platforms" : {
+
+    },
+    "Bcc " : {
+
+    },
+    "Cc " : {
+
+    },
+    "Click to start synchronization!" : {
+
+    },
+    "Compose email" : {
+
+    },
+    "Compose Tweet" : {
+
+    },
+    "composeBody" : {
+
+    },
+    "Create new" : {
+
+    },
+    "English" : {
+
+    },
+    "Enter your password" : {
+
+    },
+    "Finish" : {
+
+    },
+    "Get started!" : {
+
+    },
+    "Login" : {
+
+    },
+    "No account yet?" : {
+
+    },
+    "No Recent Messages" : {
+
+    },
+    "Password" : {
+
+    },
+    "password..." : {
+
+    },
+    "Phone Number (e.g) +237123456789" : {
+
+    },
+    "Read our privacy policy" : {
+
+    },
+    "Recents" : {
+
+    },
+    "Send" : {
+
+    },
+    "Sign-in" : {
+
+    },
+    "Sign-up" : {
+
+    },
+    "skip" : {
+
+    },
+    "Subject " : {
+
+    },
+    "textBody" : {
+
+    },
+    "To " : {
+
+    },
+    "Tweet" : {
+
+    },
+    "Use SMS to make a post, send an email or message your closed ones" : {
+
+    },
     "vault_url_debug" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -22,6 +127,12 @@
           }
         }
       }
+    },
+    "Welcome" : {
+
+    },
+    "Welcome to RelaySMS" : {
+
     }
   },
   "version" : "1.0"
