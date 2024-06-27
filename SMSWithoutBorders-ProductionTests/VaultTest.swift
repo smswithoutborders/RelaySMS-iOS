@@ -15,32 +15,21 @@ import Logging
 
 struct VaultTest {
     var vault = Vault()
-    var phoneNumber = "+2371234567891"
+    var phoneNumber = "+2371234567892"
     var password = "dMd2Kmo9"
     var ownershipProof = "123456"
     
     var clientPublishPubKey = ""
     var clientDeviceIDPubKey = ""
     
-    @Test func entityCreationTest() throws {
-        do {
-            let entityCreationResponse = try vault.createEntity(phoneNumber: phoneNumber)
-            
-            XCTAssertTrue(entityCreationResponse != nil)
-            
-            print("message says: \(entityCreationResponse?.message)")
-            
-            XCTAssertTrue(((entityCreationResponse?.requiresOwnershipProof) != nil))
-        } catch {
-            throw error
-        }
-        
-    }
     
-    @Test func entityCreation2Test() throws {
+    @Test func endToEndTest() throws {
+        var entityCreationResponse = try vault.createEntity(phoneNumber: phoneNumber)
+        XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
+        
         let countryCode = "CM"
         
-        let entityCreationResponse = try vault.createEntity2(
+        entityCreationResponse = try vault.createEntity2(
             phoneNumber: phoneNumber,
             countryCode: countryCode,
             password: password,
@@ -50,26 +39,20 @@ struct VaultTest {
         print("message says: \(entityCreationResponse.message)")
         
         XCTAssertFalse(entityCreationResponse.requiresOwnershipProof)
-    }
-    
-    
-    @Test func authenticateEntity() throws {
+        
+        try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
+
+        var response = try vault.authenticateEntity2(phoneNumber: phoneNumber,
+                                      clientPublishPubKey: clientPublishPubKey,
+                                      clientDeviceIDPubKey: clientDeviceIDPubKey,
+                                      ownershipResponse: ownershipProof)
+        
         let authenticationResponse = try vault.authenticateEntity(
             phoneNumber: phoneNumber, password: password)
         
-        try vault.authenticateEntity2(phoneNumber: phoneNumber,
-                                      clientPublishPubKey: clientPublishPubKey,
-                                      clientDeviceIDPubKey: clientDeviceIDPubKey)
-    }
-    
-    @Test func listStoredEntityTokens() throws {
-        let authenticationResponse = try vault.authenticateEntity(
-            phoneNumber: phoneNumber, password: password)
+        let response1 = try vault.listStoredEntityToken(
+            longLiveToken: response.longLivedToken)
         
-        let llt = try vault.authenticateEntity2(phoneNumber: phoneNumber,
-                                      clientPublishPubKey: clientPublishPubKey,
-                                      clientDeviceIDPubKey: clientDeviceIDPubKey)
-        
-        let storedTokens = try vault.listStoredEntityToken(longLiveToken: llt)
+        XCTAssertEqual(response1.storedTokens, [])
     }
 }
