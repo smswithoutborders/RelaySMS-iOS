@@ -7,6 +7,7 @@
 
 import Testing
 import XCTest
+import CryptoKit
 
 @testable import SMSWithoutBorders
 
@@ -14,11 +15,35 @@ struct CryptoTest {
 
     @Test func curve25519Test() throws {
         let keystoreAlias = "example-keystoreAlias"
-        let x = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAlias)
+        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAlias)
+        
+        var x: Curve25519.KeyAgreement.PrivateKey
+        do {
+            x = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAlias)
+        } catch SecurityCurve25519.Exceptions.DuplicateKeys {
+            x = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAlias)
+        }
         
         let x1 = try SecurityCurve25519.getKeyPair(keystoreAlias: keystoreAlias)
         
         XCTAssertEqual(x.publicKey.rawRepresentation, x1?.publicKey.rawRepresentation)
+        XCTAssertEqual(x.rawRepresentation, x1?.rawRepresentation)
+    }
+    
+    @Test func curve25519ManualTest() throws {
+        let keystoreAlias = "example-keystoreAlias"
+        let peerPublicKeyEncoded = try "w5o0/rPpfxyBqgVPAwb3OufetAt7qoKBsnqLwC2PsR0=".base64Decoded()
+        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAlias)
+        
+        let x = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAlias)
+        print("PK: \(x.publicKey.rawRepresentation.base64EncodedString())")
+
+        let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublicKeyEncoded)
+        let sharedKey = try SecurityCurve25519.calculateSharedSecret(
+            privateKey: x, publicKey: peerPublicKey).withUnsafeBytes {
+                return Data(Array($0)).base64URLEncodedString()
+            }
+        print("DK: \(sharedKey)")
     }
 
 }

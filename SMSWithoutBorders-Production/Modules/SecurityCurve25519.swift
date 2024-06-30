@@ -9,20 +9,14 @@ import CryptoKit
 import Foundation
 
 /// An error we can throw when something goes wrong.
-struct KeyStoreError: Error, CustomStringConvertible {
-    var message: String
-
-    init(_ message: String) {
-        self.message = message
-    }
-
-    public var description: String {
-        return message
-    }
-}
-
 class SecurityCurve25519 {
-    
+    enum Exceptions: Error {
+        case DuplicateKeys
+        case FailedToStoreItem
+        case FailedToCreateSecKey
+        case KeychainFailedToRead
+    }
+
     public static func generateKeyPair(keystoreAlias: String) throws -> Curve25519.KeyAgreement.PrivateKey {
         let privateKey = Curve25519.KeyAgreement.PrivateKey()
         let publicKey = privateKey.publicKey
@@ -35,7 +29,7 @@ class SecurityCurve25519 {
         // Get a SecKey representation.
         guard let secKey = SecKeyCreateWithData(privateKey.rawRepresentation as CFData, attributes as CFDictionary, nil)
         else {
-            throw KeyStoreError("Unable to create SecKey representation.")
+            throw Exceptions.FailedToCreateSecKey
         }
         
         // Describe the add operation.
@@ -48,7 +42,10 @@ class SecurityCurve25519 {
         // Add the key to the keychain.
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else {
-            throw KeyStoreError("Unable to store item: \(status.description)")
+            if status == errSecDuplicateItem {
+                throw Exceptions.DuplicateKeys
+            }
+            throw Exceptions.FailedToStoreItem
         }
         
         return privateKey
@@ -76,7 +73,7 @@ class SecurityCurve25519 {
                 }
             }
         case errSecItemNotFound: return nil
-        case let status: throw KeyStoreError("Keychain read failed: \(status.description)")
+        case let status: throw Exceptions.KeychainFailedToRead
         }
         return privateKey
     }
@@ -87,9 +84,12 @@ class SecurityCurve25519 {
         
         do {
             let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
+            sharedSecret.withUnsafeBytes {
+                print("SK: \(Data(Array($0)).base64EncodedString())")
+            }
             return sharedSecret.hkdfDerivedSymmetricKey(
                 using: SHA256.self,
-                salt: "".data(using:.utf8)!,
+                salt: Data(),
                 sharedInfo: "x25591_key_exchange".data(using: .utf8)!,
                 outputByteCount: 32)
         } catch {

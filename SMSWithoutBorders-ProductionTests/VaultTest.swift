@@ -10,20 +10,43 @@ import GRPC
 import NIO
 import XCTest
 import Logging
+import CryptoKit
+import Fernet
 
 @testable import SMSWithoutBorders
 
 struct VaultTest {
     var vault = Vault()
-    var phoneNumber = "+2371234567892"
+    var phoneNumber = "+2371234567879"
     var password = "dMd2Kmo9"
     var ownershipProof = "123456"
-    
-    var clientPublishPubKey = ""
-    var clientDeviceIDPubKey = ""
-    
+    var keystoreAliasPublishPubKey = "vault-test-keystoreAlias-pub-key"
+    var keystoreAliasDeviceIDPubKey = "vault-test-keystoreAlias-device-id-key"
+
     
     @Test func endToEndTest() throws {
+        var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+        
+        var clientPublishPubKey: String
+        var clientDeviceIDPubKey: String
+        
+        do {
+            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
+            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+            clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
+                .publicKey.rawRepresentation.base64EncodedString()
+        } catch SecurityCurve25519.Exceptions.DuplicateKeys {
+            CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
+            CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
+            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
+            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+            clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
+                .publicKey.rawRepresentation.base64EncodedString()
+        } catch {
+            throw error
+        }
+        print("PK: \(clientDeviceIDPubKey)")
+
         var entityCreationResponse = try vault.createEntity(phoneNumber: phoneNumber)
         XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
         
@@ -47,11 +70,19 @@ struct VaultTest {
                                       clientDeviceIDPubKey: clientDeviceIDPubKey,
                                       ownershipResponse: ownershipProof)
         
-        let authenticationResponse = try vault.authenticateEntity(
-            phoneNumber: phoneNumber, password: password)
+        let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: response.serverDeviceIDPubKey.base64Decoded())
+        let sharedKey = try SecurityCurve25519.calculateSharedSecret(
+            privateKey: clientDeviceIDPrivateKey!, publicKey: peerPublicKey).withUnsafeBytes {
+                return Data(Array($0))
+            }
         
-        let response1 = try vault.listStoredEntityToken(
-            longLiveToken: response.longLivedToken)
+        let fernetToken = try Fernet(key: Data(sharedKey))
+        let decodedOutput = try fernetToken.decode(Data(base64Encoded: response.longLivedToken)!)
+        XCTAssertTrue(decodedOutput.hmacSuccess)
+        
+        let llt = String(data: decodedOutput.data, encoding: .utf8)
+
+        let response1 = try vault.listStoredEntityToken( longLiveToken: llt!)
         
         XCTAssertEqual(response1.storedTokens, [])
     }

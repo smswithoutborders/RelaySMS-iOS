@@ -36,6 +36,21 @@ class CSecurity {
         return true
     }
     
+    public static func deleteFromKeyChain(keystoreAlias: String) -> Bool {
+        var attributes: [String: Any] = [kSecClass as String: kSecClassKey]
+        attributes[kSecAttrApplicationLabel as String] = keystoreAlias
+        
+        let status = SecItemDelete(attributes as CFDictionary)
+        
+        guard status != errSecItemNotFound else {
+            print("Cannot update, shared key not even stored in the first place")
+            return false
+        }
+        
+        print("successfully deleted keychain")
+        return true
+    }
+    
     func deleteInKeyChain() -> Bool {
         var attributes = self.query
         attributes[kSecAttrAccount as String] = sharedKeyTagLable
@@ -46,11 +61,6 @@ class CSecurity {
             print("Cannot update, shared key not even stored in the first place")
             return false
         }
-        
-//        guard status != errSecSuccess else {
-//            print("Failed to delete keys: \(status)")
-//            return false
-//        }
         
         print("successfully deleted keychain")
         return true
