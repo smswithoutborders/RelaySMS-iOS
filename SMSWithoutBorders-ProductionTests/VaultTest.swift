@@ -17,7 +17,7 @@ import Fernet
 
 struct VaultTest {
     var vault = Vault()
-    var phoneNumber = "+2371234567879"
+    var phoneNumber = "+2371234567869"
     var password = "dMd2Kmo9"
     var ownershipProof = "123456"
     var keystoreAliasPublishPubKey = "vault-test-keystoreAlias-pub-key"

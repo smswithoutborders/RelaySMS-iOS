@@ -1,5 +1,5 @@
 {
-  "originHash" : "b59ead6e86c62f0059cbfaa5460588b15c7e9486e5b2b2f8de5f974dca3ea2cd",
+  "originHash" : "f461cc87448d60c6abcb7d85af2a68e6cf3b97133a212831be38a6f8f15c599b",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "c89ed571ae140f8eb1142735e6e23d7bb8c34cb2",
         "version" : "1.7.5"
+      }
+    },
+    {
+      "identity" : "countrypicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mobven/CountryPicker.git",
+      "state" : {
+        "revision" : "6225c2933fea6abdb8171718b22bbe289706a7aa",
+        "version" : "2.0.3"
       }
     },
     {

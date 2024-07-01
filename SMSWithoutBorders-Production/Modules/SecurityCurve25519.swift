@@ -84,9 +84,6 @@ class SecurityCurve25519 {
         
         do {
             let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)
-            sharedSecret.withUnsafeBytes {
-                print("SK: \(Data(Array($0)).base64EncodedString())")
-            }
             return sharedSecret.hkdfDerivedSymmetricKey(
                 using: SHA256.self,
                 salt: Data(),
