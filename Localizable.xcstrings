@@ -40,10 +40,16 @@
     "composeBody" : {
 
     },
+    "Create account" : {
+
+    },
     "Create new" : {
 
     },
     "English" : {
+
+    },
+    "Enter phone number" : {
 
     },
     "Enter your password" : {
@@ -64,6 +70,9 @@
     "No Recent Messages" : {
 
     },
+    "OTP Code" : {
+
+    },
     "Password" : {
       "localizations" : {
         "en" : {
@@ -80,10 +89,16 @@
     "Phone Number (e.g) +237123456789" : {
 
     },
+    "Re-Enter password" : {
+
+    },
     "Read our privacy policy" : {
 
     },
     "Recents" : {
+
+    },
+    "Resend code" : {
 
     },
     "Send" : {
@@ -99,6 +114,9 @@
 
     },
     "Subject " : {
+
+    },
+    "Submit" : {
 
     },
     "textBody" : {

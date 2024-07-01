@@ -12,6 +12,7 @@ import AppAuth
 struct OnboardingIntroToVaults: View {
     @State var currentTab = "intro"
     @State var loginSheetShown = false
+    @State var signupSheetShown = false
     @State var authRequestSheetShown = false
     
     var appDelegate: AppDelegate
@@ -32,7 +33,12 @@ struct OnboardingIntroToVaults: View {
                         }
                         
                         Button("Create new") {
-                            
+                            signupSheetShown = true
+                        }
+                        .sheet(isPresented: $signupSheetShown) {
+                            VStack {
+                                SignupSheetView()
+                            }
                         }
                         .buttonStyle(.borderedProminent)
                     }, 

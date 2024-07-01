@@ -12,7 +12,6 @@ class CSecurity {
     private let sharedKeyTagLable = "com.afkanerd.smswithoutborders.sharedkey"
     
     let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
-    
     func storeInKeyChain(sharedKey: String ) -> Bool {
         var query = self.query
         query[kSecValueData as String] = sharedKey.data(using: .utf8)
@@ -34,6 +33,23 @@ class CSecurity {
             return false
         }
         return true
+    }
+    
+    public static func storeInKeyChain(data: String, keystoreAlias: String) {
+        var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
+        query[kSecValueData as String] = data.data(using: .utf8)
+        query[kSecAttrAccount as String] = keystoreAlias
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        guard status == errSecSuccess else {
+            print("failed to store shared key, what's up with that men, code better")
+            
+            // TODO: throw an exception here
+            if status == errSecDuplicateItem {
+            }
+            return
+        }
     }
     
     public static func deleteFromKeyChain(keystoreAlias: String) -> Bool {
@@ -85,6 +101,28 @@ class CSecurity {
         
         print("successfully updated keychain")
         return true
+    }
+    
+    static func findInKeyChain(keystoreAlias: String) -> String? {
+        var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        query[kSecReturnData as String] = kCFBooleanTrue
+        query[kSecAttrAccount as String] = keystoreAlias
+        
+        var item: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+        guard status != errSecItemNotFound else {
+            print("Failed to fetch stored key")
+            
+            return ""
+        }
+        
+        guard let sharedKey = item as? Data else {
+            print("Some error occured while fetching shared key")
+            return nil
+        }
+        return String(data: sharedKey, encoding: .utf8)!
     }
     
     func findInKeyChain() -> String {
