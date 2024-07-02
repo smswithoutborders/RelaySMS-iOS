@@ -30,17 +30,13 @@ struct VaultTest {
         var clientPublishPubKey: String
         var clientDeviceIDPubKey: String
         
+        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
+        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
+
         do {
-            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
+            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
             clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-            clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
-                .publicKey.rawRepresentation.base64EncodedString()
-        } catch SecurityCurve25519.Exceptions.DuplicateKeys {
-            CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
-            CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
-            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
-            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-            clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
+            clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey
                 .publicKey.rawRepresentation.base64EncodedString()
         } catch {
             throw error

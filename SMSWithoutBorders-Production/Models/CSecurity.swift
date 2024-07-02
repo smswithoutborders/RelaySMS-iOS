@@ -12,6 +12,7 @@ class CSecurity {
     private let sharedKeyTagLable = "com.afkanerd.smswithoutborders.sharedkey"
     
     let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
+    
     func storeInKeyChain(sharedKey: String ) -> Bool {
         var query = self.query
         query[kSecValueData as String] = sharedKey.data(using: .utf8)

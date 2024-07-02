@@ -26,23 +26,17 @@ func signup2(phoneNumber: String,
     var keystoreAliasPublishPubKey = "vault-publish-keystoreAlias"
     var keystoreAliasDeviceIDPubKey = "valut-device-id-keystoreAlias"
     
+    CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
+    CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
+
     var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-    
     
     var clientPublishPubKey: String
     var clientDeviceIDPubKey: String
     do {
-        clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
+        clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
         clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-        clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
-            .publicKey.rawRepresentation.base64EncodedString()
-    } catch SecurityCurve25519.Exceptions.DuplicateKeys {
-        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
-        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
-        clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey)
-        clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-        clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey)
-            .publicKey.rawRepresentation.base64EncodedString()
+        clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey .publicKey.rawRepresentation.base64EncodedString()
     } catch {
         throw error
     }

@@ -17,7 +17,8 @@ class SecurityCurve25519 {
         case KeychainFailedToRead
     }
 
-    public static func generateKeyPair(keystoreAlias: String) throws -> Curve25519.KeyAgreement.PrivateKey {
+    public static func generateKeyPair(keystoreAlias: String) throws -> 
+    (privateKey: Curve25519.KeyAgreement.PrivateKey, secKey: SecKey) {
         let privateKey = Curve25519.KeyAgreement.PrivateKey()
         let publicKey = privateKey.publicKey
         
@@ -47,11 +48,10 @@ class SecurityCurve25519 {
             }
             throw Exceptions.FailedToStoreItem
         }
-        
-        return privateKey
+        return (privateKey, secKey)
     }
     
-    public static func getKeyPair(keystoreAlias: String) throws -> Curve25519.KeyAgreement.PrivateKey? {
+    public static func getKeyPair(keystoreAlias: String) throws -> SecKey? {
         // Seek an elliptic-curve key with a given label.
         let query = [kSecClass: kSecClassKey, kSecAttrApplicationLabel: keystoreAlias,
                      kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom,
@@ -61,21 +61,13 @@ class SecurityCurve25519 {
 
         // Find and cast the result as a SecKey instance.
         var item: CFTypeRef?
-        var privateKey: Curve25519.KeyAgreement.PrivateKey?
         
         switch SecItemCopyMatching(query as CFDictionary, &item) {
         case errSecSuccess:
-            if let keyData = item as? Data {
-                do {
-                    privateKey = try Curve25519.KeyAgreement.PrivateKey(rawRepresentation: keyData)
-                } catch {
-                    print("Failed to construct the private key: \(error)")
-                }
-            }
+            return item as! SecKey
         case errSecItemNotFound: return nil
         case let status: throw Exceptions.KeychainFailedToRead
         }
-        return privateKey
     }
     
     
