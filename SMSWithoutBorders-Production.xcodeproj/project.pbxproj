@@ -80,6 +80,11 @@
 		3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1522C32DC6B003A3AFB /* CountryPicker */; };
 		3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */; };
 		3BF3D1562C32E7E1003A3AFB /* OTPSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */; };
+		3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1178E2C2A2B67003D5BB6 /* Vault.swift */; };
+		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
+		3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
+		3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
+		3BF3D1672C3499B2003A3AFB /* SecurityCurve25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117A22C2DFEE4003D5BB6 /* SecurityCurve25519.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +170,7 @@
 				3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */,
 				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
 				3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */,
+				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
 				3BF117B22C30E1F9003D5BB6 /* Fernet in Frameworks */,
 				3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
 				3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */,
@@ -384,6 +390,7 @@
 				3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */,
 				3BF117B12C30E1F9003D5BB6 /* Fernet */,
 				3BF3D1522C32DC6B003A3AFB /* CountryPicker */,
+				3BF3D1632C349907003A3AFB /* CryptoSwift */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -564,6 +571,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF3D1672C3499B2003A3AFB /* SecurityCurve25519.swift in Sources */,
+				3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */,
+				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
+				3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BF117822C290679003D5BB6 /* vault.grpc.swift in Sources */,
 				3BF3D1502C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
@@ -1062,6 +1073,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */;
 			productName = CountryPicker;
+		};
+		3BF3D1632C349907003A3AFB /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

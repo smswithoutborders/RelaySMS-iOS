@@ -15,7 +15,7 @@ struct CountryPicker: UIViewControllerRepresentable {
     let countryPicker = CountryPickerViewController()
 
     @Binding var country: Country?
-    @Binding var selectedCountryCodeText: String?
+    @Binding var selectedCountryCodeText: String
 
     func makeUIViewController(context: Context) -> CountryPickerViewController {
         countryPicker.selectedCountry = "CM"
@@ -58,7 +58,7 @@ struct SignupSheetView: View {
     @State private var country: Country?
     @State private var showCountryPicker = false
     
-    @State private var selectedCountryCodeText: String? = "Select country"
+    @State private var selectedCountryCodeText: String = "Select country"
     
     @State private var isLoading = false
     
@@ -68,7 +68,9 @@ struct SignupSheetView: View {
 
     var body: some View {
         if(OTPRequired) {
-            OTPSheetView()
+            OTPSheetView(phoneNumber: $phoneNumber,
+                         countryCode: $selectedCountryCodeText,
+                         password: $password)
         }
         else {
             VStack {
@@ -77,7 +79,7 @@ struct SignupSheetView: View {
                         Button {
                             showCountryPicker = true
                         } label: {
-                            Text(selectedCountryCodeText!)
+                            Text(selectedCountryCodeText)
                         }.sheet(isPresented: $showCountryPicker) {
                             CountryPicker(country: $country,
                                           selectedCountryCodeText: $selectedCountryCodeText)

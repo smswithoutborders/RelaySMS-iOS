@@ -74,8 +74,8 @@ func signup2(phoneNumber: String,
 
 
 struct OTPSheetView: View {
-    @Binding var otpCode: String
-    @Binding var loading: Bool
+    @State private var otpCode: String = ""
+    @State private var loading: Bool = false
     @State private var work: Task<Void, Never>?
     
     @Binding var phoneNumber: String
@@ -136,9 +136,7 @@ struct OTPSheetView: View {
     @State var phoneNumber: String = ""
     @State var countryCode: String = ""
     @State var loading: Bool = false
-    OTPSheetView(otpCode: $otpCode,
-                 loading: $loading,
-                 phoneNumber: $phoneNumber,
+    OTPSheetView(phoneNumber: $phoneNumber,
                  countryCode: $countryCode,
                  password: $password)
 }
