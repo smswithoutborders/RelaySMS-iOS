@@ -9,13 +9,13 @@ import SwiftUI
 import CryptoKit
 import Fernet
 
-func storeLongLivedToken(llt: String) {
-    let lltKeystoreAlias = "longlivedtoken_keystoreAlias"
-    let retrievedLlt = CSecurity.findInKeyChain(keystoreAlias: lltKeystoreAlias)
-    if(retrievedLlt != nil && retrievedLlt != llt) {
-        CSecurity.storeInKeyChain(data: llt, keystoreAlias: lltKeystoreAlias)
-    }
-}
+//func storeLongLivedToken(llt: String) {
+//    let lltKeystoreAlias = "longlivedtoken_keystoreAlias"
+//    let retrievedLlt = CSecurity.findInKeyChain(keystoreAlias: lltKeystoreAlias)
+//    if(retrievedLlt != nil && retrievedLlt != llt) {
+//        CSecurity.storeInKeyChain(data: llt, keystoreAlias: lltKeystoreAlias)
+//    }
+//}
 
 
 func signup2(phoneNumber: String, 
@@ -23,20 +23,23 @@ func signup2(phoneNumber: String,
              password: String,
              otpCode: String) throws {
     let vault = Vault()
-    var keystoreAliasPublishPubKey = "vault-publish-keystoreAlias"
-    var keystoreAliasDeviceIDPubKey = "valut-device-id-keystoreAlias"
+    var keystoreAliasPublishPubKey = "relaysms-publish-keystoreAlias"
+    var keystoreAliasDeviceIDPubKey = "relaysms-deviceid-keystoreAlias"
     
-    CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasPublishPubKey)
-    CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAliasDeviceIDPubKey)
+    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasPublishPubKey)
+    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasDeviceIDPubKey)
 
     var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-    
+    var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+
     var clientPublishPubKey: String
     var clientDeviceIDPubKey: String
     do {
         clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
         clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-        clientPublishPubKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey .publicKey.rawRepresentation.base64EncodedString()
+        
+        clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey
+        clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
     } catch {
         throw error
     }
@@ -61,9 +64,19 @@ func signup2(phoneNumber: String,
     let decodedOutput = try fernetToken.decode(Data(base64Encoded: response.longLivedToken)!)
     
     let llt = String(data: decodedOutput.data, encoding: .utf8)
-    storeLongLivedToken(llt: llt!)
+    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
+        rawRepresentation: response.serverPublishPubKey.base64Decoded())
     
-    // TODO: store public key
+    let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
+        privateKey: clientPublishPrivateKey!, publicKey: peerPublishPublicKey).withUnsafeBytes {
+            return Data(Array($0))
+        }
+    
+    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, keystoreAlias: "example_long_lived_token")
+    try CSecurity.storeInKeyChain(data: publishingSharedKey, keystoreAlias: "example_publishing_shared_key")
+        
+    let rllt = try CSecurity.findInKeyChain(keystoreAlias: "example_long_lived_token")
+    let rPubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: "example_publishing_shared_key")
 }
 
 
@@ -101,7 +114,7 @@ struct OTPSheetView: View {
                                 password: password,
                                 otpCode: otpCode )
                         } catch {
-                            
+                            print("Error with second phase signup: \(error)")
                         }
                     }
                     loading = true

@@ -9,6 +9,14 @@ import Foundation
 
 
 class CSecurity {
+     enum Exceptions: Error {
+        case DuplicateKeys
+        case FailedToStoreItem
+         case FailedToFetchStoredItem
+         case ErrorOccuredDerivingItem
+        case FailedToCreateSecKey
+        case KeychainFailedToRead
+    }
     private let sharedKeyTagLable = "com.afkanerd.smswithoutborders.sharedkey"
     
     let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
@@ -36,26 +44,43 @@ class CSecurity {
         return true
     }
     
-    public static func storeInKeyChain(data: String, keystoreAlias: String) {
-        var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
-        query[kSecValueData as String] = data.data(using: .utf8)
-        query[kSecAttrAccount as String] = keystoreAlias
-        
+    public static func storeInKeyChain(data: Data, keystoreAlias: String) throws {
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecValueData as String: data,
+            kSecAttrAccount as String: keystoreAlias]
+            
         let status = SecItemAdd(query as CFDictionary, nil)
         
         guard status == errSecSuccess else {
-            print("failed to store shared key, what's up with that men, code better")
+            print("Error storing in keychain: \(status.description)")
             
-            // TODO: throw an exception here
             if status == errSecDuplicateItem {
+                throw Exceptions.DuplicateKeys
             }
             return
         }
     }
     
-    public static func deleteFromKeyChain(keystoreAlias: String) -> Bool {
+    public static func deleteKeyFromKeychain(keystoreAlias: String) -> Bool {
         var attributes: [String: Any] = [kSecClass as String: kSecClassKey]
         attributes[kSecAttrApplicationLabel as String] = keystoreAlias
+        
+        let status = SecItemDelete(attributes as CFDictionary)
+        
+        guard status != errSecItemNotFound else {
+            print("Cannot update, shared key not even stored in the first place")
+            return false
+        }
+        
+        print("successfully deleted keychain")
+        return true
+    }
+    
+    public static func deletePasswordFromKeychain(keystoreAlias: String) -> Bool {
+        let attributes: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: keystoreAlias]
         
         let status = SecItemDelete(attributes as CFDictionary)
         
@@ -104,7 +129,7 @@ class CSecurity {
         return true
     }
     
-    static func findInKeyChain(keystoreAlias: String) -> String? {
+    static func findInKeyChain(keystoreAlias: String) throws -> Data {
         var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword]
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
@@ -114,16 +139,13 @@ class CSecurity {
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         
         guard status != errSecItemNotFound else {
-            print("Failed to fetch stored key")
-            
-            return ""
+            throw Exceptions.FailedToFetchStoredItem
         }
         
         guard let sharedKey = item as? Data else {
-            print("Some error occured while fetching shared key")
-            return nil
+            throw Exceptions.ErrorOccuredDerivingItem
         }
-        return String(data: sharedKey, encoding: .utf8)!
+        return sharedKey
     }
     
     func findInKeyChain() -> String {

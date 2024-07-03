@@ -15,7 +15,7 @@ struct CryptoTest {
 
     @Test func curve25519Test() throws {
         let keystoreAlias = "example-keystoreAlias"
-        CSecurity.deleteFromKeyChain(keystoreAlias: keystoreAlias)
+        CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAlias)
         
         let x = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAlias)
 
