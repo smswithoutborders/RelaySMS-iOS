@@ -9,13 +9,9 @@ import SwiftUI
 import CryptoKit
 import Fernet
 
-//func storeLongLivedToken(llt: String) {
-//    let lltKeystoreAlias = "longlivedtoken_keystoreAlias"
-//    let retrievedLlt = CSecurity.findInKeyChain(keystoreAlias: lltKeystoreAlias)
-//    if(retrievedLlt != nil && retrievedLlt != llt) {
-//        CSecurity.storeInKeyChain(data: llt, keystoreAlias: lltKeystoreAlias)
-//    }
-//}
+func authenticate2() {
+    
+}
 
 
 func signup2(phoneNumber: String, 
@@ -52,41 +48,59 @@ func signup2(phoneNumber: String,
         clientDeviceIdPubKey: clientDeviceIDPubKey,
         ownershipResponse: otpCode)
     
-    let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: response.serverDeviceIDPubKey.base64Decoded())
+    try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+               peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+               llt: response.longLivedToken,
+               clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
+               clientPublishPrivateKey: clientPublishPrivateKey!)
+}
+
+private func processOTP(peerDeviceIDPubKey: [UInt8],
+                        peerPublishPubKey: [UInt8],
+                        llt: String,
+                        clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey,
+                        clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws {
+    
+    let longLivedTokenKeystoreAlias = "com.afkanerd.relaysms.long_lived_token"
+    let publishingSharedKeyKeystoreAlias = "com.afkanerd.relaysms.publishing_shared_key"
+
+    let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIDPubKey)
     
     let sharedKey = try SecurityCurve25519.calculateSharedSecret(
-        privateKey: clientDeviceIDPrivateKey!,
+        privateKey: clientDeviceIDPrivateKey,
         publicKey: peerPublicKey).withUnsafeBytes {
             return Data(Array($0))
         }
         
     let fernetToken = try Fernet(key: Data(sharedKey))
-    let decodedOutput = try fernetToken.decode(Data(base64Encoded: response.longLivedToken)!)
+    let decodedOutput = try fernetToken.decode(Data(base64Encoded: llt)!)
     
     let llt = String(data: decodedOutput.data, encoding: .utf8)
-    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
-        rawRepresentation: response.serverPublishPubKey.base64Decoded())
+    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)
     
     let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
-        privateKey: clientPublishPrivateKey!, publicKey: peerPublishPublicKey).withUnsafeBytes {
+        privateKey: clientPublishPrivateKey, publicKey: peerPublishPublicKey).withUnsafeBytes {
             return Data(Array($0))
         }
     
-    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, keystoreAlias: "example_long_lived_token")
-    try CSecurity.storeInKeyChain(data: publishingSharedKey, keystoreAlias: "example_publishing_shared_key")
-        
-    let rllt = try CSecurity.findInKeyChain(keystoreAlias: "example_long_lived_token")
-    let rPubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: "example_publishing_shared_key")
+    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, keystoreAlias: longLivedTokenKeystoreAlias)
+    try CSecurity.storeInKeyChain(data: publishingSharedKey, keystoreAlias: publishingSharedKeyKeystoreAlias)
 }
 
 
 struct OTPSheetView: View {
+    enum TYPE {
+        case AUTHENTICATE
+        case CREATE
+    }
     @State private var otpCode: String = ""
     @State private var loading: Bool = false
     @State private var work: Task<Void, Never>?
     
+    @State public var type: TYPE
+
     @Binding var phoneNumber: String
-    @Binding var countryCode: String
+    @Binding var countryCode: String?
     @Binding var password: String
 
     var body: some View {
@@ -110,7 +124,7 @@ struct OTPSheetView: View {
                         do {
                             try signup2(
                                 phoneNumber: phoneNumber,
-                                countryCode: countryCode,
+                                countryCode: countryCode!,
                                 password: password,
                                 otpCode: otpCode )
                         } catch {
@@ -141,9 +155,9 @@ struct OTPSheetView: View {
     @State var otpCode: String = ""
     @State var password: String = ""
     @State var phoneNumber: String = ""
-    @State var countryCode: String = ""
+    @State var countryCode: String? = ""
     @State var loading: Bool = false
-    OTPSheetView(phoneNumber: $phoneNumber,
+    OTPSheetView(type: OTPSheetView.TYPE.CREATE, phoneNumber: $phoneNumber,
                  countryCode: $countryCode,
                  password: $password)
 }

@@ -21,7 +21,7 @@ struct CryptoTest {
 
         let x1 = try SecurityCurve25519.getKeyPair(keystoreAlias: keystoreAlias)
         
-        XCTAssertEqual(x.secKey, x1)
+        XCTAssertEqual(x.privateKey.rawRepresentation, x1?.rawRepresentation)
     }
     
 //    @Test func curve25519ManualTest() throws {
