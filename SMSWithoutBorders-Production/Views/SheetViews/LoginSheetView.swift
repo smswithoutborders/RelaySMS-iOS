@@ -7,38 +7,63 @@
 
 import SwiftUI
 
-func authenticate(phoneNumber: String, password: String) throws -> Vault_V1_AuthenticateEntityResponse {
+nonisolated func authenticate(phoneNumber: String, password: String) async throws -> Vault_V1_AuthenticateEntityResponse {
     let vault = Vault()
     return try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
 }
 
 struct LoginSheetView: View {
-    @State private var phoneNumber: String = ""
-    @State private var password: String = ""
+    
+    #if DEBUG
+        @State private var phoneNumber: String = "+2371234567"
+        @State private var password: String = "dummy_password"
+    #else
+        @State private var phoneNumber: String = ""
+        @State private var password: String = ""
+    #endif
+    
     @State private var OTPRequired = false
     @State private var countryCode: String? = nil
+    
+    @State private var isLoading = false
 
     @State var work: Task<Void, Never>?
+    
+    @Binding var completed: Bool
+    @Binding var failed: Bool
 
     var body: some View {
         if(OTPRequired) {
             OTPSheetView(type: OTPSheetView.TYPE.AUTHENTICATE,
                          phoneNumber: $phoneNumber,
                          countryCode: $countryCode,
-                         password: $password)
+                         password: $password,
+                         completed: $completed,
+                         failed: $failed)
         }
         else {
             Form {
                 TextField("Phone Number (e.g) +237123456789", text: $phoneNumber)
                 SecureField("Password", text: $password)
                 
-                Button("Login") {
-                    work = Task {
-                        do {
-                            OTPRequired = try authenticate(phoneNumber: phoneNumber, password: password).requiresOwnershipProof
-                        } catch {
-                            print("Something went wrong authenticating: \(error)")
+                if(isLoading) {
+                    ProgressView()
+                }
+                else {
+                    Button("Login") {
+                        isLoading = true
+                        Task {
+                            do {
+                                OTPRequired = try await authenticate(phoneNumber: phoneNumber, password: password).requiresOwnershipProof
+                            } catch {
+                                print("Something went wrong authenticating: \(error)")
+                                isLoading = false
+                                failed = true
+                            }
                         }
+                    }
+                    .alert(isPresented: $failed) {
+                        Alert(title: Text("Error"), message: Text("Something wen't wrong"))
                     }
                 }
             }
@@ -48,5 +73,8 @@ struct LoginSheetView: View {
 }
 
 #Preview {
-    LoginSheetView()
+    
+    @State var completed: Bool = false
+    @State var failed: Bool = false
+    LoginSheetView(completed: $completed, failed: $failed)
 }

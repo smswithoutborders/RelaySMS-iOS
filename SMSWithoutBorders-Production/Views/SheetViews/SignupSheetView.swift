@@ -43,7 +43,7 @@ struct CountryPicker: UIViewControllerRepresentable {
     }
 }
 
-func signup(phonenumber: String) throws -> Vault_V1_CreateEntityResponse {
+nonisolated func signup(phonenumber: String) async throws -> Vault_V1_CreateEntityResponse {
     let vault = Vault()
     return try vault.createEntity(phoneNumber: phonenumber)
 }
@@ -51,27 +51,36 @@ func signup(phonenumber: String) throws -> Vault_V1_CreateEntityResponse {
 
 
 struct SignupSheetView: View {
-    @State private var phoneNumber: String = ""
-    @State private var password: String = ""
-    @State private var rePassword: String = ""
-    
+    #if DEBUG
+        @State private var phoneNumber: String = "+2371234567"
+        @State private var password: String = "dummy_password"
+        @State private var rePassword: String = "dummy_password"
+        @State private var selectedCountryCodeText: String? = "CM"
+    #else
+        @State private var phoneNumber: String = ""
+        @State private var password: String = ""
+        @State private var rePassword: String = ""
+        @State private var selectedCountryCodeText: String? = "Select country"
+    #endif
+
     @State private var country: Country?
     @State private var showCountryPicker = false
-    
-    @State private var selectedCountryCodeText: String? = "Select country"
     
     @State private var isLoading = false
     
     @State private var OTPRequired = false
     
-    @State var work: Task<Void, Never>?
+    @Binding var completed: Bool
+    @Binding var failed: Bool
 
     var body: some View {
         if(OTPRequired) {
             OTPSheetView(type: OTPSheetView.TYPE.CREATE,
                          phoneNumber: $phoneNumber,
                          countryCode: $selectedCountryCodeText,
-                         password: $password)
+                         password: $password,
+                         completed: $completed,
+                         failed: $failed)
         }
         else {
             VStack {
@@ -96,19 +105,20 @@ struct SignupSheetView: View {
                         ProgressView()
                     } else {
                         Button("Create account") {
-                            work = Task {
+                            self.isLoading = true
+                            Task {
                                 do {
-                                    OTPRequired = try signup(phonenumber: phoneNumber)
+                                    OTPRequired = try await signup(phonenumber: phoneNumber)
                                         .requiresOwnershipProof
                                 } catch {
                                     print("Something went wrong \(error)")
+                                    isLoading = false
                                 }
                             }
-                            self.isLoading = true
                         }
-                    }
-                    Button("Already got code") {
-                        OTPRequired = true
+                        Button("Already got code") {
+                            OTPRequired = true
+                        }
                     }
                 }
             }
@@ -117,5 +127,7 @@ struct SignupSheetView: View {
 }
 
 #Preview {
-    SignupSheetView()
+    @State var completed: Bool = false
+    @State var failed: Bool = false
+    SignupSheetView(completed: $completed, failed: $failed)
 }

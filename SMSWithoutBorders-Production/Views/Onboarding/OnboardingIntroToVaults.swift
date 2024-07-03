@@ -10,15 +10,21 @@ import AppAuthCore
 import AppAuth
 
 struct OnboardingIntroToVaults: View {
-    @State var currentTab = "intro"
+    
+    @State private var introTab = "introTab"
+    @State private var exampleTab = "exampleTab"
+    
     @State var loginSheetShown = false
     @State var signupSheetShown = false
     @State var authRequestSheetShown = false
     
+    @State var completed: Bool = false
+    @State var failed: Bool = false
+
     var appDelegate: AppDelegate
 
     var body: some View {
-        TabView(selection: $currentTab) {
+        TabView(selection: completed ? $exampleTab : $introTab) {
             VStack {
                 Tab(buttonView:
                     Group {
@@ -28,7 +34,7 @@ struct OnboardingIntroToVaults: View {
                         .buttonStyle(.borderedProminent)
                         .sheet(isPresented: $loginSheetShown) {
                             VStack {
-                                LoginSheetView()
+                                LoginSheetView(completed: $completed, failed: $failed)
                             }
                         }
                         
@@ -37,7 +43,7 @@ struct OnboardingIntroToVaults: View {
                         }
                         .sheet(isPresented: $signupSheetShown) {
                             VStack {
-                                SignupSheetView()
+                                SignupSheetView(completed: $completed, failed: $failed)
                             }
                         }
                         .buttonStyle(.borderedProminent)
@@ -49,7 +55,7 @@ struct OnboardingIntroToVaults: View {
                     subDescription: "Create a new RelaySMS Vault account or signup to your existing."
                 )
             }
-            .tag("intro")
+            .tag(introTab)
             
             VStack {
                 Tab(buttonView:
@@ -64,7 +70,7 @@ struct OnboardingIntroToVaults: View {
                     subDescription: "The Vault supports storing for multiple online paltforms. Click Add Accounts storage to see the list"
                 )
             }
-            .tag("example-store")
+            .tag(exampleTab)
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
@@ -73,5 +79,5 @@ struct OnboardingIntroToVaults: View {
 
 #Preview {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    return OnboardingIntroToVaults(currentTab: "example-store", appDelegate: appDelegate)
+    OnboardingIntroToVaults(appDelegate: appDelegate)
 }
