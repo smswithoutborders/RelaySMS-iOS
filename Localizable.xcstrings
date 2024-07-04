@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "(%lld)" : {
+
+    },
     "Add Accounts" : {
 
     },
@@ -95,6 +98,42 @@
     "Phone Number (e.g) +237123456789" : {
 
     },
+    "publisher_port_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9060"
+          }
+        }
+      }
+    },
+    "publisher_port_production" : {
+      "extractionState" : "manual"
+    },
+    "publisher_url_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "staging.smswithoutborders.com"
+          }
+        }
+      }
+    },
+    "publisher_url_production" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "smswithoutbordres.com"
+          }
+        }
+      }
+    },
     "Re-Enter password" : {
 
     },
@@ -140,6 +179,20 @@
     "Use SMS to make a post, send an email or message your closed ones" : {
 
     },
+    "vault_port_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9050"
+          }
+        }
+      }
+    },
+    "vault_port_production" : {
+      "extractionState" : "manual"
+    },
     "vault_url_debug" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -157,7 +210,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "staging.smswithoutborders.com"
+            "value" : "smswithoutborders.com"
           }
         }
       }

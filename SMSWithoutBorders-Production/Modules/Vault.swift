@@ -21,7 +21,7 @@ class Vault {
     var vaultEntityStub: Vault_V1_EntityNIOClient?
 
     init() {
-        channel = GRPCHandler.getChannel()
+        channel = GRPCHandler.getChannelVault()
         let logger = Logger(label: "gRPC", factory: StreamLogHandler.standardOutput(label:))
         callOptions = CallOptions.init(logger: logger)
         vaultEntityStub = Vault_V1_EntityNIOClient.init(channel: channel!,

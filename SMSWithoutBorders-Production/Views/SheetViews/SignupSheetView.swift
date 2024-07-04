@@ -72,10 +72,13 @@ struct SignupSheetView: View {
     
     @Binding var completed: Bool
     @Binding var failed: Bool
+    
+    @State var otpRetryTimer: Int = 0
 
     var body: some View {
         if(OTPRequired) {
             OTPSheetView(type: OTPSheetView.TYPE.CREATE,
+                         retryTimer: otpRetryTimer,
                          phoneNumber: $phoneNumber,
                          countryCode: $selectedCountryCodeText,
                          password: $password,
@@ -108,8 +111,9 @@ struct SignupSheetView: View {
                             self.isLoading = true
                             Task {
                                 do {
-                                    OTPRequired = try await signup(phonenumber: phoneNumber)
-                                        .requiresOwnershipProof
+                                    let response = try await signup(phonenumber: phoneNumber)
+                                    self.otpRetryTimer = Int(response.nextAttemptTimestamp)
+                                    OTPRequired = response.requiresOwnershipProof
                                 } catch {
                                     print("Something went wrong \(error)")
                                     isLoading = false

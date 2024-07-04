@@ -120,6 +120,9 @@ struct OTPSheetView: View {
     @State private var loading: Bool = false
     
     @State public var type: TYPE
+    
+    @State public var retryTimer: Int
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     @Binding var phoneNumber: String
     @Binding var countryCode: String?
@@ -169,8 +172,15 @@ struct OTPSheetView: View {
                         .padding()
                 }
                 
-                Button("Resend code") {
-                    dismiss()
+                HStack {
+                    Button("Resend code") {
+                        dismiss()
+                    }
+                    Text("(\(retryTimer))").onReceive(timer) { _ in
+                        if retryTimer > 0 {
+                            retryTimer -= 1
+                        }
+                    }
                 }
             }
         }
@@ -188,6 +198,7 @@ struct OTPSheetView: View {
     @State var completed: Bool = false
     @State var failed: Bool = false
     OTPSheetView(type: OTPSheetView.TYPE.CREATE,
+                 retryTimer: 100000, 
                  phoneNumber: $phoneNumber,
                  countryCode: $countryCode,
                  password: $password,

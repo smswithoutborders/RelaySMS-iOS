@@ -31,11 +31,13 @@ struct LoginSheetView: View {
     
     @Binding var completed: Bool
     @Binding var failed: Bool
+    
+    @State var otpRetryTimer: Int = 0
 
     var body: some View {
         if(OTPRequired) {
             OTPSheetView(type: OTPSheetView.TYPE.AUTHENTICATE,
-                         phoneNumber: $phoneNumber,
+                         retryTimer: otpRetryTimer, phoneNumber: $phoneNumber,
                          countryCode: $countryCode,
                          password: $password,
                          completed: $completed,
@@ -54,8 +56,11 @@ struct LoginSheetView: View {
                         isLoading = true
                         Task {
                             do {
-                                OTPRequired = try await authenticate(phoneNumber: phoneNumber, password: password).requiresOwnershipProof
+                                let response = try await authenticate(phoneNumber: phoneNumber, password: password)
+                                self.otpRetryTimer = Int(response.nextAttemptTimestamp)
+                                OTPRequired = response.requiresOwnershipProof
                             } catch {
+                                
                                 print("Something went wrong authenticating: \(error)")
                                 isLoading = false
                                 failed = true
