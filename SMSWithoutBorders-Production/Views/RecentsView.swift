@@ -90,7 +90,7 @@ struct RecentsViewAdapter: View {
                             x: 3,
                             y: 3)
                     .sheet(isPresented: $showPlatforms) {
-                        AvailablePlatformsView(platform: $platform, platformType: $platformType)
+                        AvailablePlatformsView()
 //                            .environment(\.managedObjectContext, datastore)
 //                        NavigationView {
 //                            List(platforms) { platform in

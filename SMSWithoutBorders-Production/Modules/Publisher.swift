@@ -60,11 +60,11 @@ class Publisher {
         return response
     }
     
-    struct PlatformsData: Codable {
+    public struct PlatformsData: Codable {
         let name: String
         let shortcode: String
-        let serviceType: String
-        let protocolType: String
+        let service_type: String
+        let protocol_type: String
     }
     
     static func getPlatforms(completion: @escaping (Result<[PlatformsData], Error>) -> Void) {
@@ -80,4 +80,5 @@ class Publisher {
             }
         }
     }
+    
 }
