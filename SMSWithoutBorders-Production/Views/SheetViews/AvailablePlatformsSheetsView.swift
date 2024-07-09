@@ -8,28 +8,6 @@
 import SwiftUI
 import SwiftSVG
 
-let jsonString = """
-[
-    {
-        "name": "gmail",
-        "shortcode": "g",
-        "service_type": "email",
-        "protocol_type": "oauth2",
-        "image_url":"https://www.macworld.com/wp-content/uploads/2023/01/swift_1200home-1.jpg?quality=50&strip=all"
-
-    },
-    {
-        "name": "twitter",
-        "shortcode": "t",
-        "service_type": "text",
-        "protocol_type": "oauth2",
-        "image_url":"https://www.macworld.com/wp-content/uploads/2023/01/swift_1200home-1.jpg?quality=50&strip=all"
-
-    }
-]
-"""
-
-
 struct SimpleButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -110,7 +88,7 @@ struct AvailablePlatformsSheetsView: View {
                     Button("Close") {
                         dismiss()
                     }
-                    .padding()
+                    .padding(.vertical, 50)
                 }
             }
         }

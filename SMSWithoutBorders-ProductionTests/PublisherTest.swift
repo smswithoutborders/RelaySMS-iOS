@@ -18,6 +18,7 @@ class PublisherTest : XCTestCase {
         let response = try publisher.getURL(platform: "gmail")
         print(response.authorizationURL)
         print(response.clientID)
+        print(response.redirectURL)
     }
     
     func testGetPlatforms() async throws {

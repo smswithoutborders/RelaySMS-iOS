@@ -8,10 +8,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>com.afkanerd.smswithoutborders</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>apps</string>
+				<string>relaysms</string>
 			</array>
 		</dict>
 		<dict/>

@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Sends the URL to the current authorization flow (if any) which will
         // process it if it relates to an authorization response.
+        print("Something came to application: \(url)")
         if let authorizationFlow = self.currentAuthorizationFlow,
                                  authorizationFlow.resumeExternalUserAgentFlow(with: url) {
             self.currentAuthorizationFlow = nil
