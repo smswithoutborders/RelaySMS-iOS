@@ -65,10 +65,12 @@ class Publisher {
         let shortcode: String
         let service_type: String
         let protocol_type: String
+        let icon_svg: String
+        let icon_png: String
     }
     
     static func getPlatforms(completion: @escaping (Result<[PlatformsData], Error>) -> Void) {
-        let platformsUrl = "https://raw.githubusercontent.com/smswithoutborders/SMSWithoutBorders-Publisher/staging/supported_platforms.json"
+        let platformsUrl = "https://raw.githubusercontent.com/smswithoutborders/SMSWithoutBorders-Publisher/staging/resources/platforms.json"
         
         Task {
             do {

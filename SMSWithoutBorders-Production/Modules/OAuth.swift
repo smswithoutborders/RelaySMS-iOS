@@ -40,16 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    func startAuthentication(presenting viewController: UIViewController) {
-        
-        let authorizationEndpoint = URL(string: "https://accounts.google.com/o/oauth2/v2/auth?access_type=offline")!
-        let tokenEndpoint = URL(string: "https://www.googleapis.com/oauth2/v4/token")!
+    func startAuthentication(presenting viewController: UIViewController, 
+                             authorizationEndpoint: URL,
+                             clientID: String, 
+                             redirectURI: URL) {
+        let tokenEndpoint = URL(string: "https://example.com")!
         let configuration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint,
                                                     tokenEndpoint: tokenEndpoint)
         
-        let clientID = "86878463881-3miiph6l8e8almabu5mat1gun3aaumrv.apps.googleusercontent.com"
         let clientSecret = ""
-        let redirectURI = URL(string: "https://example.com")!
         
         // builds authentication request
         request = OIDAuthorizationRequest(configuration: configuration,
@@ -81,13 +80,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-class ViewController: UIViewController {
+class OAuthViewController: UIViewController {
     var appDelegate: AppDelegate?
     
-    init(appDelegate: AppDelegate? = nil) {
+    init(appDelegate: AppDelegate? = nil, url: URL, clientID: String, redirectUrl: URL) {
         super.init(nibName: nil, bundle: nil)
         self.appDelegate = appDelegate
-        self.appDelegate?.startAuthentication(presenting: self)
+        self.appDelegate?.startAuthentication(presenting: self, 
+                                              authorizationEndpoint: url, 
+                                              clientID: clientID,
+                                              redirectURI: redirectUrl)
     }
     
     required init?(coder: NSCoder) {

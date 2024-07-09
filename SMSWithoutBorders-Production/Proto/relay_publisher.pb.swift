@@ -61,6 +61,15 @@ struct Publisher_V1_GetOAuth2AuthorizationUrlResponse {
   /// A response message
   var message: String = String()
 
+  /// The scope of the authorization request
+  var scope: String = String()
+
+  /// The client ID for the OAuth2 application
+  var clientID: String = String()
+
+  /// The redirect URL for the OAuth2 application
+  var redirectURL: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -252,6 +261,9 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlResponse: SwiftProtobuf.Message,
     2: .same(proto: "state"),
     3: .standard(proto: "code_verifier"),
     4: .same(proto: "message"),
+    5: .same(proto: "scope"),
+    6: .standard(proto: "client_id"),
+    7: .standard(proto: "redirect_url"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -264,6 +276,9 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlResponse: SwiftProtobuf.Message,
       case 2: try { try decoder.decodeSingularStringField(value: &self.state) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.codeVerifier) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.scope) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.clientID) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.redirectURL) }()
       default: break
       }
     }
@@ -282,6 +297,15 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlResponse: SwiftProtobuf.Message,
     if !self.message.isEmpty {
       try visitor.visitSingularStringField(value: self.message, fieldNumber: 4)
     }
+    if !self.scope.isEmpty {
+      try visitor.visitSingularStringField(value: self.scope, fieldNumber: 5)
+    }
+    if !self.clientID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientID, fieldNumber: 6)
+    }
+    if !self.redirectURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.redirectURL, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -290,6 +314,9 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlResponse: SwiftProtobuf.Message,
     if lhs.state != rhs.state {return false}
     if lhs.codeVerifier != rhs.codeVerifier {return false}
     if lhs.message != rhs.message {return false}
+    if lhs.scope != rhs.scope {return false}
+    if lhs.clientID != rhs.clientID {return false}
+    if lhs.redirectURL != rhs.redirectURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

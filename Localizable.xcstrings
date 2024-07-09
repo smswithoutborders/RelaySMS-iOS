@@ -37,6 +37,9 @@
     "Click to start synchronization!" : {
 
     },
+    "Close" : {
+
+    },
     "Compose email" : {
 
     },
@@ -74,6 +77,9 @@
 
     },
     "No account yet?" : {
+
+    },
+    "No platforms" : {
 
     },
     "No Recent Messages" : {
@@ -144,6 +150,9 @@
 
     },
     "Resend code" : {
+
+    },
+    "Select a platform to save use for offline access" : {
 
     },
     "Send" : {

@@ -24,7 +24,7 @@ let jsonString = """
 ]
 """
 
-struct AvailablePlatformsView: View {
+struct AvailablePlatformsSheetView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
     
@@ -82,5 +82,5 @@ struct AvailablePlatformsView: View {
 }
 
 #Preview {
-    AvailablePlatformsView()
+    AvailablePlatformsSheetView()
 }

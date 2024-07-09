@@ -20,8 +20,18 @@ struct OnboardingIntroToVaults: View {
     
     @State var completed: Bool = false
     @State var failed: Bool = false
+    @State var availablePlatformsPresented: Bool = false
+    
+    @State private var showSheet = false
+    @State private var sheetHeight: CGFloat = .zero
+    
+    struct InnerHeightPreferenceKey: PreferenceKey {
+        static let defaultValue: CGFloat = .zero
+        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+            value = nextValue()
+        }
+    }
 
-    var appDelegate: AppDelegate
 
     var body: some View {
         TabView(selection: completed ? $exampleTab : $introTab) {
@@ -42,9 +52,7 @@ struct OnboardingIntroToVaults: View {
                             signupSheetShown = true
                         }
                         .sheet(isPresented: $signupSheetShown) {
-                            VStack {
-                                SignupSheetView(completed: $completed, failed: $failed)
-                            }
+                            SignupSheetView(completed: $completed, failed: $failed)
                         }
                         .buttonStyle(.borderedProminent)
                     }, 
@@ -60,7 +68,10 @@ struct OnboardingIntroToVaults: View {
             VStack {
                 Tab(buttonView:
                     Button("Add Accounts") {
-                        ViewController(appDelegate: appDelegate)
+                    self.availablePlatformsPresented = true
+                    }
+                    .sheet(isPresented: $availablePlatformsPresented) {
+                        AvailablePlatformsSheetsView()
                     }
                     .buttonStyle(.borderedProminent),
                     title: "Add Accounts to Vault",
@@ -78,6 +89,5 @@ struct OnboardingIntroToVaults: View {
 }
 
 #Preview {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    OnboardingIntroToVaults(appDelegate: appDelegate)
+    OnboardingIntroToVaults()
 }

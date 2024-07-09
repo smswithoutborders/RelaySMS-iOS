@@ -17,20 +17,21 @@ class PublisherTest : XCTestCase {
         let publisher = Publisher()
         let response = try publisher.getURL(platform: "gmail")
         print(response.authorizationURL)
+        print(response.clientID)
     }
     
-//    func testGetPlatforms() async throws {
-//        let expectation = XCTestExpectation(description: "JSON loading")
-//        Publisher.getPlatforms() { result in
-//            switch result {
-//            case .success(let data):
-//                print("Success: \(data)")
-//            case .failure(let error):
-//                XCTFail("Failed to load JSON data: \(error)")
-//            }
-//            expectation.fulfill()
-//        }
-//        wait(for: [expectation], timeout: 10.0) // Adjust the timeout as needed
-//    }
+    func testGetPlatforms() async throws {
+        let expectation = XCTestExpectation(description: "JSON loading")
+        Publisher.getPlatforms() { result in
+            switch result {
+            case .success(let data):
+                print("Success: \(data)")
+            case .failure(let error):
+                XCTFail("Failed to load JSON data: \(error)")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10.0) // Adjust the timeout as needed
+    }
 
 }

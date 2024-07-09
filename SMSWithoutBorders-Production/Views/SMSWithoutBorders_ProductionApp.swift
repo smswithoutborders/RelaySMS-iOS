@@ -15,8 +15,6 @@ struct ControllerView: View {
     @State private var onboadingViewIndex: Int = 0
     @State private var lastOnboardingView = false
     
-    var appDelegate: AppDelegate
-    
     var body: some View {
         switch self.onboadingViewIndex {
         case ...0:
@@ -31,7 +29,7 @@ struct ControllerView: View {
                     .font(.caption)
             }
         case 1:
-            OnboardingIntroToVaults(appDelegate: appDelegate)
+            OnboardingIntroToVaults()
         default:
             OnboardingFinish(isFinished: $lastOnboardingView)
         }
@@ -39,27 +37,10 @@ struct ControllerView: View {
         HStack {
             if(self.onboadingViewIndex > 0) {
                 if(!lastOnboardingView) {
-//                    Button(action: {
-//                        
-//                    }) {
-//                        Image(systemName: "chevron.backward.circle.fill")
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                        .padding()
-//                    
                     Button("skip") {
                         self.onboadingViewIndex += 1
                     }.frame(alignment: .bottom)
                         .padding()
-                    
-//                    Button(action: {
-//                        
-//                    }) {
-//                        Image(systemName: "chevron.forward.circle.fill")
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                        .padding()
-
                 } else {
                     Button("Finish") {
                         isFinished = true
@@ -83,7 +64,7 @@ struct SMSWithoutBorders_ProductionApp: App {
         WindowGroup {
             Group {
                 if(!isFinished) {
-                    ControllerView(isFinished: $isFinished, appDelegate: appDelegate)
+                    ControllerView(isFinished: $isFinished)
                 }
                 else {
                     RecentsView()
@@ -97,5 +78,5 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var isFinished = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    return ControllerView(isFinished: $isFinished, appDelegate: appDelegate)
+    return ControllerView(isFinished: $isFinished)
 }
