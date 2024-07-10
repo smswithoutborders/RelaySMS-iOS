@@ -55,6 +55,28 @@
     "Create new" : {
 
     },
+    "default_app_scheme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "relaysms"
+          }
+        }
+      }
+    },
+    "default_oauth_path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/"
+          }
+        }
+      }
+    },
     "English" : {
 
     },

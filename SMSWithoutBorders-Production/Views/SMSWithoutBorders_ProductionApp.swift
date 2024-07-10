@@ -15,6 +15,7 @@ struct ControllerView: View {
     @State private var onboadingViewIndex: Int = 0
     @State private var lastOnboardingView = false
     
+    
     var body: some View {
         switch self.onboadingViewIndex {
         case ...0:
@@ -59,6 +60,10 @@ struct ControllerView: View {
 struct SMSWithoutBorders_ProductionApp: App {
     @State var isFinished = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    @State var navigatingFromURL: Bool = false
+    
+    @State var absoluteURLString: String = ""
 
     var body: some Scene {
         WindowGroup {
@@ -69,6 +74,15 @@ struct SMSWithoutBorders_ProductionApp: App {
                 else {
                     RecentsView()
                 }
+            }
+            .environmentObject(appDelegate)
+            .onOpenURL { url in
+                // relaysms://oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/?state=RyPtoLjr9rr4LQvuVXsIIXaIWiIfQLxSYifjgRaAJmI&code=4%2F0ATx3LY7bQpsxfhHVpBR0sSMx0mAI3JWWykGphzsm3q-wfeRhdTcHqq12IXgxNy-XAnLMBA&scope=profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=consent
+                
+                print(url.query)
+                let state = url.valueOf("state")
+                let code = url.valueOf("code")
+                print("state: \(state)\ncode: \(code)")
             }
         }
     }

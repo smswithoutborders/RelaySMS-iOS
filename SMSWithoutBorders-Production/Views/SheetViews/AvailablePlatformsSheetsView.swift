@@ -24,14 +24,16 @@ struct AvailablePlatformsSheetsView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
     
-    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
     @State var services = [Publisher.PlatformsData]()
     
     @State var platformsLoading = false
 
     private let publisher = Publisher()
-
+    
+    @EnvironmentObject var appDelegate: AppDelegate
+    
+    @Environment(\.openURL) var openURL
+    
     var body: some View {
         VStack {
             if(platformsLoading && services.isEmpty) {
@@ -54,13 +56,21 @@ struct AvailablePlatformsSheetsView: View {
                                 VStack {
                                     Button(action: {
                                         do {
+                                            // TODO: making things slow, get it before you need it
                                             let response = try publisher.getURL(platform: service.name)
                                             print(response.authorizationURL)
-                                            OAuthViewController(appDelegate: appDelegate,
-                                                                url: URL(string: response.authorizationURL)!, clientID: response.clientID, redirectUrl: URL(string: response.redirectURL)!)
-                                        } catch {
+                                            let url = appDelegate.startAuthentication(authorizationEndpoint: URL(string: response.authorizationURL)!,
+                                                clientID: response.clientID,
+                                                redirectURI: URL(string: response.redirectURL)!,
+                                                platform: service,
+                                                codeVerifier: response.codeVerifier)
+                                            
+                                            openURL(url!)
+                                        }
+                                        catch {
                                             print("Some error occured: \(error)")
                                         }
+                                        dismiss()
                                     }) {
                                         AsyncImage(url: URL(string: service.icon_png)) { image in
                                             image
