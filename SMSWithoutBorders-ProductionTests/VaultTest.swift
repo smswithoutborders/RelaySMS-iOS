@@ -19,6 +19,7 @@ struct VaultTest {
     var vault = Vault()
     var phoneNumber = "+2371234567859"
     var password = "dMd2Kmo9"
+//    var password = "LL<O3ZG~=z-epkv"
     var ownershipProof = "123456"
     var keystoreAliasPublishPubKey = "vault-test-keystoreAlias-pub-key"
     var keystoreAliasDeviceIDPubKey = "vault-test-keystoreAlias-device-id-key"
@@ -46,25 +47,39 @@ struct VaultTest {
         print("PK: \(clientDeviceIDPubKey)")
 
         let countryCode = "CM"
-        var entityCreationResponse = try vault.createEntity(
-            phoneNumber: phoneNumber,
-            countryCode: countryCode,
-            password: password,
-            clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIdPubKey: clientDeviceIDPubKey)
         
-        XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
+        do {
+            var entityCreationResponse = try vault.createEntity(
+                phoneNumber: phoneNumber,
+                countryCode: countryCode,
+                password: password,
+                clientPublishPubKey: clientPublishPubKey,
+                clientDeviceIdPubKey: clientDeviceIDPubKey)
+            
+            entityCreationResponse = try vault.createEntity(
+                phoneNumber: phoneNumber,
+                countryCode: countryCode,
+                password: password,
+                clientPublishPubKey: clientPublishPubKey,
+                clientDeviceIdPubKey: clientDeviceIDPubKey,
+                ownershipResponse: ownershipProof)
+            print("message says: \(entityCreationResponse.message)")
+            
+            XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
+            
+            
+            XCTAssertFalse(entityCreationResponse.requiresOwnershipProof)
+        } catch Vault.Exceptions.requestNotOK(let status){
+            print("Error came back - message: \(status.message)")
+            print("Error came back - cause: \(status.cause)")
+            print("Error came back - description: \(status.cause)")
+            print("Error came back - code: \(status.code)")
+            var (field, message) = Vault.parseErrorMessage(message: status.message)
+            print("Field: \(field)")
+            print("Message: \(message)")
+            throw status
+        }
         
-        entityCreationResponse = try vault.createEntity(
-            phoneNumber: phoneNumber,
-            countryCode: countryCode,
-            password: password,
-            clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIdPubKey: clientDeviceIDPubKey,
-            ownershipResponse: ownershipProof)
-        print("message says: \(entityCreationResponse.message)")
-        
-        XCTAssertFalse(entityCreationResponse.requiresOwnershipProof)
         
         try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
 

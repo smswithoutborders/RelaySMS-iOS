@@ -158,4 +158,24 @@ class Vault {
                                                 Vault.VAULT_LONG_LIVED_TOKEN)
         return String(data: llt, encoding: .utf8)!
     }
+    
+    public static func parseErrorMessage(message: String?) -> (String, String){
+        if let message = message {
+            // Regular expression to capture the field and its error message
+            let regex = try! NSRegularExpression(pattern: "\\{\\s*'([^']+)'\\s*:\\s*'([^']+)'\\s*\\}")
+
+            if let match = regex.firstMatch(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count)) {
+                let fieldRange = Range(match.range(at: 1), in: message)!
+                let errorRange = Range(match.range(at: 2), in: message)!
+                
+                let field = String(message[fieldRange])
+                let errorMessage = String(message[errorRange])
+                
+                print("Field: \(field)")
+                print("Error Message: \(errorMessage)")
+                return (field, errorMessage)
+            }
+        }
+        return ("", "")
+    }
 }
