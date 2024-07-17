@@ -12,6 +12,8 @@ message GetOAuth2AuthorizationUrlRequest {
   string code_verifier = 3;
   // Flag to indicate if the code verifier should be auto-generated
   bool autogenerate_code_verifier = 4;
+  // Optional redirect URL for the OAuth2 application
+  string redirect_url = 5;
 }
 
 // Response message for the OAuth2 GetAuthorizationUrl RPC
@@ -42,6 +44,8 @@ message ExchangeOAuth2CodeAndStoreRequest {
   string authorization_code = 3;
   // Optional code verifier used for PKCE
   string code_verifier = 4;
+  // Optional redirect URL for the OAuth2 application
+  string redirect_url = 5;
 }
 
 // Response message for the ExchangeOAuth2Code RPC
@@ -99,3 +103,4 @@ service Publisher {
   // Revokes and deletes an OAuth2 access token
   rpc RevokeAndDeleteOAuth2Token(RevokeAndDeleteOAuth2TokenRequest) returns (RevokeAndDeleteOAuth2TokenResponse);
 }
+

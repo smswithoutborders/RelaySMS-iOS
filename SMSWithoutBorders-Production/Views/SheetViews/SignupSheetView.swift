@@ -43,9 +43,15 @@ struct CountryPicker: UIViewControllerRepresentable {
     }
 }
 
-nonisolated func signup(phonenumber: String) async throws -> Vault_V1_CreateEntityResponse {
+nonisolated func createAccount(phonenumber: String,
+                        countryCode: String,
+                        password: String,
+                        type: OTPAuthType.TYPE) async throws -> Int {
     let vault = Vault()
-    return try vault.createEntity(phoneNumber: phonenumber)
+    return try await signupOrAuthenticate(phoneNumber: phonenumber,
+                         countryCode: countryCode,
+                         password: password,
+                         type: type)
 }
 
 
@@ -77,7 +83,7 @@ struct SignupSheetView: View {
 
     var body: some View {
         if(OTPRequired) {
-            OTPSheetView(type: OTPSheetView.TYPE.CREATE,
+            OTPSheetView(type: OTPAuthType.TYPE.CREATE,
                          retryTimer: otpRetryTimer,
                          phoneNumber: $phoneNumber,
                          countryCode: $selectedCountryCodeText,
@@ -111,9 +117,12 @@ struct SignupSheetView: View {
                             self.isLoading = true
                             Task {
                                 do {
-                                    let response = try await signup(phonenumber: phoneNumber)
-                                    self.otpRetryTimer = Int(response.nextAttemptTimestamp)
-                                    OTPRequired = response.requiresOwnershipProof
+                                    otpRetryTimer = try await createAccount(
+                                        phonenumber: phoneNumber,
+                                        countryCode: selectedCountryCodeText!,
+                                        password: password,
+                                        type: OTPAuthType.TYPE.CREATE)
+                                    OTPRequired = true
                                 } catch {
                                     print("Something went wrong \(error)")
                                     isLoading = false

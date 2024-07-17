@@ -45,12 +45,17 @@ struct VaultTest {
         }
         print("PK: \(clientDeviceIDPubKey)")
 
-        var entityCreationResponse = try vault.createEntity(phoneNumber: phoneNumber)
+        let countryCode = "CM"
+        var entityCreationResponse = try vault.createEntity(
+            phoneNumber: phoneNumber,
+            countryCode: countryCode,
+            password: password,
+            clientPublishPubKey: clientPublishPubKey,
+            clientDeviceIdPubKey: clientDeviceIDPubKey)
+        
         XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
         
-        let countryCode = "CM"
-        
-        entityCreationResponse = try vault.createEntity2(
+        entityCreationResponse = try vault.createEntity(
             phoneNumber: phoneNumber,
             countryCode: countryCode,
             password: password,
@@ -63,7 +68,7 @@ struct VaultTest {
         
         try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
 
-        var response = try vault.authenticateEntity2(phoneNumber: phoneNumber,
+        var response = try vault.authenticateEntity(phoneNumber: phoneNumber,
                                       clientPublishPubKey: clientPublishPubKey,
                                       clientDeviceIDPubKey: clientDeviceIDPubKey,
                                       ownershipResponse: ownershipProof)

@@ -9,15 +9,19 @@ import SwiftUI
 import CryptoKit
 import Fernet
 
+public class OTPAuthType {
+    public enum TYPE {
+        case AUTHENTICATE
+        case CREATE
+    }
+}
+
 
 private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
                         peerPublishPubKey: [UInt8],
                         llt: String,
                         clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey,
                         clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws {
-    
-    let longLivedTokenKeystoreAlias = "com.afkanerd.relaysms.long_lived_token"
-    let publishingSharedKeyKeystoreAlias = "com.afkanerd.relaysms.publishing_shared_key"
 
     let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIDPubKey)
     
@@ -38,78 +42,80 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
             return Data(Array($0))
         }
     
-    CSecurity.deletePasswordFromKeychain(keystoreAlias: longLivedTokenKeystoreAlias)
-    CSecurity.deletePasswordFromKeychain(keystoreAlias: publishingSharedKeyKeystoreAlias)
+    CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
+    CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
 
-    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, keystoreAlias: longLivedTokenKeystoreAlias)
-    try CSecurity.storeInKeyChain(data: publishingSharedKey, keystoreAlias: publishingSharedKeyKeystoreAlias)
+    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, 
+                                  keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
+    try CSecurity.storeInKeyChain(data: publishingSharedKey,
+                                  keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+}
+
+
+nonisolated func signupOrAuthenticate(phoneNumber: String,
+                               countryCode: String?,
+                               password: String,
+                                      type: OTPAuthType.TYPE,
+                               otpCode: String? = nil ) async throws -> Int {
+    let vault = Vault()
+    var keystoreAliasPublishPubKey = "relaysms-publish-keystoreAlias"
+    var keystoreAliasDeviceIDPubKey = "relaysms-deviceid-keystoreAlias"
+    
+    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasPublishPubKey)
+    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasDeviceIDPubKey)
+
+    var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+    var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+
+    var clientPublishPubKey: String
+    var clientDeviceIDPubKey: String
+    do {
+        clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
+        clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+        
+        clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey
+        clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+    } catch {
+        throw error
+    }
+    
+    if(type == OTPAuthType.TYPE.CREATE) {
+        let response = try vault.createEntity(
+            phoneNumber: phoneNumber,
+            countryCode: countryCode!,
+            password: password,
+            clientPublishPubKey: clientPublishPubKey,
+            clientDeviceIdPubKey: clientDeviceIDPubKey,
+            ownershipResponse: otpCode)
+        
+        try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                   peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+                   llt: response.longLivedToken,
+                   clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
+                   clientPublishPrivateKey: clientPublishPrivateKey!)
+        
+        return Int(response.nextAttemptTimestamp)
+
+    } else {
+        let response = try vault.authenticateEntity(
+            phoneNumber: phoneNumber,
+            clientPublishPubKey: clientPublishPubKey,
+            clientDeviceIDPubKey: clientDeviceIDPubKey,
+            ownershipResponse: otpCode)
+        
+        try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                   peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+                   llt: response.longLivedToken,
+                   clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
+                   clientPublishPrivateKey: clientPublishPrivateKey!)
+        
+        return Int(response.nextAttemptTimestamp)
+    }
 }
 
 
 struct OTPSheetView: View {
     @Environment(\.dismiss) var dismiss
-    enum TYPE {
-        case AUTHENTICATE
-        case CREATE
-    }
-
-    nonisolated func signupOrAuthenticate2(phoneNumber: String,
-                               countryCode: String?,
-                               password: String,
-                               otpCode: String,
-                               type: TYPE) async throws {
-        let vault = Vault()
-        var keystoreAliasPublishPubKey = "relaysms-publish-keystoreAlias"
-        var keystoreAliasDeviceIDPubKey = "relaysms-deviceid-keystoreAlias"
-        
-        CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasPublishPubKey)
-        CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasDeviceIDPubKey)
-
-        var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-        var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-
-        var clientPublishPubKey: String
-        var clientDeviceIDPubKey: String
-        do {
-            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
-            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-            
-            clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey
-            clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-        } catch {
-            throw error
-        }
-        
-        if(type == TYPE.CREATE) {
-            let response = try vault.createEntity2(
-                phoneNumber: phoneNumber,
-                countryCode: countryCode!,
-                password: password,
-                clientPublishPubKey: clientPublishPubKey,
-                clientDeviceIdPubKey: clientDeviceIDPubKey,
-                ownershipResponse: otpCode)
-            
-            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
-                       llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                       clientPublishPrivateKey: clientPublishPrivateKey!)
-
-        } else {
-            let response = try vault.authenticateEntity2(
-                phoneNumber: phoneNumber,
-                clientPublishPubKey: clientPublishPubKey,
-                clientDeviceIDPubKey: clientDeviceIDPubKey,
-                ownershipResponse: otpCode)
-            
-            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
-                       llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                       clientPublishPrivateKey: clientPublishPrivateKey!)
-
-        }
-    }
 
     #if DEBUG
         @State private var otpCode: String = "123456"
@@ -119,7 +125,7 @@ struct OTPSheetView: View {
     
     @State private var loading: Bool = false
     
-    @State public var type: TYPE
+    @State public var type: OTPAuthType.TYPE
     
     @State public var retryTimer: Int
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -151,11 +157,11 @@ struct OTPSheetView: View {
                     loading = true
                     Task {
                         do {
-                            try await signupOrAuthenticate2(phoneNumber: phoneNumber,
+                            try await signupOrAuthenticate(phoneNumber: phoneNumber,
                                                       countryCode: countryCode,
                                                       password: password,
-                                                      otpCode: otpCode,
-                                                      type: type)
+                                                           type: type,
+                                                      otpCode: otpCode)
                         } catch {
                             print("Error with second phase signup: \(error)")
                             failed = true
@@ -197,7 +203,7 @@ struct OTPSheetView: View {
     @State var loading: Bool = false
     @State var completed: Bool = false
     @State var failed: Bool = false
-    OTPSheetView(type: OTPSheetView.TYPE.CREATE,
+    OTPSheetView(type: OTPAuthType.TYPE.CREATE,
                  retryTimer: 100000, 
                  phoneNumber: $phoneNumber,
                  countryCode: $countryCode,

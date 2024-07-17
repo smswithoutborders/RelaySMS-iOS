@@ -64,7 +64,7 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var navigatingFromURL: Bool = false
     
     @State var absoluteURLString: String = ""
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -77,12 +77,22 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
             .environmentObject(appDelegate)
             .onOpenURL { url in
-                // relaysms://oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/?state=RyPtoLjr9rr4LQvuVXsIIXaIWiIfQLxSYifjgRaAJmI&code=4%2F0ATx3LY7bQpsxfhHVpBR0sSMx0mAI3JWWykGphzsm3q-wfeRhdTcHqq12IXgxNy-XAnLMBA&scope=profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=consent
-                
-                print(url.query)
                 let state = url.valueOf("state")
                 let code = url.valueOf("code")
                 print("state: \(state)\ncode: \(code)")
+                
+                do {
+                    let llt = try Vault.getLongLivedToken()
+                    let publisher = Publisher()
+                    let response = try publisher.sendAuthorizationCode(
+                        llt: llt, platform: state!, code: code!)
+                    
+                    if(response.success) {
+                        
+                    }
+                } catch {
+                    print("An error occured sending code: \(error)")
+                }
             }
         }
     }

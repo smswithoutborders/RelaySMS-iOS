@@ -85,6 +85,15 @@ struct OnboardingIntroToVaults: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+        .task {
+            do {
+                if(try Vault.getLongLivedToken().isEmpty) {
+                    self.completed = true
+                }
+            } catch {
+                
+            }
+        }
     }
 }
 

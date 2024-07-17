@@ -29,34 +29,24 @@ internal protocol Vault_V1_EntityClientProtocol: GRPCClient {
   ) -> UnaryCall<Vault_V1_AuthenticateEntityRequest, Vault_V1_AuthenticateEntityResponse>
 
   func listEntityStoredTokens(
-    _ request: Vault_V1_ListEntityStoredTokenRequest,
+    _ request: Vault_V1_ListEntityStoredTokensRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse>
+  ) -> UnaryCall<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse>
 
-  func storeEntityToken(
-    _ request: Vault_V1_StoreEntityTokenRequest,
+  func deleteEntity(
+    _ request: Vault_V1_DeleteEntityRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>
+  ) -> UnaryCall<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse>
 
-  func getEntityAccessToken(
-    _ request: Vault_V1_GetEntityAccessTokenRequest,
+  func resetPassword(
+    _ request: Vault_V1_ResetPasswordRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>
+  ) -> UnaryCall<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse>
 
-  func decryptPayload(
-    _ request: Vault_V1_DecryptPayloadRequest,
+  func updateEntityPassword(
+    _ request: Vault_V1_UpdateEntityPasswordRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>
-
-  func encryptPayload(
-    _ request: Vault_V1_EncryptPayloadRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>
-
-  func updateEntityToken(
-    _ request: Vault_V1_UpdateEntityTokenRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>
+  ) -> UnaryCall<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse>
 }
 
 extension Vault_V1_EntityClientProtocol {
@@ -100,16 +90,16 @@ extension Vault_V1_EntityClientProtocol {
     )
   }
 
-  /// Lists stored tokens for an entity.
+  /// Lists all stored access tokens for an entity.
   ///
   /// - Parameters:
   ///   - request: Request to send to ListEntityStoredTokens.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   internal func listEntityStoredTokens(
-    _ request: Vault_V1_ListEntityStoredTokenRequest,
+    _ request: Vault_V1_ListEntityStoredTokensRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse> {
+  ) -> UnaryCall<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse> {
     return self.makeUnaryCall(
       path: Vault_V1_EntityClientMetadata.Methods.listEntityStoredTokens.path,
       request: request,
@@ -118,93 +108,57 @@ extension Vault_V1_EntityClientProtocol {
     )
   }
 
-  /// Stores a token for an entity.
+  /// Deletes an entity.
   ///
   /// - Parameters:
-  ///   - request: Request to send to StoreEntityToken.
+  ///   - request: Request to send to DeleteEntity.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func storeEntityToken(
-    _ request: Vault_V1_StoreEntityTokenRequest,
+  internal func deleteEntity(
+    _ request: Vault_V1_DeleteEntityRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse> {
+  ) -> UnaryCall<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse> {
     return self.makeUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.storeEntityToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.deleteEntity.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeDeleteEntityInterceptors() ?? []
     )
   }
 
-  /// Get an entity's access token.
+  /// Resets an entity's password
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetEntityAccessToken.
+  ///   - request: Request to send to ResetPassword.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getEntityAccessToken(
-    _ request: Vault_V1_GetEntityAccessTokenRequest,
+  internal func resetPassword(
+    _ request: Vault_V1_ResetPasswordRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse> {
+  ) -> UnaryCall<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse> {
     return self.makeUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.getEntityAccessToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.resetPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeResetPasswordInterceptors() ?? []
     )
   }
 
-  /// Decrypt payload.
+  /// Updates an entity's password.
   ///
   /// - Parameters:
-  ///   - request: Request to send to DecryptPayload.
+  ///   - request: Request to send to UpdateEntityPassword.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func decryptPayload(
-    _ request: Vault_V1_DecryptPayloadRequest,
+  internal func updateEntityPassword(
+    _ request: Vault_V1_UpdateEntityPasswordRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse> {
+  ) -> UnaryCall<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse> {
     return self.makeUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.decryptPayload.path,
+      path: Vault_V1_EntityClientMetadata.Methods.updateEntityPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
-    )
-  }
-
-  /// Encrypt payload.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to EncryptPayload.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func encryptPayload(
-    _ request: Vault_V1_EncryptPayloadRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse> {
-    return self.makeUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.encryptPayload.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
-    )
-  }
-
-  /// Updates a token for an entity.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to UpdateEntityToken.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func updateEntityToken(
-    _ request: Vault_V1_UpdateEntityTokenRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse> {
-    return self.makeUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.updateEntityToken.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeUpdateEntityPasswordInterceptors() ?? []
     )
   }
 }
@@ -283,34 +237,24 @@ internal protocol Vault_V1_EntityAsyncClientProtocol: GRPCClient {
   ) -> GRPCAsyncUnaryCall<Vault_V1_AuthenticateEntityRequest, Vault_V1_AuthenticateEntityResponse>
 
   func makeListEntityStoredTokensCall(
-    _ request: Vault_V1_ListEntityStoredTokenRequest,
+    _ request: Vault_V1_ListEntityStoredTokensRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse>
+  ) -> GRPCAsyncUnaryCall<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse>
 
-  func makeStoreEntityTokenCall(
-    _ request: Vault_V1_StoreEntityTokenRequest,
+  func makeDeleteEntityCall(
+    _ request: Vault_V1_DeleteEntityRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse>
 
-  func makeGetEntityAccessTokenCall(
-    _ request: Vault_V1_GetEntityAccessTokenRequest,
+  func makeResetPasswordCall(
+    _ request: Vault_V1_ResetPasswordRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>
+  ) -> GRPCAsyncUnaryCall<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse>
 
-  func makeDecryptPayloadCall(
-    _ request: Vault_V1_DecryptPayloadRequest,
+  func makeUpdateEntityPasswordCall(
+    _ request: Vault_V1_UpdateEntityPasswordRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>
-
-  func makeEncryptPayloadCall(
-    _ request: Vault_V1_EncryptPayloadRequest,
-    callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>
-
-  func makeUpdateEntityTokenCall(
-    _ request: Vault_V1_UpdateEntityTokenRequest,
-    callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>
+  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -348,9 +292,9 @@ extension Vault_V1_EntityAsyncClientProtocol {
   }
 
   internal func makeListEntityStoredTokensCall(
-    _ request: Vault_V1_ListEntityStoredTokenRequest,
+    _ request: Vault_V1_ListEntityStoredTokensRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse> {
+  ) -> GRPCAsyncUnaryCall<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse> {
     return self.makeAsyncUnaryCall(
       path: Vault_V1_EntityClientMetadata.Methods.listEntityStoredTokens.path,
       request: request,
@@ -359,63 +303,39 @@ extension Vault_V1_EntityAsyncClientProtocol {
     )
   }
 
-  internal func makeStoreEntityTokenCall(
-    _ request: Vault_V1_StoreEntityTokenRequest,
+  internal func makeDeleteEntityCall(
+    _ request: Vault_V1_DeleteEntityRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse> {
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse> {
     return self.makeAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.storeEntityToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.deleteEntity.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeDeleteEntityInterceptors() ?? []
     )
   }
 
-  internal func makeGetEntityAccessTokenCall(
-    _ request: Vault_V1_GetEntityAccessTokenRequest,
+  internal func makeResetPasswordCall(
+    _ request: Vault_V1_ResetPasswordRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse> {
+  ) -> GRPCAsyncUnaryCall<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse> {
     return self.makeAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.getEntityAccessToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.resetPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeResetPasswordInterceptors() ?? []
     )
   }
 
-  internal func makeDecryptPayloadCall(
-    _ request: Vault_V1_DecryptPayloadRequest,
+  internal func makeUpdateEntityPasswordCall(
+    _ request: Vault_V1_UpdateEntityPasswordRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse> {
+  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse> {
     return self.makeAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.decryptPayload.path,
+      path: Vault_V1_EntityClientMetadata.Methods.updateEntityPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
-    )
-  }
-
-  internal func makeEncryptPayloadCall(
-    _ request: Vault_V1_EncryptPayloadRequest,
-    callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse> {
-    return self.makeAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.encryptPayload.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
-    )
-  }
-
-  internal func makeUpdateEntityTokenCall(
-    _ request: Vault_V1_UpdateEntityTokenRequest,
-    callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse> {
-    return self.makeAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.updateEntityToken.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeUpdateEntityPasswordInterceptors() ?? []
     )
   }
 }
@@ -447,9 +367,9 @@ extension Vault_V1_EntityAsyncClientProtocol {
   }
 
   internal func listEntityStoredTokens(
-    _ request: Vault_V1_ListEntityStoredTokenRequest,
+    _ request: Vault_V1_ListEntityStoredTokensRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_ListEntityStoredTokenResponse {
+  ) async throws -> Vault_V1_ListEntityStoredTokensResponse {
     return try await self.performAsyncUnaryCall(
       path: Vault_V1_EntityClientMetadata.Methods.listEntityStoredTokens.path,
       request: request,
@@ -458,63 +378,39 @@ extension Vault_V1_EntityAsyncClientProtocol {
     )
   }
 
-  internal func storeEntityToken(
-    _ request: Vault_V1_StoreEntityTokenRequest,
+  internal func deleteEntity(
+    _ request: Vault_V1_DeleteEntityRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_StoreEntityTokenResponse {
+  ) async throws -> Vault_V1_DeleteEntityResponse {
     return try await self.performAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.storeEntityToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.deleteEntity.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeDeleteEntityInterceptors() ?? []
     )
   }
 
-  internal func getEntityAccessToken(
-    _ request: Vault_V1_GetEntityAccessTokenRequest,
+  internal func resetPassword(
+    _ request: Vault_V1_ResetPasswordRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_GetEntityAccessTokenResponse {
+  ) async throws -> Vault_V1_ResetPasswordResponse {
     return try await self.performAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.getEntityAccessToken.path,
+      path: Vault_V1_EntityClientMetadata.Methods.resetPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeResetPasswordInterceptors() ?? []
     )
   }
 
-  internal func decryptPayload(
-    _ request: Vault_V1_DecryptPayloadRequest,
+  internal func updateEntityPassword(
+    _ request: Vault_V1_UpdateEntityPasswordRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_DecryptPayloadResponse {
+  ) async throws -> Vault_V1_UpdateEntityPasswordResponse {
     return try await self.performAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.decryptPayload.path,
+      path: Vault_V1_EntityClientMetadata.Methods.updateEntityPassword.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
-    )
-  }
-
-  internal func encryptPayload(
-    _ request: Vault_V1_EncryptPayloadRequest,
-    callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_EncryptPayloadResponse {
-    return try await self.performAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.encryptPayload.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
-    )
-  }
-
-  internal func updateEntityToken(
-    _ request: Vault_V1_UpdateEntityTokenRequest,
-    callOptions: CallOptions? = nil
-  ) async throws -> Vault_V1_UpdateEntityTokenResponse {
-    return try await self.performAsyncUnaryCall(
-      path: Vault_V1_EntityClientMetadata.Methods.updateEntityToken.path,
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+      interceptors: self.interceptors?.makeUpdateEntityPasswordInterceptors() ?? []
     )
   }
 }
@@ -545,22 +441,16 @@ internal protocol Vault_V1_EntityClientInterceptorFactoryProtocol: Sendable {
   func makeAuthenticateEntityInterceptors() -> [ClientInterceptor<Vault_V1_AuthenticateEntityRequest, Vault_V1_AuthenticateEntityResponse>]
 
   /// - Returns: Interceptors to use when invoking 'listEntityStoredTokens'.
-  func makeListEntityStoredTokensInterceptors() -> [ClientInterceptor<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse>]
+  func makeListEntityStoredTokensInterceptors() -> [ClientInterceptor<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'storeEntityToken'.
-  func makeStoreEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>]
+  /// - Returns: Interceptors to use when invoking 'deleteEntity'.
+  func makeDeleteEntityInterceptors() -> [ClientInterceptor<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getEntityAccessToken'.
-  func makeGetEntityAccessTokenInterceptors() -> [ClientInterceptor<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>]
+  /// - Returns: Interceptors to use when invoking 'resetPassword'.
+  func makeResetPasswordInterceptors() -> [ClientInterceptor<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'decryptPayload'.
-  func makeDecryptPayloadInterceptors() -> [ClientInterceptor<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'encryptPayload'.
-  func makeEncryptPayloadInterceptors() -> [ClientInterceptor<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'updateEntityToken'.
-  func makeUpdateEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>]
+  /// - Returns: Interceptors to use when invoking 'updateEntityPassword'.
+  func makeUpdateEntityPasswordInterceptors() -> [ClientInterceptor<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse>]
 }
 
 internal enum Vault_V1_EntityClientMetadata {
@@ -571,11 +461,9 @@ internal enum Vault_V1_EntityClientMetadata {
       Vault_V1_EntityClientMetadata.Methods.createEntity,
       Vault_V1_EntityClientMetadata.Methods.authenticateEntity,
       Vault_V1_EntityClientMetadata.Methods.listEntityStoredTokens,
-      Vault_V1_EntityClientMetadata.Methods.storeEntityToken,
-      Vault_V1_EntityClientMetadata.Methods.getEntityAccessToken,
-      Vault_V1_EntityClientMetadata.Methods.decryptPayload,
-      Vault_V1_EntityClientMetadata.Methods.encryptPayload,
-      Vault_V1_EntityClientMetadata.Methods.updateEntityToken,
+      Vault_V1_EntityClientMetadata.Methods.deleteEntity,
+      Vault_V1_EntityClientMetadata.Methods.resetPassword,
+      Vault_V1_EntityClientMetadata.Methods.updateEntityPassword,
     ]
   )
 
@@ -598,33 +486,516 @@ internal enum Vault_V1_EntityClientMetadata {
       type: GRPCCallType.unary
     )
 
+    internal static let deleteEntity = GRPCMethodDescriptor(
+      name: "DeleteEntity",
+      path: "/vault.v1.Entity/DeleteEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let resetPassword = GRPCMethodDescriptor(
+      name: "ResetPassword",
+      path: "/vault.v1.Entity/ResetPassword",
+      type: GRPCCallType.unary
+    )
+
+    internal static let updateEntityPassword = GRPCMethodDescriptor(
+      name: "UpdateEntityPassword",
+      path: "/vault.v1.Entity/UpdateEntityPassword",
+      type: GRPCCallType.unary
+    )
+  }
+}
+
+/// Service for managing entities internally.
+///
+/// Usage: instantiate `Vault_V1_EntityInternalClient`, then call methods of this protocol to make API calls.
+internal protocol Vault_V1_EntityInternalClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? { get }
+
+  func storeEntityToken(
+    _ request: Vault_V1_StoreEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>
+
+  func getEntityAccessToken(
+    _ request: Vault_V1_GetEntityAccessTokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>
+
+  func decryptPayload(
+    _ request: Vault_V1_DecryptPayloadRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>
+
+  func encryptPayload(
+    _ request: Vault_V1_EncryptPayloadRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>
+
+  func updateEntityToken(
+    _ request: Vault_V1_UpdateEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>
+
+  func deleteEntityToken(
+    _ request: Vault_V1_DeleteEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>
+}
+
+extension Vault_V1_EntityInternalClientProtocol {
+  internal var serviceName: String {
+    return "vault.v1.EntityInternal"
+  }
+
+  /// Stores a token for an entity.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to StoreEntityToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func storeEntityToken(
+    _ request: Vault_V1_StoreEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.storeEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+    )
+  }
+
+  /// Get an entity's access token.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetEntityAccessToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getEntityAccessToken(
+    _ request: Vault_V1_GetEntityAccessTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.getEntityAccessToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+    )
+  }
+
+  /// Decrypt payload.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DecryptPayload.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func decryptPayload(
+    _ request: Vault_V1_DecryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.decryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
+    )
+  }
+
+  /// Encrypt payload.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to EncryptPayload.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func encryptPayload(
+    _ request: Vault_V1_EncryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.encryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
+    )
+  }
+
+  /// Updates an entity's access token.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UpdateEntityToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func updateEntityToken(
+    _ request: Vault_V1_UpdateEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.updateEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+    )
+  }
+
+  /// Deletes an entity's access token.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DeleteEntityToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func deleteEntityToken(
+    _ request: Vault_V1_DeleteEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.deleteEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
+    )
+  }
+}
+
+@available(*, deprecated)
+extension Vault_V1_EntityInternalClient: @unchecked Sendable {}
+
+@available(*, deprecated, renamed: "Vault_V1_EntityInternalNIOClient")
+internal final class Vault_V1_EntityInternalClient: Vault_V1_EntityInternalClientProtocol {
+  private let lock = Lock()
+  private var _defaultCallOptions: CallOptions
+  private var _interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol?
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions {
+    get { self.lock.withLock { return self._defaultCallOptions } }
+    set { self.lock.withLockVoid { self._defaultCallOptions = newValue } }
+  }
+  internal var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? {
+    get { self.lock.withLock { return self._interceptors } }
+    set { self.lock.withLockVoid { self._interceptors = newValue } }
+  }
+
+  /// Creates a client for the vault.v1.EntityInternal service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? = nil
+  ) {
+    self.channel = channel
+    self._defaultCallOptions = defaultCallOptions
+    self._interceptors = interceptors
+  }
+}
+
+internal struct Vault_V1_EntityInternalNIOClient: Vault_V1_EntityInternalClientProtocol {
+  internal var channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
+  internal var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol?
+
+  /// Creates a client for the vault.v1.EntityInternal service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? = nil
+  ) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
+  }
+}
+
+/// Service for managing entities internally.
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+internal protocol Vault_V1_EntityInternalAsyncClientProtocol: GRPCClient {
+  static var serviceDescriptor: GRPCServiceDescriptor { get }
+  var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? { get }
+
+  func makeStoreEntityTokenCall(
+    _ request: Vault_V1_StoreEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>
+
+  func makeGetEntityAccessTokenCall(
+    _ request: Vault_V1_GetEntityAccessTokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>
+
+  func makeDecryptPayloadCall(
+    _ request: Vault_V1_DecryptPayloadRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>
+
+  func makeEncryptPayloadCall(
+    _ request: Vault_V1_EncryptPayloadRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>
+
+  func makeUpdateEntityTokenCall(
+    _ request: Vault_V1_UpdateEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>
+
+  func makeDeleteEntityTokenCall(
+    _ request: Vault_V1_DeleteEntityTokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>
+}
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension Vault_V1_EntityInternalAsyncClientProtocol {
+  internal static var serviceDescriptor: GRPCServiceDescriptor {
+    return Vault_V1_EntityInternalClientMetadata.serviceDescriptor
+  }
+
+  internal var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? {
+    return nil
+  }
+
+  internal func makeStoreEntityTokenCall(
+    _ request: Vault_V1_StoreEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.storeEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+    )
+  }
+
+  internal func makeGetEntityAccessTokenCall(
+    _ request: Vault_V1_GetEntityAccessTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.getEntityAccessToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+    )
+  }
+
+  internal func makeDecryptPayloadCall(
+    _ request: Vault_V1_DecryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.decryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
+    )
+  }
+
+  internal func makeEncryptPayloadCall(
+    _ request: Vault_V1_EncryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.encryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
+    )
+  }
+
+  internal func makeUpdateEntityTokenCall(
+    _ request: Vault_V1_UpdateEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.updateEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+    )
+  }
+
+  internal func makeDeleteEntityTokenCall(
+    _ request: Vault_V1_DeleteEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.deleteEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
+    )
+  }
+}
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension Vault_V1_EntityInternalAsyncClientProtocol {
+  internal func storeEntityToken(
+    _ request: Vault_V1_StoreEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_StoreEntityTokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.storeEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStoreEntityTokenInterceptors() ?? []
+    )
+  }
+
+  internal func getEntityAccessToken(
+    _ request: Vault_V1_GetEntityAccessTokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_GetEntityAccessTokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.getEntityAccessToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEntityAccessTokenInterceptors() ?? []
+    )
+  }
+
+  internal func decryptPayload(
+    _ request: Vault_V1_DecryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_DecryptPayloadResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.decryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDecryptPayloadInterceptors() ?? []
+    )
+  }
+
+  internal func encryptPayload(
+    _ request: Vault_V1_EncryptPayloadRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_EncryptPayloadResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.encryptPayload.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeEncryptPayloadInterceptors() ?? []
+    )
+  }
+
+  internal func updateEntityToken(
+    _ request: Vault_V1_UpdateEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_UpdateEntityTokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.updateEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateEntityTokenInterceptors() ?? []
+    )
+  }
+
+  internal func deleteEntityToken(
+    _ request: Vault_V1_DeleteEntityTokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_DeleteEntityTokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.deleteEntityToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
+    )
+  }
+}
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+internal struct Vault_V1_EntityInternalAsyncClient: Vault_V1_EntityInternalAsyncClientProtocol {
+  internal var channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
+  internal var interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol?
+
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Vault_V1_EntityInternalClientInterceptorFactoryProtocol? = nil
+  ) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
+  }
+}
+
+internal protocol Vault_V1_EntityInternalClientInterceptorFactoryProtocol: Sendable {
+
+  /// - Returns: Interceptors to use when invoking 'storeEntityToken'.
+  func makeStoreEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_StoreEntityTokenRequest, Vault_V1_StoreEntityTokenResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getEntityAccessToken'.
+  func makeGetEntityAccessTokenInterceptors() -> [ClientInterceptor<Vault_V1_GetEntityAccessTokenRequest, Vault_V1_GetEntityAccessTokenResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'decryptPayload'.
+  func makeDecryptPayloadInterceptors() -> [ClientInterceptor<Vault_V1_DecryptPayloadRequest, Vault_V1_DecryptPayloadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'encryptPayload'.
+  func makeEncryptPayloadInterceptors() -> [ClientInterceptor<Vault_V1_EncryptPayloadRequest, Vault_V1_EncryptPayloadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'updateEntityToken'.
+  func makeUpdateEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'deleteEntityToken'.
+  func makeDeleteEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>]
+}
+
+internal enum Vault_V1_EntityInternalClientMetadata {
+  internal static let serviceDescriptor = GRPCServiceDescriptor(
+    name: "EntityInternal",
+    fullName: "vault.v1.EntityInternal",
+    methods: [
+      Vault_V1_EntityInternalClientMetadata.Methods.storeEntityToken,
+      Vault_V1_EntityInternalClientMetadata.Methods.getEntityAccessToken,
+      Vault_V1_EntityInternalClientMetadata.Methods.decryptPayload,
+      Vault_V1_EntityInternalClientMetadata.Methods.encryptPayload,
+      Vault_V1_EntityInternalClientMetadata.Methods.updateEntityToken,
+      Vault_V1_EntityInternalClientMetadata.Methods.deleteEntityToken,
+    ]
+  )
+
+  internal enum Methods {
     internal static let storeEntityToken = GRPCMethodDescriptor(
       name: "StoreEntityToken",
-      path: "/vault.v1.Entity/StoreEntityToken",
+      path: "/vault.v1.EntityInternal/StoreEntityToken",
       type: GRPCCallType.unary
     )
 
     internal static let getEntityAccessToken = GRPCMethodDescriptor(
       name: "GetEntityAccessToken",
-      path: "/vault.v1.Entity/GetEntityAccessToken",
+      path: "/vault.v1.EntityInternal/GetEntityAccessToken",
       type: GRPCCallType.unary
     )
 
     internal static let decryptPayload = GRPCMethodDescriptor(
       name: "DecryptPayload",
-      path: "/vault.v1.Entity/DecryptPayload",
+      path: "/vault.v1.EntityInternal/DecryptPayload",
       type: GRPCCallType.unary
     )
 
     internal static let encryptPayload = GRPCMethodDescriptor(
       name: "EncryptPayload",
-      path: "/vault.v1.Entity/EncryptPayload",
+      path: "/vault.v1.EntityInternal/EncryptPayload",
       type: GRPCCallType.unary
     )
 
     internal static let updateEntityToken = GRPCMethodDescriptor(
       name: "UpdateEntityToken",
-      path: "/vault.v1.Entity/UpdateEntityToken",
+      path: "/vault.v1.EntityInternal/UpdateEntityToken",
+      type: GRPCCallType.unary
+    )
+
+    internal static let deleteEntityToken = GRPCMethodDescriptor(
+      name: "DeleteEntityToken",
+      path: "/vault.v1.EntityInternal/DeleteEntityToken",
       type: GRPCCallType.unary
     )
   }
@@ -642,23 +1013,17 @@ internal protocol Vault_V1_EntityProvider: CallHandlerProvider {
   /// Authenticates an entity.
   func authenticateEntity(request: Vault_V1_AuthenticateEntityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_AuthenticateEntityResponse>
 
-  /// Lists stored tokens for an entity.
-  func listEntityStoredTokens(request: Vault_V1_ListEntityStoredTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_ListEntityStoredTokenResponse>
+  /// Lists all stored access tokens for an entity.
+  func listEntityStoredTokens(request: Vault_V1_ListEntityStoredTokensRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_ListEntityStoredTokensResponse>
 
-  /// Stores a token for an entity.
-  func storeEntityToken(request: Vault_V1_StoreEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_StoreEntityTokenResponse>
+  /// Deletes an entity.
+  func deleteEntity(request: Vault_V1_DeleteEntityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_DeleteEntityResponse>
 
-  /// Get an entity's access token.
-  func getEntityAccessToken(request: Vault_V1_GetEntityAccessTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_GetEntityAccessTokenResponse>
+  /// Resets an entity's password
+  func resetPassword(request: Vault_V1_ResetPasswordRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_ResetPasswordResponse>
 
-  /// Decrypt payload.
-  func decryptPayload(request: Vault_V1_DecryptPayloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_DecryptPayloadResponse>
-
-  /// Encrypt payload.
-  func encryptPayload(request: Vault_V1_EncryptPayloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_EncryptPayloadResponse>
-
-  /// Updates a token for an entity.
-  func updateEntityToken(request: Vault_V1_UpdateEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_UpdateEntityTokenResponse>
+  /// Updates an entity's password.
+  func updateEntityPassword(request: Vault_V1_UpdateEntityPasswordRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_UpdateEntityPasswordResponse>
 }
 
 extension Vault_V1_EntityProvider {
@@ -694,12 +1059,285 @@ extension Vault_V1_EntityProvider {
     case "ListEntityStoredTokens":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Vault_V1_ListEntityStoredTokenRequest>(),
-        responseSerializer: ProtobufSerializer<Vault_V1_ListEntityStoredTokenResponse>(),
+        requestDeserializer: ProtobufDeserializer<Vault_V1_ListEntityStoredTokensRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_ListEntityStoredTokensResponse>(),
         interceptors: self.interceptors?.makeListEntityStoredTokensInterceptors() ?? [],
         userFunction: self.listEntityStoredTokens(request:context:)
       )
 
+    case "DeleteEntity":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_DeleteEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_DeleteEntityResponse>(),
+        interceptors: self.interceptors?.makeDeleteEntityInterceptors() ?? [],
+        userFunction: self.deleteEntity(request:context:)
+      )
+
+    case "ResetPassword":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_ResetPasswordRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_ResetPasswordResponse>(),
+        interceptors: self.interceptors?.makeResetPasswordInterceptors() ?? [],
+        userFunction: self.resetPassword(request:context:)
+      )
+
+    case "UpdateEntityPassword":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_UpdateEntityPasswordRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_UpdateEntityPasswordResponse>(),
+        interceptors: self.interceptors?.makeUpdateEntityPasswordInterceptors() ?? [],
+        userFunction: self.updateEntityPassword(request:context:)
+      )
+
+    default:
+      return nil
+    }
+  }
+}
+
+/// Service for managing entities.
+///
+/// To implement a server, implement an object which conforms to this protocol.
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+internal protocol Vault_V1_EntityAsyncProvider: CallHandlerProvider, Sendable {
+  static var serviceDescriptor: GRPCServiceDescriptor { get }
+  var interceptors: Vault_V1_EntityServerInterceptorFactoryProtocol? { get }
+
+  /// Creates an entity.
+  func createEntity(
+    request: Vault_V1_CreateEntityRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_CreateEntityResponse
+
+  /// Authenticates an entity.
+  func authenticateEntity(
+    request: Vault_V1_AuthenticateEntityRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_AuthenticateEntityResponse
+
+  /// Lists all stored access tokens for an entity.
+  func listEntityStoredTokens(
+    request: Vault_V1_ListEntityStoredTokensRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_ListEntityStoredTokensResponse
+
+  /// Deletes an entity.
+  func deleteEntity(
+    request: Vault_V1_DeleteEntityRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_DeleteEntityResponse
+
+  /// Resets an entity's password
+  func resetPassword(
+    request: Vault_V1_ResetPasswordRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_ResetPasswordResponse
+
+  /// Updates an entity's password.
+  func updateEntityPassword(
+    request: Vault_V1_UpdateEntityPasswordRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_UpdateEntityPasswordResponse
+}
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+extension Vault_V1_EntityAsyncProvider {
+  internal static var serviceDescriptor: GRPCServiceDescriptor {
+    return Vault_V1_EntityServerMetadata.serviceDescriptor
+  }
+
+  internal var serviceName: Substring {
+    return Vault_V1_EntityServerMetadata.serviceDescriptor.fullName[...]
+  }
+
+  internal var interceptors: Vault_V1_EntityServerInterceptorFactoryProtocol? {
+    return nil
+  }
+
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
+    case "CreateEntity":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_CreateEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_CreateEntityResponse>(),
+        interceptors: self.interceptors?.makeCreateEntityInterceptors() ?? [],
+        wrapping: { try await self.createEntity(request: $0, context: $1) }
+      )
+
+    case "AuthenticateEntity":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_AuthenticateEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_AuthenticateEntityResponse>(),
+        interceptors: self.interceptors?.makeAuthenticateEntityInterceptors() ?? [],
+        wrapping: { try await self.authenticateEntity(request: $0, context: $1) }
+      )
+
+    case "ListEntityStoredTokens":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_ListEntityStoredTokensRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_ListEntityStoredTokensResponse>(),
+        interceptors: self.interceptors?.makeListEntityStoredTokensInterceptors() ?? [],
+        wrapping: { try await self.listEntityStoredTokens(request: $0, context: $1) }
+      )
+
+    case "DeleteEntity":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_DeleteEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_DeleteEntityResponse>(),
+        interceptors: self.interceptors?.makeDeleteEntityInterceptors() ?? [],
+        wrapping: { try await self.deleteEntity(request: $0, context: $1) }
+      )
+
+    case "ResetPassword":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_ResetPasswordRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_ResetPasswordResponse>(),
+        interceptors: self.interceptors?.makeResetPasswordInterceptors() ?? [],
+        wrapping: { try await self.resetPassword(request: $0, context: $1) }
+      )
+
+    case "UpdateEntityPassword":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_UpdateEntityPasswordRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_UpdateEntityPasswordResponse>(),
+        interceptors: self.interceptors?.makeUpdateEntityPasswordInterceptors() ?? [],
+        wrapping: { try await self.updateEntityPassword(request: $0, context: $1) }
+      )
+
+    default:
+      return nil
+    }
+  }
+}
+
+internal protocol Vault_V1_EntityServerInterceptorFactoryProtocol: Sendable {
+
+  /// - Returns: Interceptors to use when handling 'createEntity'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCreateEntityInterceptors() -> [ServerInterceptor<Vault_V1_CreateEntityRequest, Vault_V1_CreateEntityResponse>]
+
+  /// - Returns: Interceptors to use when handling 'authenticateEntity'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeAuthenticateEntityInterceptors() -> [ServerInterceptor<Vault_V1_AuthenticateEntityRequest, Vault_V1_AuthenticateEntityResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listEntityStoredTokens'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListEntityStoredTokensInterceptors() -> [ServerInterceptor<Vault_V1_ListEntityStoredTokensRequest, Vault_V1_ListEntityStoredTokensResponse>]
+
+  /// - Returns: Interceptors to use when handling 'deleteEntity'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDeleteEntityInterceptors() -> [ServerInterceptor<Vault_V1_DeleteEntityRequest, Vault_V1_DeleteEntityResponse>]
+
+  /// - Returns: Interceptors to use when handling 'resetPassword'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeResetPasswordInterceptors() -> [ServerInterceptor<Vault_V1_ResetPasswordRequest, Vault_V1_ResetPasswordResponse>]
+
+  /// - Returns: Interceptors to use when handling 'updateEntityPassword'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUpdateEntityPasswordInterceptors() -> [ServerInterceptor<Vault_V1_UpdateEntityPasswordRequest, Vault_V1_UpdateEntityPasswordResponse>]
+}
+
+internal enum Vault_V1_EntityServerMetadata {
+  internal static let serviceDescriptor = GRPCServiceDescriptor(
+    name: "Entity",
+    fullName: "vault.v1.Entity",
+    methods: [
+      Vault_V1_EntityServerMetadata.Methods.createEntity,
+      Vault_V1_EntityServerMetadata.Methods.authenticateEntity,
+      Vault_V1_EntityServerMetadata.Methods.listEntityStoredTokens,
+      Vault_V1_EntityServerMetadata.Methods.deleteEntity,
+      Vault_V1_EntityServerMetadata.Methods.resetPassword,
+      Vault_V1_EntityServerMetadata.Methods.updateEntityPassword,
+    ]
+  )
+
+  internal enum Methods {
+    internal static let createEntity = GRPCMethodDescriptor(
+      name: "CreateEntity",
+      path: "/vault.v1.Entity/CreateEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let authenticateEntity = GRPCMethodDescriptor(
+      name: "AuthenticateEntity",
+      path: "/vault.v1.Entity/AuthenticateEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let listEntityStoredTokens = GRPCMethodDescriptor(
+      name: "ListEntityStoredTokens",
+      path: "/vault.v1.Entity/ListEntityStoredTokens",
+      type: GRPCCallType.unary
+    )
+
+    internal static let deleteEntity = GRPCMethodDescriptor(
+      name: "DeleteEntity",
+      path: "/vault.v1.Entity/DeleteEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let resetPassword = GRPCMethodDescriptor(
+      name: "ResetPassword",
+      path: "/vault.v1.Entity/ResetPassword",
+      type: GRPCCallType.unary
+    )
+
+    internal static let updateEntityPassword = GRPCMethodDescriptor(
+      name: "UpdateEntityPassword",
+      path: "/vault.v1.Entity/UpdateEntityPassword",
+      type: GRPCCallType.unary
+    )
+  }
+}
+/// Service for managing entities internally.
+///
+/// To build a server, implement a class that conforms to this protocol.
+internal protocol Vault_V1_EntityInternalProvider: CallHandlerProvider {
+  var interceptors: Vault_V1_EntityInternalServerInterceptorFactoryProtocol? { get }
+
+  /// Stores a token for an entity.
+  func storeEntityToken(request: Vault_V1_StoreEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_StoreEntityTokenResponse>
+
+  /// Get an entity's access token.
+  func getEntityAccessToken(request: Vault_V1_GetEntityAccessTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_GetEntityAccessTokenResponse>
+
+  /// Decrypt payload.
+  func decryptPayload(request: Vault_V1_DecryptPayloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_DecryptPayloadResponse>
+
+  /// Encrypt payload.
+  func encryptPayload(request: Vault_V1_EncryptPayloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_EncryptPayloadResponse>
+
+  /// Updates an entity's access token.
+  func updateEntityToken(request: Vault_V1_UpdateEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_UpdateEntityTokenResponse>
+
+  /// Deletes an entity's access token.
+  func deleteEntityToken(request: Vault_V1_DeleteEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_DeleteEntityTokenResponse>
+}
+
+extension Vault_V1_EntityInternalProvider {
+  internal var serviceName: Substring {
+    return Vault_V1_EntityInternalServerMetadata.serviceDescriptor.fullName[...]
+  }
+
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "StoreEntityToken":
       return UnaryServerHandler(
         context: context,
@@ -745,37 +1383,28 @@ extension Vault_V1_EntityProvider {
         userFunction: self.updateEntityToken(request:context:)
       )
 
+    case "DeleteEntityToken":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_DeleteEntityTokenRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_DeleteEntityTokenResponse>(),
+        interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? [],
+        userFunction: self.deleteEntityToken(request:context:)
+      )
+
     default:
       return nil
     }
   }
 }
 
-/// Service for managing entities.
+/// Service for managing entities internally.
 ///
 /// To implement a server, implement an object which conforms to this protocol.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-internal protocol Vault_V1_EntityAsyncProvider: CallHandlerProvider, Sendable {
+internal protocol Vault_V1_EntityInternalAsyncProvider: CallHandlerProvider, Sendable {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: Vault_V1_EntityServerInterceptorFactoryProtocol? { get }
-
-  /// Creates an entity.
-  func createEntity(
-    request: Vault_V1_CreateEntityRequest,
-    context: GRPCAsyncServerCallContext
-  ) async throws -> Vault_V1_CreateEntityResponse
-
-  /// Authenticates an entity.
-  func authenticateEntity(
-    request: Vault_V1_AuthenticateEntityRequest,
-    context: GRPCAsyncServerCallContext
-  ) async throws -> Vault_V1_AuthenticateEntityResponse
-
-  /// Lists stored tokens for an entity.
-  func listEntityStoredTokens(
-    request: Vault_V1_ListEntityStoredTokenRequest,
-    context: GRPCAsyncServerCallContext
-  ) async throws -> Vault_V1_ListEntityStoredTokenResponse
+  var interceptors: Vault_V1_EntityInternalServerInterceptorFactoryProtocol? { get }
 
   /// Stores a token for an entity.
   func storeEntityToken(
@@ -801,24 +1430,30 @@ internal protocol Vault_V1_EntityAsyncProvider: CallHandlerProvider, Sendable {
     context: GRPCAsyncServerCallContext
   ) async throws -> Vault_V1_EncryptPayloadResponse
 
-  /// Updates a token for an entity.
+  /// Updates an entity's access token.
   func updateEntityToken(
     request: Vault_V1_UpdateEntityTokenRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Vault_V1_UpdateEntityTokenResponse
+
+  /// Deletes an entity's access token.
+  func deleteEntityToken(
+    request: Vault_V1_DeleteEntityTokenRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_DeleteEntityTokenResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension Vault_V1_EntityAsyncProvider {
+extension Vault_V1_EntityInternalAsyncProvider {
   internal static var serviceDescriptor: GRPCServiceDescriptor {
-    return Vault_V1_EntityServerMetadata.serviceDescriptor
+    return Vault_V1_EntityInternalServerMetadata.serviceDescriptor
   }
 
   internal var serviceName: Substring {
-    return Vault_V1_EntityServerMetadata.serviceDescriptor.fullName[...]
+    return Vault_V1_EntityInternalServerMetadata.serviceDescriptor.fullName[...]
   }
 
-  internal var interceptors: Vault_V1_EntityServerInterceptorFactoryProtocol? {
+  internal var interceptors: Vault_V1_EntityInternalServerInterceptorFactoryProtocol? {
     return nil
   }
 
@@ -827,33 +1462,6 @@ extension Vault_V1_EntityAsyncProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "CreateEntity":
-      return GRPCAsyncServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Vault_V1_CreateEntityRequest>(),
-        responseSerializer: ProtobufSerializer<Vault_V1_CreateEntityResponse>(),
-        interceptors: self.interceptors?.makeCreateEntityInterceptors() ?? [],
-        wrapping: { try await self.createEntity(request: $0, context: $1) }
-      )
-
-    case "AuthenticateEntity":
-      return GRPCAsyncServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Vault_V1_AuthenticateEntityRequest>(),
-        responseSerializer: ProtobufSerializer<Vault_V1_AuthenticateEntityResponse>(),
-        interceptors: self.interceptors?.makeAuthenticateEntityInterceptors() ?? [],
-        wrapping: { try await self.authenticateEntity(request: $0, context: $1) }
-      )
-
-    case "ListEntityStoredTokens":
-      return GRPCAsyncServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Vault_V1_ListEntityStoredTokenRequest>(),
-        responseSerializer: ProtobufSerializer<Vault_V1_ListEntityStoredTokenResponse>(),
-        interceptors: self.interceptors?.makeListEntityStoredTokensInterceptors() ?? [],
-        wrapping: { try await self.listEntityStoredTokens(request: $0, context: $1) }
-      )
-
     case "StoreEntityToken":
       return GRPCAsyncServerHandler(
         context: context,
@@ -899,25 +1507,22 @@ extension Vault_V1_EntityAsyncProvider {
         wrapping: { try await self.updateEntityToken(request: $0, context: $1) }
       )
 
+    case "DeleteEntityToken":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_DeleteEntityTokenRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_DeleteEntityTokenResponse>(),
+        interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? [],
+        wrapping: { try await self.deleteEntityToken(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
   }
 }
 
-internal protocol Vault_V1_EntityServerInterceptorFactoryProtocol: Sendable {
-
-  /// - Returns: Interceptors to use when handling 'createEntity'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCreateEntityInterceptors() -> [ServerInterceptor<Vault_V1_CreateEntityRequest, Vault_V1_CreateEntityResponse>]
-
-  /// - Returns: Interceptors to use when handling 'authenticateEntity'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeAuthenticateEntityInterceptors() -> [ServerInterceptor<Vault_V1_AuthenticateEntityRequest, Vault_V1_AuthenticateEntityResponse>]
-
-  /// - Returns: Interceptors to use when handling 'listEntityStoredTokens'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeListEntityStoredTokensInterceptors() -> [ServerInterceptor<Vault_V1_ListEntityStoredTokenRequest, Vault_V1_ListEntityStoredTokenResponse>]
+internal protocol Vault_V1_EntityInternalServerInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when handling 'storeEntityToken'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -938,70 +1543,60 @@ internal protocol Vault_V1_EntityServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'updateEntityToken'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUpdateEntityTokenInterceptors() -> [ServerInterceptor<Vault_V1_UpdateEntityTokenRequest, Vault_V1_UpdateEntityTokenResponse>]
+
+  /// - Returns: Interceptors to use when handling 'deleteEntityToken'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDeleteEntityTokenInterceptors() -> [ServerInterceptor<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>]
 }
 
-internal enum Vault_V1_EntityServerMetadata {
+internal enum Vault_V1_EntityInternalServerMetadata {
   internal static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Entity",
-    fullName: "vault.v1.Entity",
+    name: "EntityInternal",
+    fullName: "vault.v1.EntityInternal",
     methods: [
-      Vault_V1_EntityServerMetadata.Methods.createEntity,
-      Vault_V1_EntityServerMetadata.Methods.authenticateEntity,
-      Vault_V1_EntityServerMetadata.Methods.listEntityStoredTokens,
-      Vault_V1_EntityServerMetadata.Methods.storeEntityToken,
-      Vault_V1_EntityServerMetadata.Methods.getEntityAccessToken,
-      Vault_V1_EntityServerMetadata.Methods.decryptPayload,
-      Vault_V1_EntityServerMetadata.Methods.encryptPayload,
-      Vault_V1_EntityServerMetadata.Methods.updateEntityToken,
+      Vault_V1_EntityInternalServerMetadata.Methods.storeEntityToken,
+      Vault_V1_EntityInternalServerMetadata.Methods.getEntityAccessToken,
+      Vault_V1_EntityInternalServerMetadata.Methods.decryptPayload,
+      Vault_V1_EntityInternalServerMetadata.Methods.encryptPayload,
+      Vault_V1_EntityInternalServerMetadata.Methods.updateEntityToken,
+      Vault_V1_EntityInternalServerMetadata.Methods.deleteEntityToken,
     ]
   )
 
   internal enum Methods {
-    internal static let createEntity = GRPCMethodDescriptor(
-      name: "CreateEntity",
-      path: "/vault.v1.Entity/CreateEntity",
-      type: GRPCCallType.unary
-    )
-
-    internal static let authenticateEntity = GRPCMethodDescriptor(
-      name: "AuthenticateEntity",
-      path: "/vault.v1.Entity/AuthenticateEntity",
-      type: GRPCCallType.unary
-    )
-
-    internal static let listEntityStoredTokens = GRPCMethodDescriptor(
-      name: "ListEntityStoredTokens",
-      path: "/vault.v1.Entity/ListEntityStoredTokens",
-      type: GRPCCallType.unary
-    )
-
     internal static let storeEntityToken = GRPCMethodDescriptor(
       name: "StoreEntityToken",
-      path: "/vault.v1.Entity/StoreEntityToken",
+      path: "/vault.v1.EntityInternal/StoreEntityToken",
       type: GRPCCallType.unary
     )
 
     internal static let getEntityAccessToken = GRPCMethodDescriptor(
       name: "GetEntityAccessToken",
-      path: "/vault.v1.Entity/GetEntityAccessToken",
+      path: "/vault.v1.EntityInternal/GetEntityAccessToken",
       type: GRPCCallType.unary
     )
 
     internal static let decryptPayload = GRPCMethodDescriptor(
       name: "DecryptPayload",
-      path: "/vault.v1.Entity/DecryptPayload",
+      path: "/vault.v1.EntityInternal/DecryptPayload",
       type: GRPCCallType.unary
     )
 
     internal static let encryptPayload = GRPCMethodDescriptor(
       name: "EncryptPayload",
-      path: "/vault.v1.Entity/EncryptPayload",
+      path: "/vault.v1.EntityInternal/EncryptPayload",
       type: GRPCCallType.unary
     )
 
     internal static let updateEntityToken = GRPCMethodDescriptor(
       name: "UpdateEntityToken",
-      path: "/vault.v1.Entity/UpdateEntityToken",
+      path: "/vault.v1.EntityInternal/UpdateEntityToken",
+      type: GRPCCallType.unary
+    )
+
+    internal static let deleteEntityToken = GRPCMethodDescriptor(
+      name: "DeleteEntityToken",
+      path: "/vault.v1.EntityInternal/DeleteEntityToken",
       type: GRPCCallType.unary
     )
   }

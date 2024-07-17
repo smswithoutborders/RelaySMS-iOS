@@ -134,7 +134,7 @@ struct Vault_V1_AuthenticateEntityResponse {
 }
 
 /// Request message for listing entity's stored tokens.
-struct Vault_V1_ListEntityStoredTokenRequest {
+struct Vault_V1_ListEntityStoredTokensRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -148,7 +148,7 @@ struct Vault_V1_ListEntityStoredTokenRequest {
 }
 
 /// Response message for listing entity's stored tokens.
-struct Vault_V1_ListEntityStoredTokenResponse {
+struct Vault_V1_ListEntityStoredTokensResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -229,6 +229,9 @@ struct Vault_V1_GetEntityAccessTokenRequest {
 
   /// Device ID for identifying the requesting device.
   var deviceID: String = String()
+
+  /// The long-lived token of the authenticated entity.
+  var longLivedToken: String = String()
 
   /// The platform associated with the token.
   var platform: String = String()
@@ -374,13 +377,173 @@ struct Vault_V1_UpdateEntityTokenResponse {
   init() {}
 }
 
+/// Request message for deleting an entity's token.
+struct Vault_V1_DeleteEntityTokenRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The long-lived token of the authenticated entity.
+  var longLivedToken: String = String()
+
+  /// The platform associated with the token.
+  var platform: String = String()
+
+  /// The identifier of the account associated with the token.
+  var accountIdentifier: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Response message for deleting an entity's token.
+struct Vault_V1_DeleteEntityTokenResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// A response message.
+  var message: String = String()
+
+  /// Indicates whether the operation was successful.
+  var success: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Request message for deleting an entity.
+struct Vault_V1_DeleteEntityRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The long-lived token of the authenticated entity.
+  var longLivedToken: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Response message for deleting an entity.
+struct Vault_V1_DeleteEntityResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// A response message.
+  var message: String = String()
+
+  /// Indicates whether the operation was successful.
+  var success: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Request message for resetting an entity's password.
+struct Vault_V1_ResetPasswordRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The phone number of the entity.
+  var phoneNumber: String = String()
+
+  /// The new password of the entity.
+  var newPassword: String = String()
+
+  /// The client's public key for publishing.
+  var clientPublishPubKey: String = String()
+
+  /// The client's public key for device identification.
+  var clientDeviceIDPubKey: String = String()
+
+  /// The ownership proof response from the client.
+  var ownershipProofResponse: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Response message for resetting an entity's password.
+struct Vault_V1_ResetPasswordResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Indicates if ownership proof is required.
+  var requiresOwnershipProof: Bool = false
+
+  /// A long-lived token for the authenticated entity.
+  var longLivedToken: String = String()
+
+  /// The server's public key for publishing.
+  var serverPublishPubKey: String = String()
+
+  /// The server's public key for device identification.
+  var serverDeviceIDPubKey: String = String()
+
+  /// A response message.
+  var message: String = String()
+
+  /// The next available time to request another proof of ownership.
+  var nextAttemptTimestamp: Int32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Request message for updating an entity's password.
+struct Vault_V1_UpdateEntityPasswordRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The long-lived token of the authenticated entity.
+  var longLivedToken: String = String()
+
+  /// The current password of the entity.
+  var currentPassword: String = String()
+
+  /// The new password of the entity.
+  var newPassword: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Response message for updating an entity's password.
+struct Vault_V1_UpdateEntityPasswordResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// A response message.
+  var message: String = String()
+
+  /// Indicates whether the operation was successful.
+  var success: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Vault_V1_CreateEntityRequest: @unchecked Sendable {}
 extension Vault_V1_CreateEntityResponse: @unchecked Sendable {}
 extension Vault_V1_AuthenticateEntityRequest: @unchecked Sendable {}
 extension Vault_V1_AuthenticateEntityResponse: @unchecked Sendable {}
-extension Vault_V1_ListEntityStoredTokenRequest: @unchecked Sendable {}
-extension Vault_V1_ListEntityStoredTokenResponse: @unchecked Sendable {}
+extension Vault_V1_ListEntityStoredTokensRequest: @unchecked Sendable {}
+extension Vault_V1_ListEntityStoredTokensResponse: @unchecked Sendable {}
 extension Vault_V1_Token: @unchecked Sendable {}
 extension Vault_V1_StoreEntityTokenRequest: @unchecked Sendable {}
 extension Vault_V1_StoreEntityTokenResponse: @unchecked Sendable {}
@@ -392,6 +555,14 @@ extension Vault_V1_EncryptPayloadRequest: @unchecked Sendable {}
 extension Vault_V1_EncryptPayloadResponse: @unchecked Sendable {}
 extension Vault_V1_UpdateEntityTokenRequest: @unchecked Sendable {}
 extension Vault_V1_UpdateEntityTokenResponse: @unchecked Sendable {}
+extension Vault_V1_DeleteEntityTokenRequest: @unchecked Sendable {}
+extension Vault_V1_DeleteEntityTokenResponse: @unchecked Sendable {}
+extension Vault_V1_DeleteEntityRequest: @unchecked Sendable {}
+extension Vault_V1_DeleteEntityResponse: @unchecked Sendable {}
+extension Vault_V1_ResetPasswordRequest: @unchecked Sendable {}
+extension Vault_V1_ResetPasswordResponse: @unchecked Sendable {}
+extension Vault_V1_UpdateEntityPasswordRequest: @unchecked Sendable {}
+extension Vault_V1_UpdateEntityPasswordResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -640,8 +811,8 @@ extension Vault_V1_AuthenticateEntityResponse: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension Vault_V1_ListEntityStoredTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ListEntityStoredTokenRequest"
+extension Vault_V1_ListEntityStoredTokensRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ListEntityStoredTokensRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "long_lived_token"),
   ]
@@ -665,15 +836,15 @@ extension Vault_V1_ListEntityStoredTokenRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Vault_V1_ListEntityStoredTokenRequest, rhs: Vault_V1_ListEntityStoredTokenRequest) -> Bool {
+  static func ==(lhs: Vault_V1_ListEntityStoredTokensRequest, rhs: Vault_V1_ListEntityStoredTokensRequest) -> Bool {
     if lhs.longLivedToken != rhs.longLivedToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Vault_V1_ListEntityStoredTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ListEntityStoredTokenResponse"
+extension Vault_V1_ListEntityStoredTokensResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ListEntityStoredTokensResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "stored_tokens"),
     2: .same(proto: "message"),
@@ -702,7 +873,7 @@ extension Vault_V1_ListEntityStoredTokenResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Vault_V1_ListEntityStoredTokenResponse, rhs: Vault_V1_ListEntityStoredTokenResponse) -> Bool {
+  static func ==(lhs: Vault_V1_ListEntityStoredTokensResponse, rhs: Vault_V1_ListEntityStoredTokensResponse) -> Bool {
     if lhs.storedTokens != rhs.storedTokens {return false}
     if lhs.message != rhs.message {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -840,8 +1011,9 @@ extension Vault_V1_GetEntityAccessTokenRequest: SwiftProtobuf.Message, SwiftProt
   static let protoMessageName: String = _protobuf_package + ".GetEntityAccessTokenRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "device_id"),
-    2: .same(proto: "platform"),
-    3: .standard(proto: "account_identifier"),
+    2: .standard(proto: "long_lived_token"),
+    3: .same(proto: "platform"),
+    4: .standard(proto: "account_identifier"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -851,8 +1023,9 @@ extension Vault_V1_GetEntityAccessTokenRequest: SwiftProtobuf.Message, SwiftProt
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.platform) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.accountIdentifier) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.longLivedToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.platform) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountIdentifier) }()
       default: break
       }
     }
@@ -862,17 +1035,21 @@ extension Vault_V1_GetEntityAccessTokenRequest: SwiftProtobuf.Message, SwiftProt
     if !self.deviceID.isEmpty {
       try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 1)
     }
+    if !self.longLivedToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.longLivedToken, fieldNumber: 2)
+    }
     if !self.platform.isEmpty {
-      try visitor.visitSingularStringField(value: self.platform, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.platform, fieldNumber: 3)
     }
     if !self.accountIdentifier.isEmpty {
-      try visitor.visitSingularStringField(value: self.accountIdentifier, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.accountIdentifier, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Vault_V1_GetEntityAccessTokenRequest, rhs: Vault_V1_GetEntityAccessTokenRequest) -> Bool {
     if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.longLivedToken != rhs.longLivedToken {return false}
     if lhs.platform != rhs.platform {return false}
     if lhs.accountIdentifier != rhs.accountIdentifier {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1169,6 +1346,358 @@ extension Vault_V1_UpdateEntityTokenResponse: SwiftProtobuf.Message, SwiftProtob
   }
 
   static func ==(lhs: Vault_V1_UpdateEntityTokenResponse, rhs: Vault_V1_UpdateEntityTokenResponse) -> Bool {
+    if lhs.message != rhs.message {return false}
+    if lhs.success != rhs.success {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_DeleteEntityTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DeleteEntityTokenRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "long_lived_token"),
+    2: .same(proto: "platform"),
+    3: .standard(proto: "account_identifier"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.longLivedToken) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.platform) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.accountIdentifier) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.longLivedToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.longLivedToken, fieldNumber: 1)
+    }
+    if !self.platform.isEmpty {
+      try visitor.visitSingularStringField(value: self.platform, fieldNumber: 2)
+    }
+    if !self.accountIdentifier.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountIdentifier, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_DeleteEntityTokenRequest, rhs: Vault_V1_DeleteEntityTokenRequest) -> Bool {
+    if lhs.longLivedToken != rhs.longLivedToken {return false}
+    if lhs.platform != rhs.platform {return false}
+    if lhs.accountIdentifier != rhs.accountIdentifier {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_DeleteEntityTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DeleteEntityTokenResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "message"),
+    2: .same(proto: "success"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.success) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
+    }
+    if self.success != false {
+      try visitor.visitSingularBoolField(value: self.success, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_DeleteEntityTokenResponse, rhs: Vault_V1_DeleteEntityTokenResponse) -> Bool {
+    if lhs.message != rhs.message {return false}
+    if lhs.success != rhs.success {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_DeleteEntityRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DeleteEntityRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "long_lived_token"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.longLivedToken) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.longLivedToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.longLivedToken, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_DeleteEntityRequest, rhs: Vault_V1_DeleteEntityRequest) -> Bool {
+    if lhs.longLivedToken != rhs.longLivedToken {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_DeleteEntityResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DeleteEntityResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "message"),
+    2: .same(proto: "success"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.success) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
+    }
+    if self.success != false {
+      try visitor.visitSingularBoolField(value: self.success, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_DeleteEntityResponse, rhs: Vault_V1_DeleteEntityResponse) -> Bool {
+    if lhs.message != rhs.message {return false}
+    if lhs.success != rhs.success {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_ResetPasswordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ResetPasswordRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "phone_number"),
+    2: .standard(proto: "new_password"),
+    3: .standard(proto: "client_publish_pub_key"),
+    4: .standard(proto: "client_device_id_pub_key"),
+    5: .standard(proto: "ownership_proof_response"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.phoneNumber) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.newPassword) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.clientPublishPubKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.clientDeviceIDPubKey) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.ownershipProofResponse) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.phoneNumber.isEmpty {
+      try visitor.visitSingularStringField(value: self.phoneNumber, fieldNumber: 1)
+    }
+    if !self.newPassword.isEmpty {
+      try visitor.visitSingularStringField(value: self.newPassword, fieldNumber: 2)
+    }
+    if !self.clientPublishPubKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientPublishPubKey, fieldNumber: 3)
+    }
+    if !self.clientDeviceIDPubKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientDeviceIDPubKey, fieldNumber: 4)
+    }
+    if !self.ownershipProofResponse.isEmpty {
+      try visitor.visitSingularStringField(value: self.ownershipProofResponse, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_ResetPasswordRequest, rhs: Vault_V1_ResetPasswordRequest) -> Bool {
+    if lhs.phoneNumber != rhs.phoneNumber {return false}
+    if lhs.newPassword != rhs.newPassword {return false}
+    if lhs.clientPublishPubKey != rhs.clientPublishPubKey {return false}
+    if lhs.clientDeviceIDPubKey != rhs.clientDeviceIDPubKey {return false}
+    if lhs.ownershipProofResponse != rhs.ownershipProofResponse {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_ResetPasswordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ResetPasswordResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "requires_ownership_proof"),
+    2: .standard(proto: "long_lived_token"),
+    3: .standard(proto: "server_publish_pub_key"),
+    4: .standard(proto: "server_device_id_pub_key"),
+    5: .same(proto: "message"),
+    6: .standard(proto: "next_attempt_timestamp"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.requiresOwnershipProof) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.longLivedToken) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.serverPublishPubKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.serverDeviceIDPubKey) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.nextAttemptTimestamp) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.requiresOwnershipProof != false {
+      try visitor.visitSingularBoolField(value: self.requiresOwnershipProof, fieldNumber: 1)
+    }
+    if !self.longLivedToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.longLivedToken, fieldNumber: 2)
+    }
+    if !self.serverPublishPubKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.serverPublishPubKey, fieldNumber: 3)
+    }
+    if !self.serverDeviceIDPubKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.serverDeviceIDPubKey, fieldNumber: 4)
+    }
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 5)
+    }
+    if self.nextAttemptTimestamp != 0 {
+      try visitor.visitSingularInt32Field(value: self.nextAttemptTimestamp, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_ResetPasswordResponse, rhs: Vault_V1_ResetPasswordResponse) -> Bool {
+    if lhs.requiresOwnershipProof != rhs.requiresOwnershipProof {return false}
+    if lhs.longLivedToken != rhs.longLivedToken {return false}
+    if lhs.serverPublishPubKey != rhs.serverPublishPubKey {return false}
+    if lhs.serverDeviceIDPubKey != rhs.serverDeviceIDPubKey {return false}
+    if lhs.message != rhs.message {return false}
+    if lhs.nextAttemptTimestamp != rhs.nextAttemptTimestamp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_UpdateEntityPasswordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".UpdateEntityPasswordRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "long_lived_token"),
+    2: .standard(proto: "current_password"),
+    3: .standard(proto: "new_password"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.longLivedToken) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.currentPassword) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.newPassword) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.longLivedToken.isEmpty {
+      try visitor.visitSingularStringField(value: self.longLivedToken, fieldNumber: 1)
+    }
+    if !self.currentPassword.isEmpty {
+      try visitor.visitSingularStringField(value: self.currentPassword, fieldNumber: 2)
+    }
+    if !self.newPassword.isEmpty {
+      try visitor.visitSingularStringField(value: self.newPassword, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_UpdateEntityPasswordRequest, rhs: Vault_V1_UpdateEntityPasswordRequest) -> Bool {
+    if lhs.longLivedToken != rhs.longLivedToken {return false}
+    if lhs.currentPassword != rhs.currentPassword {return false}
+    if lhs.newPassword != rhs.newPassword {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Vault_V1_UpdateEntityPasswordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".UpdateEntityPasswordResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "message"),
+    2: .same(proto: "success"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.success) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.message.isEmpty {
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
+    }
+    if self.success != false {
+      try visitor.visitSingularBoolField(value: self.success, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Vault_V1_UpdateEntityPasswordResponse, rhs: Vault_V1_UpdateEntityPasswordResponse) -> Bool {
     if lhs.message != rhs.message {return false}
     if lhs.success != rhs.success {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

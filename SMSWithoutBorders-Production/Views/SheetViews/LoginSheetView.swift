@@ -36,7 +36,7 @@ struct LoginSheetView: View {
 
     var body: some View {
         if(OTPRequired) {
-            OTPSheetView(type: OTPSheetView.TYPE.AUTHENTICATE,
+            OTPSheetView(type: OTPAuthType.TYPE.AUTHENTICATE,
                          retryTimer: otpRetryTimer, phoneNumber: $phoneNumber,
                          countryCode: $countryCode,
                          password: $password,

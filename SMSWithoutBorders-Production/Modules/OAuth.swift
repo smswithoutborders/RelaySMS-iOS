@@ -122,49 +122,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
                                           redirectURL: mRedirectUrl,
                                               responseType: OIDResponseTypeCode,
                                               additionalParameters: nil)
-//        return URL(string: (request?.authorizationRequestURL().absoluteString)! + "&state=\(state)")
         request?.setValue(state, forKey: "state")
+        if(codeVerifier.isEmpty) {
+            request?.setValue("", forKey: "code_challenge")
+            request?.setValue("", forKey: "code_challenge_method")
+        }
         return request?.authorizationRequestURL()
-
-        
-        
-//        let userinfoEndpoint = URL(string:"https://openidconnect.googleapis.com/v1/userinfo")!
-//        self.authState?.performAction() { (accessToken, idToken, error) in
-//
-//          if error != nil  {
-//            print("Error fetching fresh tokens: \(error?.localizedDescription ?? "Unknown error")")
-//            return
-//          }
-//          guard let accessToken = accessToken else {
-//            return
-//          }
-//
-//          // Add Bearer token to request
-//            var urlRequest = URLRequest(url: request?.authorizationRequestURL())
-//          urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-//
-//          // Perform request...
-//        }
-//        
-//        // performs authentication request
-//        print("Initiating authorization request with scope: \(request?.scope ?? "nil")")
-//        
-////        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        
-////        userAgent = OIDExternalUserAgentIOS(presenting: viewController)!
-//        userAgent = OIDExternalUserAgentIOS(presenting: presentingViewController)!
-//
-//        self.currentAuthorizationFlow =
-//        OIDAuthState.authState(byPresenting: request!, externalUserAgent: userAgent!) { authState, error in
-//            if let authState = authState {
-//                self.authState = authState
-//                print("Got authorization tokens. Access token: " +
-//                      "\(authState.lastTokenResponse?.accessToken ?? "nil")")
-//            } else {
-//                print("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
-//                self.authState = nil
-//            }
-//        }
     }
 }
 

@@ -38,6 +38,9 @@ struct Publisher_V1_GetOAuth2AuthorizationUrlRequest {
   /// Flag to indicate if the code verifier should be auto-generated
   var autogenerateCodeVerifier: Bool = false
 
+  /// Optional redirect URL for the OAuth2 application
+  var redirectURL: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -92,6 +95,9 @@ struct Publisher_V1_ExchangeOAuth2CodeAndStoreRequest {
 
   /// Optional code verifier used for PKCE
   var codeVerifier: String = String()
+
+  /// Optional redirect URL for the OAuth2 application
+  var redirectURL: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -211,6 +217,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     2: .same(proto: "state"),
     3: .standard(proto: "code_verifier"),
     4: .standard(proto: "autogenerate_code_verifier"),
+    5: .standard(proto: "redirect_url"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -223,6 +230,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
       case 2: try { try decoder.decodeSingularStringField(value: &self.state) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.codeVerifier) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.autogenerateCodeVerifier) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.redirectURL) }()
       default: break
       }
     }
@@ -241,6 +249,9 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     if self.autogenerateCodeVerifier != false {
       try visitor.visitSingularBoolField(value: self.autogenerateCodeVerifier, fieldNumber: 4)
     }
+    if !self.redirectURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.redirectURL, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -249,6 +260,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     if lhs.state != rhs.state {return false}
     if lhs.codeVerifier != rhs.codeVerifier {return false}
     if lhs.autogenerateCodeVerifier != rhs.autogenerateCodeVerifier {return false}
+    if lhs.redirectURL != rhs.redirectURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -329,6 +341,7 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     2: .same(proto: "platform"),
     3: .standard(proto: "authorization_code"),
     4: .standard(proto: "code_verifier"),
+    5: .standard(proto: "redirect_url"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -341,6 +354,7 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
       case 2: try { try decoder.decodeSingularStringField(value: &self.platform) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.authorizationCode) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.codeVerifier) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.redirectURL) }()
       default: break
       }
     }
@@ -359,6 +373,9 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     if !self.codeVerifier.isEmpty {
       try visitor.visitSingularStringField(value: self.codeVerifier, fieldNumber: 4)
     }
+    if !self.redirectURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.redirectURL, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -367,6 +384,7 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     if lhs.platform != rhs.platform {return false}
     if lhs.authorizationCode != rhs.authorizationCode {return false}
     if lhs.codeVerifier != rhs.codeVerifier {return false}
+    if lhs.redirectURL != rhs.redirectURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

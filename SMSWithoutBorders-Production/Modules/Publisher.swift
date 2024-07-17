@@ -10,6 +10,8 @@ import GRPC
 import Logging
 
 class Publisher {
+    public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
+
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
     }
@@ -40,6 +42,35 @@ class Publisher {
         
         let call = publisherStub!.getOAuth2AuthorizationUrl(publishingUrlRequest)
         let response: Publisher_V1_GetOAuth2AuthorizationUrlResponse
+        
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+
+        return response
+    }
+    
+    func sendAuthorizationCode(llt: String, platform: String, code: String) throws -> Publisher_V1_ExchangeOAuth2CodeAndStoreResponse {
+        let authorizationRequest: Publisher_V1_ExchangeOAuth2CodeAndStoreRequest = .with {
+            $0.platform = platform
+            $0.authorizationCode = code
+            $0.longLivedToken = llt
+        }
+        
+        let call = publisherStub!.exchangeOAuth2CodeAndStore(authorizationRequest)
+        let response: Publisher_V1_ExchangeOAuth2CodeAndStoreResponse
         
         do {
             response = try call.response.wait()
