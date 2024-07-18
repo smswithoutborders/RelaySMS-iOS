@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import AppAuthCore
-import AppAuth
 
 struct OnboardingIntroToVaults: View {
     

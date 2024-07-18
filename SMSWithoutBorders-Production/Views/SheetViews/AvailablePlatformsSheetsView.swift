@@ -32,8 +32,6 @@ struct AvailablePlatformsSheetsView: View {
 
     private let publisher = Publisher()
     
-    @EnvironmentObject var appDelegate: AppDelegate
-    
     @Environment(\.openURL) var openURL
     
     var body: some View {
@@ -59,15 +57,8 @@ struct AvailablePlatformsSheetsView: View {
                                     Button(action: {
                                         do {
                                             let response = try publisher.getURL(platform: service.name)
-                                            print(response.authorizationURL)
-                                            let url = appDelegate.startAuthentication(authorizationEndpoint: URL(string: response.authorizationURL)!,
-                                                clientID: response.clientID,
-                                                redirectURI: URL(string: response.redirectURL)!,
-                                                platform: service,
-                                                codeVerifier: response.codeVerifier)
-                                            
                                             codeVerifier = response.codeVerifier
-                                            openURL(url!)
+                                            openURL(URL(string: response.authorizationURL)!)
                                         }
                                         catch {
                                             print("Some error occured: \(error)")

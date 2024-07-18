@@ -13,9 +13,6 @@
     "Already got code" : {
 
     },
-    "Already have an account?" : {
-
-    },
     "Available Platforms" : {
 
     },
@@ -23,9 +20,6 @@
 
     },
     "Cc " : {
-
-    },
-    "Click to start synchronization!" : {
 
     },
     "Close" : {
@@ -84,9 +78,6 @@
 
     },
     "Login" : {
-
-    },
-    "No account yet?" : {
 
     },
     "No platforms" : {
@@ -165,12 +156,6 @@
     "Send" : {
 
     },
-    "Sign-in" : {
-
-    },
-    "Sign-up" : {
-
-    },
     "skip" : {
 
     },
@@ -227,9 +212,6 @@
           }
         }
       }
-    },
-    "Welcome" : {
-
     },
     "Welcome to RelaySMS" : {
 

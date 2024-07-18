@@ -59,13 +59,11 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @StateObject private var dataController = DataController()
+    
     @State var isFinished = false
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
     @State var navigatingFromURL: Bool = false
-    
     @State var absoluteURLString: String = ""
-    
     @State var codeVerifier: String = ""
 
     var body: some Scene {
@@ -78,7 +76,6 @@ struct SMSWithoutBorders_ProductionApp: App {
                     RecentsView(codeVerifier: $codeVerifier)
                 }
             }
-            .environmentObject(appDelegate)
             .onOpenURL { url in
                 let state = url.valueOf("state")
                 let code = url.valueOf("code")
@@ -105,8 +102,6 @@ struct SMSWithoutBorders_ProductionApp: App {
 #Preview {
     @State var isFinished = false
     @State var codeVerifier = ""
-    
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     return ControllerView(isFinished: $isFinished, codeVerifier: $codeVerifier)
 }

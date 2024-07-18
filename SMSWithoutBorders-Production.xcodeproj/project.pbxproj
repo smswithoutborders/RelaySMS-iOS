@@ -13,8 +13,6 @@
 		1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
 		1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
 		16B43B202915CDDC004AEF1F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
-		16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37728CB347E00E50393 /* SynchronizeView.swift */; };
-		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
 		16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
 		16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
 		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
@@ -35,10 +33,6 @@
 		16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */; };
 		16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */; };
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
-		3B37F27E2C1DBB71008D5BE9 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */; };
-		3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F27F2C1DBC97008D5BE9 /* AppAuth */; };
-		3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F2812C1DBC97008D5BE9 /* AppAuthCore */; };
-		3B37F2842C1DBC97008D5BE9 /* AppAuthTV in Frameworks */ = {isa = PBXBuildFile; productRef = 3B37F2832C1DBC97008D5BE9 /* AppAuthTV */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -123,10 +117,8 @@
 		1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsHandler.swift; sourceTree = "<group>"; };
 		1697672728E489040021BFC5 /* PlatformsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsHandler.swift; sourceTree = "<group>"; };
 		16B43B1F2915CDDC004AEF1F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		16EDE37728CB347E00E50393 /* SynchronizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizeView.swift; sourceTree = "<group>"; };
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
-		16EDE37B28CE055D00E50393 /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
 		16EDE37F28D0D23000E50393 /* CSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSecurity.swift; sourceTree = "<group>"; };
 		16EDE38128D223F300E50393 /* PublisherHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherHandler.swift; sourceTree = "<group>"; };
 		16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlatformModels.xcdatamodel; sourceTree = "<group>"; };
@@ -149,7 +141,6 @@
 		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
-		3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -179,18 +170,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B37F2842C1DBC97008D5BE9 /* AppAuthTV in Frameworks */,
 				3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */,
 				3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */,
 				3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */,
 				3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */,
 				3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */,
 				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
-				3B37F2802C1DBC97008D5BE9 /* AppAuth in Frameworks */,
 				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
 				3BF117B22C30E1F9003D5BB6 /* Fernet in Frameworks */,
 				3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
-				3B37F2822C1DBC97008D5BE9 /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +281,6 @@
 				3BAB09602C1B21B400664E90 /* Onboarding */,
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
-				16EDE37728CB347E00E50393 /* SynchronizeView.swift */,
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
 				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
@@ -315,9 +302,6 @@
 		16F0E6B328C80BBC00FDD12C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */,
-				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
-				16EDE37B28CE055D00E50393 /* Synchronization.swift */,
 				16EDE37F28D0D23000E50393 /* CSecurity.swift */,
 				16EDE38128D223F300E50393 /* PublisherHandler.swift */,
 				16EDE38828D3511700E50393 /* DataController.swift */,
@@ -332,12 +316,13 @@
 		3B37F27A2C1DBB1D008D5BE9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				3B37F27D2C1DBB71008D5BE9 /* OAuth.swift */,
 				3BF1178E2C2A2B67003D5BB6 /* Vault.swift */,
 				3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */,
 				3BF117A22C2DFEE4003D5BB6 /* SecurityCurve25519.swift */,
 				3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */,
 				3BC978132C36C0D700AB626C /* Publisher.swift */,
+				16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */,
+				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -401,9 +386,6 @@
 			);
 			name = "SMSWithoutBorders-Production";
 			packageProductDependencies = (
-				3B37F27F2C1DBC97008D5BE9 /* AppAuth */,
-				3B37F2812C1DBC97008D5BE9 /* AppAuthCore */,
-				3B37F2832C1DBC97008D5BE9 /* AppAuthTV */,
 				3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */,
 				3BF117712C28F3F4003D5BB6 /* GRPC */,
 				3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */,
@@ -499,7 +481,6 @@
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
-				3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */,
 				3BF117AA2C2F5154003D5BB6 /* XCRemoteSwiftPackageReference "fernet" */,
 				3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
@@ -570,13 +551,11 @@
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				3BF117A32C2DFEE4003D5BB6 /* SecurityCurve25519.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */,
-				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
-				3B37F27E2C1DBB71008D5BE9 /* OAuth.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				3BEC4CEA2C47FAB300F92D2A /* relay_publisher.proto in Sources */,
@@ -589,7 +568,6 @@
 				16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
-				16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,14 +961,6 @@
 				kind = branch;
 			};
 		};
-		3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.5;
-			};
-		};
 		3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift.git";
@@ -1030,21 +1000,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */;
 			productName = SwiftSVG;
-		};
-		3B37F27F2C1DBC97008D5BE9 /* AppAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuth;
-		};
-		3B37F2812C1DBC97008D5BE9 /* AppAuthCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuthCore;
-		};
-		3B37F2832C1DBC97008D5BE9 /* AppAuthTV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BAB096B2C1DA3C100664E90 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuthTV;
 		};
 		3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */ = {
 			isa = XCSwiftPackageProductDependency;
