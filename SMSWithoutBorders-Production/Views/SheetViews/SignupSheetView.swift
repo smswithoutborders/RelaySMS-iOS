@@ -118,7 +118,7 @@ struct SignupSheetView: View {
                             self.isLoading = true
                             Task {
                                 do {
-                                    try await createAccount(
+                                    self.otpRetryTimer = try await createAccount(
                                         phonenumber: phoneNumber,
                                         countryCode: selectedCountryCodeText!,
                                         password: password,

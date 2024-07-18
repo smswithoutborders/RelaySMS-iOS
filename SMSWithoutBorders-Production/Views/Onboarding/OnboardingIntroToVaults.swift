@@ -87,7 +87,7 @@ struct OnboardingIntroToVaults: View {
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         .task {
             do {
-                if(try Vault.getLongLivedToken().isEmpty) {
+                if(try !Vault.getLongLivedToken().isEmpty) {
                     self.completed = true
                 }
             } catch {

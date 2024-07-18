@@ -52,7 +52,7 @@ struct LoginSheetView: View {
                         isLoading = true
                         Task {
                             do {
-                                let time = try await signupOrAuthenticate(
+                                self.otpRetryTimer = try await signupOrAuthenticate(
                                     phoneNumber: phoneNumber,
                                     countryCode: "",
                                     password: password,
