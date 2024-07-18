@@ -58,7 +58,6 @@ struct AvailablePlatformsSheetsView: View {
                                 VStack {
                                     Button(action: {
                                         do {
-                                            // TODO: making things slow, get it before you need it
                                             let response = try publisher.getURL(platform: service.name)
                                             print(response.authorizationURL)
                                             let url = appDelegate.startAuthentication(authorizationEndpoint: URL(string: response.authorizationURL)!,

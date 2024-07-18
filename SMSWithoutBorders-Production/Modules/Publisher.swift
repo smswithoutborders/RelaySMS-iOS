@@ -31,15 +31,14 @@ class Publisher {
     
     func getURL(platform: String, 
                 state: String = "",
-                codeVerifier: String = "",
                 autogenerateCodeVerifier: Bool = false) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
         
         let publishingUrlRequest: Publisher_V1_GetOAuth2AuthorizationUrlRequest = .with {
             $0.platform = platform
             $0.state = state
             $0.redirectURL = Publisher.REDIRECT_URL
-            $0.codeVerifier = codeVerifier
             $0.autogenerateCodeVerifier = autogenerateCodeVerifier
+            $0.state = platform
         }
         
         let call = publisherStub!.getOAuth2AuthorizationUrl(publishingUrlRequest)
@@ -71,9 +70,10 @@ class Publisher {
             $0.platform = platform
             $0.authorizationCode = code
             $0.longLivedToken = llt
-            if(codeVerifier != nil) {
+            if(codeVerifier != nil || !codeVerifier!.isEmpty) {
                 $0.codeVerifier = codeVerifier!
             }
+            $0.redirectURL = Publisher.REDIRECT_URL
         }
         
         let call = publisherStub!.exchangeOAuth2CodeAndStore(authorizationRequest)

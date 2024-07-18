@@ -110,24 +110,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
         
 //        let mRedirectUrl = URL(string: Publisher.REDIRECT_URL)!
         
-        let clientSecret = ""
-        
-        let state = platform.name
-        
-        // builds authentication request
-        request = OIDAuthorizationRequest(configuration: configuration,
-                                              clientId: clientID,
-                                              clientSecret: clientSecret,
-                                              scopes: [OIDScopeOpenID, OIDScopeProfile],
-                                          redirectURL: redirectURI,
-                                              responseType: OIDResponseTypeCode,
-                                              additionalParameters: nil)
-        request?.setValue(state, forKey: "state")
-        if(codeVerifier.isEmpty) {
-            request?.setValue("", forKey: "code_challenge")
-            request?.setValue("", forKey: "code_challenge_method")
-        }
-        return request?.authorizationRequestURL()
+//        let clientSecret = ""
+//        
+//        let state = platform.name
+//        
+//        // builds authentication request
+//        request = OIDAuthorizationRequest(configuration: configuration,
+//                                              clientId: clientID,
+//                                              clientSecret: clientSecret,
+//                                              scopes: [OIDScopeOpenID, OIDScopeProfile],
+//                                          redirectURL: redirectURI,
+//                                              responseType: OIDResponseTypeCode,
+//                                              additionalParameters: nil)
+//        request?.setValue(state, forKey: "state")
+//        print("code verifier: \(codeVerifier.isEmpty)")
+//        print(request?.authorizationRequestURL())
+//        if(codeVerifier.isEmpty) {
+//            request?.setValue("", forKey: "codeChallenge")
+//            request?.setValue("", forKey: "codeChallengeMethod")
+//        }
+        return authorizationEndpoint
     }
 }
 
