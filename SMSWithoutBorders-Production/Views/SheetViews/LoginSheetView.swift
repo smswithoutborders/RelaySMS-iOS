@@ -11,7 +11,7 @@ struct LoginSheetView: View {
     
     #if DEBUG
         @State private var phoneNumber: String = "+2371234567"
-        @State private var password: String = "dummy_password"
+        @State private var password: String = "LL<O3ZG~=z-epkv"
     #else
         @State private var phoneNumber: String = ""
         @State private var password: String = ""
@@ -28,6 +28,7 @@ struct LoginSheetView: View {
     @Binding var failed: Bool
     
     @State var otpRetryTimer: Int = 0
+    @State var errorMessage: String = ""
 
     var body: some View {
         if(OTPRequired) {
@@ -51,21 +52,23 @@ struct LoginSheetView: View {
                         isLoading = true
                         Task {
                             do {
-                                self.otpRetryTimer = try await signupOrAuthenticate(
+                                let time = try await signupOrAuthenticate(
                                     phoneNumber: phoneNumber,
                                     countryCode: "",
                                     password: password,
                                     type: OTPAuthType.TYPE.AUTHENTICATE)
-                                OTPRequired = true
-                            } catch {
-                                print("Something went wrong authenticating: \(error)")
+                                self.OTPRequired = true
+                            } catch Vault.Exceptions.requestNotOK(let status){
+                                print("Something went wrong authenticating: \(status)")
                                 isLoading = false
                                 failed = true
+                                var (field, message) = Vault.parseErrorMessage(message: status.message) ?? (nil, status.message)
+                                errorMessage = message!
                             }
                         }
                     }
                     .alert(isPresented: $failed) {
-                        Alert(title: Text("Error"), message: Text("Something wen't wrong"))
+                        Alert(title: Text("Error"), message: Text(errorMessage))
                     }
                 }
             }

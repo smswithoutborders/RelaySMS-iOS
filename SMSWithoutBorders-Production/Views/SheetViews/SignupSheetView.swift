@@ -59,8 +59,8 @@ nonisolated func createAccount(phonenumber: String,
 struct SignupSheetView: View {
     #if DEBUG
         @State private var phoneNumber: String = "+2371234567"
-        @State private var password: String = "dummy_password"
-        @State private var rePassword: String = "dummy_password"
+        @State private var password: String = "LL<O3ZG~=z-epkv"
+        @State private var rePassword: String = "LL<O3ZG~=z-epkv"
         @State private var selectedCountryCodeText: String? = "CM"
     #else
         @State private var phoneNumber: String = ""
@@ -80,6 +80,7 @@ struct SignupSheetView: View {
     @Binding var failed: Bool
     
     @State var otpRetryTimer: Int = 0
+    @State var errorMessage: String = ""
 
     var body: some View {
         if(OTPRequired) {
@@ -117,17 +118,22 @@ struct SignupSheetView: View {
                             self.isLoading = true
                             Task {
                                 do {
-                                    otpRetryTimer = try await createAccount(
+                                    try await createAccount(
                                         phonenumber: phoneNumber,
                                         countryCode: selectedCountryCodeText!,
                                         password: password,
                                         type: OTPAuthType.TYPE.CREATE)
                                     OTPRequired = true
-                                } catch {
-                                    print("Something went wrong \(error)")
+                                } catch Vault.Exceptions.requestNotOK(let status){
+                                    print("Something went wrong authenticating: \(status)")
                                     isLoading = false
+                                    failed = true
+                                    var (field, message) = Vault.parseErrorMessage(message: status.message)!
+                                    errorMessage = message
                                 }
                             }
+                        }.alert(isPresented: $failed) {
+                            Alert(title: Text("Error"), message: Text(errorMessage))
                         }
                         Button("Already got code") {
                             OTPRequired = true

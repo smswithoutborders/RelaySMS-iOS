@@ -88,12 +88,14 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
             clientDeviceIdPubKey: clientDeviceIDPubKey,
             ownershipResponse: otpCode)
         
-        try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                   peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
-                   llt: response.longLivedToken,
-                   clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                   clientPublishPrivateKey: clientPublishPrivateKey!)
-        
+        if(otpCode != nil) {
+            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+                       llt: response.longLivedToken,
+                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
+                       clientPublishPrivateKey: clientPublishPrivateKey!)
+            
+        }
         return Int(response.nextAttemptTimestamp)
 
     } else {
@@ -104,12 +106,15 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
             clientDeviceIDPubKey: clientDeviceIDPubKey,
             ownershipResponse: otpCode)
         
-        try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                   peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
-                   llt: response.longLivedToken,
-                   clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                   clientPublishPrivateKey: clientPublishPrivateKey!)
         
+        if(otpCode != nil) {
+            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+                       llt: response.longLivedToken,
+                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
+                       clientPublishPrivateKey: clientPublishPrivateKey!)
+            
+        }
         return Int(response.nextAttemptTimestamp)
     }
 }
