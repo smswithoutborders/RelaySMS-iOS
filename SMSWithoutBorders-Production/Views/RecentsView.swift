@@ -12,7 +12,8 @@ struct RecentsView: View {
     @State var platformType: Int? = 0
     @State var platform: PlatformsEntity?
     @State var encryptedContent: EncryptedContentsEntity?
-    
+    @Binding var codeVerifier: String
+
     var body: some View {
         NavigationView {
             if self.platform != nil && platformType != nil {
@@ -20,7 +21,7 @@ struct RecentsView: View {
                                 .environment(\.managedObjectContext, datastore), tag: 1, selection:$platformType) {}
             }
             else {
-                RecentsViewAdapter(platformType: $platformType, platform: $platform)
+                RecentsViewAdapter(codeVerifier: $codeVerifier, platformType: $platformType, platform: $platform)
                     .environment(\.managedObjectContext, datastore)
             }
         }
@@ -46,7 +47,8 @@ struct RecentsViewAdapter: View {
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
     @State var showPlatforms : Bool = false;
-    
+    @Binding var codeVerifier : String
+
     @Binding var platformType: Int?
     @Binding var platform: PlatformsEntity?
     
@@ -90,7 +92,7 @@ struct RecentsViewAdapter: View {
                             x: 3,
                             y: 3)
                     .sheet(isPresented: $showPlatforms) {
-                        AvailablePlatformsSheetsView()
+                        AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
 //                            .environment(\.managedObjectContext, datastore)
 //                        NavigationView {
 //                            List(platforms) { platform in
@@ -124,8 +126,10 @@ struct RecentsViewAdapter: View {
 struct RecentsView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
     @State static var platformType: Int?
-    
+    @State static var codeVerifier: String = ""
+
     static var previews: some View {
-        RecentsViewAdapter(platformType: $platformType, platform: $platform)
+        RecentsViewAdapter(codeVerifier: $codeVerifier, platformType: $platformType, 
+                           platform: $platform)
     }
 }

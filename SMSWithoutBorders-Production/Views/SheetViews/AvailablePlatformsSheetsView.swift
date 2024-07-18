@@ -27,6 +27,8 @@ struct AvailablePlatformsSheetsView: View {
     @State var services = [Publisher.PlatformsData]()
     
     @State var platformsLoading = false
+    
+    @Binding var codeVerifier: String
 
     private let publisher = Publisher()
     
@@ -65,6 +67,7 @@ struct AvailablePlatformsSheetsView: View {
                                                 platform: service,
                                                 codeVerifier: response.codeVerifier)
                                             
+                                            codeVerifier = response.codeVerifier
                                             openURL(url!)
                                         }
                                         catch {
@@ -119,5 +122,6 @@ struct AvailablePlatformsSheetsView: View {
 }
 
 #Preview {
-    AvailablePlatformsSheetsView()
+    @State var codeVerifier = ""
+    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
 }

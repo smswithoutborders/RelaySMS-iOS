@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
         let configuration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint,
                                                     tokenEndpoint: tokenEndpoint)
         
-        let mRedirectUrl = URL(string: "https://oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/")!
+//        let mRedirectUrl = URL(string: Publisher.REDIRECT_URL)!
         
         let clientSecret = ""
         
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ObservableObject {
                                               clientId: clientID,
                                               clientSecret: clientSecret,
                                               scopes: [OIDScopeOpenID, OIDScopeProfile],
-                                          redirectURL: mRedirectUrl,
+                                          redirectURL: redirectURI,
                                               responseType: OIDResponseTypeCode,
                                               additionalParameters: nil)
         request?.setValue(state, forKey: "state")

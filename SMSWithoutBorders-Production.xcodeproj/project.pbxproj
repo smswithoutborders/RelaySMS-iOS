@@ -15,7 +15,6 @@
 		16B43B202915CDDC004AEF1F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
 		16EDE37828CB347E00E50393 /* SynchronizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37728CB347E00E50393 /* SynchronizeView.swift */; };
 		16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37B28CE055D00E50393 /* Synchronization.swift */; };
-		16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37D28CE5CA300E50393 /* PasswordView.swift */; };
 		16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
 		16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
 		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
@@ -128,7 +127,6 @@
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
 		16EDE37B28CE055D00E50393 /* Synchronization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronization.swift; sourceTree = "<group>"; };
-		16EDE37D28CE5CA300E50393 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		16EDE37F28D0D23000E50393 /* CSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSecurity.swift; sourceTree = "<group>"; };
 		16EDE38128D223F300E50393 /* PublisherHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherHandler.swift; sourceTree = "<group>"; };
 		16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlatformModels.xcdatamodel; sourceTree = "<group>"; };
@@ -296,7 +294,6 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				16EDE37728CB347E00E50393 /* SynchronizeView.swift */,
-				16EDE37D28CE5CA300E50393 /* PasswordView.swift */,
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
 				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
@@ -575,7 +572,6 @@
 				1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */,
 				16EDE37C28CE055D00E50393 /* Synchronization.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
-				16EDE37E28CE5CA300E50393 /* PasswordView.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,

@@ -15,6 +15,7 @@ struct ControllerView: View {
     @State private var onboadingViewIndex: Int = 0
     @State private var lastOnboardingView = false
     
+    @Binding var codeVerifier: String
     
     var body: some View {
         switch self.onboadingViewIndex {
@@ -30,7 +31,7 @@ struct ControllerView: View {
                     .font(.caption)
             }
         case 1:
-            OnboardingIntroToVaults()
+            OnboardingIntroToVaults(codeVerifier: $codeVerifier)
         default:
             OnboardingFinish(isFinished: $lastOnboardingView)
         }
@@ -65,27 +66,30 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @State var absoluteURLString: String = ""
     
+    @State var codeVerifier: String = ""
+
     var body: some Scene {
         WindowGroup {
             Group {
                 if(!isFinished) {
-                    ControllerView(isFinished: $isFinished)
+                    ControllerView(isFinished: $isFinished, codeVerifier: $codeVerifier)
                 }
                 else {
-                    RecentsView()
+                    RecentsView(codeVerifier: $codeVerifier)
                 }
             }
             .environmentObject(appDelegate)
             .onOpenURL { url in
                 let state = url.valueOf("state")
                 let code = url.valueOf("code")
-                print("state: \(state)\ncode: \(code)")
+                print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
                 
                 do {
                     let llt = try Vault.getLongLivedToken()
                     let publisher = Publisher()
                     let response = try publisher.sendAuthorizationCode(
-                        llt: llt, platform: state!, code: code!)
+                        llt: llt, platform: state!, code: code!,
+                        codeVerifier: codeVerifier)
                     
                     if(response.success) {
                         
@@ -100,7 +104,9 @@ struct SMSWithoutBorders_ProductionApp: App {
 
 #Preview {
     @State var isFinished = false
+    @State var codeVerifier = ""
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    return ControllerView(isFinished: $isFinished)
+    return ControllerView(isFinished: $isFinished, codeVerifier: $codeVerifier)
 }

@@ -25,6 +25,8 @@ struct OnboardingIntroToVaults: View {
     @State private var showSheet = false
     @State private var sheetHeight: CGFloat = .zero
     
+    @Binding var codeVerifier: String
+
     struct InnerHeightPreferenceKey: PreferenceKey {
         static let defaultValue: CGFloat = .zero
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
@@ -71,7 +73,7 @@ struct OnboardingIntroToVaults: View {
                     self.availablePlatformsPresented = true
                     }
                     .sheet(isPresented: $availablePlatformsPresented) {
-                        AvailablePlatformsSheetsView()
+                        AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
                     }
                     .buttonStyle(.borderedProminent),
                     title: "Add Accounts to Vault",
@@ -98,5 +100,6 @@ struct OnboardingIntroToVaults: View {
 }
 
 #Preview {
-    OnboardingIntroToVaults()
+    @State var codeVerifier: String = ""
+    OnboardingIntroToVaults(codeVerifier: $codeVerifier)
 }

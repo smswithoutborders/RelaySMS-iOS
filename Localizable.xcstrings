@@ -16,15 +16,6 @@
     "Already have an account?" : {
 
     },
-    "An error occured, stay calm!" : {
-
-    },
-    "Authenticate" : {
-
-    },
-    "Authenticating! Please hold on..." : {
-
-    },
     "Available Platforms" : {
 
     },
@@ -83,9 +74,6 @@
     "Enter phone number" : {
 
     },
-    "Enter your password" : {
-
-    },
     "Error" : {
 
     },
@@ -119,9 +107,6 @@
           }
         }
       }
-    },
-    "password..." : {
-
     },
     "Phone Number (e.g) +237123456789" : {
 

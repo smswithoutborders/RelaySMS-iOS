@@ -11,6 +11,7 @@ import Logging
 
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
+    public static var REDIRECT_URL = "https://oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/"
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
@@ -31,11 +32,12 @@ class Publisher {
     func getURL(platform: String, 
                 state: String = "",
                 codeVerifier: String = "",
-                autogenerateCodeVerifier: Bool = true) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
+                autogenerateCodeVerifier: Bool = false) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
         
         let publishingUrlRequest: Publisher_V1_GetOAuth2AuthorizationUrlRequest = .with {
             $0.platform = platform
             $0.state = state
+            $0.redirectURL = Publisher.REDIRECT_URL
             $0.codeVerifier = codeVerifier
             $0.autogenerateCodeVerifier = autogenerateCodeVerifier
         }
@@ -62,11 +64,16 @@ class Publisher {
         return response
     }
     
-    func sendAuthorizationCode(llt: String, platform: String, code: String) throws -> Publisher_V1_ExchangeOAuth2CodeAndStoreResponse {
+    func sendAuthorizationCode(llt: String, 
+                               platform: String,
+                               code: String, codeVerifier: String? = nil) throws -> Publisher_V1_ExchangeOAuth2CodeAndStoreResponse {
         let authorizationRequest: Publisher_V1_ExchangeOAuth2CodeAndStoreRequest = .with {
             $0.platform = platform
             $0.authorizationCode = code
             $0.longLivedToken = llt
+            if(codeVerifier != nil) {
+                $0.codeVerifier = codeVerifier!
+            }
         }
         
         let call = publisherStub!.exchangeOAuth2CodeAndStore(authorizationRequest)

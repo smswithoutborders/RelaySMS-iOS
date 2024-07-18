@@ -23,14 +23,7 @@ struct SynchronizeView: View {
     
     var body: some View {
         return Group {
-            if syncSuccessful {
-                PasswordView(privateKey: privateKey, gatewayServerPublicKey: gatewayServerPublicKey, verificationURL: verificationURL)
-                            .environment(\.managedObjectContext, datastore)
-                
-            }
-            else {
                 AppContentView(gatewayServerURL: gatewayServerURL, gatewayServerPublicKey: $gatewayServerPublicKey, verificationURL: $verificationURL, syncSuccessful: $syncSuccessful, privateKey: $privateKey)
-            }
         }
     }
 }
