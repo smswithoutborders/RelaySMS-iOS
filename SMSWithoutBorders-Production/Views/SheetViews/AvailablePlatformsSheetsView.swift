@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftSVG
+import CachedAsyncImage
 
 struct SimpleButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
@@ -65,7 +66,7 @@ struct AvailablePlatformsSheetsView: View {
                                         }
                                         dismiss()
                                     }) {
-                                        AsyncImage(url: URL(string: service.icon_png)) { image in
+                                        CachedAsyncImage(url: URL(string: service.icon_png)) { image in
                                             image
                                                 .resizable()
                                                 .frame(width: 80, height: 80)

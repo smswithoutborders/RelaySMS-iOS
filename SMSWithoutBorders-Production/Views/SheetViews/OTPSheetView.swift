@@ -21,7 +21,7 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
                         peerPublishPubKey: [UInt8],
                         llt: String,
                         clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey,
-                        clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws {
+                        clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws -> String {
 
     let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIDPubKey)
     
@@ -49,6 +49,8 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
                                   keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     try CSecurity.storeInKeyChain(data: publishingSharedKey,
                                   keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+    
+    return llt!
 }
 
 
@@ -108,12 +110,17 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
         
         
         if(otpCode != nil) {
-            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+            let llt = try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                        peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
                        clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
                        clientPublishPrivateKey: clientPublishPrivateKey!)
-            
+            /**
+             stored tokens: [SMSWithoutBorders_ProductionTests.Vault_V1_Token:
+             platform: "gmail"
+             account_identifier: "anarchist.sonsofperdition@gmail.com"
+             ]
+             */
         }
         return Int(response.nextAttemptTimestamp)
     }
@@ -168,6 +175,13 @@ struct OTPSheetView: View {
                                                       password: password,
                                                            type: type,
                                                       otpCode: otpCode)
+                            
+                            let llt = try Vault.getLongLivedToken()
+                            let vault = Vault()
+                            let listStoredEntities = try vault.listStoredEntityToken(longLiveToken: llt)
+                            for storedToken in listStoredEntities.storedTokens {
+                                storedToken.platform
+                            }
                         } catch {
                             print("Error with second phase signup: \(error)")
                             failed = true

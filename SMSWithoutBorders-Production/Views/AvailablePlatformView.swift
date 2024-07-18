@@ -12,7 +12,7 @@ struct AvailablePlatformView: View {
     
     var body: some View {
         HStack {
-            Text(platform?.platform_name ?? "unknown")
+//            Text(platform?.platform_name ?? "unknown")
             Spacer()
         }
     }

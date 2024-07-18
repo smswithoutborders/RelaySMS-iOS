@@ -42,6 +42,8 @@
 		3BC978142C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
 		3BC978152C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
 		3BCBA3A22C49611100736B9B /* PlatformsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A12C49611100736B9B /* PlatformsTest.swift */; };
+		3BCBA3A42C49819800736B9B /* OnboardingTryExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */; };
+		3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -150,6 +152,7 @@
 		3BC978102C36BFFC00AB626C /* PublisherTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherTest.swift; sourceTree = "<group>"; };
 		3BC978132C36C0D700AB626C /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		3BCBA3A12C49611100736B9B /* PlatformsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsTest.swift; sourceTree = "<group>"; };
+		3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTryExample.swift; sourceTree = "<group>"; };
 		3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = relay_publisher.proto; sourceTree = "<group>"; };
 		3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relay_publisher.grpc.swift; sourceTree = "<group>"; };
 		3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relay_publisher.pb.swift; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */,
+				3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */,
 				3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */,
 				3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */,
 				3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */,
@@ -337,6 +341,7 @@
 				3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */,
 				3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */,
 				3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */,
+				3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				3BF3D1522C32DC6B003A3AFB /* CountryPicker */,
 				3BF3D1632C349907003A3AFB /* CryptoSwift */,
 				3B082A9B2C3D24C700C7DE41 /* SwiftSVG */,
+				3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -489,6 +495,7 @@
 				3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */,
 				3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */,
+				3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
@@ -557,6 +564,7 @@
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
+				3BCBA3A42C49819800736B9B /* OnboardingTryExample.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
@@ -965,6 +973,14 @@
 				kind = branch;
 			};
 		};
+		3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift.git";
@@ -1004,6 +1020,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */;
 			productName = SwiftSVG;
+		};
+		3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */ = {
 			isa = XCSwiftPackageProductDependency;

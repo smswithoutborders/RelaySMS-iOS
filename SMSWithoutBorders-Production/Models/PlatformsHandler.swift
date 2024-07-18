@@ -18,57 +18,57 @@ class PlatformHandler {
         print("Datastore reset complete")
     }
 
-    static func storePlatforms(platformsData: Array<Dictionary<String, Any>>, datastore: NSManagedObjectContext) {
-        for platformData in platformsData {
-            let platform = PlatformsEntity(context: datastore)
-            platform.id = Double.random(in: 2.71828...3.14159)
-            platform.platform_name = platformData["name"] as? String
-            platform.type = platformData["type"] as? String
-            platform.platform_letter = platformData["letter"] as? String
-            
-            print("Storing platform: \(String(describing: platform.platform_name))")
-                
-            do {
-                try datastore.save()
-            }
-            catch {
-                print("Failed to store platform: \(error)")
-            }
-        }
-    }
-    
-    @ViewBuilder static func getView(platform: PlatformsEntity, encryptedContent: EncryptedContentsEntity?) -> some View {
-        // TODO: defaulting to return emailView - shitty solution
-        
-        if platform.type == "email" {
-            if encryptedContent != nil {
-                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
-                EmailView(platform: platform, composeTo: formattedOutput[1], composeCC: formattedOutput[2], composeBCC: formattedOutput[3], composeSubject: formattedOutput[4], composeBody: formattedOutput[5])
-            }
-            else {
-                EmailView(platform: platform, encryptedContent: encryptedContent)
-            }
-        }
-        else if platform.type == "text" {
-            if encryptedContent != nil {
-                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
-                TextView(textBody: formattedOutput[1], platform: platform)
-            }
-            else {
-                TextView(platform: platform, encryptedContent: encryptedContent)
-            }
-        }
-        else if platform.type == "messaging" {
-            if encryptedContent != nil {
-                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
-                MessageView(platform: platform, messageBody: formattedOutput[2], messageContact: formattedOutput[1])
-            }
-            else {
-                MessageView(platform: platform, encryptedContent: encryptedContent)
-            }
-        }
-        EmptyView()
-    }
+//    static func storePlatforms(platformsData: Array<Dictionary<String, Any>>, datastore: NSManagedObjectContext) {
+//        for platformData in platformsData {
+//            let platform = PlatformsEntity(context: datastore)
+//            platform.id = Double.random(in: 2.71828...3.14159)
+//            platform.platform_name = platformData["name"] as? String
+//            platform.type = platformData["type"] as? String
+//            platform.platform_letter = platformData["letter"] as? String
+//            
+//            print("Storing platform: \(String(describing: platform.platform_name))")
+//                
+//            do {
+//                try datastore.save()
+//            }
+//            catch {
+//                print("Failed to store platform: \(error)")
+//            }
+//        }
+//    }
+//    
+//    @ViewBuilder static func getView(platform: PlatformsEntity, encryptedContent: EncryptedContentsEntity?) -> some View {
+//        // TODO: defaulting to return emailView - shitty solution
+//        
+//        if platform.type == "email" {
+//            if encryptedContent != nil {
+//                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+//                EmailView(platform: platform, composeTo: formattedOutput[1], composeCC: formattedOutput[2], composeBCC: formattedOutput[3], composeSubject: formattedOutput[4], composeBody: formattedOutput[5])
+//            }
+//            else {
+//                EmailView(platform: platform, encryptedContent: encryptedContent)
+//            }
+//        }
+//        else if platform.type == "text" {
+//            if encryptedContent != nil {
+//                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+//                TextView(textBody: formattedOutput[1], platform: platform)
+//            }
+//            else {
+//                TextView(platform: platform, encryptedContent: encryptedContent)
+//            }
+//        }
+//        else if platform.type == "messaging" {
+//            if encryptedContent != nil {
+//                let formattedOutput = decodeForViewing(encryptedContent: encryptedContent!, type: platform.type!)
+//                MessageView(platform: platform, messageBody: formattedOutput[2], messageContact: formattedOutput[1])
+//            }
+//            else {
+//                MessageView(platform: platform, encryptedContent: encryptedContent)
+//            }
+//        }
+//        EmptyView()
+//    }
 
 }
 
