@@ -16,6 +16,7 @@ struct ControllerView: View {
     @State private var lastOnboardingView = false
     
     @Binding var codeVerifier: String
+    @Binding var backgroundLoading: Bool
     
     var body: some View {
         switch self.onboadingViewIndex {
@@ -31,28 +32,30 @@ struct ControllerView: View {
                     .font(.caption)
             }
         case 1:
-            OnboardingIntroToVaults(codeVerifier: $codeVerifier)
+            OnboardingIntroToVaults(codeVerifier: $codeVerifier,
+                                    backgroundLoading: $backgroundLoading)
         default:
             OnboardingFinish(isFinished: $lastOnboardingView)
         }
         
-        HStack {
-            if(self.onboadingViewIndex > 0) {
-                if(!lastOnboardingView) {
-                    Button("skip") {
-                        self.onboadingViewIndex += 1
-                    }.frame(alignment: .bottom)
-                        .padding()
-                } else {
-                    Button("Finish") {
-                        isFinished = true
-                    }.buttonStyle(.borderedProminent)
-                        .padding()
+        if(!backgroundLoading) {
+            HStack {
+                if(self.onboadingViewIndex > 0) {
+                    if(!lastOnboardingView) {
+                        Button("skip") {
+                            self.onboadingViewIndex += 1
+                        }.frame(alignment: .bottom)
+                            .padding()
+                    } else {
+                        Button("Finish") {
+                            isFinished = true
+                        }.buttonStyle(.borderedProminent)
+                            .padding()
+                    }
                 }
-            } 
-            
-        }.padding()
-        
+                
+            }.padding()
+        }
     }
 }
 
@@ -65,15 +68,20 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var navigatingFromURL: Bool = false
     @State var absoluteURLString: String = ""
     @State var codeVerifier: String = ""
+    
+    @State var backgroundLoading: Bool = false
 
     var body: some Scene {
         WindowGroup {
             Group {
                 if(!isFinished) {
-                    ControllerView(isFinished: $isFinished, codeVerifier: $codeVerifier)
+                    ControllerView(isFinished: $isFinished, 
+                                   codeVerifier: $codeVerifier,
+                                   backgroundLoading: $backgroundLoading)
                 }
                 else {
                     RecentsView(codeVerifier: $codeVerifier)
+                        .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }
             .onOpenURL { url in
@@ -84,12 +92,17 @@ struct SMSWithoutBorders_ProductionApp: App {
                 do {
                     let llt = try Vault.getLongLivedToken()
                     let publisher = Publisher()
+                    
+                    backgroundLoading = true
+                    
                     let response = try publisher.sendAuthorizationCode(
-                        llt: llt, platform: state!, code: code!,
+                        llt: llt,
+                        platform: state!,
+                        code: code!,
                         codeVerifier: codeVerifier)
                     
+                    backgroundLoading = false
                     if(response.success) {
-                        
                     }
                 } catch {
                     print("An error occured sending code: \(error)")
@@ -103,5 +116,8 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var isFinished = false
     @State var codeVerifier = ""
     
-    return ControllerView(isFinished: $isFinished, codeVerifier: $codeVerifier)
+    @State var isBackgroundLoading: Bool = true
+    ControllerView(isFinished: $isFinished,
+                          codeVerifier: $codeVerifier,
+                   backgroundLoading: $isBackgroundLoading)
 }
