@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-nonisolated func authenticate(phoneNumber: String, password: String) async throws -> Vault_V1_AuthenticateEntityResponse {
-    let vault = Vault()
-    return try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
-}
-
 struct LoginSheetView: View {
     
     #if DEBUG
@@ -56,11 +51,13 @@ struct LoginSheetView: View {
                         isLoading = true
                         Task {
                             do {
-                                let response = try await authenticate(phoneNumber: phoneNumber, password: password)
-                                self.otpRetryTimer = Int(response.nextAttemptTimestamp)
-                                OTPRequired = response.requiresOwnershipProof
+                                self.otpRetryTimer = try await signupOrAuthenticate(
+                                    phoneNumber: phoneNumber,
+                                    countryCode: "",
+                                    password: password,
+                                    type: OTPAuthType.TYPE.AUTHENTICATE)
+                                OTPRequired = true
                             } catch {
-                                
                                 print("Something went wrong authenticating: \(error)")
                                 isLoading = false
                                 failed = true

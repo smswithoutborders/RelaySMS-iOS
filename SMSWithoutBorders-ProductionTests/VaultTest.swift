@@ -17,9 +17,9 @@ import Fernet
 
 struct VaultTest {
     var vault = Vault()
-    var phoneNumber = "+2371234567859"
-    var password = "dMd2Kmo9"
-//    var password = "LL<O3ZG~=z-epkv"
+    var phoneNumber = "+2371234567848"
+//    var password = "dMd2Kmo9"
+    var password = "LL<O3ZG~=z-epkv"
     var ownershipProof = "123456"
     var keystoreAliasPublishPubKey = "vault-test-keystoreAlias-pub-key"
     var keystoreAliasDeviceIDPubKey = "vault-test-keystoreAlias-device-id-key"
@@ -67,54 +67,59 @@ struct VaultTest {
             
             XCTAssertTrue(entityCreationResponse.requiresOwnershipProof)
             
-            
             XCTAssertFalse(entityCreationResponse.requiresOwnershipProof)
         } catch Vault.Exceptions.requestNotOK(let status){
             print("Error came back - message: \(status.message)")
             print("Error came back - cause: \(status.cause)")
             print("Error came back - description: \(status.cause)")
             print("Error came back - code: \(status.code)")
-            var (field, message) = Vault.parseErrorMessage(message: status.message)
+            var (field, message) = Vault.parseErrorMessage(message: status.message)!
             print("Field: \(field)")
             print("Message: \(message)")
             throw status
         }
         
         
-        try vault.authenticateEntity(phoneNumber: phoneNumber, password: password)
-
-        var response = try vault.authenticateEntity(phoneNumber: phoneNumber,
-                                      clientPublishPubKey: clientPublishPubKey,
-                                      clientDeviceIDPubKey: clientDeviceIDPubKey,
-                                      ownershipResponse: ownershipProof)
-        
-        let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: response.serverDeviceIDPubKey.base64Decoded())
-        
-        let sharedKey = try SecurityCurve25519.calculateSharedSecret(
-            privateKey: clientDeviceIDPrivateKey!, publicKey: peerPublicKey).withUnsafeBytes {
-                return Data(Array($0))
-            }
-        
-        let fernetToken = try Fernet(key: Data(sharedKey))
-        let decodedOutput = try fernetToken.decode(Data(base64Encoded: response.longLivedToken)!)
-        XCTAssertTrue(decodedOutput.hmacSuccess)
-        
-        let llt = String(data: decodedOutput.data, encoding: .utf8)
-
-        let response1 = try vault.listStoredEntityToken(longLiveToken: llt!)
-        
-        XCTAssertEqual(response1.storedTokens, [])
-        print("stored tokens: \(response1.storedTokens)")
-        
-        let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
-            rawRepresentation: response.serverPublishPubKey.base64Decoded())
-        
-        let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
-            privateKey: clientPublishPrivateKey!, publicKey: peerPublishPublicKey).withUnsafeBytes {
-                return Data(Array($0))
-            }
-        
         do {
+            var response = try vault.authenticateEntity(phoneNumber: phoneNumber,
+                                                        password: password,
+                                          clientPublishPubKey: clientPublishPubKey,
+                                          clientDeviceIDPubKey: clientDeviceIDPubKey)
+            
+            XCTAssertFalse(response.requiresOwnershipProof)
+
+            response = try vault.authenticateEntity(phoneNumber: phoneNumber,
+                                                        password: password,
+                                          clientPublishPubKey: clientPublishPubKey,
+                                          clientDeviceIDPubKey: clientDeviceIDPubKey,
+                                          ownershipResponse: ownershipProof)
+            
+            let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: response.serverDeviceIDPubKey.base64Decoded())
+            
+            let sharedKey = try SecurityCurve25519.calculateSharedSecret(
+                privateKey: clientDeviceIDPrivateKey!, publicKey: peerPublicKey).withUnsafeBytes {
+                    return Data(Array($0))
+                }
+            
+            let fernetToken = try Fernet(key: Data(sharedKey))
+            let decodedOutput = try fernetToken.decode(Data(base64Encoded: response.longLivedToken)!)
+            XCTAssertTrue(decodedOutput.hmacSuccess)
+            
+            let llt = String(data: decodedOutput.data, encoding: .utf8)
+
+            let response1 = try vault.listStoredEntityToken(longLiveToken: llt!)
+            
+            XCTAssertEqual(response1.storedTokens, [])
+            print("stored tokens: \(response1.storedTokens)")
+            
+            let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
+                rawRepresentation: response.serverPublishPubKey.base64Decoded())
+            
+            let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
+                privateKey: clientPublishPrivateKey!, publicKey: peerPublishPublicKey).withUnsafeBytes {
+                    return Data(Array($0))
+                }
+            
             XCTAssertTrue(CSecurity.deletePasswordFromKeychain(keystoreAlias: "example_long_lived_token"))
             XCTAssertTrue(CSecurity.deletePasswordFromKeychain(keystoreAlias: "example_publishing_shared_key"))
             
@@ -135,6 +140,7 @@ struct VaultTest {
             XCTAssertEqual(rPubSharedKey, publishingSharedKey)
 
         } catch {
+            print(error)
             throw error
         }
     }

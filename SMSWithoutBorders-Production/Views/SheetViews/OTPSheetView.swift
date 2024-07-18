@@ -99,6 +99,7 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
     } else {
         let response = try vault.authenticateEntity(
             phoneNumber: phoneNumber,
+            password: password,
             clientPublishPubKey: clientPublishPubKey,
             clientDeviceIDPubKey: clientDeviceIDPubKey,
             ownershipResponse: otpCode)
