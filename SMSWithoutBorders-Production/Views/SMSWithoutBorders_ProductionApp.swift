@@ -12,7 +12,7 @@ import CoreData
 struct ControllerView: View {
     @Binding var isFinished: Bool
     
-    @State private var onboadingViewIndex: Int = 0
+    @Binding var onboadingViewIndex: Int
     @State private var lastOnboardingView = false
     
     @Binding var codeVerifier: String
@@ -70,12 +70,14 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var codeVerifier: String = ""
     
     @State var backgroundLoading: Bool = false
+    @State private var onboardingViewIndex: Int = 0
 
     var body: some Scene {
         WindowGroup {
             Group {
                 if(!isFinished) {
-                    ControllerView(isFinished: $isFinished, 
+                    ControllerView(isFinished: $isFinished,
+                                   onboadingViewIndex: $onboardingViewIndex,
                                    codeVerifier: $codeVerifier,
                                    backgroundLoading: $backgroundLoading)
                 }
@@ -101,12 +103,13 @@ struct SMSWithoutBorders_ProductionApp: App {
                         code: code!,
                         codeVerifier: codeVerifier)
                     
-                    backgroundLoading = false
                     if(response.success) {
+                        onboardingViewIndex += 1
                     }
                 } catch {
                     print("An error occured sending code: \(error)")
                 }
+                backgroundLoading = false
             }
         }
     }
@@ -115,9 +118,11 @@ struct SMSWithoutBorders_ProductionApp: App {
 #Preview {
     @State var isFinished = false
     @State var codeVerifier = ""
-    
+    @State var onboardingIndex = 0
     @State var isBackgroundLoading: Bool = true
+    
     ControllerView(isFinished: $isFinished,
-                          codeVerifier: $codeVerifier,
+                   onboadingViewIndex: $onboardingIndex,
+                   codeVerifier: $codeVerifier,
                    backgroundLoading: $isBackgroundLoading)
 }
