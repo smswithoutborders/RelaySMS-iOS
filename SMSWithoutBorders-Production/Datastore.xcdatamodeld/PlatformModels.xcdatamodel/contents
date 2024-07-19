@@ -10,8 +10,6 @@
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
     <entity name="GatewayClientsEntity" representedClassName="GatewayClientsEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="attribute" optional="YES"/>
-        <attribute name="attribute1" optional="YES"/>
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="is_default" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

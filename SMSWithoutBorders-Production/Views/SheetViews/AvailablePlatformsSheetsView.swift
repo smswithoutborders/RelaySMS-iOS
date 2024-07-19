@@ -23,6 +23,7 @@ struct SimpleButtonStyle: ButtonStyle {
 
 struct AvailablePlatformsSheetsView: View {
     @Environment(\.managedObjectContext) var datastore
+    @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
     
     @State var services = [Publisher.PlatformsData]()
@@ -33,8 +34,7 @@ struct AvailablePlatformsSheetsView: View {
 
     private let publisher = Publisher()
     
-    @Environment(\.openURL) var openURL
-    
+
     var body: some View {
         VStack {
             if(platformsLoading && services.isEmpty) {
@@ -103,12 +103,37 @@ struct AvailablePlatformsSheetsView: View {
                 case .success(let data):
                     print("Success: \(data)")
                     services = data
+                    for platform in data {
+                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                            downloadAndSaveIcons(url: URL(string: platform.icon_png)!, name: platform.name)
+                        }
+                    }
                 case .failure(let error):
                     print("Failed to load JSON data: \(error)")
                 }
                 platformsLoading = false
             }
         }
+    }
+    
+    private func downloadAndSaveIcons(url: URL, name: String) {
+//        guard let url = URL(string: "https://example.com/image.jpg") else { return }
+        print("Storing Platform: \(name)")
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            let context = self.datastore
+            let newImageEntity = PlatformsIconEntity(context: context)
+            newImageEntity.image = data
+            newImageEntity.name = name
+
+            do {
+                try context.save()
+            } catch {
+                print("Failed save download image: \(error)")
+            }
+        }
+        task.resume()
     }
 }
 

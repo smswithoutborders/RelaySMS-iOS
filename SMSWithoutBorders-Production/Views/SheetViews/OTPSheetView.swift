@@ -127,6 +127,7 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
 }
 
 
+
 struct OTPSheetView: View {
     @Environment(\.dismiss) var dismiss
 
@@ -175,13 +176,6 @@ struct OTPSheetView: View {
                                                       password: password,
                                                            type: type,
                                                       otpCode: otpCode)
-                            
-                            let llt = try Vault.getLongLivedToken()
-                            let vault = Vault()
-                            let listStoredEntities = try vault.listStoredEntityToken(longLiveToken: llt)
-                            for storedToken in listStoredEntities.storedTokens {
-                                storedToken.platform
-                            }
                         } catch {
                             print("Error with second phase signup: \(error)")
                             failed = true
@@ -211,6 +205,8 @@ struct OTPSheetView: View {
             }
         }
     }
+    
+    
 }
 
 

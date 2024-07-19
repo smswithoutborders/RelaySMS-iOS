@@ -80,6 +80,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                                    onboadingViewIndex: $onboardingViewIndex,
                                    codeVerifier: $codeVerifier,
                                    backgroundLoading: $backgroundLoading)
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
                     RecentsView(codeVerifier: $codeVerifier)

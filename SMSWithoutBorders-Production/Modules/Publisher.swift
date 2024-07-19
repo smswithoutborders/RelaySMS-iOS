@@ -8,6 +8,7 @@
 import Foundation
 import GRPC
 import Logging
+import CoreData
 
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
@@ -119,6 +120,9 @@ class Publisher {
                 completion(.failure(error))
             }
         }
+    }
+    
+    static func downloadStoreIcons(platform: Publisher.PlatformsData, datastore: NSManagedObjectContext) async throws {
     }
     
 }
