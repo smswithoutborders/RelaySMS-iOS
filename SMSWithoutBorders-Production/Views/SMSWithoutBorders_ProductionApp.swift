@@ -87,6 +87,21 @@ struct SMSWithoutBorders_ProductionApp: App {
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }
+            .task {
+                Publisher.getPlatforms() { result in
+                    switch result {
+                    case .success(let data):
+                        print("Success: \(data)")
+                        for platform in data {
+                            if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                                downloadAndSaveIcons(url: URL(string: platform.icon_png)!, name: platform.name)
+                            }
+                        }
+                    case .failure(let error):
+                        print("Failed to load JSON data: \(error)")
+                    }
+                }
+            }
             .onOpenURL { url in
                 let state = url.valueOf("state")
                 let code = url.valueOf("code")
@@ -113,6 +128,25 @@ struct SMSWithoutBorders_ProductionApp: App {
                 backgroundLoading = false
             }
         }
+    }
+    
+    private func downloadAndSaveIcons(url: URL, name: String) {
+        print("Storing Platform: \(name)")
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            let context = dataController.container.viewContext
+            let newImageEntity = PlatformsIconEntity(context: context)
+            newImageEntity.image = data
+            newImageEntity.name = name
+
+            do {
+                try context.save()
+            } catch {
+                print("Failed save download image: \(error)")
+            }
+        }
+        task.resume()
     }
 }
 

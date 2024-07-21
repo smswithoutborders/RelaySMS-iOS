@@ -19,7 +19,7 @@
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="URI"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="protocol_type" optional="YES" attributeType="String"/>
         <attribute name="service_type" optional="YES" attributeType="String"/>
         <attribute name="shortcode" optional="YES" attributeType="String"/>

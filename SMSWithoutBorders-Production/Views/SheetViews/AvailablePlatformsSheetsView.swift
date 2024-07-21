@@ -9,18 +9,6 @@ import SwiftUI
 import SwiftSVG
 import CachedAsyncImage
 
-struct SimpleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(30)
-            .background(
-                Circle()
-                    .fill(Color("offWhite"))
-                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                    .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-            )    }
-}
-
 struct AvailablePlatformsSheetsView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.openURL) var openURL
@@ -96,45 +84,10 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }
         }
-        .task {
-            platformsLoading = true
-            Publisher.getPlatforms() { result in
-                switch result {
-                case .success(let data):
-                    print("Success: \(data)")
-                    services = data
-                    for platform in data {
-                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            downloadAndSaveIcons(url: URL(string: platform.icon_png)!, name: platform.name)
-                        }
-                    }
-                case .failure(let error):
-                    print("Failed to load JSON data: \(error)")
-                }
-                platformsLoading = false
-            }
-        }
+        
     }
     
-    private func downloadAndSaveIcons(url: URL, name: String) {
-//        guard let url = URL(string: "https://example.com/image.jpg") else { return }
-        print("Storing Platform: \(name)")
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            let context = self.datastore
-            let newImageEntity = PlatformsIconEntity(context: context)
-            newImageEntity.image = data
-            newImageEntity.name = name
-
-            do {
-                try context.save()
-            } catch {
-                print("Failed save download image: \(error)")
-            }
-        }
-        task.resume()
-    }
+   
 }
 
 #Preview {
