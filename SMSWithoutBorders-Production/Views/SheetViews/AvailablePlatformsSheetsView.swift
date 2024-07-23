@@ -9,35 +9,15 @@ import SwiftUI
 import SwiftSVG
 import CachedAsyncImage
 
-func getMockData() -> [PlatformsEntity] {
-    let gmailMock = PlatformsEntity()
-    gmailMock.name = "gmail"
-    gmailMock.image = nil
-    gmailMock.protocol_type = "oauth"
-    gmailMock.service_type = "email"
-    gmailMock.shortcode = "g"
-    
-    let xMock = PlatformsEntity()
-    xMock.name = "x"
-    xMock.image = nil
-    xMock.protocol_type = "oauth"
-    xMock.service_type = "text"
-    xMock.shortcode = "x"
-
-    return [gmailMock, xMock]
-}
-
 struct AvailablePlatformsSheetsView: View {
     enum TYPE {
         case AVAILABLE
         case STORED
     }
     
-    @Environment(\.managedObjectContext) var datastore
-    @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
-    
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+    @State var mPlatforms: [PlatformsEntity] = []
 
     @State var services = [Publisher.PlatformsData]()
     
@@ -45,16 +25,19 @@ struct AvailablePlatformsSheetsView: View {
     
     @Binding var codeVerifier: String
     
-    private let publisher = Publisher()
     
     @State var title: String
     @State var description: String
     
-    @State var type: TYPE = TYPE.AVAILABLE
+    @State var mockTesting: Bool = false
 
+    @State var type: TYPE = TYPE.AVAILABLE
+    @Environment(\.openURL) var openURL
+    
+    
     var body: some View {
         VStack {
-            if(platforms.isEmpty) {
+            if(!mockTesting && platforms.isEmpty) {
                 Text("No platforms")
                     .padding()
             }
@@ -67,40 +50,22 @@ struct AvailablePlatformsSheetsView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 55) {
-                            ForEach(platforms, id: \.name) { platform in
-                                VStack {
-                                    Button(action: {
-                                        switch type {
-                                        case TYPE.AVAILABLE:
-                                            do {
-                                                let response = try publisher.getURL(platform: platform.name!)
-                                                codeVerifier = response.codeVerifier
-                                                openURL(URL(string: response.authorizationURL)!)
-                                            }
-                                            catch {
-                                                print("Some error occured: \(error)")
-                                            }
-                                        case TYPE.STORED:
-                                            print("Checking stored")
-                                        }
-                                        dismiss()
-                                    }) {
-                                        getImageWithMock(platform: platform)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .clipped()
-                                            .cornerRadius(10)
-                                            .shadow(radius: 3)
-                                            .frame(width: 100, height: 100)
-                                            .padding()
-                                    }
-                                    .shadow(color: Color.white, radius: 8, x: -9, y: -9)
-                                    .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
-                                    .padding(.vertical, 20)
-                                    Text(platform.name!)
-                                        .font(.system(size: 16, design: .rounded))
-                                    Text(platform.protocol_type!)
-                                        .font(.system(size: 10, design: .rounded))
+                            if mockTesting {
+                                ForEach(getMockData(), id: \.name) { platform in
+                                    getPlatformsSubViews(platform: platform, image: nil)
+                                }
+                            } else {
+                                ForEach(platforms, id: \.name) { platform in
+                                    let mPlatform = Publisher.PlatformsData(
+                                        name: platform.name!,
+                                        shortcode: platform.shortcode!,
+                                        service_type: platform.service_type!,
+                                        protocol_type: platform.protocol_type!,
+                                        icon_svg: "<svg>...</svg>",
+                                        icon_png: "example.png"
+                                    )
+                                    getPlatformsSubViews(platform: mPlatform,
+                                                         image: platform.image)
                                 }
                             }
                         }
@@ -115,11 +80,73 @@ struct AvailablePlatformsSheetsView: View {
         }
     }
     
-    func getImageWithMock(platform: PlatformsEntity) -> Image {
-        if platform.image == nil {
-            return Image(uiImage: UIImage(named: "exampleGmail")!)
+    @ViewBuilder
+    func getPlatformsSubViews(platform: Publisher.PlatformsData, image: Data?) -> some View{
+        VStack {
+            Button(action: {
+                switch type {
+                case AvailablePlatformsSheetsView.TYPE.AVAILABLE:
+                    do {
+                        let publisher = Publisher()
+                        let response = try publisher.getURL(platform: platform.name)
+                        codeVerifier = response.codeVerifier
+                        openURL(URL(string: response.authorizationURL)!)
+                    }
+                    catch {
+                        print("Some error occured: \(error)")
+                    }
+                case AvailablePlatformsSheetsView.TYPE.STORED:
+                    print("Checking stored")
+                }
+                dismiss()
+            }) {
+                if image == nil {
+                    Image("exampleGmail")
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .cornerRadius(10)
+                        .shadow(radius: 3)
+                        .frame(width: 100, height: 100)
+                        .padding()
+                }
+                else {
+                    Image(uiImage: UIImage(data: image!)!)
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .cornerRadius(10)
+                        .shadow(radius: 3)
+                        .frame(width: 100, height: 100)
+                        .padding()
+                }
+            }
+            .shadow(color: Color.white, radius: 8, x: -9, y: -9)
+            .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
+            .padding(.vertical, 20)
+            Text(platform.name)
+                .font(.system(size: 16, design: .rounded))
+            Text(platform.protocol_type)
+                .font(.system(size: 10, design: .rounded))
         }
-        return Image(uiImage: UIImage(data: platform.image!)!)
+    }
+    func getMockData() -> [Publisher.PlatformsData] {
+        return [
+            Publisher.PlatformsData(
+            name: "gmail",
+            shortcode: "g",
+            service_type: "email",
+            protocol_type: "oauth",
+            icon_svg: "<svg>...</svg>",
+            icon_png: "example.png"
+        ), Publisher.PlatformsData(
+            name: "twitter",
+            shortcode: "ix",
+            service_type: "text",
+            protocol_type: "oauth",
+            icon_svg: "<svg>...</svg>",
+            icon_png: "example.png"
+        )]
     }
 }
 
@@ -127,7 +154,8 @@ struct AvailablePlatformsSheetsView: View {
     @State var codeVerifier = ""
     @State var title = "Available Platforms"
     @State var description = "Select a platform to save it for offline use"
-    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
+    @State var mockTesting = true
+    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
                                  title: title,
-                                 description: description)
+                                 description: description, mockTesting: mockTesting)
 }
