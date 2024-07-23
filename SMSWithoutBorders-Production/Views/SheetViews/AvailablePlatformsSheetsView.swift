@@ -9,14 +9,31 @@ import SwiftUI
 import SwiftSVG
 import CachedAsyncImage
 
+func getMockData() -> [PlatformsEntity] {
+    let gmailMock = PlatformsEntity()
+    gmailMock.name = "gmail"
+    gmailMock.image = nil
+    gmailMock.protocol_type = "oauth"
+    gmailMock.service_type = "email"
+    gmailMock.shortcode = "g"
+    
+    let xMock = PlatformsEntity()
+    xMock.name = "x"
+    xMock.image = nil
+    xMock.protocol_type = "oauth"
+    xMock.service_type = "text"
+    xMock.shortcode = "x"
+
+    return [gmailMock, xMock]
+}
+
 struct AvailablePlatformsSheetsView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
     
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    @FetchRequest(sortDescriptors: []) var platformsIcons: FetchedResults<PlatformsIconEntity>
-    
+
     @State var services = [Publisher.PlatformsData]()
     
     @State var platformsLoading = false
@@ -30,10 +47,7 @@ struct AvailablePlatformsSheetsView: View {
 
     var body: some View {
         VStack {
-            if(platformsLoading && services.isEmpty) {
-                ProgressView()
-            }
-            else if(!platformsLoading && services.isEmpty) {
+            if(platforms.isEmpty) {
                 Text("No platforms")
                     .padding()
             }
@@ -59,7 +73,7 @@ struct AvailablePlatformsSheetsView: View {
                                         }
                                         dismiss()
                                     }) {
-                                        Image(uiImage: getImageFromStore(name: platform.name!)!)
+                                        getImageWithMock(platform: platform)
                                             .resizable()
                                             .scaledToFill()
                                             .clipped()
@@ -87,32 +101,14 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }
         }
-        .task {
-            platformsLoading = true
-            Publisher.getPlatforms() { result in
-                switch result {
-                case .success(let data):
-                    print("Success: \(data)")
-                    services = data
-                case .failure(let error):
-                    print("Failed to load JSON data: \(error)")
-                }
-                platformsLoading = false
-            }
-        }
     }
     
-    private func getImageFromStore(name: String) -> UIImage? {
-        print("Platforms length: \(platformsIcons.count)")
-        for platformIcon in platformsIcons {
-            print("Checking icon for platform: \(platformIcon.name)")
-            if platformIcon.name == name {
-                return UIImage(data: platformIcon.image!)
-            }
+    func getImageWithMock(platform: PlatformsEntity) -> Image {
+        if platform.image == nil {
+            return Image(uiImage: UIImage(named: "exampleGmail")!)
         }
-        return nil
+        return Image(uiImage: UIImage(data: platform.image!)!)
     }
-    
 }
 
 #Preview {

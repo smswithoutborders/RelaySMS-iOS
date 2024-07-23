@@ -96,8 +96,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                         print("Success: \(data)")
                         for platform in data {
                             if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                                downloadAndSaveIcons(url: URL(string: platform.icon_png)!, name: platform.name)
-                                savePlatforms(platform: platform)
+                                downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
                             }
                         }
                     case .failure(let error):
@@ -133,32 +132,18 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
     }
     
-    private func savePlatforms(platform: Publisher.PlatformsData) {
-        print("Storing Platform: \(platform.name)")
-        let context = dataController.container.viewContext
-        let platformEntity = PlatformsEntity(context: context)
-        platformEntity.name = platform.name
-        platformEntity.protocol_type = platform.protocol_type
-        platformEntity.service_type = platform.service_type
-        platformEntity.shortcode = platform.shortcode
-        
-        do {
-            try context.save()
-        } catch {
-            print("Failed to save platform: \(error)")
-        }
-    }
-    
-    private func downloadAndSaveIcons(url: URL, name: String) {
-        print("Storing Platform Icon: \(name)")
+    private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
+        print("Storing Platform Icon: \(platform.name)")
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else { return }
             
             let context = dataController.container.viewContext
-            let newImageEntity = PlatformsIconEntity(context: context)
-            newImageEntity.image = data
-            newImageEntity.name = name
-
+            let platformsEntity = PlatformsEntity(context: context)
+            platformsEntity.image = data
+            platformsEntity.name = platform.name
+            platformsEntity.protocol_type = platform.protocol_type
+            platformsEntity.service_type = platform.service_type
+            platformsEntity.shortcode = platform.shortcode
             do {
                 try context.save()
             } catch {
