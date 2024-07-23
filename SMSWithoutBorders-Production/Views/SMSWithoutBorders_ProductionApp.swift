@@ -18,13 +18,15 @@ struct ControllerView: View {
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
     
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+
     var body: some View {
         switch self.onboadingViewIndex {
         case ...0:
             OnboardingWelcomeView()
             VStack {
                 Button("Get started!") {
-                    self.onboadingViewIndex += 1
+                    self.onboadingViewIndex += platforms.isEmpty ? 1 : 2
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
@@ -73,7 +75,7 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @State var backgroundLoading: Bool = false
     @State private var onboardingViewIndex: Int = 0
-
+    
     var body: some Scene {
         WindowGroup {
             Group {

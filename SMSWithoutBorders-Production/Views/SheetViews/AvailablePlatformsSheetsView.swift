@@ -28,6 +28,11 @@ func getMockData() -> [PlatformsEntity] {
 }
 
 struct AvailablePlatformsSheetsView: View {
+    enum TYPE {
+        case AVAILABLE
+        case STORED
+    }
+    
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.openURL) var openURL
     @Environment(\.dismiss) var dismiss
@@ -44,6 +49,8 @@ struct AvailablePlatformsSheetsView: View {
     
     @State var title: String
     @State var description: String
+    
+    @State var type: TYPE = TYPE.AVAILABLE
 
     var body: some View {
         VStack {
@@ -63,13 +70,18 @@ struct AvailablePlatformsSheetsView: View {
                             ForEach(platforms, id: \.name) { platform in
                                 VStack {
                                     Button(action: {
-                                        do {
-                                            let response = try publisher.getURL(platform: platform.name!)
-                                            codeVerifier = response.codeVerifier
-                                            openURL(URL(string: response.authorizationURL)!)
-                                        }
-                                        catch {
-                                            print("Some error occured: \(error)")
+                                        switch type {
+                                        case TYPE.AVAILABLE:
+                                            do {
+                                                let response = try publisher.getURL(platform: platform.name!)
+                                                codeVerifier = response.codeVerifier
+                                                openURL(URL(string: response.authorizationURL)!)
+                                            }
+                                            catch {
+                                                print("Some error occured: \(error)")
+                                            }
+                                        case TYPE.STORED:
+                                            print("Checking stored")
                                         }
                                         dismiss()
                                     }) {

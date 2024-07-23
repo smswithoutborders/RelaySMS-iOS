@@ -14,7 +14,9 @@ struct StoredPlatformsView: View {
     @State var codeVerifier: String = ""
     var body: some View {
         AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
-                                     title: title, description: description)
+                                     title: title, 
+                                     description: description, 
+                                     type: AvailablePlatformsSheetsView.TYPE.STORED)
     }
 }
 
