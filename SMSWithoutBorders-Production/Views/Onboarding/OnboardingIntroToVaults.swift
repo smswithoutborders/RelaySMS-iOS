@@ -50,6 +50,9 @@ struct addAccountsView: View {
     @Binding var codeVerifier: String
     @Binding var availablePlatformsPresented: Bool
     
+    @State var title: String = "Available platforms"
+    @State var description = "Select a platform to save it for offline use"
+
     var body: some View {
         VStack {
             Tab(buttonView:
@@ -57,7 +60,9 @@ struct addAccountsView: View {
                 self.availablePlatformsPresented = true
                 }
                 .sheet(isPresented: $availablePlatformsPresented) {
-                    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+                    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
+                                                 title: title, 
+                                                 description: description)
                 }
                 .buttonStyle(.borderedProminent),
                 title: "Add Accounts to Vault",

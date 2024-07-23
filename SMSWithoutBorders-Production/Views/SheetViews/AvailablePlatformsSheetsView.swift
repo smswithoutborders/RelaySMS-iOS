@@ -25,6 +25,9 @@ struct AvailablePlatformsSheetsView: View {
     
     private let publisher = Publisher()
     
+    @State var title: String
+    @State var description: String
+
     var body: some View {
         VStack {
             if(platformsLoading && services.isEmpty) {
@@ -36,9 +39,9 @@ struct AvailablePlatformsSheetsView: View {
             }
             else {
                 VStack {
-                    Text("Available Platforms").font(.system(size: 32, design: .rounded))
+                    Text(title).font(.system(size: 32, design: .rounded))
                     
-                    Text("Select a platform to save use for offline access")
+                    Text(description)
                         .font(.system(size: 16, design: .rounded))
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -114,5 +117,9 @@ struct AvailablePlatformsSheetsView: View {
 
 #Preview {
     @State var codeVerifier = ""
-    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+    @State var title = "Available Platforms"
+    @State var description = "Select a platform to save it for offline use"
+    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
+                                 title: title,
+                                 description: description)
 }

@@ -7,17 +7,31 @@
 
 import SwiftUI
 
+struct StoredPlatformsView: View {
+    @State var title: String = "Store Platforms"
+    @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
+    
+    @State var codeVerifier: String = ""
+    var body: some View {
+        AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
+                                     title: title, description: description)
+    }
+}
+
 struct OnboardingTryExample: View {
     @State var shownStoredPlatforms = false
+
     var body: some View {
         VStack {
             Tab(buttonView:
                 Group {
                     Button("Try Example") {
+                        shownStoredPlatforms = true
                     }
                     .buttonStyle(.borderedProminent)
                     .sheet(isPresented: $shownStoredPlatforms) {
                         VStack {
+                            StoredPlatformsView()
                         }
                     }
                     .buttonStyle(.borderedProminent)

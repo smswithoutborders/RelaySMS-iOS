@@ -77,7 +77,6 @@ struct RecentsViewAdapter: View {
                     
                     Button(action: {
                         self.showPlatforms.toggle()
-//                        EncryptedContentHandler.clearStoredEncryptedContents(encryptedContents: encryptedContents, datastore: datastore)
                     }, label: {
                         Image(systemName: "square.and.pencil")
                         .font(.system(.largeTitle))
@@ -92,19 +91,7 @@ struct RecentsViewAdapter: View {
                             x: 3,
                             y: 3)
                     .sheet(isPresented: $showPlatforms) {
-                        AvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-//                            .environment(\.managedObjectContext, datastore)
-//                        NavigationView {
-//                            List(platforms) { platform in
-//                                NavigationLink {
-////                                    PlatformHandler.getView(platform: platform, encryptedContent: nil)
-////                                        .environment(\.managedObjectContext, datastore)
-//                                    AvailablePlatformsView(platform: $platform, platformType: $platformType)
-//                                } label: {
-//                                    Text(platform.platform_name ?? "unknown")
-//                                }
-//                            }
-//                        }
+                        StoredPlatformsView()
                     }
                     .padding()
                 }

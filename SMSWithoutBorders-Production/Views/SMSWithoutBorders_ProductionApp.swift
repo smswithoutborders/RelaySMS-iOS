@@ -34,6 +34,8 @@ struct ControllerView: View {
         case 1:
             OnboardingIntroToVaults(codeVerifier: $codeVerifier,
                                     backgroundLoading: $backgroundLoading)
+        case 2:
+            OnboardingTryExample()
         default:
             OnboardingFinish(isFinished: $lastOnboardingView)
         }

@@ -28,7 +28,6 @@
 		16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
 		16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
 		16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
-		16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */; };
 		16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */; };
 		16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */; };
@@ -140,7 +139,6 @@
 		16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoExportImportManager.swift; sourceTree = "<group>"; };
 		16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRSAEncryption.swift; sourceTree = "<group>"; };
 		16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAESEncryption.swift; sourceTree = "<group>"; };
-		16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformView.swift; sourceTree = "<group>"; };
 		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
@@ -289,7 +287,6 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
-				16F19F2128FF4BD900AC2F2B /* AvailablePlatformView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
 				16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
@@ -554,7 +551,6 @@
 				3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */,
 				3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */,
 				3BF3D14F2C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
-				16F19F2228FF4BD900AC2F2B /* AvailablePlatformView.swift in Sources */,
 				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
