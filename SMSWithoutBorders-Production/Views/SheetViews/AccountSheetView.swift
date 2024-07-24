@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-@ViewBuilder func accountView() -> some View {
+@ViewBuilder func accountView(accountName: String, platformName: String) -> some View {
     VStack {
         HStack {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
                 .frame(width: 50, height: 50)
             VStack {
-                Text("developers@relaysms.com")
+                Text(accountName)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("gmail")
+                Text(platformName)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -55,14 +55,16 @@ struct AccountSheetView: View {
         NavigationView {
             if mockData {
                 List(self.mockedStoredPlatforms) { platform in
-                    accountView()
+                    accountView(accountName: platform.account,
+                                platformName: platform.name)
                 }
                 .navigationTitle("\(platformName) Accounts")
                 .navigationBarTitleDisplayMode(.inline)
             }
             else {
                 List(storedPlatforms) { platform in
-                    accountView()
+                    accountView(accountName: platform.account!,
+                                platformName: platform.name!)
                 }
                 .navigationTitle("\(platformName) Accounts")
                 .navigationBarTitleDisplayMode(.inline)
@@ -73,5 +75,5 @@ struct AccountSheetView: View {
 
 #Preview {
     @State var mockData = true
-    AccountSheetView(filter: "gmail", mockData: mockData)
+    AccountSheetView(filter: "twitter", mockData: mockData)
 }

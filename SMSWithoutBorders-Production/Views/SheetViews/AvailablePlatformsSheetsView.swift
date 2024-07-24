@@ -8,6 +8,58 @@
 import SwiftUI
 import SwiftSVG
 import CachedAsyncImage
+import CoreData
+
+func createInMemoryPersistentContainer() -> NSPersistentContainer {
+    let container = NSPersistentContainer(name: "Datastore")
+    let description = NSPersistentStoreDescription()
+    description.type = NSInMemoryStoreType
+    container.persistentStoreDescriptions = [description]
+    
+    container.loadPersistentStores { description, error in
+        if let error = error {
+            fatalError("Failed to load in-memory store: \(error)")
+        }
+    }
+    
+    return container
+}
+
+func populateMockData(container: NSPersistentContainer) {
+    let context = container.viewContext
+    
+    let platformEntityGmail = PlatformsEntity(context: context)
+    platformEntityGmail.image = nil
+    platformEntityGmail.name = "gmail"
+    platformEntityGmail.protocol_type = "oauth"
+    platformEntityGmail.service_type = "email"
+    platformEntityGmail.shortcode = "g"
+    
+    let platformEntityTwitter = PlatformsEntity(context: context)
+    platformEntityTwitter.image = nil
+    platformEntityTwitter.name = "twitter"
+    platformEntityTwitter.protocol_type = "oauth"
+    platformEntityTwitter.service_type = "text"
+    platformEntityTwitter.shortcode = "x"
+
+    for i in 0..<3 {
+        let storedPlatformsEntity = StoredPlatformsEntity(context: context)
+        storedPlatformsEntity.name = "gmail"
+        storedPlatformsEntity.account = "account_\(i)@gmail.com"
+    }
+    for i in 0..<3 {
+        let storedPlatformsEntity = StoredPlatformsEntity(context: context)
+        storedPlatformsEntity.name = "twitter"
+        storedPlatformsEntity.account = "@twitter_account_\(1)"
+    }
+
+    do {
+        try context.save()
+    } catch {
+        fatalError("Failed to save mock data: \(error)")
+    }
+}
+
 
 struct AvailablePlatformsSheetsView: View {
     enum TYPE {
@@ -16,8 +68,8 @@ struct AvailablePlatformsSheetsView: View {
     }
     
     @Environment(\.dismiss) var dismiss
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    @State var mPlatforms: [PlatformsEntity] = []
 
     @State var services = [Publisher.PlatformsData]()
     
@@ -34,61 +86,63 @@ struct AvailablePlatformsSheetsView: View {
     @State var type: TYPE = TYPE.AVAILABLE
     @Environment(\.openURL) var openURL
     
-    
+    @State var accountViewShown: Bool = false
+    @State var filterPlatformName: String = ""
+
     var body: some View {
-        VStack {
-            if(!mockTesting && platforms.isEmpty) {
-                Text("No platforms")
-                    .padding()
-            }
-            else {
-                VStack {
-                    Text(title).font(.system(size: 32, design: .rounded))
-                    
-                    Text(description)
-                        .font(.system(size: 16, design: .rounded))
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 55) {
-                            if mockTesting {
-                                ForEach(getMockData(), id: \.name) { platform in
-                                    getPlatformsSubViews(platform: platform, image: nil)
-                                }
-                            } else {
+        NavigationView {
+            VStack {
+                if(!mockTesting && platforms.isEmpty) {
+                    Text("No platforms")
+                        .padding()
+                }
+                else {
+                    VStack {
+                        Text(title).font(.system(size: 32, design: .rounded))
+                        
+                        Text(description)
+                            .font(.system(size: 16, design: .rounded))
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 55) {
                                 ForEach(platforms, id: \.name) { platform in
-                                    let mPlatform = Publisher.PlatformsData(
-                                        name: platform.name!,
-                                        shortcode: platform.shortcode!,
-                                        service_type: platform.service_type!,
-                                        protocol_type: platform.protocol_type!,
-                                        icon_svg: "<svg>...</svg>",
-                                        icon_png: "example.png"
-                                    )
-                                    getPlatformsSubViews(platform: mPlatform,
-                                                         image: platform.image)
+                                    if getStoredPlatforms(platform: platform) {
+                                        getPlatformsSubViews(platform: platform,
+                                                             image: platform.image)
+                                    }
                                 }
                             }
                         }
+                        
+                        Button("Close") {
+                            dismiss()
+                        }
+                        .padding(.vertical, 50)
                     }
-                    
-                    Button("Close") {
-                        dismiss()
-                    }
-                    .padding(.vertical, 50)
                 }
+            }
+            
+            NavigationLink(destination: AccountSheetView(filter: filterPlatformName),
+                           isActive: $accountViewShown) {
+                EmptyView()
             }
         }
     }
     
+    func getStoredPlatforms(platform: PlatformsEntity) -> Bool {
+        return storedPlatforms.contains(where: {$0.name == platform.name})
+    }
+    
+    
     @ViewBuilder
-    func getPlatformsSubViews(platform: Publisher.PlatformsData, image: Data?) -> some View{
+    func getPlatformsSubViews(platform: PlatformsEntity, image: Data?) -> some View{
         VStack {
             Button(action: {
                 switch type {
                 case AvailablePlatformsSheetsView.TYPE.AVAILABLE:
                     do {
                         let publisher = Publisher()
-                        let response = try publisher.getURL(platform: platform.name)
+                        let response = try publisher.getURL(platform: platform.name!)
                         codeVerifier = response.codeVerifier
                         openURL(URL(string: response.authorizationURL)!)
                     }
@@ -97,6 +151,9 @@ struct AvailablePlatformsSheetsView: View {
                     }
                 case AvailablePlatformsSheetsView.TYPE.STORED:
                     print("Checking stored")
+                    accountViewShown = true
+                    filterPlatformName = platform.name!
+                    print("Switching to: \(filterPlatformName)")
                 }
                 dismiss()
             }) {
@@ -124,38 +181,30 @@ struct AvailablePlatformsSheetsView: View {
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
             .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
             .padding(.vertical, 20)
-            Text(platform.name)
+            Text(platform.name!)
                 .font(.system(size: 16, design: .rounded))
-            Text(platform.protocol_type)
+            Text(platform.protocol_type!)
                 .font(.system(size: 10, design: .rounded))
+            
         }
-    }
-    func getMockData() -> [Publisher.PlatformsData] {
-        return [
-            Publisher.PlatformsData(
-            name: "gmail",
-            shortcode: "g",
-            service_type: "email",
-            protocol_type: "oauth",
-            icon_svg: "<svg>...</svg>",
-            icon_png: "example.png"
-        ), Publisher.PlatformsData(
-            name: "twitter",
-            shortcode: "ix",
-            service_type: "text",
-            protocol_type: "oauth",
-            icon_svg: "<svg>...</svg>",
-            icon_png: "example.png"
-        )]
     }
 }
 
-#Preview {
-    @State var codeVerifier = ""
-    @State var title = "Available Platforms"
-    @State var description = "Select a platform to save it for offline use"
-    @State var mockTesting = true
-    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
-                                 title: title,
-                                 description: description, mockTesting: mockTesting)
+struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
+    static var previews: some View {
+        @State var codeVerifier = ""
+        @State var title = "Available Platforms"
+        @State var description = "Select a platform to save it for offline use"
+        @State var mockTesting = true
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
+                                     title: title,
+                                     description: description,
+                                     mockTesting: mockTesting,
+                                     type: AvailablePlatformsSheetsView.TYPE.STORED)
+        .environment(\.managedObjectContext, container.viewContext)
+    }
 }
