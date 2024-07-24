@@ -122,7 +122,4 @@ class Publisher {
         }
     }
     
-    static func downloadStoreIcons(platform: Publisher.PlatformsData, datastore: NSManagedObjectContext) async throws {
-    }
-    
 }

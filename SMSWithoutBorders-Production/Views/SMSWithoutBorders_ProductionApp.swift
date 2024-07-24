@@ -125,6 +125,9 @@ struct SMSWithoutBorders_ProductionApp: App {
                     
                     if(response.success) {
                         onboardingViewIndex += 1
+                        Task {
+                            Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
+                        }
                     }
                 } catch {
                     print("An error occured sending code: \(error)")
@@ -133,6 +136,8 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
         }
     }
+    
+    
     
     private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
         print("Storing Platform Icon: \(platform.name)")

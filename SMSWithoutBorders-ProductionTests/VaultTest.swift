@@ -75,7 +75,11 @@ struct VaultTest {
             let response1 = try vault.listStoredEntityToken(longLiveToken: llt!)
             
             print("stored tokens: \(response1.storedTokens)")
-//            XCTAssertEqual(response1.storedTokens, [])
+            
+            for storedToken in response1.storedTokens {
+                print("Platform: \(storedToken.platform)")
+                print("Account identifier: \(storedToken.accountIdentifier)")
+            }
             
             let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
                 rawRepresentation: response.serverPublishPubKey.base64Decoded())

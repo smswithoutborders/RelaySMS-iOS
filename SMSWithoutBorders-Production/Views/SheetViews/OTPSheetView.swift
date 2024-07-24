@@ -8,6 +8,7 @@
 import SwiftUI
 import CryptoKit
 import Fernet
+import CoreData
 
 public class OTPAuthType {
     public enum TYPE {
@@ -58,7 +59,8 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
                                countryCode: String?,
                                password: String,
                                       type: OTPAuthType.TYPE,
-                               otpCode: String? = nil ) async throws -> Int {
+                                      otpCode: String? = nil,
+                                      context: NSManagedObjectContext? = nil) async throws -> Int {
     let vault = Vault()
     var keystoreAliasPublishPubKey = "relaysms-publish-keystoreAlias"
     var keystoreAliasDeviceIDPubKey = "relaysms-deviceid-keystoreAlias"
@@ -115,12 +117,10 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
                        llt: response.longLivedToken,
                        clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
                        clientPublishPrivateKey: clientPublishPrivateKey!)
-            /**
-             stored tokens: [SMSWithoutBorders_ProductionTests.Vault_V1_Token:
-             platform: "gmail"
-             account_identifier: "anarchist.sonsofperdition@gmail.com"
-             ]
-             */
+            
+            let publisher = Publisher()
+            vault.refreshStoredTokens(llt: llt, context: context!)
+            print("successfully refreshed stored tokens...")
         }
         return Int(response.nextAttemptTimestamp)
     }
@@ -130,6 +130,7 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
 
 struct OTPSheetView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var datastore
 
     #if DEBUG
         @State private var otpCode: String = "123456"
@@ -150,6 +151,7 @@ struct OTPSheetView: View {
     
     @Binding var completed: Bool
     @Binding var failed: Bool
+    
 
     var body: some View {
         VStack {
@@ -175,7 +177,8 @@ struct OTPSheetView: View {
                                                       countryCode: countryCode,
                                                       password: password,
                                                            type: type,
-                                                      otpCode: otpCode)
+                                                           otpCode: otpCode,
+                                                           context: datastore)
                         } catch {
                             print("Error with second phase signup: \(error)")
                             failed = true

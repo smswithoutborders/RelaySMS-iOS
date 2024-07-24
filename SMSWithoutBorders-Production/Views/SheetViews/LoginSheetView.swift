@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginSheetView: View {
     
     #if DEBUG
-        @State private var phoneNumber: String = "+2371234567"
+        @State private var phoneNumber: String = "+237123456"
         @State private var password: String = "LL<O3ZG~=z-epkv"
     #else
         @State private var phoneNumber: String = ""

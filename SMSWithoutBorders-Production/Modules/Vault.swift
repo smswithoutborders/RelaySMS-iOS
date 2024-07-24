@@ -8,6 +8,7 @@
 import Foundation
 import GRPC
 import Logging
+import CoreData
 
 
 class Vault {
@@ -165,5 +166,35 @@ class Vault {
             }
             
             return nil
+    }
+    
+    func refreshStoredTokens(llt: String, context: NSManagedObjectContext) {
+        print("Refreshing stored platforms...")
+        let vault = Vault()
+        do {
+            let storedTokens = try vault.listStoredEntityToken(longLiveToken: llt)
+            for storedToken in storedTokens.storedTokens {
+                let storedPlatformEntity = StoredPlatformsEntity(context: context)
+                storedPlatformEntity.name = storedToken.platform
+                storedPlatformEntity.account = storedToken.accountIdentifier
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to stored platform: \(error)")
+                }
+            }
+        } catch {
+            print("Error fetching stored tokens: \(error)")
+        }
+    }
+    
+    class LocalStoredTokens : Identifiable {
+        var name: String
+        var account: String
+        
+        init(name: String, account: String) {
+            self.name = name
+            self.account = account
+        }
     }
 }
