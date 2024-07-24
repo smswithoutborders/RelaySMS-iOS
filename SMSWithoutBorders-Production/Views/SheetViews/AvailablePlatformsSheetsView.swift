@@ -43,14 +43,22 @@ func populateMockData(container: NSPersistentContainer) {
     platformEntityTwitter.shortcode = "x"
 
     for i in 0..<3 {
+        let name = "gmail"
+        let account = "account_\(i)@gmail.com"
         let storedPlatformsEntity = StoredPlatformsEntity(context: context)
-        storedPlatformsEntity.name = "gmail"
-        storedPlatformsEntity.account = "account_\(i)@gmail.com"
+        storedPlatformsEntity.name = name
+        storedPlatformsEntity.account = account
+        storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name, 
+                                                         accountIdentifier: account)
     }
     for i in 0..<3 {
+        let name = "twitter"
+        let account = "@twitter_account_\(i)"
         let storedPlatformsEntity = StoredPlatformsEntity(context: context)
-        storedPlatformsEntity.name = "twitter"
-        storedPlatformsEntity.account = "@twitter_account_\(1)"
+        storedPlatformsEntity.name = name
+        storedPlatformsEntity.account = account
+        storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name,
+                                                         accountIdentifier: account)
     }
 
     do {
@@ -126,10 +134,10 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }
             
-            NavigationLink(destination: AccountSheetView(filter: filterPlatformName),
-                           isActive: $accountViewShown) {
-                EmptyView()
-            }
+//            NavigationLink(destination: AccountSheetView(filter: filterPlatformName),
+//                           isActive: $accountViewShown) {
+//                EmptyView()
+//            }
         }
     }
     
@@ -156,11 +164,10 @@ struct AvailablePlatformsSheetsView: View {
                     }
                 case AvailablePlatformsSheetsView.TYPE.STORED:
                     print("Checking stored")
-                    accountViewShown = true
                     filterPlatformName = platform.name!
+                    accountViewShown = true
                     print("Switching to: \(filterPlatformName)")
                 }
-                dismiss()
             }) {
                 if platform.image == nil {
                     Image("exampleGmail")
@@ -182,6 +189,9 @@ struct AvailablePlatformsSheetsView: View {
                         .frame(width: 100, height: 100)
                         .padding()
                 }
+            }
+            .sheet(isPresented: $accountViewShown) {
+                AccountSheetView(filter: filterPlatformName)
             }
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
             .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)

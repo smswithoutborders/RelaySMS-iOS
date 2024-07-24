@@ -189,6 +189,10 @@ class Vault {
             return nil
     }
     
+    static func deriveUniqueKey(platformName: String, accountIdentifier: String) -> String {
+        return SHA256.hash(data: Data((platformName + accountIdentifier).utf8)).description
+    }
+    
     func refreshStoredTokens(llt: String, context: NSManagedObjectContext) {
         print("Refreshing stored platforms...")
         let vault = Vault()
@@ -198,7 +202,8 @@ class Vault {
                 let storedPlatformEntity = StoredPlatformsEntity(context: context)
                 storedPlatformEntity.name = storedToken.platform
                 storedPlatformEntity.account = storedToken.accountIdentifier
-                storedPlatformEntity.id = SHA256.hash(data: Data((storedToken.platform + storedToken.accountIdentifier).utf8)).description
+                storedPlatformEntity.id = Vault.deriveUniqueKey(platformName: storedToken.platform,
+                                                                accountIdentifier: storedToken.accountIdentifier)
                 print("[+] stored: \(storedPlatformEntity.name)")
                 do {
                     try context.save()
