@@ -105,10 +105,16 @@ struct AvailablePlatformsSheetsView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 55) {
-                                ForEach(platforms, id: \.name) { platform in
-                                    if getStoredPlatforms(platform: platform) {
-                                        getPlatformsSubViews(platform: platform,
-                                                             image: platform.image)
+                                if type == TYPE.STORED {
+                                    ForEach(platforms, id: \.name) { platform in
+                                        if getStoredPlatforms(platform: platform) {
+                                            getPlatformsSubViews(platform: platform)
+                                        }
+                                    }
+                                }
+                                else {
+                                    ForEach(platforms, id: \.name) { platform in
+                                        getPlatformsSubViews(platform: platform)
                                     }
                                 }
                             }
@@ -135,7 +141,7 @@ struct AvailablePlatformsSheetsView: View {
     
     
     @ViewBuilder
-    func getPlatformsSubViews(platform: PlatformsEntity, image: Data?) -> some View{
+    func getPlatformsSubViews(platform: PlatformsEntity) -> some View{
         VStack {
             Button(action: {
                 switch type {
@@ -157,7 +163,7 @@ struct AvailablePlatformsSheetsView: View {
                 }
                 dismiss()
             }) {
-                if image == nil {
+                if platform.image == nil {
                     Image("exampleGmail")
                         .resizable()
                         .scaledToFill()
@@ -168,7 +174,7 @@ struct AvailablePlatformsSheetsView: View {
                         .padding()
                 }
                 else {
-                    Image(uiImage: UIImage(data: image!)!)
+                    Image(uiImage: UIImage(data: platform.image!)!)
                         .resizable()
                         .scaledToFill()
                         .clipped()

@@ -18,7 +18,7 @@ struct ControllerView: View {
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
     
-    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     var body: some View {
         switch self.onboadingViewIndex {
@@ -26,7 +26,7 @@ struct ControllerView: View {
             OnboardingWelcomeView()
             VStack {
                 Button("Get started!") {
-                    self.onboadingViewIndex += platforms.isEmpty ? 1 : 2
+                    self.onboadingViewIndex += storedPlatforms.isEmpty ? 1 : 2
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
