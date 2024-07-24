@@ -45,6 +45,7 @@
 		3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */; };
 		3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
 		3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
+		3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -593,6 +594,7 @@
 				3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */,
 				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
 				3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */,
+				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
 				3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */,

@@ -52,12 +52,14 @@ struct addAccountsView: View {
     
     @State var title: String = "Available platforms"
     @State var description = "Select a platform to save it for offline use"
+    
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     var body: some View {
         VStack {
             Tab(buttonView:
                 Button("Add Accounts") {
-                self.availablePlatformsPresented = true
+                    self.availablePlatformsPresented = true
                 }
                 .sheet(isPresented: $availablePlatformsPresented) {
                     AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
@@ -91,14 +93,6 @@ struct OnboardingIntroToVaults: View {
     
     @Binding var backgroundLoading: Bool
 
-    struct InnerHeightPreferenceKey: PreferenceKey {
-        static let defaultValue: CGFloat = .zero
-        static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-            value = nextValue()
-        }
-    }
-
-
     var body: some View {
         if(backgroundLoading) {
             ProgressView()
@@ -131,5 +125,7 @@ struct OnboardingIntroToVaults: View {
 #Preview {
     @State var codeVerifier: String = ""
     @State var isBackgroundLoading: Bool = false
-    OnboardingIntroToVaults(codeVerifier: $codeVerifier, backgroundLoading: $isBackgroundLoading)
+    @State var completed: Bool = true
+    OnboardingIntroToVaults(completed: completed, codeVerifier: $codeVerifier,
+                            backgroundLoading: $isBackgroundLoading)
 }

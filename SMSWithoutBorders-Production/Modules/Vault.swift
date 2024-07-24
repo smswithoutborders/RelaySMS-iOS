@@ -14,9 +14,20 @@ import CoreData
 class Vault {
     
     public static var VAULT_LONG_LIVED_TOKEN = "COM.AFKANERD.RELAYSMS.VAULT_LONG_LIVED_TOKEN"
+    
+    class LocalStoredTokens : Identifiable {
+        var name: String
+        var account: String
+        
+        init(name: String, account: String) {
+            self.name = name
+            self.account = account
+        }
+    }
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
+        case unauthenticatedLLT(status: GRPCStatus)
     }
     
     var channel: ClientConnection?
@@ -122,6 +133,9 @@ class Vault {
             print("status code - isOk: \(status.isOk)")
             
             if(!status.isOk) {
+                if status.code.rawValue == 16 {
+                    throw Exceptions.unauthenticatedLLT(status: status)
+                }
                 throw Exceptions.requestNotOK(status: status)
             }
         } catch {
@@ -135,6 +149,12 @@ class Vault {
         let llt = try CSecurity.findInKeyChain(keystoreAlias:
                                                 Vault.VAULT_LONG_LIVED_TOKEN)
         return String(data: llt, encoding: .utf8)!
+    }
+    
+    public static func resetKeystore() {
+        CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
+        CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+        print("[important] keystore reset done...")
     }
     
     public static func parseErrorMessage(message: String?) -> (String?, String)? {
@@ -183,18 +203,11 @@ class Vault {
                     print("Failed to stored platform: \(error)")
                 }
             }
+        } catch Exceptions.unauthenticatedLLT(let status){
+            print("Should delete invalid llt: \(status.message)")
+            Vault.resetKeystore()
         } catch {
             print("Error fetching stored tokens: \(error)")
-        }
-    }
-    
-    class LocalStoredTokens : Identifiable {
-        var name: String
-        var account: String
-        
-        init(name: String, account: String) {
-            self.name = name
-            self.account = account
         }
     }
 }

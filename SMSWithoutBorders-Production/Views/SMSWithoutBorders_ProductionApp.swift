@@ -105,6 +105,16 @@ struct SMSWithoutBorders_ProductionApp: App {
                         print("Failed to load JSON data: \(error)")
                     }
                 }
+                
+                do {
+                    if try !Vault.getLongLivedToken().isEmpty {
+                        let vault = Vault()
+                        vault.refreshStoredTokens(llt: try Vault.getLongLivedToken(),
+                                                  context: dataController.container.viewContext)
+                    }
+                } catch {
+                    print("Error refreshing llt: \(error)")
+                }
             }
             .onOpenURL { url in
                 let state = url.valueOf("state")
