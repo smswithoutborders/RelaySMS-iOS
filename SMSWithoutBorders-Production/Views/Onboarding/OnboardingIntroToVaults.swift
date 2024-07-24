@@ -53,8 +53,6 @@ struct addAccountsView: View {
     @State var title: String = "Available platforms"
     @State var description = "Select a platform to save it for offline use"
     
-    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
-
     var body: some View {
         VStack {
             Tab(buttonView:
@@ -82,7 +80,7 @@ struct OnboardingIntroToVaults: View {
     @State var signupSheetShown = false
     @State var authRequestSheetShown = false
     
-    @State var completed: Bool = false
+    @State var onboardingIntroComplete: Bool = false
     @State var failed: Bool = false
     @State var availablePlatformsPresented: Bool = false
     
@@ -90,8 +88,11 @@ struct OnboardingIntroToVaults: View {
     @State private var sheetHeight: CGFloat = .zero
     
     @Binding var codeVerifier: String
-    
     @Binding var backgroundLoading: Bool
+    @Binding var complete: Bool
+
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+
 
     var body: some View {
         if(backgroundLoading) {
@@ -99,20 +100,25 @@ struct OnboardingIntroToVaults: View {
         }
         else {
             Group {
-                if(completed) {
+                if(onboardingIntroComplete) {
                     addAccountsView(codeVerifier: $codeVerifier,
                                     availablePlatformsPresented: $availablePlatformsPresented)
+                    .task {
+                        if !storedPlatforms.isEmpty {
+                            complete = true
+                        }
+                    }
                 } else {
                     loginView(loginSheetShown: $loginSheetShown,
                               signupSheetShown: $signupSheetShown,
-                              completed: $completed,
+                              completed: $onboardingIntroComplete,
                               failed: $failed)
                 }
             }
             .task {
                 do {
                     if(try !Vault.getLongLivedToken().isEmpty) {
-                        self.completed = true
+                        self.onboardingIntroComplete = true
                     }
                 } catch {
                     
@@ -126,6 +132,7 @@ struct OnboardingIntroToVaults: View {
     @State var codeVerifier: String = ""
     @State var isBackgroundLoading: Bool = false
     @State var completed: Bool = true
-    OnboardingIntroToVaults(completed: completed, codeVerifier: $codeVerifier,
-                            backgroundLoading: $isBackgroundLoading)
+    OnboardingIntroToVaults( codeVerifier: $codeVerifier,
+                            backgroundLoading: $isBackgroundLoading,
+                             complete: $completed )
 }

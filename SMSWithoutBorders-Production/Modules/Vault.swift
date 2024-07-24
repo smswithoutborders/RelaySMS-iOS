@@ -9,6 +9,7 @@ import Foundation
 import GRPC
 import Logging
 import CoreData
+import CryptoKit
 
 
 class Vault {
@@ -197,6 +198,8 @@ class Vault {
                 let storedPlatformEntity = StoredPlatformsEntity(context: context)
                 storedPlatformEntity.name = storedToken.platform
                 storedPlatformEntity.account = storedToken.accountIdentifier
+                storedPlatformEntity.id = SHA256.hash(data: Data((storedToken.platform + storedToken.accountIdentifier).utf8)).description
+                print("[+] stored: \(storedPlatformEntity.name)")
                 do {
                     try context.save()
                 } catch {

@@ -22,6 +22,7 @@ struct StoredPlatformsView: View {
 
 struct OnboardingTryExample: View {
     @State var shownStoredPlatforms = false
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     var body: some View {
         VStack {
@@ -44,6 +45,12 @@ struct OnboardingTryExample: View {
                 imageName: "OnboardingTryExample",
                 subDescription: "Messages are encrypted, so the messages will scrambled - don't worry that's intended"
             )
+        }
+        .task {
+            for platform in storedPlatforms {
+                print("platform.name: \(platform.name)")
+                print("platform.account: \(platform.account)\n")
+            }
         }
     }
 }

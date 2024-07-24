@@ -46,6 +46,7 @@
 		3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
 		3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
 		3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
+		3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -588,6 +589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
 				3BC978142C36C0D700AB626C /* Publisher.swift in Sources */,
 				3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */,
 				3BF3D1672C3499B2003A3AFB /* SecurityCurve25519.swift in Sources */,

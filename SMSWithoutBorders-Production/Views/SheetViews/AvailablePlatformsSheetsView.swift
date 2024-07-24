@@ -71,8 +71,6 @@ struct AvailablePlatformsSheetsView: View {
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
-    @State var services = [Publisher.PlatformsData]()
-    
     @State var platformsLoading = false
     
     @Binding var codeVerifier: String
@@ -136,7 +134,8 @@ struct AvailablePlatformsSheetsView: View {
     }
     
     func getStoredPlatforms(platform: PlatformsEntity) -> Bool {
-        return storedPlatforms.contains(where: {$0.name == platform.name})
+        print("checking against: \(platform.name)")
+        return storedPlatforms.contains{ $0.name == platform.name}
     }
     
     

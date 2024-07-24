@@ -17,11 +17,13 @@ struct ControllerView: View {
     
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
-    
+
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    
+    @State var onboardingCompleted: Bool = false
 
     var body: some View {
-        switch self.onboadingViewIndex {
+        switch getIndexRegardless() {
         case ...0:
             OnboardingWelcomeView()
             VStack {
@@ -35,7 +37,8 @@ struct ControllerView: View {
             }
         case 1:
             OnboardingIntroToVaults(codeVerifier: $codeVerifier,
-                                    backgroundLoading: $backgroundLoading)
+                                    backgroundLoading: $backgroundLoading,
+                                    complete: $onboardingCompleted)
         case 2:
             OnboardingTryExample()
         default:
@@ -60,6 +63,13 @@ struct ControllerView: View {
                 
             }.padding()
         }
+    }
+    
+    func getIndexRegardless() -> Int {
+        if onboardingCompleted {
+            return 2
+        }
+        return self.onboadingViewIndex
     }
 }
 
@@ -92,28 +102,10 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
             }
             .task {
-                Publisher.getPlatforms() { result in
-                    switch result {
-                    case .success(let data):
-                        print("Success: \(data)")
-                        for platform in data {
-                            if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                                downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
-                            }
-                        }
-                    case .failure(let error):
-                        print("Failed to load JSON data: \(error)")
-                    }
-                }
-                
                 do {
-                    if try !Vault.getLongLivedToken().isEmpty {
-                        let vault = Vault()
-                        vault.refreshStoredTokens(llt: try Vault.getLongLivedToken(),
-                                                  context: dataController.container.viewContext)
-                    }
+                    try await refreshLocalDBs()
                 } catch {
-                    print("Error refreshing llt: \(error)")
+                    print("Failed to refresh local DBs: \(error)")
                 }
             }
             .onOpenURL { url in
@@ -147,6 +139,31 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
     }
     
+    func refreshLocalDBs() async throws {
+        Publisher.getPlatforms() { result in
+            switch result {
+            case .success(let data):
+                print("Success: \(data)")
+                for platform in data {
+                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                        downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
+                    }
+                }
+            case .failure(let error):
+                print("Failed to load JSON data: \(error)")
+            }
+        }
+        
+        do {
+            if try !Vault.getLongLivedToken().isEmpty {
+                let vault = Vault()
+                vault.refreshStoredTokens(llt: try Vault.getLongLivedToken(),
+                                          context: dataController.container.viewContext)
+            }
+        } catch {
+            print("Error refreshing llt: \(error)")
+        }
+    }
     
     
     private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
