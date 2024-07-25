@@ -61,7 +61,7 @@ struct AccountSheetView: View {
         ForEach(platforms) { platform in
             switch platform.service_type {
                 case "email":
-                    EmailView()
+                EmailView(platformName: platform.service_type!)
                 default:
                     EmptyView()
             }

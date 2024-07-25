@@ -24,15 +24,24 @@ struct EmailView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
-
-    @State var platform: PlatformsEntity?
-    @State var encryptedContent: EncryptedContentsEntity?
     
-    @State var composeTo :String = ""
-    @State var composeCC :String = ""
-    @State var composeBCC :String = ""
-    @State var composeSubject :String = ""
-    @State var composeBody :String = ""
+    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+
+    @State var composeTo: String = ""
+    @State var composeCC: String = ""
+    @State var composeBCC: String = ""
+    @State var composeSubject: String = ""
+    @State var composeBody: String = ""
+    
+    private var platformName: String
+    
+    init(platformName: String) {
+        self.platformName = platformName
+        
+        _platforms = FetchRequest<PlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", platformName))
+    }
     
     var decoder: Decoder?
     private let messageComposeDelegate = MessageComposerDelegate()
@@ -106,9 +115,13 @@ struct EmailView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // TODO: Get formatted input
+                        var shortcode = ""
+                        for platform in platforms {
+                            shortcode = platform.shortcode!
+                            break
+                        }
                         let formattedEmail = formatEmailForPublishing(
-                            platformLetter: (self.platform?.shortcode)!,
+                            platformLetter: shortcode,
                             to: composeTo,
                             cc: composeCC,
                             bcc: composeBCC,
@@ -124,10 +137,12 @@ struct EmailView: View {
 //                        let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
 //                        
 //                        print("Default Gateway client: " + defaultGatewayClient)
-//                        
-//                        sendSMS(message: encryptedFormattedContent,
-//                                receipient: "+123456789",
-//                                messageComposeDelegate: self.messageComposeDelegate)
+                        
+                        let encryptedFormattedContent = formattedEmail
+                        
+                        sendSMS(message: encryptedFormattedContent,
+                                receipient: "+123456789",
+                                messageComposeDelegate: self.messageComposeDelegate)
                         self.dismiss()
                     }) {
                         Text("Send")
@@ -163,9 +178,11 @@ struct EmailView: View {
 
 
 struct EmailView_Preview: PreviewProvider {
-    @State static var platforms: PlatformsEntity?
-    @State static var encryptedContent: EncryptedContentsEntity?
     static var previews: some View {
-        EmailView(platform: platforms, encryptedContent: encryptedContent)
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return EmailView(platformName: "gmail")
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }
