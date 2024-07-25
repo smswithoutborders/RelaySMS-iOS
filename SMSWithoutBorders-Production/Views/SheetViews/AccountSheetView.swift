@@ -45,7 +45,7 @@ struct AccountSheetView: View {
     var body: some View {
         NavigationView {
             List(storedPlatforms) { platform in
-                NavigationLink(destination: getDestinationForPlatform()) {
+                NavigationLink(destination: getDestinationForPlatform(fromAccount: platform.account!)) {
                     accountView(accountName: platform.account!, platformName: platform.name!)
                 }
             }
@@ -57,11 +57,11 @@ struct AccountSheetView: View {
     }
     
     
-    @ViewBuilder func getDestinationForPlatform() -> some View {
+    @ViewBuilder func getDestinationForPlatform(fromAccount: String) -> some View {
         ForEach(platforms) { platform in
             switch platform.service_type {
                 case "email":
-                EmailView(platformName: platform.service_type!)
+                EmailView(platformName: platform.service_type!, fromAccount: fromAccount)
                 default:
                     EmptyView()
             }

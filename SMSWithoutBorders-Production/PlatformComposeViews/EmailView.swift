@@ -23,24 +23,28 @@ struct EmailView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     
-    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
-    
+//    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
+//    
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
 
     @State var composeTo: String = ""
+    @State var composeFrom: String = ""
     @State var composeCC: String = ""
     @State var composeBCC: String = ""
     @State var composeSubject: String = ""
     @State var composeBody: String = ""
     
     private var platformName: String
-    
-    init(platformName: String) {
+    private var fromAccount: String
+
+    init(platformName: String, fromAccount: String) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", platformName))
+        
+        self.fromAccount = fromAccount
     }
     
     var decoder: Decoder?
@@ -50,6 +54,21 @@ struct EmailView: View {
         VStack {
             NavigationView {
                 VStack {
+                    VStack{
+                        HStack {
+                            Text("From ")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            TextField(fromAccount, text: $composeFrom)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                                .disabled(true)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
+                    }
+                    Spacer(minLength: 9)
+                    
                     VStack{
                         HStack {
                             Text("To ")
@@ -182,7 +201,8 @@ struct EmailView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return EmailView(platformName: "gmail")
+        return EmailView(platformName: "gmail", 
+                         fromAccount: "dev@relay.sms")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
