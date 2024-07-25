@@ -119,7 +119,7 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
                        clientPublishPrivateKey: clientPublishPrivateKey!)
             
             let publisher = Publisher()
-            vault.refreshStoredTokens(llt: llt, context: context!)
+            try vault.refreshStoredTokens(llt: llt, context: context!)
             print("successfully refreshed stored tokens...")
         }
         return Int(response.nextAttemptTimestamp)

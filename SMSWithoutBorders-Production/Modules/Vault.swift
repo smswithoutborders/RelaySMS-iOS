@@ -146,16 +146,62 @@ class Vault {
         return response
     }
     
+    func deleteEntity(longLiveToken: String) throws -> Vault_V1_DeleteEntityResponse {
+        let deleteEntityRequest: Vault_V1_DeleteEntityRequest = .with {
+            $0.longLivedToken = longLiveToken
+        }
+        
+        let call = vaultEntityStub!.deleteEntity(deleteEntityRequest)
+        let response: Vault_V1_DeleteEntityResponse
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                if status.code.rawValue == 16 {
+                    throw Exceptions.unauthenticatedLLT(status: status)
+                }
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+        return response
+    }
+    
     public static func getLongLivedToken() throws -> String {
-        let llt = try CSecurity.findInKeyChain(keystoreAlias:
-                                                Vault.VAULT_LONG_LIVED_TOKEN)
-        return String(data: llt, encoding: .utf8)!
+        do {
+            let llt = try CSecurity.findInKeyChain(keystoreAlias:
+                                                    Vault.VAULT_LONG_LIVED_TOKEN)
+            return String(data: llt, encoding: .utf8)!
+        } catch CSecurity.Exceptions.FailedToFetchStoredItem {
+            return ""
+        } catch {
+            throw error
+        }
     }
     
     public static func resetKeystore() {
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
         print("[important] keystore reset done...")
+    }
+    
+    public static func resetDatastore(context: NSManagedObjectContext) throws {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredPlatformsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            throw error
+        }
     }
     
     public static func parseErrorMessage(message: String?) -> (String?, String)? {
@@ -193,7 +239,7 @@ class Vault {
         return SHA256.hash(data: Data((platformName + accountIdentifier).utf8)).description
     }
     
-    func refreshStoredTokens(llt: String, context: NSManagedObjectContext) {
+    func refreshStoredTokens(llt: String, context: NSManagedObjectContext) throws -> Bool {
         print("Refreshing stored platforms...")
         let vault = Vault()
         do {
@@ -214,8 +260,12 @@ class Vault {
         } catch Exceptions.unauthenticatedLLT(let status){
             print("Should delete invalid llt: \(status.message)")
             Vault.resetKeystore()
+            try Vault.resetDatastore(context: context)
+            return false
         } catch {
             print("Error fetching stored tokens: \(error)")
+            throw error
         }
+        return true
     }
 }

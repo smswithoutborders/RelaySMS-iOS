@@ -9,7 +9,7 @@ import Foundation
 import MessageUI
 
 func getEncryptedContent(contentToEncrypt: String) -> (iv: String, encryptedContent: Data) {
-    let sharedKey = CSecurity().findInKeyChain()
+    let sharedKey = ""
     print("Shared key: \(sharedKey)")
     
     var encryptedDataHolder: Data = Data()
@@ -29,7 +29,7 @@ func getEncryptedContent(contentToEncrypt: String) -> (iv: String, encryptedCont
 }
 
 func getDecryptedContent(contentToDecrypt: Data, iv: String) -> String {
-    let sharedKey = CSecurity().findInKeyChain()
+    let sharedKey = ""
     print("Shared key: \(sharedKey)")
     
     var decryptedString: String = ""

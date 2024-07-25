@@ -17,9 +17,8 @@ import Fernet
 
 struct VaultTest {
     var vault = Vault()
-    var phoneNumber = "+237123456"
-//    var password = "dMd2Kmo9"
     var password = "LL<O3ZG~=z-epkv"
+    var phoneNumber = "+237123456"
     var ownershipProof = "123456"
     var keystoreAliasPublishPubKey = "vault-test-keystoreAlias-pub-key"
     var keystoreAliasDeviceIDPubKey = "vault-test-keystoreAlias-device-id-key"
@@ -163,10 +162,12 @@ struct VaultTest {
             print("Error came back - cause: \(status.cause)")
             print("Error came back - description: \(status.cause)")
             print("Error came back - code: \(status.code)")
-            var (field, message) = Vault.parseErrorMessage(message: status.message)!
-            print("Field: \(field)")
-            print("Message: \(message)")
-            throw status
+//            var (field, message) = Vault.parseErrorMessage(message: status.message)!
+//            print("Field: \(field)")
+//            print("Message: \(message)")
+            if status.code.rawValue != 6 {
+                throw status
+            }
         }
         
         
@@ -178,6 +179,7 @@ struct VaultTest {
             
             XCTAssertFalse(response.requiresOwnershipProof)
 
+            // ** LOGIN **
             response = try vault.authenticateEntity(phoneNumber: phoneNumber,
                                                         password: password,
                                           clientPublishPubKey: clientPublishPubKey,
@@ -197,10 +199,10 @@ struct VaultTest {
             
             let llt = String(data: decodedOutput.data, encoding: .utf8)
 
+            // ** LIST STORED TOKENS **
             let response1 = try vault.listStoredEntityToken(longLiveToken: llt!)
             
             print("stored tokens: \(response1.storedTokens)")
-//            XCTAssertEqual(response1.storedTokens, [])
             
             let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
                 rawRepresentation: response.serverPublishPubKey.base64Decoded())
@@ -213,7 +215,6 @@ struct VaultTest {
             XCTAssertTrue(CSecurity.deletePasswordFromKeychain(keystoreAlias: "example_long_lived_token"))
             XCTAssertTrue(CSecurity.deletePasswordFromKeychain(keystoreAlias: "example_publishing_shared_key"))
             
-            // TODO: Encrypt all the data being stored securely on the device
             try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, keystoreAlias: "example_long_lived_token")
             try CSecurity.storeInKeyChain(data: publishingSharedKey, keystoreAlias: "example_publishing_shared_key")
             
@@ -228,7 +229,24 @@ struct VaultTest {
 
             XCTAssertEqual(String(data: rllt, encoding: .utf8), llt)
             XCTAssertEqual(rPubSharedKey, publishingSharedKey)
-
+            
+            // ** REVOKE STORED TOKENS **
+            let publisher = Publisher()
+            for platform in response1.storedTokens {
+                print("Revoking: \(platform.platform): \(platform.accountIdentifier)")
+                let response = try publisher.revokePlatform(llt: llt!,
+                                         platform: platform.platform,
+                                         account: platform.accountIdentifier)
+                
+                XCTAssertTrue(response.success)
+            }
+            
+            // ** DELETE STORED TOKENS **
+            let deleteResponse = try vault.deleteEntity(longLiveToken: llt!)
+            print("Deleted tokens...")
+            
+            XCTAssertTrue(deleteResponse.success)
+            
         } catch {
             print(error)
             throw error

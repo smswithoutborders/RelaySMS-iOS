@@ -32,7 +32,7 @@ class Publisher {
     
     func getURL(platform: String, 
                 state: String = "",
-                autogenerateCodeVerifier: Bool = false) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
+                autogenerateCodeVerifier: Bool = true) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
         
         let publishingUrlRequest: Publisher_V1_GetOAuth2AuthorizationUrlRequest = .with {
             $0.platform = platform
@@ -79,6 +79,35 @@ class Publisher {
         
         let call = publisherStub!.exchangeOAuth2CodeAndStore(authorizationRequest)
         let response: Publisher_V1_ExchangeOAuth2CodeAndStoreResponse
+        
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+
+        return response
+    }
+    
+    func revokePlatform(llt: String, platform: String, account: String) throws -> Publisher_V1_RevokeAndDeleteOAuth2TokenResponse {
+        let revokeRequest: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest = .with {
+            $0.platform = platform
+            $0.longLivedToken = llt
+            $0.accountIdentifier = account
+        }
+        
+        let call = publisherStub!.revokeAndDeleteOAuth2Token(revokeRequest)
+        let response: Publisher_V1_RevokeAndDeleteOAuth2TokenResponse
         
         do {
             response = try call.response.wait()

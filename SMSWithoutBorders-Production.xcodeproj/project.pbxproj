@@ -53,6 +53,10 @@
 		3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
 		3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
+		3BDADAD82C52A25800539E57 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
+		3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
+		3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
+		3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -603,6 +607,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */,
+				3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */,
+				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,
+				3BDADAD82C52A25800539E57 /* PublisherHandler.swift in Sources */,
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
 				3BC75BF62C5273B2004233CE /* GatewayClientsHandler.swift in Sources */,
 				3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */,

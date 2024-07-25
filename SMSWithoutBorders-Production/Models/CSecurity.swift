@@ -147,27 +147,4 @@ class CSecurity {
         }
         return sharedKey
     }
-    
-    func findInKeyChain() -> String {
-        var query = self.query
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        query[kSecReturnData as String] = kCFBooleanTrue
-        query[kSecAttrAccount as String] = sharedKeyTagLable
-        
-        var item: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
-        
-        guard status != errSecItemNotFound else {
-            print("Failed to fetch stored key")
-            
-            return ""
-        }
-        
-        guard let sharedKey = item as? Data else {
-            print(item)
-            print("Some error occured while fetching shared key")
-            return ""
-        }
-        return String(data: sharedKey, encoding: .utf8)!
-    }
 }

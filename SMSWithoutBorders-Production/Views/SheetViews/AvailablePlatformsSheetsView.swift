@@ -87,18 +87,18 @@ struct AvailablePlatformsSheetsView: View {
     @State var title: String
     @State var description: String
     
-    @State var mockTesting: Bool = false
-
     @State var type: TYPE = TYPE.AVAILABLE
     @Environment(\.openURL) var openURL
     
     @State var accountViewShown: Bool = false
     @State var filterPlatformName: String = ""
+    
+    @State var loadingOAuthURLScreen: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
-                if(!mockTesting && platforms.isEmpty) {
+                if(platforms.isEmpty) {
                     Text("No platforms")
                         .padding()
                 }
@@ -120,7 +120,12 @@ struct AvailablePlatformsSheetsView: View {
                                 }
                                 else {
                                     ForEach(platforms, id: \.name) { platform in
-                                        getPlatformsSubViews(platform: platform)
+                                        if loadingOAuthURLScreen {
+                                            ProgressView()
+                                        }
+                                        else {
+                                            getPlatformsSubViews(platform: platform)
+                                        }
                                     }
                                 }
                             }
@@ -149,10 +154,12 @@ struct AvailablePlatformsSheetsView: View {
             Button(action: {
                 switch type {
                 case AvailablePlatformsSheetsView.TYPE.AVAILABLE:
+                    loadingOAuthURLScreen = true
                     do {
                         let publisher = Publisher()
                         let response = try publisher.getURL(platform: platform.name!)
                         codeVerifier = response.codeVerifier
+                        print("Requesting url: \(response.authorizationURL)")
                         openURL(URL(string: response.authorizationURL)!)
                     }
                     catch {
@@ -206,7 +213,6 @@ struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
         @State var codeVerifier = ""
         @State var title = "Available Platforms"
         @State var description = "Select a platform to save it for offline use"
-        @State var mockTesting = true
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
@@ -214,8 +220,7 @@ struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
         return AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
                                      title: title,
                                      description: description,
-                                     mockTesting: mockTesting,
-                                     type: AvailablePlatformsSheetsView.TYPE.STORED)
+                                            type: AvailablePlatformsSheetsView.TYPE.AVAILABLE)
         .environment(\.managedObjectContext, container.viewContext)
     }
 }

@@ -10,9 +10,10 @@ import Foundation
 import CoreData
 
 struct ControllerView: View {
+    @Environment(\.managedObjectContext) var viewContext
     @Binding var isFinished: Bool
     
-    @Binding var onboadingViewIndex: Int
+    @Binding var onboardingViewIndex: Int
     @State private var lastOnboardingView = false
     
     @Binding var codeVerifier: String
@@ -28,7 +29,14 @@ struct ControllerView: View {
             OnboardingWelcomeView()
             VStack {
                 Button("Get started!") {
-                    self.onboadingViewIndex += storedPlatforms.isEmpty ? 1 : 2
+                    self.onboardingViewIndex += storedPlatforms.isEmpty ? 1 : 2
+                    Task {
+                        do {
+                            try await refreshLocalDBs()
+                        } catch {
+                            print("Failed to refresh local DBs: \(error)")
+                        }
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
@@ -47,10 +55,10 @@ struct ControllerView: View {
         
         if(!backgroundLoading) {
             HStack {
-                if(self.onboadingViewIndex > 0) {
+                if(self.onboardingViewIndex > 0) {
                     if(!lastOnboardingView) {
                         Button("skip") {
-                            self.onboadingViewIndex += 1
+                            self.onboardingViewIndex += 1
                         }.frame(alignment: .bottom)
                             .padding()
                     } else {
@@ -63,13 +71,70 @@ struct ControllerView: View {
                 
             }.padding()
         }
+        
+    }
+    
+    
+    private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
+        print("Storing Platform Icon: \(platform.name)")
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            let platformsEntity = PlatformsEntity(context: viewContext)
+            platformsEntity.image = data
+            platformsEntity.name = platform.name
+            platformsEntity.protocol_type = platform.protocol_type
+            platformsEntity.service_type = platform.service_type
+            platformsEntity.shortcode = platform.shortcode
+            do {
+                try viewContext.save()
+            } catch {
+                print("Failed save download image: \(error)")
+            }
+        }
+        task.resume()
+    }
+    
+    func refreshLocalDBs() async throws {
+        await Task.detached(priority: .userInitiated) {
+            Publisher.getPlatforms() { result in
+                switch result {
+                case .success(let data):
+                    print("Success: \(data)")
+                    for platform in data {
+                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                            downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
+                        }
+                    }
+                case .failure(let error):
+                    print("Failed to load JSON data: \(error)")
+                }
+            }
+            
+            do {
+                if try !Vault.getLongLivedToken().isEmpty {
+                    let vault = Vault()
+                    let valid = try vault.refreshStoredTokens(
+                        llt: try Vault.getLongLivedToken(), context: viewContext)
+                    if !valid {
+                        onboardingViewIndex = 0
+                    }
+                } else {
+                    try Vault.resetDatastore(context: viewContext)
+                    onboardingViewIndex = 0
+                }
+            } catch {
+                print("Error refreshing llt: \(error)")
+                throw error
+            }
+        }
     }
     
     func getIndexRegardless() -> Int {
         if onboardingCompleted {
             return 2
         }
-        return self.onboadingViewIndex
+        return self.onboardingViewIndex
     }
 }
 
@@ -91,7 +156,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             Group {
                 if(!isFinished) {
                     ControllerView(isFinished: $isFinished,
-                                   onboadingViewIndex: $onboardingViewIndex,
+                                   onboardingViewIndex: $onboardingViewIndex,
                                    codeVerifier: $codeVerifier,
                                    backgroundLoading: $backgroundLoading)
                     .environment(\.managedObjectContext, dataController.container.viewContext)
@@ -99,13 +164,6 @@ struct SMSWithoutBorders_ProductionApp: App {
                 else {
                     RecentsView(codeVerifier: $codeVerifier)
                         .environment(\.managedObjectContext, dataController.container.viewContext)
-                }
-            }
-            .task {
-                do {
-                    try await refreshLocalDBs()
-                } catch {
-                    print("Failed to refresh local DBs: \(error)")
                 }
             }
             .onOpenURL { url in
@@ -128,7 +186,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     if(response.success) {
                         onboardingViewIndex += 1
                         Task {
-                            Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
+                            try Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
                         }
                     }
                 } catch {
@@ -139,53 +197,8 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
     }
     
-    func refreshLocalDBs() async throws {
-        Publisher.getPlatforms() { result in
-            switch result {
-            case .success(let data):
-                print("Success: \(data)")
-                for platform in data {
-                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
-                    }
-                }
-            case .failure(let error):
-                print("Failed to load JSON data: \(error)")
-            }
-        }
-        
-        do {
-            if try !Vault.getLongLivedToken().isEmpty {
-                let vault = Vault()
-                vault.refreshStoredTokens(llt: try Vault.getLongLivedToken(),
-                                          context: dataController.container.viewContext)
-            }
-        } catch {
-            print("Error refreshing llt: \(error)")
-        }
-    }
     
     
-    private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
-        print("Storing Platform Icon: \(platform.name)")
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            let context = dataController.container.viewContext
-            let platformsEntity = PlatformsEntity(context: context)
-            platformsEntity.image = data
-            platformsEntity.name = platform.name
-            platformsEntity.protocol_type = platform.protocol_type
-            platformsEntity.service_type = platform.service_type
-            platformsEntity.shortcode = platform.shortcode
-            do {
-                try context.save()
-            } catch {
-                print("Failed save download image: \(error)")
-            }
-        }
-        task.resume()
-    }
 }
 
 #Preview {
@@ -195,7 +208,7 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var isBackgroundLoading: Bool = true
     
     ControllerView(isFinished: $isFinished,
-                   onboadingViewIndex: $onboardingIndex,
+                   onboardingViewIndex: $onboardingIndex,
                    codeVerifier: $codeVerifier,
                    backgroundLoading: $isBackgroundLoading)
 }
