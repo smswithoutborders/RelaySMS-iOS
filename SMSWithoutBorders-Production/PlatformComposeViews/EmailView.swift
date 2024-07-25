@@ -9,28 +9,6 @@ import SwiftUI
 import MessageUI
 
 
-func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
-    let splitString = decryptedData.components(separatedBy: ":")
-    
-    let platformLetter: String = splitString[0]
-    let to: String = splitString[1]
-    let cc: String = splitString[2]
-    let bcc: String = splitString[3]
-    let subject: String = splitString[4]
-    let body: String = splitString[5]
-    
-    return (platformLetter, to, cc, bcc, subject, body)
-}
-
-func formatEmailForPublishing(
-    platformLetter: String,
-    to: String, cc: String, bcc: String, subject: String, body: String) -> String {
-        
-        let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
-        
-        return formattedString
-}
-
 extension EmailView {
     private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
         func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
@@ -124,13 +102,19 @@ struct EmailView: View {
                 }
             }
             .padding()
-            .navigationBarTitle("Compose email", displayMode: .inline)
+            .navigationTitle("Compose email")
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         // TODO: Get formatted input
-//                        let formattedEmail = formatEmailForPublishing(platformLetter: self.platform!.platform_letter!, to: composeTo, cc: composeCC, bcc: composeBCC, subject: composeSubject, body: composeBody)
-//                        
+                        let formattedEmail = formatEmailForPublishing(
+                            platformLetter: (self.platform?.shortcode)!,
+                            to: composeTo,
+                            cc: composeCC,
+                            bcc: composeBCC,
+                            subject: composeSubject,
+                            body: composeBody)
+                        
 //                        let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
 //                        
 //                        print("Encrypted formatted content: \(encryptedFormattedContent)")
@@ -141,20 +125,40 @@ struct EmailView: View {
 //                        
 //                        print("Default Gateway client: " + defaultGatewayClient)
 //                        
-//                        sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient, messageComposeDelegate: self.messageComposeDelegate)
-//                        
-//                        EncryptedContentHandler.store(datastore: self.datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: self.platform?.platform_name ?? "unknown")
-                        
+//                        sendSMS(message: encryptedFormattedContent,
+//                                receipient: "+123456789",
+//                                messageComposeDelegate: self.messageComposeDelegate)
                         self.dismiss()
                     }) {
-    //                    Image(systemName: "paperplane.circle.fill")
-    //                        .imageScale(.large)
                         Text("Send")
                     }
                 }
         })
         }
     }
+    
+    func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {
+        let splitString = decryptedData.components(separatedBy: ":")
+        
+        let platformLetter: String = splitString[0]
+        let to: String = splitString[1]
+        let cc: String = splitString[2]
+        let bcc: String = splitString[3]
+        let subject: String = splitString[4]
+        let body: String = splitString[5]
+        
+        return (platformLetter, to, cc, bcc, subject, body)
+    }
+
+    func formatEmailForPublishing(
+        platformLetter: String,
+        to: String, cc: String, bcc: String, subject: String, body: String) -> String {
+            
+            let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
+            
+            return formattedString
+    }
+
 }
 
 

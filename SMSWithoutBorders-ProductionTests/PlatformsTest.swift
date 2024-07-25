@@ -8,6 +8,9 @@
 import Testing
 import CoreData
 
+
+@testable import SMSWithoutBorders
+
 struct PlatformsTest {
     
     @Test 

@@ -134,10 +134,6 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }
             
-//            NavigationLink(destination: AccountSheetView(filter: filterPlatformName),
-//                           isActive: $accountViewShown) {
-//                EmptyView()
-//            }
         }
     }
     

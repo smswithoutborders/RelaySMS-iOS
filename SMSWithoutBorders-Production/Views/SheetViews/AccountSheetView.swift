@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 @ViewBuilder func accountView(accountName: String, platformName: String) -> some View {
     VStack {
@@ -23,57 +24,57 @@ import SwiftUI
     }
 }
 
-func getLocalMockedStoredData(filter: String) -> [Vault.LocalStoredTokens] {
-    return [
-        Vault.LocalStoredTokens(name: "gmail", account: "dev@relay.com"),
-        Vault.LocalStoredTokens(name: "twitter", account: "@relaydevelopers")
-    ].filter {
-        $0.name == filter
-    }
-}
-
 
 struct AccountSheetView: View {
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
-    
-    private var mockedStoredPlatforms: [Vault.LocalStoredTokens]
-
-    private var mockData = false
+    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     
     private var platformName: String
-    
-    init(filter: String, mockData: Bool = false) {
+
+    init(filter: String) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
-            sortDescriptors: [], predicate: NSPredicate(format: "name == %@", filter))
+            sortDescriptors: [], 
+            predicate: NSPredicate(format: "name == %@", filter))
         
-        self.mockedStoredPlatforms = getLocalMockedStoredData(filter: filter)
-        self.mockData = mockData
+        _platforms = FetchRequest<PlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", filter))
         self.platformName = filter
     }
     
     var body: some View {
         NavigationView {
-            if mockData {
-                List(self.mockedStoredPlatforms) { platform in
-                    accountView(accountName: platform.account,
-                                platformName: platform.name)
+            List(storedPlatforms) { platform in
+                NavigationLink(destination: getDestinationForPlatform()) {
+                    accountView(accountName: platform.account!, platformName: platform.name!)
                 }
-                .navigationTitle("\(platformName) Accounts")
-                .navigationBarTitleDisplayMode(.inline)
             }
-            else {
-                List(storedPlatforms) { platform in
-                    accountView(accountName: platform.account!,
-                                platformName: platform.name!)
-                }
-                .navigationTitle("\(platformName) Accounts")
-                .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("\(platformName) Accounts")
+            .navigationBarTitleDisplayMode(.inline)
+        }.task {
+            print(platforms)
+        }
+    }
+    
+    
+    @ViewBuilder func getDestinationForPlatform() -> some View {
+        ForEach(platforms) { platform in
+            switch platform.service_type {
+                case "email":
+                    EmailView()
+                default:
+                    EmptyView()
             }
         }
     }
 }
 
-#Preview {
-    @State var mockData = true
-    AccountSheetView(filter: "twitter", mockData: mockData)
+struct AccountSheetView_Preview: PreviewProvider {
+    static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return AccountSheetView(filter: "gmail")
+            .environment(\.managedObjectContext, container.viewContext)
+    }
 }

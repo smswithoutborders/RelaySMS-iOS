@@ -14,6 +14,7 @@ class DataController: ObservableObject {
     
     init() {
         container.loadPersistentStores(completionHandler: { description, error in
+            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
                 print("Core Data failed to load: \(error.localizedDescription)")
             }

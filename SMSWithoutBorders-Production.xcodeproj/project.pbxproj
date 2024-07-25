@@ -37,6 +37,12 @@
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
 		3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09672C1C996000664E90 /* OnboardingTabAdapterView.swift */; };
 		3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */; };
+		3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
+		3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */; };
+		3BC75BF42C52733E004233CE /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
+		3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
+		3BC75BF62C5273B2004233CE /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
+		3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978102C36BFFC00AB626C /* PublisherTest.swift */; };
 		3BC978142C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
 		3BC978152C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
@@ -241,6 +247,7 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
+				3BC75BEE2C523F26004233CE /* PlatformComposeViews */,
 				3BF1177E2C290650003D5BB6 /* Proto */,
 				3B37F27A2C1DBB1D008D5BE9 /* Modules */,
 				16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */,
@@ -289,7 +296,6 @@
 			children = (
 				3BF3D1572C32E7EE003A3AFB /* SheetViews */,
 				3BAB09602C1B21B400664E90 /* Onboarding */,
-				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
@@ -346,6 +352,14 @@
 				3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		3BC75BEE2C523F26004233CE /* PlatformComposeViews */ = {
+			isa = PBXGroup;
+			children = (
+				16F0E68428C6308600FDD12C /* EmailView.swift */,
+			);
+			path = PlatformComposeViews;
 			sourceTree = "<group>";
 		};
 		3BF117792C28F5BA003D5BB6 /* Frameworks */ = {
@@ -589,6 +603,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
+				3BC75BF62C5273B2004233CE /* GatewayClientsHandler.swift in Sources */,
+				3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */,
+				3BC75BF42C52733E004233CE /* PlatformsHandler.swift in Sources */,
+				3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */,
+				3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */,
 				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
 				3BC978142C36C0D700AB626C /* Publisher.swift in Sources */,
 				3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */,
