@@ -9,6 +9,29 @@ import SwiftUI
 import Foundation
 import CoreData
 
+func downloadAndSaveIcons(url: URL, 
+                          platform: Publisher.PlatformsData,
+                          viewContext: NSManagedObjectContext) {
+    print("Storing Platform Icon: \(platform.name)")
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+        
+        let platformsEntity = PlatformsEntity(context: viewContext)
+        platformsEntity.image = data
+        platformsEntity.name = platform.name
+        platformsEntity.protocol_type = platform.protocol_type
+        platformsEntity.service_type = platform.service_type
+        platformsEntity.shortcode = platform.shortcode
+        platformsEntity.support_url_scheme = platform.support_url_scheme
+        do {
+            try viewContext.save()
+        } catch {
+            print("Failed save download image: \(error)")
+        }
+    }
+    task.resume()
+}
+
 struct ControllerView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Binding var isFinished: Bool
@@ -76,27 +99,6 @@ struct ControllerView: View {
         
     }
     
-    
-    private func downloadAndSaveIcons(url: URL, platform: Publisher.PlatformsData) {
-        print("Storing Platform Icon: \(platform.name)")
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            let platformsEntity = PlatformsEntity(context: viewContext)
-            platformsEntity.image = data
-            platformsEntity.name = platform.name
-            platformsEntity.protocol_type = platform.protocol_type
-            platformsEntity.service_type = platform.service_type
-            platformsEntity.shortcode = platform.shortcode
-            do {
-                try viewContext.save()
-            } catch {
-                print("Failed save download image: \(error)")
-            }
-        }
-        task.resume()
-    }
-    
     func refreshLocalDBs() async throws {
         await Task.detached(priority: .userInitiated) {
             Publisher.getPlatforms() { result in
@@ -105,7 +107,10 @@ struct ControllerView: View {
                     print("Success: \(data)")
                     for platform in data {
                         if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            downloadAndSaveIcons(url: URL(string: platform.icon_png)!, platform: platform)
+                            downloadAndSaveIcons(
+                                url: URL(string: platform.icon_png)!, 
+                                platform: platform,
+                                viewContext: viewContext)
                         }
                     }
                 case .failure(let error):
@@ -144,7 +149,7 @@ struct ControllerView: View {
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     @StateObject private var dataController = DataController()
-    
+
     @State var isFinished = false
     @State var navigatingFromURL: Bool = false
     @State var absoluteURLString: String = ""
@@ -169,7 +174,21 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
             }
             .onOpenURL { url in
-                let state = url.valueOf("state")
+                let stateB64Values = url.valueOf("state")
+                // Decode the Base64 string to Data
+                guard let decodedData = Data(base64Encoded: stateB64Values!) else {
+                    fatalError("Failed to decode Base64 string")
+                }
+
+                // Convert Data to String
+                guard let decodedString = String(data: decodedData, encoding: .utf8) else {
+                    fatalError("Failed to convert Data to String")
+                }
+                
+                let values = decodedString.split(separator: ",")
+                let state = values[0]
+                var supportsUrlScheme = values[1] == "true"
+                
                 let code = url.valueOf("code")
                 print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
                 
@@ -179,11 +198,14 @@ struct SMSWithoutBorders_ProductionApp: App {
                     
                     backgroundLoading = true
                     
+                    print("support url scheme: \(supportsUrlScheme)")
+                    
                     let response = try publisher.sendAuthorizationCode(
                         llt: llt,
-                        platform: state!,
+                        platform: String(state),
                         code: code!,
-                        codeVerifier: codeVerifier)
+                        codeVerifier: codeVerifier,
+                        supportsUrlSchemes: supportsUrlScheme)
                     
                     if(response.success) {
                         onboardingViewIndex += 1

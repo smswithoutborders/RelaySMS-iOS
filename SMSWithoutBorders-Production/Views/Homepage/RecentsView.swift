@@ -9,29 +9,24 @@ import SwiftUI
 
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var datastore
-    @FetchRequest(sortDescriptors: []) var encryptedContents: FetchedResults<EncryptedContentsEntity>
+//    @FetchRequest(sortDescriptors: []) var encryptedContents: FetchedResults<EncryptedContentsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
-    @State var platformType: Int? = 0
-    @State var platform: PlatformsEntity?
     @Binding var codeVerifier: String
+    @State var isLoggedIn: Bool = false
+    @State var showAvailablePlatforms: Bool = false
 
-    
-    var things: [String: String] = ["sample":"one"]
-    
     var body: some View {
         NavigationView {
             VStack {
-                if encryptedContents.isEmpty {
-                    VStack {
-                        Spacer()
-                        Text("No Recent Messages")
-                            .font(.largeTitle)
-                    }
+                VStack {
+                    Spacer()
+                    Text("No Recent Messages")
+                        .font(.largeTitle)
                 }
-                
+
                 ZStack(alignment: .bottomTrailing) {
-                    List(encryptedContents){ encryptedContent in
+                    List {
 //                        NavigationLink {
 //                            PlatformHandler.getView(platform: getPlatform(encryptedContent: encryptedContent, platforms: platforms), encryptedContent: encryptedContent)
 //                                .environment(\.managedObjectContext, datastore)
@@ -39,32 +34,82 @@ struct RecentsView: View {
 //                            Text(encryptedContent.encrypted_content ?? "unknown")
 //                        }
                     }
-                    Button(action: {
-                    }, label: {
-                        Image(systemName: "square.and.pencil")
-                        .font(.system(.largeTitle))
-                            .frame(width: 77, height: 70)
-                            .foregroundColor(Color.white)
-                            .padding(.bottom, 7)
-                    })
-                    .background(Color.blue)
-                    .cornerRadius(38.5)
-                    .shadow(color: Color.black.opacity(0.3),
-                            radius: 3,
-                            x: 3,
-                            y: 3)
-                    .padding()
+                    
+                    if isLoggedIn {
+                        VStack {
+                            VStack {
+                                Button(action: {
+                                }, label: {
+                                    Image(systemName: "square.and.pencil")
+                                        .font(.system(.title))
+                                        .frame(width: 57, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .padding(.bottom, 7)
+                                })
+                                .background(Color.blue)
+                                .cornerRadius(18)
+                                .shadow(color: Color.black.opacity(0.3),
+                                        radius: 3,
+                                        x: 3,
+                                        y: 3)
+                                .padding()
+                            }
+                            
+                            VStack {
+                                Button(action: {
+                                    showAvailablePlatforms = true
+                                }, label: {
+                                    Image(systemName: "rectangle.stack.badge.plus")
+                                    .font(.system(.title))
+                                        .frame(width: 57, height: 50)
+                                        .foregroundColor(Color.white)
+                                        .padding(.bottom, 7)
+                                })
+                                .background(Color.blue)
+                                .cornerRadius(18)
+                                .shadow(color: Color.black.opacity(0.3),
+                                        radius: 3,
+                                        x: 3,
+                                        y: 3)
+                                .padding()
+                                .sheet(isPresented: $showAvailablePlatforms) {
+                                    OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+                                }
+                            }
+                        }
+                    } else {
+                        VStack {
+                            Button("Add Accounts") {
+                                
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .padding()
+                        }
+                    }
                 }
                 
             }
             .navigationTitle("Recents")
+//            .task {
+//                do {
+//                    isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+//                } catch {
+//                    print("Issue fetching logged in state: \(error)")
+//                }
+//            }
         }
     }
 }
 
+struct RecentsView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var codeVerifier: String = ""
+        @State var isLoggedIn: Bool = true
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
 
-
-#Preview {
-    @State var codeVerifier: String = ""
-    RecentsView(codeVerifier: $codeVerifier)
+        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: isLoggedIn)
+            .environment(\.managedObjectContext, container.viewContext)
+    }
 }

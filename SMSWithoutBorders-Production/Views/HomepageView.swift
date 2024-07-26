@@ -9,11 +9,12 @@ import SwiftUI
 
 struct HomepageView: View {
     @Binding var codeVerifier: String
+    @State var isLoggedIn: Bool = false
 
     var body: some View {
         NavigationView {
             TabView {
-                RecentsView(codeVerifier: $codeVerifier)
+                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
                     .tabItem() {
                         Image(systemName: "house.circle")
                         Text("Recents")
@@ -25,6 +26,15 @@ struct HomepageView: View {
                     }
             }
         }
+    }
+    
+    func getIsLoggedIn() -> Bool {
+        do {
+            return try !Vault.getLongLivedToken().isEmpty
+        } catch {
+            print("error checking loggins: \(error)")
+        }
+        return false
     }
 }
 

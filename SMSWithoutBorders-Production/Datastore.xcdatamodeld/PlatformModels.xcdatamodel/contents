@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23173.10" systemVersion="24A5289h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23173.10" systemVersion="24A5298h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="EncryptedContentsEntity" representedClassName="EncryptedContentsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="encrypted_content" optional="YES" attributeType="String"/>
@@ -23,6 +23,7 @@
         <attribute name="protocol_type" optional="YES" attributeType="String"/>
         <attribute name="service_type" optional="YES" attributeType="String"/>
         <attribute name="shortcode" optional="YES" attributeType="String"/>
+        <attribute name="support_url_scheme" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>

@@ -7,22 +7,9 @@
 
 import SwiftUI
 
-struct StoredPlatformsView: View {
-    @State var title: String = "Store Platforms"
-    @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
-    
-    @State var codeVerifier: String = ""
-    var body: some View {
-        AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
-                                     title: title, 
-                                     description: description, 
-                                     type: AvailablePlatformsSheetsView.TYPE.STORED)
-    }
-}
-
 struct OnboardingTryExample: View {
-    @State var shownStoredPlatforms = false
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    @State var shownStoredPlatforms = false
 
     var body: some View {
         VStack {
@@ -34,7 +21,7 @@ struct OnboardingTryExample: View {
                     .buttonStyle(.borderedProminent)
                     .sheet(isPresented: $shownStoredPlatforms) {
                         VStack {
-                            StoredPlatformsView()
+                            OfflineAvailablePlatformsSheetsView()
                         }
                     }
                     .buttonStyle(.borderedProminent)
@@ -55,6 +42,12 @@ struct OnboardingTryExample: View {
     }
 }
 
-#Preview {
-    OnboardingTryExample()
+struct OnboardingTryExample_Preview: PreviewProvider {
+    static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return OnboardingTryExample()
+            .environment(\.managedObjectContext, container.viewContext)
+    }
 }

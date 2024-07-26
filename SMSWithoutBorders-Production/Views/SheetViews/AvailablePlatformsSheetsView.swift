@@ -41,6 +41,20 @@ func populateMockData(container: NSPersistentContainer) {
     platformEntityTwitter.protocol_type = "oauth"
     platformEntityTwitter.service_type = "text"
     platformEntityTwitter.shortcode = "x"
+    
+    let platformEntityGmail1 = PlatformsEntity(context: context)
+    platformEntityGmail1.image = nil
+    platformEntityGmail1.name = "telegram"
+    platformEntityGmail1.protocol_type = "pnba"
+    platformEntityGmail1.service_type = "messaging"
+    platformEntityGmail1.shortcode = "T"
+    
+    let platformEntityTwitter1 = PlatformsEntity(context: context)
+    platformEntityTwitter1.image = nil
+    platformEntityTwitter1.name = "slack"
+    platformEntityTwitter1.protocol_type = "oauth"
+    platformEntityTwitter1.service_type = "messaging"
+    platformEntityTwitter1.shortcode = "s"
 
     for i in 0..<3 {
         let name = "gmail"
@@ -69,6 +83,35 @@ func populateMockData(container: NSPersistentContainer) {
 }
 
 
+struct OfflineAvailablePlatformsSheetsView: View {
+    @State var codeVerifier: String = ""
+    @State var title: String = "Store Platforms"
+    @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
+    
+    var body: some View {
+        AvailablePlatformsSheetsView(
+            codeVerifier: $codeVerifier,
+            title: title,
+            description: description,
+            type: AvailablePlatformsSheetsView.TYPE.STORED)
+    }
+}
+
+
+struct OnlineAvailablePlatformsSheetsView: View {
+    @Binding var codeVerifier: String
+    @State var title = "Available Platforms"
+    @State var description = "Select a platform to save it for offline use"
+    
+    var body: some View {
+        AvailablePlatformsSheetsView(
+            codeVerifier: $codeVerifier, 
+            title: title,
+            description: description)
+    }
+}
+
+
 struct AvailablePlatformsSheetsView: View {
     enum TYPE {
         case AVAILABLE
@@ -76,6 +119,8 @@ struct AvailablePlatformsSheetsView: View {
     }
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var viewContext
+    
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
@@ -94,7 +139,9 @@ struct AvailablePlatformsSheetsView: View {
     @State var filterPlatformName: String = ""
     
     @State var loadingOAuthURLScreen: Bool = false
-
+    
+    @State private var isAnimating: Bool = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -109,36 +156,66 @@ struct AvailablePlatformsSheetsView: View {
                         Text(description)
                             .font(.system(size: 16, design: .rounded))
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 55) {
-                                if type == TYPE.STORED {
-                                    ForEach(platforms, id: \.name) { platform in
-                                        if getStoredPlatforms(platform: platform) {
-                                            getPlatformsSubViews(platform: platform)
-                                        }
-                                    }
-                                }
-                                else {
-                                    ForEach(platforms, id: \.name) { platform in
-                                        if loadingOAuthURLScreen {
-                                            ProgressView()
+                        if loadingOAuthURLScreen {
+                            ProgressView()
+                                .padding()
+                        }
+                        else {
+                            ScrollViewReader { proxy in
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        if type == TYPE.STORED {
+                                            ForEach(platforms, id: \.name) { platform in
+                                                if getStoredPlatforms(platform: platform) {
+                                                    getPlatformsSubViews(platform: platform)
+                                                }
+                                            }
                                         }
                                         else {
-                                            getPlatformsSubViews(platform: platform)
+                                            ForEach(platforms, id: \.name) { platform in
+                                                getPlatformsSubViews(platform: platform)
+                                            }
                                         }
                                     }
                                 }
                             }
+                            Button("Close") {
+                                dismiss()
+                            }
+                            .padding(.vertical, 50)
                         }
-                        
-                        Button("Close") {
-                            dismiss()
-                        }
-                        .padding(.vertical, 50)
                     }
                 }
             }
             
+        }
+        .task {
+            do {
+                try await refreshLocalDBs()
+            } catch {
+                print("Failed to refresh remote db")
+            }
+        }
+    }
+    
+    
+    func refreshLocalDBs() async throws {
+        await Task.detached(priority: .userInitiated) {
+            Publisher.getPlatforms() { result in
+                switch result {
+                case .success(let data):
+                    print("Success: \(data)")
+                    for platform in data {
+                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                            downloadAndSaveIcons(
+                                url: URL(string: platform.icon_png)!, 
+                                platform: platform, viewContext: viewContext)
+                        }
+                    }
+                case .failure(let error):
+                    print("Failed to load JSON data: \(error)")
+                }
+            }
         }
     }
     
@@ -152,20 +229,24 @@ struct AvailablePlatformsSheetsView: View {
     func getPlatformsSubViews(platform: PlatformsEntity) -> some View{
         VStack {
             Button(action: {
-                switch type {
-                case AvailablePlatformsSheetsView.TYPE.AVAILABLE:
+                if type == AvailablePlatformsSheetsView.TYPE.AVAILABLE {
                     loadingOAuthURLScreen = true
-                    do {
-                        let publisher = Publisher()
-                        let response = try publisher.getURL(platform: platform.name!)
-                        codeVerifier = response.codeVerifier
-                        print("Requesting url: \(response.authorizationURL)")
-                        openURL(URL(string: response.authorizationURL)!)
+                    Task {
+                        do {
+                            let publisher = Publisher()
+                            let response = try publisher.getURL(
+                                platform: platform.name!,
+                                supportsUrlSchemes: platform.support_url_scheme)
+                            codeVerifier = response.codeVerifier
+                            print("Requesting url: \(response.authorizationURL)")
+                            openURL(URL(string: response.authorizationURL)!)
+                        }
+                        catch {
+                            print("Some error occured: \(error)")
+                        }
                     }
-                    catch {
-                        print("Some error occured: \(error)")
-                    }
-                case AvailablePlatformsSheetsView.TYPE.STORED:
+                }
+                else if type == AvailablePlatformsSheetsView.TYPE.STORED {
                     print("Checking stored")
                     filterPlatformName = platform.name!
                     accountViewShown = true
@@ -193,6 +274,7 @@ struct AvailablePlatformsSheetsView: View {
                         .padding()
                 }
             }
+            .id(platform.id)
             .sheet(isPresented: $accountViewShown) {
                 AccountSheetView(filter: filterPlatformName)
             }
@@ -211,16 +293,12 @@ struct AvailablePlatformsSheetsView: View {
 struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier = ""
-        @State var title = "Available Platforms"
-        @State var description = "Select a platform to save it for offline use"
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return AvailablePlatformsSheetsView(codeVerifier: $codeVerifier,
-                                     title: title,
-                                     description: description,
-                                            type: AvailablePlatformsSheetsView.TYPE.AVAILABLE)
+//        return OfflineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+        return OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
         .environment(\.managedObjectContext, container.viewContext)
     }
 }
