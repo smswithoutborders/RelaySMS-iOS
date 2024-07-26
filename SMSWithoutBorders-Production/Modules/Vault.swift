@@ -10,6 +10,7 @@ import GRPC
 import Logging
 import CoreData
 import CryptoKit
+import SwiftUI
 
 
 class Vault {
@@ -172,6 +173,23 @@ class Vault {
             throw error
         }
         return response
+    }
+    
+    public static func completeDeleteEntity(longLiveToken: String,
+                                            storedTokenEntities: FetchedResults<StoredPlatformsEntity>) throws {
+        let vault = Vault()
+        
+        do {
+            let publisher = Publisher()
+            for storedTokenEntity in storedTokenEntities {
+                try publisher.revokePlatform(llt: longLiveToken,
+                                         platform: storedTokenEntity.name!,
+                                         account: storedTokenEntity.account!)
+            }
+            try vault.deleteEntity(longLiveToken: longLiveToken)
+        } catch {
+            throw error
+        }
     }
     
     public static func getLongLivedToken() throws -> String {

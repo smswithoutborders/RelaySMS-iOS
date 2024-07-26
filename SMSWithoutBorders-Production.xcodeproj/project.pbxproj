@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		164EF7D12954D431007F8C76 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessageView.swift */; };
-		1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* RecentsView.swift */; };
+		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
 		1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
@@ -57,6 +57,8 @@
 		3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
 		3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
 		3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
+		3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADD2C538D8000539E57 /* RecentsView.swift */; };
+		3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADF2C538E2D00539E57 /* SettingsView.swift */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -128,7 +130,7 @@
 
 /* Begin PBXFileReference section */
 		164EF7D02954D431007F8C76 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
-		1686DBCF28E47D8A00895D92 /* RecentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView.swift; sourceTree = "<group>"; };
+		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
 		1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsHandler.swift; sourceTree = "<group>"; };
 		1697672728E489040021BFC5 /* PlatformsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsHandler.swift; sourceTree = "<group>"; };
@@ -166,6 +168,8 @@
 		3BCBA3A12C49611100736B9B /* PlatformsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsTest.swift; sourceTree = "<group>"; };
 		3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTryExample.swift; sourceTree = "<group>"; };
 		3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheetView.swift; sourceTree = "<group>"; };
+		3BDADADD2C538D8000539E57 /* RecentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView.swift; sourceTree = "<group>"; };
+		3BDADADF2C538E2D00539E57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = relay_publisher.proto; sourceTree = "<group>"; };
 		3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relay_publisher.grpc.swift; sourceTree = "<group>"; };
 		3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relay_publisher.pb.swift; sourceTree = "<group>"; };
@@ -298,10 +302,11 @@
 		16F0E6AC28C6320F00FDD12C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3BDADADC2C538D6B00539E57 /* Homepage */,
 				3BF3D1572C32E7EE003A3AFB /* SheetViews */,
 				3BAB09602C1B21B400664E90 /* Onboarding */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
-				1686DBCF28E47D8A00895D92 /* RecentsView.swift */,
+				1686DBCF28E47D8A00895D92 /* HomepageView.swift */,
 				16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */,
 				16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
@@ -364,6 +369,15 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 			);
 			path = PlatformComposeViews;
+			sourceTree = "<group>";
+		};
+		3BDADADC2C538D6B00539E57 /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				3BDADADD2C538D8000539E57 /* RecentsView.swift */,
+				3BDADADF2C538E2D00539E57 /* SettingsView.swift */,
+			);
+			path = Homepage;
 			sourceTree = "<group>";
 		};
 		3BF117792C28F5BA003D5BB6 /* Frameworks */ = {
@@ -566,6 +580,7 @@
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
 				16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */,
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
+				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,
 				16EDE38B28D356EB00E50393 /* AvailablePlatformsSheetsView.swift in Sources */,
 				3BC978152C36C0D700AB626C /* Publisher.swift in Sources */,
 				3BEC4CF02C47FEC500F92D2A /* vault.grpc.swift in Sources */,
@@ -580,7 +595,7 @@
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				3BF117A32C2DFEE4003D5BB6 /* SecurityCurve25519.swift in Sources */,
-				1686DBD028E47D8A00895D92 /* RecentsView.swift in Sources */,
+				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
 				1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */,
 				16F19F2E2906DECA00AC2F2B /* SpinnerView.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
@@ -588,6 +603,7 @@
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				16F0E6B528C80C0900FDD12C /* SecurityRSAEncryption.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
+				3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				3BEC4CEA2C47FAB300F92D2A /* relay_publisher.proto in Sources */,

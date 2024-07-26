@@ -51,8 +51,6 @@ struct AccountSheetView: View {
             }
             .navigationTitle("\(platformName) Accounts")
             .navigationBarTitleDisplayMode(.inline)
-        }.task {
-            print(platforms)
         }
     }
     

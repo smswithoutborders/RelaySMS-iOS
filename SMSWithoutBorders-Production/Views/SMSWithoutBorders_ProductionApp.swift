@@ -22,6 +22,8 @@ struct ControllerView: View {
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     
     @State var onboardingCompleted: Bool = false
+    
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         switch getIndexRegardless() {
@@ -58,7 +60,7 @@ struct ControllerView: View {
                 if(self.onboardingViewIndex > 0) {
                     if(!lastOnboardingView) {
                         Button("skip") {
-                            self.onboardingViewIndex += 1
+                            self.onboardingViewIndex = 3
                         }.frame(alignment: .bottom)
                             .padding()
                     } else {
@@ -162,7 +164,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    RecentsView(codeVerifier: $codeVerifier)
+                    HomepageView(codeVerifier: $codeVerifier)
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }
