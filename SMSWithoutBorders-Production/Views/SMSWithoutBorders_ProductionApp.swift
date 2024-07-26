@@ -185,6 +185,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     fatalError("Failed to convert Data to String")
                 }
                 
+                print("decoded string: \(decodedString)")
                 let values = decodedString.split(separator: ",")
                 let state = values[0]
                 var supportsUrlScheme = values[1] == "true"

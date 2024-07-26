@@ -42,11 +42,9 @@ class Publisher {
         
         let publishingUrlRequest: Publisher_V1_GetOAuth2AuthorizationUrlRequest = .with {
             $0.platform = platform
-            $0.state = ((state + "," + (supportsUrlSchemes ? "true" : "false")).data(using: .utf8)?.base64EncodedString())!
-//            $0.redirectURL = getRedirectUrl(platformName: platform)
+            $0.state = ((platform + "," + (supportsUrlSchemes ? "true" : "false")).data(using: .utf8)?.base64EncodedString())!
             $0.redirectURL = supportsUrlSchemes ? Publisher.REDIRECT_URL_SCHEME : getRedirectUrl(platformName: platform)
             $0.autogenerateCodeVerifier = autogenerateCodeVerifier
-            $0.state = platform
         }
         
         let call = publisherStub!.getOAuth2AuthorizationUrl(publishingUrlRequest)
