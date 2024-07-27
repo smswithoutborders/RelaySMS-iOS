@@ -20,44 +20,66 @@ struct Sections: Identifiable {
 
 let sections: [Sections] = [
     Sections(header: "Accounts",
-             items: [Items(title: "Delete Account")])
+             items: [
+                Items(title: "Log out"),
+                Items(title: "Delete Account")
+             ])
 ]
 
 struct SecuritySettingsView: View {
     @State private var selected: UUID?
     @State private var deleteProcessing = false
+    @State private var logoutProcessing = false
+    
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(sections) { section in
-                    Section(header: Text(section.header)) {
-                        ForEach(section.items) { item in
-                            Button(action: {
-                                deleteProcessing = true
-                                Task {
-                                    do {
-                                        let llt = try Vault.getLongLivedToken()
-                                        try Vault.completeDeleteEntity(
-                                            longLiveToken: llt,
-                                            storedTokenEntities: storedPlatforms)
-                                    } catch {
-                                        print("Error deleting: \(error)")
-                                    }
-                                    deleteProcessing = false
-                                }
-                            }) {
-                                if deleteProcessing {
-                                    ProgressView()
-                                } else {
-                                    Text(item.title)
-                                }
-                            }
-                        }
+                Section(header: Text("Account")) {
+                    if logoutProcessing {
+                        ProgressView()
+                    } else {
+                        Button("Log out", action: logoutAccount)
+                    }
+                    
+                    if deleteProcessing {
+                        ProgressView()
+                    } else {
+                        Button("Delete Account", role: .destructive, action: deleteAccount)
                     }
                 }
             }
+        }
+    }
+    
+    
+    func logoutAccount() {
+        logoutProcessing = true
+        Task {
+            do {
+                Vault.resetKeystore()
+                try Vault.resetDatastore(context: viewContext )
+            } catch {
+                print("Error loging out: \(error)")
+            }
+            logoutProcessing = false
+        }
+    }
+    
+    func deleteAccount() {
+        deleteProcessing = true
+        Task {
+            do {
+                let llt = try Vault.getLongLivedToken()
+                try Vault.completeDeleteEntity(
+                    longLiveToken: llt,
+                    storedTokenEntities: storedPlatforms)
+            } catch {
+                print("Error deleting: \(error)")
+            }
+            deleteProcessing = false
         }
     }
 }

@@ -59,6 +59,7 @@
 		3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
 		3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADD2C538D8000539E57 /* RecentsView.swift */; };
 		3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADF2C538E2D00539E57 /* SettingsView.swift */; };
+		3BDADAE12C54DBDE00539E57 /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
 		3BEC4CE42C47FAB300F92D2A /* relay_publisher.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE12C47FAB300F92D2A /* relay_publisher.proto */; };
 		3BEC4CE52C47FAB300F92D2A /* relay_publisher.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE22C47FAB300F92D2A /* relay_publisher.grpc.swift */; };
 		3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CE32C47FAB300F92D2A /* relay_publisher.pb.swift */; };
@@ -623,6 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BDADAE12C54DBDE00539E57 /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */,
 				3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */,
 				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,

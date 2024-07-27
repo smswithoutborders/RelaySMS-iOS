@@ -10,6 +10,9 @@
     "%@ Accounts" : {
 
     },
+    "Account" : {
+
+    },
     "Add Accounts" : {
 
     },
@@ -62,6 +65,9 @@
         }
       }
     },
+    "Delete Account" : {
+
+    },
     "English" : {
 
     },
@@ -78,6 +84,9 @@
 
     },
     "Get started!" : {
+
+    },
+    "Log out" : {
 
     },
     "Login" : {

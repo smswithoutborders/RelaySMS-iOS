@@ -15,6 +15,7 @@ struct RecentsView: View {
     @Binding var codeVerifier: String
     @State var isLoggedIn: Bool = false
     @State var showAvailablePlatforms: Bool = false
+    @State var showComposePlatforms: Bool = false
 
     var body: some View {
         NavigationView {
@@ -24,6 +25,24 @@ struct RecentsView: View {
                     Text("No Recent Messages")
                         .font(.largeTitle)
                 }
+                VStack {
+                    VStack {
+                        Button("Log in") {
+                            
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                    
+                    VStack {
+                        Button("Create account") {
+                            
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                }
+                .padding()
 
                 ZStack(alignment: .bottomTrailing) {
                     List {
@@ -39,6 +58,7 @@ struct RecentsView: View {
                         VStack {
                             VStack {
                                 Button(action: {
+                                    showComposePlatforms = true
                                 }, label: {
                                     Image(systemName: "square.and.pencil")
                                         .font(.system(.title))
@@ -53,6 +73,9 @@ struct RecentsView: View {
                                         x: 3,
                                         y: 3)
                                 .padding()
+                                .sheet(isPresented: $showComposePlatforms) {
+                                    OfflineAvailablePlatformsSheetsView()
+                                }
                             }
                             
                             VStack {
@@ -79,12 +102,21 @@ struct RecentsView: View {
                         }
                     } else {
                         VStack {
-                            Button("Add Accounts") {
-                                
+                            VStack {
+                                Button("Log in") {
+                                    
+                                }
+                                .buttonStyle(.borderedProminent)
                             }
-                            .buttonStyle(.borderedProminent)
-                            .padding()
+                            
+                            VStack {
+                                Button("Create account") {
+                                    
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
                         }
+                        .padding()
                     }
                 }
                 
@@ -104,7 +136,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = true
+        @State var isLoggedIn: Bool = false
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)

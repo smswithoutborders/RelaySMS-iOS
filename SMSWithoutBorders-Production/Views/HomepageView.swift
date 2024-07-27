@@ -7,23 +7,34 @@
 
 import SwiftUI
 
+enum HomepageTabs {
+    case recents
+    case settings
+}
+
 struct HomepageView: View {
     @Binding var codeVerifier: String
     @State var isLoggedIn: Bool = false
+    
+    @State var selectedTab: HomepageTabs = .recents
 
     var body: some View {
         NavigationView {
-            TabView {
+            TabView(selection: $selectedTab) {
                 RecentsView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
                     .tabItem() {
                         Image(systemName: "house.circle")
                         Text("Recents")
                     }
+                    .tag(HomepageTabs.recents)
                 SettingsView()
                     .tabItem() {
                         Image(systemName: "gear")
                         Text("Settings")
                     }
+                    .tag(HomepageTabs.settings)
+            }.onChange(of: selectedTab) { newTab in
+                
             }
         }
     }
