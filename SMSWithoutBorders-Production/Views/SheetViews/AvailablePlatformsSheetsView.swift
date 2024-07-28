@@ -86,14 +86,18 @@ func populateMockData(container: NSPersistentContainer) {
 struct OfflineAvailablePlatformsSheetsView: View {
     @State var codeVerifier: String = ""
     @State var title: String = "Store Platforms"
+    @State var titleRevoke: String = "Revoke Platforms"
     @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
+    @State var descriptionRevoke: String = "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform."
+    @State var isRevoke: Bool = false
     
     var body: some View {
         AvailablePlatformsSheetsView(
             codeVerifier: $codeVerifier,
-            title: title,
-            description: description,
-            type: AvailablePlatformsSheetsView.TYPE.STORED)
+            title: isRevoke ? titleRevoke : title,
+            description: isRevoke ? descriptionRevoke : description,
+            type: isRevoke ? AvailablePlatformsSheetsView.TYPE.REVOKE :
+                AvailablePlatformsSheetsView.TYPE.STORED)
     }
 }
 
@@ -116,6 +120,7 @@ struct AvailablePlatformsSheetsView: View {
     enum TYPE {
         case AVAILABLE
         case STORED
+        case REVOKE
     }
     
     @Environment(\.dismiss) var dismiss
@@ -164,7 +169,7 @@ struct AvailablePlatformsSheetsView: View {
                             ScrollViewReader { proxy in
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
-                                        if type == TYPE.STORED {
+                                        if type == TYPE.STORED || type == TYPE.REVOKE {
                                             ForEach(platforms, id: \.name) { platform in
                                                 if getStoredPlatforms(platform: platform) {
                                                     getPlatformsSubViews(platform: platform)
@@ -184,7 +189,7 @@ struct AvailablePlatformsSheetsView: View {
                             }
                             .padding(.vertical, 50)
                         }
-                    }
+                    }.padding()
                 }
             }
             
@@ -244,9 +249,11 @@ struct AvailablePlatformsSheetsView: View {
                         catch {
                             print("Some error occured: \(error)")
                         }
+                        loadingOAuthURLScreen = false
                     }
                 }
-                else if type == AvailablePlatformsSheetsView.TYPE.STORED {
+                else if type == AvailablePlatformsSheetsView.TYPE.STORED || 
+                            type == AvailablePlatformsSheetsView.TYPE.REVOKE {
                     print("Checking stored")
                     filterPlatformName = platform.name!
                     accountViewShown = true
@@ -276,7 +283,9 @@ struct AvailablePlatformsSheetsView: View {
             }
             .id(platform.id)
             .sheet(isPresented: $accountViewShown) {
-                AccountSheetView(filter: filterPlatformName)
+                AccountSheetView(
+                    filter: filterPlatformName,
+                    isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE)
             }
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
             .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)

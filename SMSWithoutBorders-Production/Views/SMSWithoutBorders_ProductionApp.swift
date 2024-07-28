@@ -118,22 +118,22 @@ struct ControllerView: View {
                 }
             }
             
-            do {
-                if try !Vault.getLongLivedToken().isEmpty {
-                    let vault = Vault()
-                    let valid = try vault.refreshStoredTokens(
-                        llt: try Vault.getLongLivedToken(), context: viewContext)
-                    if !valid {
-                        onboardingViewIndex = 0
-                    }
-                } else {
-                    try Vault.resetDatastore(context: viewContext)
-                    onboardingViewIndex = 0
-                }
-            } catch {
-                print("Error refreshing llt: \(error)")
-                throw error
-            }
+//            do {
+//                if try !Vault.getLongLivedToken().isEmpty {
+//                    let vault = Vault()
+//                    let valid = try vault.refreshStoredTokens(
+//                        llt: try Vault.getLongLivedToken(), context: viewContext)
+//                    if !valid {
+//                        onboardingViewIndex = 0
+//                    }
+//                } else {
+//                    try Vault.resetDatastore(context: viewContext)
+//                    onboardingViewIndex = 0
+//                }
+//            } catch {
+//                print("Error refreshing llt: \(error)")
+//                throw error
+//            }
         }
     }
     
@@ -169,7 +169,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView(codeVerifier: $codeVerifier)
+                    HomepageView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
             }
@@ -222,7 +222,14 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
     }
     
-    
+    func getIsLoggedIn() -> Bool {
+        do {
+            return try !Vault.getLongLivedToken().isEmpty
+        } catch {
+            print("Failed to check if llt exist: \(error)")
+        }
+        return false
+    }
     
 }
 

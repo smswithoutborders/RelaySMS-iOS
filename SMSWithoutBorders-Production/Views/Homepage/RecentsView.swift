@@ -14,44 +14,50 @@ struct RecentsView: View {
     
     @Binding var codeVerifier: String
     @State var isLoggedIn: Bool = false
+    
     @State var showAvailablePlatforms: Bool = false
     @State var showComposePlatforms: Bool = false
+    
+    @State var loginSheetVisible: Bool = false
+    @State var loginFailed: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
-                VStack {
-                    Spacer()
-                    Text("No Recent Messages")
-                        .font(.largeTitle)
-                }
-                VStack {
+                if isLoggedIn {
                     VStack {
-                        Button("Log in") {
-                            
+                        Spacer()
+                        Text("No Recent Messages")
+                            .font(.largeTitle)
+                    }
+                }
+                else {
+                    VStack {
+                        VStack {
+                            Button("Log in") {
+                                loginSheetVisible = true
+                            }
+                            .sheet(isPresented: $loginSheetVisible) {
+                                LoginSheetView(completed: $isLoggedIn,
+                                               failed: $loginFailed)
+                            }
+                            .buttonStyle(.borderedProminent)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .padding()
+                        
+                        VStack {
+                            Button("Create account") {
+                                
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                        .padding()
                     }
                     .padding()
-                    
-                    VStack {
-                        Button("Create account") {
-                            
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                    .padding()
-                }
-                .padding()
 
+                }
                 ZStack(alignment: .bottomTrailing) {
                     List {
-//                        NavigationLink {
-//                            PlatformHandler.getView(platform: getPlatform(encryptedContent: encryptedContent, platforms: platforms), encryptedContent: encryptedContent)
-//                                .environment(\.managedObjectContext, datastore)
-//                        } label: {
-//                            Text(encryptedContent.encrypted_content ?? "unknown")
-//                        }
                     }
                     
                     if isLoggedIn {
@@ -100,35 +106,11 @@ struct RecentsView: View {
                                 }
                             }
                         }
-                    } else {
-                        VStack {
-                            VStack {
-                                Button("Log in") {
-                                    
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
-                            
-                            VStack {
-                                Button("Create account") {
-                                    
-                                }
-                                .buttonStyle(.borderedProminent)
-                            }
-                        }
-                        .padding()
-                    }
+                    } 
                 }
                 
             }
             .navigationTitle("Recents")
-//            .task {
-//                do {
-//                    isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-//                } catch {
-//                    print("Issue fetching logged in state: \(error)")
-//                }
-//            }
         }
     }
 }

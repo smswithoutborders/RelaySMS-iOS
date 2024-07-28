@@ -24,14 +24,18 @@ import CoreData
     }
 }
 
-
 struct AccountSheetView: View {
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     
     private var platformName: String
+    private var isRevoke: Bool
 
-    init(filter: String) {
+    @State private var isRevokeSheetShown: Bool = false
+    @State private var isRevoking: Bool = false
+
+    init(filter: String, isRevoke: Bool = false) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -40,13 +44,46 @@ struct AccountSheetView: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", filter))
         self.platformName = filter
+        self.isRevoke = isRevoke
     }
     
     var body: some View {
         NavigationView {
             List(storedPlatforms) { platform in
-                NavigationLink(destination: getDestinationForPlatform(fromAccount: platform.account!)) {
-                    accountView(accountName: platform.account!, platformName: platform.name!)
+                if !isRevoke {
+                    NavigationLink(destination: getDestinationForPlatform(fromAccount: platform.account!)) {
+                        accountView(accountName: platform.account!, platformName: platform.name!)
+                    }
+                } else {
+                    Button(action: {
+                        isRevokeSheetShown.toggle()
+                    }) {
+                        accountView(accountName: platform.account!, platformName: platform.name!)
+                    }
+                    .confirmationDialog(String("Revoke?"),
+                                        isPresented: $isRevokeSheetShown) {
+                        if isRevoking {
+                            ProgressView()
+                        }
+                        else {
+                            Button("Revoke", role: .destructive) {
+                                do {
+                                    let llt = try Vault.getLongLivedToken()
+                                    let publisher = Publisher()
+                                    let response = try publisher.revokePlatform(llt: llt,
+                                                                                platform: platform.name!,
+                                                                                account: platform.account!)
+                                    viewContext.delete(platform)
+                                    try viewContext.save()
+                                } catch {
+                                    print("Error revoking: \(error)")
+                                }
+                            }
+                            Button("Cancel", role: .cancel) {}
+                        }
+                    } message: {
+                        Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
+                    }
                 }
             }
             .navigationTitle("\(platformName) Accounts")
@@ -72,7 +109,8 @@ struct AccountSheetView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return AccountSheetView(filter: "gmail")
+        return AccountSheetView(filter: "gmail", isRevoke: true)
             .environment(\.managedObjectContext, container.viewContext)
+//        return RevokeAccountView()
     }
 }

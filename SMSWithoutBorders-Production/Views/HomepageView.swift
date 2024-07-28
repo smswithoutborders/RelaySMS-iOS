@@ -21,7 +21,7 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
+                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: isLoggedIn)
                     .tabItem() {
                         Image(systemName: "house.circle")
                         Text("Recents")
@@ -34,19 +34,18 @@ struct HomepageView: View {
                     }
                     .tag(HomepageTabs.settings)
             }.onChange(of: selectedTab) { newTab in
-                
+                if newTab == HomepageTabs.recents{
+                    print("checking for loggin")
+                    do {
+                        isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+                    } catch {
+                        print("error checking status")
+                    }
+                }
             }
         }
     }
     
-    func getIsLoggedIn() -> Bool {
-        do {
-            return try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print("error checking loggins: \(error)")
-        }
-        return false
-    }
 }
 
 

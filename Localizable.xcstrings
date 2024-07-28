@@ -22,6 +22,9 @@
     "Bcc " : {
 
     },
+    "Cancel" : {
+
+    },
     "Cc " : {
 
     },
@@ -84,6 +87,9 @@
 
     },
     "Get started!" : {
+
+    },
+    "Log in" : {
 
     },
     "Log out" : {
@@ -162,6 +168,15 @@
     "Resend code" : {
 
     },
+    "Revoke" : {
+
+    },
+    "Revoke Platforms" : {
+
+    },
+    "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
+
+    },
     "Security" : {
 
     },
@@ -193,6 +208,9 @@
 
     },
     "Use SMS to make a post, send an email or message your closed ones" : {
+
+    },
+    "Vault" : {
 
     },
     "vault_port_debug" : {

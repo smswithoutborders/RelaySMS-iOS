@@ -7,36 +7,28 @@
 
 import SwiftUI
 
-struct Items: Hashable, Identifiable {
-    let title: String
-    let id = UUID()
-}
-
-struct Sections: Identifiable {
-    let header: String
-    let items: [Items]
-    let id = UUID()
-}
-
-let sections: [Sections] = [
-    Sections(header: "Accounts",
-             items: [
-                Items(title: "Log out"),
-                Items(title: "Delete Account")
-             ])
-]
 
 struct SecuritySettingsView: View {
     @State private var selected: UUID?
     @State private var deleteProcessing = false
     @State private var logoutProcessing = false
     
+    @State private var isShowingRevoke = false
+
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     var body: some View {
         NavigationView {
             List {
+                Section(header: Text("Vault")) {
+                    Button("Revoke Platforms") {
+                        isShowingRevoke = true
+                    }.sheet(isPresented: $isShowingRevoke) {
+                        OfflineAvailablePlatformsSheetsView(isRevoke: true)
+                    }
+                }
+                
                 Section(header: Text("Account")) {
                     if logoutProcessing {
                         ProgressView()
