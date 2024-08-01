@@ -9,6 +9,7 @@ import SwiftUI
 import CryptoKit
 import Fernet
 import CoreData
+import SwobDoubleRatchet
 
 public class OTPAuthType {
     public enum TYPE {
@@ -28,8 +29,8 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
     
     let sharedKey = try SecurityCurve25519.calculateSharedSecret(
         privateKey: clientDeviceIDPrivateKey,
-        publicKey: peerPublicKey).withUnsafeBytes {
-            return Data(Array($0))
+        publicKey: Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)).withUnsafeBytes { data in
+            return Array(data)
         }
         
     let fernetToken = try Fernet(key: Data(sharedKey))

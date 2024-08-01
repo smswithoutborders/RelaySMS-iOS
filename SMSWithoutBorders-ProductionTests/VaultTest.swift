@@ -12,6 +12,7 @@ import XCTest
 import Logging
 import CryptoKit
 import Fernet
+import SwobDoubleRatchet
 
 @testable import SMSWithoutBorders
 

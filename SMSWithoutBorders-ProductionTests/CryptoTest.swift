@@ -8,6 +8,7 @@
 import Testing
 import XCTest
 import CryptoKit
+import SwobDoubleRatchet
 
 @testable import SMSWithoutBorders
 
