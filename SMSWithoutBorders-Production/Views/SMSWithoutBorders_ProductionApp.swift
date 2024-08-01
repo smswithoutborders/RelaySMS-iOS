@@ -117,23 +117,6 @@ struct ControllerView: View {
                     print("Failed to load JSON data: \(error)")
                 }
             }
-            
-//            do {
-//                if try !Vault.getLongLivedToken().isEmpty {
-//                    let vault = Vault()
-//                    let valid = try vault.refreshStoredTokens(
-//                        llt: try Vault.getLongLivedToken(), context: viewContext)
-//                    if !valid {
-//                        onboardingViewIndex = 0
-//                    }
-//                } else {
-//                    try Vault.resetDatastore(context: viewContext)
-//                    onboardingViewIndex = 0
-//                }
-//            } catch {
-//                print("Error refreshing llt: \(error)")
-//                throw error
-//            }
         }
     }
     

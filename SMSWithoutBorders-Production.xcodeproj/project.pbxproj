@@ -47,6 +47,8 @@
 		3B7EEE492C5BDE7500611092 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
 		3B7EEE4A2C5BDE7500611092 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessageView.swift */; };
 		3B7EEE4B2C5BDE9400611092 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */; };
+		3B7EEE4D2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
+		3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -172,6 +174,7 @@
 		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
+		3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -348,6 +351,7 @@
 				1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */,
 				1697672728E489040021BFC5 /* PlatformsHandler.swift */,
 				16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */,
+				3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -627,6 +631,7 @@
 				3BEC4CEC2C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */,
 				3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
+				3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */,
 				164EF7D12954D431007F8C76 /* MessageView.swift in Sources */,
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
 				16F19F2C2904973C00AC2F2B /* RecentsEncryptedContentView.swift in Sources */,
@@ -678,6 +683,7 @@
 				3BEC4CE62C47FAB300F92D2A /* relay_publisher.pb.swift in Sources */,
 				3BF3D1502C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
 				3BF1178B2C2A2876003D5BB6 /* OnboardingWelcomeView.swift in Sources */,
+				3B7EEE4D2C5BEA6000611092 /* MessageComposer.swift in Sources */,
 				3BF1179C2C2B5050003D5BB6 /* VaultTest.swift in Sources */,
 				3BF117A62C2E1998003D5BB6 /* CryptoTest.swift in Sources */,
 				3BF3D1562C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,
