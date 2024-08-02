@@ -26,10 +26,11 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
                         clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws -> String {
 
     let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIDPubKey)
-    
+    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)
+
     let sharedKey = try SecurityCurve25519.calculateSharedSecret(
         privateKey: clientDeviceIDPrivateKey,
-        publicKey: Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)).withUnsafeBytes { data in
+        publicKey: peerPublishPublicKey).withUnsafeBytes { data in
             return Array(data)
         }
         
@@ -37,7 +38,7 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
     let decodedOutput = try fernetToken.decode(Data(base64Encoded: llt)!)
     
     let llt = String(data: decodedOutput.data, encoding: .utf8)
-    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)
+    
     
     let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
         privateKey: clientPublishPrivateKey, publicKey: peerPublishPublicKey).withUnsafeBytes {
@@ -47,7 +48,8 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
     CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
 
-    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!, 
+    UserDefaults.standard.set(peerPublishPubKey, forKey: Publisher.PUBLISHER_PUBLIC_KEY)
+    try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!,
                                   keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     try CSecurity.storeInKeyChain(data: publishingSharedKey,
                                   keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)

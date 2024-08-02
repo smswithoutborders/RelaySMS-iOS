@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MessageUI
+import CryptoKit
 
 
 extension EmailView {
@@ -147,21 +148,31 @@ struct EmailView: View {
                             subject: composeSubject,
                             body: composeBody)
                         
-//                        let encryptedFormattedContent = formatForPublishing(formattedContent: formattedEmail)
-//                        
-//                        print("Encrypted formatted content: \(encryptedFormattedContent)")
-//                        
-//                        let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
-//                        
-//                        let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
-//                        
-//                        print("Default Gateway client: " + defaultGatewayClient)
+                        do {
+                            let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
+                            let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
+                            let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+                            let messageComposer = try MessageComposer(
+                                SK: pubSharedKey.bytes,
+                                AD: AD,
+                                peerDhPubKey: peerPubkey,
+                                keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+                            
+                            let encryptedFormattedContent = try messageComposer.emailComposer(
+                                from: composeFrom,
+                                to: composeTo,
+                                cc: composeCC,
+                                bcc: composeBCC,
+                                subject: composeSubject,
+                                body: composeBody)
+                            
+                            SMSHandler.sendSMS(message: encryptedFormattedContent,
+                                    receipient: "+123456789",
+                                    messageComposeDelegate: self.messageComposeDelegate)
+                        } catch {
+                            print("Some error occured while sending: \(error)")
+                        }
                         
-                        let encryptedFormattedContent = formattedEmail
-                        
-                        sendSMS(message: encryptedFormattedContent,
-                                receipient: "+123456789",
-                                messageComposeDelegate: self.messageComposeDelegate)
                         self.dismiss()
                     }) {
                         Text("Send")

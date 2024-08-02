@@ -13,6 +13,7 @@ import CoreData
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
     public static var REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
+    public static var PUBLISHER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY"
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)

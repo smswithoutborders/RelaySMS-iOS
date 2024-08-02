@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MessageUI
+import CryptoKit
 
 
 func formatMessageForViewing(decryptedData: String) -> (platformLetter: String, messageContact: String, messageBody: String) {
@@ -83,21 +84,8 @@ struct MessageView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        // TODO: Get formatted input
-//                        let formattedOutput = formatMessageForPublishing(platformLetter: self.platform!.platform_letter!, messageBody: messageBody, messageContact: messageContact)
-//                        
-//                        let encryptedFormattedContent = formatForPublishing(formattedContent: formattedOutput)
-//                        
-//                        print("Encrypted formatted content: \(encryptedFormattedContent)")
-//                        
-//                        let gatewayClientHandler = GatewayClientHandler(gatewayClientsEntities: gatewayClientsEntities)
-//                        
-//                        let defaultGatewayClient: String = gatewayClientHandler.getDefaultGatewayClientMSISDN()
-//                        
-//                        print("Default Gateway client: " + defaultGatewayClient)
-//                        
 //                        sendSMS(message: encryptedFormattedContent, receipient: defaultGatewayClient, messageComposeDelegate: self.messageComposeDelegate)
-//                        
+//
 //                        EncryptedContentHandler.store(datastore: self.datastore, encryptedContentBase64: encryptedFormattedContent, gatewayClientMSISDN: defaultGatewayClient, platformName: self.platform?.platform_name ?? "unknown")
 //                        
                         self.dismiss()

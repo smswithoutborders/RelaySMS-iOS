@@ -11,10 +11,8 @@
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		1697672628E483F60021BFC5 /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
-		1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
 		16B43B202915CDDC004AEF1F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
 		16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
-		16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
 		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		16EDE38928D3511700E50393 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
 		16EDE38B28D356EB00E50393 /* AvailablePlatformsSheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */; };
@@ -49,6 +47,8 @@
 		3B7EEE4B2C5BDE9400611092 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */; };
 		3B7EEE4D2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
 		3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
+		3B7EEE562C5D60A900611092 /* SMSHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE552C5D60A900611092 /* SMSHandler.swift */; };
+		3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE552C5D60A900611092 /* SMSHandler.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -56,7 +56,6 @@
 		3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09692C1CEEBB00664E90 /* LoginSheetView.swift */; };
 		3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
 		3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */; };
-		3BC75BF42C52733E004233CE /* PlatformsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672728E489040021BFC5 /* PlatformsHandler.swift */; };
 		3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		3BC75BF62C5273B2004233CE /* GatewayClientsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */; };
 		3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
@@ -70,7 +69,6 @@
 		3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */; };
 		3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
-		3BDADAD82C52A25800539E57 /* PublisherHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38128D223F300E50393 /* PublisherHandler.swift */; };
 		3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */; };
 		3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
 		3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6B128C80B8700FDD12C /* CryptoExportImportManager.swift */; };
@@ -149,12 +147,10 @@
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
 		1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsHandler.swift; sourceTree = "<group>"; };
-		1697672728E489040021BFC5 /* PlatformsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsHandler.swift; sourceTree = "<group>"; };
 		16B43B1F2915CDDC004AEF1F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
 		16EDE37F28D0D23000E50393 /* CSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSecurity.swift; sourceTree = "<group>"; };
-		16EDE38128D223F300E50393 /* PublisherHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherHandler.swift; sourceTree = "<group>"; };
 		16EDE38428D2331C00E50393 /* PlatformModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlatformModels.xcdatamodel; sourceTree = "<group>"; };
 		16EDE38828D3511700E50393 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailablePlatformsSheetsView.swift; sourceTree = "<group>"; };
@@ -175,6 +171,7 @@
 		16F19F2B2904973C00AC2F2B /* RecentsEncryptedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsEncryptedContentView.swift; sourceTree = "<group>"; };
 		16F19F2D2906DECA00AC2F2B /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
+		3B7EEE552C5D60A900611092 /* SMSHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSHandler.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -345,11 +342,9 @@
 			isa = PBXGroup;
 			children = (
 				16EDE37F28D0D23000E50393 /* CSecurity.swift */,
-				16EDE38128D223F300E50393 /* PublisherHandler.swift */,
 				16EDE38828D3511700E50393 /* DataController.swift */,
 				1697672328E4830B0021BFC5 /* GatewayClients.swift */,
 				1697672528E483F60021BFC5 /* GatewayClientsHandler.swift */,
-				1697672728E489040021BFC5 /* PlatformsHandler.swift */,
 				16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */,
 				3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */,
 			);
@@ -365,6 +360,7 @@
 				3BC978132C36C0D700AB626C /* Publisher.swift */,
 				16F0E6B428C80C0900FDD12C /* SecurityRSAEncryption.swift */,
 				16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */,
+				3B7EEE552C5D60A900611092 /* SMSHandler.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -600,6 +596,7 @@
 				16B43B202915CDDC004AEF1F /* TextView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
 				16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */,
+				3B7EEE562C5D60A900611092 /* SMSHandler.swift in Sources */,
 				16F0E6B228C80B8700FDD12C /* CryptoExportImportManager.swift in Sources */,
 				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,
 				16EDE38B28D356EB00E50393 /* AvailablePlatformsSheetsView.swift in Sources */,
@@ -607,11 +604,9 @@
 				3BEC4CF02C47FEC500F92D2A /* vault.grpc.swift in Sources */,
 				3BEC4CF12C47FEC500F92D2A /* vault.pb.swift in Sources */,
 				3BEC4CF22C47FEC500F92D2A /* vault.proto in Sources */,
-				16EDE38228D223F300E50393 /* PublisherHandler.swift in Sources */,
 				3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */,
 				3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */,
 				3BF3D14F2C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
-				1697672828E489040021BFC5 /* PlatformsHandler.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
@@ -661,11 +656,10 @@
 				3BDADADB2C52A49400539E57 /* CryptoExportImportManager.swift in Sources */,
 				3BDADAD92C52A46700539E57 /* SecurityRSAEncryption.swift in Sources */,
 				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,
-				3BDADAD82C52A25800539E57 /* PublisherHandler.swift in Sources */,
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
 				3BC75BF62C5273B2004233CE /* GatewayClientsHandler.swift in Sources */,
+				3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */,
 				3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */,
-				3BC75BF42C52733E004233CE /* PlatformsHandler.swift in Sources */,
 				3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */,
 				3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */,
 				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
