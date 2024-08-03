@@ -92,6 +92,62 @@ message PublishContentResponse {
   string publisher_response = 3;
 }
 
+// Request message for getting the PNBA code
+message GetPNBACodeRequest {
+  // The platform for which the authorization URL is requested
+  string platform = 1;
+  // The identifier for the platform
+  string phone_number = 2;
+}
+
+// Response message for getting the PNBA code
+message GetPNBACodeResponse {
+  // Indicates if the request was successful
+  bool success = 1;
+  // A response message
+  string message = 2;
+}
+
+// Request message for exchanging the PNBA code for a token and storing it
+message ExchangePNBACodeAndStoreRequest {
+  // The long-lived token of the authenticated entity.
+  string long_lived_token = 1;
+  // The platform for which the authorization URL is requested
+  string platform = 2;
+  // The identifier for the platform
+  string phone_number = 3;
+  // The authorization code received from the authorization server
+  string authorization_code = 4;
+  // The password for two-step verification
+  string password = 5;
+}
+
+// Response message for exchanging the PNBA code for a token and storing it
+message ExchangePNBACodeAndStoreResponse {
+  // Indicates if the request was successful
+  bool success = 1;
+  // A response message
+  string message = 2;
+}
+
+// Request message for revoking and deleting a PNBA token
+message RevokeAndDeletePNBATokenRequest {
+  // The long-lived token of the authenticated entity.
+  string long_lived_token = 1;
+  // The platform associated with the token.
+  string platform = 2;
+  // The identifier of the account associated with the token.
+  string account_identifier = 3;
+}
+
+// Response message for revoking and deleting a PNBA token
+message RevokeAndDeletePNBATokenResponse {
+  // A response message.
+  string message = 1;
+  // Indicates whether the operation was successful.
+  bool success = 2;
+}
+
 // Service definition for Publisher
 service Publisher {
   // RPC for getting the OAuth2 authorization URL
@@ -102,5 +158,11 @@ service Publisher {
   rpc PublishContent(PublishContentRequest) returns (PublishContentResponse);
   // Revokes and deletes an OAuth2 access token
   rpc RevokeAndDeleteOAuth2Token(RevokeAndDeleteOAuth2TokenRequest) returns (RevokeAndDeleteOAuth2TokenResponse);
+  // RPC for getting the PNBA code
+  rpc GetPNBACode(GetPNBACodeRequest) returns (GetPNBACodeResponse);
+  // RPC for exchanging the PNBA code for a token and storing it
+  rpc ExchangePNBACodeAndStore(ExchangePNBACodeAndStoreRequest) returns (ExchangePNBACodeAndStoreResponse);
+  // RPC for revoking and deleting a PNBA token
+  rpc RevokeAndDeletePNBAToken(RevokeAndDeletePNBATokenRequest) returns (RevokeAndDeletePNBATokenResponse);
 }
 

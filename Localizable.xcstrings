@@ -74,6 +74,9 @@
     "English" : {
 
     },
+    "Enter code" : {
+
+    },
     "Enter phone number" : {
 
     },
@@ -84,6 +87,9 @@
 
     },
     "From " : {
+
+    },
+    "Get code" : {
 
     },
     "Get started!" : {
@@ -116,6 +122,9 @@
           }
         }
       }
+    },
+    "Phone Number" : {
+
     },
     "Phone Number (e.g) +237123456789" : {
 

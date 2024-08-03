@@ -184,7 +184,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     
                     print("support url scheme: \(supportsUrlScheme)")
                     
-                    let response = try publisher.sendAuthorizationCode(
+                    let response = try publisher.sendOAuthAuthorizationCode(
                         llt: llt,
                         platform: String(state),
                         code: code!,

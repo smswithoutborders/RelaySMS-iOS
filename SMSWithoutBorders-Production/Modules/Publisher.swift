@@ -14,7 +14,7 @@ class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
     public static var REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
     public static var PUBLISHER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY"
-
+    
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
     }
@@ -22,23 +22,23 @@ class Publisher {
     var channel: ClientConnection?
     var callOptions: CallOptions?
     var publisherStub: Publisher_V1_PublisherNIOClient?
-
+    
     init() {
         channel = GRPCHandler.getChannelPublisher()
         let logger = Logger(label: "gRPC", factory: StreamLogHandler.standardOutput(label:))
         callOptions = CallOptions.init(logger: logger)
         publisherStub = Publisher_V1_PublisherNIOClient.init(channel: channel!,
-                                                            defaultCallOptions: callOptions!)
+                                                             defaultCallOptions: callOptions!)
     }
     
     func getRedirectUrl(platformName: String) -> String{
         return "https://oauth.afkanerd.com/platforms/\(platformName)/protocols/oauth2/redirect_codes/ios/"
     }
     
-    func getURL(platform: String, 
-                state: String = "",
-                autogenerateCodeVerifier: Bool = true,
-                supportsUrlSchemes: Bool = true) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
+    func getOAuthURL(platform: String,
+                     state: String = "",
+                     autogenerateCodeVerifier: Bool = true,
+                     supportsUrlSchemes: Bool = true) throws -> Publisher_V1_GetOAuth2AuthorizationUrlResponse {
         
         
         let publishingUrlRequest: Publisher_V1_GetOAuth2AuthorizationUrlRequest = .with {
@@ -66,15 +66,15 @@ class Publisher {
             print("Some error came back: \(error)")
             throw error
         }
-
+        
         return response
     }
     
-    func sendAuthorizationCode(llt: String, 
-                               platform: String,
-                               code: String, 
-                               codeVerifier: String? = nil,
-                               supportsUrlSchemes: Bool = false) throws -> Publisher_V1_ExchangeOAuth2CodeAndStoreResponse {
+    func sendOAuthAuthorizationCode(llt: String,
+                                    platform: String,
+                                    code: String,
+                                    codeVerifier: String? = nil,
+                                    supportsUrlSchemes: Bool = false) throws -> Publisher_V1_ExchangeOAuth2CodeAndStoreResponse {
         let authorizationRequest: Publisher_V1_ExchangeOAuth2CodeAndStoreRequest = .with {
             $0.platform = platform
             $0.authorizationCode = code
@@ -103,7 +103,7 @@ class Publisher {
             print("Some error came back: \(error)")
             throw error
         }
-
+        
         return response
     }
     
@@ -132,7 +132,7 @@ class Publisher {
             print("Some error came back: \(error)")
             throw error
         }
-
+        
         return response
     }
     
@@ -160,4 +160,63 @@ class Publisher {
         }
     }
     
+    public func phoneNumberBaseAuthenticationRequest(phoneNumber: String, platform: String) throws -> Publisher_V1_GetPNBACodeResponse {
+        let pnbaRequest: Publisher_V1_GetPNBACodeRequest = .with {
+            $0.phoneNumber = phoneNumber
+            $0.platform = platform
+        }
+        
+        let call = publisherStub!.getPNBACode(pnbaRequest)
+        let response: Publisher_V1_GetPNBACodeResponse
+        
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+        
+        return response
+    }
+    
+    public func phoneNumberBaseAuthenticationExchange( authorizationCode: String,
+                                                       llt: String, phoneNumber: String, platform: String) throws -> Publisher_V1_ExchangePNBACodeAndStoreResponse {
+        let pnbaExchangeRequest: Publisher_V1_ExchangePNBACodeAndStoreRequest = .with {
+            $0.authorizationCode = authorizationCode
+            $0.longLivedToken = llt
+            $0.password = ""
+            $0.phoneNumber = phoneNumber
+            $0.platform = platform
+        }
+            
+        let call = publisherStub!.exchangePNBACodeAndStore(pnbaExchangeRequest)
+        let response: Publisher_V1_ExchangePNBACodeAndStoreResponse
+        
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+        
+        return response
+    }
 }

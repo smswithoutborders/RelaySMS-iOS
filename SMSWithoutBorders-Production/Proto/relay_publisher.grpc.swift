@@ -37,6 +37,21 @@ internal protocol Publisher_V1_PublisherClientProtocol: GRPCClient {
     _ request: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Publisher_V1_RevokeAndDeleteOAuth2TokenRequest, Publisher_V1_RevokeAndDeleteOAuth2TokenResponse>
+
+  func getPNBACode(
+    _ request: Publisher_V1_GetPNBACodeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse>
+
+  func exchangePNBACodeAndStore(
+    _ request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse>
+
+  func revokeAndDeletePNBAToken(
+    _ request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse>
 }
 
 extension Publisher_V1_PublisherClientProtocol {
@@ -113,6 +128,60 @@ extension Publisher_V1_PublisherClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeRevokeAndDeleteOAuth2TokenInterceptors() ?? []
+    )
+  }
+
+  /// RPC for getting the PNBA code
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetPNBACode.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getPNBACode(
+    _ request: Publisher_V1_GetPNBACodeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse> {
+    return self.makeUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.getPNBACode.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetPNBACodeInterceptors() ?? []
+    )
+  }
+
+  /// RPC for exchanging the PNBA code for a token and storing it
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ExchangePNBACodeAndStore.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func exchangePNBACodeAndStore(
+    _ request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse> {
+    return self.makeUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.exchangePNBACodeAndStore.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeExchangePNBACodeAndStoreInterceptors() ?? []
+    )
+  }
+
+  /// RPC for revoking and deleting a PNBA token
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RevokeAndDeletePNBAToken.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func revokeAndDeletePNBAToken(
+    _ request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse> {
+    return self.makeUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.revokeAndDeletePNBAToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRevokeAndDeletePNBATokenInterceptors() ?? []
     )
   }
 }
@@ -199,6 +268,21 @@ internal protocol Publisher_V1_PublisherAsyncClientProtocol: GRPCClient {
     _ request: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Publisher_V1_RevokeAndDeleteOAuth2TokenRequest, Publisher_V1_RevokeAndDeleteOAuth2TokenResponse>
+
+  func makeGetPnbacodeCall(
+    _ request: Publisher_V1_GetPNBACodeRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse>
+
+  func makeExchangePnbacodeAndStoreCall(
+    _ request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse>
+
+  func makeRevokeAndDeletePnbatokenCall(
+    _ request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -258,6 +342,42 @@ extension Publisher_V1_PublisherAsyncClientProtocol {
       interceptors: self.interceptors?.makeRevokeAndDeleteOAuth2TokenInterceptors() ?? []
     )
   }
+
+  internal func makeGetPnbacodeCall(
+    _ request: Publisher_V1_GetPNBACodeRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.getPNBACode.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetPNBACodeInterceptors() ?? []
+    )
+  }
+
+  internal func makeExchangePnbacodeAndStoreCall(
+    _ request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.exchangePNBACodeAndStore.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeExchangePNBACodeAndStoreInterceptors() ?? []
+    )
+  }
+
+  internal func makeRevokeAndDeletePnbatokenCall(
+    _ request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.revokeAndDeletePNBAToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRevokeAndDeletePNBATokenInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -309,6 +429,42 @@ extension Publisher_V1_PublisherAsyncClientProtocol {
       interceptors: self.interceptors?.makeRevokeAndDeleteOAuth2TokenInterceptors() ?? []
     )
   }
+
+  internal func getPNBACode(
+    _ request: Publisher_V1_GetPNBACodeRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Publisher_V1_GetPNBACodeResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.getPNBACode.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetPNBACodeInterceptors() ?? []
+    )
+  }
+
+  internal func exchangePNBACodeAndStore(
+    _ request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Publisher_V1_ExchangePNBACodeAndStoreResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.exchangePNBACodeAndStore.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeExchangePNBACodeAndStoreInterceptors() ?? []
+    )
+  }
+
+  internal func revokeAndDeletePNBAToken(
+    _ request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Publisher_V1_RevokeAndDeletePNBATokenResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Publisher_V1_PublisherClientMetadata.Methods.revokeAndDeletePNBAToken.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRevokeAndDeletePNBATokenInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -341,6 +497,15 @@ internal protocol Publisher_V1_PublisherClientInterceptorFactoryProtocol: Sendab
 
   /// - Returns: Interceptors to use when invoking 'revokeAndDeleteOAuth2Token'.
   func makeRevokeAndDeleteOAuth2TokenInterceptors() -> [ClientInterceptor<Publisher_V1_RevokeAndDeleteOAuth2TokenRequest, Publisher_V1_RevokeAndDeleteOAuth2TokenResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getPNBACode'.
+  func makeGetPNBACodeInterceptors() -> [ClientInterceptor<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'exchangePNBACodeAndStore'.
+  func makeExchangePNBACodeAndStoreInterceptors() -> [ClientInterceptor<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'revokeAndDeletePNBAToken'.
+  func makeRevokeAndDeletePNBATokenInterceptors() -> [ClientInterceptor<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse>]
 }
 
 internal enum Publisher_V1_PublisherClientMetadata {
@@ -352,6 +517,9 @@ internal enum Publisher_V1_PublisherClientMetadata {
       Publisher_V1_PublisherClientMetadata.Methods.exchangeOAuth2CodeAndStore,
       Publisher_V1_PublisherClientMetadata.Methods.publishContent,
       Publisher_V1_PublisherClientMetadata.Methods.revokeAndDeleteOAuth2Token,
+      Publisher_V1_PublisherClientMetadata.Methods.getPNBACode,
+      Publisher_V1_PublisherClientMetadata.Methods.exchangePNBACodeAndStore,
+      Publisher_V1_PublisherClientMetadata.Methods.revokeAndDeletePNBAToken,
     ]
   )
 
@@ -379,6 +547,24 @@ internal enum Publisher_V1_PublisherClientMetadata {
       path: "/publisher.v1.Publisher/RevokeAndDeleteOAuth2Token",
       type: GRPCCallType.unary
     )
+
+    internal static let getPNBACode = GRPCMethodDescriptor(
+      name: "GetPNBACode",
+      path: "/publisher.v1.Publisher/GetPNBACode",
+      type: GRPCCallType.unary
+    )
+
+    internal static let exchangePNBACodeAndStore = GRPCMethodDescriptor(
+      name: "ExchangePNBACodeAndStore",
+      path: "/publisher.v1.Publisher/ExchangePNBACodeAndStore",
+      type: GRPCCallType.unary
+    )
+
+    internal static let revokeAndDeletePNBAToken = GRPCMethodDescriptor(
+      name: "RevokeAndDeletePNBAToken",
+      path: "/publisher.v1.Publisher/RevokeAndDeletePNBAToken",
+      type: GRPCCallType.unary
+    )
   }
 }
 
@@ -399,6 +585,15 @@ internal protocol Publisher_V1_PublisherProvider: CallHandlerProvider {
 
   /// Revokes and deletes an OAuth2 access token
   func revokeAndDeleteOAuth2Token(request: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Publisher_V1_RevokeAndDeleteOAuth2TokenResponse>
+
+  /// RPC for getting the PNBA code
+  func getPNBACode(request: Publisher_V1_GetPNBACodeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Publisher_V1_GetPNBACodeResponse>
+
+  /// RPC for exchanging the PNBA code for a token and storing it
+  func exchangePNBACodeAndStore(request: Publisher_V1_ExchangePNBACodeAndStoreRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Publisher_V1_ExchangePNBACodeAndStoreResponse>
+
+  /// RPC for revoking and deleting a PNBA token
+  func revokeAndDeletePNBAToken(request: Publisher_V1_RevokeAndDeletePNBATokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Publisher_V1_RevokeAndDeletePNBATokenResponse>
 }
 
 extension Publisher_V1_PublisherProvider {
@@ -449,6 +644,33 @@ extension Publisher_V1_PublisherProvider {
         userFunction: self.revokeAndDeleteOAuth2Token(request:context:)
       )
 
+    case "GetPNBACode":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_GetPNBACodeRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_GetPNBACodeResponse>(),
+        interceptors: self.interceptors?.makeGetPNBACodeInterceptors() ?? [],
+        userFunction: self.getPNBACode(request:context:)
+      )
+
+    case "ExchangePNBACodeAndStore":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_ExchangePNBACodeAndStoreRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_ExchangePNBACodeAndStoreResponse>(),
+        interceptors: self.interceptors?.makeExchangePNBACodeAndStoreInterceptors() ?? [],
+        userFunction: self.exchangePNBACodeAndStore(request:context:)
+      )
+
+    case "RevokeAndDeletePNBAToken":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_RevokeAndDeletePNBATokenRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_RevokeAndDeletePNBATokenResponse>(),
+        interceptors: self.interceptors?.makeRevokeAndDeletePNBATokenInterceptors() ?? [],
+        userFunction: self.revokeAndDeletePNBAToken(request:context:)
+      )
+
     default:
       return nil
     }
@@ -486,6 +708,24 @@ internal protocol Publisher_V1_PublisherAsyncProvider: CallHandlerProvider, Send
     request: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Publisher_V1_RevokeAndDeleteOAuth2TokenResponse
+
+  /// RPC for getting the PNBA code
+  func getPNBACode(
+    request: Publisher_V1_GetPNBACodeRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Publisher_V1_GetPNBACodeResponse
+
+  /// RPC for exchanging the PNBA code for a token and storing it
+  func exchangePNBACodeAndStore(
+    request: Publisher_V1_ExchangePNBACodeAndStoreRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Publisher_V1_ExchangePNBACodeAndStoreResponse
+
+  /// RPC for revoking and deleting a PNBA token
+  func revokeAndDeletePNBAToken(
+    request: Publisher_V1_RevokeAndDeletePNBATokenRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Publisher_V1_RevokeAndDeletePNBATokenResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -543,6 +783,33 @@ extension Publisher_V1_PublisherAsyncProvider {
         wrapping: { try await self.revokeAndDeleteOAuth2Token(request: $0, context: $1) }
       )
 
+    case "GetPNBACode":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_GetPNBACodeRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_GetPNBACodeResponse>(),
+        interceptors: self.interceptors?.makeGetPNBACodeInterceptors() ?? [],
+        wrapping: { try await self.getPNBACode(request: $0, context: $1) }
+      )
+
+    case "ExchangePNBACodeAndStore":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_ExchangePNBACodeAndStoreRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_ExchangePNBACodeAndStoreResponse>(),
+        interceptors: self.interceptors?.makeExchangePNBACodeAndStoreInterceptors() ?? [],
+        wrapping: { try await self.exchangePNBACodeAndStore(request: $0, context: $1) }
+      )
+
+    case "RevokeAndDeletePNBAToken":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Publisher_V1_RevokeAndDeletePNBATokenRequest>(),
+        responseSerializer: ProtobufSerializer<Publisher_V1_RevokeAndDeletePNBATokenResponse>(),
+        interceptors: self.interceptors?.makeRevokeAndDeletePNBATokenInterceptors() ?? [],
+        wrapping: { try await self.revokeAndDeletePNBAToken(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -566,6 +833,18 @@ internal protocol Publisher_V1_PublisherServerInterceptorFactoryProtocol: Sendab
   /// - Returns: Interceptors to use when handling 'revokeAndDeleteOAuth2Token'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeRevokeAndDeleteOAuth2TokenInterceptors() -> [ServerInterceptor<Publisher_V1_RevokeAndDeleteOAuth2TokenRequest, Publisher_V1_RevokeAndDeleteOAuth2TokenResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getPNBACode'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetPNBACodeInterceptors() -> [ServerInterceptor<Publisher_V1_GetPNBACodeRequest, Publisher_V1_GetPNBACodeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'exchangePNBACodeAndStore'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeExchangePNBACodeAndStoreInterceptors() -> [ServerInterceptor<Publisher_V1_ExchangePNBACodeAndStoreRequest, Publisher_V1_ExchangePNBACodeAndStoreResponse>]
+
+  /// - Returns: Interceptors to use when handling 'revokeAndDeletePNBAToken'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRevokeAndDeletePNBATokenInterceptors() -> [ServerInterceptor<Publisher_V1_RevokeAndDeletePNBATokenRequest, Publisher_V1_RevokeAndDeletePNBATokenResponse>]
 }
 
 internal enum Publisher_V1_PublisherServerMetadata {
@@ -577,6 +856,9 @@ internal enum Publisher_V1_PublisherServerMetadata {
       Publisher_V1_PublisherServerMetadata.Methods.exchangeOAuth2CodeAndStore,
       Publisher_V1_PublisherServerMetadata.Methods.publishContent,
       Publisher_V1_PublisherServerMetadata.Methods.revokeAndDeleteOAuth2Token,
+      Publisher_V1_PublisherServerMetadata.Methods.getPNBACode,
+      Publisher_V1_PublisherServerMetadata.Methods.exchangePNBACodeAndStore,
+      Publisher_V1_PublisherServerMetadata.Methods.revokeAndDeletePNBAToken,
     ]
   )
 
@@ -602,6 +884,24 @@ internal enum Publisher_V1_PublisherServerMetadata {
     internal static let revokeAndDeleteOAuth2Token = GRPCMethodDescriptor(
       name: "RevokeAndDeleteOAuth2Token",
       path: "/publisher.v1.Publisher/RevokeAndDeleteOAuth2Token",
+      type: GRPCCallType.unary
+    )
+
+    internal static let getPNBACode = GRPCMethodDescriptor(
+      name: "GetPNBACode",
+      path: "/publisher.v1.Publisher/GetPNBACode",
+      type: GRPCCallType.unary
+    )
+
+    internal static let exchangePNBACodeAndStore = GRPCMethodDescriptor(
+      name: "ExchangePNBACodeAndStore",
+      path: "/publisher.v1.Publisher/ExchangePNBACodeAndStore",
+      type: GRPCCallType.unary
+    )
+
+    internal static let revokeAndDeletePNBAToken = GRPCMethodDescriptor(
+      name: "RevokeAndDeletePNBAToken",
+      path: "/publisher.v1.Publisher/RevokeAndDeletePNBAToken",
       type: GRPCCallType.unary
     )
   }

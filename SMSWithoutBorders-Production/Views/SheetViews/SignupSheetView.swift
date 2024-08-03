@@ -16,6 +16,8 @@ struct CountryPicker: UIViewControllerRepresentable {
 
     @Binding var country: Country?
     @Binding var selectedCountryCodeText: String?
+    
+    @State var showFlag = false
 
     func makeUIViewController(context: Context) -> CountryPickerViewController {
         countryPicker.selectedCountry = "CM"
@@ -38,7 +40,8 @@ struct CountryPicker: UIViewControllerRepresentable {
         }
         func countryPicker(didSelect country: Country) {
             parent.country = country
-            parent.selectedCountryCodeText = country.isoCode
+            parent.selectedCountryCodeText = country.isoCode.getFlag() + " " +
+            (parent.showFlag ? country.localizedName : country.isoCode)
         }
     }
 }

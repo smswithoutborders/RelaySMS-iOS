@@ -10,79 +10,6 @@ import SwiftSVG
 import CachedAsyncImage
 import CoreData
 
-func createInMemoryPersistentContainer() -> NSPersistentContainer {
-    let container = NSPersistentContainer(name: "Datastore")
-    let description = NSPersistentStoreDescription()
-    description.type = NSInMemoryStoreType
-    container.persistentStoreDescriptions = [description]
-    
-    container.loadPersistentStores { description, error in
-        if let error = error {
-            fatalError("Failed to load in-memory store: \(error)")
-        }
-    }
-    
-    return container
-}
-
-func populateMockData(container: NSPersistentContainer) {
-    let context = container.viewContext
-    
-    let platformEntityGmail = PlatformsEntity(context: context)
-    platformEntityGmail.image = nil
-    platformEntityGmail.name = "gmail"
-    platformEntityGmail.protocol_type = "oauth"
-    platformEntityGmail.service_type = "email"
-    platformEntityGmail.shortcode = "g"
-    
-    let platformEntityTwitter = PlatformsEntity(context: context)
-    platformEntityTwitter.image = nil
-    platformEntityTwitter.name = "twitter"
-    platformEntityTwitter.protocol_type = "oauth"
-    platformEntityTwitter.service_type = "text"
-    platformEntityTwitter.shortcode = "x"
-    
-    let platformEntityGmail1 = PlatformsEntity(context: context)
-    platformEntityGmail1.image = nil
-    platformEntityGmail1.name = "telegram"
-    platformEntityGmail1.protocol_type = "pnba"
-    platformEntityGmail1.service_type = "messaging"
-    platformEntityGmail1.shortcode = "T"
-    
-    let platformEntityTwitter1 = PlatformsEntity(context: context)
-    platformEntityTwitter1.image = nil
-    platformEntityTwitter1.name = "slack"
-    platformEntityTwitter1.protocol_type = "oauth"
-    platformEntityTwitter1.service_type = "messaging"
-    platformEntityTwitter1.shortcode = "s"
-
-    for i in 0..<3 {
-        let name = "gmail"
-        let account = "account_\(i)@gmail.com"
-        let storedPlatformsEntity = StoredPlatformsEntity(context: context)
-        storedPlatformsEntity.name = name
-        storedPlatformsEntity.account = account
-        storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name, 
-                                                         accountIdentifier: account)
-    }
-    for i in 0..<3 {
-        let name = "twitter"
-        let account = "@twitter_account_\(i)"
-        let storedPlatformsEntity = StoredPlatformsEntity(context: context)
-        storedPlatformsEntity.name = name
-        storedPlatformsEntity.account = account
-        storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name,
-                                                         accountIdentifier: account)
-    }
-
-    do {
-        try context.save()
-    } catch {
-        fatalError("Failed to save mock data: \(error)")
-    }
-}
-
-
 struct OfflineAvailablePlatformsSheetsView: View {
     @State var codeVerifier: String = ""
     @State var title: String = "Store Platforms"
@@ -147,6 +74,10 @@ struct AvailablePlatformsSheetsView: View {
     
     @State private var isAnimating: Bool = false
     
+    @State private var showPhonenumberView: Bool = false
+
+    @State var phoneNumber: String?
+
     var body: some View {
         NavigationView {
             VStack {
@@ -235,22 +166,7 @@ struct AvailablePlatformsSheetsView: View {
         VStack {
             Button(action: {
                 if type == AvailablePlatformsSheetsView.TYPE.AVAILABLE {
-                    loadingOAuthURLScreen = true
-                    Task {
-                        do {
-                            let publisher = Publisher()
-                            let response = try publisher.getURL(
-                                platform: platform.name!,
-                                supportsUrlSchemes: platform.support_url_scheme)
-                            codeVerifier = response.codeVerifier
-                            print("Requesting url: \(response.authorizationURL)")
-                            openURL(URL(string: response.authorizationURL)!)
-                        }
-                        catch {
-                            print("Some error occured: \(error)")
-                        }
-                        loadingOAuthURLScreen = false
-                    }
+                    triggerPlatformRequest(platform: platform)
                 }
                 else if type == AvailablePlatformsSheetsView.TYPE.STORED || 
                             type == AvailablePlatformsSheetsView.TYPE.REVOKE {
@@ -282,6 +198,9 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }
             .id(platform.id)
+            .sheet(isPresented: $showPhonenumberView) {
+                PhoneNumberSheetView()
+            }
             .sheet(isPresented: $accountViewShown) {
                 AccountSheetView(
                     filter: filterPlatformName,
@@ -295,6 +214,44 @@ struct AvailablePlatformsSheetsView: View {
             Text(platform.protocol_type!)
                 .font(.system(size: 10, design: .rounded))
             
+        }
+    }
+    
+    private func triggerPlatformRequest(platform: PlatformsEntity) {
+        switch platform.protocol_type {
+        case "oauth":
+            loadingOAuthURLScreen = true
+            Task {
+                do {
+                    let publisher = Publisher()
+                    let response = try publisher.getOAuthURL(
+                        platform: platform.name!,
+                        supportsUrlSchemes: platform.support_url_scheme)
+                    codeVerifier = response.codeVerifier
+                    print("Requesting url: \(response.authorizationURL)")
+                    openURL(URL(string: response.authorizationURL)!)
+                }
+                catch {
+                    print("Some error occured: \(error)")
+                }
+                loadingOAuthURLScreen = false
+            }
+        case "pnba":
+            showPhonenumberView = true
+            //            Task {
+//                do {
+//                    let publisher = Publisher()
+//                    let response = try publisher.phoneNumberBaseAuthenticationRequest(phoneNumber: phoneNumber!, platform: platform.name!)
+//                }
+//                catch {
+//                    print("Some error occured: \(error)")
+//                }
+//                loadingOAuthURLScreen = false
+//            }
+        case .none:
+            Task {}
+        case .some(_):
+            Task {}
         }
     }
 }
