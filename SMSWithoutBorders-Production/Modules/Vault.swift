@@ -11,12 +11,15 @@ import Logging
 import CoreData
 import CryptoKit
 import SwiftUI
+import CryptoSwift
 
 
 class Vault {
     
     public static var VAULT_LONG_LIVED_TOKEN = "COM.AFKANERD.RELAYSMS.VAULT_LONG_LIVED_TOKEN"
-    
+    public static var VAULT_PHONE_NUMBER = "COM.AFKANERD.RELAYSMS.VAULT_PHONE_NUMBER"
+    public static var VAULT_DEVICE_ID = "COM.AFKANERD.RELAYSMS.VAULT_DEVICE_ID"
+
     class LocalStoredTokens : Identifiable {
         var name: String
         var account: String
@@ -207,6 +210,10 @@ class Vault {
     public static func resetKeystore() {
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+        
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
         print("[important] keystore reset done...")
     }
     
@@ -285,5 +292,17 @@ class Vault {
             throw error
         }
         return true
+    }
+    
+    public static func getDeviceID(derivedKey: [UInt8], phoneNumber: String, publicKey: [UInt8]) throws -> [UInt8] {
+        print("DID key: \(derivedKey.toBase64())")
+        print("DID phoneNumber: \(phoneNumber)")
+        print("DID publicKey: \(publicKey.toBase64())")
+        let combinedData = phoneNumber.bytes.withUnsafeBytes {
+            return Array($0) + publicKey
+        }
+        let deviceId = try HMAC(key: derivedKey, variant: .sha2(.sha256)).authenticate(combinedData)
+        print("DID id: \(deviceId.toBase64())")
+        return deviceId
     }
 }

@@ -19,22 +19,22 @@ public class OTPAuthType {
 }
 
 
-private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
-                        peerPublishPubKey: [UInt8],
+private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
+                        publishPubKey: [UInt8],
                         llt: String,
                         clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey,
-                        clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey) throws -> String {
+                                    clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey,
+                                    phoneNumber: String) throws -> String {
 
-    let peerPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIDPubKey)
-    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerPublishPubKey)
+    let peerDeviceIdPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: peerDeviceIdPubKey)
+    let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: publishPubKey)
 
-    let sharedKey = try SecurityCurve25519.calculateSharedSecret(
-        privateKey: clientDeviceIDPrivateKey,
-        publicKey: peerPublishPublicKey).withUnsafeBytes { data in
-            return Array(data)
+    let deviceIdSharedKey = try SecurityCurve25519.calculateSharedSecret(
+        privateKey: clientDeviceIDPrivateKey, publicKey: peerDeviceIdPublicKey).withUnsafeBytes {
+            return Array($0)
         }
         
-    let fernetToken = try Fernet(key: Data(sharedKey))
+    let fernetToken = try Fernet(key: Data(deviceIdSharedKey))
     let decodedOutput = try fernetToken.decode(Data(base64Encoded: llt)!)
     
     let llt = String(data: decodedOutput.data, encoding: .utf8)
@@ -48,7 +48,13 @@ private nonisolated func processOTP(peerDeviceIDPubKey: [UInt8],
     CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
 
-    UserDefaults.standard.set(peerPublishPubKey, forKey: Publisher.PUBLISHER_PUBLIC_KEY)
+    let deviceID = try Vault.getDeviceID(derivedKey: deviceIdSharedKey,
+                                         phoneNumber: phoneNumber,
+                                         publicKey: clientDeviceIDPrivateKey.publicKey.rawRepresentation.bytes)
+    
+    UserDefaults.standard.set(deviceID, forKey: Vault.VAULT_DEVICE_ID)
+    UserDefaults.standard.set(publishPubKey, forKey: Publisher.PUBLISHER_PUBLIC_KEY)
+    
     try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!,
                                   keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     try CSecurity.storeInKeyChain(data: publishingSharedKey,
@@ -96,11 +102,12 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
             ownershipResponse: otpCode)
         
         if(otpCode != nil) {
-            try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+            try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                           publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
                        clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                       clientPublishPrivateKey: clientPublishPrivateKey!)
+                           clientPublishPrivateKey: clientPublishPrivateKey!,
+                           phoneNumber: phoneNumber)
             
         }
         return Int(response.nextAttemptTimestamp)
@@ -115,11 +122,12 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
         
         
         if(otpCode != nil) {
-            let llt = try processOTP(peerDeviceIDPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                       peerPublishPubKey: response.serverPublishPubKey.base64Decoded(),
+            let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                                     publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
                        clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                       clientPublishPrivateKey: clientPublishPrivateKey!)
+                                     clientPublishPrivateKey: clientPublishPrivateKey!,
+                                     phoneNumber: phoneNumber)
             
             let publisher = Publisher()
             try vault.refreshStoredTokens(llt: llt, context: context!)

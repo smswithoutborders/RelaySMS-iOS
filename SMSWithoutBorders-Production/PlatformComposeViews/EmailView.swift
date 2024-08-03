@@ -45,6 +45,8 @@ struct EmailView: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", platformName))
         
+        print("Searching platform: \(platformName)")
+
         self.fromAccount = fromAccount
     }
     
@@ -135,42 +137,41 @@ struct EmailView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        var shortcode = ""
+                        var shortcode: UInt8? = nil
                         for platform in platforms {
-                            shortcode = platform.shortcode!
+                            shortcode = platform.shortcode!.bytes[0]
+                            
+                            do {
+                                let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
+                                let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
+                                let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
+                                let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+                                
+                                let messageComposer = try MessageComposer(
+                                    SK: pubSharedKey.bytes,
+                                    AD: AD,
+                                    peerDhPubKey: peerPubkey,
+                                    keystoreAlias: Publisher.PUBLISHER_SHARED_KEY, 
+                                    deviceID: deviceID)
+                                
+                                let encryptedFormattedContent = try messageComposer.emailComposer(
+                                    platform_letter: shortcode!,
+                                    from: composeFrom,
+                                    to: composeTo,
+                                    cc: composeCC,
+                                    bcc: composeBCC,
+                                    subject: composeSubject,
+                                    body: composeBody)
+                                print("Transmitting to sms app: \(encryptedFormattedContent)")
+                                
+                                SMSHandler.sendSMS(message: encryptedFormattedContent,
+                                        receipient: "+123456789",
+                                        messageComposeDelegate: self.messageComposeDelegate)
+                            } catch {
+                                print("Some error occured while sending: \(error)")
+                            }
+                            
                             break
-                        }
-                        let formattedEmail = formatEmailForPublishing(
-                            platformLetter: shortcode,
-                            to: composeTo,
-                            cc: composeCC,
-                            bcc: composeBCC,
-                            subject: composeSubject,
-                            body: composeBody)
-                        
-                        do {
-                            let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
-                            let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
-                            let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
-                            let messageComposer = try MessageComposer(
-                                SK: pubSharedKey.bytes,
-                                AD: AD,
-                                peerDhPubKey: peerPubkey,
-                                keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
-                            
-                            let encryptedFormattedContent = try messageComposer.emailComposer(
-                                from: composeFrom,
-                                to: composeTo,
-                                cc: composeCC,
-                                bcc: composeBCC,
-                                subject: composeSubject,
-                                body: composeBody)
-                            
-                            SMSHandler.sendSMS(message: encryptedFormattedContent,
-                                    receipient: "+123456789",
-                                    messageComposeDelegate: self.messageComposeDelegate)
-                        } catch {
-                            print("Some error occured while sending: \(error)")
                         }
                         
                         self.dismiss()
@@ -194,16 +195,6 @@ struct EmailView: View {
         
         return (platformLetter, to, cc, bcc, subject, body)
     }
-
-    func formatEmailForPublishing(
-        platformLetter: String,
-        to: String, cc: String, bcc: String, subject: String, body: String) -> String {
-            
-            let formattedString: String = platformLetter + ":" + to + ":" + cc + ":" + bcc + ":" + subject + ":" + body
-            
-            return formattedString
-    }
-
 }
 
 
