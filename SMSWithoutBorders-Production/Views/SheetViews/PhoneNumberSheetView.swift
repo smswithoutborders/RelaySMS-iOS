@@ -10,18 +10,25 @@ import CountryPicker
 
 struct PhoneNumberSheetView: View {
     @Environment(\.dismiss) var dismiss
-    @State var phoneNumber: String = ""
+    @Environment(\.managedObjectContext) var viewContext
     
+    @State private var phoneNumber: String = ""
+    @State private var code: String = ""
+
     @State private var country: Country?
     @State private var showCountryPicker = false
     @State private var selectedCountryCodeText: String? = "CM".getFlag() + " " + Country.init(isoCode: "CM").localizedName
     @State private var showCode = false
+    @State private var requestingCode = false
+    @State private var submittingCode = false
+
+    @State var platformName: String
 
     var body: some View {
          VStack {
              if showCode {
                  HStack {
-                     TextField("Enter code", text: $phoneNumber)
+                     TextField("Enter code", text: $code)
                          .keyboardType(.numberPad)
                          .autocapitalization(.none)
                          .disableAutocorrection(true)
@@ -29,11 +36,18 @@ struct PhoneNumberSheetView: View {
                  .padding()
                  .textFieldStyle(.roundedBorder)
 
-                 Button("Submit") {
-                     dismiss()
+                 if submittingCode {
+                     ProgressView()
                  }
-                 .buttonStyle(.borderedProminent)
-                 .padding()
+                 else {
+                     Button("Submit") {
+                         submittingCode = true
+                         phoneNumberAuthExchange()
+                     }
+                     .buttonStyle(.borderedProminent)
+                     .padding()
+                     .disabled(submittingCode)
+                 }
              }
              else {
                  HStack {
@@ -63,16 +77,77 @@ struct PhoneNumberSheetView: View {
                  .padding()
                  .textFieldStyle(.roundedBorder)
 
-                 Button("Get code") {
-                     showCode = true
+                 if requestingCode {
+                     ProgressView()
                  }
-                 .buttonStyle(.borderedProminent)
-                 .padding()
+                 else {
+                     Button("Get code") {
+                         requestingCode = true
+                         phoneNumberAuthRequest()
+                     }
+                     .buttonStyle(.borderedProminent)
+                     .padding()
+                     .disabled(phoneNumber.count < 3)
+                 }
              }
         }
+         .task {
+             print("requesting phonenumber for: \(platformName)")
+         }
+    }
+    
+    func phoneNumberAuthExchange() {
+        DispatchQueue.background(background: {
+            do {
+                let publisher = Publisher()
+                let llt = try Vault.getLongLivedToken()
+                 
+                let response = try publisher.phoneNumberBaseAuthenticationExchange(
+                    authorizationCode: code, llt: llt, phoneNumber: phoneNumber, platform: platformName)
+
+                if response.success {
+                    print("Successfully stored: \(platformName)")
+                    try Vault().refreshStoredTokens(llt: llt, context: viewContext)
+                    dismiss()
+                }
+                else {
+                     print("Failed to store platform: \(platformName)")
+                }
+            } catch {
+                print("Failed to submit code: \(error)")
+            }
+        }, completion: {
+            submittingCode = false
+        })
+        
+    }
+    
+    func phoneNumberAuthRequest() {
+        DispatchQueue.background(background: {
+            do {
+                let phoneNum = "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
+                print("Requesting phone auth for: \(phoneNum)")
+                
+                let publisher = Publisher()
+                let response = try publisher.phoneNumberBaseAuthenticationRequest(
+                   phoneNumber: phoneNum, platform: platformName)
+                
+                phoneNumber = phoneNum
+                
+                if response.success {
+                    showCode = true
+                }
+            }
+            catch {
+                print("Some error occured: \(error)")
+            }
+        }, completion: {
+            requestingCode = false
+        })
     }
 }
 
 #Preview {
-    PhoneNumberSheetView()
+    @State var platformName = "telegram"
+    PhoneNumberSheetView(platformName: platformName)
 }

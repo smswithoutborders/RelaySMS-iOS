@@ -75,6 +75,7 @@ struct AvailablePlatformsSheetsView: View {
     @State private var isAnimating: Bool = false
     
     @State private var showPhonenumberView: Bool = false
+    @State private var phonenumberViewPlatform: String = ""
 
     @State var phoneNumber: String?
 
@@ -199,7 +200,7 @@ struct AvailablePlatformsSheetsView: View {
             }
             .id(platform.id)
             .sheet(isPresented: $showPhonenumberView) {
-                PhoneNumberSheetView()
+                PhoneNumberSheetView(platformName: phonenumberViewPlatform)
             }
             .sheet(isPresented: $accountViewShown) {
                 AccountSheetView(
@@ -237,17 +238,8 @@ struct AvailablePlatformsSheetsView: View {
                 loadingOAuthURLScreen = false
             }
         case "pnba":
+            phonenumberViewPlatform = platform.name!
             showPhonenumberView = true
-            //            Task {
-//                do {
-//                    let publisher = Publisher()
-//                    let response = try publisher.phoneNumberBaseAuthenticationRequest(phoneNumber: phoneNumber!, platform: platform.name!)
-//                }
-//                catch {
-//                    print("Some error occured: \(error)")
-//                }
-//                loadingOAuthURLScreen = false
-//            }
         case .none:
             Task {}
         case .some(_):
