@@ -70,11 +70,13 @@ struct AccountSheetView: View {
                                 do {
                                     let llt = try Vault.getLongLivedToken()
                                     let publisher = Publisher()
-                                    let response = try publisher.revokePlatform(llt: llt,
-                                                                                platform: platform.name!,
-                                                                                account: platform.account!)
-                                    viewContext.delete(platform)
-                                    try viewContext.save()
+                                    let response = try publisher.revokePlatform(
+                                        llt: llt, platform: platform.name!, account: platform.account!, protocolType: getPlatformType(storedPlatform: platform))
+                                    
+                                    if response {
+                                        viewContext.delete(platform)
+                                        try viewContext.save()
+                                    }
                                 } catch {
                                     print("Error revoking: \(error)")
                                 }
@@ -102,6 +104,15 @@ struct AccountSheetView: View {
             }
         }
     }
+    
+    private func getPlatformType(storedPlatform: StoredPlatformsEntity) -> String {
+        for platform in platforms {
+            if platform.name == storedPlatform.name {
+                return platform.protocol_type!
+            }
+        }
+        return ""
+    }
 }
 
 struct AccountSheetView_Preview: PreviewProvider {
@@ -109,7 +120,7 @@ struct AccountSheetView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return AccountSheetView(filter: "gmail", isRevoke: true)
+        return AccountSheetView(filter: "telegram", isRevoke: true)
             .environment(\.managedObjectContext, container.viewContext)
 //        return RevokeAccountView()
     }

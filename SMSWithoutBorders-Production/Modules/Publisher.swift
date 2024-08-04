@@ -107,7 +107,7 @@ class Publisher {
         return response
     }
     
-    func revokePlatform(llt: String, platform: String, account: String) throws -> Publisher_V1_RevokeAndDeleteOAuth2TokenResponse {
+    private func revokeOAuthPlatform(llt: String, platform: String, account: String) throws -> Publisher_V1_RevokeAndDeleteOAuth2TokenResponse{
         let revokeRequest: Publisher_V1_RevokeAndDeleteOAuth2TokenRequest = .with {
             $0.platform = platform
             $0.longLivedToken = llt
@@ -134,6 +134,46 @@ class Publisher {
         }
         
         return response
+    }
+    
+    private func revokePNBAPlatform(llt: String, platform: String, account: String) throws -> Publisher_V1_RevokeAndDeletePNBATokenResponse {
+        let pnbaRevokeRequest: Publisher_V1_RevokeAndDeletePNBATokenRequest = .with {
+            $0.longLivedToken = llt
+            $0.platform = platform
+            $0.accountIdentifier = account
+        }
+            
+        let call = publisherStub!.revokeAndDeletePNBAToken(pnbaRevokeRequest)
+        let response: Publisher_V1_RevokeAndDeletePNBATokenResponse
+        
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+        
+        return response
+    
+    }
+
+    func revokePlatform(llt: String, platform: String, account: String, protocolType: String) throws -> Bool {
+        if protocolType ==  "oauth" {
+            return try revokeOAuthPlatform(llt: llt, platform: platform, account: account).success
+        }
+        else if protocolType == "pnba" {
+            return try revokePNBAPlatform(llt: llt, platform: platform, account: account).success
+        }
+        return false
     }
     
     public struct PlatformsData: Codable {

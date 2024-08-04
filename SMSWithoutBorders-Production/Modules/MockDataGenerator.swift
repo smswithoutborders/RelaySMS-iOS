@@ -72,6 +72,15 @@ func populateMockData(container: NSPersistentContainer) {
         storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name,
                                                          accountIdentifier: account)
     }
+    for i in 0..<3 {
+        let name = "telegram"
+        let account = "+23712345\(i)"
+        let storedPlatformsEntity = StoredPlatformsEntity(context: context)
+        storedPlatformsEntity.name = name
+        storedPlatformsEntity.account = account
+        storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name,
+                                                         accountIdentifier: account)
+    }
 
     do {
         try context.save()
