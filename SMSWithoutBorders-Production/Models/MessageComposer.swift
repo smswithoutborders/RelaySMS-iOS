@@ -63,6 +63,7 @@ class MessageComposer {
     private func formatTransmission(header: HEADERS,
                                     cipherText: [UInt8],
                                     platform_letter: UInt8) -> String {
+        
         let sHeader = header.serialize()
         
         // Convert PN to Data
@@ -73,7 +74,7 @@ class MessageComposer {
         
         var encryptedContentPayload = Data()
         encryptedContentPayload.append(bytesHeaderLen)
-        encryptedContentPayload.append(header.serialize())
+        encryptedContentPayload.append(sHeader)
         encryptedContentPayload.append(Data(cipherText))
         
         var payloadLen = Data(count: 4)

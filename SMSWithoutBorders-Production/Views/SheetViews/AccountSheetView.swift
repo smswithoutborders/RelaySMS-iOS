@@ -8,6 +8,17 @@
 import SwiftUI
 import CoreData
 
+func getProtocolTypeForPlatform(storedPlatform: StoredPlatformsEntity,
+                                platforms: FetchedResults<PlatformsEntity>) -> String {
+    for platform in platforms {
+        if platform.name == storedPlatform.name {
+            return platform.protocol_type!
+        }
+    }
+    return ""
+}
+
+
 @ViewBuilder func accountView(accountName: String, platformName: String) -> some View {
     VStack {
         HStack {
@@ -25,6 +36,7 @@ import CoreData
 }
 
 struct AccountSheetView: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
@@ -67,16 +79,23 @@ struct AccountSheetView: View {
                         }
                         else {
                             Button("Revoke", role: .destructive) {
+                                isRevoking = true
                                 do {
                                     let llt = try Vault.getLongLivedToken()
                                     let publisher = Publisher()
                                     let response = try publisher.revokePlatform(
-                                        llt: llt, platform: platform.name!, account: platform.account!, protocolType: getPlatformType(storedPlatform: platform))
+                                        llt: llt, 
+                                        platform: platform.name!,
+                                        account: platform.account!,
+                                        protocolType: getProtocolTypeForPlatform(
+                                            storedPlatform: platform, platforms: platforms))
                                     
                                     if response {
                                         viewContext.delete(platform)
                                         try viewContext.save()
                                     }
+                                    
+                                    dismiss()
                                 } catch {
                                     print("Error revoking: \(error)")
                                 }
@@ -105,14 +124,6 @@ struct AccountSheetView: View {
         }
     }
     
-    private func getPlatformType(storedPlatform: StoredPlatformsEntity) -> String {
-        for platform in platforms {
-            if platform.name == storedPlatform.name {
-                return platform.protocol_type!
-            }
-        }
-        return ""
-    }
 }
 
 struct AccountSheetView_Preview: PreviewProvider {

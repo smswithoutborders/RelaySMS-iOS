@@ -69,13 +69,16 @@ struct PhoneNumberSheetView: View {
                  
                  HStack {
                      Text("+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                        .foregroundColor(Color.gray)
+                     Spacer()
                      TextField("Phone Number", text: $phoneNumber)
                          .keyboardType(.numberPad)
+                         .textContentType(.emailAddress)
                          .autocapitalization(.none)
-                         .disableAutocorrection(true)
-                 }
-                 .padding()
-                 .textFieldStyle(.roundedBorder)
+                }
+                .padding(.leading)
+                Rectangle().frame(height: 1).foregroundColor(.gray)
+                 
 
                  if requestingCode {
                      ProgressView()

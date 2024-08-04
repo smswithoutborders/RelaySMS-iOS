@@ -179,15 +179,18 @@ class Vault {
     }
     
     public static func completeDeleteEntity(longLiveToken: String,
-                                            storedTokenEntities: FetchedResults<StoredPlatformsEntity>) throws {
+                                            storedTokenEntities: FetchedResults<StoredPlatformsEntity>,
+                                            platforms: FetchedResults<PlatformsEntity>) throws {
         let vault = Vault()
         
         do {
             let publisher = Publisher()
             for storedTokenEntity in storedTokenEntities {
-                try publisher.revokePlatform(llt: longLiveToken,
-                                         platform: storedTokenEntity.name!,
-                                         account: storedTokenEntity.account!)
+                try publisher.revokePlatform(
+                    llt: longLiveToken,
+                    platform: storedTokenEntity.name!,
+                    account: storedTokenEntity.account!,
+                    protocolType: getProtocolTypeForPlatform(storedPlatform: storedTokenEntity, platforms: platforms))
             }
             try vault.deleteEntity(longLiveToken: longLiveToken)
         } catch {

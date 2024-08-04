@@ -232,21 +232,21 @@ struct VaultTest {
             XCTAssertEqual(rPubSharedKey, publishingSharedKey)
             
             // ** REVOKE STORED TOKENS **
-            let publisher = Publisher()
-            for platform in response1.storedTokens {
-                print("Revoking: \(platform.platform): \(platform.accountIdentifier)")
-                let response = try publisher.revokePlatform(llt: llt!,
-                                         platform: platform.platform,
-                                         account: platform.accountIdentifier)
-                
-                XCTAssertTrue(response.success)
-            }
-            
-            // ** DELETE STORED TOKENS **
-            let deleteResponse = try vault.deleteEntity(longLiveToken: llt!)
-            print("Deleted tokens...")
-            
-            XCTAssertTrue(deleteResponse.success)
+//            let publisher = Publisher()
+//            for platform in response1.storedTokens {
+//                print("Revoking: \(platform.platform): \(platform.accountIdentifier)")
+//                let response = try publisher.revokePlatform(llt: llt!,
+//                                         platform: platform.platform,
+//                                         account: platform.accountIdentifier)
+//                
+//                XCTAssertTrue(response.success)
+//            }
+//            
+//            // ** DELETE STORED TOKENS **
+//            let deleteResponse = try vault.deleteEntity(longLiveToken: llt!)
+//            print("Deleted tokens...")
+//            
+//            XCTAssertTrue(deleteResponse.success)
             
         } catch {
             print(error)

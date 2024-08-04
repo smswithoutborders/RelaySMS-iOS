@@ -15,7 +15,7 @@ class PublisherTest : XCTestCase {
 
     func testGetUrl() async throws {
         let publisher = Publisher()
-        let response = try publisher.getURL(platform: "gmail")
+        let response = try publisher.getOAuthURL(platform: "gmail")
         print(response.authorizationURL)
         print(response.clientID)
         print(response.redirectURL)

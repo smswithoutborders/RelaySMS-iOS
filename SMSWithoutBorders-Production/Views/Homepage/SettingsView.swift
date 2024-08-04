@@ -17,6 +17,7 @@ struct SecuritySettingsView: View {
 
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
     var body: some View {
         NavigationView {
@@ -67,7 +68,8 @@ struct SecuritySettingsView: View {
                 let llt = try Vault.getLongLivedToken()
                 try Vault.completeDeleteEntity(
                     longLiveToken: llt,
-                    storedTokenEntities: storedPlatforms)
+                    storedTokenEntities: storedPlatforms,
+                    platforms: platforms)
             } catch {
                 print("Error deleting: \(error)")
             }

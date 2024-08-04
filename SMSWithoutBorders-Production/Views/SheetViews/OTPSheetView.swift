@@ -52,9 +52,13 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
                                          phoneNumber: phoneNumber,
                                          publicKey: clientDeviceIDPrivateKey.publicKey.rawRepresentation.bytes)
     
+    print("Peer publish pubkey raw: \(publishPubKey.toBase64())")
     UserDefaults.standard.set(deviceID, forKey: Vault.VAULT_DEVICE_ID)
     UserDefaults.standard.set(publishPubKey, forKey: Publisher.PUBLISHER_PUBLIC_KEY)
     
+    let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
+    print("Peer publish pubkey retrieved: \(AD.toBase64())")
+
     try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!,
                                   keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
     try CSecurity.storeInKeyChain(data: publishingSharedKey,
