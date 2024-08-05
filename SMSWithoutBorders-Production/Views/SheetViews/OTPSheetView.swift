@@ -42,7 +42,7 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
     
     let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
         privateKey: clientPublishPrivateKey, publicKey: peerPublishPublicKey).withUnsafeBytes {
-            return Data(Array($0))
+            return Array($0)
         }
     
     CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
@@ -61,7 +61,7 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
 
     try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!,
                                   keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
-    try CSecurity.storeInKeyChain(data: publishingSharedKey,
+    try CSecurity.storeInKeyChain(data: Data(publishingSharedKey),
                                   keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
     
     return llt!

@@ -156,7 +156,7 @@ struct EmailView: View {
                                 
                                 let encryptedFormattedContent = try messageComposer.emailComposer(
                                     platform_letter: shortcode!,
-                                    from: composeFrom,
+                                    from: fromAccount,
                                     to: composeTo,
                                     cc: composeCC,
                                     bcc: composeBCC,

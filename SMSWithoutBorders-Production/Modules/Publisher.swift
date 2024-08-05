@@ -167,7 +167,7 @@ class Publisher {
     }
 
     func revokePlatform(llt: String, platform: String, account: String, protocolType: String) throws -> Bool {
-        if protocolType ==  "oauth" {
+        if protocolType ==  "oauth2" {
             return try revokeOAuthPlatform(llt: llt, platform: platform, account: account).success
         }
         else if protocolType == "pnba" {

@@ -32,6 +32,7 @@ class MessageComposer {
     
     public func emailComposer(platform_letter: UInt8,
                               from: String, to: String, cc: String, bcc: String, subject: String, body: String) throws -> String {
+        print("\(from):\(to):\(cc):\(bcc):\(subject):\(body)")
         let content = "\(from):\(to):\(cc):\(bcc):\(subject):\(body)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
