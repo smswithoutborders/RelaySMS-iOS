@@ -219,7 +219,6 @@ struct AvailablePlatformsSheetsView: View {
     }
     
     private func triggerPlatformRequest(platform: PlatformsEntity) {
-        print(platform.protocol_type)
         switch platform.protocol_type {
         case "oauth2":
             loadingOAuthURLScreen = true

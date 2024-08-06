@@ -152,7 +152,8 @@ struct EmailView: View {
                                     AD: AD,
                                     peerDhPubKey: peerPubkey,
                                     keystoreAlias: Publisher.PUBLISHER_SHARED_KEY, 
-                                    deviceID: deviceID)
+                                    deviceID: deviceID,
+                                    context: datastore)
                                 
                                 let encryptedFormattedContent = try messageComposer.emailComposer(
                                     platform_letter: shortcode!,

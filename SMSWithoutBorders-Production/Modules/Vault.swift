@@ -220,6 +220,18 @@ class Vault {
         print("[important] keystore reset done...")
     }
     
+    public static func resetStates(context: NSManagedObjectContext) throws {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StatesEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            throw error
+        }
+    }
+
     public static func resetDatastore(context: NSManagedObjectContext) throws {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredPlatformsEntity")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

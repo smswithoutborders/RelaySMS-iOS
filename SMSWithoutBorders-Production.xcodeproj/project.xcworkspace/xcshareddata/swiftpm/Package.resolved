@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
       "state" : {
-        "revision" : "c9c3df6ab812de32bae61fc0cd1bf6d45170ebf0",
-        "version" : "1.8.2"
+        "revision" : "678d442c6f7828def400a70ae15968aef67ef52d",
+        "version" : "1.8.3"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/smswithoutborders/lib_signal_double_ratchet_ios",
       "state" : {
         "branch" : "main",
-        "revision" : "3073831e2da759e475a24a560097f776f96f0706"
+        "revision" : "ee4d61c338199621a4136868c51b2c34b7b067e5"
       }
     },
     {

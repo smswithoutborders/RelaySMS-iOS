@@ -8,37 +8,87 @@
 import Foundation
 import SwobDoubleRatchet
 import CryptoKit
+import CoreData
 
 class MessageComposer {
     
     var SK: [UInt8]
     var keystoreAlias: String
     var AD: [UInt8]
-    var aliceState = States()
+    var state = States()
     var deviceID: [UInt8]?
+    var context: NSManagedObjectContext
 
-    init(SK: [UInt8], AD: [UInt8], peerDhPubKey: Curve25519.KeyAgreement.PublicKey, keystoreAlias: String, deviceID: [UInt8]? = nil) throws {
+    init(SK: [UInt8], 
+         AD: [UInt8],
+         peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
+         keystoreAlias: String,
+         deviceID: [UInt8]? = nil,
+         context: NSManagedObjectContext) throws {
         self.SK = SK
         self.keystoreAlias = keystoreAlias
         self.AD = AD
         self.deviceID = deviceID
+        self.context = context
         
-        try Ratchet.aliceInit(
-            state: self.aliceState,
-            SK: self.SK,
-            bobDhPubKey: peerDhPubKey,
-            keystoreAlias: self.keystoreAlias)
+        let fetchStates = try fetchStates()
+        if fetchStates == nil {
+            self.state = States()
+            try Ratchet.aliceInit(
+                state: self.state,
+                SK: self.SK,
+                bobDhPubKey: peerDhPubKey,
+                keystoreAlias: self.keystoreAlias)
+        } else {
+//            print("Fetched state: \(fetchStates!.data?.base64EncodedString())")
+//            print(try deserialize(data: fetchStates!.data!))
+            self.state = try States.deserialize(data: fetchStates!.data!)!
+        }
     }
     
-    public func emailComposer(platform_letter: UInt8,
-                              from: String, to: String, cc: String, bcc: String, subject: String, body: String) throws -> String {
-        print("\(from):\(to):\(cc):\(bcc):\(subject):\(body)")
+    private func fetchStates() throws -> StatesEntity? {
+        let fetchRequest: NSFetchRequest<StatesEntity> = StatesEntity.fetchRequest()
+        do {
+            let result = try self.context.fetch(fetchRequest)
+            if result.count > 0 {
+                let stateEntity = result[0] as NSManagedObject as? StatesEntity
+                return stateEntity
+            }
+        } catch {
+            print("Error fetching StatesEntity: \(error)")
+        }
+        return nil
+    }
+    
+    private func saveState() throws {
+        do {
+            try Vault.resetStates(context: self.context)
+            
+            let statesEntity = StatesEntity(context: context)
+            statesEntity.data = self.state.serialized()
+            try context.save()
+            
+            print("Stored state: \(statesEntity.data?.base64EncodedString())")
+            
+        } catch {
+            throw error
+        }
+    }
+    
+    public func emailComposer(platform_letter: UInt8, from: String, to: String, cc: String, bcc: String,
+                              subject: String,
+                              body: String) throws -> String {
         let content = "\(from):\(to):\(cc):\(bcc):\(subject):\(body)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
-        let (header, cipherText) = try Ratchet.encrypt(state: aliceState, data: content, AD: self.AD)
-        
-        return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        do {
+            let (header, cipherText) = try Ratchet.encrypt(state: self.state, data: content, AD: self.AD)
+            try saveState()
+            return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        } catch {
+            print("Error saving state message cannot be sent: \(error)")
+            throw error
+        }
     }
     
     public func textComposer(platform_letter: UInt8,
@@ -46,9 +96,14 @@ class MessageComposer {
         let content = "\(sender):\(text)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
-        let (header, cipherText) = try Ratchet.encrypt(state: aliceState, data: content, AD: self.AD)
-        
-        return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        do {
+            let (header, cipherText) = try Ratchet.encrypt(state: self.state, data: content, AD: self.AD)
+            try saveState()
+            return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        } catch {
+            print("Error saving state message cannot be sent: \(error)")
+            throw error
+        }
     }
     
     public func messageComposer(platform_letter: UInt8,
@@ -56,9 +111,14 @@ class MessageComposer {
         let content = "\(sender):\(receiver):\(message)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
-        let (header, cipherText) = try Ratchet.encrypt(state: aliceState, data: content, AD: self.AD)
-        
-        return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        do {
+            let (header, cipherText) = try Ratchet.encrypt(state: self.state, data: content, AD: self.AD)
+            try saveState()
+            return formatTransmission(header: header, cipherText: cipherText, platform_letter: platform_letter)
+        } catch {
+            print("Error saving state message cannot be sent: \(error)")
+            throw error
+        }
     }
     
     private func formatTransmission(header: HEADERS,

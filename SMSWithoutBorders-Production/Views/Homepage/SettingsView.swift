@@ -54,6 +54,7 @@ struct SecuritySettingsView: View {
             do {
                 Vault.resetKeystore()
                 try Vault.resetDatastore(context: viewContext )
+                try Vault.resetStates(context: viewContext)
             } catch {
                 print("Error loging out: \(error)")
             }
