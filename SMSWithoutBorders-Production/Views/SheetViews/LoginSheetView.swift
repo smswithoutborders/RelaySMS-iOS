@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CountryPicker
 struct SecuredTextInputField: View {
     let placeHolder: String
     @Binding var textValue: String
@@ -48,7 +49,8 @@ struct TextInputField: View {
 struct LoginSheetView: View {
     
     #if DEBUG
-        @State private var phoneNumber: String = "+237123456"
+//        @State private var phoneNumber: String = "123456"
+        @State private var phoneNumber = "123456"
         @State private var password: String = "LL<O3ZG~=z-epkv"
     #else
         @State private var phoneNumber: String = ""
@@ -67,6 +69,11 @@ struct LoginSheetView: View {
     
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
+    
+    @State private var country: Country?
+    @State private var showCountryPicker = false
+    
+    @State private var selectedCountryCodeText: String? = "CM".getFlag() + " " + Country.init(isoCode: "CM").localizedName
 
     var body: some View {
         if(OTPRequired) {
@@ -103,16 +110,38 @@ struct LoginSheetView: View {
                 .padding(.bottom, 30)
 
                 VStack {
-                    TextInputField(placeHolder: "Phone Number", textValue: $phoneNumber)
-                        .padding(.bottom, 15)
+                    
+                     HStack {
+                         Button {
+                             showCountryPicker = true
+                         } label: {
+                             let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
+                             Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                                .foregroundColor(Color.gray)
+                         }.sheet(isPresented: $showCountryPicker) {
+                             CountryPicker(country: $country,
+                                           selectedCountryCodeText: $selectedCountryCodeText)
+                         }
+                         Spacer()
+                         TextField("Phone Number", text: $phoneNumber)
+                             .keyboardType(.numberPad)
+                             .textContentType(.emailAddress)
+                             .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    
                     Button {
                     } label: {
                         Text("Forgot password?")
                             .bold()
                     }
+                    .padding(.top, 25)
                     .font(.subheadline)
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    SecuredTextInputField(placeHolder: "Password", textValue: $password)
+                    
+                    SecureField("Password", text: $password)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
                 }
                 .padding()
                 Spacer()
