@@ -76,58 +76,60 @@ struct RecentsView: View {
                     Spacer()
 
                 } else {
-                    List {
-                    }
-                    
                     ZStack(alignment: .bottomTrailing) {
+                        List {
+                        }
+                        
                         VStack {
-                            VStack {
-                                Button(action: {
-                                    showComposePlatforms = true
-                                }, label: {
-                                    Image(systemName: "square.and.pencil")
-                                        .font(.system(.title))
-                                        .frame(width: 57, height: 50)
-                                        .foregroundColor(Color.white)
-                                        .padding(.bottom, 7)
-                                })
-                                .background(Color.blue)
-                                .cornerRadius(18)
-                                .shadow(color: Color.black.opacity(0.3),
-                                        radius: 3,
-                                        x: 3,
-                                        y: 3)
-                                .padding()
-                                .sheet(isPresented: $showComposePlatforms) {
-                                    OfflineAvailablePlatformsSheetsView()
-                                }
+                            Button(action: {
+                                showComposePlatforms = true
+                            }, label: {
+                                Image(systemName: "square.and.pencil")
+                                    .font(.system(.title))
+                                    .frame(width: 57, height: 50)
+                                    .foregroundColor(Color.white)
+                                    .padding(.bottom, 7)
+                            })
+                            .background(Color.blue)
+                            .cornerRadius(18)
+                            .shadow(color: Color.black.opacity(0.3),
+                                    radius: 3,
+                                    x: 3,
+                                    y: 3)
+                            .padding()
+                            .sheet(isPresented: $showComposePlatforms) {
+                                OfflineAvailablePlatformsSheetsView()
                             }
                             
-                            VStack {
-                                Button(action: {
-                                    showAvailablePlatforms = true
-                                }, label: {
-                                    Image(systemName: "rectangle.stack.badge.plus")
-                                    .font(.system(.title))
-                                        .frame(width: 57, height: 50)
-                                        .foregroundColor(Color.white)
-                                        .padding(.bottom, 7)
-                                })
-                                .background(Color.blue)
-                                .cornerRadius(18)
-                                .shadow(color: Color.black.opacity(0.3),
-                                        radius: 3,
-                                        x: 3,
-                                        y: 3)
-                                .padding()
-                                .sheet(isPresented: $showAvailablePlatforms) {
-                                    OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-                                }
+                            Button(action: {
+                                showAvailablePlatforms = true
+                            }, label: {
+                                Image(systemName: "rectangle.stack.badge.plus")
+                                .font(.system(.title))
+                                    .frame(width: 57, height: 50)
+                                    .foregroundColor(Color.white)
+                                    .padding(.bottom, 7)
+                            })
+                            .background(Color.blue)
+                            .cornerRadius(18)
+                            .shadow(color: Color.black.opacity(0.3),
+                                    radius: 3,
+                                    x: 3,
+                                    y: 3)
+                            .padding()
+                            .sheet(isPresented: $showAvailablePlatforms) {
+                                OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
                             }
                         }
                         
                     }
-                    
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: .infinity,
+                        alignment: .topLeading
+                    )
                 }
             }
             .navigationTitle("Recents")
@@ -138,7 +140,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = false
+        @State var isLoggedIn: Bool = true
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
