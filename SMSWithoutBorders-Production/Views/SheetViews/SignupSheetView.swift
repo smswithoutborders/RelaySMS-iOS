@@ -9,6 +9,18 @@ import SwiftUI
 import CountryPicker
 import CryptoKit
 
+struct CheckBoxView: View {
+    @Binding var checked: Bool
+
+    var body: some View {
+        Image(systemName: checked ? "checkmark.square.fill" : "square")
+            .foregroundColor(checked ? Color(UIColor.systemBlue) : Color.secondary)
+            .onTapGesture {
+                self.checked.toggle()
+            }
+    }
+}
+
 struct CountryPicker: UIViewControllerRepresentable {
     typealias UIViewControllerType = CountryPickerViewController
 
@@ -82,6 +94,8 @@ struct SignupSheetView: View {
     @Binding var completed: Bool
     @Binding var failed: Bool
     
+    @State private var acceptTermsConditions: Bool = false
+
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
 
@@ -97,27 +111,73 @@ struct SignupSheetView: View {
         }
         else {
             VStack {
-                Form {
-                    HStack {
-                        Button {
-                            showCountryPicker = true
-                        } label: {
-                            Text(selectedCountryCodeText!)
-                        }.sheet(isPresented: $showCountryPicker) {
-                            CountryPicker(country: $country,
-                                          selectedCountryCodeText: $selectedCountryCodeText)
-                        }
-                        
-                        Spacer()
-                        TextField("Enter phone number", text: $phoneNumber)
-                    }
-                    SecureField("Password", text: $password)
-                    SecureField("Re-Enter password", text: $rePassword)
+                VStack {
+                    Image("Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 75, height: 75)
+                        .padding()
+
+                    Text("Create account")
+                        .font(.title)
+                        .bold()
+                        .padding()
                     
+                    Group {
+                        Text("If you don't have an account")
+                        Text("Please create one to save your platforms")
+                    }
+                    .foregroundStyle(.gray)
+                    .font(.subheadline)
+                }
+                .padding(.bottom, 30)
+                
+                VStack {
+                    HStack {
+                         Button {
+                             showCountryPicker = true
+                         } label: {
+                             let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
+                             Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                                .foregroundColor(Color.gray)
+                         }.sheet(isPresented: $showCountryPicker) {
+                             CountryPicker(country: $country,
+                                           selectedCountryCodeText: $selectedCountryCodeText)
+                         }
+                         Spacer()
+                         TextField("Phone Number", text: $phoneNumber)
+                             .keyboardType(.numberPad)
+                             .textContentType(.emailAddress)
+                             .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                        .padding(.bottom, 20)
+                    
+                    SecureField("Password", text: $password)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                        .padding(.bottom, 20)
+                    
+                    SecureField("Re-enter password", text: $rePassword)
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                        .padding(.bottom, 20)
+                    
+                    HStack {
+                        CheckBoxView(checked: $acceptTermsConditions)
+                        Text("I accept the")
+                        Link("terms and conditions", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
+
+                }
+                .padding()
+                Spacer()
+                
+                VStack {
                     if(self.isLoading) {
                         ProgressView()
                     } else {
-                        Button("Create account") {
+                        Button {
                             self.isLoading = true
                             Task {
                                 do {
@@ -135,14 +195,35 @@ struct SignupSheetView: View {
                                     errorMessage = message
                                 }
                             }
-                        }.alert(isPresented: $failed) {
+                        } label: {
+                            Text("Create account")
+                                .bold()
+                                .frame(maxWidth: .infinity, maxHeight: 35)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .alert(isPresented: $failed) {
                             Alert(title: Text("Error"), message: Text(errorMessage))
                         }
-                        Button("Already got code") {
+                        .padding(.bottom, 20)
+                        Button("Already got SMS code") {
                             OTPRequired = true
                         }
                     }
                 }
+                .padding()
+                
+                HStack {
+                    Text("Already have an account?")
+                        .foregroundStyle(.gray)
+                    Button {
+                        
+                    } label: {
+                        Text("Log in")
+                            .bold()
+                    }
+                }
+                .font(.subheadline)
+                .padding()
             }
         }
     }

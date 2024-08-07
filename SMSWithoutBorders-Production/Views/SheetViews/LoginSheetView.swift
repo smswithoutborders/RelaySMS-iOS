@@ -91,8 +91,6 @@ struct LoginSheetView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 75, height: 75)
-//                        .padding(.bottom, 10)
-//                        .padding(.top, 10)
                         .padding()
 
                     Text("Login")
@@ -110,7 +108,6 @@ struct LoginSheetView: View {
                 .padding(.bottom, 30)
 
                 VStack {
-                    
                      HStack {
                          Button {
                              showCountryPicker = true
@@ -129,6 +126,7 @@ struct LoginSheetView: View {
                              .autocapitalization(.none)
                     }
                     .padding(.leading)
+                    .padding(.bottom, 10)
                     Rectangle().frame(height: 1).foregroundColor(.gray)
                     
                     Button {
@@ -141,6 +139,7 @@ struct LoginSheetView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     
                     SecureField("Password", text: $password)
+                        .padding(.bottom, 10)
                     Rectangle().frame(height: 1).foregroundColor(.gray)
                 }
                 .padding()
