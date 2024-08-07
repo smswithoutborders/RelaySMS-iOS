@@ -9,6 +9,7 @@ import Foundation
 import GRPC
 import Logging
 import CoreData
+import CryptoKit
 
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
@@ -259,5 +260,26 @@ class Publisher {
         }
         
         return response
+    }
+    
+    public static func publish(platform: PlatformsEntity, context: NSManagedObjectContext) throws -> MessageComposer {
+        do {
+            let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
+            let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
+            let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
+            let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+            
+            let messageComposer = try MessageComposer(
+                SK: pubSharedKey.bytes,
+                AD: AD,
+                peerDhPubKey: peerPubkey,
+                keystoreAlias: Publisher.PUBLISHER_SHARED_KEY,
+                deviceID: deviceID,
+                context: context)
+            
+            return messageComposer
+        } catch {
+            throw error
+        }
     }
 }

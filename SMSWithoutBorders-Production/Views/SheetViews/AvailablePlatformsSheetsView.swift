@@ -12,7 +12,7 @@ import CoreData
 
 struct OfflineAvailablePlatformsSheetsView: View {
     @State var codeVerifier: String = ""
-    @State var title: String = "Store Platforms"
+    @State var title: String = "Compose for platform"
     @State var titleRevoke: String = "Revoke Platforms"
     @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
     @State var descriptionRevoke: String = "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform."
@@ -178,7 +178,7 @@ struct AvailablePlatformsSheetsView: View {
                 }
             }) {
                 if platform.image == nil {
-                    Image("exampleGmail")
+                    Image("Logo")
                         .resizable()
                         .scaledToFill()
                         .clipped()
@@ -255,8 +255,8 @@ struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-//        return OfflineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-        return OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+        return OfflineAvailablePlatformsSheetsView(codeVerifier: codeVerifier)
+//        return OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
         .environment(\.managedObjectContext, container.viewContext)
     }
 }

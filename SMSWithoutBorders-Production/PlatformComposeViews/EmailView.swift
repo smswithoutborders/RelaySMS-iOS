@@ -22,7 +22,7 @@ extension EmailView {
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
-    @Environment(\.presentationMode) var presentationMode
+//    @Environment(\.presentationMode) var presentationMode
     
 //    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
 //    
@@ -137,23 +137,12 @@ struct EmailView: View {
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        var shortcode: UInt8? = nil
                         for platform in platforms {
-                            shortcode = platform.shortcode!.bytes[0]
-                            
                             do {
-                                let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
-                                let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
-                                let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
-                                let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+                                let messageComposer = try Publisher.publish(platform: platform, context: datastore)
                                 
-                                let messageComposer = try MessageComposer(
-                                    SK: pubSharedKey.bytes,
-                                    AD: AD,
-                                    peerDhPubKey: peerPubkey,
-                                    keystoreAlias: Publisher.PUBLISHER_SHARED_KEY, 
-                                    deviceID: deviceID,
-                                    context: datastore)
+                                var shortcode: UInt8? = nil
+                                shortcode = platform.shortcode!.bytes[0]
                                 
                                 let encryptedFormattedContent = try messageComposer.emailComposer(
                                     platform_letter: shortcode!,

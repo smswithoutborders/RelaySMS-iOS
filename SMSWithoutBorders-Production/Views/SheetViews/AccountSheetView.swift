@@ -116,10 +116,12 @@ struct AccountSheetView: View {
     @ViewBuilder func getDestinationForPlatform(fromAccount: String) -> some View {
         ForEach(platforms) { platform in
             switch platform.service_type {
-                case "email":
+            case "email":
                 EmailView(platformName: platform.name!, fromAccount: fromAccount)
-                default:
-                    EmptyView()
+            case "text":
+                TextView(platformName: platform.name!, fromAccount: fromAccount)
+            default:
+                EmptyView()
             }
         }
     }
@@ -131,7 +133,7 @@ struct AccountSheetView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return AccountSheetView(filter: "telegram", isRevoke: true)
+        return AccountSheetView(filter: "twitter", isRevoke: false)
             .environment(\.managedObjectContext, container.viewContext)
 //        return RevokeAccountView()
     }
