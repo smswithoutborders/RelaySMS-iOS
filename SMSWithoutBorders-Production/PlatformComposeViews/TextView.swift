@@ -8,33 +8,6 @@
 import SwiftUI
 import MessageUI
 
-func formatTextForViewing(decryptedData: String) -> (platformLetter: String, textBody: String) {
-    let splitString = decryptedData.components(separatedBy: ":")
-    
-    let platformLetter: String = splitString[0]
-    let textBody: String = splitString[1]
-    
-    return (platformLetter, textBody)
-}
-
-extension UITextView {
-    open override var frame: CGRect {
-        didSet {
-            backgroundColor = .clear //<<here clear
-//            drawsBackground = true
-        }
-
-    }
-}
-
-func formatTextForPublishing(
-    platformLetter: String, textBody: String) -> String {
-        
-        let formattedString: String = platformLetter + ":" + textBody
-        
-        return formattedString
-}
-
 extension TextView {
     private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
         func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {

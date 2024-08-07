@@ -321,7 +321,6 @@
 				3BAB09602C1B21B400664E90 /* Onboarding */,
 				16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */,
 				1686DBCF28E47D8A00895D92 /* HomepageView.swift */,
-				164EF7D02954D431007F8C76 /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +370,7 @@
 			children = (
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
+				164EF7D02954D431007F8C76 /* MessageView.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";

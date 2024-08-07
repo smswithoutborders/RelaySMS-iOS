@@ -7,44 +7,7 @@
 
 import SwiftUI
 import CountryPicker
-struct SecuredTextInputField: View {
-    let placeHolder: String
-    @Binding var textValue: String
-    
-    var body: some View {
-        ZStack(alignment: .leading) {
-            Text(placeHolder)
-                .foregroundColor(Color(.placeholderText))
-                .offset(y: textValue.isEmpty ? 0 : -25)
-                .scaleEffect(textValue.isEmpty ? 1: 0.8, anchor: .leading)
-            SecureField("", text: $textValue)
-        }
-        .padding(.top, textValue.isEmpty ? 0 : 15)
-        .frame(height: 52)
-        .padding(.horizontal, 16)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 1).foregroundColor(.gray))
-        .animation(.default)
-    }
-}
-struct TextInputField: View {
-    let placeHolder: String
-    @Binding var textValue: String
-    
-    var body: some View {
-        ZStack(alignment: .leading) {
-            Text(placeHolder)
-                .foregroundColor(Color(.placeholderText))
-                .offset(y: textValue.isEmpty ? 0 : -25)
-                .scaleEffect(textValue.isEmpty ? 1: 0.8, anchor: .leading)
-            TextField("", text: $textValue)
-        }
-        .padding(.top, textValue.isEmpty ? 0 : 15)
-        .frame(height: 52)
-        .padding(.horizontal, 16)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 1).foregroundColor(.gray))
-        .animation(.default)
-    }
-}
+
 
 struct LoginSheetView: View {
     
