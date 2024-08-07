@@ -184,10 +184,13 @@ struct OTPSheetView: View {
     #endif
     
     @State private var loading: Bool = false
-    
+    @State private var canRetry: Bool = false
+
     @State public var type: OTPAuthType.TYPE
     
     @State public var retryTimer: Int
+    @State private var timeTillRetry: Int = 0
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     @State var phoneNumber: String
@@ -268,9 +271,12 @@ struct OTPSheetView: View {
                     Button("Resend code") {
                         dismiss()
                     }
-                    Text("(\(retryTimer))").onReceive(timer) { _ in
-                        if retryTimer > 0 {
-                            retryTimer -= 1
+                    .disabled(timeTillRetry > -1)
+                    if timeTillRetry > -1 {
+                        Text("in \(timeTillRetry) seconds").onReceive(timer) { _ in
+                            guard !canRetry else { return }
+                            timeTillRetry = retryTimer - Int(Date().timeIntervalSince1970)
+                            canRetry = timeTillRetry < 0
                         }
                     }
                 }
@@ -292,7 +298,7 @@ struct OTPSheetView: View {
     @State var completed: Bool = false
     @State var failed: Bool = false
     OTPSheetView(type: OTPAuthType.TYPE.CREATE,
-                 retryTimer: 100000, 
+                 retryTimer: Int(Date().timeIntervalSince1970) + 10,
                  phoneNumber: phoneNumber,
                  countryCode: $countryCode,
                  password: $password,
