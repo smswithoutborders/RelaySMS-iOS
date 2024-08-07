@@ -1,77 +1,14 @@
 //
-//  SignupSheetView.swift
+//  RecoverySheetView.swift
 //  SMSWithoutBorders-Production
 //
-//  Created by sh3rlock on 01/07/2024.
+//  Created by sh3rlock on 07/08/2024.
 //
 
 import SwiftUI
 import CountryPicker
-import CryptoKit
 
-struct CheckBoxView: View {
-    @Binding var checked: Bool
-
-    var body: some View {
-        Image(systemName: checked ? "checkmark.square.fill" : "square")
-            .foregroundColor(checked ? Color(UIColor.systemBlue) : Color.secondary)
-            .onTapGesture {
-                self.checked.toggle()
-            }
-    }
-}
-
-struct CountryPicker: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CountryPickerViewController
-
-    let countryPicker = CountryPickerViewController()
-
-    @Binding var country: Country?
-    @Binding var selectedCountryCodeText: String?
-    
-    @State var showFlag = false
-
-    func makeUIViewController(context: Context) -> CountryPickerViewController {
-        countryPicker.selectedCountry = "CM"
-        countryPicker.delegate = context.coordinator
-        return countryPicker
-    }
-
-    func updateUIViewController(_ uiViewController: CountryPickerViewController, context: Context) {
-        //
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
-    }
-
-    class Coordinator: NSObject, CountryPickerDelegate {
-        var parent: CountryPicker
-        init(_ parent: CountryPicker) {
-            self.parent = parent
-        }
-        func countryPicker(didSelect country: Country) {
-            parent.country = country
-            parent.selectedCountryCodeText = country.isoCode.getFlag() + " " +
-            (parent.showFlag ? country.localizedName : country.isoCode)
-        }
-    }
-}
-
-nonisolated func createAccount(phonenumber: String,
-                        countryCode: String,
-                        password: String,
-                        type: OTPAuthType.TYPE) async throws -> Int {
-    let vault = Vault()
-    return try await signupOrAuthenticate(phoneNumber: phonenumber,
-                         countryCode: countryCode,
-                         password: password,
-                         type: type)
-}
-
-
-
-struct SignupSheetView: View {
+struct RecoverySheetView: View {
     #if DEBUG
         @State private var phoneNumber: String = "1234567"
         @State private var password: String = "LL<O3ZG~=z-epkv"
@@ -118,14 +55,14 @@ struct SignupSheetView: View {
                         .frame(width: 75, height: 75)
                         .padding()
 
-                    Text("Create account")
+                    Text("Forgot password?")
                         .font(.title)
                         .bold()
                         .padding()
                     
                     Group {
-                        Text("If you don't have an account")
-                        Text("Please create one to save your platforms")
+                        Text("If you forgot your password")
+                        Text("Enter your phone number and new passwords")
                     }
                     .foregroundStyle(.gray)
                     .font(.subheadline)
@@ -162,13 +99,6 @@ struct SignupSheetView: View {
                     Rectangle().frame(height: 1).foregroundColor(.gray)
                         .padding(.bottom, 20)
                     
-                    HStack {
-                        CheckBoxView(checked: $acceptTermsConditions)
-                        Text("I accept the")
-                        Link("terms and conditions", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
-
                 }
                 .padding()
                 Spacer()
@@ -179,24 +109,9 @@ struct SignupSheetView: View {
                     } else {
                         Button {
                             self.isLoading = true
-                            Task {
-                                do {
-                                    self.otpRetryTimer = try await createAccount(
-                                        phonenumber: phoneNumber,
-                                        countryCode: selectedCountryCodeText!,
-                                        password: password,
-                                        type: OTPAuthType.TYPE.CREATE)
-                                    OTPRequired = true
-                                } catch Vault.Exceptions.requestNotOK(let status){
-                                    print("Something went wrong authenticating: \(status)")
-                                    isLoading = false
-                                    failed = true
-                                    var (field, message) = Vault.parseErrorMessage(message: status.message)!
-                                    errorMessage = message
-                                }
-                            }
+                            
                         } label: {
-                            Text("Create account")
+                            Text("Continue")
                                 .bold()
                                 .frame(maxWidth: .infinity, maxHeight: 35)
                         }
@@ -211,19 +126,6 @@ struct SignupSheetView: View {
                     }
                 }
                 .padding()
-                
-                HStack {
-                    Text("Already have an account?")
-                        .foregroundStyle(.gray)
-                    Button {
-                        
-                    } label: {
-                        Text("Log in")
-                            .bold()
-                    }
-                }
-                .font(.subheadline)
-                .padding()
             }
         }
     }
@@ -232,5 +134,5 @@ struct SignupSheetView: View {
 #Preview {
     @State var completed: Bool = false
     @State var failed: Bool = false
-    SignupSheetView(completed: $completed, failed: $failed)
+    RecoverySheetView(completed: $completed, failed: $failed)
 }

@@ -58,6 +58,8 @@
 		3B7EEE692C5E99ED00611092 /* PhoneNumberSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE672C5E99ED00611092 /* PhoneNumberSheetView.swift */; };
 		3B7EEE6B2C5EBDD700611092 /* ThreadExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */; };
 		3B7EEE6C2C5EBDD700611092 /* ThreadExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */; };
+		3B928A2F2C62FB8F00BA145F /* RecoverySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */; };
+		3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -172,6 +174,7 @@
 		3B7EEE642C5E8BB500611092 /* MockDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataGenerator.swift; sourceTree = "<group>"; };
 		3B7EEE672C5E99ED00611092 /* PhoneNumberSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberSheetView.swift; sourceTree = "<group>"; };
 		3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadExecutor.swift; sourceTree = "<group>"; };
+		3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverySheetView.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -410,6 +413,7 @@
 				16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */,
 				3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */,
 				3B7EEE672C5E99ED00611092 /* PhoneNumberSheetView.swift */,
+				3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */,
 			);
 			path = SheetViews;
 			sourceTree = "<group>";
@@ -617,6 +621,7 @@
 				3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */,
 				164EF7D12954D431007F8C76 /* MessageView.swift in Sources */,
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
+				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
 			);
@@ -653,6 +658,7 @@
 				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
 				3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */,
 				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
+				3B928A2F2C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BCBA3A22C49611100736B9B /* PlatformsTest.swift in Sources */,

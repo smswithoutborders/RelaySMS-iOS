@@ -16,7 +16,10 @@
     "Add Accounts" : {
 
     },
-    "Already got code" : {
+    "Already got SMS code" : {
+
+    },
+    "Already have an account?" : {
 
     },
     "Bcc " : {
@@ -71,19 +74,22 @@
     "Delete Account" : {
 
     },
+    "Don't have an account?" : {
+
+    },
     "English" : {
 
     },
     "Enter code" : {
 
     },
-    "Enter phone number" : {
-
-    },
     "Error" : {
 
     },
     "Finish" : {
+
+    },
+    "Forgot password?" : {
 
     },
     "From " : {
@@ -93,6 +99,15 @@
 
     },
     "Get started!" : {
+
+    },
+    "Hello, World!" : {
+
+    },
+    "I accept the" : {
+
+    },
+    "If you don't have an account" : {
 
     },
     "Log in" : {
@@ -126,7 +141,7 @@
     "Phone Number" : {
 
     },
-    "Phone Number (e.g) +237123456789" : {
+    "Please create one to save your platforms" : {
 
     },
     "publisher_port_debug" : {
@@ -165,7 +180,7 @@
         }
       }
     },
-    "Re-Enter password" : {
+    "Re-enter password" : {
 
     },
     "Read our privacy policy" : {
@@ -195,6 +210,9 @@
     "Settings" : {
 
     },
+    "Sign in to continue with existing account" : {
+
+    },
     "skip" : {
 
     },
@@ -202,6 +220,9 @@
 
     },
     "Submit" : {
+
+    },
+    "terms and conditions" : {
 
     },
     "textBody" : {
@@ -257,6 +278,9 @@
           }
         }
       }
+    },
+    "Welcome back" : {
+
     },
     "Welcome to RelaySMS" : {
 
