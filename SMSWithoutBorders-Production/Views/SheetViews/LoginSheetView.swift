@@ -160,7 +160,6 @@ struct LoginSheetView: View {
                     else {
                         Button {
                             isLoading = true
-                            phoneNumber = "+" + Country(isoCode: selectedCountryCodeText!).phoneCode + phoneNumber
                             Task {
                                 do {
                                     self.otpRetryTimer = try await signupAuthenticateRecover(
@@ -213,7 +212,9 @@ struct LoginSheetView: View {
     }
     
     private func getPhoneNumber() -> String {
-        return "+" + country!.phoneCode ?? Country(isoCode: "CM").phoneCode + phoneNumber
+        let ph = "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
+        print(ph)
+        return ph
     }
 }
 

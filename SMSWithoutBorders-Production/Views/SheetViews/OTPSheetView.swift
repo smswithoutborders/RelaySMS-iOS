@@ -39,8 +39,8 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
     let decodedOutput = try fernetToken.decode(Data(base64Encoded: llt)!)
     
     let llt = String(data: decodedOutput.data, encoding: .utf8)
-    
-    
+    print("llt: \(llt)")
+
     let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
         privateKey: clientPublishPrivateKey, publicKey: peerPublishPublicKey).withUnsafeBytes {
             return Array($0)
@@ -77,15 +77,11 @@ func generateNewKeypairs() throws -> (
 
         var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
         var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-
-        var clientPublishPubKey: String
-        var clientDeviceIDPubKey: String
+        
         do {
             clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Vault.DEVICE_PUBLIC_KEY_KEYSTOREALIAS).privateKey
-            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
             
             clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS).privateKey
-            clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
         } catch {
             throw error
         }
@@ -100,9 +96,10 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
                                       otpCode: String? = nil,
                                       context: NSManagedObjectContext? = nil) async throws -> Int {
     
-    let (publishPubKey, deviceIdPubKey) = try generateNewKeypairs()
-    let clientPublishPubKey = publishPubKey.rawRepresentation.base64EncodedString()
-    let clientDeviceIDPubKey = deviceIdPubKey.rawRepresentation.base64EncodedString()
+    let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
+    let clientPublishPubKey = publishPrivateKey.publicKey.rawRepresentation.base64EncodedString()
+    
+    let clientDeviceIDPubKey = deviceIdPrivateKey.publicKey.rawRepresentation.base64EncodedString()
     
     let vault = Vault()
     
@@ -119,8 +116,8 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
             try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                            publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                           clientDeviceIDPrivateKey: deviceIdPubKey,
-                           clientPublishPrivateKey: publishPubKey,
+                           clientDeviceIDPrivateKey: deviceIdPrivateKey,
+                           clientPublishPrivateKey: publishPrivateKey,
                            phoneNumber: phoneNumber)
             
         }
@@ -139,8 +136,8 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                                      publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: deviceIdPubKey,
-                                     clientPublishPrivateKey: publishPubKey,
+                       clientDeviceIDPrivateKey: deviceIdPrivateKey,
+                                     clientPublishPrivateKey: publishPrivateKey,
                                      phoneNumber: phoneNumber)
             
             let publisher = Publisher()
@@ -159,8 +156,8 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                                      publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: deviceIdPubKey,
-                                     clientPublishPrivateKey: publishPubKey,
+                       clientDeviceIDPrivateKey: deviceIdPrivateKey,
+                                     clientPublishPrivateKey: publishPrivateKey,
                                      phoneNumber: phoneNumber)
             
             let publisher = Publisher()

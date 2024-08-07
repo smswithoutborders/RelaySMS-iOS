@@ -49,12 +49,12 @@ struct ControllerView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        switch getIndexRegardless() {
+        switch onboardingViewIndex {
         case ...0:
             OnboardingWelcomeView()
             VStack {
                 Button("Get started!") {
-                    self.onboardingViewIndex += storedPlatforms.isEmpty ? 1 : 2
+                    self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
                     Task {
                         do {
                             try await refreshLocalDBs()
@@ -118,13 +118,6 @@ struct ControllerView: View {
                 }
             }
         }
-    }
-    
-    func getIndexRegardless() -> Int {
-        if onboardingCompleted {
-            return 2
-        }
-        return self.onboardingViewIndex
     }
 }
 

@@ -75,7 +75,7 @@ struct RecoverySheetView: View {
                              showCountryPicker = true
                          } label: {
                              let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
-                             Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                             Text(flag.getFlag() + getPhoneNumber())
                                 .foregroundColor(Color.gray)
                          }.sheet(isPresented: $showCountryPicker) {
                              CountryPicker(country: $country,
@@ -110,7 +110,6 @@ struct RecoverySheetView: View {
                     } else {
                         Button {
                             self.isLoading = true
-                            phoneNumber = "+" + Country(isoCode: selectedCountryCodeText!).phoneCode + phoneNumber
                             Task {
                                 do {
                                     self.otpRetryTimer = try await signupAuthenticateRecover(
@@ -154,7 +153,7 @@ struct RecoverySheetView: View {
     }
     
     private func getPhoneNumber() -> String {
-        return "+" + country!.phoneCode ?? Country(isoCode: "CM").phoneCode + phoneNumber
+        return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
     }
 }
 

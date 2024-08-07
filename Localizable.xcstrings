@@ -4,9 +4,6 @@
     "" : {
 
     },
-    "(%lld)" : {
-
-    },
     "%@ Accounts" : {
 
     },
@@ -86,6 +83,9 @@
     "Enter code" : {
 
     },
+    "Enter code sent by SMS" : {
+
+    },
     "Enter your phone number and new passwords" : {
 
     },
@@ -114,6 +114,9 @@
 
     },
     "If you forgot your password" : {
+
+    },
+    "in %lld seconds" : {
 
     },
     "Log in" : {
@@ -284,6 +287,12 @@
           }
         }
       }
+    },
+    "Verify" : {
+
+    },
+    "Verify your Phone number" : {
+
     },
     "Welcome back" : {
 
