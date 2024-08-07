@@ -104,6 +104,9 @@
     "From " : {
 
     },
+    "From: %@" : {
+
+    },
     "Get code" : {
 
     },
@@ -131,10 +134,13 @@
     "Login" : {
 
     },
+    "Make sure phone code e.g +237 is included in the selected number" : {
+
+    },
     "No platforms" : {
 
     },
-    "No Recent Messages" : {
+    "No recent messages" : {
 
     },
     "OTP Code" : {
@@ -222,6 +228,9 @@
     "Security" : {
 
     },
+    "Select a contact to send a message" : {
+
+    },
     "Send" : {
 
     },
@@ -241,9 +250,6 @@
 
     },
     "terms and conditions" : {
-
-    },
-    "textBody" : {
 
     },
     "To " : {

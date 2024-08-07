@@ -21,7 +21,7 @@ struct OnboardingWelcomeView: View {
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 30)
                 
-                Image("OnboardingWelcome")
+                Image("Recents")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)

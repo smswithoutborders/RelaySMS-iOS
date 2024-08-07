@@ -13,54 +13,73 @@ struct RecentsView: View {
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
     @Binding var codeVerifier: String
-    @State var isLoggedIn: Bool = false
     
+    @State var errorMessage: String = ""
+    @State var otpRetryTimer: Int?
+    @State var isLoggedIn: Bool = false
+
     @State var showAvailablePlatforms: Bool = false
     @State var showComposePlatforms: Bool = false
     
     @State var loginSheetVisible: Bool = false
+    @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
-                if isLoggedIn {
+                if !isLoggedIn {
+                    Spacer()
                     VStack {
-                        Spacer()
-                        Text("No Recent Messages")
-                            .font(.largeTitle)
-                    }
-                }
-                else {
-                    VStack {
-                        VStack {
-                            Button("Log in") {
-                                loginSheetVisible = true
-                            }
-                            .sheet(isPresented: $loginSheetVisible) {
-                                LoginSheetView(completed: $isLoggedIn,
-                                               failed: $loginFailed)
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-                        .padding()
-                        
-                        VStack {
-                            Button("Create account") {
-                                
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-                        .padding()
+                        Image("NoRecents")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200, height: 200)
+                            .padding(.bottom, 20)
+                        Text("No recent messages")
+                            .font(.title)
                     }
                     .padding()
+                    Spacer()
+                    
+                    VStack {
+                        Button {
+                            loginSheetVisible = true
+                        } label: {
+                            Text("Log in")
+                                .bold()
+                                .frame(maxWidth: .infinity, maxHeight: 20)
+                        }
+                        .sheet(isPresented: $loginSheetVisible) {
+                            LoginSheetView(completed: $isLoggedIn,
+                                           failed: $loginFailed)
+                        }
+                        .buttonStyle(.borderedProminent)
 
-                }
-                ZStack(alignment: .bottomTrailing) {
+                        Button {
+                            signupSheetVisible = true
+                        } label: {
+                            Text("Create account")
+                                .bold()
+                                .frame(maxWidth: .infinity, maxHeight: 20)
+                        }
+                        .sheet(isPresented: $signupSheetVisible) {
+                            SignupSheetView(
+                                completed: $isLoggedIn,
+                                failed: $loginFailed,
+                                otpRetryTimer: otpRetryTimer ?? 0,
+                                errorMessage: errorMessage)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                    Spacer()
+
+                } else {
                     List {
                     }
                     
-                    if isLoggedIn {
+                    ZStack(alignment: .bottomTrailing) {
                         VStack {
                             VStack {
                                 Button(action: {
@@ -106,9 +125,10 @@ struct RecentsView: View {
                                 }
                             }
                         }
-                    } 
+                        
+                    }
+                    
                 }
-                
             }
             .navigationTitle("Recents")
         }

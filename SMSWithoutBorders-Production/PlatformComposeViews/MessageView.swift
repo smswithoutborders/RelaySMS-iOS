@@ -119,14 +119,21 @@ struct MessageView: View {
                     Text("Make sure phone code e.g +237 is included in the selected number")
                         .font(.caption2)
                         .foregroundStyle(.gray)
-                    TextInputField(
-                        placeHolder: "To: ",
-                        textValue: $messageContact, 
-                        endIcon: Image("Phonebook"), function: {
-                            openContactPicker()
-                        })
+                    VStack {
+                        Text("From: \(fromAccount)")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
+                        TextInputField(
+                            placeHolder: "To: ",
+                            textValue: $messageContact,
+                            endIcon: Image("Phonebook"), function: {
+                                openContactPicker()
+                            })
+                        .keyboardType(.phonePad)
+                        
+                    }
                     .padding()
-                    .keyboardType(.phonePad)
                     
                     List{
                         
@@ -227,7 +234,7 @@ struct MessageView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return MessageView(platformName: "telegram", fromAccount: "@relaysms")
+        return MessageView(platformName: "telegram", fromAccount: "+237123456789")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
