@@ -15,6 +15,7 @@ public class OTPAuthType {
     public enum TYPE {
         case AUTHENTICATE
         case CREATE
+        case RECOVER
     }
 }
 
@@ -54,9 +55,9 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
     
     print("Peer publish pubkey raw: \(publishPubKey.toBase64())")
     UserDefaults.standard.set(deviceID, forKey: Vault.VAULT_DEVICE_ID)
-    UserDefaults.standard.set(publishPubKey, forKey: Publisher.PUBLISHER_PUBLIC_KEY)
+    UserDefaults.standard.set(publishPubKey, forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY)
     
-    let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
+    let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
     print("Peer publish pubkey retrieved: \(AD.toBase64())")
 
     try CSecurity.storeInKeyChain(data: llt!.data(using: .utf8)!,
@@ -67,34 +68,43 @@ private nonisolated func processOTP(peerDeviceIdPubKey: [UInt8],
     return llt!
 }
 
+func generateNewKeypairs() throws -> (
+    publisherPublicKey: Curve25519.KeyAgreement.PrivateKey,
+    deviceIDPublicKey: Curve25519.KeyAgreement.PrivateKey) {
+    
+        CSecurity.deleteKeyFromKeychain(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS)
+        CSecurity.deleteKeyFromKeychain(keystoreAlias: Vault.DEVICE_PUBLIC_KEY_KEYSTOREALIAS)
 
-nonisolated func signupOrAuthenticate(phoneNumber: String,
+        var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+        var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
+
+        var clientPublishPubKey: String
+        var clientDeviceIDPubKey: String
+        do {
+            clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Vault.DEVICE_PUBLIC_KEY_KEYSTOREALIAS).privateKey
+            clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+            
+            clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS).privateKey
+            clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+        } catch {
+            throw error
+        }
+        return (clientPublishPrivateKey!, clientDeviceIDPrivateKey!)
+}
+
+
+nonisolated func signupAuthenticateRecover(phoneNumber: String,
                                countryCode: String?,
                                password: String,
                                       type: OTPAuthType.TYPE,
                                       otpCode: String? = nil,
                                       context: NSManagedObjectContext? = nil) async throws -> Int {
-    let vault = Vault()
-    var keystoreAliasPublishPubKey = "relaysms-publish-keystoreAlias"
-    var keystoreAliasDeviceIDPubKey = "relaysms-deviceid-keystoreAlias"
     
-    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasPublishPubKey)
-    CSecurity.deleteKeyFromKeychain(keystoreAlias: keystoreAliasDeviceIDPubKey)
-
-    var clientDeviceIDPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-    var clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey?
-
-    var clientPublishPubKey: String
-    var clientDeviceIDPubKey: String
-    do {
-        clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasDeviceIDPubKey).privateKey
-        clientDeviceIDPubKey = clientDeviceIDPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-        
-        clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: keystoreAliasPublishPubKey).privateKey
-        clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-    } catch {
-        throw error
-    }
+    let (publishPubKey, deviceIdPubKey) = try generateNewKeypairs()
+    let clientPublishPubKey = publishPubKey.rawRepresentation.base64EncodedString()
+    let clientDeviceIDPubKey = deviceIdPubKey.rawRepresentation.base64EncodedString()
+    
+    let vault = Vault()
     
     if(type == OTPAuthType.TYPE.CREATE) {
         let response = try vault.createEntity(
@@ -109,14 +119,14 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
             try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                            publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                           clientPublishPrivateKey: clientPublishPrivateKey!,
+                           clientDeviceIDPrivateKey: deviceIdPubKey,
+                           clientPublishPrivateKey: publishPubKey,
                            phoneNumber: phoneNumber)
             
         }
         return Int(response.nextAttemptTimestamp)
 
-    } else {
+    } else if type == OTPAuthType.TYPE.AUTHENTICATE {
         let response = try vault.authenticateEntity(
             phoneNumber: phoneNumber,
             password: password,
@@ -129,8 +139,28 @@ nonisolated func signupOrAuthenticate(phoneNumber: String,
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                                      publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: clientDeviceIDPrivateKey!,
-                                     clientPublishPrivateKey: clientPublishPrivateKey!,
+                       clientDeviceIDPrivateKey: deviceIdPubKey,
+                                     clientPublishPrivateKey: publishPubKey,
+                                     phoneNumber: phoneNumber)
+            
+            let publisher = Publisher()
+            try vault.refreshStoredTokens(llt: llt, context: context!)
+            print("successfully refreshed stored tokens...")
+        }
+        return Int(response.nextAttemptTimestamp)
+    } else {
+        let response = try vault.recoverPassword(
+            phoneNumber: phoneNumber,
+            newPassword: password,
+            clientPublishPubKey: clientPublishPubKey,
+            clientDeviceIdPubKey: clientDeviceIDPubKey)
+        
+        if(otpCode != nil) {
+            let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
+                                     publishPubKey: response.serverPublishPubKey.base64Decoded(),
+                       llt: response.longLivedToken,
+                       clientDeviceIDPrivateKey: deviceIdPubKey,
+                                     clientPublishPrivateKey: publishPubKey,
                                      phoneNumber: phoneNumber)
             
             let publisher = Publisher()
@@ -160,23 +190,38 @@ struct OTPSheetView: View {
     @State public var retryTimer: Int
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-    @Binding var phoneNumber: String
+    @State var phoneNumber: String
     @Binding var countryCode: String?
     @Binding var password: String
     
     @Binding var completed: Bool
     @Binding var failed: Bool
     
+    @State var errorMessage: String = ""
+
 
     var body: some View {
         VStack {
-            TextField("OTP Code", text: $otpCode)
-                .disableAutocorrection(true)
-                .border(.secondary)
-                .disabled(loading)
+            Text("Verify your Phone number")
+                .bold()
+                .padding()
+                .font(.title2)
             
+            Text("Enter code sent by SMS")
+                .padding()
+                .font(.subheadline)
+            
+            TextField("OTP Code", text: $otpCode)
+                .textFieldStyle(.plain)
+                .frame(height: 20)
+                .clipShape(Capsule())
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius:10.0)
+                    .strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 1.0)))
+                .padding()
+                .disabled(loading)
+        
         }
-        .padding()
         .textFieldStyle(.roundedBorder)
         
         if(loading) {
@@ -188,28 +233,37 @@ struct OTPSheetView: View {
                     loading = true
                     Task {
                         do {
-                            try await signupOrAuthenticate(phoneNumber: phoneNumber,
+                            try await signupAuthenticateRecover(phoneNumber: phoneNumber,
                                                       countryCode: countryCode,
                                                       password: password,
                                                            type: type,
                                                            otpCode: otpCode,
                                                            context: datastore)
-                        } catch {
-                            print("Error with second phase signup: \(error)")
+                            completed = true
+                            dismiss()
+                        } catch Vault.Exceptions.requestNotOK(let status){
+                            print("Something went wrong authenticating: \(status)")
                             failed = true
+                            errorMessage = status.message!
+                        } catch {
+                            failed = true
+                            errorMessage = error.localizedDescription
                         }
-                        completed = true
-                        dismiss()
+                        loading = false
                     }
                 } label: {
-                    Text("Submit")
+                    Text("Verify")
+                        .bold()
                         .foregroundColor(.white)
-                        .frame(width: 200, height: 40)
+                        .frame(maxWidth: .infinity, maxHeight: 50)
                         .background(.blue)
                         .cornerRadius(15)
                         .padding()
                 }
-                
+                .alert(isPresented: $failed) {
+                    Alert(title: Text("Error"), message: Text(errorMessage))
+                }
+
                 HStack {
                     Button("Resend code") {
                         dismiss()
@@ -239,7 +293,7 @@ struct OTPSheetView: View {
     @State var failed: Bool = false
     OTPSheetView(type: OTPAuthType.TYPE.CREATE,
                  retryTimer: 100000, 
-                 phoneNumber: $phoneNumber,
+                 phoneNumber: phoneNumber,
                  countryCode: $countryCode,
                  password: $password,
                  completed: $completed,

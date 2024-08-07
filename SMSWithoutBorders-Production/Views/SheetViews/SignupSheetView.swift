@@ -63,7 +63,7 @@ nonisolated func createAccount(phonenumber: String,
                         password: String,
                         type: OTPAuthType.TYPE) async throws -> Int {
     let vault = Vault()
-    return try await signupOrAuthenticate(phoneNumber: phonenumber,
+    return try await signupAuthenticateRecover(phoneNumber: phonenumber,
                          countryCode: countryCode,
                          password: password,
                          type: type)
@@ -103,7 +103,7 @@ struct SignupSheetView: View {
         if(OTPRequired) {
             OTPSheetView(type: OTPAuthType.TYPE.CREATE,
                          retryTimer: otpRetryTimer,
-                         phoneNumber: $phoneNumber,
+                         phoneNumber: getPhoneNumber(),
                          countryCode: $selectedCountryCodeText,
                          password: $password,
                          completed: $completed,
@@ -179,10 +179,11 @@ struct SignupSheetView: View {
                     } else {
                         Button {
                             self.isLoading = true
+                            phoneNumber = "+" + Country(isoCode: selectedCountryCodeText!).phoneCode + phoneNumber
                             Task {
                                 do {
                                     self.otpRetryTimer = try await createAccount(
-                                        phonenumber: phoneNumber,
+                                        phonenumber: getPhoneNumber(),
                                         countryCode: selectedCountryCodeText!,
                                         password: password,
                                         type: OTPAuthType.TYPE.CREATE)
@@ -191,8 +192,13 @@ struct SignupSheetView: View {
                                     print("Something went wrong authenticating: \(status)")
                                     isLoading = false
                                     failed = true
-                                    var (field, message) = Vault.parseErrorMessage(message: status.message)!
-                                    errorMessage = message
+                                    errorMessage = status.message!
+                                    phoneNumber = ""
+                                } catch {
+                                    isLoading = false
+                                    failed = true
+                                    errorMessage = error.localizedDescription
+                                    phoneNumber = ""
                                 }
                             }
                         } label: {
@@ -226,6 +232,10 @@ struct SignupSheetView: View {
                 .padding()
             }
         }
+    }
+    
+    private func getPhoneNumber() -> String {
+        return "+" + country!.phoneCode ?? Country(isoCode: "CM").phoneCode + phoneNumber
     }
 }
 

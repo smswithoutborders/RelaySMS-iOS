@@ -43,6 +43,9 @@
     "composeBody" : {
 
     },
+    "Continue" : {
+
+    },
     "Create account" : {
 
     },
@@ -83,6 +86,9 @@
     "Enter code" : {
 
     },
+    "Enter your phone number and new passwords" : {
+
+    },
     "Error" : {
 
     },
@@ -101,13 +107,13 @@
     "Get started!" : {
 
     },
-    "Hello, World!" : {
-
-    },
     "I accept the" : {
 
     },
     "If you don't have an account" : {
+
+    },
+    "If you forgot your password" : {
 
     },
     "Log in" : {

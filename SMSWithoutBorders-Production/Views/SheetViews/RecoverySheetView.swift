@@ -38,9 +38,9 @@ struct RecoverySheetView: View {
 
     var body: some View {
         if(OTPRequired) {
-            OTPSheetView(type: OTPAuthType.TYPE.CREATE,
+            OTPSheetView(type: OTPAuthType.TYPE.RECOVER,
                          retryTimer: otpRetryTimer,
-                         phoneNumber: $phoneNumber,
+                         phoneNumber: getPhoneNumber(),
                          countryCode: $selectedCountryCodeText,
                          password: $password,
                          completed: $completed,
@@ -106,10 +106,33 @@ struct RecoverySheetView: View {
                 VStack {
                     if(self.isLoading) {
                         ProgressView()
+                        Spacer()
                     } else {
                         Button {
                             self.isLoading = true
-                            
+                            phoneNumber = "+" + Country(isoCode: selectedCountryCodeText!).phoneCode + phoneNumber
+                            Task {
+                                do {
+                                    self.otpRetryTimer = try await signupAuthenticateRecover(
+                                        phoneNumber: getPhoneNumber(),
+                                        countryCode: "",
+                                        password: password,
+                                        type: OTPAuthType.TYPE.RECOVER)
+                                    
+                                    self.OTPRequired = true
+                                } catch Vault.Exceptions.requestNotOK(let status){
+                                    print("Something went wrong authenticating: \(status)")
+                                    isLoading = false
+                                    failed = true
+                                    errorMessage = status.message!
+                                    phoneNumber = ""
+                                } catch {
+                                    isLoading = false
+                                    failed = true
+                                    errorMessage = error.localizedDescription
+                                    phoneNumber = ""
+                                }
+                            }
                         } label: {
                             Text("Continue")
                                 .bold()
@@ -128,6 +151,10 @@ struct RecoverySheetView: View {
                 .padding()
             }
         }
+    }
+    
+    private func getPhoneNumber() -> String {
+        return "+" + country!.phoneCode ?? Country(isoCode: "CM").phoneCode + phoneNumber
     }
 }
 

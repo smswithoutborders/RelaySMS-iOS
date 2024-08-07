@@ -19,6 +19,7 @@ class Vault {
     public static var VAULT_LONG_LIVED_TOKEN = "COM.AFKANERD.RELAYSMS.VAULT_LONG_LIVED_TOKEN"
     public static var VAULT_PHONE_NUMBER = "COM.AFKANERD.RELAYSMS.VAULT_PHONE_NUMBER"
     public static var VAULT_DEVICE_ID = "COM.AFKANERD.RELAYSMS.VAULT_DEVICE_ID"
+    public static var DEVICE_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.DEVICE_PUBLIC_KEY_KEYSTOREALIAS"
 
     class LocalStoredTokens : Identifiable {
         var name: String
@@ -150,6 +151,37 @@ class Vault {
         return response
     }
     
+    func recoverPassword(phoneNumber: String, 
+                         newPassword: String,
+                         clientPublishPubKey: String,
+                         clientDeviceIdPubKey: String) throws -> Vault_V1_ResetPasswordResponse {
+        let recoverPasswordRequest: Vault_V1_ResetPasswordRequest = .with {
+            $0.phoneNumber = phoneNumber
+            $0.newPassword = newPassword
+            $0.clientPublishPubKey = clientPublishPubKey
+            $0.clientDeviceIDPubKey = clientDeviceIdPubKey
+        }
+        
+        let call = vaultEntityStub!.resetPassword(recoverPasswordRequest)
+        let response: Vault_V1_ResetPasswordResponse
+        do {
+            response = try call.response.wait()
+            let status = try call.status.wait()
+            
+            print("status code - raw value: \(status.code.rawValue)")
+            print("status code - description: \(status.code.description)")
+            print("status code - isOk: \(status.isOk)")
+            
+            if(!status.isOk) {
+                throw Exceptions.requestNotOK(status: status)
+            }
+        } catch {
+            print("Some error came back: \(error)")
+            throw error
+        }
+        return response
+    }
+    
     func deleteEntity(longLiveToken: String) throws -> Vault_V1_DeleteEntityResponse {
         let deleteEntityRequest: Vault_V1_DeleteEntityRequest = .with {
             $0.longLivedToken = longLiveToken
@@ -242,37 +274,6 @@ class Vault {
         } catch {
             throw error
         }
-    }
-    
-    public static func parseErrorMessage(message: String?) -> (String?, String)? {
-        guard let message = message else {
-                return nil
-            }
-            
-            // Regular expression to capture the JSON-like field and error message
-            let jsonRegex = try! NSRegularExpression(pattern: "\\{\\s*'([^']+)'\\s*:\\s*'([^']+)'\\s*\\}")
-            
-            // Regular expression to capture the phone number existence message
-            let phoneRegex = try! NSRegularExpression(pattern: "Entity with phone number `([^`]+)` already exists.")
-            
-            if let match = jsonRegex.firstMatch(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count)) {
-                let fieldRange = Range(match.range(at: 1), in: message)!
-                let errorRange = Range(match.range(at: 2), in: message)!
-                
-                let field = String(message[fieldRange])
-                let errorMessage = String(message[errorRange])
-                
-                return (field, errorMessage)
-            } else if let match = phoneRegex.firstMatch(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count)) {
-                let phoneNumberRange = Range(match.range(at: 1), in: message)!
-                
-                let phoneNumber = String(message[phoneNumberRange])
-                let errorMessage = "Entity with phone number \(phoneNumber) already exists."
-                
-                return (nil, errorMessage)
-            }
-            
-            return nil
     }
     
     static func deriveUniqueKey(platformName: String, accountIdentifier: String) -> String {

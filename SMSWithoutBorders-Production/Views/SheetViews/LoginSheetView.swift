@@ -73,12 +73,19 @@ struct LoginSheetView: View {
     @State private var country: Country?
     @State private var showCountryPicker = false
     
+    
+    @State var showPasswordRecovery: Bool = false
+
     @State private var selectedCountryCodeText: String? = "CM".getFlag() + " " + Country.init(isoCode: "CM").localizedName
 
     var body: some View {
-        if(OTPRequired) {
+        if showPasswordRecovery {
+            RecoverySheetView(completed: $completed, failed: $failed, otpRetryTimer: otpRetryTimer, errorMessage: errorMessage)
+        }
+        else if(OTPRequired) {
             OTPSheetView(type: OTPAuthType.TYPE.AUTHENTICATE,
-                         retryTimer: otpRetryTimer, phoneNumber: $phoneNumber,
+                         retryTimer: otpRetryTimer, 
+                         phoneNumber: getPhoneNumber(),
                          countryCode: $countryCode,
                          password: $password,
                          completed: $completed,
@@ -130,6 +137,7 @@ struct LoginSheetView: View {
                     Rectangle().frame(height: 1).foregroundColor(.gray)
                     
                     Button {
+                        showPasswordRecovery = true
                     } label: {
                         Text("Forgot password?")
                             .bold()
@@ -152,10 +160,11 @@ struct LoginSheetView: View {
                     else {
                         Button {
                             isLoading = true
+                            phoneNumber = "+" + Country(isoCode: selectedCountryCodeText!).phoneCode + phoneNumber
                             Task {
                                 do {
-                                    self.otpRetryTimer = try await signupOrAuthenticate(
-                                        phoneNumber: phoneNumber,
+                                    self.otpRetryTimer = try await signupAuthenticateRecover(
+                                        phoneNumber: getPhoneNumber(),
                                         countryCode: "",
                                         password: password,
                                         type: OTPAuthType.TYPE.AUTHENTICATE)
@@ -164,8 +173,13 @@ struct LoginSheetView: View {
                                     print("Something went wrong authenticating: \(status)")
                                     isLoading = false
                                     failed = true
-                                    var (field, message) = Vault.parseErrorMessage(message: status.message) ?? (nil, status.message)
-                                    errorMessage = message!
+                                    errorMessage = status.message!
+                                    phoneNumber = ""
+                                } catch {
+                                    isLoading = false
+                                    failed = true
+                                    errorMessage = error.localizedDescription
+                                    phoneNumber = ""
                                 }
                             }
                         } label: {
@@ -196,6 +210,10 @@ struct LoginSheetView: View {
                 .padding()
             }
         }
+    }
+    
+    private func getPhoneNumber() -> String {
+        return "+" + country!.phoneCode ?? Country(isoCode: "CM").phoneCode + phoneNumber
     }
 }
 

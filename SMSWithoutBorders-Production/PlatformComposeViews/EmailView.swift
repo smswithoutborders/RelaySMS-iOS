@@ -142,7 +142,7 @@ struct EmailView: View {
                             shortcode = platform.shortcode!.bytes[0]
                             
                             do {
-                                let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_PUBLIC_KEY) as! [UInt8]
+                                let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
                                 let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
                                 let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
                                 let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
