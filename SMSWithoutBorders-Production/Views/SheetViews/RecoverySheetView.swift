@@ -32,6 +32,7 @@ struct RecoverySheetView: View {
     @Binding var failed: Bool
     
     @State private var acceptTermsConditions: Bool = false
+    @State private var passwordsNotMatch: Bool = false
 
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
@@ -75,7 +76,7 @@ struct RecoverySheetView: View {
                              showCountryPicker = true
                          } label: {
                              let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
-                             Text(flag.getFlag() + getPhoneNumber())
+                             Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
                                 .foregroundColor(Color.gray)
                          }.sheet(isPresented: $showCountryPicker) {
                              CountryPicker(country: $country,
@@ -97,8 +98,12 @@ struct RecoverySheetView: View {
                     
                     SecureField("Re-enter password", text: $rePassword)
                     Rectangle().frame(height: 1).foregroundColor(.gray)
-                        .padding(.bottom, 20)
-                    
+                    if passwordsNotMatch {
+                        Text("Passwords don't match")
+                            .foregroundStyle(.red)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+
                 }
                 .padding()
                 Spacer()
@@ -109,6 +114,10 @@ struct RecoverySheetView: View {
                         Spacer()
                     } else {
                         Button {
+                            if password != rePassword {
+                                passwordsNotMatch = true
+                                return
+                            }
                             self.isLoading = true
                             Task {
                                 do {

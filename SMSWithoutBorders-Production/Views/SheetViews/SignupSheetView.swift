@@ -95,6 +95,7 @@ struct SignupSheetView: View {
     @Binding var failed: Bool
     
     @State private var acceptTermsConditions: Bool = false
+    @State private var passwordsNotMatch: Bool = false
 
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
@@ -159,9 +160,16 @@ struct SignupSheetView: View {
                         .padding(.bottom, 20)
                     
                     SecureField("Re-enter password", text: $rePassword)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
-                        .padding(.bottom, 20)
-                    
+                    Group {
+                        Rectangle().frame(height: 1).foregroundColor(.gray)
+                        if passwordsNotMatch {
+                            Text("Passwords don't match")
+                                .foregroundStyle(.red)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    .padding(.bottom, 20)
+
                     HStack {
                         CheckBoxView(checked: $acceptTermsConditions)
                         Text("I accept the")
@@ -178,6 +186,10 @@ struct SignupSheetView: View {
                         ProgressView()
                     } else {
                         Button {
+                            if password != rePassword {
+                                passwordsNotMatch = true
+                                return
+                            }
                             self.isLoading = true
                             Task {
                                 do {
@@ -205,6 +217,7 @@ struct SignupSheetView: View {
                                 .bold()
                                 .frame(maxWidth: .infinity, maxHeight: 35)
                         }
+                        .disabled(!acceptTermsConditions)
                         .buttonStyle(.borderedProminent)
                         .alert(isPresented: $failed) {
                             Alert(title: Text("Error"), message: Text(errorMessage))
@@ -221,7 +234,6 @@ struct SignupSheetView: View {
                     Text("Already have an account?")
                         .foregroundStyle(.gray)
                     Button {
-                        
                     } label: {
                         Text("Log in")
                             .bold()
