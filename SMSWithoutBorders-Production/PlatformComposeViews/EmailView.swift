@@ -22,10 +22,10 @@ extension EmailView {
 struct EmailView: View {
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
-//    @Environment(\.presentationMode) var presentationMode
     
-//    @FetchRequest(entity: GatewayClientsEntity.entity(), sortDescriptors: []) var gatewayClientsEntities: FetchedResults<GatewayClientsEntity>
-//    
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
+    
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
 
     @State var composeTo: String = ""
@@ -155,7 +155,7 @@ struct EmailView: View {
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
                                 SMSHandler.sendSMS(message: encryptedFormattedContent,
-                                        receipient: "+123456789",
+                                                   receipient: defaultGatewayClientMsisdn,
                                         messageComposeDelegate: self.messageComposeDelegate)
                             } catch {
                                 print("Some error occured while sending: \(error)")

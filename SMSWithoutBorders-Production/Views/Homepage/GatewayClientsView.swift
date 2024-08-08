@@ -42,6 +42,7 @@ struct GatewayClientsView: View {
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
+    
     @State var selectedGatewayClient: String = ""
 
     @State var changeDefaultGatewayClient: Bool = false

@@ -25,6 +25,9 @@ struct TextView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
+
     @State var platform: PlatformsEntity?
     @State var encryptedContent: EncryptedContentsEntity?
     
@@ -83,7 +86,7 @@ struct TextView: View {
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
                                 SMSHandler.sendSMS(message: encryptedFormattedContent,
-                                        receipient: "+123456789",
+                                                   receipient: defaultGatewayClientMsisdn,
                                         messageComposeDelegate: self.messageComposeDelegate)
                             } catch {
                                 print("Some error occured while sending: \(error)")
