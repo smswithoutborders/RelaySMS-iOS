@@ -21,29 +21,31 @@ struct SecuritySettingsView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("Vault")) {
-                    Button("Revoke Platforms") {
-                        isShowingRevoke = true
-                    }.sheet(isPresented: $isShowingRevoke) {
-                        OfflineAvailablePlatformsSheetsView(isRevoke: true)
-                    }
-                }
-                
-                Section(header: Text("Account")) {
-                    if logoutProcessing {
-                        ProgressView()
-                    } else {
-                        Button("Log out", action: logoutAccount)
+            VStack {
+                List {
+                    Section(header: Text("Vault")) {
+                        Button("Revoke Platforms") {
+                            isShowingRevoke = true
+                        }.sheet(isPresented: $isShowingRevoke) {
+                            OfflineAvailablePlatformsSheetsView(isRevoke: true)
+                        }
                     }
                     
-                    if deleteProcessing {
-                        ProgressView()
-                    } else {
-                        Button("Delete Account", role: .destructive, action: deleteAccount)
+                    Section(header: Text("Account")) {
+                        if logoutProcessing {
+                            ProgressView()
+                        } else {
+                            Button("Log out", action: logoutAccount)
+                        }
+                        
+                        if deleteProcessing {
+                            ProgressView()
+                        } else {
+                            Button("Delete Account", role: .destructive, action: deleteAccount)
+                        }
                     }
                 }
-            }
+            }.navigationTitle("Settings")
         }
     }
     

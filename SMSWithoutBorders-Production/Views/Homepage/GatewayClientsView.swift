@@ -47,46 +47,49 @@ struct GatewayClientsView: View {
     @State var changeDefaultGatewayClient: Bool = false
 
     var body: some View {
-        VStack {
-            if !defaultGatewayClientMsisdn.isEmpty {
-                ForEach(gatewayClients) { gatewayClient in
-                    if gatewayClient.msisdn == defaultGatewayClientMsisdn {
-                        VStack {
-                            Text("Selected Gateway client")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .font(.caption2)
-                                .padding(.bottom, 3)
-                                .foregroundColor(.gray)
-                            GatewayClientView(selectedGatewayClient: gatewayClient, disabled: true)
-                                .padding(.top, 3)
+        NavigationView {
+            VStack {
+                if !defaultGatewayClientMsisdn.isEmpty {
+                    ForEach(gatewayClients) { gatewayClient in
+                        if gatewayClient.msisdn == defaultGatewayClientMsisdn {
+                            VStack {
+                                Text("Selected Gateway client")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.caption2)
+                                    .padding(.bottom, 3)
+                                    .foregroundColor(.gray)
+                                GatewayClientView(selectedGatewayClient: gatewayClient, disabled: true)
+                                    .padding(.top, 3)
+                            }
+                            .padding()
                         }
-                        .padding()
                     }
                 }
-            }
 
-            List(gatewayClients, id: \.self) { gatewayClient in
-                Button(action: {
-                    selectedGatewayClient = gatewayClient.msisdn!
-                    changeDefaultGatewayClient = true
-                }) {
-                    GatewayClientView(selectedGatewayClient: gatewayClient)
-                        .padding()
+                List(gatewayClients, id: \.self) { gatewayClient in
+                    Button(action: {
+                        selectedGatewayClient = gatewayClient.msisdn!
+                        changeDefaultGatewayClient = true
+                    }) {
+                        GatewayClientView(selectedGatewayClient: gatewayClient)
+                            .padding()
+                    }
+                }
+                .confirmationDialog("Set as default gateway client?",
+                                     isPresented: $changeDefaultGatewayClient) {
+                    Button("Make default") {
+                        UserDefaults.standard.register(defaults: [
+                            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: selectedGatewayClient
+                        ])
+                    }
+                    Button("Cancel", role: .destructive) {
+                        selectedGatewayClient = ""
+                    }
+                } message: {
+                    Text("Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered")
                 }
             }
-            .confirmationDialog("Set as default gateway client?",
-                                 isPresented: $changeDefaultGatewayClient) {
-                Button("Make default") {
-                    UserDefaults.standard.register(defaults: [
-                        GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: selectedGatewayClient
-                    ])
-                }
-                Button("Cancel", role: .destructive) {
-                    selectedGatewayClient = ""
-                }
-            } message: {
-                Text("Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered")
-            }
+            .navigationTitle("Gateway Clients")
         }
         .task {
             Task {
