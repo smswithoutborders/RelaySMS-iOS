@@ -49,58 +49,62 @@ struct ControllerView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        switch onboardingViewIndex {
-        case ...0:
-            OnboardingWelcomeView()
-            VStack {
-                Button("Get started!") {
-                    self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
-                    Task {
-                        do {
-                            try await refreshLocalDBs()
-                        } catch {
-                            print("Failed to refresh local DBs: \(error)")
+        Group {
+            switch onboardingViewIndex {
+            case ...0:
+                OnboardingWelcomeView()
+                VStack {
+                    Button("Get started!") {
+                        self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
+                        Task {
+                            do {
+                                try refreshLocalDBs()
+                            } catch {
+                                print("Failed to refresh local DBs: \(error)")
+                            }
                         }
                     }
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                    Link("Read our privacy policy", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
+                        .font(.caption)
                 }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                Link("Read our privacy policy", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
-                    .font(.caption)
+            case 1:
+                OnboardingIntroToVaults(codeVerifier: $codeVerifier,
+                                        backgroundLoading: $backgroundLoading,
+                                        complete: $onboardingCompleted)
+            case 2:
+                OnboardingTryExample()
+            default:
+                OnboardingFinish(isFinished: $lastOnboardingView)
             }
-        case 1:
-            OnboardingIntroToVaults(codeVerifier: $codeVerifier,
-                                    backgroundLoading: $backgroundLoading,
-                                    complete: $onboardingCompleted)
-        case 2:
-            OnboardingTryExample()
-        default:
-            OnboardingFinish(isFinished: $lastOnboardingView)
-        }
-        
-        if(!backgroundLoading) {
-            HStack {
-                if(self.onboardingViewIndex > 0) {
-                    if(!lastOnboardingView) {
-                        Button("skip") {
-                            self.onboardingViewIndex = 3
-                        }.frame(alignment: .bottom)
-                            .padding()
-                    } else {
-                        Button("Finish") {
-                            isFinished = true
-                        }.buttonStyle(.borderedProminent)
-                            .padding()
+            
+            if(!backgroundLoading) {
+                HStack {
+                    if(self.onboardingViewIndex > 0) {
+                        if(!lastOnboardingView) {
+                            Button("skip") {
+                                self.onboardingViewIndex = 3
+                            }.frame(alignment: .bottom)
+                                .padding()
+                        } else {
+                            Button("Finish") {
+                                isFinished = true
+                            }.buttonStyle(.borderedProminent)
+                                .padding()
+                        }
                     }
-                }
-                
-            }.padding()
+                    
+                }.padding()
+            }
+            
+        }.task {
+            
         }
-        
     }
     
-    func refreshLocalDBs() async throws {
-        await Task.detached(priority: .userInitiated) {
+    func refreshLocalDBs() throws {
+        DispatchQueue.background(background: {
             Publisher.getPlatforms() { result in
                 switch result {
                 case .success(let data):
@@ -108,7 +112,7 @@ struct ControllerView: View {
                     for platform in data {
                         if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                             downloadAndSaveIcons(
-                                url: URL(string: platform.icon_png)!, 
+                                url: URL(string: platform.icon_png)!,
                                 platform: platform,
                                 viewContext: viewContext)
                         }
@@ -117,7 +121,9 @@ struct ControllerView: View {
                     print("Failed to load JSON data: \(error)")
                 }
             }
-        }
+        }, completion: {
+            
+        })
     }
 }
 
@@ -134,6 +140,9 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var backgroundLoading: Bool = false
     @State private var onboardingViewIndex: Int = 0
     
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -143,10 +152,27 @@ struct SMSWithoutBorders_ProductionApp: App {
                                    codeVerifier: $codeVerifier,
                                    backgroundLoading: $backgroundLoading)
                     .environment(\.managedObjectContext, dataController.container.viewContext)
+                    .task {
+                    }
                 }
                 else {
                     HomepageView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
                         .environment(\.managedObjectContext, dataController.container.viewContext)
+                        
+                }
+            }
+            .task {
+                Task {
+                    let gatewayClient = GatewayClients.addDefaultGatewayClients(
+                        context: dataController.container.viewContext,
+                        defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
+                    print("GatewayClient: \(gatewayClient)")
+                    if gatewayClient != nil {
+                        UserDefaults.standard.register(defaults: [
+                            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: gatewayClient!.msisdn
+                        ])
+                    }
+                    
                 }
             }
             .onOpenURL { url in
@@ -164,7 +190,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                 print("decoded string: \(decodedString)")
                 let values = decodedString.split(separator: ",")
                 let state = values[0]
-                var supportsUrlScheme = values[1] == "true"
+                let supportsUrlScheme = values[1] == "true"
                 
                 let code = url.valueOf("code")
                 print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
@@ -197,7 +223,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
         }
     }
-    
+
     func getIsLoggedIn() -> Bool {
         do {
             return try !Vault.getLongLivedToken().isEmpty

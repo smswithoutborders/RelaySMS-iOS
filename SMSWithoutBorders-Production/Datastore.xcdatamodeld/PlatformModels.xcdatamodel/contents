@@ -11,11 +11,17 @@
     </entity>
     <entity name="GatewayClientsEntity" representedClassName="GatewayClientsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="country" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="is_default" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastPublishedDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="msisdn" optional="YES" attributeType="String"/>
-        <attribute name="operator_id" optional="YES" attributeType="String"/>
-        <attribute name="operator_name" optional="YES" attributeType="String"/>
+        <attribute name="operatorCode" optional="YES" attributeType="String"/>
+        <attribute name="operatorName" optional="YES" attributeType="String"/>
+        <attribute name="protocols" optional="YES" attributeType="String"/>
+        <attribute name="reliability" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="msisdn"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
