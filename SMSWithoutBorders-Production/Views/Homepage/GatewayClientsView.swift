@@ -83,9 +83,6 @@ struct GatewayClientsView: View {
                             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: selectedGatewayClient
                         ])
                     }
-                    Button("Cancel", role: .destructive) {
-                        selectedGatewayClient = ""
-                    }
                 } message: {
                     Text("Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered")
                 }
@@ -94,11 +91,13 @@ struct GatewayClientsView: View {
         }
         .task {
             Task {
-                do {
-                    try await GatewayClients.refresh(context: context)
-                } catch {
-                    print("Error refreshing gateways: \(error)")
-                }
+                if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                    do {
+                        try await GatewayClients.refresh(context: context)
+                    } catch {
+                        print("Error refreshing gateways: \(error)")
+                    }
+                } 
             }
         }
     }

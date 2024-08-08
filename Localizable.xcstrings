@@ -28,6 +28,9 @@
     "Cc " : {
 
     },
+    "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
+
+    },
     "Close" : {
 
     },
@@ -107,6 +110,9 @@
     "From: %@" : {
 
     },
+    "Gateway Clients" : {
+
+    },
     "Get code" : {
 
     },
@@ -132,6 +138,9 @@
 
     },
     "Login" : {
+
+    },
+    "Make default" : {
 
     },
     "Make sure phone code e.g +237 is included in the selected number" : {
@@ -231,7 +240,13 @@
     "Select a contact to send a message" : {
 
     },
+    "Selected Gateway client" : {
+
+    },
     "Send" : {
+
+    },
+    "Set as default gateway client?" : {
 
     },
     "Settings" : {
