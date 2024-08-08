@@ -81,6 +81,18 @@ func populateMockData(container: NSPersistentContainer) {
         storedPlatformsEntity.id = Vault.deriveUniqueKey(platformName: name,
                                                          accountIdentifier: account)
     }
+    
+    for i in 0..<10 {
+        let name = "MTN - \(i)"
+        let account = "+23712345\(i)"
+        let gatewayClientEntity = GatewayClientsEntity(context: context)
+        gatewayClientEntity.country = "Cam\(i)roon"
+        gatewayClientEntity.msisdn = "+\(i)3712345678\(i)"
+        gatewayClientEntity.operatorCode = "6\(i)014"
+        gatewayClientEntity.operatorName = "Test Operator"
+        gatewayClientEntity.lastPublishedDate = 0
+        gatewayClientEntity.reliability = "\(i).\(i)"
+    }
 
     do {
         try context.save()

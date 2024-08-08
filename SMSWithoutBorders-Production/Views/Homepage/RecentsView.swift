@@ -44,24 +44,11 @@ struct RecentsView: View {
                     
                     VStack {
                         Button {
-                            loginSheetVisible = true
-                        } label: {
-                            Text("Log in")
-                                .bold()
-                                .frame(maxWidth: .infinity, maxHeight: 20)
-                        }
-                        .sheet(isPresented: $loginSheetVisible) {
-                            LoginSheetView(completed: $isLoggedIn,
-                                           failed: $loginFailed)
-                        }
-                        .buttonStyle(.borderedProminent)
-
-                        Button {
                             signupSheetVisible = true
                         } label: {
                             Text("Create account")
                                 .bold()
-                                .frame(maxWidth: .infinity, maxHeight: 20)
+                                .frame(maxWidth: .infinity)
                         }
                         .sheet(isPresented: $signupSheetVisible) {
                             SignupSheetView(
@@ -71,6 +58,23 @@ struct RecentsView: View {
                                 errorMessage: errorMessage)
                         }
                         .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .padding(.bottom, 10)
+
+                        Button {
+                            loginSheetVisible = true
+                        } label: {
+                            Text("Log in")
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                        }
+                        .sheet(isPresented: $loginSheetVisible) {
+                            LoginSheetView(completed: $isLoggedIn,
+                                           failed: $loginFailed)
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+
                     }
                     .padding()
                     Spacer()
@@ -140,7 +144,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = true
+        @State var isLoggedIn: Bool = false
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
