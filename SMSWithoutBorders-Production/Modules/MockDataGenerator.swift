@@ -93,6 +93,31 @@ func populateMockData(container: NSPersistentContainer) {
         gatewayClientEntity.lastPublishedDate = 0
         gatewayClientEntity.reliability = "\(i).\(i)"
     }
+    
+    for i in 0..<3 {
+        let messageEntity = MessageEntity(context: context)
+        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.platformName = "gmail"
+        messageEntity.toAccount = "person\(i)@gmail.com"
+        messageEntity.subject = "New subject"
+        messageEntity.date = Int32(Date().timeIntervalSince1970)
+    }
+    for i in 0..<3 {
+        let messageEntity = MessageEntity(context: context)
+        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.platformName = "twitter"
+        messageEntity.toAccount = "@person\(i)"
+        messageEntity.subject = "New subject"
+        messageEntity.date = Int32(Date().timeIntervalSince1970)
+    }
+    for i in 0..<3 {
+        let messageEntity = MessageEntity(context: context)
+        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.platformName = "telegram"
+        messageEntity.toAccount = ""
+        messageEntity.subject = "+\(i)3712345678\(i)"
+        messageEntity.date = Int32(Date().timeIntervalSince1970)
+    }
 
     do {
         try context.save()

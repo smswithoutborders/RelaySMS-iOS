@@ -29,7 +29,6 @@ struct TextView: View {
     private var defaultGatewayClientMsisdn: String = ""
 
     @State var platform: PlatformsEntity?
-    @State var encryptedContent: EncryptedContentsEntity?
     
     var decoder: Decoder?
     private let messageComposeDelegate = MessageComposerDelegate()

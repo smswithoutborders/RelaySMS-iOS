@@ -7,11 +7,63 @@
 
 import SwiftUI
 
+
+struct Card: View {
+    @State var logo: Image
+    @State var subject: String
+    @State var toAccount: String
+    @State var messageBody: String
+    @State var date: Int
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(.white)
+
+            HStack {
+                logo
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                
+                VStack {
+                    HStack {
+                        Text(subject)
+                            .font(.title2)
+                            .foregroundStyle(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(date)")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .font(.caption)
+                    }
+                    .padding(.bottom, 3)
+
+                    Text(toAccount)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 5)
+
+                    Text(messageBody)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .border(.gray)
+            }
+            .padding(20)
+            .multilineTextAlignment(.leading)
+        }
+        .frame(width: .infinity, height: 100)
+        .shadow(radius: 10)
+    }
+}
+
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var datastore
-//    @FetchRequest(sortDescriptors: []) var encryptedContents: FetchedResults<EncryptedContentsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
+    @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
+
     @Binding var codeVerifier: String
     
     @State var errorMessage: String = ""
@@ -81,7 +133,12 @@ struct RecentsView: View {
 
                 } else {
                     ZStack(alignment: .bottomTrailing) {
-                        List {
+                        List(messages, id: \.self) { message in
+                            Card(logo: Image(uiImage: UIImage(data: getImageForPlatform(name: message.platformName!)!)!),
+                                 subject: message.subject!,
+                                 toAccount: message.toAccount!,
+                                 messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
+                                 date: Int(message.date))
                         }
                         
                         VStack {
@@ -138,6 +195,15 @@ struct RecentsView: View {
             }
             .navigationTitle("Recents")
         }
+    }
+    
+    func getImageForPlatform(name: String) -> Data? {
+        for platform in platforms {
+            if platform.name == name {
+                return platform.image
+            }
+        }
+        return nil
     }
 }
 

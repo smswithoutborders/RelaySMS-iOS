@@ -61,7 +61,7 @@ struct FieldMultiEntryTextDynamic: View {
 } // End Struct
 
 
-extension MessageView {
+extension MessagingView {
     private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
         func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
             // Customize here
@@ -70,14 +70,13 @@ extension MessageView {
     }
 }
 
-struct MessageView: View {
+struct MessagingView: View {
     
     @Environment(\.managedObjectContext) var datastore
     @Environment(\.dismiss) var dismiss
 //    @Environment(\.presentationMode) var presentationMode
     
     @State var platform: PlatformsEntity?
-    @State var encryptedContent: EncryptedContentsEntity?
     
     var decoder: Decoder?
     private let messageComposeDelegate = MessageComposerDelegate()
@@ -234,7 +233,7 @@ struct MessageView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return MessageView(platformName: "telegram", fromAccount: "+237123456789")
+        return MessagingView(platformName: "telegram", fromAccount: "+237123456789")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		164EF7D12954D431007F8C76 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessageView.swift */; };
+		164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* OperatorHandlers.swift */; };
@@ -24,7 +24,6 @@
 		16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */; };
 		16F0E6A028C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */; };
 		16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
-		16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
 		3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */; };
 		3B7EEE3D2C5BD92400611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3C2C5BD92400611092 /* SwobDoubleRatchet */; };
@@ -37,7 +36,7 @@
 		3B7EEE452C5BDE7500611092 /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADD2C538D8000539E57 /* RecentsView.swift */; };
 		3B7EEE462C5BDE7500611092 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADF2C538E2D00539E57 /* SettingsView.swift */; };
 		3B7EEE492C5BDE7500611092 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
-		3B7EEE4A2C5BDE7500611092 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessageView.swift */; };
+		3B7EEE4A2C5BDE7500611092 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		3B7EEE4B2C5BDE9400611092 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */; };
 		3B7EEE4D2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
 		3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */; };
@@ -62,6 +61,8 @@
 		3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */; };
 		3B928A352C65140100BA145F /* GatewayClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A342C65140100BA145F /* GatewayClientsView.swift */; };
 		3B928A362C65140100BA145F /* GatewayClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A342C65140100BA145F /* GatewayClientsView.swift */; };
+		3B928A382C657C2800BA145F /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A372C657C2800BA145F /* Messages.swift */; };
+		3B928A392C657C2800BA145F /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A372C657C2800BA145F /* Messages.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -71,7 +72,6 @@
 		3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */; };
 		3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		3BC75BF62C5273B2004233CE /* OperatorHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* OperatorHandlers.swift */; };
-		3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */; };
 		3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978102C36BFFC00AB626C /* PublisherTest.swift */; };
 		3BC978142C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
 		3BC978152C36C0D700AB626C /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC978132C36C0D700AB626C /* Publisher.swift */; };
@@ -145,7 +145,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		164EF7D02954D431007F8C76 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
 		1697672528E483F60021BFC5 /* OperatorHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorHandlers.swift; sourceTree = "<group>"; };
@@ -167,7 +167,6 @@
 		16F0E69D28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITests.swift; sourceTree = "<group>"; };
 		16F0E69F28C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityAESEncryption.swift; sourceTree = "<group>"; };
-		16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedContentHandler.swift; sourceTree = "<group>"; };
 		3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		3B7EEE552C5D60A900611092 /* SMSHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSHandler.swift; sourceTree = "<group>"; };
 		3B7EEE582C5E849800611092 /* relay_publisher.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = relay_publisher.proto; sourceTree = "<group>"; };
@@ -178,6 +177,7 @@
 		3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadExecutor.swift; sourceTree = "<group>"; };
 		3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverySheetView.swift; sourceTree = "<group>"; };
 		3B928A342C65140100BA145F /* GatewayClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsView.swift; sourceTree = "<group>"; };
+		3B928A372C657C2800BA145F /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -334,7 +334,6 @@
 				16EDE37F28D0D23000E50393 /* CSecurity.swift */,
 				16EDE38828D3511700E50393 /* DataController.swift */,
 				1697672528E483F60021BFC5 /* OperatorHandlers.swift */,
-				16F19F292903D44E00AC2F2B /* EncryptedContentHandler.swift */,
 				3B7EEE4C2C5BEA6000611092 /* MessageComposer.swift */,
 			);
 			path = Commons;
@@ -352,6 +351,7 @@
 				3B7EEE642C5E8BB500611092 /* MockDataGenerator.swift */,
 				3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */,
 				1697672328E4830B0021BFC5 /* GatewayClients.swift */,
+				3B928A372C657C2800BA145F /* Messages.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -373,7 +373,7 @@
 			children = (
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
-				164EF7D02954D431007F8C76 /* MessageView.swift */,
+				164EF7D02954D431007F8C76 /* MessagingView.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";
@@ -592,7 +592,6 @@
 				3B928A352C65140100BA145F /* GatewayClientsView.swift in Sources */,
 				16B43B202915CDDC004AEF1F /* TextView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
-				16F19F2A2903D44E00AC2F2B /* EncryptedContentHandler.swift in Sources */,
 				3B7EEE682C5E99ED00611092 /* PhoneNumberSheetView.swift in Sources */,
 				3B7EEE562C5D60A900611092 /* SMSHandler.swift in Sources */,
 				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,
@@ -619,12 +618,13 @@
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
 				3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */,
+				3B928A382C657C2800BA145F /* Messages.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,
 				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
 				3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */,
-				164EF7D12954D431007F8C76 /* MessageView.swift in Sources */,
+				164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */,
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
 				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
@@ -640,7 +640,7 @@
 				3B7EEE452C5BDE7500611092 /* RecentsView.swift in Sources */,
 				3B7EEE462C5BDE7500611092 /* SettingsView.swift in Sources */,
 				3B7EEE492C5BDE7500611092 /* TextView.swift in Sources */,
-				3B7EEE4A2C5BDE7500611092 /* MessageView.swift in Sources */,
+				3B7EEE4A2C5BDE7500611092 /* MessagingView.swift in Sources */,
 				3B7EEE442C5BDE5900611092 /* HomepageView.swift in Sources */,
 				3B7EEE412C5BDE3B00611092 /* OnboardingFinish.swift in Sources */,
 				3B7EEE422C5BDE3B00611092 /* OnboardingTabAdapterView.swift in Sources */,
@@ -654,7 +654,6 @@
 				3BC75BF62C5273B2004233CE /* OperatorHandlers.swift in Sources */,
 				3B7EEE662C5E8BB500611092 /* MockDataGenerator.swift in Sources */,
 				3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */,
-				3BC75BF72C5273B2004233CE /* EncryptedContentHandler.swift in Sources */,
 				3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */,
 				3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */,
 				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
@@ -680,6 +679,7 @@
 				3B7EEE612C5E849800611092 /* relay_publisher.proto in Sources */,
 				3B7EEE6B2C5EBDD700611092 /* ThreadExecutor.swift in Sources */,
 				3B7EEE622C5E849800611092 /* relay_publisher.pb.swift in Sources */,
+				3B928A392C657C2800BA145F /* Messages.swift in Sources */,
 				3B7EEE632C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
 				3BEC4CF52C47FEC500F92D2A /* vault.proto in Sources */,
 			);
