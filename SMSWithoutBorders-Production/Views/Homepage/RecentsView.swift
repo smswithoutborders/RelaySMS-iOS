@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+public extension Color {
+
+    #if os(macOS)
+    static let background = Color(NSColor.windowBackgroundColor)
+    static let secondaryBackground = Color(NSColor.underPageBackgroundColor)
+    static let tertiaryBackground = Color(NSColor.controlBackgroundColor)
+    #else
+    static let background = Color(UIColor.systemBackground)
+    static let secondaryBackground = Color(UIColor.secondarySystemBackground)
+    static let tertiaryBackground = Color(UIColor.tertiarySystemBackground)
+    #endif
+}
+
 
 struct Card: View {
     @State var logo: Image
@@ -66,7 +79,7 @@ struct RecentsView: View {
     @State var loginSheetVisible: Bool = false
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -122,16 +135,19 @@ struct RecentsView: View {
                     Spacer()
 
                 } else {
-                    List(messages, id: \.self) { message in
-                        Button(action: {
-                            
-                        }) {
-                            Card(logo: getImageForPlatform(name: message.platformName!),
-                                 subject: message.subject!,
-                                 toAccount: message.toAccount!,
-                                 messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
-                                 date: Int(message.date))
+                    List {
+                        ForEach(messages, id: \.self) { message in
+                            Button(action: {
+                                
+                            }) {
+                                Card(logo: getImageForPlatform(name: message.platformName!),
+                                     subject: message.subject!,
+                                     toAccount: message.toAccount!,
+                                     messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
+                                     date: Int(message.date))
+                            }
                         }
+//                        .listRowBackground(Color.background)
                     }
                 }
             }
