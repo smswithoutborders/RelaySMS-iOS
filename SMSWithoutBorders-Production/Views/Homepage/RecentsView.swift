@@ -20,7 +20,6 @@ public extension Color {
     #endif
 }
 
-
 struct Card: View {
     @State var logo: Image
     @State var subject: String
@@ -41,7 +40,7 @@ struct Card: View {
                         .font(.subheadline)
                         .foregroundStyle(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("\(date)")
+                    Text(Date(timeIntervalSince1970: TimeInterval(date)), formatter: RelativeDateTimeFormatter())
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .font(.caption)
                 }
@@ -137,9 +136,7 @@ struct RecentsView: View {
                 } else {
                     List {
                         ForEach(messages, id: \.self) { message in
-                            Button(action: {
-                                
-                            }) {
+                            NavigationLink(destination: EmptyView()) {
                                 Card(logo: getImageForPlatform(name: message.platformName!),
                                      subject: message.subject!,
                                      toAccount: message.toAccount!,
