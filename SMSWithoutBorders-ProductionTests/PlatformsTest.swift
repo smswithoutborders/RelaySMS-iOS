@@ -38,5 +38,15 @@ struct PlatformsTest {
         } catch {
             throw error
         }
+        
+        let fetchRequest2 = NSFetchRequest<NSFetchRequestResult>(entityName: "MessageEntity")
+        let deleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
+        
+        do {
+            try context.execute(deleteRequest2)
+            try context.save()
+        } catch {
+            throw error
+        }
     }
 }

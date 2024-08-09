@@ -20,7 +20,7 @@ extension EmailView {
 }
 
 struct EmailView: View {
-    @Environment(\.managedObjectContext) var datastore
+    @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
@@ -139,7 +139,7 @@ struct EmailView: View {
                     Button(action: {
                         for platform in platforms {
                             do {
-                                let messageComposer = try Publisher.publish(platform: platform, context: datastore)
+                                let messageComposer = try Publisher.publish(platform: platform, context: context)
                                 
                                 var shortcode: UInt8? = nil
                                 shortcode = platform.shortcode!.bytes[0]
@@ -154,6 +154,20 @@ struct EmailView: View {
                                     body: composeBody)
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
+                                var messageEntities = MessageEntity(context: context)
+                                messageEntities.platformName = platformName
+                                messageEntities.fromAccount = fromAccount
+                                messageEntities.toAccount = composeTo
+                                messageEntities.subject = composeSubject
+                                messageEntities.body = composeBody
+                                messageEntities.date = Int32(Date().timeIntervalSince1970)
+                                
+                                do {
+                                    try context.save()
+                                } catch {
+                                    print("Failed to save message entity: \(error)")
+                                }
+
                                 SMSHandler.sendSMS(message: encryptedFormattedContent,
                                                    receipient: defaultGatewayClientMsisdn,
                                         messageComposeDelegate: self.messageComposeDelegate)

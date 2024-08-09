@@ -92,7 +92,6 @@ struct RecentsView: View {
     @State var loginSheetVisible: Bool = false
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
-    @State var showOfflinePlatforms: Bool = false
     
     var body: some View {
         NavigationView {
@@ -146,13 +145,13 @@ struct RecentsView: View {
                     
                         VStack {
                             Button {
-                                showOfflinePlatforms = true
+                                showComposePlatforms = true
                             } label: {
                                 Text("Send new message")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                             }
-                            .sheet(isPresented: $showOfflinePlatforms) {
+                            .sheet(isPresented: $showComposePlatforms) {
                                 OfflineAvailablePlatformsSheetsView()
                             }
                             .buttonStyle(.borderedProminent)
@@ -160,12 +159,13 @@ struct RecentsView: View {
                             .padding(.bottom, 10)
 
                             Button {
+                                showAvailablePlatforms = true
                             } label: {
                                 Text("Save platforms")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                             }
-                            .sheet(isPresented: $loginSheetVisible) {
+                            .sheet(isPresented: $showAvailablePlatforms) {
                                 OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
                             }
                             .buttonStyle(.bordered)

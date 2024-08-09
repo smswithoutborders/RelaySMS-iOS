@@ -20,7 +20,7 @@
         <attribute name="fromAccount" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="platformName" optional="YES" attributeType="String"/>
-        <attribute name="subject" optional="YES" attributeType="String"/>
+        <attribute name="subject" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="toAccount" optional="YES" attributeType="String"/>
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">

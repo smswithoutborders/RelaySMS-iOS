@@ -85,6 +85,7 @@ struct MessagingView: View {
     @State var messageContact :String = ""
     
     
+    @FetchRequest var messages: FetchedResults<MessageEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     private var platformName: String
     private var fromAccount: String
@@ -102,6 +103,10 @@ struct MessagingView: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", platformName))
         
+        _messages = FetchRequest<MessageEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "platformName == %@", platformName))
+
         print("Searching platform: \(platformName)")
 
         self.fromAccount = fromAccount
@@ -134,8 +139,32 @@ struct MessagingView: View {
                     }
                     .padding()
                     
-                    List{
-                        
+                    if messages.isEmpty {
+                        Spacer()
+                        Text("No messages sent")
+                            .font(.title)
+                        Spacer()
+                    }
+                    else {
+                        List{
+                            ForEach(messages) { message in
+                                Button(action: {}) {
+                                    VStack {
+                                        Text(message.body!)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                        Text(Date(timeIntervalSince1970: TimeInterval(message.date)), style: .time)
+                                            .font(.caption)
+                                            .foregroundStyle(.gray)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                    }
+                                }
+                                .cornerRadius(18)
+                                .shadow(color: Color.black.opacity(0.3),
+                                        radius: 3,
+                                        x: 3,
+                                        y: 3)
+                            }
+                        }
                     }
                     
                     HStack {
