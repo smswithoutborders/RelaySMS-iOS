@@ -61,8 +61,6 @@
 		3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */; };
 		3B928A352C65140100BA145F /* GatewayClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A342C65140100BA145F /* GatewayClientsView.swift */; };
 		3B928A362C65140100BA145F /* GatewayClientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A342C65140100BA145F /* GatewayClientsView.swift */; };
-		3B928A382C657C2800BA145F /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A372C657C2800BA145F /* Messages.swift */; };
-		3B928A392C657C2800BA145F /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B928A372C657C2800BA145F /* Messages.swift */; };
 		3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */; };
 		3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */; };
 		3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */; };
@@ -177,7 +175,6 @@
 		3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadExecutor.swift; sourceTree = "<group>"; };
 		3B928A2E2C62FB8F00BA145F /* RecoverySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoverySheetView.swift; sourceTree = "<group>"; };
 		3B928A342C65140100BA145F /* GatewayClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClientsView.swift; sourceTree = "<group>"; };
-		3B928A372C657C2800BA145F /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToVaults.swift; sourceTree = "<group>"; };
 		3BAB09652C1C94A400664E90 /* OnboardingFinish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinish.swift; sourceTree = "<group>"; };
@@ -351,7 +348,6 @@
 				3B7EEE642C5E8BB500611092 /* MockDataGenerator.swift */,
 				3B7EEE6A2C5EBDD700611092 /* ThreadExecutor.swift */,
 				1697672328E4830B0021BFC5 /* GatewayClients.swift */,
-				3B928A372C657C2800BA145F /* Messages.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -618,7 +614,6 @@
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
 				3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */,
-				3B928A382C657C2800BA145F /* Messages.swift in Sources */,
 				16EDE38028D0D23000E50393 /* CSecurity.swift in Sources */,
 				3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,
@@ -679,7 +674,6 @@
 				3B7EEE612C5E849800611092 /* relay_publisher.proto in Sources */,
 				3B7EEE6B2C5EBDD700611092 /* ThreadExecutor.swift in Sources */,
 				3B7EEE622C5E849800611092 /* relay_publisher.pb.swift in Sources */,
-				3B928A392C657C2800BA145F /* Messages.swift in Sources */,
 				3B7EEE632C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
 				3BEC4CF52C47FEC500F92D2A /* vault.proto in Sources */,
 			);

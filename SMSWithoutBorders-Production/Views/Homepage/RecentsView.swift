@@ -31,7 +31,7 @@ struct Card: View {
         HStack {
             logo
                 .resizable()
-                .frame(width: 50, height: 50)
+                .frame(width: 30, height: 30)
             
             VStack {
                 HStack {
@@ -53,11 +53,25 @@ struct Card: View {
                     .padding(.bottom, 5)
 
                 Text(messageBody)
+                    .lineLimit(2)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+    }
+}
+
+@ViewBuilder
+func getNoRecentsView() -> some View {
+    VStack {
+        Image("NoRecents")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 200, height: 200)
+            .padding(.bottom, 20)
+        Text("No recent messages")
+            .font(.title)
     }
 }
 
@@ -84,15 +98,7 @@ struct RecentsView: View {
             VStack {
                 if !isLoggedIn {
                     Spacer()
-                    VStack {
-                        Image("NoRecents")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200, height: 200)
-                            .padding(.bottom, 20)
-                        Text("No recent messages")
-                            .font(.title)
-                    }
+                    getNoRecentsView()
                     .padding()
                     Spacer()
                     
@@ -134,17 +140,55 @@ struct RecentsView: View {
                     Spacer()
 
                 } else {
-                    List {
-                        ForEach(messages, id: \.self) { message in
-                            NavigationLink(destination: EmptyView()) {
-                                Card(logo: getImageForPlatform(name: message.platformName!),
-                                     subject: message.subject!,
-                                     toAccount: message.toAccount!,
-                                     messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
-                                     date: Int(message.date))
+                    if messages.isEmpty {
+                        getNoRecentsView()
+                    
+                        VStack {
+                            Button {
+                            } label: {
+                                Text("Send new message")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
                             }
+                            .sheet(isPresented: $signupSheetVisible) {
+                                SignupSheetView(
+                                    completed: $isLoggedIn,
+                                    failed: $loginFailed,
+                                    otpRetryTimer: otpRetryTimer ?? 0,
+                                    errorMessage: errorMessage)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.large)
+                            .padding(.bottom, 10)
+
+                            Button {
+                            } label: {
+                                Text("Save platforms")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .sheet(isPresented: $loginSheetVisible) {
+                                LoginSheetView(completed: $isLoggedIn,
+                                               failed: $loginFailed)
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+
                         }
-//                        .listRowBackground(Color.background)
+                        .padding()
+                    } else {
+                        List {
+                            ForEach(messages, id: \.self) { message in
+                                NavigationLink(destination: EmptyView()) {
+                                    Card(logo: getImageForPlatform(name: message.platformName!),
+                                         subject: message.subject!,
+                                         toAccount: message.toAccount!,
+                                         messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
+                                         date: Int(message.date))
+                                }
+                            }
+    //                        .listRowBackground(Color.background)
+                        }
                     }
                 }
             }

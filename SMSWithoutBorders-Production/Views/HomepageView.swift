@@ -15,7 +15,7 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Binding var codeVerifier: String
-    @State var isLoggedIn: Bool = false
+    @State var isLoggedIn: Bool = true
     
     @State var selectedTab: HomepageTabs = .recents
 

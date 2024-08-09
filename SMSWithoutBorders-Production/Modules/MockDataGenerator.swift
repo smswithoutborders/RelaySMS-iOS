@@ -100,7 +100,7 @@ func populateMockData(container: NSPersistentContainer) {
         messageEntity.platformName = "gmail"
         messageEntity.toAccount = "person\(i)@gmail.com"
         messageEntity.subject = "New subject"
-        messageEntity.date = Int32(Date().timeIntervalSince1970)
+        messageEntity.date = Int32(Date().timeIntervalSince1970) - 10
     }
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
@@ -108,7 +108,7 @@ func populateMockData(container: NSPersistentContainer) {
         messageEntity.platformName = "twitter"
         messageEntity.toAccount = "@person\(i)"
         messageEntity.subject = "New subject"
-        messageEntity.date = Int32(Date().timeIntervalSince1970)
+        messageEntity.date = Int32(Date().timeIntervalSince1970) - 20
     }
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
@@ -116,7 +116,7 @@ func populateMockData(container: NSPersistentContainer) {
         messageEntity.platformName = "telegram"
         messageEntity.toAccount = ""
         messageEntity.subject = "+\(i)3712345678\(i)"
-        messageEntity.date = Int32(Date().timeIntervalSince1970)
+        messageEntity.date = Int32(Date().timeIntervalSince1970) - 30
     }
 
     do {
