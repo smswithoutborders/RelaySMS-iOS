@@ -92,6 +92,7 @@ struct RecentsView: View {
     @State var loginSheetVisible: Bool = false
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
+    @State var showOfflinePlatforms: Bool = false
     
     var body: some View {
         NavigationView {
@@ -145,17 +146,14 @@ struct RecentsView: View {
                     
                         VStack {
                             Button {
+                                showOfflinePlatforms = true
                             } label: {
                                 Text("Send new message")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                             }
-                            .sheet(isPresented: $signupSheetVisible) {
-                                SignupSheetView(
-                                    completed: $isLoggedIn,
-                                    failed: $loginFailed,
-                                    otpRetryTimer: otpRetryTimer ?? 0,
-                                    errorMessage: errorMessage)
+                            .sheet(isPresented: $showOfflinePlatforms) {
+                                OfflineAvailablePlatformsSheetsView()
                             }
                             .buttonStyle(.borderedProminent)
                             .controlSize(.large)
@@ -168,8 +166,7 @@ struct RecentsView: View {
                                     .frame(maxWidth: .infinity)
                             }
                             .sheet(isPresented: $loginSheetVisible) {
-                                LoginSheetView(completed: $isLoggedIn,
-                                               failed: $loginFailed)
+                                OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
                             }
                             .buttonStyle(.bordered)
                             .controlSize(.large)
@@ -177,17 +174,75 @@ struct RecentsView: View {
                         }
                         .padding()
                     } else {
-                        List {
-                            ForEach(messages, id: \.self) { message in
-                                NavigationLink(destination: EmptyView()) {
-                                    Card(logo: getImageForPlatform(name: message.platformName!),
-                                         subject: message.subject!,
-                                         toAccount: message.toAccount!,
-                                         messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
-                                         date: Int(message.date))
+                        ZStack(alignment: .bottomTrailing) {
+                            VStack {
+                                List {
+                                    ForEach(messages, id: \.self) { message in
+                                        NavigationLink(
+                                            destination: getPlatformView(
+                                                message: Messages(
+                                                    subject: message.subject!,
+                                                    data: message.body!,
+                                                    fromAccount: message.fromAccount!,
+                                                    toAccount: message.toAccount!,
+                                                    platformName: message.platformName!,
+                                                    date: Int(message.date)))) {
+                                            Card(logo: getImageForPlatform(name: message.platformName!),
+                                                 subject: message.subject!,
+                                                 toAccount: message.toAccount!,
+                                                 messageBody: message.body!,
+                                                 date: Int(message.date))
+                                        }
+                                    }
                                 }
                             }
-    //                        .listRowBackground(Color.background)
+                            
+                            VStack {
+                                VStack {
+                                    Button(action: {
+                                        showComposePlatforms = true
+                                    }, label: {
+                                        Image(systemName: "square.and.pencil")
+                                            .font(.system(.title))
+                                            .frame(width: 57, height: 50)
+                                            .foregroundColor(Color.white)
+                                            .padding(.bottom, 7)
+                                    })
+                                    .background(Color.blue)
+                                    .cornerRadius(18)
+                                    .shadow(color: Color.black.opacity(0.3),
+                                            radius: 3,
+                                            x: 3,
+                                            y: 3)
+                                    .sheet(isPresented: $showComposePlatforms) {
+                                        OfflineAvailablePlatformsSheetsView()
+                                    }
+                                    
+                                    VStack {
+                                        Button(action: {
+                                            showAvailablePlatforms = true
+                                        }, label: {
+                                            Image(systemName: "rectangle.stack.badge.plus")
+                                                .font(.system(.title))
+                                                .frame(width: 57, height: 50)
+                                                .foregroundColor(Color.white)
+                                                .padding(.bottom, 7)
+                                        })
+                                        .background(Color.blue)
+                                        .cornerRadius(18)
+                                        .shadow(color: Color.black.opacity(0.3),
+                                                radius: 3,
+                                                x: 3,
+                                                y: 3)
+                                        .padding()
+                                        .sheet(isPresented: $showAvailablePlatforms) {
+                                            OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            
                         }
                     }
                 }
@@ -205,6 +260,19 @@ struct RecentsView: View {
             }
         }
         return Image("Logo")
+    }
+    
+    @ViewBuilder func getPlatformView(message: Messages) -> some View {
+        ForEach(platforms) { platform in
+            if platform.name == message.platformName {
+                if platform.service_type == "email" {
+                    EmailPlatformView(message: message)
+                }
+                else if platform.service_type == "text" {
+                    TextPlatformView(message: message)
+                }
+            }
+        }
     }
 }
 

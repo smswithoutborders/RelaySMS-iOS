@@ -7,9 +7,6 @@
     "%@ Accounts" : {
 
     },
-    "%lld" : {
-
-    },
     "Account" : {
 
     },
@@ -237,6 +234,9 @@
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
 
     },
+    "Save platforms" : {
+
+    },
     "Security" : {
 
     },
@@ -247,6 +247,9 @@
 
     },
     "Send" : {
+
+    },
+    "Send new message" : {
 
     },
     "Set as default gateway client?" : {

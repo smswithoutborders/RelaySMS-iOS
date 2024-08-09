@@ -15,8 +15,9 @@
         </uniquenessConstraints>
     </entity>
     <entity name="MessageEntity" representedClassName="MessageEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="body" optional="YES" attributeType="Binary"/>
+        <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fromAccount" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="platformName" optional="YES" attributeType="String"/>
         <attribute name="subject" optional="YES" attributeType="String"/>

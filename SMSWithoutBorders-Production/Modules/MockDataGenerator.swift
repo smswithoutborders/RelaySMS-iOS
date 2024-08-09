@@ -96,25 +96,28 @@ func populateMockData(container: NSPersistentContainer) {
     
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
-        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.body = "Hello world - \(i)"
         messageEntity.platformName = "gmail"
-        messageEntity.toAccount = "person\(i)@gmail.com"
+        messageEntity.fromAccount = "from\(i)@gmail.com"
+        messageEntity.toAccount = "to\(i)@gmail.com"
         messageEntity.subject = "New subject"
         messageEntity.date = Int32(Date().timeIntervalSince1970) - 10
     }
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
-        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.body = "Hello world - \(i)"
         messageEntity.platformName = "twitter"
-        messageEntity.toAccount = "@person\(i)"
+        messageEntity.fromAccount = "@person\(i)"
+        messageEntity.toAccount = ""
         messageEntity.subject = "New subject"
         messageEntity.date = Int32(Date().timeIntervalSince1970) - 20
     }
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
-        messageEntity.body = "Hello world - \(i)".data(using: .utf8)?.base64EncodedData()
+        messageEntity.body = "Hello world - \(i)"
         messageEntity.platformName = "telegram"
-        messageEntity.toAccount = ""
+        messageEntity.fromAccount = "+\(i)3712345678\(i)"
+        messageEntity.toAccount = "+\(i)3712345678\(i)"
         messageEntity.subject = "+\(i)3712345678\(i)"
         messageEntity.date = Int32(Date().timeIntervalSince1970) - 30
     }
