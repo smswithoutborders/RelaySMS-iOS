@@ -16,46 +16,36 @@ struct Card: View {
     @State var date: Int
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25)
-                .fill(.white)
-
-            HStack {
-                logo
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                
-                VStack {
-                    HStack {
-                        Text(subject)
-                            .font(.title2)
-                            .foregroundStyle(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("\(date)")
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .font(.caption)
-                    }
-                    .padding(.bottom, 3)
-
-                    Text(toAccount)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 5)
-
-                    Text(messageBody)
+        HStack {
+            logo
+                .resizable()
+                .frame(width: 50, height: 50)
+            
+            VStack {
+                HStack {
+                    Text(subject)
+                        .bold()
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                    Text("\(date)")
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .font(.caption)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .border(.gray)
+                .padding(.bottom, 3)
+
+                Text(toAccount)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 5)
+
+                Text(messageBody)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(20)
-            .multilineTextAlignment(.leading)
         }
-        .frame(width: .infinity, height: 100)
-        .shadow(radius: 10)
     }
 }
 
@@ -132,85 +122,39 @@ struct RecentsView: View {
                     Spacer()
 
                 } else {
-                    ZStack(alignment: .bottomTrailing) {
-                        List(messages, id: \.self) { message in
-                            Card(logo: Image(uiImage: UIImage(data: getImageForPlatform(name: message.platformName!)!)!),
+                    List(messages, id: \.self) { message in
+                        Button(action: {
+                            
+                        }) {
+                            Card(logo: getImageForPlatform(name: message.platformName!),
                                  subject: message.subject!,
                                  toAccount: message.toAccount!,
                                  messageBody: String(data: Data(base64Encoded: message.body!)!, encoding: .utf8)!,
                                  date: Int(message.date))
                         }
-                        
-                        VStack {
-                            Button(action: {
-                                showComposePlatforms = true
-                            }, label: {
-                                Image(systemName: "square.and.pencil")
-                                    .font(.system(.title))
-                                    .frame(width: 57, height: 50)
-                                    .foregroundColor(Color.white)
-                                    .padding(.bottom, 7)
-                            })
-                            .background(Color.blue)
-                            .cornerRadius(18)
-                            .shadow(color: Color.black.opacity(0.3),
-                                    radius: 3,
-                                    x: 3,
-                                    y: 3)
-                            .padding()
-                            .sheet(isPresented: $showComposePlatforms) {
-                                OfflineAvailablePlatformsSheetsView()
-                            }
-                            
-                            Button(action: {
-                                showAvailablePlatforms = true
-                            }, label: {
-                                Image(systemName: "rectangle.stack.badge.plus")
-                                .font(.system(.title))
-                                    .frame(width: 57, height: 50)
-                                    .foregroundColor(Color.white)
-                                    .padding(.bottom, 7)
-                            })
-                            .background(Color.blue)
-                            .cornerRadius(18)
-                            .shadow(color: Color.black.opacity(0.3),
-                                    radius: 3,
-                                    x: 3,
-                                    y: 3)
-                            .padding()
-                            .sheet(isPresented: $showAvailablePlatforms) {
-                                OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-                            }
-                        }
-                        
                     }
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: .infinity,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: .topLeading
-                    )
                 }
             }
             .navigationTitle("Recents")
         }
     }
     
-    func getImageForPlatform(name: String) -> Data? {
+    func getImageForPlatform(name: String) -> Image {
         for platform in platforms {
             if platform.name == name {
-                return platform.image
+                if platform.image != nil {
+                    return Image( uiImage: UIImage(data: platform.image!)!)
+                }
             }
         }
-        return nil
+        return Image("Logo")
     }
 }
 
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = false
+        @State var isLoggedIn: Bool = true
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
