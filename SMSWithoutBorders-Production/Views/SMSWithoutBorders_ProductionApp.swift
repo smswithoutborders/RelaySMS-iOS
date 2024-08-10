@@ -162,18 +162,9 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
             }
             .task {
-                Task {
-                    let gatewayClient = GatewayClients.addDefaultGatewayClients(
-                        context: dataController.container.viewContext,
-                        defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
-                    print("GatewayClient: \(gatewayClient)")
-                    if gatewayClient != nil {
-                        UserDefaults.standard.register(defaults: [
-                            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: gatewayClient!.msisdn
-                        ])
-                    }
-                    
-                }
+                GatewayClients.addDefaultGatewayClients(
+                    context: dataController.container.viewContext,
+                    defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
             }
             .onOpenURL { url in
                 let stateB64Values = url.valueOf("state")

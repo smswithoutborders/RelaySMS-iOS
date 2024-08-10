@@ -120,6 +120,8 @@ struct AccountSheetView: View {
                 EmailView(platformName: platform.name!, fromAccount: fromAccount)
             case "text":
                 TextView(platformName: platform.name!, fromAccount: fromAccount)
+            case "message":
+                MessagingView(platformName: platform.name!, fromAccount: fromAccount)
             default:
                 EmptyView()
             }

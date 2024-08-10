@@ -81,10 +81,10 @@ struct RecentsView: View {
     @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
 
     @Binding var codeVerifier: String
-    
+    @Binding var isLoggedIn: Bool
+
     @State var errorMessage: String = ""
     @State var otpRetryTimer: Int?
-    @State var isLoggedIn: Bool = false
 
     @State var showAvailablePlatforms: Bool = false
     @State var showComposePlatforms: Bool = false
@@ -284,7 +284,7 @@ struct RecentsView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
 
-        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: isLoggedIn)
+        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

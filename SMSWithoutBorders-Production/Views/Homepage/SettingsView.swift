@@ -11,10 +11,12 @@ import SwiftUI
 struct SecuritySettingsView: View {
     @State private var selected: UUID?
     @State private var deleteProcessing = false
-    @State private var logoutProcessing = false
     
     @State private var isShowingRevoke = false
+    
+    @Binding var isLoggedIn: Bool
 
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
@@ -32,12 +34,8 @@ struct SecuritySettingsView: View {
                     }
                     
                     Section(header: Text("Account")) {
-                        if logoutProcessing {
-                            ProgressView()
-                        } else {
-                            Button("Log out", action: logoutAccount)
-                        }
-                        
+                        Button("Log out", action: logoutAccount)
+
                         if deleteProcessing {
                             ProgressView()
                         } else {
@@ -51,16 +49,16 @@ struct SecuritySettingsView: View {
     
     
     func logoutAccount() {
-        logoutProcessing = true
-        Task {
-            do {
-                Vault.resetKeystore()
-                try Vault.resetDatastore(context: viewContext )
-                try Vault.resetStates(context: viewContext)
-            } catch {
-                print("Error loging out: \(error)")
-            }
-            logoutProcessing = false
+        do {
+            Vault.resetKeystore()
+            try Vault.resetDatastore(context: viewContext )
+            try Vault.resetStates(context: viewContext)
+            
+            isLoggedIn = false
+            
+            dismiss()
+        } catch {
+            print("Error loging out: \(error)")
         }
     }
     
@@ -82,10 +80,12 @@ struct SecuritySettingsView: View {
 }
 
 struct SettingsView: View {
+    @Binding var isLoggedIn: Bool
+    
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: SecuritySettingsView()) {
+                NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
                     Text("Security")
                 }
             }
@@ -96,5 +96,6 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SecuritySettingsView()
+    @State var isLoggedIn = true
+    SecuritySettingsView(isLoggedIn: $isLoggedIn)
 }

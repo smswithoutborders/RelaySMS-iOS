@@ -22,7 +22,7 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: isLoggedIn)
+                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
                     .tabItem() {
                         Image(systemName: "house.circle.fill")
                         Text("Recents")
@@ -36,7 +36,7 @@ struct HomepageView: View {
                     }
                     .tag(HomepageTabs.gatewayClients)
                 
-                SettingsView()
+                SettingsView(isLoggedIn: $isLoggedIn)
                     .tabItem() {
                         Image(systemName: "gear.circle.fill")
                         Text("Settings")
