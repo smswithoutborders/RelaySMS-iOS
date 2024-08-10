@@ -335,6 +335,9 @@
     },
     "Welcome to RelaySMS" : {
 
+    },
+    "You can log back in at anytime. All the messages sent would be deleted." : {
+
     }
   },
   "version" : "1.0"

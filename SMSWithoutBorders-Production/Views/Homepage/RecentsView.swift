@@ -75,6 +75,24 @@ func getNoRecentsView() -> some View {
     }
 }
 
+@ViewBuilder
+func getNoLoggedInView() -> some View {
+    VStack {
+        Image("NoLoggedIn")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 200, height: 200)
+            .padding(.bottom, 20)
+        Text("No Vault account")
+            .font(.title)
+            .padding(.bottom, 3)
+        Text("Create new account or log into existing one to begin sending messages from stored online platforms")
+            .font(.subheadline)
+            .multilineTextAlignment(.center)
+            .foregroundColor(.gray)
+    }
+}
+
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var datastore
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
@@ -98,7 +116,7 @@ struct RecentsView: View {
             VStack {
                 if !isLoggedIn {
                     Spacer()
-                    getNoRecentsView()
+                    getNoLoggedInView()
                     .padding()
                     Spacer()
                     
@@ -279,7 +297,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = true
+        @State var isLoggedIn: Bool = false
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)

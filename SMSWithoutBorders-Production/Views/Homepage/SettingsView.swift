@@ -13,7 +13,8 @@ struct SecuritySettingsView: View {
     @State private var deleteProcessing = false
     
     @State private var isShowingRevoke = false
-    
+    @State var showIsLoggingOut: Bool = false
+
     @Binding var isLoggedIn: Bool
 
     @Environment(\.dismiss) var dismiss
@@ -34,7 +35,13 @@ struct SecuritySettingsView: View {
                     }
                     
                     Section(header: Text("Account")) {
-                        Button("Log out", action: logoutAccount)
+                        Button("Log out") {
+                            showIsLoggingOut.toggle()
+                        }.confirmationDialog("", isPresented: $showIsLoggingOut) {
+                            Button("Log out", role: .destructive, action: logoutAccount)
+                        } message: {
+                            Text("You can log back in at anytime. All the messages sent would be deleted.")
+                        }
 
                         if deleteProcessing {
                             ProgressView()
@@ -51,7 +58,7 @@ struct SecuritySettingsView: View {
     func logoutAccount() {
         do {
             Vault.resetKeystore()
-            try Vault.resetDatastore(context: viewContext )
+            try DataController.resetDatabase(context: viewContext)
             try Vault.resetStates(context: viewContext)
             
             isLoggedIn = false

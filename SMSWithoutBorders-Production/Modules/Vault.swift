@@ -263,18 +263,6 @@ class Vault {
             throw error
         }
     }
-
-    public static func resetDatastore(context: NSManagedObjectContext) throws {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredPlatformsEntity")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            throw error
-        }
-    }
     
     static func deriveUniqueKey(platformName: String, accountIdentifier: String) -> String {
         return SHA256.hash(data: Data((platformName + accountIdentifier).utf8)).description
@@ -301,7 +289,7 @@ class Vault {
         } catch Exceptions.unauthenticatedLLT(let status){
             print("Should delete invalid llt: \(status.message)")
             Vault.resetKeystore()
-            try Vault.resetDatastore(context: context)
+            try DataController.resetDatabase(context: context)
             return false
         } catch {
             print("Error fetching stored tokens: \(error)")
