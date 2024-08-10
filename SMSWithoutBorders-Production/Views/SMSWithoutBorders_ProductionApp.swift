@@ -54,7 +54,7 @@ struct ControllerView: View {
             case ...0:
                 OnboardingWelcomeView()
                 VStack {
-                    Button("Get started!") {
+                    Button {
                         self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
                         Task {
                             do {
@@ -63,16 +63,23 @@ struct ControllerView: View {
                                 print("Failed to refresh local DBs: \(error)")
                             }
                         }
+                    } label: {
+                        Text("Get started!")
+                            .bold()
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
-                    .padding()
+                    .controlSize(.large)
+                    .padding(.bottom, 10)
+                    
                     Link("Read our privacy policy", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
                         .font(.caption)
                 }
+                .padding()
             case 1:
                 OnboardingIntroToVaults(codeVerifier: $codeVerifier,
                                         backgroundLoading: $backgroundLoading,
-                                        complete: $onboardingCompleted)
+                                        onboardingIndex: $onboardingViewIndex)
             case 2:
                 OnboardingTryExample()
             default:
@@ -85,20 +92,25 @@ struct ControllerView: View {
                         if(!lastOnboardingView) {
                             Button("skip") {
                                 self.onboardingViewIndex = 3
-                            }.frame(alignment: .bottom)
-                                .padding()
+                            }
+                            .padding()
+                            .frame(alignment: .bottom)
                         } else {
-                            Button("Finish") {
+                            Button {
                                 isFinished = true
-                            }.buttonStyle(.borderedProminent)
-                                .padding()
+                            } label: {
+                                Text("Finish!")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.large)
+                            .padding(.bottom, 10)
                         }
                     }
                     
                 }.padding()
             }
-            
-        }.task {
             
         }
     }

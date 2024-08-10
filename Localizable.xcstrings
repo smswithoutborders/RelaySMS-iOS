@@ -10,9 +10,6 @@
     "Account" : {
 
     },
-    "Add Accounts" : {
-
-    },
     "Already got SMS code" : {
 
     },
@@ -49,10 +46,16 @@
     "Continue" : {
 
     },
+    "Continue Deleting" : {
+
+    },
     "Create account" : {
 
     },
-    "Create new" : {
+    "Create Acocunt" : {
+
+    },
+    "Create new account or log into existing one to begin sending messages from stored online platforms" : {
 
     },
     "default_app_scheme" : {
@@ -83,9 +86,6 @@
     "Don't have an account?" : {
 
     },
-    "English" : {
-
-    },
     "Enter code" : {
 
     },
@@ -98,7 +98,7 @@
     "Error" : {
 
     },
-    "Finish" : {
+    "Finish!" : {
 
     },
     "Forgot password?" : {
@@ -153,6 +153,9 @@
 
     },
     "No recent messages" : {
+
+    },
+    "No Vault account" : {
 
     },
     "OTP Code" : {
@@ -237,6 +240,9 @@
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
 
     },
+    "Save Accounts to Vault" : {
+
+    },
     "Save platforms" : {
 
     },
@@ -282,7 +288,7 @@
     "Try Example" : {
 
     },
-    "Use SMS to make a post, send an email or message your closed ones" : {
+    "Use SMS to make a post, send an emails and messages" : {
 
     },
     "Vault" : {
@@ -334,6 +340,9 @@
 
     },
     "Welcome to RelaySMS" : {
+
+    },
+    "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {
 
     },
     "You can log back in at anytime. All the messages sent would be deleted." : {

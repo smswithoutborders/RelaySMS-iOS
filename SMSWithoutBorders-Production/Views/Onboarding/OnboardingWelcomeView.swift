@@ -17,9 +17,11 @@ struct OnboardingWelcomeView: View {
                 
                 
             VStack {
-                Text("Use SMS to make a post, send an email or message your closed ones")
-                    .multilineTextAlignment(.center)
+                Text("Use SMS to make a post, send an emails and messages")
+                    .font(.subheadline)
                     .padding(.bottom, 30)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
                 
                 Image("Recents")
                     .resizable()
@@ -28,12 +30,12 @@ struct OnboardingWelcomeView: View {
                     .padding(.bottom, 20)
                 
 
-                Button("English", systemImage: "globe") {
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.secondary)
-                .cornerRadius(38.5)
+//                Button("English", systemImage: "globe") {
+//                    
+//                }
+//                .buttonStyle(.borderedProminent)
+//                .tint(.secondary)
+//                .cornerRadius(38.5)
 
             }.padding()
             

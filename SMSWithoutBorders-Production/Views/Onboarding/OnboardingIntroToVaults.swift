@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct loginView: View {
+struct signupLoginOnboardingView: View {
     @Binding var loginSheetShown: Bool
     @Binding var signupSheetShown: Bool
     
@@ -18,23 +18,36 @@ struct loginView: View {
         VStack {
             Tab(buttonView:
                 Group {
-                    Button("Login") {
-                        loginSheetShown = true
+                    Button {
+                        signupSheetShown = true
+                    } label: {
+                        Text("Create Acocunt")
+                            .bold()
+                            .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .padding(.bottom, 10)
+                    .sheet(isPresented: $signupSheetShown) {
+                        SignupSheetView(completed: $completed, failed: $failed)
+                    }
+
+                    Button {
+                        loginSheetShown = true
+                    } label: {
+                        Text("Login")
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .padding(.bottom, 10)
                     .sheet(isPresented: $loginSheetShown) {
                         VStack {
                             LoginSheetView(completed: $completed, failed: $failed)
                         }
                     }
                     
-                    Button("Create new") {
-                        signupSheetShown = true
-                    }
-                    .sheet(isPresented: $signupSheetShown) {
-                        SignupSheetView(completed: $completed, failed: $failed)
-                    }
-                    .buttonStyle(.borderedProminent)
                 },
                 title:"Let's get you started",
                 subTitle: "Introducing Vaults",
@@ -53,17 +66,27 @@ struct addAccountsView: View {
     @State var title: String = "Available platforms"
     @State var description = "Select a platform to save it for offline use"
     
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    
+    @Binding var onboardingIndex: Int
+
     var body: some View {
         VStack {
             Tab(buttonView:
-                Button("Add Accounts") {
+                Button {
                     self.availablePlatformsPresented = true
+                } label: {
+                    Text("Save Accounts to Vault")
+                        .bold()
+                        .frame(maxWidth: .infinity)
                 }
                 .sheet(isPresented: $availablePlatformsPresented) {
                     AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
                                                  title: title, 
                                                  description: description)
                 }
+                .controlSize(.large)
+                .padding(.bottom, 10)
                 .buttonStyle(.borderedProminent),
                 title: "Add Accounts to Vault",
                 subTitle: "Let's get you started",
@@ -71,6 +94,15 @@ struct addAccountsView: View {
                 imageName: "OnboardingVaultOpen",
                 subDescription: "The Vault supports storing for multiple online paltforms. Click Add Accounts storage to see the list"
             )
+        }
+        .task {
+            do {
+                if try !Vault.getLongLivedToken().isEmpty && !storedPlatforms.isEmpty {
+                    onboardingIndex += 1
+                }
+            } catch {
+                print("Some error adding accounts views: \(error)")
+            }
         }
     }
 }
@@ -89,7 +121,7 @@ struct OnboardingIntroToVaults: View {
     
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
-    @Binding var complete: Bool
+    @Binding var onboardingIndex: Int
 
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
@@ -102,26 +134,12 @@ struct OnboardingIntroToVaults: View {
             Group {
                 if(onboardingIntroComplete) {
                     addAccountsView(codeVerifier: $codeVerifier,
-                                    availablePlatformsPresented: $availablePlatformsPresented)
-                    .task {
-                        if !storedPlatforms.isEmpty {
-                            complete = true
-                        }
-                    }
+                                    availablePlatformsPresented: $availablePlatformsPresented, onboardingIndex: $onboardingIndex)
                 } else {
-                    loginView(loginSheetShown: $loginSheetShown,
+                    signupLoginOnboardingView(loginSheetShown: $loginSheetShown,
                               signupSheetShown: $signupSheetShown,
                               completed: $onboardingIntroComplete,
                               failed: $failed)
-                }
-            }
-            .task {
-                do {
-                    if(try !Vault.getLongLivedToken().isEmpty) {
-                        self.onboardingIntroComplete = true
-                    }
-                } catch {
-                    
                 }
             }
         }
@@ -132,7 +150,9 @@ struct OnboardingIntroToVaults: View {
     @State var codeVerifier: String = ""
     @State var isBackgroundLoading: Bool = false
     @State var completed: Bool = true
-    OnboardingIntroToVaults( codeVerifier: $codeVerifier,
-                            backgroundLoading: $isBackgroundLoading,
-                             complete: $completed )
+    @State var onboardingIndex: Int = 0
+    OnboardingIntroToVaults(
+        codeVerifier: $codeVerifier,
+        backgroundLoading: $isBackgroundLoading,
+        onboardingIndex: $onboardingIndex )
 }

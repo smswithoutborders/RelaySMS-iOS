@@ -15,9 +15,15 @@ struct OnboardingTryExample: View {
         VStack {
             Tab(buttonView:
                 Group {
-                    Button("Try Example") {
+                    Button {
                         shownStoredPlatforms = true
+                    } label: {
+                        Text("Try Example")
+                            .bold()
+                            .frame(maxWidth: .infinity)
                     }
+                    .controlSize(.large)
+                    .padding(.bottom, 10)
                     .buttonStyle(.borderedProminent)
                     .sheet(isPresented: $shownStoredPlatforms) {
                         VStack {
