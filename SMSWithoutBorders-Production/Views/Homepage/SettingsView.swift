@@ -14,6 +14,7 @@ struct SecuritySettingsView: View {
     
     @State private var isShowingRevoke = false
     @State var showIsLoggingOut: Bool = false
+    @State var showIsDeleting: Bool = false
 
     @Binding var isLoggedIn: Bool
 
@@ -46,7 +47,13 @@ struct SecuritySettingsView: View {
                         if deleteProcessing {
                             ProgressView()
                         } else {
-                            Button("Delete Account", role: .destructive, action: deleteAccount)
+                            Button("Delete Account", role: .destructive) {
+                                showIsDeleting.toggle()
+                            }.confirmationDialog("", isPresented: $showIsDeleting) {
+                                Button("Continue Deleting", role: .destructive, action: deleteAccount)
+                            } message: {
+                                Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
+                            }
                         }
                     }
                 }
@@ -71,7 +78,8 @@ struct SecuritySettingsView: View {
     
     func deleteAccount() {
         deleteProcessing = true
-        Task {
+        let backgroundQueueu = DispatchQueue(label: "deleteAccountQueue", qos: .background)
+        backgroundQueueu.async {
             do {
                 let llt = try Vault.getLongLivedToken()
                 try Vault.completeDeleteEntity(

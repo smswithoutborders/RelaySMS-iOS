@@ -71,7 +71,7 @@ class GatewayClients: Codable {
     }
 
     public static func addDefaultGatewayClients(context: NSManagedObjectContext, defaultAvailable: Bool = false) {
-        let backgroundQueueu = DispatchQueue(label: "backgroundQueueu", qos: .background)
+        let backgroundQueueu = DispatchQueue(label: "addGatewayClientQueues", qos: .background)
         backgroundQueueu.async {
             let defaultGatewayClients = [
                 GatewayClients(
