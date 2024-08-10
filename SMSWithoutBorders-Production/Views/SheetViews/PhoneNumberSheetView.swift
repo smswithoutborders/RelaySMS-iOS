@@ -66,19 +66,22 @@ struct PhoneNumberSheetView: View {
                                        showFlag: true)
                      }
                  }
+                 .padding()
                  
-                 HStack {
-                     Text("+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                        .foregroundColor(Color.gray)
-                     Spacer()
-                     TextField("Phone Number", text: $phoneNumber)
-                         .keyboardType(.numberPad)
-                         .textContentType(.emailAddress)
-                         .autocapitalization(.none)
-                }
-                .padding(.leading)
-                Rectangle().frame(height: 1).foregroundColor(.gray)
-                 
+                 Group {
+                     HStack {
+                         Text("+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                            .foregroundColor(Color.gray)
+                         Spacer()
+                         TextField("Phone Number", text: $phoneNumber)
+                             .padding()
+                             .keyboardType(.numberPad)
+                             .textContentType(.emailAddress)
+                             .autocapitalization(.none)
+                    }
+                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                 }
+                 .padding(.leading)
 
                  if requestingCode {
                      ProgressView()
@@ -88,9 +91,10 @@ struct PhoneNumberSheetView: View {
                          requestingCode = true
                          phoneNumberAuthRequest()
                      }
+                     .padding(.bottom, 10)
                      .buttonStyle(.borderedProminent)
-                     .padding()
                      .disabled(phoneNumber.count < 3)
+                     .controlSize(.large)
                  }
              }
         }

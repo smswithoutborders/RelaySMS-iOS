@@ -92,6 +92,7 @@ struct GatewayClientsView: View {
         .task {
             Task {
                 if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                    print("Is searching for default....")
                     do {
                         GatewayClients.addDefaultGatewayClients(
                             context: context,

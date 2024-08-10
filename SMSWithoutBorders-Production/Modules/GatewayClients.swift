@@ -71,6 +71,7 @@ class GatewayClients: Codable {
     }
 
     public static func addDefaultGatewayClients(context: NSManagedObjectContext, defaultAvailable: Bool = false) {
+        print("Searching for defaults: \(defaultAvailable)")
         let backgroundQueueu = DispatchQueue(label: "addGatewayClientQueues", qos: .background)
         backgroundQueueu.async {
             let defaultGatewayClients = [
@@ -129,6 +130,10 @@ class GatewayClients: Codable {
             if !defaultAvailable && returningGatewayClient != nil {
                 UserDefaults.standard.register(defaults: [
                     GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
+                ])
+            } else {
+                UserDefaults.standard.register(defaults: [
+                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
                 ])
             }
             
