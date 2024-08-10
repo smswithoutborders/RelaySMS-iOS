@@ -22,13 +22,15 @@ class DataController: ObservableObject {
     }
     
     public static func resetDatabase(context: NSManagedObjectContext) throws {
+        // This deletes everything except the default Gateway Clients
         do {
             try context.persistentStoreCoordinator!.managedObjectModel.entities.forEach { (entity) in
-                print("Entity reseting: \(entity.name)")
                 if let name = entity.name {
-                    let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
-                    let request = NSBatchDeleteRequest(fetchRequest: fetch)
-                    try context.execute(request)
+                    if entity.name != "GatewayClientsEntity" {
+                        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: name)
+                        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+                        try context.execute(request)
+                    }
                 }
             }
 

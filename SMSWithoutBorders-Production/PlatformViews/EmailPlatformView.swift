@@ -11,40 +11,44 @@ struct EmailPlatformView: View {
     @State var message: Messages
     
     var body: some View {
-        VStack(alignment: .leading) {
+        NavigationView {
             VStack(alignment: .leading) {
-                Text(message.subject)
-                    .font(.title)
-                    .padding()
+                VStack(alignment: .leading) {
+                    Text(message.subject)
+                        .font(.title)
+                        .padding()
 
-                HStack {
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(message.fromAccount)
-                                .bold()
-                            Text(Date(timeIntervalSince1970: TimeInterval(message.date)), formatter: RelativeDateTimeFormatter())
-                                .font(.caption)
-                        }
-                        HStack {
-                            Text(message.toAccount)
-                                .font(.caption)
+                    HStack {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                        
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(message.fromAccount)
+                                    .bold()
+                                Text(Date(timeIntervalSince1970: TimeInterval(message.date)), formatter: RelativeDateTimeFormatter())
+                                    .font(.caption)
+                            }
+                            HStack {
+                                Text(message.toAccount)
+                                    .font(.caption)
+                            }
                         }
                     }
+                    .padding()
+                    
                 }
-                .padding()
+                    
+                Text(message.data)
+                    .padding()
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
                 
             }
-                
-            Text(message.data)
-                .padding()
-                .frame(height: .infinity)
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 

@@ -164,8 +164,6 @@ struct SMSWithoutBorders_ProductionApp: App {
                                    codeVerifier: $codeVerifier,
                                    backgroundLoading: $backgroundLoading)
                     .environment(\.managedObjectContext, dataController.container.viewContext)
-                    .task {
-                    }
                 }
                 else {
                     HomepageView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())

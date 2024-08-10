@@ -27,6 +27,8 @@ struct EmailView: View {
     private var defaultGatewayClientMsisdn: String = ""
     
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+    
+    @Binding var globalDismiss: Bool
 
     @State var composeTo: String = ""
     @State var composeFrom: String = ""
@@ -38,7 +40,7 @@ struct EmailView: View {
     private var platformName: String
     private var fromAccount: String
 
-    init(platformName: String, fromAccount: String) {
+    init(platformName: String, fromAccount: String, globalDismiss: Binding<Bool>) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -48,6 +50,7 @@ struct EmailView: View {
         print("Searching platform: \(platformName)")
 
         self.fromAccount = fromAccount
+        self._globalDismiss = globalDismiss
     }
     
     var decoder: Decoder?
@@ -207,8 +210,10 @@ struct EmailView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var globalDimiss = false
+        
         return EmailView(platformName: "gmail", 
-                         fromAccount: "dev@relay.sms")
+                         fromAccount: "dev@relay.sms", globalDismiss: $globalDimiss)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

@@ -205,6 +205,7 @@ struct AvailablePlatformsSheetsView: View {
             .sheet(isPresented: $accountViewShown) {
                 AccountSheetView(
                     filter: filterPlatformName,
+                    globalDismiss: $accountViewShown,
                     isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE)
             }
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
@@ -219,10 +220,12 @@ struct AvailablePlatformsSheetsView: View {
     }
     
     private func triggerPlatformRequest(platform: PlatformsEntity) {
+        let backgroundQueueu = DispatchQueue(label: "addingNewPlatformQueue", qos: .background)
+        
         switch platform.protocol_type {
         case "oauth2":
             loadingOAuthURLScreen = true
-            Task {
+            backgroundQueueu.async {
                 do {
                     let publisher = Publisher()
                     let response = try publisher.getOAuthURL(
@@ -235,7 +238,7 @@ struct AvailablePlatformsSheetsView: View {
                 catch {
                     print("Some error occured: \(error)")
                 }
-                loadingOAuthURLScreen = false
+                dismiss()
             }
         case "pnba":
             phonenumberViewPlatform = platform.name!

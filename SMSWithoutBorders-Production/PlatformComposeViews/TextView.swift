@@ -21,12 +21,14 @@ struct TextView: View {
     @State var textBody :String = ""
     @State var placeHolder: String = "What's happening?"
 
-    @Environment(\.managedObjectContext) var datastore
+    @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
+    
+    @Binding var globalDismiss: Bool
 
     @State var platform: PlatformsEntity?
     
@@ -37,7 +39,7 @@ struct TextView: View {
     private var platformName: String
     private var fromAccount: String
 
-    init(platformName: String, fromAccount: String) {
+    init(platformName: String, fromAccount: String, globalDismiss: Binding<Bool>) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -47,6 +49,7 @@ struct TextView: View {
         print("Searching platform: \(platformName)")
 
         self.fromAccount = fromAccount
+        self._globalDismiss = globalDismiss
     }
 
     var body: some View {
@@ -73,7 +76,8 @@ struct TextView: View {
                     Button(action: {
                         for platform in platforms {
                             do {
-                                let messageComposer = try Publisher.publish(platform: platform, context: datastore)
+                                let messageComposer = try Publisher.publish(
+                                    platform: platform, context: context)
                                 
                                 var shortcode: UInt8? = nil
                                 shortcode = platform.shortcode!.bytes[0]
@@ -83,6 +87,20 @@ struct TextView: View {
                                     sender: fromAccount,
                                     text: textBody)
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
+                                
+                                var messageEntities = MessageEntity(context: context)
+                                messageEntities.platformName = platformName
+                                messageEntities.fromAccount = fromAccount
+                                messageEntities.toAccount = ""
+                                messageEntities.subject = ""
+                                messageEntities.body = textBody
+                                messageEntities.date = Int32(Date().timeIntervalSince1970)
+                                
+                                do {
+                                    try context.save()
+                                } catch {
+                                    print("Failed to save message entity: \(error)")
+                                }
                                 
                                 SMSHandler.sendSMS(message: encryptedFormattedContent,
                                                    receipient: defaultGatewayClientMsisdn,
@@ -109,7 +127,8 @@ struct TextView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return TextView(platformName: "twitter", fromAccount: "@relaysms")
+        @State var globalDismiss = false
+        return TextView(platformName: "twitter", fromAccount: "@relaysms", globalDismiss: $globalDismiss)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

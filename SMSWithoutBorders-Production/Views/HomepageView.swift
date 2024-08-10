@@ -42,15 +42,6 @@ struct HomepageView: View {
                         Text("Settings")
                     }
                     .tag(HomepageTabs.settings)
-            }.onChange(of: selectedTab) { newTab in
-                if newTab == HomepageTabs.recents{
-                    print("checking for loggin")
-                    do {
-                        isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-                    } catch {
-                        print("error checking status")
-                    }
-                }
             }
         }
     }

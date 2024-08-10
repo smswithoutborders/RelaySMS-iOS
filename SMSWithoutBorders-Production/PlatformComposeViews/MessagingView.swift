@@ -175,6 +175,19 @@ struct MessagingView: View {
                             .focused($isFocused)
 
                         Button {
+//                            var messageEntities = MessageEntity(context: context)
+//                            messageEntities.platformName = platformName
+//                            messageEntities.fromAccount = fromAccount
+//                            messageEntities.toAccount = ""
+//                            messageEntities.subject = ""
+//                            messageEntities.body = textBody
+//                            messageEntities.date = Int32(Date().timeIntervalSince1970)
+//                            
+//                            do {
+//                                try context.save()
+//                            } catch {
+//                                print("Failed to save message entity: \(error)")
+//                            }
                             
                         } label: {
                             Image("MessageSend")

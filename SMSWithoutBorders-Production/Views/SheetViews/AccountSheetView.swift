@@ -44,10 +44,13 @@ struct AccountSheetView: View {
     private var platformName: String
     private var isRevoke: Bool
 
+    @Binding private var globalSheetShownDismiss: Bool
+    
     @State private var isRevokeSheetShown: Bool = false
     @State private var isRevoking: Bool = false
+    @State private var revokingShown: Bool = false
 
-    init(filter: String, isRevoke: Bool = false) {
+    init(filter: String, globalDismiss: Binding<Bool>, isRevoke: Bool = false) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -57,6 +60,7 @@ struct AccountSheetView: View {
             predicate: NSPredicate(format: "name == %@", filter))
         self.platformName = filter
         self.isRevoke = isRevoke
+        self._globalSheetShownDismiss = globalDismiss
     }
     
     var body: some View {
@@ -67,43 +71,49 @@ struct AccountSheetView: View {
                         accountView(accountName: platform.account!, platformName: platform.name!)
                     }
                 } else {
-                    Button(action: {
-                        isRevokeSheetShown.toggle()
-                    }) {
-                        accountView(accountName: platform.account!, platformName: platform.name!)
+                    if isRevoking {
+                        ProgressView()
                     }
-                    .confirmationDialog(String("Revoke?"),
-                                        isPresented: $isRevokeSheetShown) {
-                        if isRevoking {
-                            ProgressView()
+                    else {
+                        Button(action: {
+                            isRevokeSheetShown.toggle()
+                        }) {
+                            accountView(accountName: platform.account!, platformName: platform.name!)
                         }
-                        else {
+                        .confirmationDialog(String("Revoke?"),
+                                            isPresented: $isRevokeSheetShown) {
+
                             Button("Revoke", role: .destructive) {
                                 isRevoking = true
-                                do {
-                                    let llt = try Vault.getLongLivedToken()
-                                    let publisher = Publisher()
-                                    let response = try publisher.revokePlatform(
-                                        llt: llt, 
-                                        platform: platform.name!,
-                                        account: platform.account!,
-                                        protocolType: getProtocolTypeForPlatform(
-                                            storedPlatform: platform, platforms: platforms))
-                                    
-                                    if response {
-                                        viewContext.delete(platform)
-                                        try viewContext.save()
+                                let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
+                                backgroundQueueu.async {
+                                    do {
+                                        let llt = try Vault.getLongLivedToken()
+                                        let publisher = Publisher()
+                                        let response = try publisher.revokePlatform(
+                                            llt: llt,
+                                            platform: platform.name!,
+                                            account: platform.account!,
+                                            protocolType: getProtocolTypeForPlatform(
+                                                storedPlatform: platform, platforms: platforms))
+                                        
+                                        if response {
+                                            viewContext.delete(platform)
+                                            try viewContext.save()
+                                        }
+                                        
+                                        dismiss()
+                                        globalSheetShownDismiss = true
+                                    } catch {
+                                        print("Error revoking: \(error)")
                                     }
-                                    
-                                    dismiss()
-                                } catch {
-                                    print("Error revoking: \(error)")
                                 }
                             }
-                            Button("Cancel", role: .cancel) {}
+//                            Button("Cancel", role: .cancel) {}
+                            
+                        } message: {
+                            Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
                         }
-                    } message: {
-                        Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
                     }
                 }
             }
@@ -117,9 +127,13 @@ struct AccountSheetView: View {
         ForEach(platforms) { platform in
             switch platform.service_type {
             case "email":
-                EmailView(platformName: platform.name!, fromAccount: fromAccount)
+                EmailView(platformName: platform.name!, 
+                          fromAccount: fromAccount,
+                          globalDismiss: $globalSheetShownDismiss)
             case "text":
-                TextView(platformName: platform.name!, fromAccount: fromAccount)
+                TextView(platformName: platform.name!, 
+                         fromAccount: fromAccount,
+                         globalDismiss: $globalSheetShownDismiss)
             case "message":
                 MessagingView(platformName: platform.name!, fromAccount: fromAccount)
             default:
@@ -135,7 +149,8 @@ struct AccountSheetView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return AccountSheetView(filter: "twitter", isRevoke: false)
+        @State var globalDismiss = false
+        return AccountSheetView(filter: "twitter", globalDismiss: $globalDismiss, isRevoke: false)
             .environment(\.managedObjectContext, container.viewContext)
 //        return RevokeAccountView()
     }

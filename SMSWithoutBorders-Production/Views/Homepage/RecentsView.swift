@@ -297,7 +297,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = false
+        @State var isLoggedIn: Bool = true
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)

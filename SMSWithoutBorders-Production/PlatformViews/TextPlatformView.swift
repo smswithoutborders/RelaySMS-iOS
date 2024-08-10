@@ -11,11 +11,12 @@ struct TextPlatformView: View {
     @State var message: Messages
 
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
+        NavigationView {
+            VStack {
                 Text(message.platformName)
                     .font(.title)
                     .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack {
                     Image(systemName: "person.circle")
@@ -30,14 +31,17 @@ struct TextPlatformView: View {
                             .font(.caption)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Text(message.data)
                     .padding()
-                    .frame(height: .infinity)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
+                Spacer()
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 
@@ -47,7 +51,7 @@ struct TextPlatformView: View {
         data: "The scroll view displays its content within the scrollable content region. As the user performs platform-appropriate scroll gestures, the scroll view adjusts what portion of the underlying content is visible. ScrollView can scroll horizontally, vertically, or both, but does not provide zooming functionality.",
         fromAccount: "fromAccount@gmail.com",
         toAccount: "toAccount@gmail.com",
-        platformName: "gmail",
+        platformName: "twitter",
         date: Int(Date().timeIntervalSince1970))
     TextPlatformView(message: message)
 }
