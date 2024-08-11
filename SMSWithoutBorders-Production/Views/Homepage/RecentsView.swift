@@ -107,6 +107,10 @@ struct RecentsView: View {
     @State var showAvailablePlatforms: Bool = false
     @State var showComposePlatforms: Bool = false
     
+    @State var messagePlatformViewRequested: Bool = false
+    @State var messagePlatformViewPlatformName: String = ""
+    @State var messagePlatformViewFromAccount: String = ""
+
     @State var loginSheetVisible: Bool = false
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
@@ -114,7 +118,15 @@ struct RecentsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if !isLoggedIn {
+                if messagePlatformViewRequested {
+                    NavigationLink(destination: MessagingView(
+                        platformName: messagePlatformViewPlatformName,
+                        fromAccount: messagePlatformViewFromAccount,
+                        message: nil), isActive: $messagePlatformViewRequested) {
+                        
+                    }
+                }
+                else if !isLoggedIn {
                     Spacer()
                     getNoLoggedInView()
                     .padding()
@@ -170,7 +182,10 @@ struct RecentsView: View {
                                     .frame(maxWidth: .infinity)
                             }
                             .sheet(isPresented: $showComposePlatforms) {
-                                OfflineAvailablePlatformsSheetsView()
+                                OfflineAvailablePlatformsSheetsView(
+                                    messagePlatformViewRequested: $messagePlatformViewRequested,
+                                    messagePlatformViewPlatformName: $messagePlatformViewPlatformName, 
+                                    messagePlatformViewFromAccount: $messagePlatformViewFromAccount)
                             }
                             .buttonStyle(.borderedProminent)
                             .controlSize(.large)
@@ -233,7 +248,10 @@ struct RecentsView: View {
                                             x: 3,
                                             y: 3)
                                     .sheet(isPresented: $showComposePlatforms) {
-                                        OfflineAvailablePlatformsSheetsView()
+                                        OfflineAvailablePlatformsSheetsView(
+                                            messagePlatformViewRequested: $messagePlatformViewRequested,
+                                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName, 
+                                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount)
                                     }
                                     
                                     VStack {

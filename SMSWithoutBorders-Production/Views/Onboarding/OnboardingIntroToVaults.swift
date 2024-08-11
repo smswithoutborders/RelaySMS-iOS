@@ -69,6 +69,9 @@ struct addAccountsView: View {
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     
     @Binding var onboardingIndex: Int
+    @State var messagePlatformViewRequested: Bool = false
+    @State var messagePlatformViewPlatformName: String = ""
+    @State var messagePlatformViewFromAccount: String = ""
 
     var body: some View {
         VStack {
@@ -82,7 +85,10 @@ struct addAccountsView: View {
                 }
                 .sheet(isPresented: $availablePlatformsPresented) {
                     AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, 
-                                                 title: title, 
+                                                 messagePlatformViewRequested: $messagePlatformViewRequested, 
+                                                 messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                                                 messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
+                                                 title: title,
                                                  description: description)
                 }
                 .controlSize(.large)

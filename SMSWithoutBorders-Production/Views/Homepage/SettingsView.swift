@@ -17,6 +17,9 @@ struct SecuritySettingsView: View {
     @State var showIsDeleting: Bool = false
 
     @Binding var isLoggedIn: Bool
+    @State var messagePlatformViewRequested: Bool = false
+    @State var messagePlatformViewPlatformName: String = ""
+    @State var messagePlatformViewFromAccount: String = ""
 
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
@@ -31,7 +34,11 @@ struct SecuritySettingsView: View {
                         Button("Revoke Platforms") {
                             isShowingRevoke = true
                         }.sheet(isPresented: $isShowingRevoke) {
-                            OfflineAvailablePlatformsSheetsView(isRevoke: true)
+                            OfflineAvailablePlatformsSheetsView(
+                                messagePlatformViewRequested: $messagePlatformViewRequested, 
+                                messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                                messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
+                                isRevoke: true)
                         }
                     }
                     

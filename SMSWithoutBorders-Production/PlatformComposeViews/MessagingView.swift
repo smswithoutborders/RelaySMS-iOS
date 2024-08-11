@@ -99,8 +99,9 @@ struct MessagingView: View {
     @StateObject private var coordinator = Coordinator()
     
     var message: Messages?
+    @State private var showMessages = false
 
-    init(platformName: String, fromAccount: String, message: Messages?) {
+    init(platformName: String, fromAccount: String, message: Messages? = nil) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -113,6 +114,7 @@ struct MessagingView: View {
                 predicate: NSPredicate(
                     format: "platformName == %@ and toAccount == %@ and fromAccount == %@",
                     platformName, message!.toAccount, message!.fromAccount))
+            print("toAccount: \(message!.toAccount), fromAccount: \(message!.fromAccount)")
         }
         else {
             _messages = FetchRequest<MessageEntity>(
@@ -162,23 +164,18 @@ struct MessagingView: View {
                     }
                     else {
                         List{
-                            if message != nil {
-                                ForEach(messages) { message in
+                            if message != nil || showMessages {
+                                ForEach(messages, id: \.id) { inbox in
                                     Button(action: {}) {
                                         VStack {
-                                            Text(message.body!)
+                                            Text(inbox.body!)
                                                 .frame(maxWidth: .infinity, alignment: .trailing)
-                                            Text(Date(timeIntervalSince1970: TimeInterval(message.date)), style: .time)
+                                            Text(Date(timeIntervalSince1970: TimeInterval(inbox.date)), style: .time)
                                                 .font(.caption)
                                                 .foregroundStyle(.gray)
                                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                         }
                                     }
-                                    .cornerRadius(18)
-                                    .shadow(color: Color.black.opacity(0.3),
-                                            radius: 3,
-                                            x: 3,
-                                            y: 3)
                                 }
                             }
                         }
@@ -209,13 +206,19 @@ struct MessagingView: View {
                                     
                                     print("Transmitting to sms app: \(encryptedFormattedContent)")
                                     
+                                    let date = Int(Date().timeIntervalSince1970)
+                                    if message == nil {
+                                        showMessages = true
+                                    }
+                                    
                                     var messageEntities = MessageEntity(context: context)
+                                    messageEntities.id = UUID()
                                     messageEntities.platformName = platformName
                                     messageEntities.fromAccount = fromAccount
                                     messageEntities.toAccount = messageContact
                                     messageEntities.subject = messageContact
                                     messageEntities.body = messageBody
-                                    messageEntities.date = Int32(Date().timeIntervalSince1970)
+                                    messageEntities.date = Int32(date)
                                     
                                     do {
                                         try context.save()
@@ -254,6 +257,7 @@ struct MessagingView: View {
             if message != nil {
                 self.messageContact = message!.toAccount
             }
+            print(messages)
         }
     }
     

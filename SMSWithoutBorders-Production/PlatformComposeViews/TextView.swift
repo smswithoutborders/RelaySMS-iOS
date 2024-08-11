@@ -89,6 +89,7 @@ struct TextView: View {
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
                                 var messageEntities = MessageEntity(context: context)
+                                messageEntities.id = UUID()
                                 messageEntities.platformName = platformName
                                 messageEntities.fromAccount = fromAccount
                                 messageEntities.toAccount = ""

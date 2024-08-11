@@ -45,12 +45,19 @@ struct AccountSheetView: View {
     private var isRevoke: Bool
 
     @Binding private var globalSheetShownDismiss: Bool
-    
+    @Binding var messagePlatformViewRequested: Bool
+    @Binding var messagePlatformViewFromAccount: String
+
     @State private var isRevokeSheetShown: Bool = false
     @State private var isRevoking: Bool = false
     @State private var revokingShown: Bool = false
+    
+    @State private var isLinkActive: Bool = false
 
-    init(filter: String, globalDismiss: Binding<Bool>, isRevoke: Bool = false) {
+    init(filter: String, globalDismiss: Binding<Bool>,
+         messagePlatformViewRequested: Binding<Bool>,
+         messagePlatformViewFromAccount: Binding<String>,
+         isRevoke: Bool = false) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -58,18 +65,35 @@ struct AccountSheetView: View {
         _platforms = FetchRequest<PlatformsEntity>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", filter))
+        
         self.platformName = filter
         self.isRevoke = isRevoke
         self._globalSheetShownDismiss = globalDismiss
+        self._messagePlatformViewRequested = messagePlatformViewRequested
+        self._messagePlatformViewFromAccount = messagePlatformViewFromAccount
     }
     
     var body: some View {
         NavigationView {
-            List(storedPlatforms) { platform in
+            List(storedPlatforms, id: \.self) { platform in
                 if !isRevoke {
-                    NavigationLink(destination: getDestinationForPlatform(fromAccount: platform.account!)) {
+                    Button(action:{
+                        for p in platforms {
+                            if p.service_type == "message" {
+                                messagePlatformViewRequested = true
+                                messagePlatformViewFromAccount = platform.account!
+                            } else {
+                                isLinkActive = true
+                            }
+                            break
+                        }
+                    }) {
                         accountView(accountName: platform.account!, platformName: platform.name!)
-                    }
+                    }.background(
+                        NavigationLink(
+                            destination: getDestinationForPlatform(fromAccount: platform.account!),
+                            isActive: $isLinkActive) { EmptyView() }.hidden()
+                    )
                 } else {
                     if isRevoking {
                         ProgressView()
@@ -134,8 +158,6 @@ struct AccountSheetView: View {
                 TextView(platformName: platform.name!, 
                          fromAccount: fromAccount,
                          globalDismiss: $globalSheetShownDismiss)
-            case "message":
-                MessagingView(platformName: platform.name!, fromAccount: fromAccount, message: nil)
             default:
                 EmptyView()
             }
@@ -150,8 +172,14 @@ struct AccountSheetView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var globalDismiss = false
-        return AccountSheetView(filter: "twitter", globalDismiss: $globalDismiss, isRevoke: false)
+        @State var messagePlatformViewRequested = false
+        @State var messagePlatformViewFromAccount: String = ""
+        return AccountSheetView(
+            filter: "twitter",
+            globalDismiss: $globalDismiss,
+            messagePlatformViewRequested: $messagePlatformViewRequested,
+            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
+            isRevoke: false)
             .environment(\.managedObjectContext, container.viewContext)
-//        return RevokeAccountView()
     }
 }

@@ -117,7 +117,8 @@ func populateMockData(container: NSPersistentContainer) {
         messageEntity.body = "Hello world - \(i)"
         messageEntity.platformName = "telegram"
         messageEntity.fromAccount = "+\(i)3712345678\(i)"
-        messageEntity.toAccount = "+\(i)3712345678\(i)"
+//        messageEntity.toAccount = "+\(i)3712345678\(i)"
+        messageEntity.toAccount = "+137123456781"
         messageEntity.subject = "+\(i)3712345678\(i)"
         messageEntity.date = Int32(Date().timeIntervalSince1970) - 30
     }
