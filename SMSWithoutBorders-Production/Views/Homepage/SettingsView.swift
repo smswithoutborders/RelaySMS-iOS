@@ -64,8 +64,9 @@ struct SecuritySettingsView: View {
                         }
                     }
                 }
-            }.navigationTitle("Settings")
+            }
         }
+        .navigationBarTitle("Security")
     }
     
     
