@@ -135,7 +135,7 @@ struct AccountSheetView: View {
                          fromAccount: fromAccount,
                          globalDismiss: $globalSheetShownDismiss)
             case "message":
-                MessagingView(platformName: platform.name!, fromAccount: fromAccount)
+                MessagingView(platformName: platform.name!, fromAccount: fromAccount, message: nil)
             default:
                 EmptyView()
             }

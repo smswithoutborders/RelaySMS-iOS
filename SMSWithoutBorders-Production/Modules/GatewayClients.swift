@@ -122,21 +122,21 @@ class GatewayClients: Codable {
             
             do {
                 try context.save()
+                
+                if !defaultAvailable && returningGatewayClient != nil {
+                    UserDefaults.standard.register(defaults: [
+                        GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
+                    ])
+                } else {
+                    UserDefaults.standard.register(defaults: [
+                        GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
+                    ])
+                }
+                
             }
             catch {
                 print("Error saving Gateway client!: \(error)")
             }
-
-            if !defaultAvailable && returningGatewayClient != nil {
-                UserDefaults.standard.register(defaults: [
-                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
-                ])
-            } else {
-                UserDefaults.standard.register(defaults: [
-                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
-                ])
-            }
-            
         }
     }
 

@@ -289,6 +289,12 @@ struct RecentsView: View {
                 else if platform.service_type == "text" {
                     TextPlatformView(message: message)
                 }
+                else if platform.service_type == "message" {
+                    MessagingView(
+                        platformName: message.platformName,
+                        fromAccount: message.fromAccount,
+                        message: message)
+                }
             }
         }
     }

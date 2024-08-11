@@ -65,17 +65,19 @@ extension MessagingView {
     private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
         func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
             // Customize here
-            controller.dismiss(animated: true)
+//            controller.dismiss(animated: true)
         }
     }
 }
 
 struct MessagingView: View {
     
-    @Environment(\.managedObjectContext) var datastore
+    @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-//    @Environment(\.presentationMode) var presentationMode
     
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
+
     @State var platform: PlatformsEntity?
     
     var decoder: Decoder?
@@ -95,21 +97,34 @@ struct MessagingView: View {
     
     @State private var pickedNumber: String?
     @StateObject private var coordinator = Coordinator()
+    
+    var message: Messages?
 
-    init(platformName: String, fromAccount: String) {
+    init(platformName: String, fromAccount: String, message: Messages?) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", platformName))
         
-        _messages = FetchRequest<MessageEntity>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "platformName == %@", platformName))
+        if message != nil {
+            _messages = FetchRequest<MessageEntity>(
+                sortDescriptors: [],
+                predicate: NSPredicate(
+                    format: "platformName == %@ and toAccount == %@ and fromAccount == %@",
+                    platformName, message!.toAccount, message!.fromAccount))
+        }
+        else {
+            _messages = FetchRequest<MessageEntity>(
+                sortDescriptors: [],
+                predicate: NSPredicate(
+                    format: "platformName == %@", platformName))
+        }
 
         print("Searching platform: \(platformName)")
 
         self.fromAccount = fromAccount
+        self.message = message
     }
     
 
@@ -147,22 +162,24 @@ struct MessagingView: View {
                     }
                     else {
                         List{
-                            ForEach(messages) { message in
-                                Button(action: {}) {
-                                    VStack {
-                                        Text(message.body!)
-                                            .frame(maxWidth: .infinity, alignment: .trailing)
-                                        Text(Date(timeIntervalSince1970: TimeInterval(message.date)), style: .time)
-                                            .font(.caption)
-                                            .foregroundStyle(.gray)
-                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            if message != nil {
+                                ForEach(messages) { message in
+                                    Button(action: {}) {
+                                        VStack {
+                                            Text(message.body!)
+                                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                            Text(Date(timeIntervalSince1970: TimeInterval(message.date)), style: .time)
+                                                .font(.caption)
+                                                .foregroundStyle(.gray)
+                                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                        }
                                     }
+                                    .cornerRadius(18)
+                                    .shadow(color: Color.black.opacity(0.3),
+                                            radius: 3,
+                                            x: 3,
+                                            y: 3)
                                 }
-                                .cornerRadius(18)
-                                .shadow(color: Color.black.opacity(0.3),
-                                        radius: 3,
-                                        x: 3,
-                                        y: 3)
                             }
                         }
                     }
@@ -175,19 +192,46 @@ struct MessagingView: View {
                             .focused($isFocused)
 
                         Button {
-//                            var messageEntities = MessageEntity(context: context)
-//                            messageEntities.platformName = platformName
-//                            messageEntities.fromAccount = fromAccount
-//                            messageEntities.toAccount = ""
-//                            messageEntities.subject = ""
-//                            messageEntities.body = textBody
-//                            messageEntities.date = Int32(Date().timeIntervalSince1970)
-//                            
-//                            do {
-//                                try context.save()
-//                            } catch {
-//                                print("Failed to save message entity: \(error)")
-//                            }
+                            for platform in platforms {
+                                do {
+                                    let messageComposer = try Publisher.publish(
+                                        platform: platform, context: context)
+                                    
+                                    var shortcode: UInt8? = nil
+                                    shortcode = platform.shortcode!.bytes[0]
+                                    
+                                    messageContact = messageContact.filter{ $0.isWholeNumber }
+                                    let encryptedFormattedContent = try messageComposer.messageComposer(
+                                        platform_letter: shortcode!,
+                                        sender: fromAccount,
+                                        receiver: messageContact,
+                                        message: messageBody)
+                                    
+                                    print("Transmitting to sms app: \(encryptedFormattedContent)")
+                                    
+                                    var messageEntities = MessageEntity(context: context)
+                                    messageEntities.platformName = platformName
+                                    messageEntities.fromAccount = fromAccount
+                                    messageEntities.toAccount = messageContact
+                                    messageEntities.subject = messageContact
+                                    messageEntities.body = messageBody
+                                    messageEntities.date = Int32(Date().timeIntervalSince1970)
+                                    
+                                    do {
+                                        try context.save()
+                                    } catch {
+                                        print("Failed to save message entity: \(error)")
+                                    }
+                                    
+                                    SMSHandler.sendSMS(message: encryptedFormattedContent,
+                                                       receipient: defaultGatewayClientMsisdn,
+                                                       messageComposeDelegate: self.messageComposeDelegate)
+                                } catch {
+                                    print("Some error occured while sending: \(error)")
+                                }
+                                messageBody = ""
+                                break
+                            }
                             
                         } label: {
                             Image("MessageSend")
@@ -205,15 +249,11 @@ struct MessagingView: View {
                 self.messageContact = phoneNumber ?? ""
             })
             .navigationBarTitle("Compose Message")
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        self.dismiss()
-                    }) {
-                        Text("Send")
-                    }
-                }
-            })
+        }
+        .task {
+            if message != nil {
+                self.messageContact = message!.toAccount
+            }
         }
     }
     
@@ -275,7 +315,14 @@ struct MessageView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return MessagingView(platformName: "telegram", fromAccount: "+237123456789")
+        let message = Messages(
+            subject: "Subject",
+            data: "Hello world",
+            fromAccount: "+137123456781",
+            toAccount: "+137123456781", platformName: "telegram",
+            date: Int(Date().timeIntervalSince1970))
+        
+        return MessagingView(platformName: "telegram", fromAccount: "+237123456789", message: message)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
