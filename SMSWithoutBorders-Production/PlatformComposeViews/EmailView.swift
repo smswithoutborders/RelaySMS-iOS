@@ -9,16 +9,6 @@ import SwiftUI
 import MessageUI
 import CryptoKit
 
-
-extension EmailView {
-    private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
-        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-            // Customize here
-            controller.dismiss(animated: true)
-        }
-    }
-}
-
 struct EmailView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
@@ -172,9 +162,10 @@ struct EmailView: View {
                                     print("Failed to save message entity: \(error)")
                                 }
 
-                                SMSHandler.sendSMS(message: encryptedFormattedContent,
-                                                   receipient: defaultGatewayClientMsisdn,
-                                        messageComposeDelegate: self.messageComposeDelegate)
+                                
+                                let vc = ViewController()
+                                vc.sendSMS(message: encryptedFormattedContent,
+                                        receipient: defaultGatewayClientMsisdn)
                             } catch {
                                 print("Some error occured while sending: \(error)")
                             }

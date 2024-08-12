@@ -8,15 +8,6 @@
 import SwiftUI
 import MessageUI
 
-extension TextView {
-    private class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
-        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-            // Customize here
-            controller.dismiss(animated: true)
-        }
-    }
-}
-
 struct TextView: View {
     @State var textBody :String = ""
     @State var placeHolder: String = "What's happening?"
@@ -103,9 +94,10 @@ struct TextView: View {
                                     print("Failed to save message entity: \(error)")
                                 }
                                 
-                                SMSHandler.sendSMS(message: encryptedFormattedContent,
-                                                   receipient: defaultGatewayClientMsisdn,
-                                        messageComposeDelegate: self.messageComposeDelegate)
+                                let vc = ViewController()
+                                vc.sendSMS(
+                                    message: encryptedFormattedContent,
+                                    receipient: defaultGatewayClientMsisdn)
                             } catch {
                                 print("Some error occured while sending: \(error)")
                             }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 public extension Color {
 
@@ -19,6 +20,50 @@ public extension Color {
     static let tertiaryBackground = Color(UIColor.tertiarySystemBackground)
     #endif
 }
+
+class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        // Customize here
+        controller.dismiss(animated: true)
+    }
+}
+
+import UIKit
+import MessageUI
+
+class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    public func sendSMS(message: String, receipient: String) {
+        let messageComposeDelegate: MFMessageComposeViewControllerDelegate = MessageComposerDelegate()
+        let messageVC = MFMessageComposeViewController()
+        messageVC.messageComposeDelegate = self
+        messageVC.recipients = [receipient]
+        messageVC.body = message
+        
+        let vc = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
+        
+        if MFMessageComposeViewController.canSendText() {
+            vc?.present(messageVC, animated: true)
+        }
+        else {
+            print("User hasn't setup Messages.app")
+        }
+    }
+
+}
+
 
 struct Card: View {
     @State var logo: Image
@@ -115,6 +160,8 @@ struct RecentsView: View {
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
     
+    var vc: ViewController = ViewController()
+
     var body: some View {
         NavigationView {
             VStack {
@@ -122,7 +169,7 @@ struct RecentsView: View {
                     NavigationLink(destination: MessagingView(
                         platformName: messagePlatformViewPlatformName,
                         fromAccount: messagePlatformViewFromAccount,
-                        message: nil), isActive: $messagePlatformViewRequested) {
+                        message: nil, vc: vc), isActive: $messagePlatformViewRequested) {
                         
                     }
                 }
@@ -275,6 +322,7 @@ struct RecentsView: View {
                                             OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
                                         }
                                     }
+                                    
                                 }
                             }
                             
