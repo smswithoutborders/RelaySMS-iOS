@@ -27,46 +27,43 @@ struct SecuritySettingsView: View {
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    Section(header: Text("Vault")) {
-                        Button("Revoke Platforms") {
-                            isShowingRevoke = true
-                        }.sheet(isPresented: $isShowingRevoke) {
-                            OfflineAvailablePlatformsSheetsView(
-                                messagePlatformViewRequested: $messagePlatformViewRequested, 
-                                messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                                messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-                                isRevoke: true)
-                        }
+        VStack {
+            List {
+                Section(header: Text("Vault")) {
+                    Button("Revoke Platforms") {
+                        isShowingRevoke = true
+                    }.sheet(isPresented: $isShowingRevoke) {
+                        OfflineAvailablePlatformsSheetsView(
+                            messagePlatformViewRequested: $messagePlatformViewRequested,
+                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
+                            isRevoke: true)
                     }
-                    
-                    Section(header: Text("Account")) {
-                        Button("Log out") {
-                            showIsLoggingOut.toggle()
-                        }.confirmationDialog("", isPresented: $showIsLoggingOut) {
-                            Button("Log out", role: .destructive, action: logoutAccount)
-                        } message: {
-                            Text("You can log back in at anytime. All the messages sent would be deleted.")
-                        }
+                }
+                
+                Section(header: Text("Account")) {
+                    Button("Log out") {
+                        showIsLoggingOut.toggle()
+                    }.confirmationDialog("", isPresented: $showIsLoggingOut) {
+                        Button("Log out", role: .destructive, action: logoutAccount)
+                    } message: {
+                        Text("You can log back in at anytime. All the messages sent would be deleted.")
+                    }
 
-                        if deleteProcessing {
-                            ProgressView()
-                        } else {
-                            Button("Delete Account", role: .destructive) {
-                                showIsDeleting.toggle()
-                            }.confirmationDialog("", isPresented: $showIsDeleting) {
-                                Button("Continue Deleting", role: .destructive, action: deleteAccount)
-                            } message: {
-                                Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
-                            }
+                    if deleteProcessing {
+                        ProgressView()
+                    } else {
+                        Button("Delete Account", role: .destructive) {
+                            showIsDeleting.toggle()
+                        }.confirmationDialog("", isPresented: $showIsDeleting) {
+                            Button("Continue Deleting", role: .destructive, action: deleteAccount)
+                        } message: {
+                            Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
                         }
                     }
                 }
             }
         }
-        .navigationBarTitle("Security")
     }
     
     

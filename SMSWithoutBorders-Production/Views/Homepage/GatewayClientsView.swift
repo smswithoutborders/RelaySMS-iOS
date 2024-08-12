@@ -17,7 +17,7 @@ struct GatewayClientView: View {
                 Text(selectedGatewayClient.msisdn!)
                     .font(.headline)
                     .padding(.bottom, 5)
-                    .foregroundColor(disabled ? .secondary : .black )
+                    .foregroundColor(disabled ? .secondary : .primary )
                 
                 HStack {
                     Text(selectedGatewayClient.operatorName! + " -")
