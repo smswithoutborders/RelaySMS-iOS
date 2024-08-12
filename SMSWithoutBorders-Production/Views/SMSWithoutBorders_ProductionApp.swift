@@ -33,6 +33,8 @@ func downloadAndSaveIcons(url: URL,
 }
 
 struct ControllerView: View {
+    public static var ONBOARDING_COMPLETED: String = "com.afkanerd.relaysms.ONBOARDING_COMPLETED"
+    
     @Environment(\.managedObjectContext) var viewContext
     @Binding var isFinished: Bool
     
@@ -83,7 +85,7 @@ struct ControllerView: View {
             case 2:
                 OnboardingTryExample()
             default:
-                OnboardingFinish(isFinished: $lastOnboardingView)
+                OnboardingFinish(lastOnboardingView: $lastOnboardingView)
             }
             
             if(!backgroundLoading) {
@@ -98,6 +100,7 @@ struct ControllerView: View {
                         } else {
                             Button {
                                 isFinished = true
+                                UserDefaults.standard.set(true, forKey: ControllerView.ONBOARDING_COMPLETED)
                             } label: {
                                 Text("Finish!")
                                     .bold()
@@ -142,6 +145,7 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    
     @StateObject private var dataController = DataController()
 
     @State var isFinished = false
@@ -154,11 +158,14 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
+    
+    @AppStorage(ControllerView.ONBOARDING_COMPLETED)
+    private var onboardingCompleted: Bool = false
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if(!isFinished) {
+                if(!isFinished && !onboardingCompleted) {
                     ControllerView(isFinished: $isFinished,
                                    onboardingViewIndex: $onboardingViewIndex,
                                    codeVerifier: $codeVerifier,

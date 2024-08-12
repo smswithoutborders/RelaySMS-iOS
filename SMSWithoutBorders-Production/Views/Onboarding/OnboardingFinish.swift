@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingFinish: View {
-    @Binding var isFinished: Bool
+    @Binding var lastOnboardingView: Bool
     
     var body: some View {
         VStack {
@@ -22,12 +22,12 @@ struct OnboardingFinish: View {
         }
         .padding()
         .task {
-            isFinished = true
+            lastOnboardingView = true
         }
     }
 }
 
 #Preview {
     @State var isFinished = false
-    return OnboardingFinish(isFinished: $isFinished)
+    return OnboardingFinish(lastOnboardingView: $isFinished)
 }
