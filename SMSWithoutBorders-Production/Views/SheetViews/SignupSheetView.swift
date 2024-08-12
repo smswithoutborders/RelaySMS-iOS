@@ -128,7 +128,7 @@ struct SignupSheetView: View {
                         Text("If you don't have an account")
                         Text("Please create one to save your platforms")
                     }
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
                     .font(.subheadline)
                 }
                 .padding(.bottom, 30)
@@ -140,7 +140,7 @@ struct SignupSheetView: View {
                          } label: {
                              let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
                              Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.secondary)
                          }.sheet(isPresented: $showCountryPicker) {
                              CountryPicker(country: $country,
                                            selectedCountryCodeText: $selectedCountryCodeText)
@@ -152,16 +152,16 @@ struct SignupSheetView: View {
                              .autocapitalization(.none)
                     }
                     .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                         .padding(.bottom, 20)
                     
                     SecureField("Password", text: $password)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                         .padding(.bottom, 20)
                     
                     SecureField("Re-enter password", text: $rePassword)
                     Group {
-                        Rectangle().frame(height: 1).foregroundColor(.gray)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
                         if passwordsNotMatch {
                             Text("Passwords don't match")
                                 .foregroundStyle(.red)
@@ -232,7 +232,7 @@ struct SignupSheetView: View {
                 
                 HStack {
                     Text("Already have an account?")
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.secondary)
                     Button {
                     } label: {
                         Text("Log in")

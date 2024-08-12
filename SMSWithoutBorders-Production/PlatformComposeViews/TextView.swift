@@ -50,7 +50,7 @@ struct TextView: View {
                     if self.textBody.isEmpty {
                         TextEditor(text: $placeHolder)
                                 .font(.body)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                                 .disabled(true)
                                 .padding()
                     }

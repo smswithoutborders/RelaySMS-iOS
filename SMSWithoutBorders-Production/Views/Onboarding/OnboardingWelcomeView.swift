@@ -21,7 +21,7 @@ struct OnboardingWelcomeView: View {
                     .font(.subheadline)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                 
                 Image("Recents")
                     .resizable()

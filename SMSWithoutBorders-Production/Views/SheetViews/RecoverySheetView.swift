@@ -65,7 +65,7 @@ struct RecoverySheetView: View {
                         Text("If you forgot your password")
                         Text("Enter your phone number and new passwords")
                     }
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
                     .font(.subheadline)
                 }
                 .padding(.bottom, 30)
@@ -77,7 +77,7 @@ struct RecoverySheetView: View {
                          } label: {
                              let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
                              Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.secondary)
                          }.sheet(isPresented: $showCountryPicker) {
                              CountryPicker(country: $country,
                                            selectedCountryCodeText: $selectedCountryCodeText)
@@ -89,15 +89,15 @@ struct RecoverySheetView: View {
                              .autocapitalization(.none)
                     }
                     .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                         .padding(.bottom, 20)
                     
                     SecureField("Password", text: $password)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                         .padding(.bottom, 20)
                     
                     SecureField("Re-enter password", text: $rePassword)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                     if passwordsNotMatch {
                         Text("Passwords don't match")
                             .foregroundStyle(.red)

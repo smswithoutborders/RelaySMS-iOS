@@ -83,7 +83,6 @@ struct Card: View {
                     Text(subject)
                         .bold()
                         .font(.subheadline)
-                        .foregroundStyle(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Text(Date(timeIntervalSince1970: TimeInterval(date)), formatter: RelativeDateTimeFormatter())
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -134,7 +133,7 @@ func getNoLoggedInView() -> some View {
         Text("Create new account or log into existing one to begin sending messages from stored online platforms")
             .font(.subheadline)
             .multilineTextAlignment(.center)
-            .foregroundColor(.gray)
+            .foregroundColor(.secondary)
     }
 }
 

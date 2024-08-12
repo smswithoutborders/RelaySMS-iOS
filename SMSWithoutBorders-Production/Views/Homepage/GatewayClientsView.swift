@@ -17,18 +17,18 @@ struct GatewayClientView: View {
                 Text(selectedGatewayClient.msisdn!)
                     .font(.headline)
                     .padding(.bottom, 5)
-                    .foregroundColor(disabled ? .gray : .black )
+                    .foregroundColor(disabled ? .secondary : .black )
                 
                 HStack {
                     Text(selectedGatewayClient.operatorName! + " -")
                     Text(selectedGatewayClient.operatorCode!)
                 }
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
                 .font(.subheadline)
                 
                 Text(selectedGatewayClient.country!)
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -58,7 +58,7 @@ struct GatewayClientsView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.caption2)
                                     .padding(.bottom, 3)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.secondary)
                                 GatewayClientView(selectedGatewayClient: gatewayClient, disabled: true)
                                     .padding(.top, 3)
                             }

@@ -72,7 +72,7 @@ struct LoginSheetView: View {
                         Text("Welcome back")
                         Text("Sign in to continue with existing account")
                     }
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
                     .font(.subheadline)
                 }
                 .padding(.bottom, 30)
@@ -84,7 +84,7 @@ struct LoginSheetView: View {
                          } label: {
                              let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
                              Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.secondary)
                          }.sheet(isPresented: $showCountryPicker) {
                              CountryPicker(country: $country,
                                            selectedCountryCodeText: $selectedCountryCodeText)
@@ -97,7 +97,7 @@ struct LoginSheetView: View {
                     }
                     .padding(.leading)
                     .padding(.bottom, 10)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                     
                     Button {
                         showPasswordRecovery = true
@@ -111,7 +111,7 @@ struct LoginSheetView: View {
                     
                     SecureField("Password", text: $password)
                         .padding(.bottom, 10)
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                 }
                 .padding()
                 Spacer()
@@ -157,7 +157,7 @@ struct LoginSheetView: View {
                         
                         HStack {
                             Text("Don't have an account?")
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.secondary)
                             Button {
                                 
                             } label: {

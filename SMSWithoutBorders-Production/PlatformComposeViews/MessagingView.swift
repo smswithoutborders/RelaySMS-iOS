@@ -28,7 +28,7 @@ struct TextInputField: View {
         .padding(.top, textValue.isEmpty ? 0 : 15)
         .frame(height: 52)
         .padding(.horizontal, 16)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 1).foregroundColor(.gray))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 1).foregroundColor(.secondary))
         .overlay(alignment: .trailing) {
             if endIcon != nil {
                 Button {
@@ -130,15 +130,15 @@ struct MessagingView: View {
                 VStack {
                     Text("Select a contact to send a message")
                         .font(.caption)
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.secondary)
                     Text("Make sure phone code e.g +237 is included in the selected number")
                         .font(.caption2)
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.secondary)
                     VStack {
                         Text("From: \(fromAccount)")
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .font(.subheadline)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(.secondary)
                         TextInputField(
                             placeHolder: "To: ",
                             textValue: $messageContact,
@@ -166,7 +166,7 @@ struct MessagingView: View {
                                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                             Text(Date(timeIntervalSince1970: TimeInterval(inbox.date)), style: .time)
                                                 .font(.caption)
-                                                .foregroundStyle(.gray)
+                                                .foregroundStyle(.secondary)
                                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                         }
                                     }

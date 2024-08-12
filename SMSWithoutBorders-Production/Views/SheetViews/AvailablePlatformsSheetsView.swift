@@ -108,7 +108,7 @@ struct AvailablePlatformsSheetsView: View {
                     
                     Text(description)
                         .font(.subheadline)
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding()
 
@@ -161,8 +161,6 @@ struct AvailablePlatformsSheetsView: View {
             }) {
                 (platform.image == nil ? Image("Logo") : Image(uiImage: UIImage(data: platform.image!)!))
                     .resizable()
-                    .cornerRadius(10)
-                    .shadow(radius: 3)
                     .frame(width: 50, height: 50)
             }
             .background(
@@ -178,8 +176,6 @@ struct AvailablePlatformsSheetsView: View {
             .sheet(isPresented: $showPhonenumberView) {
                 PhoneNumberSheetView(platformName: phonenumberViewPlatform)
             }
-            .shadow(color: Color.white, radius: 8, x: -9, y: -9)
-            .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
             .padding(.horizontal, 20)
             
             VStack(alignment: .leading) {
@@ -188,7 +184,7 @@ struct AvailablePlatformsSheetsView: View {
                 
                 Text(platform.protocol_type!)
                     .font(.caption)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
             }
         }
     }

@@ -71,7 +71,7 @@ struct PhoneNumberSheetView: View {
                  Group {
                      HStack {
                          Text("+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.secondary)
                          Spacer()
                          TextField("Phone Number", text: $phoneNumber)
                              .padding()
@@ -79,7 +79,7 @@ struct PhoneNumberSheetView: View {
                              .textContentType(.emailAddress)
                              .autocapitalization(.none)
                     }
-                    Rectangle().frame(height: 1).foregroundColor(.gray)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
                  }
                  .padding(.leading)
 
