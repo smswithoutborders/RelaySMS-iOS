@@ -104,40 +104,36 @@ struct AvailablePlatformsSheetsView: View {
                 }
                 else {
                     VStack {
-                        Text(title).font(.system(size: 32, design: .rounded))
+                        Text(title)
+                            .font(.title2)
                         
                         Text(description)
-                            .font(.system(size: 16, design: .rounded))
-                        
+                            .font(.subheadline)
+                            .foregroundStyle(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding()
+
                         if loadingOAuthURLScreen {
                             ProgressView()
                                 .padding()
                         }
                         else {
-                            ScrollViewReader { proxy in
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 10) {
-                                        if type == TYPE.STORED || type == TYPE.REVOKE {
-                                            ForEach(platforms, id: \.name) { platform in
-                                                if getStoredPlatforms(platform: platform) {
-                                                    getPlatformsSubViews(platform: platform)
-                                                }
-                                            }
-                                        }
-                                        else {
-                                            ForEach(platforms, id: \.name) { platform in
-                                                getPlatformsSubViews(platform: platform)
-                                            }
+                            VStack {
+                                if type == TYPE.STORED || type == TYPE.REVOKE {
+                                    List(platforms, id: \.name) { platform in
+                                        if getStoredPlatforms(platform: platform) {
+                                            getPlatformsSubViews(platform: platform)
                                         }
                                     }
                                 }
+                                else {
+                                    List(platforms, id: \.name) { platform in
+                                        getPlatformsSubViews(platform: platform)
+                                    }
+                                }
                             }
-                            Button("Close") {
-                                dismiss()
-                            }
-                            .padding(.vertical, 50)
                         }
-                    }.padding()
+                    }
                 }
             }
             
@@ -180,7 +176,7 @@ struct AvailablePlatformsSheetsView: View {
     
     @ViewBuilder
     func getPlatformsSubViews(platform: PlatformsEntity) -> some View{
-        VStack {
+        HStack {
             Button(action: {
                 if type == AvailablePlatformsSheetsView.TYPE.AVAILABLE {
                     triggerPlatformRequest(platform: platform)
@@ -192,26 +188,11 @@ struct AvailablePlatformsSheetsView: View {
                     messagePlatformViewPlatformName = platform.name!
                 }
             }) {
-                if platform.image == nil {
-                    Image("Logo")
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .cornerRadius(10)
-                        .shadow(radius: 3)
-                        .frame(width: 100, height: 100)
-                        .padding()
-                }
-                else {
-                    Image(uiImage: UIImage(data: platform.image!)!)
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .cornerRadius(10)
-                        .shadow(radius: 3)
-                        .frame(width: 100, height: 100)
-                        .padding()
-                }
+                (platform.image == nil ? Image("Logo") : Image(uiImage: UIImage(data: platform.image!)!))
+                    .resizable()
+                    .cornerRadius(10)
+                    .shadow(radius: 3)
+                    .frame(width: 50, height: 50)
             }
             .id(platform.id)
             .sheet(isPresented: $showPhonenumberView) {
@@ -227,12 +208,16 @@ struct AvailablePlatformsSheetsView: View {
             }
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
             .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
-            .padding(.vertical, 20)
-            Text(platform.name!)
-                .font(.system(size: 16, design: .rounded))
-            Text(platform.protocol_type!)
-                .font(.system(size: 10, design: .rounded))
+            .padding(.horizontal, 20)
             
+            VStack(alignment: .leading) {
+                Text(platform.name!)
+                    .bold()
+                
+                Text(platform.protocol_type!)
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+            }
         }
     }
     

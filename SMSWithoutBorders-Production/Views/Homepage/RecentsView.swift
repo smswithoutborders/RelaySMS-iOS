@@ -153,6 +153,9 @@ struct RecentsView: View {
     @State var showComposePlatforms: Bool = false
     
     @State var messagePlatformViewRequested: Bool = false
+    @State var emailPlatformViewRequested: Bool = false
+    @State var textPlatformViewRequested: Bool = false
+    
     @State var messagePlatformViewPlatformName: String = ""
     @State var messagePlatformViewFromAccount: String = ""
 
@@ -173,6 +176,22 @@ struct RecentsView: View {
                         
                     }
                 }
+//                else if emailPlatformViewRequested {
+//                    NavigationLink(destination: EmailView(
+//                        platformName: messagePlatformViewPlatformName,
+//                        fromAccount: messagePlatformViewFromAccount,
+//                        message: nil), isActive: $emailPlatformViewRequested) {
+//                        
+//                    }
+//                }
+//                else if textPlatformViewRequested {
+//                    NavigationLink(destination: MessagingView(
+//                        platformName: messagePlatformViewPlatformName,
+//                        fromAccount: messagePlatformViewFromAccount,
+//                        message: nil, vc: vc), isActive: $textPlatformViewRequested) {
+//                        
+//                    }
+//                }
                 else if !isLoggedIn {
                     Spacer()
                     getNoLoggedInView()
@@ -228,16 +247,10 @@ struct RecentsView: View {
                                     .bold()
                                     .frame(maxWidth: .infinity)
                             }
-                            .sheet(isPresented: $showComposePlatforms) {
-                                OfflineAvailablePlatformsSheetsView(
-                                    messagePlatformViewRequested: $messagePlatformViewRequested,
-                                    messagePlatformViewPlatformName: $messagePlatformViewPlatformName, 
-                                    messagePlatformViewFromAccount: $messagePlatformViewFromAccount)
-                            }
                             .buttonStyle(.borderedProminent)
                             .controlSize(.large)
                             .padding(.bottom, 10)
-
+                            
                             Button {
                                 showAvailablePlatforms = true
                             } label: {
@@ -245,14 +258,27 @@ struct RecentsView: View {
                                     .bold()
                                     .frame(maxWidth: .infinity)
                             }
-                            .sheet(isPresented: $showAvailablePlatforms) {
-                                OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-                            }
                             .buttonStyle(.bordered)
                             .controlSize(.large)
-
+                            
                         }
-                        .padding()
+                        .background(
+                            Group {
+                                NavigationLink(
+                                    destination: OfflineAvailablePlatformsSheetsView(
+                                        messagePlatformViewRequested: $messagePlatformViewRequested,
+                                        messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                                        messagePlatformViewFromAccount: $messagePlatformViewFromAccount),
+                                    isActive: $showComposePlatforms) {
+                                        EmptyView()
+                                    }
+
+                                NavigationLink(destination: OnlineAvailablePlatformsSheetsView(
+                                    codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
+                                        EmptyView()
+                                }
+                            }.hidden()
+                        )
                     } else {
                         ZStack(alignment: .bottomTrailing) {
                             VStack {
@@ -294,39 +320,40 @@ struct RecentsView: View {
                                             radius: 3,
                                             x: 3,
                                             y: 3)
-                                    .sheet(isPresented: $showComposePlatforms) {
-                                        OfflineAvailablePlatformsSheetsView(
+                                    
+                                }.background(
+                                    NavigationLink(
+                                        destination: OfflineAvailablePlatformsSheetsView(
                                             messagePlatformViewRequested: $messagePlatformViewRequested,
-                                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName, 
-                                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount)
-                                    }
+                                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount), isActive: $showComposePlatforms) {
+                                                EmptyView()
+                                            }
+                                )
                                     
-                                    VStack {
-                                        Button(action: {
-                                            showAvailablePlatforms = true
-                                        }, label: {
-                                            Image(systemName: "rectangle.stack.badge.plus")
-                                                .font(.system(.title))
-                                                .frame(width: 57, height: 50)
-                                                .foregroundColor(Color.white)
-                                                .padding(.bottom, 7)
-                                        })
-                                        .background(Color.blue)
-                                        .cornerRadius(18)
-                                        .shadow(color: Color.black.opacity(0.3),
-                                                radius: 3,
-                                                x: 3,
-                                                y: 3)
-                                        .padding()
-                                        .sheet(isPresented: $showAvailablePlatforms) {
-                                            OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier)
-                                        }
+                                VStack {
+                                    Button(action: {
+                                        showAvailablePlatforms = true
+                                    }, label: {
+                                        Image(systemName: "rectangle.stack.badge.plus")
+                                            .font(.system(.title))
+                                            .frame(width: 57, height: 50)
+                                            .foregroundColor(Color.white)
+                                            .padding(.bottom, 7)
+                                    })
+                                    .background(Color.blue)
+                                    .cornerRadius(18)
+                                    .shadow(color: Color.black.opacity(0.3),
+                                            radius: 3,
+                                            x: 3,
+                                            y: 3)
+                                }.background(
+                                    NavigationLink(destination: OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
+                                        EmptyView()
                                     }
-                                    
-                                }
+                                )
                             }
-                            
-                            
+                            .padding()
                         }
                     }
                 }
