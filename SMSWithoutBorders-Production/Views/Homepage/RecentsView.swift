@@ -139,7 +139,7 @@ func getNoLoggedInView() -> some View {
 }
 
 struct RecentsView: View {
-    @Environment(\.managedObjectContext) var datastore
+    @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
 
@@ -168,31 +168,7 @@ struct RecentsView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if messagePlatformViewRequested {
-                    NavigationLink(destination: MessagingView(
-                        platformName: messagePlatformViewPlatformName,
-                        fromAccount: messagePlatformViewFromAccount,
-                        message: nil, vc: vc), isActive: $messagePlatformViewRequested) {
-                        
-                    }
-                }
-//                else if emailPlatformViewRequested {
-//                    NavigationLink(destination: EmailView(
-//                        platformName: messagePlatformViewPlatformName,
-//                        fromAccount: messagePlatformViewFromAccount,
-//                        message: nil), isActive: $emailPlatformViewRequested) {
-//                        
-//                    }
-//                }
-//                else if textPlatformViewRequested {
-//                    NavigationLink(destination: MessagingView(
-//                        platformName: messagePlatformViewPlatformName,
-//                        fromAccount: messagePlatformViewFromAccount,
-//                        message: nil, vc: vc), isActive: $textPlatformViewRequested) {
-//                        
-//                    }
-//                }
-                else if !isLoggedIn {
+                if !isLoggedIn {
                     Spacer()
                     getNoLoggedInView()
                     .padding()
@@ -262,6 +238,7 @@ struct RecentsView: View {
                             .controlSize(.large)
                             
                         }
+                        .padding()
                         .background(
                             Group {
                                 NavigationLink(
@@ -360,6 +337,13 @@ struct RecentsView: View {
             }
             .navigationTitle("Recents")
         }
+        .task {
+            do {
+                try await refreshLocalDBs()
+            } catch {
+                print("Failed to refresh remote db")
+            }
+        }
     }
     
     func getImageForPlatform(name: String) -> Image {
@@ -391,6 +375,27 @@ struct RecentsView: View {
             }
         }
     }
+    
+    func refreshLocalDBs() async throws {
+        await Task.detached(priority: .userInitiated) {
+            Publisher.getPlatforms() { result in
+                switch result {
+                case .success(let data):
+                    print("Success: \(data)")
+                    for platform in data {
+                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                            downloadAndSaveIcons(
+                                url: URL(string: platform.icon_png)!,
+                                platform: platform, viewContext: context)
+                        }
+                    }
+                case .failure(let error):
+                    print("Failed to load JSON data: \(error)")
+                }
+            }
+        }
+    }
+    
 }
 
 struct RecentsView_Preview: PreviewProvider {

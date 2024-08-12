@@ -17,45 +17,33 @@ struct OnboardingTryExample: View {
     var body: some View {
         NavigationView {
             VStack {
-                if messagePlatformViewRequested {
-                    NavigationLink(destination: MessagingView(
-                        platformName: messagePlatformViewPlatformName,
-                        fromAccount: messagePlatformViewFromAccount,
-                        message: nil), isActive: $messagePlatformViewRequested) {
-                        
-                    }
-                }
-                else {
-                    Tab(buttonView:
-                        Group {
-                            Button {
-                                shownStoredPlatforms = true
-                            } label: {
-                                Text("Try Example")
-                                    .bold()
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .controlSize(.large)
-                            .padding(.bottom, 10)
-                            .buttonStyle(.borderedProminent)
-                            .sheet(isPresented: $shownStoredPlatforms) {
-                                VStack {
-                                    OfflineAvailablePlatformsSheetsView(
-                                        messagePlatformViewRequested: $messagePlatformViewRequested,
-                                        messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                                        messagePlatformViewFromAccount: $messagePlatformViewFromAccount)
-                                }
-                            }
-                            .buttonStyle(.borderedProminent)
-                        },
-                        title:"Send your first messages",
-                        subTitle: "Learn how it works",
-                        description: "Messages are shared with your default SMS messaging app, which you can use to out SMS messages from your device",
-                        imageName: "OnboardingTryExample",
-                        subDescription: "Messages are encrypted, so the messages will scrambled - don't worry that's intended"
-                    )
-                }
-                
+                Tab(buttonView:
+                    Group {
+                        Button {
+                            shownStoredPlatforms = true
+                        } label: {
+                            Text("Try Example")
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                        }
+                        .controlSize(.large)
+                        .padding(.bottom, 10)
+                        .buttonStyle(.borderedProminent)
+                        .background(
+                            NavigationLink(destination: OfflineAvailablePlatformsSheetsView(
+                                messagePlatformViewRequested: $messagePlatformViewRequested,
+                                messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
+                                messagePlatformViewFromAccount: $messagePlatformViewFromAccount), isActive: $shownStoredPlatforms) {
+                                    EmptyView()
+                                }.hidden()
+                        )
+                    },
+                    title:"Send your first messages",
+                    subTitle: "Learn how it works",
+                    description: "Messages are shared with your default SMS messaging app, which you can use to out SMS messages from your device",
+                    imageName: "OnboardingTryExample",
+                    subDescription: "Messages are encrypted, so the messages will scrambled - don't worry that's intended"
+                )
             }
             
         }

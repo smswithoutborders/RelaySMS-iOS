@@ -74,19 +74,11 @@ struct AccountSheetView: View {
     }
     
     var body: some View {
-        NavigationView {
+        VStack(alignment: .leading) {
             List(storedPlatforms, id: \.self) { platform in
                 if !isRevoke {
                     Button(action:{
-                        for p in platforms {
-                            if p.service_type == "message" {
-                                messagePlatformViewRequested = true
-                                messagePlatformViewFromAccount = platform.account!
-                            } else {
-                                isLinkActive = true
-                            }
-                            break
-                        }
+                        isLinkActive = true
                     }) {
                         accountView(accountName: platform.account!, platformName: platform.name!)
                     }.background(
@@ -141,9 +133,9 @@ struct AccountSheetView: View {
                     }
                 }
             }
-            .navigationTitle("\(platformName) Accounts")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("\(platformName) accounts")
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     
@@ -158,6 +150,11 @@ struct AccountSheetView: View {
                 TextView(platformName: platform.name!, 
                          fromAccount: fromAccount,
                          globalDismiss: $globalSheetShownDismiss)
+            case "message":
+                MessagingView(platformName: platform.name!,
+                              fromAccount: fromAccount,
+                              message: nil,
+                              vc: nil)
             default:
                 EmptyView()
             }

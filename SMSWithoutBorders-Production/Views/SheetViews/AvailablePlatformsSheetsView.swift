@@ -96,80 +96,51 @@ struct AvailablePlatformsSheetsView: View {
     @State var phoneNumber: String?
 
     var body: some View {
-        NavigationView {
-            VStack {
-                if(platforms.isEmpty) {
-                    Text("No platforms")
+        VStack(alignment: .leading) {
+            if(platforms.isEmpty) {
+                Text("No platforms")
+                    .padding()
+            }
+            else {
+                VStack {
+                    Text(title)
+                        .font(.title2)
+                    
+                    Text(description)
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.center)
                         .padding()
-                }
-                else {
-                    VStack {
-                        Text(title)
-                            .font(.title2)
-                        
-                        Text(description)
-                            .font(.subheadline)
-                            .foregroundStyle(.gray)
-                            .multilineTextAlignment(.center)
-                            .padding()
 
-                        if loadingOAuthURLScreen {
-                            ProgressView()
-                                .padding()
-                        }
-                        else {
-                            VStack {
-                                if type == TYPE.STORED || type == TYPE.REVOKE {
-                                    List(platforms, id: \.name) { platform in
-                                        if getStoredPlatforms(platform: platform) {
-                                            getPlatformsSubViews(platform: platform)
-                                        }
-                                    }
-                                }
-                                else {
-                                    List(platforms, id: \.name) { platform in
+                    if loadingOAuthURLScreen {
+                        ProgressView()
+                            .padding()
+                    }
+                    else {
+                        VStack {
+                            if type == TYPE.STORED || type == TYPE.REVOKE {
+                                List(platforms, id: \.name) { platform in
+                                    if getStoredPlatforms(platform: platform) {
                                         getPlatformsSubViews(platform: platform)
                                     }
+                                }
+                            }
+                            else {
+                                List(platforms, id: \.name) { platform in
+                                    getPlatformsSubViews(platform: platform)
                                 }
                             }
                         }
                     }
                 }
             }
-            
         }
-        .task {
-            do {
-                try await refreshLocalDBs()
-            } catch {
-                print("Failed to refresh remote db")
-            }
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    
-    func refreshLocalDBs() async throws {
-        await Task.detached(priority: .userInitiated) {
-            Publisher.getPlatforms() { result in
-                switch result {
-                case .success(let data):
-                    print("Success: \(data)")
-                    for platform in data {
-                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            downloadAndSaveIcons(
-                                url: URL(string: platform.icon_png)!, 
-                                platform: platform, viewContext: viewContext)
-                        }
-                    }
-                case .failure(let error):
-                    print("Failed to load JSON data: \(error)")
-                }
-            }
-        }
-    }
     
     func getStoredPlatforms(platform: PlatformsEntity) -> Bool {
-        print("checking against: \(platform.name)")
+        print("checking against: \(platform.name) : \(platform.service_type)")
         return storedPlatforms.contains{ $0.name == platform.name}
     }
     
@@ -194,17 +165,18 @@ struct AvailablePlatformsSheetsView: View {
                     .shadow(radius: 3)
                     .frame(width: 50, height: 50)
             }
-            .id(platform.id)
-            .sheet(isPresented: $showPhonenumberView) {
-                PhoneNumberSheetView(platformName: phonenumberViewPlatform)
-            }
-            .sheet(isPresented: $accountViewShown) {
-                AccountSheetView(
+            .background(
+                NavigationLink(destination: AccountSheetView(
                     filter: filterPlatformName,
                     globalDismiss: $accountViewShown,
                     messagePlatformViewRequested: $messagePlatformViewRequested,
                     messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-                    isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE)
+                    isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE), isActive: $accountViewShown) {
+                        EmptyView()
+                    }.hidden()
+            )
+            .sheet(isPresented: $showPhonenumberView) {
+                PhoneNumberSheetView(platformName: phonenumberViewPlatform)
             }
             .shadow(color: Color.white, radius: 8, x: -9, y: -9)
             .shadow(color: Color(red: 163/255, green: 177/255, blue: 198/255), radius: 8, x: 9, y: 9)
