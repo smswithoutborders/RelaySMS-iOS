@@ -23,10 +23,13 @@ func downloadAndSaveIcons(url: URL,
         platformsEntity.service_type = platform.service_type
         platformsEntity.shortcode = platform.shortcode
         platformsEntity.support_url_scheme = platform.support_url_scheme
-        do {
-            try viewContext.save()
-        } catch {
-            print("Failed save download image: \(error)")
+        
+        DispatchQueue.main.async {
+            do {
+                try viewContext.save()
+            } catch {
+                print("Failed save download image: \(error) \(error.localizedDescription)")
+            }
         }
     }
     task.resume()
@@ -58,13 +61,16 @@ struct ControllerView: View {
                 VStack {
                     Button {
                         self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
-                        Task {
+                        DispatchQueue.background(background: {
                             do {
                                 try refreshLocalDBs()
+                                print("Finished refreshing local db")
                             } catch {
                                 print("Failed to refresh local DBs: \(error)")
                             }
-                        }
+                        }, completion: {
+                            
+                        })
                     } label: {
                         Text("Get started!")
                             .bold()
@@ -119,26 +125,22 @@ struct ControllerView: View {
     }
     
     func refreshLocalDBs() throws {
-        DispatchQueue.background(background: {
-            Publisher.getPlatforms() { result in
-                switch result {
-                case .success(let data):
-                    print("Success: \(data)")
-                    for platform in data {
-                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            downloadAndSaveIcons(
-                                url: URL(string: platform.icon_png)!,
-                                platform: platform,
-                                viewContext: viewContext)
-                        }
+        Publisher.getPlatforms() { result in
+            switch result {
+            case .success(let data):
+                print("Success: \(data)")
+                for platform in data {
+                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                        downloadAndSaveIcons(
+                            url: URL(string: platform.icon_png)!,
+                            platform: platform,
+                            viewContext: viewContext)
                     }
-                case .failure(let error):
-                    print("Failed to load JSON data: \(error)")
                 }
+            case .failure(let error):
+                print("Failed to load JSON data: \(error)")
             }
-        }, completion: {
-            
-        })
+        }
     }
 }
 
