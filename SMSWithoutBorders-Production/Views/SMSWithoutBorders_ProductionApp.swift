@@ -243,14 +243,20 @@ struct SMSWithoutBorders_ProductionApp: App {
     
 }
 
-#Preview {
-    @State var isFinished = false
-    @State var codeVerifier = ""
-    @State var onboardingIndex = 0
-    @State var isBackgroundLoading: Bool = true
-    
-    ControllerView(isFinished: $isFinished,
-                   onboardingViewIndex: $onboardingIndex,
-                   codeVerifier: $codeVerifier,
-                   backgroundLoading: $isBackgroundLoading)
+struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+
+    static var previews: some View {
+        @State var isFinished = false
+        @State var codeVerifier = ""
+        @State var onboardingIndex = 0
+        @State var isBackgroundLoading: Bool = true
+        
+        ControllerView(isFinished: $isFinished,
+                       onboardingViewIndex: $onboardingIndex,
+                       codeVerifier: $codeVerifier,
+                       backgroundLoading: $isBackgroundLoading)
+    }
 }

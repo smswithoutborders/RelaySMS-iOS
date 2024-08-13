@@ -154,7 +154,13 @@ struct PhoneNumberSheetView: View {
     }
 }
 
-#Preview {
-    @State var platformName = "telegram"
-    PhoneNumberSheetView(platformName: platformName)
+struct PhoneNumberSheetView_Preview: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+
+    static var previews: some View {
+        @State var platformName = "telegram"
+        PhoneNumberSheetView(platformName: platformName)
+    }
 }

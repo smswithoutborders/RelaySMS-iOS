@@ -166,8 +166,11 @@ struct RecoverySheetView: View {
     }
 }
 
-#Preview {
-    @State var completed: Bool = false
-    @State var failed: Bool = false
-    RecoverySheetView(completed: $completed, failed: $failed)
+struct RecoverySheetView_Preview: PreviewProvider {
+
+    static var previews: some View {
+        @State var completed: Bool = false
+        @State var failed: Bool = false
+        RecoverySheetView(completed: $completed, failed: $failed)
+    }
 }

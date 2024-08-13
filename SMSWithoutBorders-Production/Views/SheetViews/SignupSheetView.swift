@@ -250,8 +250,10 @@ struct SignupSheetView: View {
     }
 }
 
-#Preview {
-    @State var completed: Bool = false
-    @State var failed: Bool = false
-    SignupSheetView(completed: $completed, failed: $failed)
+struct SignupSheetView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var completed: Bool = false
+        @State var failed: Bool = false
+        SignupSheetView(completed: $completed, failed: $failed)
+    }
 }

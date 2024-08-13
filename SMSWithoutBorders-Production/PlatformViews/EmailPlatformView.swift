@@ -52,13 +52,15 @@ struct EmailPlatformView: View {
     }
 }
 
-#Preview {
-    @State var message = Messages(
-        subject: "Hello world",
-        data: "Hello world",
-        fromAccount: "fromAccount@gmail.com",
-        toAccount: "toAccount@gmail.com",
-        platformName: "gmail",
-        date: Int(Date().timeIntervalSince1970))
-    EmailPlatformView(message: message)
+struct EmailPlatformView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var message = Messages(
+            subject: "Hello world",
+            data: "Hello world",
+            fromAccount: "fromAccount@gmail.com",
+            toAccount: "toAccount@gmail.com",
+            platformName: "gmail",
+            date: Int(Date().timeIntervalSince1970))
+        EmailPlatformView(message: message)
+    }
 }
