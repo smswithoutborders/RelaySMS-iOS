@@ -1,0 +1,65 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/NIOHPACK-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/DynamicHeaderTable.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/DynamicHeaderTable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/DynamicHeaderTable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/DynamicHeaderTable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HeaderTables.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HeaderTables.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HeaderTables.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HeaderTables.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HPACKDecoder.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKDecoder.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKDecoder.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKDecoder.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HPACKEncoder.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKEncoder.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKEncoder.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKEncoder.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HPACKErrors.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKErrors.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKErrors.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKErrors.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HPACKHeader.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKHeader.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKHeader.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HPACKHeader.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HuffmanCoding.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanCoding.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanCoding.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanCoding.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/HuffmanTables.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanTables.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanTables.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/HuffmanTables.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/IndexedHeaderTable.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IndexedHeaderTable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IndexedHeaderTable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IndexedHeaderTable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/IntegerCoding.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IntegerCoding.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IntegerCoding.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/IntegerCoding.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/Sources/NIOHPACK/StaticHeaderTable.swift" : {
+    "index-unit-output-path" : "/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/StaticHeaderTable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/StaticHeaderTable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-http2/build/swift-nio-http2.build/Release-iphoneos/NIOHPACK.build/Objects-normal/arm64/StaticHeaderTable.o"
+  }
+}

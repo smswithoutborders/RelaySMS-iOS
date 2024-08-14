@@ -1,0 +1,4 @@
+module _NIODataStructures {
+header "_NIODataStructures-Swift.h"
+export *
+}

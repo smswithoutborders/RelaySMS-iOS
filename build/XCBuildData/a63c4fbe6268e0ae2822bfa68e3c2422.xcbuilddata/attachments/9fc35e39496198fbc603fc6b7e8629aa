@@ -1,0 +1,30 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/Sources/Logging/Locks.swift" : {
+    "index-unit-output-path" : "/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Locks.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Locks.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Locks.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/Sources/Logging/Logging.swift" : {
+    "index-unit-output-path" : "/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/Logging.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/Sources/Logging/LogHandler.swift" : {
+    "index-unit-output-path" : "/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/LogHandler.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/LogHandler.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/LogHandler.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/Sources/Logging/MetadataProvider.swift" : {
+    "index-unit-output-path" : "/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/MetadataProvider.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/MetadataProvider.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-log/build/swift-log.build/Release-iphoneos/Logging.build/Objects-normal/arm64/MetadataProvider.o"
+  }
+}

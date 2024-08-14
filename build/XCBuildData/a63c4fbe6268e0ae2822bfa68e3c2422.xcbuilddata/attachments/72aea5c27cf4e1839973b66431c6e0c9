@@ -1,0 +1,4 @@
+module NIOCore {
+header "NIOCore-Swift.h"
+export *
+}

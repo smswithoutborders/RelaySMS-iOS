@@ -1,0 +1,4 @@
+module CNIOLinux {
+umbrella header "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/CNIOLinux/include/CNIOLinux.h"
+export *
+}

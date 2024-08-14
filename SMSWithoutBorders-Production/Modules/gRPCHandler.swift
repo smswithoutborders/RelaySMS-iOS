@@ -9,32 +9,31 @@ import Foundation
 import GRPC
 
 class GRPCHandler {
+    #if DEBUG
+        private static var VAULT_GRPC = "staging.smswithoutborders.com"
+        private static var VAULT_PORT = 9050
+
+        private static var PUBLISHER_GRPC = "staging.smswithoutborders.com"
+        private static var PUBLISHER_PORT = 9060
+    #else
+        private static var VAULT_GRPC = "vault.beta.smswithoutborders.com"
+        private static var VAULT_PORT = 443
+        
+        private static var PUBLISHER_GRPC = "publisher.beta.smswithoutborders.com"
+        private static var PUBLISHER_PORT = 443
+    #endif
     
     static func getChannelVault() -> ClientConnection {
-    #if DEBUG
-        let host = NSLocalizedString("vault_url_debug", comment: "")
-        let port = Int(NSLocalizedString("vault_port_debug", comment: ""))
-    #else
-        let host = NSLocalizedString("vault_url_production", comment: "")
-        let port = Int(NSLocalizedString("vault_port_production", comment: ""))
-    #endif
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
         return ClientConnection
             .usingPlatformAppropriateTLS(for: group)
-            .connect(host:host, port: port!)
+            .connect(host: VAULT_GRPC, port: VAULT_PORT)
     }
     
     static func getChannelPublisher() -> ClientConnection {
-    #if DEBUG
-        let host = NSLocalizedString("publisher_url_debug", comment: "")
-        let port = Int(NSLocalizedString("publisher_port_debug", comment: ""))
-    #else
-        let host = NSLocalizedString("publisher_url_production", comment: "")
-        let port = Int(NSLocalizedString("publisher_port_production", comment: ""))
-    #endif
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
         return ClientConnection
             .usingPlatformAppropriateTLS(for: group)
-            .connect(host:host, port: port!)
+            .connect(host: VAULT_GRPC, port: VAULT_PORT)
     }
 }

@@ -1,0 +1,4 @@
+module NIOEmbedded {
+header "NIOEmbedded-Swift.h"
+export *
+}
