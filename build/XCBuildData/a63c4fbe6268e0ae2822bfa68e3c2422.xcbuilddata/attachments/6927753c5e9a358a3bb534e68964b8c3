@@ -1,0 +1,4 @@
+module NIOHPACK {
+header "NIOHPACK-Swift.h"
+export *
+}

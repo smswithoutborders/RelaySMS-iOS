@@ -152,13 +152,16 @@ struct OnboardingIntroToVaults: View {
     }
 }
 
-#Preview {
-    @State var codeVerifier: String = ""
-    @State var isBackgroundLoading: Bool = false
-    @State var completed: Bool = true
-    @State var onboardingIndex: Int = 0
-    OnboardingIntroToVaults(
-        codeVerifier: $codeVerifier,
-        backgroundLoading: $isBackgroundLoading,
-        onboardingIndex: $onboardingIndex )
+
+struct OnboardingIntroVaults_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var codeVerifier: String = ""
+        @State var isBackgroundLoading: Bool = false
+        @State var completed: Bool = true
+        @State var onboardingIndex: Int = 0
+        OnboardingIntroToVaults(
+            codeVerifier: $codeVerifier,
+            backgroundLoading: $isBackgroundLoading,
+            onboardingIndex: $onboardingIndex )
+    }
 }

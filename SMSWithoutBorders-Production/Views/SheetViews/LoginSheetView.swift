@@ -181,9 +181,10 @@ struct LoginSheetView: View {
     }
 }
 
-#Preview {
-    
-    @State var completed: Bool = false
-    @State var failed: Bool = false
-    LoginSheetView(completed: $completed, failed: $failed)
+struct LoginSheetView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var completed: Bool = false
+        @State var failed: Bool = false
+        LoginSheetView(completed: $completed, failed: $failed)
+    }
 }

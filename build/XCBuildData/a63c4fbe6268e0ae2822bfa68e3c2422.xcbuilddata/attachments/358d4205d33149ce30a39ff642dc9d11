@@ -1,0 +1,45 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/Commons.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/Commons.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/Commons.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/Commons.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/CryptoHelper.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/CryptoHelper.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/CryptoHelper.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/CryptoHelper.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/Ratchets/headers.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/headers.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/headers.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/headers.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/Ratchets/protocols.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/protocols.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/protocols.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/protocols.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/Ratchets/states.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/states.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/states.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/states.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/SecurityCurve25519.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SecurityCurve25519.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SecurityCurve25519.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SecurityCurve25519.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/Sources/SwobDoubleRatchet/SwobDoubleRatchet.swift" : {
+    "index-unit-output-path" : "/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/lib_signal_double_ratchet_ios/build/SwobDoubleRatchet.build/Release-iphoneos/SwobDoubleRatchet.build/Objects-normal/arm64/SwobDoubleRatchet.o"
+  }
+}

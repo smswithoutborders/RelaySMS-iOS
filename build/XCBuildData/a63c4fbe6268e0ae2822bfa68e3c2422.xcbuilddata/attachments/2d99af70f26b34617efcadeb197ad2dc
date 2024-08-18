@@ -1,0 +1,4 @@
+module SwiftSVG {
+header "SwiftSVG-Swift.h"
+export *
+}

@@ -1,0 +1,4 @@
+module Fernet {
+header "Fernet-Swift.h"
+export *
+}

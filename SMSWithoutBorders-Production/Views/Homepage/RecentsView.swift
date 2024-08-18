@@ -7,6 +7,8 @@
 
 import SwiftUI
 import MessageUI
+import CoreData
+import UIKit
 
 public extension Color {
 
@@ -24,12 +26,12 @@ public extension Color {
 class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         // Customize here
-        controller.dismiss(animated: true)
+        print("external - dismissing")
+        controller.viewControllers = [UIViewController]()
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 
-import UIKit
-import MessageUI
 
 class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
     
@@ -44,10 +46,20 @@ class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func dismiss() {
+        print("self - dismissing")
+        self.dismiss(animated: true, completion: nil)
+    }
 
     public func sendSMS(message: String, receipient: String) {
+        
         let messageComposeDelegate: MFMessageComposeViewControllerDelegate = MessageComposerDelegate()
         let messageVC = MFMessageComposeViewController()
+        messageVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done, target: self, action: Selector(("dismiss")))
+        messageVC.navigationBar.isHidden = true
+        
         messageVC.messageComposeDelegate = self
         messageVC.recipients = [receipient]
         messageVC.body = message
@@ -55,6 +67,7 @@ class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
         let vc = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
         
         if MFMessageComposeViewController.canSendText() {
+//            vc?.present(messageVC, animated: true)
             vc?.present(messageVC, animated: true)
         }
         else {
@@ -338,7 +351,7 @@ struct RecentsView: View {
         }
         .task {
             do {
-                try await refreshLocalDBs()
+                try await refreshLocalDBs(context: context)
             } catch {
                 print("Failed to refresh remote db")
             }
@@ -375,7 +388,7 @@ struct RecentsView: View {
         }
     }
     
-    func refreshLocalDBs() async throws {
+    func refreshLocalDBs(context: NSManagedObjectContext) async throws {
         await Task.detached(priority: .userInitiated) {
             Publisher.getPlatforms() { result in
                 switch result {

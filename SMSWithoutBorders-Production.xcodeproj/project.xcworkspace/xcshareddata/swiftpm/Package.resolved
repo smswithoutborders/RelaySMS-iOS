@@ -43,7 +43,7 @@
       "location" : "https://github.com/smswithoutborders/lib_signal_double_ratchet_ios",
       "state" : {
         "branch" : "main",
-        "revision" : "ee4d61c338199621a4136868c51b2c34b7b067e5"
+        "revision" : "87ed94df9d4419b478732f800d391c42dd278a64"
       }
     },
     {
@@ -96,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-extras.git",
       "state" : {
-        "revision" : "05c36b57453d23ea63785d58a7dbc7b70ba1745e",
-        "version" : "1.23.0"
+        "revision" : "d1ead62745cc3269e482f1c51f27608057174379",
+        "version" : "1.24.0"
       }
     },
     {

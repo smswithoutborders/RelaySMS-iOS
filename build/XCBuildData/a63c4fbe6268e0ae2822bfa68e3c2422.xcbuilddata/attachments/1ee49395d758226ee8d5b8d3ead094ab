@@ -1,0 +1,4 @@
+module NIOFoundationCompat {
+header "NIOFoundationCompat-Swift.h"
+export *
+}

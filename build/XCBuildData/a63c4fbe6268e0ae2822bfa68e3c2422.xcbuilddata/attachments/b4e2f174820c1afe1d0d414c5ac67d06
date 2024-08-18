@@ -1,0 +1,15 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/Sources/Fernet/Fernet.swift" : {
+    "index-unit-output-path" : "/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/fernet/build/Fernet.build/Release-iphoneos/Fernet.build/Objects-normal/arm64/Fernet.o"
+  }
+}

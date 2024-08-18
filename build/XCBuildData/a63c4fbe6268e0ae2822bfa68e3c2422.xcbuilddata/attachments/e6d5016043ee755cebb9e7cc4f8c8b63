@@ -1,0 +1,70 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/protoc-gen-grpc-swift-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Client.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Client+AsyncAwait.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client+AsyncAwait.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client+AsyncAwait.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Client+AsyncAwait.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Metadata.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Metadata.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Metadata.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Metadata.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Names.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Names.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Names.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Names.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Server.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator-Server+AsyncAwait.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server+AsyncAwait.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server+AsyncAwait.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator-Server+AsyncAwait.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Generator.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Generator.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/main.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/main.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/main.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/main.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/options.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/options.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/options.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/options.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/StreamingType.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/StreamingType.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/StreamingType.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/StreamingType.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Types.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Types.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Types.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Types.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/protoc-gen-grpc-swift/Version.swift" : {
+    "index-unit-output-path" : "/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Version.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Version.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/build/grpc-swift.build/Release-iphoneos/protoc-gen-grpc-swift.build/Objects-normal/arm64/Version.o"
+  }
+}

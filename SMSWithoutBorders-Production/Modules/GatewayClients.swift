@@ -72,71 +72,71 @@ class GatewayClients: Codable {
 
     public static func addDefaultGatewayClients(context: NSManagedObjectContext, defaultAvailable: Bool = false) {
         print("Searching for defaults: \(defaultAvailable)")
-        let backgroundQueueu = DispatchQueue(label: "addGatewayClientQueues", qos: .background)
-        backgroundQueueu.async {
-            let defaultGatewayClients = [
-                GatewayClients(
-                    country: "Nigeria",
-                    last_published_date: 0,
-                    msisdn: "+2348131498393",
-                    operator:"MTN Nigeria",
-                    operator_code:"62130",
-                    protocols:["https", "smtp", "ftp"],
-                    reliability:""),
-                
-                GatewayClients(
-                    country: "Cameroon",
-                    last_published_date: 0,
-                    msisdn: "+237679466332",
-                    operator:"MTN Cameroon",
-                    operator_code:"62401",
-                    protocols:["https", "smtp", "ftp"],
-                    reliability:""),
-                
-                GatewayClients(
-                    country: "Cameroon",
-                    last_published_date: 0,
-                    msisdn: "+237690826242",
-                    operator:"Orange Cameroon",
-                    operator_code:"62402",
-                    protocols:["https", "smtp", "ftp"],
-                    reliability:""),
-            ]
-            
-            var returningGatewayClient: GatewayClients?
-            for defaultGatewayClient in defaultGatewayClients {
-                let gatewayClient = GatewayClientsEntity(context: context)
 
-                gatewayClient.country = defaultGatewayClient.country
-                gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
-                gatewayClient.msisdn = defaultGatewayClient.msisdn
-                gatewayClient.operatorName = defaultGatewayClient.operator
-                gatewayClient.operatorCode = defaultGatewayClient.operator_code
-                gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
-                gatewayClient.reliability = defaultGatewayClient.reliability
-                
-                if OperatorHandlers.isMatchingOperatorCode(operatorCode: gatewayClient.operatorCode!) {
-                    returningGatewayClient = defaultGatewayClient
-                }
+        let defaultGatewayClients = [
+            GatewayClients(
+                country: "Nigeria",
+                last_published_date: 0,
+                msisdn: "+2348131498393",
+                operator:"MTN Nigeria",
+                operator_code:"62130",
+                protocols:["https", "smtp", "ftp"],
+                reliability:""),
+            
+            GatewayClients(
+                country: "Cameroon",
+                last_published_date: 0,
+                msisdn: "+237679466332",
+                operator:"MTN Cameroon",
+                operator_code:"62401",
+                protocols:["https", "smtp", "ftp"],
+                reliability:""),
+            
+            GatewayClients(
+                country: "Cameroon",
+                last_published_date: 0,
+                msisdn: "+237690826242",
+                operator:"Orange Cameroon",
+                operator_code:"62402",
+                protocols:["https", "smtp", "ftp"],
+                reliability:""),
+        ]
+        
+        var returningGatewayClient: GatewayClients?
+        for defaultGatewayClient in defaultGatewayClients {
+            let gatewayClient = GatewayClientsEntity(context: context)
+
+            gatewayClient.country = defaultGatewayClient.country
+            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+            gatewayClient.msisdn = defaultGatewayClient.msisdn
+            gatewayClient.operatorName = defaultGatewayClient.operator
+            gatewayClient.operatorCode = defaultGatewayClient.operator_code
+            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+            gatewayClient.reliability = defaultGatewayClient.reliability
+            
+            if OperatorHandlers.isMatchingOperatorCode(operatorCode: gatewayClient.operatorCode!) {
+                returningGatewayClient = defaultGatewayClient
+            }
+        }
+        
+        do {
+            print("Saving default Gateway clients")
+            try context.save()
+            
+            if !defaultAvailable && returningGatewayClient != nil {
+                UserDefaults.standard.register(defaults: [
+                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
+                ])
+            } else {
+                UserDefaults.standard.register(defaults: [
+                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
+                ])
             }
             
-            do {
-                try context.save()
-                
-                if !defaultAvailable && returningGatewayClient != nil {
-                    UserDefaults.standard.register(defaults: [
-                        GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
-                    ])
-                } else {
-                    UserDefaults.standard.register(defaults: [
-                        GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
-                    ])
-                }
-                
-            }
-            catch {
-                print("Error saving Gateway client!: \(error)")
-            }
+            print("Ended the default matter")
+        }
+        catch {
+            print("Error saving Gateway client!: \(error)")
         }
     }
 

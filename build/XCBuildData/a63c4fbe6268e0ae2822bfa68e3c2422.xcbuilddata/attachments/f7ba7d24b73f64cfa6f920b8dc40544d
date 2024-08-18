@@ -1,0 +1,15 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/NIO-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIO/Exports.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/Exports.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/Exports.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIO.build/Objects-normal/arm64/Exports.o"
+  }
+}

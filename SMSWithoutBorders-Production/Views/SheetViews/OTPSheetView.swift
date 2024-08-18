@@ -284,21 +284,21 @@ struct OTPSheetView: View {
     
 }
 
-
-
-#Preview {
-    @State var otpCode: String = ""
-    @State var password: String = ""
-    @State var phoneNumber: String = ""
-    @State var countryCode: String? = ""
-    @State var loading: Bool = false
-    @State var completed: Bool = false
-    @State var failed: Bool = false
-    OTPSheetView(type: OTPAuthType.TYPE.CREATE,
-                 retryTimer: Int(Date().timeIntervalSince1970) + 10,
-                 phoneNumber: phoneNumber,
-                 countryCode: $countryCode,
-                 password: $password,
-                 completed: $completed,
-                 failed: $failed)
+struct OTPSheetView_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var otpCode: String = ""
+        @State var password: String = ""
+        @State var phoneNumber: String = ""
+        @State var countryCode: String? = ""
+        @State var loading: Bool = false
+        @State var completed: Bool = false
+        @State var failed: Bool = false
+        OTPSheetView(type: OTPAuthType.TYPE.CREATE,
+                     retryTimer: Int(Date().timeIntervalSince1970) + 10,
+                     phoneNumber: phoneNumber,
+                     countryCode: $countryCode,
+                     password: $password,
+                     completed: $completed,
+                     failed: $failed)
+    }
 }

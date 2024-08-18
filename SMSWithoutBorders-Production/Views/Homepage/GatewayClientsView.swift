@@ -90,18 +90,16 @@ struct GatewayClientsView: View {
             .navigationTitle("Gateway Clients")
         }
         .task {
-            Task {
-                if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                    print("Is searching for default....")
-                    do {
-                        GatewayClients.addDefaultGatewayClients(
-                            context: context,
-                            defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
-                        try await GatewayClients.refresh(context: context)
-                    } catch {
-                        print("Error refreshing gateways: \(error)")
-                    }
-                } 
+            if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                print("Is searching for default....")
+                do {
+                    GatewayClients.addDefaultGatewayClients(
+                        context: context,
+                        defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
+                    try await GatewayClients.refresh(context: context)
+                } catch {
+                    print("Error refreshing gateways: \(error)")
+                }
             }
         }
     }

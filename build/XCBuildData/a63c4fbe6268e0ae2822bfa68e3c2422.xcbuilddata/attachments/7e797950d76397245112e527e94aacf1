@@ -1,0 +1,95 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/DequeModule-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/_DequeBuffer.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBuffer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBuffer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBuffer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/_DequeBufferHeader.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBufferHeader.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBufferHeader.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeBufferHeader.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/_DequeSlot.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeSlot.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeSlot.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_DequeSlot.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/_UnsafeWrappedBuffer.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_UnsafeWrappedBuffer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_UnsafeWrappedBuffer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/_UnsafeWrappedBuffer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque._Storage.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._Storage.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._Storage.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._Storage.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque._UnsafeHandle.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._UnsafeHandle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._UnsafeHandle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque._UnsafeHandle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Codable.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Codable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Codable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Codable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Collection.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Collection.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Collection.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Collection.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+CustomReflectable.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+CustomReflectable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+CustomReflectable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+CustomReflectable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Descriptions.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Descriptions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Descriptions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Descriptions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Equatable.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Equatable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Equatable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Equatable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+ExpressibleByArrayLiteral.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+ExpressibleByArrayLiteral.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+ExpressibleByArrayLiteral.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+ExpressibleByArrayLiteral.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Extras.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Extras.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Extras.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Extras.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Hashable.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Hashable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Hashable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Hashable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Sendable.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Sendable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Sendable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Sendable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/Sources/DequeModule/Deque+Testing.swift" : {
+    "index-unit-output-path" : "/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Testing.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Testing.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-collections/build/swift-collections.build/Release-iphoneos/DequeModule.build/Objects-normal/arm64/Deque+Testing.o"
+  }
+}

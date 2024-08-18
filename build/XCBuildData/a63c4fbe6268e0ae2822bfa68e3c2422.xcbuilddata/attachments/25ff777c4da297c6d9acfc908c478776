@@ -1,0 +1,270 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master.d",
+    "diagnostics" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders-Production-master.swiftdeps"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/Datastore+CoreDataModel.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Datastore+CoreDataModel.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Datastore+CoreDataModel.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Datastore+CoreDataModel.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/GatewayClientsEntity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataClass.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataClass.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataClass.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/GatewayClientsEntity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataProperties.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsEntity+CoreDataProperties.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/MessageEntity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataClass.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataClass.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataClass.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/MessageEntity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataProperties.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageEntity+CoreDataProperties.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/PlatformsEntity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataClass.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataClass.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataClass.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/PlatformsEntity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataProperties.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PlatformsEntity+CoreDataProperties.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/StatesEntity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataClass.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataClass.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataClass.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/StatesEntity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataProperties.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StatesEntity+CoreDataProperties.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/StoredPlatformsEntity+CoreDataClass.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataClass.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataClass.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataClass.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/CoreDataGenerated/Datastore/StoredPlatformsEntity+CoreDataProperties.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataProperties.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataProperties.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/StoredPlatformsEntity+CoreDataProperties.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Commons/CSecurity.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/CSecurity.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/CSecurity.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/CSecurity.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Commons/DataController.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/DataController.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/DataController.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/DataController.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Commons/MessageComposer.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageComposer.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageComposer.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessageComposer.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Commons/OperatorHandlers.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OperatorHandlers.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OperatorHandlers.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OperatorHandlers.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/GatewayClients.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClients.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClients.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClients.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/gRPCHandler.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/gRPCHandler.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/gRPCHandler.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/gRPCHandler.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/Helpers.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Helpers.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Helpers.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Helpers.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/Messages.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Messages.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Messages.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Messages.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/MockDataGenerator.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MockDataGenerator.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MockDataGenerator.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MockDataGenerator.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/Publisher.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Publisher.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Publisher.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Publisher.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/SecurityAESEncryption.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SecurityAESEncryption.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SecurityAESEncryption.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SecurityAESEncryption.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/SMSHandler.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSHandler.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSHandler.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSHandler.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/ThreadExecutor.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/ThreadExecutor.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/ThreadExecutor.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/ThreadExecutor.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Modules/Vault.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Vault-324d61036cb5c1a8235e80f92a0fdaea.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Vault-324d61036cb5c1a8235e80f92a0fdaea.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/Vault-324d61036cb5c1a8235e80f92a0fdaea.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/PlatformComposeViews/EmailView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/PlatformComposeViews/MessagingView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessagingView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessagingView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/MessagingView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/PlatformComposeViews/TextView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/PlatformViews/EmailPlatformView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailPlatformView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailPlatformView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/EmailPlatformView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/PlatformViews/TextPlatformView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextPlatformView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextPlatformView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/TextPlatformView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Proto/relay_publisher.grpc.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.grpc.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.grpc.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.grpc.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Proto/relay_publisher.pb.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.pb.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.pb.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/relay_publisher.pb.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Proto/vault.grpc.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.grpc.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.grpc.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.grpc.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Proto/vault.pb.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.pb.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.pb.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/vault.pb.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Homepage/GatewayClientsView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/GatewayClientsView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Homepage/RecentsView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecentsView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecentsView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecentsView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Homepage/SettingsView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SettingsView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/HomepageView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/HomepageView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/HomepageView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/HomepageView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Onboarding/OnboardingFinish.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingFinish.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingFinish.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingFinish.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Onboarding/OnboardingIntroToVaults.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingIntroToVaults.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingIntroToVaults.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingIntroToVaults.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Onboarding/OnboardingTabAdapterView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTabAdapterView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTabAdapterView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTabAdapterView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Onboarding/OnboardingTryExample.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTryExample.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTryExample.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingTryExample.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/Onboarding/OnboardingWelcomeView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingWelcomeView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingWelcomeView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OnboardingWelcomeView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/AccountSheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AccountSheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AccountSheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AccountSheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/AvailablePlatformsSheetsView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AvailablePlatformsSheetsView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AvailablePlatformsSheetsView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/AvailablePlatformsSheetsView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/LoginSheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/LoginSheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/LoginSheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/LoginSheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/OTPSheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OTPSheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OTPSheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/OTPSheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/PhoneNumberSheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PhoneNumberSheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PhoneNumberSheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/PhoneNumberSheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/RecoverySheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecoverySheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecoverySheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/RecoverySheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SheetViews/SignupSheetView.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SignupSheetView.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SignupSheetView.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SignupSheetView.o"
+  },
+  "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/SMSWithoutBorders-Production/Views/SMSWithoutBorders_ProductionApp.swift" : {
+    "index-unit-output-path" : "/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders_ProductionApp.o",
+    "llvm-bc" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders_ProductionApp.bc",
+    "object" : "/Users/MAC/xcode/SMSWithoutBorders-App-iOS/build/SMSWithoutBorders-Production.build/Release-iphoneos/SMSWithoutBorders-Production.build/Objects-normal/arm64/SMSWithoutBorders_ProductionApp.o"
+  }
+}

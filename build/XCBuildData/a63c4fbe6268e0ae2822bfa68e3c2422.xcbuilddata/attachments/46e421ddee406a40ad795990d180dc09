@@ -1,0 +1,15 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/Sources/CachedAsyncImage/CachedAsyncImage.swift" : {
+    "index-unit-output-path" : "/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swiftui-cached-async-image/build/swiftui-cached-async-image.build/Release-iphoneos/CachedAsyncImage.build/Objects-normal/arm64/CachedAsyncImage.o"
+  }
+}

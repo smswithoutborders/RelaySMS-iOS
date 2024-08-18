@@ -115,7 +115,13 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
-    @State var isLoggedIn = true
-    SecuritySettingsView(isLoggedIn: $isLoggedIn)
+struct SecuritySettingsView_Preview: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+
+    static var previews: some View {
+        @State var isLoggedIn = true
+        SecuritySettingsView(isLoggedIn: $isLoggedIn)
+    }
 }

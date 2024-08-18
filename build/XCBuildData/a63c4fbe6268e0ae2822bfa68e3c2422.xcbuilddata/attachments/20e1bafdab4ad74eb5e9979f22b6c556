@@ -1,0 +1,165 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSL-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/resource_bundle_accessor.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/AndroidCABundle.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/AndroidCABundle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/AndroidCABundle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/AndroidCABundle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/ByteBufferBIO.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ByteBufferBIO.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ByteBufferBIO.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ByteBufferBIO.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/CustomPrivateKey.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/CustomPrivateKey.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/CustomPrivateKey.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/CustomPrivateKey.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/IdentityVerification.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/IdentityVerification.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/IdentityVerification.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/IdentityVerification.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/LinuxCABundle.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/LinuxCABundle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/LinuxCABundle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/LinuxCABundle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/NIOSSLClientHandler.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLClientHandler.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLClientHandler.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLClientHandler.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/NIOSSLHandler.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/NIOSSLHandler+Configuration.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler+Configuration.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler+Configuration.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLHandler+Configuration.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/NIOSSLServerHandler.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLServerHandler.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLServerHandler.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLServerHandler.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/ObjectIdentifier.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ObjectIdentifier.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ObjectIdentifier.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/ObjectIdentifier.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/PosixPort.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/PosixPort.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/PosixPort.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/PosixPort.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SecurityFrameworkCertificateVerification.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SecurityFrameworkCertificateVerification.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SecurityFrameworkCertificateVerification.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SecurityFrameworkCertificateVerification.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLCallbacks.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCallbacks.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCallbacks.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCallbacks.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLCertificate.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificate.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificate.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificate.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLCertificateExtensions.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificateExtensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificateExtensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLCertificateExtensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLConnection.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLConnection.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLConnection.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLConnection.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLContext.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLContext.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLContext.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLContext.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLErrors.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLErrors.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLErrors.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLErrors.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLInit.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLInit.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLInit.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLInit.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLPKCS12Bundle.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPKCS12Bundle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPKCS12Bundle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPKCS12Bundle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLPrivateKey.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPrivateKey.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPrivateKey.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPrivateKey.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SSLPublicKey.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPublicKey.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPublicKey.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SSLPublicKey.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/String+unsafeUninitializedCapacity.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/String+unsafeUninitializedCapacity.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/String+unsafeUninitializedCapacity.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/String+unsafeUninitializedCapacity.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SubjectAlternativeName.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SubjectAlternativeName.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SubjectAlternativeName.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SubjectAlternativeName.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SwiftCrypto/NIOSSLSecureBytes.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLSecureBytes.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLSecureBytes.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/NIOSSLSecureBytes.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SwiftCrypto/RNG.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/RNG.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/RNG.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/RNG.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SwiftCrypto/SafeCompare.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SafeCompare.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SafeCompare.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/SafeCompare.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/SwiftCrypto/Zeroization.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/Zeroization.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/Zeroization.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/Zeroization.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/TLSConfiguration.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/TLSConfiguration.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/TLSConfiguration.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/TLSConfiguration.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/Sources/NIOSSL/UniversalBootstrapSupport.swift" : {
+    "index-unit-output-path" : "/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/UniversalBootstrapSupport.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/UniversalBootstrapSupport.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio-ssl/build/swift-nio-ssl.build/Release-iphoneos/NIOSSL.build/Objects-normal/arm64/UniversalBootstrapSupport.o"
+  }
+}

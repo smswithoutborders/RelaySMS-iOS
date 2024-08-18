@@ -5,18 +5,27 @@
 //  Created by sh3rlock on 18/07/2024.
 //
 
-import Testing
+import XCTest
 import CoreData
 
 
 @testable import SMSWithoutBorders
 
-struct PlatformsTest {
+//struct PlatformsTest {
+//    
+//    @Test 
+//    func deleteAllPersistentTest() async throws {
+//        let context = DataController().container.viewContext
+//        
+//        try DataController.resetDatabase(context: context)
+//    }
+//}
+
+class PlatformsTest: XCTestCase {
     
-    @Test 
-    func deleteAllPersistentTest() async throws {
+    func testDeleteAll() throws {
         let context = DataController().container.viewContext
-        
         try DataController.resetDatabase(context: context)
     }
+    
 }

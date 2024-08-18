@@ -1,0 +1,4 @@
+module GRPCCore {
+header "GRPCCore-Swift.h"
+export *
+}
