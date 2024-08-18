@@ -1,27 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="EncryptedContentsEntity" representedClassName="EncryptedContentsEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="encrypted_content" optional="YES" attributeType="String"/>
-        <attribute name="gateway_client_msisdn" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="platform_id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="platform_name" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-    </entity>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23173.10" systemVersion="24A5309e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GatewayClientsEntity" representedClassName="GatewayClientsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="country" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="is_default" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastPublishedDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="msisdn" optional="YES" attributeType="String"/>
-        <attribute name="operator_id" optional="YES" attributeType="String"/>
-        <attribute name="operator_name" optional="YES" attributeType="String"/>
+        <attribute name="operatorCode" optional="YES" attributeType="String"/>
+        <attribute name="operatorName" optional="YES" attributeType="String"/>
+        <attribute name="protocols" optional="YES" attributeType="String"/>
+        <attribute name="reliability" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="msisdn"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="MessageEntity" representedClassName="MessageEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="body" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fromAccount" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="platformName" optional="YES" attributeType="String"/>
+        <attribute name="subject" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="toAccount" optional="YES" attributeType="String"/>
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="logo" optional="YES" attributeType="String"/>
-        <attribute name="platform_letter" optional="YES" attributeType="String"/>
-        <attribute name="platform_name" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="protocol_type" optional="YES" attributeType="String"/>
+        <attribute name="service_type" optional="YES" attributeType="String"/>
+        <attribute name="shortcode" optional="YES" attributeType="String"/>
+        <attribute name="support_url_scheme" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="StatesEntity" representedClassName="StatesEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="StoredPlatformsEntity" representedClassName="StoredPlatformsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="account" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>

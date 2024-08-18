@@ -1,0 +1,4 @@
+module CNIOLLHTTP {
+umbrella header "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/CNIOLLHTTP/include/CNIOLLHTTP.h"
+export *
+}

@@ -1,0 +1,4 @@
+module NIOPosix {
+header "NIOPosix-Swift.h"
+export *
+}

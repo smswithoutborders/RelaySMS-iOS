@@ -1,0 +1,145 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufPluginLibrary-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/resource_bundle_accessor.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/CodeGenerator.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGenerator.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGenerator.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGenerator.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/CodeGeneratorParameter.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGeneratorParameter.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGeneratorParameter.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodeGeneratorParameter.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/CodePrinter.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodePrinter.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodePrinter.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/CodePrinter.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/Descriptor.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/Descriptor+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Descriptor+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/FeatureResolver.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FeatureResolver.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FeatureResolver.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FeatureResolver.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/FieldNumbers.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FieldNumbers.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FieldNumbers.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/FieldNumbers.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/GeneratorOutputs.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/GeneratorOutputs.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/GeneratorOutputs.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/GeneratorOutputs.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/Google_Protobuf_Compiler_CodeGeneratorResponse+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Compiler_CodeGeneratorResponse+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Compiler_CodeGeneratorResponse+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Compiler_CodeGeneratorResponse+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/Google_Protobuf_Edition+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Edition+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Edition+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_Edition+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/Google_Protobuf_SourceCodeInfo+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_SourceCodeInfo+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_SourceCodeInfo+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/Google_Protobuf_SourceCodeInfo+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/NamingUtils.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/NamingUtils.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/NamingUtils.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/NamingUtils.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/plugin.pb.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/plugin.pb.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/plugin.pb.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/plugin.pb.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/PluginLibEditionDefaults.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/PluginLibEditionDefaults.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/PluginLibEditionDefaults.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/PluginLibEditionDefaults.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/ProtoCompilerContext.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoCompilerContext.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoCompilerContext.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoCompilerContext.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/ProtoFileToModuleMappings.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoFileToModuleMappings.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoFileToModuleMappings.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProtoFileToModuleMappings.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/ProvidesDeprecationComment.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesDeprecationComment.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesDeprecationComment.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesDeprecationComment.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/ProvidesLocationPath.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesLocationPath.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesLocationPath.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesLocationPath.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/ProvidesSourceCodeLocation.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesSourceCodeLocation.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesSourceCodeLocation.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/ProvidesSourceCodeLocation.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/StandardErrorOutputStream.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StandardErrorOutputStream.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StandardErrorOutputStream.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StandardErrorOutputStream.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/StringUtils.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StringUtils.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StringUtils.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/StringUtils.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/swift_protobuf_module_mappings.pb.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/swift_protobuf_module_mappings.pb.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/swift_protobuf_module_mappings.pb.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/swift_protobuf_module_mappings.pb.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/SwiftLanguage.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftLanguage.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftLanguage.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftLanguage.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/SwiftProtobufInfo.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufInfo.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufInfo.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufInfo.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/SwiftProtobufNamer.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufNamer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufNamer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/SwiftProtobufNamer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/Sources/SwiftProtobufPluginLibrary/UnicodeScalar+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/UnicodeScalar+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/UnicodeScalar+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-protobuf/build/SwiftProtobuf.build/Release-iphoneos/SwiftProtobufPluginLibrary.build/Objects-normal/arm64/UnicodeScalar+Extensions.o"
+  }
+}

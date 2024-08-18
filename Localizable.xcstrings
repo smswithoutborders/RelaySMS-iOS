@@ -1,0 +1,347 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ accounts" : {
+
+    },
+    "Account" : {
+
+    },
+    "Already got SMS code" : {
+
+    },
+    "Already have an account?" : {
+
+    },
+    "Bcc " : {
+
+    },
+    "Cc " : {
+
+    },
+    "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
+
+    },
+    "Compose email" : {
+
+    },
+    "Compose Message" : {
+
+    },
+    "Compose Post" : {
+
+    },
+    "composeBody" : {
+
+    },
+    "Continue" : {
+
+    },
+    "Continue Deleting" : {
+
+    },
+    "Create account" : {
+
+    },
+    "Create Acocunt" : {
+
+    },
+    "Create new account or log into existing one to begin sending messages from stored online platforms" : {
+
+    },
+    "default_app_scheme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "relaysms"
+          }
+        }
+      }
+    },
+    "default_oauth_path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/"
+          }
+        }
+      }
+    },
+    "Delete Account" : {
+
+    },
+    "Don't have an account?" : {
+
+    },
+    "Enter code" : {
+
+    },
+    "Enter code sent by SMS" : {
+
+    },
+    "Enter your phone number and new passwords" : {
+
+    },
+    "Error" : {
+
+    },
+    "Finish!" : {
+
+    },
+    "Forgot password?" : {
+
+    },
+    "From " : {
+
+    },
+    "From: %@" : {
+
+    },
+    "Gateway Clients" : {
+
+    },
+    "Get code" : {
+
+    },
+    "Get started!" : {
+
+    },
+    "I accept the" : {
+
+    },
+    "If you don't have an account" : {
+
+    },
+    "If you forgot your password" : {
+
+    },
+    "in %lld seconds" : {
+
+    },
+    "Log in" : {
+
+    },
+    "Log out" : {
+
+    },
+    "Login" : {
+
+    },
+    "Make default" : {
+
+    },
+    "Make sure phone code e.g +237 is included in the selected number" : {
+
+    },
+    "No messages sent" : {
+
+    },
+    "No platforms" : {
+
+    },
+    "No recent messages" : {
+
+    },
+    "No Vault account" : {
+
+    },
+    "OTP Code" : {
+
+    },
+    "Password" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "Passwords don't match" : {
+
+    },
+    "Phone Number" : {
+
+    },
+    "Please create one to save your platforms" : {
+
+    },
+    "Post" : {
+
+    },
+    "publisher_port_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9060"
+          }
+        }
+      }
+    },
+    "publisher_port_production" : {
+      "extractionState" : "manual"
+    },
+    "publisher_url_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "staging.smswithoutborders.com"
+          }
+        }
+      }
+    },
+    "publisher_url_production" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "smswithoutbordres.com"
+          }
+        }
+      }
+    },
+    "Re-enter password" : {
+
+    },
+    "Read our privacy policy" : {
+
+    },
+    "Recents" : {
+
+    },
+    "Resend code" : {
+
+    },
+    "Revoke" : {
+
+    },
+    "Revoke Platforms" : {
+
+    },
+    "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
+
+    },
+    "Save Accounts to Vault" : {
+
+    },
+    "Save platforms" : {
+
+    },
+    "Security" : {
+
+    },
+    "Select a contact to send a message" : {
+
+    },
+    "Selected Gateway client" : {
+
+    },
+    "Send" : {
+
+    },
+    "Send new message" : {
+
+    },
+    "Set as default gateway client?" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Sign in to continue with existing account" : {
+
+    },
+    "skip" : {
+
+    },
+    "Subject " : {
+
+    },
+    "Submit" : {
+
+    },
+    "terms and conditions" : {
+
+    },
+    "To " : {
+
+    },
+    "Try Example" : {
+
+    },
+    "Use SMS to make a post, send an emails and messages" : {
+
+    },
+    "Vault" : {
+
+    },
+    "vault_port_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "9050"
+          }
+        }
+      }
+    },
+    "vault_port_production" : {
+      "extractionState" : "manual"
+    },
+    "vault_url_debug" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "staging.smswithoutborders.com"
+          }
+        }
+      }
+    },
+    "vault_url_production" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "beta.smswithoutborders.com"
+          }
+        }
+      }
+    },
+    "Verify" : {
+
+    },
+    "Verify your Phone number" : {
+
+    },
+    "Welcome back" : {
+
+    },
+    "Welcome to RelaySMS" : {
+
+    },
+    "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {
+
+    },
+    "You can log back in at anytime. All the messages sent would be deleted." : {
+
+    }
+  },
+  "version" : "1.0"
+}

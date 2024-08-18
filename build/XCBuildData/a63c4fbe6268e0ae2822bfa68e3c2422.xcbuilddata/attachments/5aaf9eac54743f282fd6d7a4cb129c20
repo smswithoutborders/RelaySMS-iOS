@@ -1,0 +1,85 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPicker-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/resource_bundle_accessor.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/CloseButtonAlignment.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CloseButtonAlignment.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CloseButtonAlignment.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CloseButtonAlignment.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/ColorCompatibility.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/ColorCompatibility.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/ColorCompatibility.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/ColorCompatibility.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/Config.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Config.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Config.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Config.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/Country.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Country.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Country.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/Country.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/CountryManager.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryManager.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryManager.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryManager.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/CountryPickerCell.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerCell.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerCell.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerCell.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/CountryPickerViewController.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerViewController.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerViewController.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/CountryPickerViewController.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/DismissButtonStyle.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/DismissButtonStyle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/DismissButtonStyle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/DismissButtonStyle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/Extensions/String+Extension.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/String+Extension.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/String+Extension.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/String+Extension.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/Extensions/UIStackView+Extension.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIStackView+Extension.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIStackView+Extension.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIStackView+Extension.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/Extensions/UIView+Extension.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIView+Extension.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIView+Extension.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/UIView+Extension.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/NotchAppearance.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/NotchAppearance.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/NotchAppearance.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/NotchAppearance.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/Sources/CountryPicker/SeperatorAppearance.swift" : {
+    "index-unit-output-path" : "/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/SeperatorAppearance.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/SeperatorAppearance.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/CountryPicker/build/CountryPicker.build/Release-iphoneos/CountryPicker.build/Objects-normal/arm64/SeperatorAppearance.o"
+  }
+}

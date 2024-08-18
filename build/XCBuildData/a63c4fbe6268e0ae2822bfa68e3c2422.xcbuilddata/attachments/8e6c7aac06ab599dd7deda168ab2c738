@@ -1,0 +1,48 @@
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/CrossPlatform.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/NSBezierPath+CrossPlatform.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/CALayer+SVG.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/CAShapeLayer+SVG.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/SVGLayer.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/SVGView.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/UIBezierPath+SVG.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG\ Extensions/UIView+SVG.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/DelaysApplyingAttributes.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Fillable.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Identifiable.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Strokable.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Stylable.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Transformable.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Cache/SVGCache.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/ParsesAsynchronously.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGCircle.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGContainerElement.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGElement.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGEllipse.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGGroup.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGLine.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPath.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPolygon.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPolyline.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGRectangle.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGRootElement.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGShapeElement.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/BinaryFloatingPoint+ParseLengthString.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/CALayer+Sublayers.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Data+CacheKey.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Dictionary+Add.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Dictionary+JSON.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/DispatchQueue+Extensions.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/FloatingPoint+DegreesRadians.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Print.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Scalar+FromByteArray.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Stack.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/String+Subscript.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/String+Trim.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/UIColor+Extensions.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Unown.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/CoordinateLexer.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/PathCommand.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/PathDLexer.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/NSXMLSVGParser.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/SVGParser.swift
+/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/SVGParserSupportedElements.swift

@@ -1,0 +1,4 @@
+module CGRPCZlib {
+umbrella header "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/grpc-swift/Sources/CGRPCZlib/include/CGRPCZlib.h"
+export *
+}

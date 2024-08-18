@@ -1,0 +1,4 @@
+module SwobDoubleRatchet {
+header "SwobDoubleRatchet-Swift.h"
+export *
+}

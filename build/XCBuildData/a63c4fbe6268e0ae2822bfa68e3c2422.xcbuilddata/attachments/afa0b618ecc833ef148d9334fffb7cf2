@@ -1,0 +1,35 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOConcurrencyHelpers-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIOConcurrencyHelpers/atomics.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/atomics.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/atomics.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/atomics.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIOConcurrencyHelpers/lock.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/lock.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/lock.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/lock.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIOConcurrencyHelpers/NIOAtomic.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOAtomic.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOAtomic.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOAtomic.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIOConcurrencyHelpers/NIOLock.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLock.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLock.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLock.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/Sources/NIOConcurrencyHelpers/NIOLockedValueBox.swift" : {
+    "index-unit-output-path" : "/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLockedValueBox.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLockedValueBox.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/swift-nio/build/swift-nio.build/Release-iphoneos/NIOConcurrencyHelpers.build/Objects-normal/arm64/NIOLockedValueBox.o"
+  }
+}

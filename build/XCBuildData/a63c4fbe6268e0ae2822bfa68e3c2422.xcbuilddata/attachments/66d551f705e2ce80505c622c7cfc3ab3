@@ -1,0 +1,4 @@
+module _NIOBase64 {
+header "_NIOBase64-Swift.h"
+export *
+}

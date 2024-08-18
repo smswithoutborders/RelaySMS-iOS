@@ -1,0 +1,250 @@
+{
+  "" : {
+    "const-values" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master.swiftconstvalues",
+    "dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master.d",
+    "diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master.dia",
+    "emit-module-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master-emit-module.dia",
+    "swift-dependencies" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SwiftSVG-master.swiftdeps"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/CrossPlatform.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CrossPlatform.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CrossPlatform.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CrossPlatform.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/NSBezierPath+CrossPlatform.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSBezierPath+CrossPlatform.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSBezierPath+CrossPlatform.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSBezierPath+CrossPlatform.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/CALayer+SVG.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+SVG.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+SVG.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+SVG.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/CAShapeLayer+SVG.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CAShapeLayer+SVG.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CAShapeLayer+SVG.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CAShapeLayer+SVG.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/SVGLayer.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLayer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLayer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLayer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/SVGView.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGView.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGView.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGView.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/UIBezierPath+SVG.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIBezierPath+SVG.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIBezierPath+SVG.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIBezierPath+SVG.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG Extensions/UIView+SVG.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIView+SVG.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIView+SVG.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIView+SVG.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/DelaysApplyingAttributes.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DelaysApplyingAttributes.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DelaysApplyingAttributes.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DelaysApplyingAttributes.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Fillable.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Fillable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Fillable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Fillable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Identifiable.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Identifiable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Identifiable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Identifiable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Strokable.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Strokable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Strokable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Strokable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Stylable.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stylable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stylable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stylable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Attributes/Transformable.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Transformable.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Transformable.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Transformable.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Cache/SVGCache.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCache.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCache.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCache.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/ParsesAsynchronously.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/ParsesAsynchronously.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/ParsesAsynchronously.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/ParsesAsynchronously.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGCircle.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCircle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCircle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGCircle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGContainerElement.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGContainerElement.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGContainerElement.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGContainerElement.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGElement.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGElement.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGElement.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGElement.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGEllipse.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGEllipse.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGEllipse.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGEllipse.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGGroup.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGGroup.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGGroup.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGGroup.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGLine.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLine.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLine.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGLine.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPath.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPath.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPath.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPath.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPolygon.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolygon.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolygon.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolygon.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGPolyline.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolyline.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolyline.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGPolyline.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGRectangle.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRectangle.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRectangle.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRectangle.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGRootElement.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRootElement.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRootElement.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGRootElement.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Elements/SVGShapeElement.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGShapeElement.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGShapeElement.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGShapeElement.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/BinaryFloatingPoint+ParseLengthString.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/BinaryFloatingPoint+ParseLengthString.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/BinaryFloatingPoint+ParseLengthString.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/BinaryFloatingPoint+ParseLengthString.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/CALayer+Sublayers.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+Sublayers.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+Sublayers.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CALayer+Sublayers.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Data+CacheKey.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Data+CacheKey.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Data+CacheKey.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Data+CacheKey.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Dictionary+Add.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+Add.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+Add.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+Add.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Dictionary+JSON.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+JSON.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+JSON.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Dictionary+JSON.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/DispatchQueue+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DispatchQueue+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DispatchQueue+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/DispatchQueue+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/FloatingPoint+DegreesRadians.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/FloatingPoint+DegreesRadians.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/FloatingPoint+DegreesRadians.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/FloatingPoint+DegreesRadians.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Print.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Print.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Print.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Print.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Scalar+FromByteArray.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Scalar+FromByteArray.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Scalar+FromByteArray.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Scalar+FromByteArray.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Stack.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stack.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stack.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Stack.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/String+Subscript.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Subscript.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Subscript.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Subscript.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/String+Trim.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Trim.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Trim.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/String+Trim.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/UIColor+Extensions.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIColor+Extensions.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIColor+Extensions.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/UIColor+Extensions.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Helpers/Unown.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Unown.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Unown.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/Unown.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/CoordinateLexer.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CoordinateLexer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CoordinateLexer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/CoordinateLexer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/PathCommand.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathCommand.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathCommand.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathCommand.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Iterators/PathDLexer.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathDLexer.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathDLexer.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/PathDLexer.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/NSXMLSVGParser.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSXMLSVGParser.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSXMLSVGParser.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/NSXMLSVGParser.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/SVGParser.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParser.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParser.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParser.o"
+  },
+  "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/SwiftSVG/SVG/Parser/SVGParserSupportedElements.swift" : {
+    "index-unit-output-path" : "/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParserSupportedElements.o",
+    "llvm-bc" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParserSupportedElements.bc",
+    "object" : "/Users/MAC/Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-dbjxibijlvczasfruuhugoatdkcl/SourcePackages/checkouts/SwiftSVG/build/SwiftSVG.build/Release-iphoneos/SwiftSVG.build/Objects-normal/arm64/SVGParserSupportedElements.o"
+  }
+}
