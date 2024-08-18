@@ -16,6 +16,9 @@ struct EmailView: View {
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
     
+    @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
+    private var messageWithPhoneNumber = false
+
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     
     @Binding var globalDismiss: Bool

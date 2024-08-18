@@ -268,6 +268,7 @@ class Publisher {
             let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
             let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
             let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
+            let usePhonenumber = UserDefaults.standard.bool(forKey: SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
             
             let messageComposer = try MessageComposer(
                 SK: pubSharedKey.bytes,
@@ -275,7 +276,8 @@ class Publisher {
                 peerDhPubKey: peerPubkey,
                 keystoreAlias: Publisher.PUBLISHER_SHARED_KEY,
                 deviceID: deviceID,
-                context: context)
+                context: context,
+                useDeviceID: usePhonenumber)
             
             return messageComposer
         } catch {

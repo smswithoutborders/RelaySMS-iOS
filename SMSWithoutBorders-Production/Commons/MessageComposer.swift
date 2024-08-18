@@ -18,19 +18,22 @@ class MessageComposer {
     var state = States()
     var deviceID: [UInt8]?
     var context: NSManagedObjectContext
+    var useDeviceID: Bool
 
     init(SK: [UInt8], 
          AD: [UInt8],
          peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
          keystoreAlias: String,
          deviceID: [UInt8]? = nil,
-         context: NSManagedObjectContext) throws {
+         context: NSManagedObjectContext,
+         useDeviceID: Bool = true) throws {
         self.SK = SK
         self.keystoreAlias = keystoreAlias
         self.AD = AD
         self.deviceID = deviceID
         self.context = context
-        
+        self.useDeviceID = useDeviceID
+
         let fetchStates = try fetchStates()
         if fetchStates == nil {
             self.state = States()
@@ -147,7 +150,8 @@ class MessageComposer {
         data.append(payloadLen)
         data.append(platform_letter)
         data.append(encryptedContentPayload)
-        if deviceID != nil {
+        if useDeviceID && deviceID != nil {
+            print("Appending deviceID")
             data.append(Data(deviceID!))
         }
 

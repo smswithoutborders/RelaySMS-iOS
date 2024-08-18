@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct SecuritySettingsView: View {
+    public static var SETTINGS_MESSAGE_WITH_PHONENUMBER = "SETTINGS_MESSAGE_WITH_PHONENUMBER"
     @State private var selected: UUID?
     @State private var deleteProcessing = false
     
@@ -20,7 +21,7 @@ struct SecuritySettingsView: View {
     @State var messagePlatformViewRequested: Bool = false
     @State var messagePlatformViewPlatformName: String = ""
     @State var messagePlatformViewFromAccount: String = ""
-
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
@@ -102,11 +103,27 @@ struct SecuritySettingsView: View {
 struct SettingsView: View {
     @Binding var isLoggedIn: Bool
     
+    @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
+    private var messageWithPhoneNumber = false
+
+
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
-                    Text("Security")
+                Section {
+                    VStack(alignment: .leading) {
+                        Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
+                        Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
+                            .font(.caption)
+                            .padding(.trailing, 60)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Section {
+                    NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
+                        Text("Security")
+                    }
                 }
             }
             .navigationTitle("Settings")
@@ -123,5 +140,16 @@ struct SecuritySettingsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = true
         SecuritySettingsView(isLoggedIn: $isLoggedIn)
+    }
+}
+
+struct SettingsView_Preview: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+
+    static var previews: some View {
+        @State var isLoggedIn = true
+        SettingsView(isLoggedIn: $isLoggedIn)
     }
 }
