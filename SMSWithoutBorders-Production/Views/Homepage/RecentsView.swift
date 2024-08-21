@@ -128,7 +128,7 @@ func getNoRecentsView() -> some View {
             .frame(width: 200, height: 200)
             .padding(.bottom, 20)
         Text("No recent messages")
-            .font(.title)
+            .font(.subheadline)
     }
 }
 
@@ -179,7 +179,7 @@ struct RecentsView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            VStack {
                 if !isLoggedIn {
                     Spacer()
                     getNoLoggedInView()
@@ -226,6 +226,7 @@ struct RecentsView: View {
                 } else {
                     if messages.isEmpty {
                         getNoRecentsView()
+                            .padding()
                     
                         VStack {
                             Button {
