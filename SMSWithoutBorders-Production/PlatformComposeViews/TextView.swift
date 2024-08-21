@@ -11,6 +11,10 @@ import MessageUI
 struct TextView: View {
     @State var textBody :String = ""
     @State var placeHolder: String = "What's happening?"
+    @State private var encryptedFormattedContent = ""
+    
+    @State private var isPosting: Bool = false
+    @State private var isShowingMessages: Bool = false
 
     @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
@@ -20,8 +24,6 @@ struct TextView: View {
     private var defaultGatewayClientMsisdn: String = ""
     
     @State var platform: PlatformsEntity?
-    
-    var decoder: Decoder?
     
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     private var platformName: String
@@ -60,8 +62,10 @@ struct TextView: View {
             .navigationBarTitle("Compose Post")
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        for platform in platforms {
+                    Button("Post") {
+                        let platform = platforms.first!
+                        isPosting = true
+                        DispatchQueue.background(background: {
                             do {
                                 let messageComposer = try Publisher.publish(
                                     platform: platform, context: context)
@@ -69,43 +73,59 @@ struct TextView: View {
                                 var shortcode: UInt8? = nil
                                 shortcode = platform.shortcode!.bytes[0]
                                 
-                                let encryptedFormattedContent = try messageComposer.textComposer(
+                                encryptedFormattedContent = try messageComposer.textComposer(
                                     platform_letter: shortcode!,
                                     sender: fromAccount,
                                     text: textBody)
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
-                                var messageEntities = MessageEntity(context: context)
-                                messageEntities.id = UUID()
-                                messageEntities.platformName = platformName
-                                messageEntities.fromAccount = fromAccount
-                                messageEntities.toAccount = ""
-                                messageEntities.subject = ""
-                                messageEntities.body = textBody
-                                messageEntities.date = Int32(Date().timeIntervalSince1970)
-                                
-                                do {
-                                    try context.save()
-                                } catch {
-                                    print("Failed to save message entity: \(error)")
-                                }
-                                
-//                                vc.sendSMS(
-//                                    message: encryptedFormattedContent,
-//                                    receipient: defaultGatewayClientMsisdn)
+                                isPosting = false
+                                isShowingMessages.toggle()
                             } catch {
                                 print("Some error occured while sending: \(error)")
                             }
-                            
-                            break
-                        }
-                        
-                        self.dismiss()
-                    }) {
-                        Text("Post")
+                        })
+                    }
+                    .disabled(isPosting)
+                    .sheet(isPresented: $isShowingMessages) {
+                        MessagesUIView(
+                            recipients: [defaultGatewayClientMsisdn],
+                            body: $encryptedFormattedContent,
+                            completion: handleCompletion(_:))
+                        .ignoresSafeArea()
                     }
                 }
             })
+        }
+    }
+    
+    func handleCompletion(_ result: MessageComposeResult) {
+        switch result {
+        case .cancelled:
+            break
+        case .failed:
+            break
+        case .sent:
+            DispatchQueue.background(background: {
+                var messageEntities = MessageEntity(context: context)
+                messageEntities.id = UUID()
+                messageEntities.platformName = platformName
+                messageEntities.fromAccount = fromAccount
+                messageEntities.toAccount = ""
+                messageEntities.subject = ""
+                messageEntities.body = textBody
+                messageEntities.date = Int32(Date().timeIntervalSince1970)
+                
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to save message entity: \(error)")
+                }
+                
+            })
+            break
+        @unknown default:
+            break
         }
     }
 }

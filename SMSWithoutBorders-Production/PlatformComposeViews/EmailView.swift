@@ -151,10 +151,6 @@ struct EmailView: View {
                                 bcc: composeBCC,
                                 subject: composeSubject,
                                 body: composeBody)
-                            print("Transmitting to sms app: \(encryptedFormattedContent)")
-    //
-    //                        Task {
-    //                        }
                         } catch {
                             print("Some error occured while sending: \(error)")
                         }
