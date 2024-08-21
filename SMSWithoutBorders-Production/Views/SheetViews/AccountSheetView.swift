@@ -44,20 +44,13 @@ struct AccountSheetView: View {
     private var platformName: String
     private var isRevoke: Bool
 
-    @Binding private var globalSheetShownDismiss: Bool
-    @Binding var messagePlatformViewRequested: Bool
-    @Binding var messagePlatformViewFromAccount: String
-
     @State private var isRevokeSheetShown: Bool = false
     @State private var isRevoking: Bool = false
     @State private var revokingShown: Bool = false
     
     @State private var isLinkActive: Bool = false
 
-    init(filter: String, globalDismiss: Binding<Bool>,
-         messagePlatformViewRequested: Binding<Bool>,
-         messagePlatformViewFromAccount: Binding<String>,
-         isRevoke: Bool = false) {
+    init(filter: String, globalDismiss: Binding<Bool>, isRevoke: Bool = false) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -68,9 +61,6 @@ struct AccountSheetView: View {
         
         self.platformName = filter
         self.isRevoke = isRevoke
-        self._globalSheetShownDismiss = globalDismiss
-        self._messagePlatformViewRequested = messagePlatformViewRequested
-        self._messagePlatformViewFromAccount = messagePlatformViewFromAccount
     }
     
     var body: some View {
@@ -144,16 +134,11 @@ struct AccountSheetView: View {
         ForEach(platforms) { platform in
             switch platform.service_type {
             case "email":
-                EmailView(platformName: platform.name!, 
-                          fromAccount: fromAccount,
-                          globalDismiss: $globalSheetShownDismiss)
+                EmailView(platformName: platform.name!, fromAccount: fromAccount)
             case "text":
-                TextView(platformName: platform.name!, 
-                         fromAccount: fromAccount,
-                         globalDismiss: $globalSheetShownDismiss)
+                TextView(platformName: platform.name!, fromAccount: fromAccount)
             case "message":
-                MessagingView(platformName: platform.name!,
-                              fromAccount: fromAccount,
+                MessagingView(platformName: platform.name!, fromAccount: fromAccount,
                               message: nil,
                               vc: nil)
             default:
@@ -175,8 +160,6 @@ struct AccountSheetView_Preview: PreviewProvider {
         return AccountSheetView(
             filter: "twitter",
             globalDismiss: $globalDismiss,
-            messagePlatformViewRequested: $messagePlatformViewRequested,
-            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
             isRevoke: true)
             .environment(\.managedObjectContext, container.viewContext)
     }

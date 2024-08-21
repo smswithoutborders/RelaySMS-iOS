@@ -18,9 +18,6 @@ struct SecuritySettingsView: View {
     @State var showIsDeleting: Bool = false
 
     @Binding var isLoggedIn: Bool
-    @State var messagePlatformViewRequested: Bool = false
-    @State var messagePlatformViewPlatformName: String = ""
-    @State var messagePlatformViewFromAccount: String = ""
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
@@ -32,11 +29,7 @@ struct SecuritySettingsView: View {
             List {
                 Section(header: Text("Vault")) {
                     NavigationLink {
-                        OfflineAvailablePlatformsSheetsView(
-                            messagePlatformViewRequested: $messagePlatformViewRequested,
-                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-                            isRevoke: true)
+                        OfflineAvailablePlatformsSheetsView(isRevoke: true)
                     } label: {
                         Text("Revoke stored platforms")
                     }

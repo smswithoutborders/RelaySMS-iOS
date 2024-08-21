@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0439A4992C7637A4000B8D30 /* MessagesUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A4982C7637A4000B8D30 /* MessagesUIView.swift */; };
 		164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
@@ -149,6 +150,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0439A4982C7637A4000B8D30 /* MessagesUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesUIView.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
 				164EF7D02954D431007F8C76 /* MessagingView.swift */,
+				0439A4982C7637A4000B8D30 /* MessagesUIView.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
 				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
+				0439A4992C7637A4000B8D30 /* MessagesUIView.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

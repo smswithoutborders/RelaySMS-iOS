@@ -19,18 +19,15 @@ struct TextView: View {
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
     
-    @Binding var globalDismiss: Bool
-
     @State var platform: PlatformsEntity?
     
     var decoder: Decoder?
-    private let messageComposeDelegate = MessageComposerDelegate()
     
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     private var platformName: String
     private var fromAccount: String
 
-    init(platformName: String, fromAccount: String, globalDismiss: Binding<Bool>) {
+    init(platformName: String, fromAccount: String) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -40,7 +37,6 @@ struct TextView: View {
         print("Searching platform: \(platformName)")
 
         self.fromAccount = fromAccount
-        self._globalDismiss = globalDismiss
     }
 
     var body: some View {
@@ -94,10 +90,9 @@ struct TextView: View {
                                     print("Failed to save message entity: \(error)")
                                 }
                                 
-                                let vc = ViewController()
-                                vc.sendSMS(
-                                    message: encryptedFormattedContent,
-                                    receipient: defaultGatewayClientMsisdn)
+//                                vc.sendSMS(
+//                                    message: encryptedFormattedContent,
+//                                    receipient: defaultGatewayClientMsisdn)
                             } catch {
                                 print("Some error occured while sending: \(error)")
                             }
@@ -121,7 +116,7 @@ struct TextView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var globalDismiss = false
-        return TextView(platformName: "twitter", fromAccount: "@relaysms", globalDismiss: $globalDismiss)
+        return TextView(platformName: "twitter", fromAccount: "@relaysms")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

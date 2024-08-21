@@ -11,10 +11,6 @@ import CachedAsyncImage
 import CoreData
 
 struct OfflineAvailablePlatformsSheetsView: View {
-    @Binding var messagePlatformViewRequested: Bool
-    @Binding var messagePlatformViewPlatformName: String
-    @Binding var messagePlatformViewFromAccount: String
-
     @State var codeVerifier: String = ""
     @State var title: String = "Compose for platform"
     @State var titleRevoke: String = "Revoke Platforms"
@@ -25,9 +21,6 @@ struct OfflineAvailablePlatformsSheetsView: View {
     var body: some View {
         AvailablePlatformsSheetsView(
             codeVerifier: $codeVerifier,
-            messagePlatformViewRequested: $messagePlatformViewRequested, 
-            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-            messagePlatformViewFromAccount: $messagePlatformViewFromAccount, 
             title: isRevoke ? titleRevoke : title,
             description: isRevoke ? descriptionRevoke : description,
             type: isRevoke ? AvailablePlatformsSheetsView.TYPE.REVOKE :
@@ -38,19 +31,13 @@ struct OfflineAvailablePlatformsSheetsView: View {
 
 struct OnlineAvailablePlatformsSheetsView: View {
     @Binding var codeVerifier: String
-    @State var messagePlatformViewRequested: Bool = false
-    @State var messagePlatformViewPlatformName: String = ""
-    @State var messagePlatformViewFromAccount: String = ""
-
+    
     @State var title = "Available Platforms"
     @State var description = "Select a platform to save it for offline use"
     
     var body: some View {
         AvailablePlatformsSheetsView(
             codeVerifier: $codeVerifier, 
-            messagePlatformViewRequested: $messagePlatformViewRequested, 
-            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
             title: title,
             description: description)
     }
@@ -73,9 +60,6 @@ struct AvailablePlatformsSheetsView: View {
     @State var platformsLoading = false
     
     @Binding var codeVerifier: String
-    @Binding var messagePlatformViewRequested: Bool
-    @Binding var messagePlatformViewPlatformName: String
-    @Binding var messagePlatformViewFromAccount: String
     
     @State var title: String
     @State var description: String
@@ -155,8 +139,7 @@ struct AvailablePlatformsSheetsView: View {
                 else if type == AvailablePlatformsSheetsView.TYPE.STORED || 
                             type == AvailablePlatformsSheetsView.TYPE.REVOKE {
                     filterPlatformName = platform.name!
-                    accountViewShown = true
-                    messagePlatformViewPlatformName = platform.name!
+                    accountViewShown.toggle()
                     print("changed accountViewShown: \(accountViewShown)")
                 }
             }) {
@@ -168,8 +151,6 @@ struct AvailablePlatformsSheetsView: View {
                 NavigationLink(destination: AccountSheetView(
                     filter: filterPlatformName,
                     globalDismiss: $accountViewShown,
-                    messagePlatformViewRequested: $messagePlatformViewRequested,
-                    messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
                     isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE), isActive: $accountViewShown) {
                         EmptyView()
                     }.hidden()
@@ -225,18 +206,12 @@ struct AvailablePlatformsSheetsView: View {
 struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier = ""
-        @State var messagePlatformViewRequested: Bool = false
-        @State var messagePlatformViewFromAccount: String = ""
-        @State var messagePlatformViewPlatformName: String = ""
         @State var isRevoke: Bool = true
 
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
         return OfflineAvailablePlatformsSheetsView(
-            messagePlatformViewRequested: $messagePlatformViewRequested, 
-            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
             codeVerifier: codeVerifier, isRevoke: isRevoke)
         .environment(\.managedObjectContext, container.viewContext)
     }

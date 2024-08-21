@@ -72,7 +72,6 @@ struct MessagingView: View {
     @State var platform: PlatformsEntity?
     
     var decoder: Decoder?
-    private let messageComposeDelegate = MessageComposerDelegate()
     
     @State var messageBody :String = ""
     @State var messageContact :String = ""
@@ -92,9 +91,8 @@ struct MessagingView: View {
     var message: Messages?
     @State private var showMessages = false
     
-    var vc: ViewController?
     
-    init(platformName: String, fromAccount: String, message: Messages? = nil, vc: ViewController? = nil) {
+    init(platformName: String, fromAccount: String, message: Messages? = nil, vc: MessageViewController? = nil) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -120,7 +118,6 @@ struct MessagingView: View {
 
         self.fromAccount = fromAccount
         self.message = message
-        self.vc = vc
     }
     
 
@@ -221,9 +218,9 @@ struct MessagingView: View {
                                     }
                                     
                                     
-                                    let vc = ViewController()
-                                    vc.sendSMS(message: encryptedFormattedContent,
-                                                       receipient: defaultGatewayClientMsisdn)
+//                                    let vc = ViewController()
+//                                    vc.sendSMS(message: encryptedFormattedContent,
+//                                                       receipient: defaultGatewayClientMsisdn)
                                 } catch {
                                     print("Some error occured while sending: \(error)")
                                 }

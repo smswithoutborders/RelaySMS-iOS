@@ -30,10 +30,8 @@ struct OnboardingTryExample: View {
                         .padding(.bottom, 10)
                         .buttonStyle(.borderedProminent)
                         .background(
-                            NavigationLink(destination: OfflineAvailablePlatformsSheetsView(
-                                messagePlatformViewRequested: $messagePlatformViewRequested,
-                                messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                                messagePlatformViewFromAccount: $messagePlatformViewFromAccount), isActive: $shownStoredPlatforms) {
+                            NavigationLink(destination: OfflineAvailablePlatformsSheetsView(),
+                                           isActive: $shownStoredPlatforms) {
                                     EmptyView()
                                 }.hidden()
                         )
