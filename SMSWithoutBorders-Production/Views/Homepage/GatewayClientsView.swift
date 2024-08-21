@@ -79,9 +79,7 @@ struct GatewayClientsView: View {
                 .confirmationDialog("Set as default gateway client?",
                                      isPresented: $changeDefaultGatewayClient) {
                     Button("Make default") {
-                        UserDefaults.standard.register(defaults: [
-                            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: selectedGatewayClient
-                        ])
+                        defaultGatewayClientMsisdn = selectedGatewayClient
                     }
                 } message: {
                     Text("Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered")

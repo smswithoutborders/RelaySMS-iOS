@@ -154,12 +154,16 @@ class Vault {
     func recoverPassword(phoneNumber: String, 
                          newPassword: String,
                          clientPublishPubKey: String,
-                         clientDeviceIdPubKey: String) throws -> Vault_V1_ResetPasswordResponse {
+                         clientDeviceIdPubKey: String,
+                         ownershipResponse: String? = nil) throws -> Vault_V1_ResetPasswordResponse {
         let recoverPasswordRequest: Vault_V1_ResetPasswordRequest = .with {
             $0.phoneNumber = phoneNumber
             $0.newPassword = newPassword
             $0.clientPublishPubKey = clientPublishPubKey
             $0.clientDeviceIDPubKey = clientDeviceIdPubKey
+            if(ownershipResponse != nil) {
+                $0.ownershipProofResponse = ownershipResponse!
+            }
         }
         
         let call = vaultEntityStub!.resetPassword(recoverPasswordRequest)

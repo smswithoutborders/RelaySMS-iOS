@@ -179,7 +179,7 @@ struct RecentsView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading) {
                 if !isLoggedIn {
                     Spacer()
                     getNoLoggedInView()

@@ -28,17 +28,17 @@ struct SecuritySettingsView: View {
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             List {
                 Section(header: Text("Vault")) {
-                    Button("Revoke Platforms") {
-                        isShowingRevoke = true
-                    }.sheet(isPresented: $isShowingRevoke) {
+                    NavigationLink {
                         OfflineAvailablePlatformsSheetsView(
                             messagePlatformViewRequested: $messagePlatformViewRequested,
                             messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
                             messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
                             isRevoke: true)
+                    } label: {
+                        Text("Revoke stored platforms")
                     }
                 }
                 
@@ -65,6 +65,8 @@ struct SecuritySettingsView: View {
                 }
             }
         }
+        .navigationTitle("Security")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     
@@ -109,25 +111,26 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    VStack(alignment: .leading) {
-                        Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
-                        Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
-                            .font(.caption)
-                            .padding(.trailing, 60)
-                            .foregroundColor(.secondary)
+            VStack {
+                List {
+                    Section {
+                        VStack(alignment: .leading) {
+                            Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
+                            Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
+                                .font(.caption)
+                                .padding(.trailing, 60)
+                                .foregroundColor(.secondary)
+                        }
                     }
-                }
-                
-                Section {
-                    NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
-                        Text("Security")
+                    
+                    Section {
+                        NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
+                            Text("Security")
+                        }
                     }
                 }
             }
             .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -147,9 +150,14 @@ struct SettingsView_Preview: PreviewProvider {
     @State static var platform: PlatformsEntity?
     @State static var platformType: Int?
     @State static var codeVerifier: String = ""
+    
 
     static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
         @State var isLoggedIn = true
-        SettingsView(isLoggedIn: $isLoggedIn)
+        return SettingsView(isLoggedIn: $isLoggedIn)
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }

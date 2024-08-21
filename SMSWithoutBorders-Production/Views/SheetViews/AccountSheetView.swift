@@ -118,8 +118,9 @@ struct AccountSheetView: View {
                                             try viewContext.save()
                                         }
                                         
-                                        dismiss()
-                                        globalSheetShownDismiss = true
+                                        DispatchQueue.main.async {
+                                            dismiss()
+                                        }
                                     } catch {
                                         print("Error revoking: \(error)")
                                     }
@@ -176,7 +177,7 @@ struct AccountSheetView_Preview: PreviewProvider {
             globalDismiss: $globalDismiss,
             messagePlatformViewRequested: $messagePlatformViewRequested,
             messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-            isRevoke: false)
+            isRevoke: true)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

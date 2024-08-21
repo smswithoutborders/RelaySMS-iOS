@@ -231,7 +231,7 @@
     "Revoke" : {
 
     },
-    "Revoke Platforms" : {
+    "Revoke stored platforms" : {
 
     },
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {

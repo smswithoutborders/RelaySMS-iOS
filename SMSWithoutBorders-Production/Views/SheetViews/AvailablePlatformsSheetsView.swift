@@ -157,6 +157,7 @@ struct AvailablePlatformsSheetsView: View {
                     filterPlatformName = platform.name!
                     accountViewShown = true
                     messagePlatformViewPlatformName = platform.name!
+                    print("changed accountViewShown: \(accountViewShown)")
                 }
             }) {
                 (platform.image == nil ? Image("Logo") : Image(uiImage: UIImage(data: platform.image!)!))
@@ -227,6 +228,7 @@ struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
         @State var messagePlatformViewRequested: Bool = false
         @State var messagePlatformViewFromAccount: String = ""
         @State var messagePlatformViewPlatformName: String = ""
+        @State var isRevoke: Bool = true
 
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
@@ -235,7 +237,7 @@ struct AvailablePlatformsSheetsView_Previews: PreviewProvider {
             messagePlatformViewRequested: $messagePlatformViewRequested, 
             messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
             messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-            codeVerifier: codeVerifier)
+            codeVerifier: codeVerifier, isRevoke: isRevoke)
         .environment(\.managedObjectContext, container.viewContext)
     }
 }
