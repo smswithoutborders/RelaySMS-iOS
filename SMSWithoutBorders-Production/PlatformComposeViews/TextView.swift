@@ -88,7 +88,7 @@ struct TextView: View {
                     }
                     .disabled(isPosting)
                     .sheet(isPresented: $isShowingMessages) {
-                        MessagesUIView(
+                        SMSComposeMessageUIView(
                             recipients: [defaultGatewayClientMsisdn],
                             body: $encryptedFormattedContent,
                             completion: handleCompletion(_:))

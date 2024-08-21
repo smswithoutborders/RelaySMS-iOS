@@ -139,8 +139,7 @@ struct AccountSheetView: View {
                 TextView(platformName: platform.name!, fromAccount: fromAccount)
             case "message":
                 MessagingView(platformName: platform.name!, fromAccount: fromAccount,
-                              message: nil,
-                              vc: nil)
+                              message: nil)
             default:
                 EmptyView()
             }

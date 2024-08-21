@@ -31,13 +31,24 @@ struct Card: View {
     @State var toAccount: String
     @State var messageBody: String
     @State var date: Int
+    
+    let radius = 20.0
+    var squareSide: CGFloat {
+        2.0.squareRoot() * radius
+    }
 
     var body: some View {
         HStack {
-            logo
-                .resizable()
-                .frame(width: 30, height: 30)
-            
+            ZStack {
+                Circle()
+                    .fill(.white)
+                    .frame(width: radius * 2, height: radius * 2)
+                logo
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: squareSide, height: squareSide)
+                
+            }
             VStack {
                 HStack {
                     Text(subject)
@@ -101,7 +112,9 @@ func getNoLoggedInView() -> some View {
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageEntity.date, ascending: false)])
+    var messages: FetchedResults<MessageEntity>
 
     @Binding var codeVerifier: String
     @Binding var isLoggedIn: Bool

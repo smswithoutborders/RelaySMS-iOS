@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0439A4992C7637A4000B8D30 /* MessagesUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A4982C7637A4000B8D30 /* MessagesUIView.swift */; };
+		0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
+		0439A49D2C7677A1000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
 		164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
@@ -150,7 +151,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0439A4982C7637A4000B8D30 /* MessagesUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesUIView.swift; sourceTree = "<group>"; };
+		0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSComposeMessageUIView.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
@@ -389,10 +390,10 @@
 		3BC75BEE2C523F26004233CE /* PlatformComposeViews */ = {
 			isa = PBXGroup;
 			children = (
+				0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */,
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
 				164EF7D02954D431007F8C76 /* MessagingView.swift */,
-				0439A4982C7637A4000B8D30 /* MessagesUIView.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";
@@ -622,6 +623,7 @@
 				3B7EEE6C2C5EBDD700611092 /* ThreadExecutor.swift in Sources */,
 				3BEC4CF22C47FEC500F92D2A /* vault.proto in Sources */,
 				3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */,
+				0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
 				3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */,
 				3BF3D14F2C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
@@ -649,7 +651,6 @@
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
 				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
-				0439A4992C7637A4000B8D30 /* MessagesUIView.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -689,6 +690,7 @@
 				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
 				3B928A2F2C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
+				0439A49D2C7677A1000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BCBA3A22C49611100736B9B /* PlatformsTest.swift in Sources */,
 				3BF3D1502C32D69D003A3AFB /* SignupSheetView.swift in Sources */,

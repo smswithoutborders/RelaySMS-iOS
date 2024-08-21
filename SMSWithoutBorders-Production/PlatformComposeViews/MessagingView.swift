@@ -95,7 +95,7 @@ struct MessagingView: View {
     @State private var isShowingMessages = false
 
     
-    init(platformName: String, fromAccount: String, message: Messages? = nil, vc: MessageViewController? = nil) {
+    init(platformName: String, fromAccount: String, message: Messages? = nil) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -214,7 +214,7 @@ struct MessagingView: View {
                         }
                         .disabled(isMessaging)
                         .sheet(isPresented: $isShowingMessages) {
-                            MessagesUIView(
+                            SMSComposeMessageUIView(
                                 recipients: [defaultGatewayClientMsisdn],
                                 body: $encryptedFormattedContent,
                                 completion: handleCompletion(_:))

@@ -13,26 +13,22 @@ protocol MessagesViewDelegate {
     func messageCompletion(result: MessageComposeResult)
 }
 
-class MessageViewController: UIViewController, MFMessageComposeViewControllerDelegate {
+public class MessageViewController: UIViewController, MFMessageComposeViewControllerDelegate {
     var delegate: MessagesViewDelegate?
     var recipients: [String]?
     var body: String?
 
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true)
         self.delegate?.messageCompletion(result: result)
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     public func displayMessageInterface() {
         let messageVC = MFMessageComposeViewController()
-//        messageVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: .done, target: self, action: Selector(("dismiss")))
-//        messageVC.navigationBar.isHidden = true
-        
         messageVC.messageComposeDelegate = self
         messageVC.recipients = recipients
         messageVC.body = body
@@ -47,7 +43,7 @@ class MessageViewController: UIViewController, MFMessageComposeViewControllerDel
 
 }
 
-struct MessagesUIView: UIViewControllerRepresentable {
+public struct SMSComposeMessageUIView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     
     var recipients: [String]
@@ -55,11 +51,11 @@ struct MessagesUIView: UIViewControllerRepresentable {
     var completion: ((_ result: MessageComposeResult) -> Void)
 
 
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    func makeUIViewController(context: Context) -> MessageViewController {
+    public func makeUIViewController(context: Context) -> MessageViewController {
         let controller = MessageViewController()
         controller.delegate = context.coordinator
         controller.recipients = recipients
@@ -68,16 +64,16 @@ struct MessagesUIView: UIViewControllerRepresentable {
         return controller
     }
     
-    func updateUIViewController(_ uiViewController: MessageViewController, context: Context) {
+    public func updateUIViewController(_ uiViewController: MessageViewController, context: Context) {
         uiViewController.recipients = recipients
         uiViewController.displayMessageInterface()
     }
     
     
-    class Coordinator: NSObject, UINavigationControllerDelegate, MessagesViewDelegate {
-        var parent: MessagesUIView
+    public class Coordinator: NSObject, UINavigationControllerDelegate, MessagesViewDelegate {
+        var parent: SMSComposeMessageUIView
         
-        init(_ controller: MessagesUIView) {
+        init(_ controller: SMSComposeMessageUIView) {
             self.parent = controller
         }
         

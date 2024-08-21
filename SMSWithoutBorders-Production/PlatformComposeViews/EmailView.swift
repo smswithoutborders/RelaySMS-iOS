@@ -158,7 +158,7 @@ struct EmailView: View {
                         isSendingRequest = false
                     })
                 }.sheet(isPresented: $isShowingMessages) {
-                    MessagesUIView(
+                    SMSComposeMessageUIView(
                         recipients: [defaultGatewayClientMsisdn],
                         body: $encryptedFormattedContent,
                         completion: handleCompletion(_:))
