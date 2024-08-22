@@ -104,6 +104,7 @@ func getNoLoggedInView() -> some View {
         Text("Create new account or log into existing one to begin sending messages from stored online platforms")
             .font(.subheadline)
             .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(.secondary)
     }.padding()
     Spacer()

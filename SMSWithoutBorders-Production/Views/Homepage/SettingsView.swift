@@ -79,8 +79,7 @@ struct SecuritySettingsView: View {
     
     func deleteAccount() {
         deleteProcessing = true
-        let backgroundQueueu = DispatchQueue(label: "deleteAccountQueue", qos: .background)
-        backgroundQueueu.async {
+        DispatchQueue.background(background: {
             do {
                 let llt = try Vault.getLongLivedToken()
                 try Vault.completeDeleteEntity(
@@ -90,8 +89,9 @@ struct SecuritySettingsView: View {
             } catch {
                 print("Error deleting: \(error)")
             }
-            deleteProcessing = false
-        }
+        }, completion: {
+            logoutAccount()
+        })
     }
 }
 
