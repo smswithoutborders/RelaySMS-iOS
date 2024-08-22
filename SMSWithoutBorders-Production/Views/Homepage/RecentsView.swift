@@ -140,8 +140,8 @@ struct RecentsView: View {
         NavigationView {
             VStack {
                 if !isLoggedIn {
-                    getNoLoggedInView()
-                } 
+                    notLoggedInView()
+                }
                 else {
                     if messages.isEmpty {
                         noSentMessages()
@@ -385,7 +385,7 @@ struct RecentsView: View {
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = true
+        @State var isLoggedIn: Bool = false
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
