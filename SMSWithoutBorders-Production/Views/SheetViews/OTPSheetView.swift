@@ -96,6 +96,7 @@ nonisolated func signupAuthenticateRecover(
     type: OTPAuthType.TYPE,
     otpCode: String? = nil,
     context: NSManagedObjectContext? = nil) async throws -> Int {
+        print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
     
     let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
     let clientPublishPubKey = publishPrivateKey.publicKey.rawRepresentation.base64EncodedString()
