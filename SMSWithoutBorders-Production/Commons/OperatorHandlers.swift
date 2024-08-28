@@ -36,7 +36,7 @@ class OperatorHandlers {
     
     public static func isMatchingOperatorCode(operatorCode: String) -> Bool {
         let cellularProviders: [String: CTCarrier] = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders ?? [:]
-        
+
         for cellularProvider in cellularProviders {
             // TODO: Actually check to find if matching default Gateway is present
             let carrierName: String = cellularProvider.value.carrierName!;
@@ -45,6 +45,7 @@ class OperatorHandlers {
             // print("Carrier name: \(carrierName), Country code: \(mobileCountryCode), Network code: \(mobileNetworkCode)")
             let oc = mobileCountryCode + mobileNetworkCode
             
+            print("\(cellularProvider.key) checking: \(carrierName) oc=\(oc) -> operatorCode=\(operatorCode) : \(cellularProvider.value.isoCountryCode)")
             if oc == operatorCode {
                 return true
             }

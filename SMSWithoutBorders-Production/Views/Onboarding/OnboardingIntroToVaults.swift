@@ -88,9 +88,9 @@ struct addAccountsView: View {
                 .buttonStyle(.borderedProminent),
                 title: "Add Accounts to Vault",
                 subTitle: "Let's get you started",
-                description: "You can add accounts your Vault. This accounts are accessible to you when you are offline",
+                description: "You can add accounts to Vault. This accounts are accessible to you when you are offline",
                 imageName: "OnboardingVaultOpen",
-                subDescription: "The Vault supports storing for multiple online paltforms. Click Add Accounts storage to see the list"
+                subDescription: "The Vault supports storing for multiple online platforms. Click Save Accounts to Vault to see the list"
             )
         }
         .task {
@@ -154,6 +154,20 @@ struct OnboardingIntroVaults_Preview: PreviewProvider {
         OnboardingIntroToVaults(
             codeVerifier: $codeVerifier,
             backgroundLoading: $isBackgroundLoading,
+            onboardingIndex: $onboardingIndex )
+    }
+}
+
+struct AddAccounts_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var codeVerifier: String = ""
+        @State var isBackgroundLoading: Bool = false
+        @State var completed: Bool = true
+        @State var onboardingIndex: Int = 0
+        @State var availablePlatformsPresented: Bool = false
+        addAccountsView(
+            codeVerifier: $codeVerifier,
+            availablePlatformsPresented: $availablePlatformsPresented,
             onboardingIndex: $onboardingIndex )
     }
 }

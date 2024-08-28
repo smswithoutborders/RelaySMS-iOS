@@ -288,7 +288,7 @@
     "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
 
     },
-    "Use SMS to make a post, send an emails and messages" : {
+    "Use SMS to make a post, send emails and messages with no internet connection" : {
 
     },
     "Vault" : {
