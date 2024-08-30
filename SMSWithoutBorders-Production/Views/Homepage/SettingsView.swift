@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct SecuritySettingsView: View {
+    public static var SETTINGS_MESSAGE_WITH_PHONENUMBER = "SETTINGS_MESSAGE_WITH_PHONENUMBER"
     @State private var selected: UUID?
     @State private var deleteProcessing = false
     
@@ -17,27 +18,20 @@ struct SecuritySettingsView: View {
     @State var showIsDeleting: Bool = false
 
     @Binding var isLoggedIn: Bool
-    @State var messagePlatformViewRequested: Bool = false
-    @State var messagePlatformViewPlatformName: String = ""
-    @State var messagePlatformViewFromAccount: String = ""
-
+    
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             List {
                 Section(header: Text("Vault")) {
-                    Button("Revoke Platforms") {
-                        isShowingRevoke = true
-                    }.sheet(isPresented: $isShowingRevoke) {
-                        OfflineAvailablePlatformsSheetsView(
-                            messagePlatformViewRequested: $messagePlatformViewRequested,
-                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount,
-                            isRevoke: true)
+                    NavigationLink {
+                        OfflineAvailablePlatformsSheetsView(isRevoke: true)
+                    } label: {
+                        Text("Revoke stored platforms")
                     }
                 }
                 
@@ -64,6 +58,8 @@ struct SecuritySettingsView: View {
                 }
             }
         }
+        .navigationTitle("Security")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     
@@ -83,8 +79,7 @@ struct SecuritySettingsView: View {
     
     func deleteAccount() {
         deleteProcessing = true
-        let backgroundQueueu = DispatchQueue(label: "deleteAccountQueue", qos: .background)
-        backgroundQueueu.async {
+        DispatchQueue.background(background: {
             do {
                 let llt = try Vault.getLongLivedToken()
                 try Vault.completeDeleteEntity(
@@ -94,23 +89,41 @@ struct SecuritySettingsView: View {
             } catch {
                 print("Error deleting: \(error)")
             }
-            deleteProcessing = false
-        }
+        }, completion: {
+            logoutAccount()
+        })
     }
 }
 
 struct SettingsView: View {
     @Binding var isLoggedIn: Bool
     
+    @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
+    private var messageWithPhoneNumber = false
+
+
     var body: some View {
         NavigationView {
-            List {
-                NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
-                    Text("Security")
+            VStack {
+                List {
+                    Section {
+                        VStack(alignment: .leading) {
+                            Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
+                            Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
+                                .font(.caption)
+                                .padding(.trailing, 60)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    Section {
+                        NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
+                            Text("Security")
+                        }
+                    }
                 }
             }
             .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -123,5 +136,21 @@ struct SecuritySettingsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = true
         SecuritySettingsView(isLoggedIn: $isLoggedIn)
+    }
+}
+
+struct SettingsView_Preview: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+    
+
+    static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        @State var isLoggedIn = true
+        return SettingsView(isLoggedIn: $isLoggedIn)
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }

@@ -89,12 +89,14 @@ func generateNewKeypairs() throws -> (
 }
 
 
-nonisolated func signupAuthenticateRecover(phoneNumber: String,
-                               countryCode: String?,
-                               password: String,
-                                      type: OTPAuthType.TYPE,
-                                      otpCode: String? = nil,
-                                      context: NSManagedObjectContext? = nil) async throws -> Int {
+nonisolated func signupAuthenticateRecover(
+    phoneNumber: String,
+    countryCode: String?,
+    password: String,
+    type: OTPAuthType.TYPE,
+    otpCode: String? = nil,
+    context: NSManagedObjectContext? = nil) async throws -> Int {
+        print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
     
     let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
     let clientPublishPubKey = publishPrivateKey.publicKey.rawRepresentation.base64EncodedString()
@@ -102,7 +104,7 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
     let clientDeviceIDPubKey = deviceIdPrivateKey.publicKey.rawRepresentation.base64EncodedString()
     
     let vault = Vault()
-    
+
     if(type == OTPAuthType.TYPE.CREATE) {
         let response = try vault.createEntity(
             phoneNumber: phoneNumber,
@@ -145,12 +147,15 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
             print("successfully refreshed stored tokens...")
         }
         return Int(response.nextAttemptTimestamp)
+        
     } else {
+        print("Recovering password")
         let response = try vault.recoverPassword(
             phoneNumber: phoneNumber,
             newPassword: password,
             clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIdPubKey: clientDeviceIDPubKey)
+            clientDeviceIdPubKey: clientDeviceIDPubKey,
+            ownershipResponse: otpCode)
         
         if(otpCode != nil) {
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
@@ -163,7 +168,9 @@ nonisolated func signupAuthenticateRecover(phoneNumber: String,
             let publisher = Publisher()
             try vault.refreshStoredTokens(llt: llt, context: context!)
             print("successfully refreshed stored tokens...")
+            
         }
+        
         return Int(response.nextAttemptTimestamp)
     }
 }

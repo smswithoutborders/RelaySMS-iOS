@@ -23,59 +23,6 @@ public extension Color {
     #endif
 }
 
-class MessageComposerDelegate: NSObject, MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        // Customize here
-        print("external - dismissing")
-        controller.viewControllers = [UIViewController]()
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-
-class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
-    
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func dismiss() {
-        print("self - dismissing")
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    public func sendSMS(message: String, receipient: String) {
-        
-        let messageComposeDelegate: MFMessageComposeViewControllerDelegate = MessageComposerDelegate()
-        let messageVC = MFMessageComposeViewController()
-        messageVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done, target: self, action: Selector(("dismiss")))
-        messageVC.navigationBar.isHidden = true
-        
-        messageVC.messageComposeDelegate = self
-        messageVC.recipients = [receipient]
-        messageVC.body = message
-        
-        let vc = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
-        
-        if MFMessageComposeViewController.canSendText() {
-//            vc?.present(messageVC, animated: true)
-            vc?.present(messageVC, animated: true)
-        }
-        else {
-            print("User hasn't setup Messages.app")
-        }
-    }
-
-}
 
 
 struct Card: View {
@@ -84,13 +31,24 @@ struct Card: View {
     @State var toAccount: String
     @State var messageBody: String
     @State var date: Int
+    
+    let radius = 20.0
+    var squareSide: CGFloat {
+        2.0.squareRoot() * radius
+    }
 
     var body: some View {
         HStack {
-            logo
-                .resizable()
-                .frame(width: 30, height: 30)
-            
+            ZStack {
+                Circle()
+                    .fill(.white)
+                    .frame(width: radius * 2, height: radius * 2)
+                logo
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(width: squareSide, height: squareSide)
+                
+            }
             VStack {
                 HStack {
                     Text(subject)
@@ -128,7 +86,7 @@ func getNoRecentsView() -> some View {
             .frame(width: 200, height: 200)
             .padding(.bottom, 20)
         Text("No recent messages")
-            .font(.title)
+            .font(.subheadline)
     }
 }
 
@@ -146,14 +104,18 @@ func getNoLoggedInView() -> some View {
         Text("Create new account or log into existing one to begin sending messages from stored online platforms")
             .font(.subheadline)
             .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(.secondary)
-    }
+    }.padding()
+    Spacer()
 }
 
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageEntity.date, ascending: false)])
+    var messages: FetchedResults<MessageEntity>
 
     @Binding var codeVerifier: String
     @Binding var isLoggedIn: Bool
@@ -175,175 +137,18 @@ struct RecentsView: View {
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
     
-    var vc: ViewController = ViewController()
-
     var body: some View {
         NavigationView {
             VStack {
                 if !isLoggedIn {
-                    Spacer()
-                    getNoLoggedInView()
-                    .padding()
-                    Spacer()
-                    
-                    VStack {
-                        Button {
-                            signupSheetVisible = true
-                        } label: {
-                            Text("Create account")
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                        }
-                        .sheet(isPresented: $signupSheetVisible) {
-                            SignupSheetView(
-                                completed: $isLoggedIn,
-                                failed: $loginFailed,
-                                otpRetryTimer: otpRetryTimer ?? 0,
-                                errorMessage: errorMessage)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.large)
-                        .padding(.bottom, 10)
-
-                        Button {
-                            loginSheetVisible = true
-                        } label: {
-                            Text("Log in")
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                        }
-                        .sheet(isPresented: $loginSheetVisible) {
-                            LoginSheetView(completed: $isLoggedIn,
-                                           failed: $loginFailed)
-                        }
-                        .buttonStyle(.bordered)
-                        .controlSize(.large)
-
-                    }
-                    .padding()
-                    Spacer()
-
-                } else {
+                    notLoggedInView()
+                }
+                else {
                     if messages.isEmpty {
-                        getNoRecentsView()
-                    
-                        VStack {
-                            Button {
-                                showComposePlatforms = true
-                            } label: {
-                                Text("Send new message")
-                                    .bold()
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.large)
-                            .padding(.bottom, 10)
-                            
-                            Button {
-                                showAvailablePlatforms = true
-                            } label: {
-                                Text("Save platforms")
-                                    .bold()
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.bordered)
-                            .controlSize(.large)
-                            
-                        }
-                        .padding()
-                        .background(
-                            Group {
-                                NavigationLink(
-                                    destination: OfflineAvailablePlatformsSheetsView(
-                                        messagePlatformViewRequested: $messagePlatformViewRequested,
-                                        messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                                        messagePlatformViewFromAccount: $messagePlatformViewFromAccount),
-                                    isActive: $showComposePlatforms) {
-                                        EmptyView()
-                                    }
-
-                                NavigationLink(destination: OnlineAvailablePlatformsSheetsView(
-                                    codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
-                                        EmptyView()
-                                }
-                            }.hidden()
-                        )
-                    } else {
-                        ZStack(alignment: .bottomTrailing) {
-                            VStack {
-                                List {
-                                    ForEach(messages, id: \.self) { message in
-                                        NavigationLink(
-                                            destination: getPlatformView(
-                                                message: Messages(
-                                                    subject: message.subject!,
-                                                    data: message.body!,
-                                                    fromAccount: message.fromAccount!,
-                                                    toAccount: message.toAccount!,
-                                                    platformName: message.platformName!,
-                                                    date: Int(message.date)))) {
-                                            Card(logo: getImageForPlatform(name: message.platformName!),
-                                                 subject: message.subject!,
-                                                 toAccount: message.toAccount!,
-                                                 messageBody: message.body!,
-                                                 date: Int(message.date))
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            VStack {
-                                VStack {
-                                    Button(action: {
-                                        showComposePlatforms = true
-                                    }, label: {
-                                        Image(systemName: "square.and.pencil")
-                                            .font(.system(.title))
-                                            .frame(width: 57, height: 50)
-                                            .foregroundColor(Color.white)
-                                            .padding(.bottom, 7)
-                                    })
-                                    .background(Color.blue)
-                                    .cornerRadius(18)
-                                    .shadow(color: Color.black.opacity(0.3),
-                                            radius: 3,
-                                            x: 3,
-                                            y: 3)
-                                    
-                                }.background(
-                                    NavigationLink(
-                                        destination: OfflineAvailablePlatformsSheetsView(
-                                            messagePlatformViewRequested: $messagePlatformViewRequested,
-                                            messagePlatformViewPlatformName: $messagePlatformViewPlatformName,
-                                            messagePlatformViewFromAccount: $messagePlatformViewFromAccount), isActive: $showComposePlatforms) {
-                                                EmptyView()
-                                            }
-                                )
-                                    
-                                VStack {
-                                    Button(action: {
-                                        showAvailablePlatforms = true
-                                    }, label: {
-                                        Image(systemName: "rectangle.stack.badge.plus")
-                                            .font(.system(.title))
-                                            .frame(width: 57, height: 50)
-                                            .foregroundColor(Color.white)
-                                            .padding(.bottom, 7)
-                                    })
-                                    .background(Color.blue)
-                                    .cornerRadius(18)
-                                    .shadow(color: Color.black.opacity(0.3),
-                                            radius: 3,
-                                            x: 3,
-                                            y: 3)
-                                }.background(
-                                    NavigationLink(destination: OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
-                                        EmptyView()
-                                    }
-                                )
-                            }
-                            .padding()
-                        }
+                        noSentMessages()
+                    }
+                    else {
+                        sentMessages()
                     }
                 }
             }
@@ -408,12 +213,180 @@ struct RecentsView: View {
         }
     }
     
+    @ViewBuilder
+    func notLoggedInView() -> some View {
+        Spacer()
+        getNoLoggedInView()
+        .padding()
+        Spacer()
+        
+        VStack {
+            Button {
+                signupSheetVisible = true
+            } label: {
+                Text("Create account")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+            }
+            .sheet(isPresented: $signupSheetVisible) {
+                SignupSheetView(
+                    completed: $isLoggedIn,
+                    failed: $loginFailed,
+                    otpRetryTimer: otpRetryTimer ?? 0,
+                    errorMessage: errorMessage)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .padding(.bottom, 10)
+
+            Button {
+                loginSheetVisible = true
+            } label: {
+                Text("Log in")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+            }
+            .sheet(isPresented: $loginSheetVisible) {
+                LoginSheetView(completed: $isLoggedIn,
+                               failed: $loginFailed)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+
+        }
+        .padding()
+        Spacer()
+    }
+    
+    @ViewBuilder
+    func sentMessages() -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            VStack {
+                List {
+                    ForEach(messages, id: \.self) { message in
+                        NavigationLink(
+                            destination: getPlatformView(
+                                message: Messages(
+                                    subject: message.subject!,
+                                    data: message.body!,
+                                    fromAccount: message.fromAccount!,
+                                    toAccount: message.toAccount!,
+                                    platformName: message.platformName!,
+                                    date: Int(message.date)))) {
+                            Card(logo: getImageForPlatform(name: message.platformName!),
+                                 subject: message.subject!,
+                                 toAccount: message.toAccount!,
+                                 messageBody: message.body!,
+                                 date: Int(message.date))
+                        }
+                    }
+                }
+            }
+            
+            VStack {
+                VStack {
+                    Button(action: {
+                        showComposePlatforms = true
+                    }, label: {
+                        Image(systemName: "square.and.pencil")
+                            .font(.system(.title))
+                            .frame(width: 57, height: 50)
+                            .foregroundColor(Color.white)
+                            .padding(.bottom, 7)
+                    })
+                    .background(Color.blue)
+                    .cornerRadius(18)
+                    .shadow(color: Color.black.opacity(0.3),
+                            radius: 3,
+                            x: 3,
+                            y: 3)
+                    
+                }.background(
+                    NavigationLink(
+                        destination: OfflineAvailablePlatformsSheetsView(), isActive: $showComposePlatforms) {
+                                EmptyView()
+                            }
+                )
+                    
+                VStack {
+                    Button(action: {
+                        showAvailablePlatforms = true
+                    }, label: {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                            .font(.system(.title))
+                            .frame(width: 57, height: 50)
+                            .foregroundColor(Color.white)
+                            .padding(.bottom, 7)
+                    })
+                    .background(Color.blue)
+                    .cornerRadius(18)
+                    .shadow(color: Color.black.opacity(0.3),
+                            radius: 3,
+                            x: 3,
+                            y: 3)
+                }.background(
+                    NavigationLink(destination: OnlineAvailablePlatformsSheetsView(codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
+                        EmptyView()
+                    }
+                )
+            }
+            .padding()
+        }
+        
+    }
+    
+    @ViewBuilder
+    func noSentMessages() -> some View {
+        getNoRecentsView()
+                .padding()
+        
+        VStack {
+            Button {
+                showComposePlatforms = true
+            } label: {
+                Text("Send new message")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .padding(.bottom, 10)
+            
+            Button {
+                showAvailablePlatforms = true
+            } label: {
+                Text("Save platforms")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+            
+        }
+        .padding()
+        .background(
+            Group {
+                NavigationLink(
+                    destination: OfflineAvailablePlatformsSheetsView(),
+                    isActive: $showComposePlatforms) {
+                        EmptyView()
+                    }
+
+                NavigationLink(destination: OnlineAvailablePlatformsSheetsView(
+                    codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
+                        EmptyView()
+                }
+            }.hidden()
+        )
+    }
+
+
 }
 
 struct RecentsView_Preview: PreviewProvider {
     static var previews: some View {
         @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = true
+        @State var isLoggedIn: Bool = false
         
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)

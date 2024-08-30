@@ -15,9 +15,9 @@ struct OnboardingFinish: View {
             Tab(buttonView: EmptyView(),
                 title: "You are ready!",
                 subTitle: "Come back anytime",
-                description: "You can now add accounts to the Vault at anytime from within the App.",
+                description: "You are ready to begin sending messages from you added platforms.",
                 imageName: "OnboardingAddAccountExample",
-                subDescription: "Add accounts from your homepage, once you are logged into your Vault account"
+                subDescription: "You can add platforms from the homepage once you are logged in"
             )
         }
         .padding()

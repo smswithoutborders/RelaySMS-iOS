@@ -140,6 +140,9 @@
     "Make sure phone code e.g +237 is included in the selected number" : {
 
     },
+    "Message with phone number" : {
+
+    },
     "No messages sent" : {
 
     },
@@ -228,7 +231,7 @@
     "Revoke" : {
 
     },
-    "Revoke Platforms" : {
+    "Revoke stored platforms" : {
 
     },
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
@@ -282,7 +285,10 @@
     "Try Example" : {
 
     },
-    "Use SMS to make a post, send an emails and messages" : {
+    "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
+
+    },
+    "Use SMS to make a post, send emails and messages with no internet connection" : {
 
     },
     "Vault" : {

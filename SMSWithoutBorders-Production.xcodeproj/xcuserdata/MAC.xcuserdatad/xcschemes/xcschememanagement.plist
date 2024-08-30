@@ -4,10 +4,33 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SMSWithoutBorders-Production-release.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>SMSWithoutBorders-Production.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>16F0E67E28C6308600FDD12C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>16F0E68E28C6308800FDD12C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>16F0E69828C6308800FDD12C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

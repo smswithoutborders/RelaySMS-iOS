@@ -72,10 +72,10 @@ struct MessagingView: View {
     @State var platform: PlatformsEntity?
     
     var decoder: Decoder?
-    private let messageComposeDelegate = MessageComposerDelegate()
     
     @State var messageBody :String = ""
     @State var messageContact :String = ""
+    @State private var encryptedFormattedContent = ""
     
     
     @FetchRequest var messages: FetchedResults<MessageEntity>
@@ -91,10 +91,11 @@ struct MessagingView: View {
     
     var message: Messages?
     @State private var showMessages = false
+    @State private var isMessaging = false
+    @State private var isShowingMessages = false
+
     
-    var vc: ViewController?
-    
-    init(platformName: String, fromAccount: String, message: Messages? = nil, vc: ViewController? = nil) {
+    init(platformName: String, fromAccount: String, message: Messages? = nil) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -120,7 +121,6 @@ struct MessagingView: View {
 
         self.fromAccount = fromAccount
         self.message = message
-        self.vc = vc
     }
     
 
@@ -183,7 +183,9 @@ struct MessagingView: View {
                             .focused($isFocused)
 
                         Button {
-                            for platform in platforms {
+                            isMessaging = true
+                            let platform = platforms.first!
+                            DispatchQueue.background(background: {
                                 do {
                                     let messageComposer = try Publisher.publish(
                                         platform: platform, context: context)
@@ -192,49 +194,31 @@ struct MessagingView: View {
                                     shortcode = platform.shortcode!.bytes[0]
                                     
                                     messageContact = messageContact.filter{ $0.isWholeNumber }
-                                    let encryptedFormattedContent = try messageComposer.messageComposer(
+                                    encryptedFormattedContent = try messageComposer.messageComposer(
                                         platform_letter: shortcode!,
                                         sender: fromAccount,
                                         receiver: messageContact,
                                         message: messageBody)
                                     
-                                    print("Transmitting to sms app: \(encryptedFormattedContent)")
-                                    
-                                    let date = Int(Date().timeIntervalSince1970)
-                                    if message == nil {
-                                        showMessages = true
-                                    }
-                                    
-                                    var messageEntities = MessageEntity(context: context)
-                                    messageEntities.id = UUID()
-                                    messageEntities.platformName = platformName
-                                    messageEntities.fromAccount = fromAccount
-                                    messageEntities.toAccount = messageContact
-                                    messageEntities.subject = messageContact
-                                    messageEntities.body = messageBody
-                                    messageEntities.date = Int32(date)
-                                    
-                                    do {
-                                        try context.save()
-                                    } catch {
-                                        print("Failed to save message entity: \(error)")
-                                    }
-                                    
-                                    
-                                    let vc = ViewController()
-                                    vc.sendSMS(message: encryptedFormattedContent,
-                                                       receipient: defaultGatewayClientMsisdn)
+                                    messageBody = ""
+                                    isMessaging = false
+                                    isShowingMessages.toggle()
                                 } catch {
                                     print("Some error occured while sending: \(error)")
                                 }
-                                messageBody = ""
-                                break
-                            }
-                            
+                            })
                         } label: {
                             Image("MessageSend")
                                 .resizable()
                                 .frame(width: 25.0, height: 25.0)
+                        }
+                        .disabled(isMessaging)
+                        .sheet(isPresented: $isShowingMessages) {
+                            SMSComposeMessageUIView(
+                                recipients: [defaultGatewayClientMsisdn],
+                                body: $encryptedFormattedContent,
+                                completion: handleCompletion(_:))
+                            .ignoresSafeArea()
                         }
                         .padding()
                     }
@@ -252,7 +236,40 @@ struct MessagingView: View {
             if message != nil {
                 self.messageContact = message!.toAccount
             }
-            print(messages)
+        }
+    }
+    
+    func handleCompletion(_ result: MessageComposeResult) {
+        switch result {
+        case .cancelled:
+            break
+        case .failed:
+            break
+        case .sent:
+            DispatchQueue.background(background: {
+                let date = Int(Date().timeIntervalSince1970)
+                var messageEntities = MessageEntity(context: context)
+                messageEntities.id = UUID()
+                messageEntities.platformName = platformName
+                messageEntities.fromAccount = fromAccount
+                messageEntities.toAccount = messageContact
+                messageEntities.subject = messageContact
+                messageEntities.body = messageBody
+                messageEntities.date = Int32(date)
+                
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to save message entity: \(error)")
+                }
+                
+                if message == nil {
+                    showMessages = true
+                }
+            })
+            break
+        @unknown default:
+            break
         }
     }
     

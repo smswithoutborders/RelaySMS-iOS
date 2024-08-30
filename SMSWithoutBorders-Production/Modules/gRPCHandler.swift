@@ -34,6 +34,6 @@ class GRPCHandler {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
         return ClientConnection
             .usingPlatformAppropriateTLS(for: group)
-            .connect(host: VAULT_GRPC, port: VAULT_PORT)
+            .connect(host: PUBLISHER_GRPC, port: PUBLISHER_PORT)
     }
 }
