@@ -195,7 +195,7 @@ struct SignupSheetView: View {
                                 do {
                                     self.otpRetryTimer = try await createAccount(
                                         phonenumber: getPhoneNumber(),
-                                        countryCode: selectedCountryCodeText!,
+                                        countryCode: country?.isoCode ?? "CM",
                                         password: password,
                                         type: OTPAuthType.TYPE.CREATE)
                                     OTPRequired = true

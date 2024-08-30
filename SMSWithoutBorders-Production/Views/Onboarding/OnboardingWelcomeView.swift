@@ -17,7 +17,7 @@ struct OnboardingWelcomeView: View {
                 
                 
             VStack {
-                Text("Use SMS to make a post, send an emails and messages")
+                Text("Use SMS to make a post, send emails and messages with no internet connection")
                     .font(.subheadline)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
