@@ -154,13 +154,18 @@ struct RecentsView: View {
             }
             .navigationTitle("Recents")
         }
-//        .task {
-//            do {
-//                try await refreshLocalDBs(context: context)
-//            } catch {
-//                print("Failed to refresh remote db")
-//            }
-//        }
+        .task {
+            DispatchQueue.background(background: {
+                do {
+                    try refreshLocalDBs()
+                    print("Finished refreshing local db")
+                } catch {
+                    print("Failed to refresh local DBs: \(error)")
+                }
+            }, completion: {
+                
+            })
+        }
     }
     
     func getImageForPlatform(name: String) -> Image {
@@ -193,26 +198,25 @@ struct RecentsView: View {
         }
     }
     
-    func refreshLocalDBs(context: NSManagedObjectContext) async throws {
-        await Task.detached(priority: .userInitiated) {
-            Publisher.getPlatforms() { result in
-                switch result {
-                case .success(let data):
-                    print("Success: \(data)")
-                    for platform in data {
-                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            downloadAndSaveIcons(
-                                url: URL(string: platform.icon_png)!,
-                                platform: platform, viewContext: context)
-                        }
+    func refreshLocalDBs() throws {
+        Publisher.getPlatforms() { result in
+            switch result {
+            case .success(let data):
+                print("Success: \(data)")
+                for platform in data {
+                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                        downloadAndSaveIcons(
+                            url: URL(string: platform.icon_png)!,
+                            platform: platform,
+                            viewContext: context)
                     }
-                case .failure(let error):
-                    print("Failed to load JSON data: \(error)")
                 }
+            case .failure(let error):
+                print("Failed to load JSON data: \(error)")
             }
         }
     }
-    
+
     @ViewBuilder
     func notLoggedInView() -> some View {
         Spacer()

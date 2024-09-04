@@ -222,9 +222,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     
                     if(response.success) {
                         onboardingViewIndex += 1
-                        Task {
-                            try Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
-                        }
+                        try Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
                     }
                 } catch {
                     print("An error occured sending code: \(error)")

@@ -69,8 +69,6 @@ struct SecuritySettingsView: View {
             try DataController.resetDatabase(context: viewContext)
             try Vault.resetStates(context: viewContext)
             
-            isLoggedIn = false
-            
             dismiss()
         } catch {
             print("Error loging out: \(error)")
@@ -90,7 +88,9 @@ struct SecuritySettingsView: View {
                 print("Error deleting: \(error)")
             }
         }, completion: {
-            logoutAccount()
+            DispatchQueue.main.async {
+                logoutAccount()
+            }
         })
     }
 }
@@ -124,9 +124,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-            .task {
-                print("message with phone number: \(messageWithPhoneNumber)")
-            }
         }
     }
 }
