@@ -226,7 +226,7 @@ struct EmailView_Preview: PreviewProvider {
         @State var globalDimiss = false
         
         return EmailView(platformName: "gmail", 
-                         fromAccount: "dev@relay.sms")
+                         fromAccount: "from1@gmail.com")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

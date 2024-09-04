@@ -106,6 +106,8 @@ nonisolated func signupAuthenticateRecover(
     let vault = Vault()
 
     if(type == OTPAuthType.TYPE.CREATE) {
+        print("Signing in with phone number: \(phoneNumber)")
+        print("Country code: \(countryCode)")
         let response = try vault.createEntity(
             phoneNumber: phoneNumber,
             countryCode: countryCode!,
@@ -198,7 +200,7 @@ struct OTPSheetView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     @State var phoneNumber: String
-    @Binding var countryCode: String?
+    @State var countryCode: String? = nil
     @Binding var password: String
     
     @Binding var completed: Bool
@@ -303,7 +305,7 @@ struct OTPSheetView_Preview: PreviewProvider {
         OTPSheetView(type: OTPAuthType.TYPE.CREATE,
                      retryTimer: Int(Date().timeIntervalSince1970) + 10,
                      phoneNumber: phoneNumber,
-                     countryCode: $countryCode,
+                     countryCode: countryCode,
                      password: $password,
                      completed: $completed,
                      failed: $failed)

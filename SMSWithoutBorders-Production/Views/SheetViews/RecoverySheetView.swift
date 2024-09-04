@@ -42,7 +42,7 @@ struct RecoverySheetView: View {
             OTPSheetView(type: OTPAuthType.TYPE.RECOVER,
                          retryTimer: otpRetryTimer,
                          phoneNumber: getPhoneNumber(),
-                         countryCode: $selectedCountryCodeText,
+                         countryCode: (country?.isoCode ?? Country(isoCode: "CM").isoCode),
                          password: $password,
                          completed: $completed,
                          failed: $failed)

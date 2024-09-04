@@ -49,7 +49,7 @@ struct LoginSheetView: View {
             OTPSheetView(type: OTPAuthType.TYPE.AUTHENTICATE,
                          retryTimer: otpRetryTimer, 
                          phoneNumber: getPhoneNumber(),
-                         countryCode: $countryCode,
+                         countryCode: (country?.isoCode ?? Country(isoCode: "CM").isoCode),
                          password: $password,
                          completed: $completed,
                          failed: $failed)
