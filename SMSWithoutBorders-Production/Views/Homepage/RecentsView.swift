@@ -154,13 +154,13 @@ struct RecentsView: View {
             }
             .navigationTitle("Recents")
         }
-        .task {
-            do {
-                try await refreshLocalDBs(context: context)
-            } catch {
-                print("Failed to refresh remote db")
-            }
-        }
+//        .task {
+//            do {
+//                try await refreshLocalDBs(context: context)
+//            } catch {
+//                print("Failed to refresh remote db")
+//            }
+//        }
     }
     
     func getImageForPlatform(name: String) -> Image {

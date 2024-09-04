@@ -124,6 +124,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .task {
+                print("message with phone number: \(messageWithPhoneNumber)")
+            }
         }
     }
 }

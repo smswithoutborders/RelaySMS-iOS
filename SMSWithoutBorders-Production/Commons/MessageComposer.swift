@@ -151,9 +151,9 @@ class MessageComposer {
         data.append(platform_letter)
         data.append(encryptedContentPayload)
         if useDeviceID && deviceID != nil {
-            print("Appending deviceID")
             data.append(Data(deviceID!))
         }
+        print("Sending: \(data.base64EncodedString())")
 
         return data.base64EncodedString()
     }
