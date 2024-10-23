@@ -302,6 +302,20 @@ class Vault {
         return true
     }
     
+    func validateLLT(llt: String, context: NSManagedObjectContext) throws -> Bool {
+        let vault = Vault()
+        do {
+            let storedTokens = try vault.listStoredEntityToken(longLiveToken: llt)
+        } catch Exceptions.unauthenticatedLLT(let status){
+            print("Should delete invalid llt: \(status.message)")
+            return false
+        } catch {
+            print("Error fetching stored tokens: \(error)")
+            throw error
+        }
+        return true
+    }
+    
     public static func getDeviceID(derivedKey: [UInt8], phoneNumber: String, publicKey: [UInt8]) throws -> [UInt8] {
         print("DID key: \(derivedKey.toBase64())")
         print("DID phoneNumber: \(phoneNumber)")

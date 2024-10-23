@@ -25,12 +25,10 @@ func downloadAndSaveIcons(url: URL,
         platformsEntity.support_url_scheme = platform.support_url_scheme
         
         if(viewContext.hasChanges) {
-            DispatchQueue.main.async {
-                do {
-                    try viewContext.save()
-                } catch {
-                    print("Failed save download image: \(error) \(error.localizedDescription)")
-                }
+            do {
+                try viewContext.save()
+            } catch {
+                print("Failed save download image: \(error) \(error.localizedDescription)")
             }
         }
     }
@@ -48,6 +46,7 @@ struct ControllerView: View {
     
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
+    @Binding var isLoggedIn: Bool
 
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     
@@ -89,7 +88,8 @@ struct ControllerView: View {
             case 1:
                 OnboardingIntroToVaults(codeVerifier: $codeVerifier,
                                         backgroundLoading: $backgroundLoading,
-                                        onboardingIndex: $onboardingViewIndex)
+                                        onboardingIndex: $onboardingViewIndex,
+                                        isLoggedIn: $isLoggedIn)
             case 2:
                 OnboardingTryExample()
             default:
@@ -133,10 +133,11 @@ struct ControllerView: View {
                 print("Success: \(data)")
                 for platform in data {
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        downloadAndSaveIcons(
-                            url: URL(string: platform.icon_png)!,
-                            platform: platform,
-                            viewContext: viewContext)
+                        if storedPlatforms.first(where: { $0.name == platform.name }) != nil {
+                            downloadAndSaveIcons( url: URL(string: platform.icon_png)!,
+                                platform: platform,
+                                viewContext: viewContext)
+                        }
                     }
                 }
             case .failure(let error):
@@ -150,6 +151,7 @@ struct ControllerView: View {
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     
+    @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
 
     @State var isFinished = false
@@ -165,6 +167,9 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     @AppStorage(ControllerView.ONBOARDING_COMPLETED)
     private var onboardingCompleted: Bool = false
+    
+    @State private var alreadyLoggedIn: Bool = false
+    @State private var isLoggedIn: Bool = false
 
     var body: some Scene {
         WindowGroup {
@@ -173,13 +178,26 @@ struct SMSWithoutBorders_ProductionApp: App {
                     ControllerView(isFinished: $isFinished,
                                    onboardingViewIndex: $onboardingViewIndex,
                                    codeVerifier: $codeVerifier,
-                                   backgroundLoading: $backgroundLoading)
+                                   backgroundLoading: $backgroundLoading,
+                                   isLoggedIn: $isLoggedIn)
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
+                    HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
                         .environment(\.managedObjectContext, dataController.container.viewContext)
-                        
+                        .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
+                            Button("Get me out!") {
+                                getMeOut()
+                            }
+                        } message: {
+                            Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
+                        }
+                        .onAppear() { validateLLT() }
+                        .onChange(of: scenePhase) { newPhase in
+                            if newPhase == .active {
+                                validateLLT()
+                            }
+                        }
                 }
             }
             .task {
@@ -236,16 +254,51 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
         }
     }
+    
+    func getMeOut() {
+        logoutAccount(context: dataController.container.viewContext)
+        isLoggedIn = false
+    }
+    
+    func validateLLT() {
+        print("Validating LLT for continuation...")
+        DispatchQueue.background(background: {
+            do {
+                let vault = Vault()
+                let llt = try Vault.getLongLivedToken()
+                if llt == nil {
+                    alreadyLoggedIn = true
+                    return
+                }
+                
+                let result = try vault.validateLLT(llt: llt,
+                                  context: dataController.container.viewContext)
+                if !result {
+                    alreadyLoggedIn = true
+                }
+            } catch {
+                print(error)
+            }
+        }, completion: {
+            
+        })
+    }
 
     func getIsLoggedIn() -> Bool {
         do {
-            return try !Vault.getLongLivedToken().isEmpty
+            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
         } catch {
             print("Failed to check if llt exist: \(error)")
         }
         return false
     }
     
+}
+
+#Preview {
+    @State var codeVerifier = ""
+    @State var isLoggedIn = false
+    return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
 }
 
 struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
@@ -258,10 +311,12 @@ struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
         @State var codeVerifier = ""
         @State var onboardingIndex = 0
         @State var isBackgroundLoading: Bool = true
-        
+        @State var isLoggedIn: Bool = false
+
         ControllerView(isFinished: $isFinished,
                        onboardingViewIndex: $onboardingIndex,
                        codeVerifier: $codeVerifier,
-                       backgroundLoading: $isBackgroundLoading)
+                       backgroundLoading: $isBackgroundLoading,
+                       isLoggedIn: $isLoggedIn)
     }
 }

@@ -108,7 +108,7 @@ struct SignupSheetView: View {
                          countryCode: (country?.isoCode ?? Country(isoCode: "CM").isoCode),
                          password: $password,
                          completed: $completed,
-                         failed: $failed)
+                         isLoggedIn: $completed, failed: $failed)
         }
         else {
             VStack {

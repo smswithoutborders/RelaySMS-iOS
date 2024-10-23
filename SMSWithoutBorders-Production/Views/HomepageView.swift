@@ -15,7 +15,7 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Binding var codeVerifier: String
-    @State var isLoggedIn: Bool = true
+    @Binding var isLoggedIn: Bool
     
     @State var selectedTab: HomepageTabs = .recents
 
@@ -43,6 +43,7 @@ struct HomepageView: View {
                     }
                     .tag(HomepageTabs.settings)
             }
+            
         }
     }
     
@@ -53,6 +54,7 @@ struct HomepageView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
     @State static var platformType: Int?
     @State static var codeVerifier: String = ""
+    @State static var isLoggedIn: Bool = false
 
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
@@ -62,6 +64,6 @@ struct HomepageView_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(codeVerifier: $codeVerifier)
+        return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
     }
 }

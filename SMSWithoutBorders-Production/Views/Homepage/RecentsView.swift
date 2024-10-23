@@ -107,7 +107,6 @@ func getNoLoggedInView() -> some View {
             .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(.secondary)
     }.padding()
-    Spacer()
 }
 
 struct RecentsView: View {
@@ -256,7 +255,7 @@ struct RecentsView: View {
             }
             .sheet(isPresented: $loginSheetVisible) {
                 LoginSheetView(completed: $isLoggedIn,
-                               failed: $loginFailed)
+                               failed: $loginFailed, isLoggedIn: $isLoggedIn)
             }
             .buttonStyle(.bordered)
             .controlSize(.large)

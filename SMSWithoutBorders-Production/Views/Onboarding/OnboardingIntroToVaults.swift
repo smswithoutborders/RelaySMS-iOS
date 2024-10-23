@@ -13,6 +13,7 @@ struct signupLoginOnboardingView: View {
     
     @Binding var completed: Bool
     @Binding var failed: Bool
+    @Binding var isLoggedIn: Bool
 
     var body: some View {
         VStack {
@@ -44,7 +45,9 @@ struct signupLoginOnboardingView: View {
                     .padding(.bottom, 10)
                     .sheet(isPresented: $loginSheetShown) {
                         VStack {
-                            LoginSheetView(completed: $completed, failed: $failed)
+                            LoginSheetView(completed: $completed,
+                                           failed: $failed,
+                                           isLoggedIn: $isLoggedIn)
                         }
                     }
                     
@@ -120,6 +123,7 @@ struct OnboardingIntroToVaults: View {
     @Binding var codeVerifier: String
     @Binding var backgroundLoading: Bool
     @Binding var onboardingIndex: Int
+    @Binding var isLoggedIn: Bool
 
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
@@ -136,8 +140,9 @@ struct OnboardingIntroToVaults: View {
                 } else {
                     signupLoginOnboardingView(loginSheetShown: $loginSheetShown,
                               signupSheetShown: $signupSheetShown,
-                              completed: $onboardingIntroComplete,
-                              failed: $failed)
+                                              completed: $onboardingIntroComplete,
+                                              failed: $failed,
+                                              isLoggedIn: $isLoggedIn)
                 }
             }
         }
@@ -154,7 +159,7 @@ struct OnboardingIntroVaults_Preview: PreviewProvider {
         OnboardingIntroToVaults(
             codeVerifier: $codeVerifier,
             backgroundLoading: $isBackgroundLoading,
-            onboardingIndex: $onboardingIndex )
+            onboardingIndex: $onboardingIndex, isLoggedIn: $completed)
     }
 }
 

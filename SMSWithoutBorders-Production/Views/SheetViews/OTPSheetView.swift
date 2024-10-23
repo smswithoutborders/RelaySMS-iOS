@@ -204,6 +204,7 @@ struct OTPSheetView: View {
     @Binding var password: String
     
     @Binding var completed: Bool
+    @Binding var isLoggedIn: Bool
     @Binding var failed: Bool
     
     @State var errorMessage: String = ""
@@ -249,6 +250,7 @@ struct OTPSheetView: View {
                                                            otpCode: otpCode,
                                                            context: datastore)
                             completed = true
+                            isLoggedIn = true
                             dismiss()
                         } catch Vault.Exceptions.requestNotOK(let status){
                             failed = true
@@ -307,6 +309,6 @@ struct OTPSheetView_Preview: PreviewProvider {
                      countryCode: countryCode,
                      password: $password,
                      completed: $completed,
-                     failed: $failed)
+                     isLoggedIn: $completed, failed: $failed)
     }
 }

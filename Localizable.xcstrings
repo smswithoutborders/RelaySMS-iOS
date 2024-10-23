@@ -110,6 +110,9 @@
     "Get code" : {
 
     },
+    "Get me out!" : {
+
+    },
     "Get started!" : {
 
     },
@@ -123,6 +126,9 @@
 
     },
     "in %lld seconds" : {
+
+    },
+    "It seems you logged into another device. You can use RelaySMS on only one device at a time." : {
 
     },
     "Log in" : {
@@ -340,6 +346,9 @@
 
     },
     "Welcome to RelaySMS" : {
+
+    },
+    "You are being logged out!" : {
 
     },
     "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {

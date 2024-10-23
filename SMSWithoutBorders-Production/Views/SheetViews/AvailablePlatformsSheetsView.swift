@@ -43,7 +43,6 @@ struct OnlineAvailablePlatformsSheetsView: View {
     }
 }
 
-
 struct AvailablePlatformsSheetsView: View {
     enum TYPE {
         case AVAILABLE

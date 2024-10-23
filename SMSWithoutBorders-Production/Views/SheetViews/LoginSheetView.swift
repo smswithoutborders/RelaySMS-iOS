@@ -29,7 +29,8 @@ struct LoginSheetView: View {
     
     @Binding var completed: Bool
     @Binding var failed: Bool
-    
+    @Binding var isLoggedIn: Bool
+
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
     
@@ -52,7 +53,7 @@ struct LoginSheetView: View {
                          countryCode: (country?.isoCode ?? Country(isoCode: "CM").isoCode),
                          password: $password,
                          completed: $completed,
-                         failed: $failed)
+                         isLoggedIn: $isLoggedIn, failed: $failed)
         }
         else {
             VStack {
@@ -185,6 +186,6 @@ struct LoginSheetView_Preview: PreviewProvider {
     static var previews: some View {
         @State var completed: Bool = false
         @State var failed: Bool = false
-        LoginSheetView(completed: $completed, failed: $failed)
+        LoginSheetView(completed: $completed, failed: $failed, isLoggedIn: $completed)
     }
 }

@@ -6,7 +6,17 @@
 //
 
 import SwiftUI
+import CoreData
 
+public func logoutAccount(context: NSManagedObjectContext) {
+    do {
+        Vault.resetKeystore()
+        try DataController.resetDatabase(context: context)
+        try Vault.resetStates(context: context)
+    } catch {
+        print("Error loging out: \(error)")
+    }
+}
 
 struct SecuritySettingsView: View {
     public static var SETTINGS_MESSAGE_WITH_PHONENUMBER = "SETTINGS_MESSAGE_WITH_PHONENUMBER"
@@ -39,7 +49,7 @@ struct SecuritySettingsView: View {
                     Button("Log out") {
                         showIsLoggingOut.toggle()
                     }.confirmationDialog("", isPresented: $showIsLoggingOut) {
-                        Button("Log out", role: .destructive, action: logoutAccount)
+                        Button("Log out", role: .destructive, action: logout)
                     } message: {
                         Text("You can log back in at anytime. All the messages sent would be deleted.")
                     }
@@ -62,18 +72,11 @@ struct SecuritySettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    
-    func logoutAccount() {
-        do {
-            Vault.resetKeystore()
-            try DataController.resetDatabase(context: viewContext)
-            try Vault.resetStates(context: viewContext)
-            
-            dismiss()
-        } catch {
-            print("Error loging out: \(error)")
-        }
+    func logout() {
+        logoutAccount(context: viewContext)
+        isLoggedIn = false
     }
+    
     
     func deleteAccount() {
         deleteProcessing = true
@@ -89,7 +92,8 @@ struct SecuritySettingsView: View {
             }
         }, completion: {
             DispatchQueue.main.async {
-                logoutAccount()
+                logoutAccount(context: viewContext)
+                dismiss()
             }
         })
     }
