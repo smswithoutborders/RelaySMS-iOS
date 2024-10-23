@@ -13,8 +13,8 @@ struct LoginSheetView: View {
     
     #if DEBUG
 //        @State private var phoneNumber: String = "123456"
-        @State private var phoneNumber = "123456"
-        @State private var password: String = "LL<O3ZG~=z-epkv"
+        @State private var phoneNumber = "1123457528"
+        @State private var password: String = "dMd2Kmo9#"
     #else
         @State private var phoneNumber: String = ""
         @State private var password: String = ""

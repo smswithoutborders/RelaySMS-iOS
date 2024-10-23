@@ -24,11 +24,13 @@ func downloadAndSaveIcons(url: URL,
         platformsEntity.shortcode = platform.shortcode
         platformsEntity.support_url_scheme = platform.support_url_scheme
         
-        DispatchQueue.main.async {
-            do {
-                try viewContext.save()
-            } catch {
-                print("Failed save download image: \(error) \(error.localizedDescription)")
+        if(viewContext.hasChanges) {
+            DispatchQueue.main.async {
+                do {
+                    try viewContext.save()
+                } catch {
+                    print("Failed save download image: \(error) \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -203,6 +205,9 @@ struct SMSWithoutBorders_ProductionApp: App {
                 let supportsUrlScheme = values[1] == "true"
                 
                 let code = url.valueOf("code")
+                if(code == nil) {
+                    return
+                }
                 print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
                 
                 do {

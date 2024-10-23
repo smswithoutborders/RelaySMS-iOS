@@ -10,7 +10,7 @@ import CoreData
 
 
 class GatewayClients: Codable {
-    public static var GATEWAY_CLIENT_URL = "https://smswithoutborders.com:15000/v3/clients"
+    public static var GATEWAY_CLIENT_URL = "https://gatewayserver.smswithoutborders.com/v3/clients"
     public static var DEFAULT_GATEWAY_CLIENT_MSISDN = "COM.AFKANERD.RELAY.DEFAULT_GATEWAY_CLIENT_MSISDN"
 
     var country: String

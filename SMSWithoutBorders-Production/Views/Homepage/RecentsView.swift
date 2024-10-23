@@ -205,10 +205,14 @@ struct RecentsView: View {
                 print("Success: \(data)")
                 for platform in data {
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        downloadAndSaveIcons(
-                            url: URL(string: platform.icon_png)!,
-                            platform: platform,
-                            viewContext: context)
+                        do {
+                            downloadAndSaveIcons(
+                                url: URL(string: platform.icon_png)!,
+                                platform: platform,
+                                viewContext: context)
+                        } catch {
+                            print("Issue downloading icons: \(error)")
+                        }
                     }
                 }
             case .failure(let error):
@@ -336,7 +340,6 @@ struct RecentsView: View {
             }
             .padding()
         }
-        
     }
     
     @ViewBuilder
@@ -387,15 +390,42 @@ struct RecentsView: View {
 
 }
 
-struct RecentsView_Preview: PreviewProvider {
-    static var previews: some View {
-        @State var codeVerifier: String = ""
-        @State var isLoggedIn: Bool = false
-        
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
+#Preview {
+    @State var codeVerifier: String = ""
+    @State var isLoggedIn: Bool = true
 
-        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
-            .environment(\.managedObjectContext, container.viewContext)
-    }
+    let container = createInMemoryPersistentContainer()
+    populateMockData(container: container)
+
+//    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+//        .environment(\.managedObjectContext, container.viewContext)
+    
+    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+        .environment(\.managedObjectContext, container.viewContext)
 }
+
+#Preview {
+    @State var codeVerifier: String = ""
+    @State var isLoggedIn: Bool = false
+
+//    let container = createInMemoryPersistentContainer()
+//    populateMockData(container: container)
+
+//    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+//        .environment(\.managedObjectContext, container.viewContext)
+    
+    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+}
+
+//struct RecentsView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        @State var codeVerifier: String = ""
+//        @State var isLoggedIn: Bool = false
+//        
+//        let container = createInMemoryPersistentContainer()
+//        populateMockData(container: container)
+//
+//        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+//            .environment(\.managedObjectContext, container.viewContext)
+//    }
+//}

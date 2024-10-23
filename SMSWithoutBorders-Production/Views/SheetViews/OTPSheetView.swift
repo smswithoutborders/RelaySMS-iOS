@@ -251,7 +251,6 @@ struct OTPSheetView: View {
                             completed = true
                             dismiss()
                         } catch Vault.Exceptions.requestNotOK(let status){
-                            print("Something went wrong authenticating: \(status)")
                             failed = true
                             errorMessage = status.message!
                         } catch {

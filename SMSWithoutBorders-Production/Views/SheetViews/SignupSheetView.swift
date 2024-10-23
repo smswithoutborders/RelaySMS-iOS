@@ -73,9 +73,9 @@ nonisolated func createAccount(phonenumber: String,
 
 struct SignupSheetView: View {
     #if DEBUG
-        @State private var phoneNumber: String = "1234567"
-        @State private var password: String = "LL<O3ZG~=z-epkv"
-        @State private var rePassword: String = "LL<O3ZG~=z-epkv"
+        @State private var phoneNumber = "1123457528"
+        @State private var password: String = "dMd2Kmo9#"
+        @State private var rePassword: String = "dMd2Kmo9#"
         @State private var selectedCountryCodeText: String? = "CM"
     #else
         @State private var phoneNumber: String = ""

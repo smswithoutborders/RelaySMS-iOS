@@ -54,7 +54,9 @@ struct AvailablePlatformsSheetsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var viewContext
     
-    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "name", ascending: false, selector: #selector(NSString.localizedStandardCompare))])
+    var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
     @State var platformsLoading = false
@@ -90,11 +92,31 @@ struct AvailablePlatformsSheetsView: View {
                     Text(title)
                         .font(.title2)
                     
+
                     Text(description)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding()
+                    
+                    Button {
+                        loadingOAuthURLScreen.toggle()
+                        DispatchQueue.background(background: {
+                            do {
+                                let vault = Vault()
+                                let llt = try Vault.getLongLivedToken()
+                                try vault.refreshStoredTokens(
+                                    llt: llt,
+                                    context: viewContext)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }, completion: {
+                            loadingOAuthURLScreen.toggle()
+                        })
+                    } label: {
+                        Image(systemName: "arrow.clockwise.circle")
+                    }.padding()
 
                     if loadingOAuthURLScreen {
                         ProgressView()
@@ -190,7 +212,9 @@ struct AvailablePlatformsSheetsView: View {
                 catch {
                     print("Some error occured: \(error)")
                 }
-                dismiss()
+                DispatchQueue.main.async {
+                    dismiss()
+                }
             }
         case "pnba":
             phonenumberViewPlatform = platform.name!

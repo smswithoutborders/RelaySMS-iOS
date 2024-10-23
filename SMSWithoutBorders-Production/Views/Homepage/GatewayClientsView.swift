@@ -38,7 +38,7 @@ struct GatewayClientView: View {
 struct GatewayClientsView: View {
     
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(sortDescriptors: []) var gatewayClients: FetchedResults<GatewayClientsEntity>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "msisdn", ascending: true)]) var gatewayClients: FetchedResults<GatewayClientsEntity>
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
