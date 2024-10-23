@@ -266,8 +266,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             do {
                 let vault = Vault()
                 let llt = try Vault.getLongLivedToken()
-                if llt == nil {
-                    alreadyLoggedIn = true
+                if llt.isEmpty{
                     return
                 }
                 
