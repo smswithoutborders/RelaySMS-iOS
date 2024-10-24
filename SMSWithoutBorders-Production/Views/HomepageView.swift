@@ -45,6 +45,14 @@ struct HomepageView: View {
             }
             
         }
+        .task {
+            do {
+                var llt = try Vault.getLongLivedToken()
+                if !llt.isEmpty { isLoggedIn = true }
+            } catch {
+                print(error)
+            }
+        }
     }
     
 }
