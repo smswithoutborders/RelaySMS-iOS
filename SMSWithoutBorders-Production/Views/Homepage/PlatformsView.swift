@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PlatformCard: View {
+    @State var name: String
+    
     var body: some View {
         VStack {
             ZStack {
@@ -20,7 +22,7 @@ struct PlatformCard: View {
                                 .scaledToFit()
                                 .frame(width: 50, height: 40)
                                 .padding()
-                            Text("Gmail")
+                            Text(name)
                                 .font(.caption2)
                                 .foregroundColor(.primary)
                         }
@@ -39,8 +41,10 @@ struct PlatformCard: View {
 }
 
 struct PlatformsView: View {
+    @State private var sheetIsPresented: Bool = false
     
     let data = (1...5).map { "Item \($0)" }
+    
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -49,24 +53,32 @@ struct PlatformsView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: .leading) {
+                Text("Use your RelaySMS account")
+                    .font(.caption)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 10)
+                
+                PlatformCard(name: "RelaySMS account")
+                    .padding(.bottom, 32)
+                    .sheet(isPresented: $sheetIsPresented) {
+                        Text("Hello world")
+                    }
+                
+
                 Text("Use your online accounts")
                     .font(.caption)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 10)
-                
 
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(data, id: \.self) { item in
-                        PlatformCard()
+                        PlatformCard(
+                            name: "Signal"
+                        )
                     }
                 }
-                .padding(.bottom, 32)
                 
-                Text("Use RelaySMS alias")
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 10)
             }
         }
         .padding(16)
