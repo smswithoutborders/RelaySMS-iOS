@@ -8,33 +8,40 @@
 import SwiftUI
 
 struct PlatformCard: View {
+    @Binding var sheetIsPresented: Bool
     @State var name: String
-    
+    @State var isEnabled: Bool
+
     var body: some View {
         VStack {
             ZStack {
                 VStack {
                     Button(action: {
+                        sheetIsPresented.toggle()
                     }) {
                         VStack {
                             Image("Logo")
                                 .resizable()
+                                .renderingMode(isEnabled ? .none : .template)
+                                .foregroundColor(isEnabled ? .clear : .gray)
                                 .scaledToFit()
-                                .frame(width: 50, height: 40)
+                                .frame(width: 75, height: 75)
                                 .padding()
                             Text(name)
                                 .font(.caption2)
-                                .foregroundColor(.primary)
+                                .foregroundColor(isEnabled ? .primary : .gray)
                         }
                     }
                     .buttonStyle(.bordered)
-                    .tint(.accentColor)
+                    .tint(isEnabled ? .accentColor : .gray)
                     
                 }
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 12, height: 12)
-                    .offset(x: 40, y: -30)
+                if(isEnabled) {
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 12, height: 12)
+                        .offset(x: 50, y: -50)
+                }
             }
         }
     }
@@ -48,7 +55,6 @@ struct PlatformsView: View {
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10),
-        GridItem(.flexible(minimum: 40), spacing: 10)
     ]
     
     var body: some View {
@@ -59,7 +65,10 @@ struct PlatformsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 10)
                 
-                PlatformCard(name: "RelaySMS account")
+                PlatformCard(
+                    sheetIsPresented: $sheetIsPresented,
+                    name: "RelaySMS account",
+                    isEnabled: true)
                     .padding(.bottom, 32)
                     .sheet(isPresented: $sheetIsPresented) {
                         Text("Hello world")
@@ -74,8 +83,9 @@ struct PlatformsView: View {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(data, id: \.self) { item in
                         PlatformCard(
-                            name: "Signal"
-                        )
+                            sheetIsPresented: $sheetIsPresented,
+                            name: "Signal",
+                            isEnabled: false)
                     }
                 }
                 
@@ -87,4 +97,26 @@ struct PlatformsView: View {
 
 #Preview {
     PlatformsView()
+}
+
+struct PlatformCardDisabled: PreviewProvider {
+    static var previews: some View {
+        @State var sheetIsPresented: Bool = false
+        PlatformCard(
+            sheetIsPresented: $sheetIsPresented,
+            name: "Template",
+            isEnabled: true
+        )
+    }
+}
+
+struct PlatformCardEnabled: PreviewProvider {
+    static var previews: some View {
+        @State var sheetIsPresented: Bool = false
+        PlatformCard(
+            sheetIsPresented: $sheetIsPresented,
+            name: "Template",
+            isEnabled: false
+        )
+    }
 }
