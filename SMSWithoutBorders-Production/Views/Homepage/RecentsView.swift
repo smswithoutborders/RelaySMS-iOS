@@ -258,6 +258,21 @@ struct RecentsView: View {
                                failed: $loginFailed, isLoggedIn: $isLoggedIn)
             }
             .buttonStyle(.bordered)
+            .padding(.bottom, 10)
+            .controlSize(.large)
+            
+            Button {
+                loginSheetVisible = true
+            } label: {
+                Text("Continue without internet")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+            }
+            .sheet(isPresented: $loginSheetVisible) {
+                LoginSheetView(completed: $isLoggedIn,
+                               failed: $loginFailed, isLoggedIn: $isLoggedIn)
+            }
+            .buttonStyle(.bordered)
             .controlSize(.large)
 
         }

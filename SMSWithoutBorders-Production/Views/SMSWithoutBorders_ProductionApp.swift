@@ -9,32 +9,6 @@ import SwiftUI
 import Foundation
 import CoreData
 
-func downloadAndSaveIcons(url: URL, 
-                          platform: Publisher.PlatformsData,
-                          viewContext: NSManagedObjectContext) {
-    print("Storing Platform Icon: \(platform.name)")
-    let task = URLSession.shared.dataTask(with: url) { data, response, error in
-        guard let data = data, error == nil else { return }
-        
-        let platformsEntity = PlatformsEntity(context: viewContext)
-        platformsEntity.image = data
-        platformsEntity.name = platform.name
-        platformsEntity.protocol_type = platform.protocol_type
-        platformsEntity.service_type = platform.service_type
-        platformsEntity.shortcode = platform.shortcode
-        platformsEntity.support_url_scheme = platform.support_url_scheme
-        
-        if(viewContext.hasChanges) {
-            do {
-                try viewContext.save()
-            } catch {
-                print("Failed save download image: \(error) \(error.localizedDescription)")
-            }
-        }
-    }
-    task.resume()
-}
-
 struct ControllerView: View {
     public static var ONBOARDING_COMPLETED: String = "com.afkanerd.relaysms.ONBOARDING_COMPLETED"
     
@@ -150,7 +124,6 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
-    
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
 
@@ -200,59 +173,58 @@ struct SMSWithoutBorders_ProductionApp: App {
                         }
                 }
             }
-            .task {
-                GatewayClients.addDefaultGatewayClients(
-                    context: dataController.container.viewContext,
-                    defaultAvailable: !defaultGatewayClientMsisdn.isEmpty)
-            }
             .onOpenURL { url in
-                let stateB64Values = url.valueOf("state")
-                // Decode the Base64 string to Data
-                guard let decodedData = Data(base64Encoded: stateB64Values!) else {
-                    fatalError("Failed to decode Base64 string")
-                }
-
-                // Convert Data to String
-                guard let decodedString = String(data: decodedData, encoding: .utf8) else {
-                    fatalError("Failed to convert Data to String")
-                }
-                
-                print("decoded string: \(decodedString)")
-                let values = decodedString.split(separator: ",")
-                let state = values[0]
-                let supportsUrlScheme = values[1] == "true"
-                
-                let code = url.valueOf("code")
-                if(code == nil) {
-                    return
-                }
-                print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
-                
-                do {
-                    let llt = try Vault.getLongLivedToken()
-                    let publisher = Publisher()
-                    
-                    backgroundLoading = true
-                    
-                    print("support url scheme: \(supportsUrlScheme)")
-                    
-                    let response = try publisher.sendOAuthAuthorizationCode(
-                        llt: llt,
-                        platform: String(state),
-                        code: code!,
-                        codeVerifier: codeVerifier,
-                        supportsUrlSchemes: supportsUrlScheme)
-                    
-                    if(response.success) {
-                        onboardingViewIndex += 1
-                        try Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
-                    }
-                } catch {
-                    print("An error occured sending code: \(error)")
-                }
-                backgroundLoading = false
+                processIncomingUrls(url: url)
             }
         }
+    }
+    
+    func processIncomingUrls(url: URL) {
+        let stateB64Values = url.valueOf("state")
+        // Decode the Base64 string to Data
+        guard let decodedData = Data(base64Encoded: stateB64Values!) else {
+            fatalError("Failed to decode Base64 string")
+        }
+
+        // Convert Data to String
+        guard let decodedString = String(data: decodedData, encoding: .utf8) else {
+            fatalError("Failed to convert Data to String")
+        }
+        
+        print("decoded string: \(decodedString)")
+        let values = decodedString.split(separator: ",")
+        let state = values[0]
+        let supportsUrlScheme = values[1] == "true"
+        
+        let code = url.valueOf("code")
+        if(code == nil) {
+            return
+        }
+        print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
+        
+        do {
+            let llt = try Vault.getLongLivedToken()
+            let publisher = Publisher()
+            
+            backgroundLoading = true
+            
+            print("support url scheme: \(supportsUrlScheme)")
+            
+            let response = try publisher.sendOAuthAuthorizationCode(
+                llt: llt,
+                platform: String(state),
+                code: code!,
+                codeVerifier: codeVerifier,
+                supportsUrlSchemes: supportsUrlScheme)
+            
+            if(response.success) {
+                onboardingViewIndex += 1
+                try Vault().refreshStoredTokens(llt: llt, context: dataController.container.viewContext)
+            }
+        } catch {
+            print("An error occured sending code: \(error)")
+        }
+        backgroundLoading = false
     }
     
     func getMeOut() {

@@ -32,7 +32,7 @@ struct HomepageView: View {
                 GatewayClientsView()
                     .tabItem() {
                         Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
-                        Text("Gateway Clients")
+                        Text("Countries")
                     }
                     .tag(HomepageTabs.gatewayClients)
                 
@@ -45,18 +45,8 @@ struct HomepageView: View {
             }
             
         }
-        .task {
-            do {
-                var llt = try Vault.getLongLivedToken()
-                if !llt.isEmpty { isLoggedIn = true }
-            } catch {
-                print(error)
-            }
-        }
     }
-    
 }
-
 
 struct HomepageView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
