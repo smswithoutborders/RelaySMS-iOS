@@ -58,40 +58,43 @@ struct PlatformsView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Text("Use your RelaySMS account")
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 10)
-                
-                PlatformCard(
-                    sheetIsPresented: $sheetIsPresented,
-                    name: "RelaySMS account",
-                    isEnabled: true)
-                    .padding(.bottom, 32)
-                    .sheet(isPresented: $sheetIsPresented) {
-                        Text("Hello world")
-                    }
-                
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("Use your RelaySMS account")
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 10)
+                    
+                    PlatformCard(
+                        sheetIsPresented: $sheetIsPresented,
+                        name: "RelaySMS account",
+                        isEnabled: true)
+                        .padding(.bottom, 32)
+                        .sheet(isPresented: $sheetIsPresented) {
+                            Text("Hello world")
+                        }
+                    
 
-                Text("Use your online accounts")
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 10)
+                    Text("Use your online accounts")
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 10)
 
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(data, id: \.self) { item in
-                        PlatformCard(
-                            sheetIsPresented: $sheetIsPresented,
-                            name: "Signal",
-                            isEnabled: false)
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(data, id: \.self) { item in
+                            PlatformCard(
+                                sheetIsPresented: $sheetIsPresented,
+                                name: "Signal",
+                                isEnabled: false)
+                        }
                     }
+                    
                 }
-                
             }
+            .navigationTitle("Available Platforms")
+            .padding(16)
         }
-        .padding(16)
     }
 }
 

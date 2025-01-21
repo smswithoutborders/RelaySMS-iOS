@@ -23,60 +23,6 @@ public extension Color {
     #endif
 }
 
-
-
-struct Card: View {
-    @State var logo: Image
-    @State var subject: String
-    @State var toAccount: String
-    @State var messageBody: String
-    @State var date: Int
-    
-    let radius = 20.0
-    var squareSide: CGFloat {
-        2.0.squareRoot() * radius
-    }
-
-    var body: some View {
-        HStack {
-            ZStack {
-                Circle()
-                    .fill(.white)
-                    .frame(width: radius * 2, height: radius * 2)
-                logo
-                    .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: squareSide, height: squareSide)
-                
-            }
-            VStack {
-                HStack {
-                    Text(subject)
-                        .bold()
-                        .font(.subheadline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(Date(timeIntervalSince1970: TimeInterval(date)), formatter: RelativeDateTimeFormatter())
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .font(.caption)
-                }
-                .padding(.bottom, 3)
-
-                Text(toAccount)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom, 5)
-
-                Text(messageBody)
-                    .lineLimit(2)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-    }
-}
-
 @ViewBuilder
 func getNoRecentsView() -> some View {
     VStack {
@@ -411,9 +357,6 @@ struct RecentsView: View {
     let container = createInMemoryPersistentContainer()
     populateMockData(container: container)
 
-//    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
-//        .environment(\.managedObjectContext, container.viewContext)
-    
     return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
         .environment(\.managedObjectContext, container.viewContext)
 }
@@ -422,24 +365,6 @@ struct RecentsView: View {
     @State var codeVerifier: String = ""
     @State var isLoggedIn: Bool = false
 
-//    let container = createInMemoryPersistentContainer()
-//    populateMockData(container: container)
-
-//    return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
-//        .environment(\.managedObjectContext, container.viewContext)
-    
     return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
 }
 
-//struct RecentsView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        @State var codeVerifier: String = ""
-//        @State var isLoggedIn: Bool = false
-//        
-//        let container = createInMemoryPersistentContainer()
-//        populateMockData(container: container)
-//
-//        return RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
-//            .environment(\.managedObjectContext, container.viewContext)
-//    }
-//}

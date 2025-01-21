@@ -9,6 +9,7 @@ import SwiftUI
 
 enum HomepageTabs {
     case recents
+    case platforms
     case settings
     case gatewayClients
 }
@@ -22,13 +23,26 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+                Recents1()
                     .tabItem() {
                         Image(systemName: "house.circle.fill")
                         Text("Recents")
                     }
                     .tag(HomepageTabs.recents)
+//                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+//                    .tabItem() {
+//                        Image(systemName: "house.circle.fill")
+//                        Text("Recents")
+//                    }
+//                    .tag(HomepageTabs.recents)
                 
+                PlatformsView()
+                    .tabItem() {
+                        Image(systemName: "apps.iphone")
+                        Text("Platforms")
+                    }
+                    .tag(HomepageTabs.platforms)
+
                 GatewayClientsView()
                     .tabItem() {
                         Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
