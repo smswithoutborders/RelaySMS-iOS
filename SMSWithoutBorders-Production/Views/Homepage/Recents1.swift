@@ -26,7 +26,7 @@ struct CreateAccountSheetView: View {
                 Text("Continue")
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(.primary)
             .padding()
         }
     }
@@ -34,11 +34,6 @@ struct CreateAccountSheetView: View {
 
 struct SendFirstMessageView: View {
     var body: some View {
-        VStack {
-            Text("Your phone number is your primary account!")
-                .font(.caption)
-                .multilineTextAlignment(.center)
-        }
         HStack(spacing: 50) {
             Button(action: {}) {
                 VStack {
@@ -47,17 +42,23 @@ struct SendFirstMessageView: View {
                         .scaledToFit()
                         .frame(width: 75, height: 75)
                         .padding(.bottom)
-                    Text("Send your first message!")
+                    Text("Compose new message")
                         .font(.footnote)
-                        .foregroundColor(.primary)
                 }
                 .padding()
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("PrimaryColor"))
         }
-        .padding()
-        
+        VStack {
+            Text("Your phone number is your primary account!")
+                .font(.caption)
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color("SecondaryColor"))
+            Text("your_phonenumber@relaysms.me")
+                .font(.caption2)
+        }
+
     }
 }
 
@@ -69,6 +70,7 @@ struct LoginWithInternetView : View {
             Text("These features requires you to have an internet connection")
                 .font(.caption)
                 .multilineTextAlignment(.center)
+                .foregroundColor(Color("SecondaryColor"))
         }
         HStack(spacing: 50) {
             Button(action: {
@@ -81,11 +83,10 @@ struct LoginWithInternetView : View {
                         .frame(width: 75, height: 75)
                     Text("Create Account")
                         .font(.caption)
-                        .foregroundColor(.primary)
                 }
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("PrimaryColor"))
 //            .sheet(isPresented: $sheetCreateAccountIsPresented) {
 //                CreateAccountSheetView()
 //                    .applyPresentationDetentsIfAvailable()
@@ -99,11 +100,10 @@ struct LoginWithInternetView : View {
                         .frame(width: 75, height: 75)
                     Text("Log in")
                         .font(.caption)
-                        .foregroundColor(.primary)
                 }
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("PrimaryColor"))
         }
         .padding()
     }
@@ -114,63 +114,77 @@ struct WalkthroughViews: View {
         VStack {
             Text("Having trouble using the app?")
                 .font(.headline)
+                .foregroundColor(Color("SecondaryColor"))
             Text("Check out our step-by-step guide")
                 .font(.caption)
                 .multilineTextAlignment(.center)
+                .foregroundColor(Color("SecondaryColor"))
         }
 
         HStack {
             Button(action: {}) {
-                VStack {
-                    Image("learn1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                        .padding()
-                    Text("Messaging with your RelaySMS account")
-                        .font(.caption2)
-                        .foregroundColor(.accentColor)
+                ZStack {
+                    VStack {
+                        Image("learn1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 75)
+                            .padding()
+                        Text("Messaging with your RelaySMS account")
+                            .font(.caption2)
+                    }
+                    .padding()
+                    
+                    Image(systemName: "info.circle")
+                        .offset(x: 55, y: -70)
                 }
-                .padding()
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("SecondaryColor"))
             .padding(.top)
             
             Button(action: {}) {
-                VStack {
-                    Image("learn1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                        .padding()
-                    Text("Messaging with your personal accounts")
-                        .font(.caption2)
-                        .foregroundColor(.accentColor)
+                ZStack {
+                    VStack {
+                        Image("learn1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 75)
+                            .padding()
+                        Text("Messaging with your personal accounts")
+                            .font(.caption2)
+                    }
+                    .padding()
+                    
+                    Image(systemName: "info.circle")
+                        .offset(x: 55, y: -70)
                 }
-                .padding()
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("SecondaryColor"))
             .padding(.top)
             
         }
         HStack {
             Button(action: {}) {
-                VStack {
-                    Image("learn1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                        .padding()
-                    Text("Choosing a country for routing your messages")
-                        .font(.caption2)
-                        .foregroundColor(.accentColor)
+                ZStack {
+                    VStack {
+                        Image("learn1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 75)
+                            .padding()
+                        Text("Choosing a country for routing your messages")
+                            .font(.caption2)
+                    }
+                    .padding()
+                    
+                    Image(systemName: "info.circle")
+                        .offset(x: 120, y: -60)
                 }
-                .padding()
             }
             .buttonStyle(.bordered)
-            .tint(.accentColor)
+            .tint(Color("SecondaryColor"))
             .padding(.top)
         }
     }
@@ -190,9 +204,10 @@ struct Recents1: View {
                             .padding(.bottom, 16)
                         
                         LoginWithInternetView()
+                            .padding(.bottom)
 
-                        Divider()
-                            .padding(.bottom, 16)
+//                        Divider()
+//                            .padding(.bottom, 16)
 
                         WalkthroughViews()
                     }
