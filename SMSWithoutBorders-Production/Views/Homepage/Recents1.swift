@@ -33,9 +33,13 @@ struct CreateAccountSheetView: View {
 }
 
 struct SendFirstMessageView: View {
+    @Binding var sheetCreateAccountIsPresented: Bool
+    
     var body: some View {
         HStack(spacing: 50) {
-            Button(action: {}) {
+            Button(action: {
+                sheetCreateAccountIsPresented.toggle()
+            }) {
                 VStack {
                     Image(systemName: "pencil.circle")
                         .resizable()
@@ -49,6 +53,8 @@ struct SendFirstMessageView: View {
             }
             .buttonStyle(.bordered)
             .tint(Color("PrimaryColor"))
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+            }
         }
         VStack {
             Text("Your phone number is your primary account!")
@@ -63,6 +69,8 @@ struct SendFirstMessageView: View {
 }
 
 struct LoginWithInternetView : View {
+    @Binding var sheetCreateAccountIsPresented: Bool
+
     var body: some View {
         VStack {
             Text("Login with internet")
@@ -74,7 +82,7 @@ struct LoginWithInternetView : View {
         }
         HStack(spacing: 50) {
             Button(action: {
-//                sheetCreateAccountIsPresented.toggle()
+                sheetCreateAccountIsPresented.toggle()
             }) {
                 VStack {
                     Image(systemName: "person.crop.circle.badge.plus")
@@ -85,14 +93,16 @@ struct LoginWithInternetView : View {
                         .font(.caption)
                 }
             }
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+                CreateAccountSheetView()
+                    .applyPresentationDetentsIfAvailable()
+            }
             .buttonStyle(.bordered)
             .tint(Color("PrimaryColor"))
-//            .sheet(isPresented: $sheetCreateAccountIsPresented) {
-//                CreateAccountSheetView()
-//                    .applyPresentationDetentsIfAvailable()
-//            }
-
-            Button(action: {}) {
+            
+            Button(action: {
+                sheetCreateAccountIsPresented.toggle()
+            }) {
                 VStack {
                     Image(systemName: "person.crop.circle.badge")
                         .resizable()
@@ -102,6 +112,10 @@ struct LoginWithInternetView : View {
                         .font(.caption)
                 }
             }
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+                CreateAccountSheetView()
+                    .applyPresentationDetentsIfAvailable()
+            }
             .buttonStyle(.bordered)
             .tint(Color("PrimaryColor"))
         }
@@ -110,6 +124,8 @@ struct LoginWithInternetView : View {
 }
 
 struct WalkthroughViews: View {
+    @Binding var sheetCreateAccountIsPresented: Bool
+
     var body: some View {
         VStack {
             Text("Having trouble using the app?")
@@ -122,7 +138,9 @@ struct WalkthroughViews: View {
         }
 
         HStack {
-            Button(action: {}) {
+            Button(action: {
+                sheetCreateAccountIsPresented.toggle()
+            }) {
                 ZStack {
                     VStack {
                         Image("learn1")
@@ -142,8 +160,12 @@ struct WalkthroughViews: View {
             .buttonStyle(.bordered)
             .tint(Color("SecondaryColor"))
             .padding(.top)
-            
-            Button(action: {}) {
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+            }
+
+            Button(action: {
+                sheetCreateAccountIsPresented.toggle()
+            }) {
                 ZStack {
                     VStack {
                         Image("learn1")
@@ -163,10 +185,14 @@ struct WalkthroughViews: View {
             .buttonStyle(.bordered)
             .tint(Color("SecondaryColor"))
             .padding(.top)
-            
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+            }
+
         }
         HStack {
-            Button(action: {}) {
+            Button(action: {
+                sheetCreateAccountIsPresented.toggle()
+            }) {
                 ZStack {
                     VStack {
                         Image("learn1")
@@ -186,34 +212,32 @@ struct WalkthroughViews: View {
             .buttonStyle(.bordered)
             .tint(Color("SecondaryColor"))
             .padding(.top)
+            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+            }
         }
     }
 }
 
 struct Recents1: View {
-    @State private var sheetCreateAccountIsPresented: Bool = false
-    
+    @State var sendFirstMessageViewShown: Bool = false
+    @State var loginWithInternetViewShown: Bool = false
+    @State var walkthroughViewsShown: Bool = false
     var body: some View {
-        GeometryReader { geometry in
-            NavigationView {
-                ScrollView {
-                    VStack(spacing: 10) {
-                        SendFirstMessageView()
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 10) {
+                    SendFirstMessageView(sheetCreateAccountIsPresented: $sendFirstMessageViewShown)
 
-                        Divider()
-                            .padding(.bottom, 16)
-                        
-                        LoginWithInternetView()
-                            .padding(.bottom)
+                    Divider()
+                        .padding(.bottom, 16)
+                    
+                    LoginWithInternetView(sheetCreateAccountIsPresented: $loginWithInternetViewShown)
+                        .padding(.bottom)
 
-//                        Divider()
-//                            .padding(.bottom, 16)
-
-                        WalkthroughViews()
-                    }
-                    .navigationTitle("Get Started")
-                    .padding()
+                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
                 }
+                .navigationTitle("Get Started")
+                .padding()
             }
         }
     }
