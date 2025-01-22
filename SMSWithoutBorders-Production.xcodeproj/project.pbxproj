@@ -20,6 +20,9 @@
 		0469EB4F2D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
 		0469EB502D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
 		0469EB512D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
+		0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
+		0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
+		0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		04DB690F2CE217A600E12978 /* BridgesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB690E2CE217A000E12978 /* BridgesTest.swift */; };
 		164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
@@ -168,6 +171,7 @@
 		0469EB442D3EA1E2003A2B4F /* PlatformsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsView.swift; sourceTree = "<group>"; };
 		0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadsComponents.swift; sourceTree = "<group>"; };
 		0469EB4E2D402FC9003A2B4F /* Recents1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recents1.swift; sourceTree = "<group>"; };
+		0469EB522D40EC72003A2B4F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		04DB690E2CE217A000E12978 /* BridgesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgesTest.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */,
+				0469EB522D40EC72003A2B4F /* Extensions.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -694,6 +699,7 @@
 				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
+				0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +727,7 @@
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
 				3BC75BF62C5273B2004233CE /* OperatorHandlers.swift in Sources */,
 				3B7EEE662C5E8BB500611092 /* MockDataGenerator.swift in Sources */,
+				0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */,
 				3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */,
 				3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */,
 				3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */,
@@ -769,6 +776,7 @@
 				3B7EEE5B2C5E849800611092 /* relay_publisher.proto in Sources */,
 				3B7EEE5C2C5E849800611092 /* relay_publisher.pb.swift in Sources */,
 				3B7EEE5D2C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
+				0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */,
 				3BEC4CF62C47FEC500F92D2A /* vault.grpc.swift in Sources */,
 				3BEC4CF72C47FEC500F92D2A /* vault.pb.swift in Sources */,
 				3BEC4CF82C47FEC500F92D2A /* vault.proto in Sources */,
