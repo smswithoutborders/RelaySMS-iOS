@@ -183,8 +183,6 @@ struct RecentsView: View {
             }
             .sheet(isPresented: $signupSheetVisible) {
                 SignupSheetView(
-                    completed: $isLoggedIn,
-                    failed: $loginFailed,
                     otpRetryTimer: otpRetryTimer ?? 0,
                     errorMessage: errorMessage)
             }
@@ -200,8 +198,7 @@ struct RecentsView: View {
                     .frame(maxWidth: .infinity)
             }
             .sheet(isPresented: $loginSheetVisible) {
-                LoginSheetView(completed: $isLoggedIn,
-                               failed: $loginFailed, isLoggedIn: $isLoggedIn)
+//                LoginSheetView(isLoggedIn: $isLoggedIn)
             }
             .buttonStyle(.bordered)
             .padding(.bottom, 10)
@@ -215,8 +212,8 @@ struct RecentsView: View {
                     .frame(maxWidth: .infinity)
             }
             .sheet(isPresented: $loginSheetVisible) {
-                LoginSheetView(completed: $isLoggedIn,
-                               failed: $loginFailed, isLoggedIn: $isLoggedIn)
+//                LoginSheetView(completed: $isLoggedIn,
+//                               failed: $loginFailed, isLoggedIn: $isLoggedIn)
             }
             .buttonStyle(.bordered)
             .controlSize(.large)

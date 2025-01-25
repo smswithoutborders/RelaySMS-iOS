@@ -25,6 +25,12 @@
     "Cc " : {
 
     },
+    "Check out our step-by-step guide" : {
+
+    },
+    "Choosing a country for routing your messages" : {
+
+    },
     "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
 
     },
@@ -32,6 +38,9 @@
 
     },
     "Compose Message" : {
+
+    },
+    "Compose new message" : {
 
     },
     "Compose Post" : {
@@ -125,7 +134,13 @@
     "Get me out!" : {
 
     },
+    "Get Started" : {
+
+    },
     "Get started!" : {
+
+    },
+    "Having trouble using the app?" : {
 
     },
     "Hello world" : {
@@ -143,9 +158,6 @@
     "in %lld seconds" : {
 
     },
-    "Internet required" : {
-
-    },
     "It seems you logged into another device. You can use RelaySMS on only one device at a time." : {
 
     },
@@ -158,6 +170,9 @@
     "Login" : {
 
     },
+    "Login with internet" : {
+
+    },
     "Make default" : {
 
     },
@@ -165,6 +180,12 @@
 
     },
     "Message with phone number" : {
+
+    },
+    "Messaging with your personal accounts" : {
+
+    },
+    "Messaging with your RelaySMS account" : {
 
     },
     "No messages sent" : {
@@ -177,12 +198,6 @@
 
     },
     "No Vault account" : {
-
-    },
-    "Not logged in" : {
-
-    },
-    "Offline features" : {
 
     },
     "OTP Code" : {
@@ -303,9 +318,6 @@
     "skip" : {
 
     },
-    "SMS Login" : {
-
-    },
     "Subject " : {
 
     },
@@ -315,25 +327,22 @@
     "terms and conditions" : {
 
     },
-    "This features requires you to have an internet connection" : {
+    "These features requires you to have an internet connection" : {
 
     },
-    "This features work without an internet connection!" : {
+    "This is a brief summary of what happens" : {
+
+    },
+    "This is precise information for what happens" : {
 
     },
     "To " : {
-
-    },
-    "Try example" : {
 
     },
     "Try Example" : {
 
     },
     "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
-
-    },
-    "Tutorial" : {
 
     },
     "Use SMS to make a post, send emails and messages with no internet connection" : {
@@ -403,6 +412,12 @@
 
     },
     "You can log back in at anytime. All the messages sent would be deleted." : {
+
+    },
+    "Your phone number is your primary account!" : {
+
+    },
+    "your_phonenumber@relaysms.me" : {
 
     }
   },

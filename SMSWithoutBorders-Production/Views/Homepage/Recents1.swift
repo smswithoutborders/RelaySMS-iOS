@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CreateAccountSheetView: View {
+    @Binding var createAccountSheetRequested: Bool
+    @Binding var parentSheetShown: Bool
+    
     var body: some View {
         VStack {
             Image(systemName: "person.crop.circle.badge.plus")
@@ -22,11 +25,44 @@ struct CreateAccountSheetView: View {
             
             Text("This is precise information for what happens")
             
-            Button(action: {}) {
+            Button(action: {
+                parentSheetShown.toggle()
+                createAccountSheetRequested.toggle()
+            }) {
                 Text("Continue")
             }
             .buttonStyle(.bordered)
             .tint(.primary)
+            .padding()
+        }
+    }
+}
+
+struct LoginAccountSheetView: View {
+    @Binding var loginSheetRequested: Bool
+    @Binding var parentSheetShown: Bool
+
+    var body: some View {
+        VStack {
+            Image(systemName: "person.crop.circle.badge")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 75, height: 75)
+            
+            Text("This is a brief summary of what happens")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Text("This is precise information for what happens")
+            
+            Button(action: {
+                parentSheetShown.toggle()
+                loginSheetRequested.toggle()
+            }) {
+                Text("Continue")
+            }
+            .buttonStyle(.bordered)
             .padding()
         }
     }
@@ -52,15 +88,14 @@ struct SendFirstMessageView: View {
                 .padding()
             }
             .buttonStyle(.bordered)
-            .tint(Color("PrimaryColor"))
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
             }
+            .padding()
         }
         VStack {
             Text("Your phone number is your primary account!")
                 .font(.caption)
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color("SecondaryColor"))
             Text("your_phonenumber@relaysms.me")
                 .font(.caption2)
         }
@@ -69,16 +104,19 @@ struct SendFirstMessageView: View {
 }
 
 struct LoginWithInternetView : View {
-    @Binding var sheetCreateAccountIsPresented: Bool
+    @State private var sheetCreateAccountIsPresented: Bool = false
+    @State private var sheetLoginIsPresented: Bool = false
+    @State private var isLoggedIn: Bool = false
+    @Binding var loginSheetRequested: Bool
+    @Binding var createAccountSheetRequsted: Bool
 
     var body: some View {
         VStack {
             Text("Login with internet")
                 .font(.headline)
             Text("These features requires you to have an internet connection")
-                .font(.caption)
+                .font(.caption2)
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color("SecondaryColor"))
         }
         HStack(spacing: 50) {
             Button(action: {
@@ -94,14 +132,15 @@ struct LoginWithInternetView : View {
                 }
             }
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
-                CreateAccountSheetView()
+                CreateAccountSheetView(
+                    createAccountSheetRequested: $createAccountSheetRequsted,
+                    parentSheetShown: $sheetCreateAccountIsPresented)
                     .applyPresentationDetentsIfAvailable()
             }
             .buttonStyle(.bordered)
-            .tint(Color("PrimaryColor"))
             
             Button(action: {
-                sheetCreateAccountIsPresented.toggle()
+                sheetLoginIsPresented.toggle()
             }) {
                 VStack {
                     Image(systemName: "person.crop.circle.badge")
@@ -112,12 +151,13 @@ struct LoginWithInternetView : View {
                         .font(.caption)
                 }
             }
-            .sheet(isPresented: $sheetCreateAccountIsPresented) {
-                CreateAccountSheetView()
+            .sheet(isPresented: $sheetLoginIsPresented) {
+                LoginAccountSheetView(
+                    loginSheetRequested: $loginSheetRequested,
+                    parentSheetShown: $sheetLoginIsPresented)
                     .applyPresentationDetentsIfAvailable()
             }
             .buttonStyle(.bordered)
-            .tint(Color("PrimaryColor"))
         }
         .padding()
     }
@@ -130,11 +170,9 @@ struct WalkthroughViews: View {
         VStack {
             Text("Having trouble using the app?")
                 .font(.headline)
-                .foregroundColor(Color("SecondaryColor"))
             Text("Check out our step-by-step guide")
                 .font(.caption)
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color("SecondaryColor"))
         }
 
         HStack {
@@ -158,7 +196,6 @@ struct WalkthroughViews: View {
                 }
             }
             .buttonStyle(.bordered)
-            .tint(Color("SecondaryColor"))
             .padding(.top)
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
             }
@@ -183,7 +220,6 @@ struct WalkthroughViews: View {
                 }
             }
             .buttonStyle(.bordered)
-            .tint(Color("SecondaryColor"))
             .padding(.top)
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
             }
@@ -210,7 +246,6 @@ struct WalkthroughViews: View {
                 }
             }
             .buttonStyle(.bordered)
-            .tint(Color("SecondaryColor"))
             .padding(.top)
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
             }
@@ -220,18 +255,36 @@ struct WalkthroughViews: View {
 
 struct Recents1: View {
     @State var sendFirstMessageViewShown: Bool = false
-    @State var loginWithInternetViewShown: Bool = false
+    @State var loginSheetRequested: Bool = false
+    @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
+    
+    @State var isLoggedIn: Bool = false
+
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
+                    NavigationLink(
+                        destination: SignupSheetView(),
+                        isActive: $createAccountSheetRequested) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(
+                        destination: LoginSheetView(isLoggedIn: $isLoggedIn),
+                        isActive: $loginSheetRequested) {
+                        EmptyView()
+                    }
+                    
                     SendFirstMessageView(sheetCreateAccountIsPresented: $sendFirstMessageViewShown)
 
                     Divider()
                         .padding(.bottom, 16)
                     
-                    LoginWithInternetView(sheetCreateAccountIsPresented: $loginWithInternetViewShown)
+                    LoginWithInternetView(
+                        loginSheetRequested: $loginSheetRequested,
+                        createAccountSheetRequsted: $createAccountSheetRequested)
                         .padding(.bottom)
 
                     WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)

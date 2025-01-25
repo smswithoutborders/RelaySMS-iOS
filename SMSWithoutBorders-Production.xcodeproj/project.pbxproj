@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041BB4D92D43E92F0072A097 /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
 		042DAE2F2D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
@@ -18,8 +19,6 @@
 		0469EB4C2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */; };
 		0469EB4D2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */; };
 		0469EB4F2D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
-		0469EB502D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
-		0469EB512D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
 		0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
@@ -729,12 +728,12 @@
 				3B7EEE662C5E8BB500611092 /* MockDataGenerator.swift in Sources */,
 				0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */,
 				3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */,
+				041BB4D92D43E92F0072A097 /* Recents1.swift in Sources */,
 				3BC75BF32C52719E004233CE /* AvailablePlatformsSheetsView.swift in Sources */,
 				3BC75BF22C5269D2004233CE /* EmailView.swift in Sources */,
 				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
 				3BC978142C36C0D700AB626C /* Publisher.swift in Sources */,
 				3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */,
-				0469EB502D402FC9003A2B4F /* Recents1.swift in Sources */,
 				3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */,
 				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
 				3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */,
@@ -769,7 +768,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0469EB512D402FC9003A2B4F /* Recents1.swift in Sources */,
 				16F0E6A028C6308800FDD12C /* SMSWithoutBorders_ProductionUITestsLaunchTests.swift in Sources */,
 				0469EB4D2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */,
 				0469EB472D3EA1E2003A2B4F /* PlatformsView.swift in Sources */,

@@ -30,7 +30,7 @@ struct signupLoginOnboardingView: View {
                     .controlSize(.large)
                     .padding(.bottom, 10)
                     .sheet(isPresented: $signupSheetShown) {
-                        SignupSheetView(completed: $completed, failed: $failed)
+                        SignupSheetView()
                     }
 
                     Button {
@@ -45,9 +45,9 @@ struct signupLoginOnboardingView: View {
                     .padding(.bottom, 10)
                     .sheet(isPresented: $loginSheetShown) {
                         VStack {
-                            LoginSheetView(completed: $completed,
-                                           failed: $failed,
-                                           isLoggedIn: $isLoggedIn)
+//                            LoginSheetView(completed: $completed,
+//                                           failed: $failed,
+//                                           isLoggedIn: $isLoggedIn)
                         }
                     }
                     
