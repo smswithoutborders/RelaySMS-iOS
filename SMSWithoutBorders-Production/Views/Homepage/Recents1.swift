@@ -7,6 +7,37 @@
 
 import SwiftUI
 
+struct ComposeNewMessageSheetView: View {
+    @Binding var composeNewMessageSheetRequested: Bool
+    @Binding var parentSheetShown: Bool
+    
+    var body: some View {
+        VStack {
+            Image(systemName: "person.crop.circle.badge.plus")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 75, height: 75)
+            
+            Text("This is a brief summary of what happens")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Text("This is precise information for what happens")
+            
+            Button(action: {
+                parentSheetShown.toggle()
+                composeNewMessageSheetRequested.toggle()
+            }) {
+                Text("Continue")
+            }
+            .buttonStyle(.bordered)
+            .tint(.primary)
+            .padding()
+        }
+    }
+}
+
 struct CreateAccountSheetView: View {
     @Binding var createAccountSheetRequested: Bool
     @Binding var parentSheetShown: Bool
@@ -69,12 +100,13 @@ struct LoginAccountSheetView: View {
 }
 
 struct SendFirstMessageView: View {
-    @Binding var sheetCreateAccountIsPresented: Bool
-    
+    @State private var sheetComposeNewPresented: Bool = false
+    @Binding var composeNewSheetRequested: Bool
+
     var body: some View {
         HStack(spacing: 50) {
             Button(action: {
-                sheetCreateAccountIsPresented.toggle()
+                sheetComposeNewPresented.toggle()
             }) {
                 VStack {
                     Image(systemName: "pencil.circle")
@@ -88,7 +120,11 @@ struct SendFirstMessageView: View {
                 .padding()
             }
             .buttonStyle(.bordered)
-            .sheet(isPresented: $sheetCreateAccountIsPresented) {
+            .sheet(isPresented: $sheetComposeNewPresented) {
+                ComposeNewMessageSheetView(
+                    composeNewMessageSheetRequested: $sheetComposeNewPresented,
+                    parentSheetShown: $composeNewSheetRequested)
+                .applyPresentationDetentsIfAvailable()
             }
             .padding()
         }
@@ -254,7 +290,7 @@ struct WalkthroughViews: View {
 }
 
 struct Recents1: View {
-    @State var sendFirstMessageViewShown: Bool = false
+    @State var composeNewMessageRequested: Bool = false
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
@@ -277,7 +313,7 @@ struct Recents1: View {
                         EmptyView()
                     }
                     
-                    SendFirstMessageView(sheetCreateAccountIsPresented: $sendFirstMessageViewShown)
+                    SendFirstMessageView(composeNewSheetRequested: $composeNewMessageRequested)
 
                     Divider()
                         .padding(.bottom, 16)

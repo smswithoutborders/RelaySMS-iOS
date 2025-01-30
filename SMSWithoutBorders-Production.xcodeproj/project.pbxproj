@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		041BB4D92D43E92F0072A097 /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
+		041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
+		041BB4E02D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
+		041BB4E12D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
 		042DAE2F2D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
@@ -165,6 +168,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041BB4DE2D47FEEC0072A097 /* EmailView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView1.swift; sourceTree = "<group>"; };
 		042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsEntityHandlers.swift; sourceTree = "<group>"; };
 		0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSComposeMessageUIView.swift; sourceTree = "<group>"; };
 		0469EB442D3EA1E2003A2B4F /* PlatformsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsView.swift; sourceTree = "<group>"; };
@@ -434,6 +438,7 @@
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
 				164EF7D02954D431007F8C76 /* MessagingView.swift */,
+				041BB4DE2D47FEEC0072A097 /* EmailView1.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
+				041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
 				3B928A432C66A6A500BA145F /* TextPlatformView.swift in Sources */,
@@ -721,6 +727,7 @@
 				3B7EEE402C5BDE1E00611092 /* LoginSheetView.swift in Sources */,
 				3B928A362C65140100BA145F /* GatewayClientsView.swift in Sources */,
 				3B7EEE3F2C5BDDF500611092 /* OnboardingIntroToVaults.swift in Sources */,
+				041BB4E02D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				3BDADAE12C54DBDE00539E57 /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
@@ -779,6 +786,7 @@
 				3BEC4CF72C47FEC500F92D2A /* vault.pb.swift in Sources */,
 				3BEC4CF82C47FEC500F92D2A /* vault.proto in Sources */,
 				16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */,
+				041BB4E12D47FEEC0072A097 /* EmailView1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
