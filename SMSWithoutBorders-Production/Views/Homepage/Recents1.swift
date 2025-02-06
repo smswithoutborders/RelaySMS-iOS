@@ -294,7 +294,8 @@ struct Recents1: View {
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
-    
+    @State var otpRequested: Bool = false
+
     @State var isLoggedIn: Bool = false
 
     var body: some View {
@@ -303,12 +304,18 @@ struct Recents1: View {
                 VStack(spacing: 10) {
                     NavigationLink(
                         destination: SignupSheetView(),
+                        isActive: $otpRequested) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(
+                        destination: SignupSheetView(),
                         isActive: $createAccountSheetRequested) {
                         EmptyView()
                     }
                     
                     NavigationLink(
-                        destination: LoginSheetView(isLoggedIn: $isLoggedIn),
+                        destination: LoginSheetView(otpRequired: $otpRequested, isLoggedIn: $isLoggedIn),
                         isActive: $loginSheetRequested) {
                         EmptyView()
                     }

@@ -14,7 +14,7 @@ import SwiftUI
 import CryptoSwift
 
 
-class Vault {
+struct Vault {
     
     public static var VAULT_LONG_LIVED_TOKEN = "COM.AFKANERD.RELAYSMS.VAULT_LONG_LIVED_TOKEN"
     public static var VAULT_PHONE_NUMBER = "COM.AFKANERD.RELAYSMS.VAULT_PHONE_NUMBER"

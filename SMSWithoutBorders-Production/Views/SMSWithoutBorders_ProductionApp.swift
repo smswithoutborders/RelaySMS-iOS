@@ -108,7 +108,7 @@ struct ControllerView: View {
                 for platform in data {
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                         if storedPlatforms.first(where: { $0.name == platform.name }) != nil {
-                            downloadAndSaveIcons( url: URL(string: platform.icon_png)!,
+                            DownloadContent.downloadAndSaveIcons( url: URL(string: platform.icon_png)!,
                                 platform: platform,
                                 viewContext: viewContext)
                         }

@@ -72,19 +72,23 @@ nonisolated func createAccount(phonenumber: String,
 
 
 struct SignupSheetView: View {
+    @State private var country: Country? = Country(isoCode: "CM")
     #if DEBUG
         @State private var phoneNumber = "1123457528"
         @State private var password: String = "dMd2Kmo9#"
         @State private var rePassword: String = "dMd2Kmo9#"
         @State private var selectedCountryCodeText: String? = "CM"
     #else
-        @State private var phoneNumber: String = ""
+        @State private var phoneNumber: String {
+            return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
+        }
         @State private var password: String = ""
         @State private var rePassword: String = ""
         @State private var selectedCountryCodeText: String? = "Select country"
     #endif
 
-    @State private var country: Country?
+    
+    @State private var countryCode: String = Country(isoCode: "CM").isoCode
     @State private var showCountryPicker = false
     
     @State private var isLoading = false
@@ -98,6 +102,7 @@ struct SignupSheetView: View {
 
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
+    
 
     var body: some View {
         VStack {
@@ -127,12 +132,11 @@ struct SignupSheetView: View {
                      Button {
                          showCountryPicker = true
                      } label: {
-                         let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
-                         Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                         let flag = countryCode
+                         Text(flag.getFlag() + "+" + country!.phoneCode)
                             .foregroundColor(Color.secondary)
                      }.sheet(isPresented: $showCountryPicker) {
-                         CountryPicker(country: $country,
-                                       selectedCountryCodeText: $selectedCountryCodeText)
+                         CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
                      }
                      Spacer()
                      TextField("Phone Number", text: $phoneNumber)
@@ -183,8 +187,8 @@ struct SignupSheetView: View {
                         Task {
                             do {
                                 self.otpRetryTimer = try await createAccount(
-                                    phonenumber: getPhoneNumber(),
-                                    countryCode: country?.isoCode ?? "CM",
+                                    phonenumber: phoneNumber,
+                                    countryCode: countryCode,
                                     password: password,
                                     type: OTPAuthType.TYPE.CREATE)
                                 OTPRequired = true
@@ -232,10 +236,6 @@ struct SignupSheetView: View {
             .padding()
         }
     
-    }
-    
-    private func getPhoneNumber() -> String {
-        return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
     }
 }
 

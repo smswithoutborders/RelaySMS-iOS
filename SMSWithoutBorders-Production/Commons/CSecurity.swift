@@ -8,7 +8,7 @@
 import Foundation
 
 
-class CSecurity {
+struct CSecurity {
      enum Exceptions: Error {
         case DuplicateKeys
         case FailedToStoreItem

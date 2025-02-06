@@ -9,19 +9,23 @@ import SwiftUI
 import CountryPicker
 
 struct RecoverySheetView: View {
+    @State private var country: Country? = Country(isoCode: "CM")
     #if DEBUG
         @State private var phoneNumber: String = "1234567"
         @State private var password: String = "LL<O3ZG~=z-epkv"
         @State private var rePassword: String = "LL<O3ZG~=z-epkv"
         @State private var selectedCountryCodeText: String? = "CM"
     #else
-        @State private var phoneNumber: String = ""
+        @State private var phoneNumber: String {
+            return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
+        }
         @State private var password: String = ""
         @State private var rePassword: String = ""
         @State private var selectedCountryCodeText: String? = "Select country"
     #endif
+    
 
-    @State private var country: Country?
+    @State private var countryCode: String = Country(isoCode: "CM").isoCode
     @State private var showCountryPicker = false
     
     @State private var isLoading = false
@@ -41,8 +45,8 @@ struct RecoverySheetView: View {
         if(OTPRequired) {
             OTPSheetView(type: OTPAuthType.TYPE.RECOVER,
                          retryTimer: otpRetryTimer,
-                         phoneNumber: getPhoneNumber(),
-                         countryCode: (country?.isoCode ?? Country(isoCode: "CM").isoCode),
+                         countryCode: $countryCode,
+                         phoneNumber: $phoneNumber,
                          password: $password,
                          completed: $completed,
                          isLoggedIn: $completed, failed: $failed)
@@ -75,12 +79,11 @@ struct RecoverySheetView: View {
                          Button {
                              showCountryPicker = true
                          } label: {
-                             let flag = country?.isoCode ?? Country.init(isoCode: "CM").isoCode
-                             Text(flag.getFlag() + "+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
+                             let flag = countryCode
+                             Text(flag.getFlag() + "+" + country!.phoneCode)
                                 .foregroundColor(Color.secondary)
                          }.sheet(isPresented: $showCountryPicker) {
-                             CountryPicker(country: $country,
-                                           selectedCountryCodeText: $selectedCountryCodeText)
+                             CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
                          }
                          Spacer()
                          TextField("Phone Number", text: $phoneNumber)
@@ -122,7 +125,7 @@ struct RecoverySheetView: View {
                             Task {
                                 do {
                                     self.otpRetryTimer = try await signupAuthenticateRecover(
-                                        phoneNumber: getPhoneNumber(),
+                                        phoneNumber: phoneNumber,
                                         countryCode: "",
                                         password: password,
                                         type: OTPAuthType.TYPE.RECOVER)
@@ -159,10 +162,6 @@ struct RecoverySheetView: View {
                 .padding()
             }
         }
-    }
-    
-    private func getPhoneNumber() -> String {
-        return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
     }
 }
 

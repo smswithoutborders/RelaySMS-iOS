@@ -20,7 +20,7 @@ struct LoginSheetView: View {
         @State private var password: String = ""
     #endif
     
-    @State private var OTPRequired = false
+    @Binding var otpRequired: Bool
     @State private var countryCode: String? = nil
     
     @State private var isLoading = false
@@ -118,7 +118,7 @@ struct LoginSheetView: View {
                                     countryCode: "",
                                     password: password,
                                     type: OTPAuthType.TYPE.AUTHENTICATE)
-                                self.OTPRequired = true
+                                self.otpRequired = true
                             } catch Vault.Exceptions.requestNotOK(let status){
                                 print("Something went wrong authenticating: \(status)")
                                 isLoading = false
@@ -173,6 +173,7 @@ struct LoginSheetView_Preview: PreviewProvider {
     static var previews: some View {
         @State var completed: Bool = false
         @State var failed: Bool = false
-        LoginSheetView(isLoggedIn: $completed)
+        @State var otpRequired: Bool = false
+        LoginSheetView(otpRequired: $otpRequired, isLoggedIn: $completed)
     }
 }
