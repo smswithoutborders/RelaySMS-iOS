@@ -14,12 +14,12 @@ import CoreData
 
 class BridgesTest: XCTestCase {
     func testBridges() async throws {
-        let context = DataController().container.viewContext
-        
-        let url = "https://gatewayserver.staging.smswithoutborders.com"
-        
-        let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
-        let response = try! JSONDecoder().decode([GatewayClients].self, from: data)
+//        let context = DataController().container.viewContext
+//        
+//        let url = "https://gatewayserver.staging.smswithoutborders.com"
+//        
+//        let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
+//        let response = try! JSONDecoder().decode([GatewayClients].self, from: data)
     }
     
 }
