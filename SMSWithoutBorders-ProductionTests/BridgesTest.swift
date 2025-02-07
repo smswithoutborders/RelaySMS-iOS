@@ -14,12 +14,29 @@ import CoreData
 
 class BridgesTest: XCTestCase {
     func testBridges() async throws {
-//        let context = DataController().container.viewContext
-//        
-//        let url = "https://gatewayserver.staging.smswithoutborders.com"
-//        
-//        let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
-//        let response = try! JSONDecoder().decode([GatewayClients].self, from: data)
+        let context = DataController().container.viewContext
+        
+        guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return }
+        
+        let _requestBody = ["address": "+123456789", "text": "Hello world"]
+        let requestBody = try JSONSerialization.data(withJSONObject: _requestBody)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = requestBody
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+//            XCTAssertTrue((200...299).contains(httpResponse.statusCode))
+            XCTAssertEqual(httpResponse.statusCode, 200)
+        }
+        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+            // try to read out a string array
+//            if let nickname = json["nickname"] as? [String] {
+//                print(nickname)
+//            }
+            print(json)
+        }
     }
     
 }
