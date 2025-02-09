@@ -281,8 +281,10 @@ struct Vault {
                 let storedPlatformEntity = StoredPlatformsEntity(context: context)
                 storedPlatformEntity.name = storedToken.platform
                 storedPlatformEntity.account = storedToken.accountIdentifier
-                storedPlatformEntity.id = Vault.deriveUniqueKey(platformName: storedToken.platform,
-                                                                accountIdentifier: storedToken.accountIdentifier)
+                storedPlatformEntity.id = Vault.deriveUniqueKey(
+                    platformName: storedToken.platform,
+                    accountIdentifier: storedToken.accountIdentifier
+                )
                 print("[+] stored: \(storedPlatformEntity.name)")
                 do {
                     try context.save()

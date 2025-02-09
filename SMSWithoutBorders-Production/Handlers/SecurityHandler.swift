@@ -13,6 +13,7 @@ func generateNewKeypairs() throws -> (
     publisherPublicKey: Curve25519.KeyAgreement.PrivateKey,
     deviceIDPublicKey: Curve25519.KeyAgreement.PrivateKey) {
     
+        // TODO: this stops platforms from working with bridges
         CSecurity.deleteKeyFromKeychain(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS)
         CSecurity.deleteKeyFromKeychain(keystoreAlias: Vault.DEVICE_PUBLIC_KEY_KEYSTOREALIAS)
 

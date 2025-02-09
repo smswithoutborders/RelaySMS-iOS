@@ -10,7 +10,7 @@ import SwobDoubleRatchet
 import CryptoKit
 import CoreData
 
-class MessageComposer {
+struct MessageComposer {
     
     var SK: [UInt8]
     var keystoreAlias: String
@@ -124,10 +124,35 @@ class MessageComposer {
         }
     }
     
+    public func bridgeEmailComposer(to: String, cc: String, bcc: String, subject: String, body: String) throws -> Data {
+        let content = "\(to):\(cc):\(bcc):\(subject):\(body)".data(using: .utf8)!.withUnsafeBytes { data in
+            return Array(data)
+        }
+        let (header, cipherText) = try Ratchet.encrypt(state: self.state, data: content, AD: self.AD)
+//        try saveState()
+        return formatBridgeTransmission(header: header, cipherText: cipherText)
+    }
+    
+    private func formatBridgeTransmission(header: HEADERS, cipherText: [UInt8]) -> Data {
+        let sHeader = header.serialize()
+        
+        // Convert PN to Data
+        var bytesHeaderLen = Data(count: 4)
+        bytesHeaderLen.withUnsafeMutableBytes {
+            $0.storeBytes(of: UInt32(sHeader.count).littleEndian, as: UInt32.self)
+        }
+        
+        var encryptedContentPayload = Data()
+        encryptedContentPayload.append(bytesHeaderLen)
+        encryptedContentPayload.append(sHeader)
+        encryptedContentPayload.append(Data(cipherText))
+        
+        return encryptedContentPayload
+    }
+
     private func formatTransmission(header: HEADERS,
                                     cipherText: [UInt8],
                                     platform_letter: UInt8) -> String {
-        
         let sHeader = header.serialize()
         
         // Convert PN to Data

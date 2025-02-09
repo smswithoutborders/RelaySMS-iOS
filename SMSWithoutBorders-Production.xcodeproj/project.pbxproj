@@ -13,9 +13,7 @@
 		041BB4E42D4B3CE70072A097 /* OTPHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4E22D4B3CE70072A097 /* OTPHandlers.swift */; };
 		041BB4E92D4B3D4A0072A097 /* SecurityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */; };
 		042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
-		0430A2212D5554D100830BF4 /* Bridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430A2202D5554D100830BF4 /* Bridges.swift */; };
 		0430A2222D5554D100830BF4 /* Bridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430A2202D5554D100830BF4 /* Bridges.swift */; };
-		0430A2232D5554D100830BF4 /* Bridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430A2202D5554D100830BF4 /* Bridges.swift */; };
 		0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
 		0439A49D2C7677A1000B8D30 /* SMSComposeMessageUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */; };
 		0456964A2D551AB000A2C369 /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
@@ -34,6 +32,9 @@
 		0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
+		04D7903B2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
+		04D7903C2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
+		04D7903D2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04DB690F2CE217A600E12978 /* BridgesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB690E2CE217A000E12978 /* BridgesTest.swift */; };
 		164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF7D02954D431007F8C76 /* MessagingView.swift */; };
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
@@ -165,6 +166,7 @@
 		0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadsComponents.swift; sourceTree = "<group>"; };
 		0469EB4E2D402FC9003A2B4F /* Recents1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recents1.swift; sourceTree = "<group>"; };
 		0469EB522D40EC72003A2B4F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		04D7903A2D58010000EA4859 /* static-x25519.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "static-x25519.json"; sourceTree = "<group>"; };
 		04DB690E2CE217A000E12978 /* BridgesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgesTest.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				16F0E68828C6308800FDD12C /* Preview Content */,
 				16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */,
 				0456964F2D551E9C00A2C369 /* Notes.txt */,
+				04D7903A2D58010000EA4859 /* static-x25519.json */,
 			);
 			path = "SMSWithoutBorders-Production";
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045696502D551E9C00A2C369 /* Notes.txt in Resources */,
+				04D7903C2D58010000EA4859 /* static-x25519.json in Resources */,
 				16F0E68A28C6308800FDD12C /* Preview Assets.xcassets in Resources */,
 				16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */,
 				3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */,
@@ -634,6 +638,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				045696512D551E9C00A2C369 /* Notes.txt in Resources */,
+				04D7903B2D58010000EA4859 /* static-x25519.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +646,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D7903D2D58010000EA4859 /* static-x25519.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,7 +727,6 @@
 				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
 				3BC75BF62C5273B2004233CE /* OperatorHandlers.swift in Sources */,
-				0430A2212D5554D100830BF4 /* Bridges.swift in Sources */,
 				0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */,
 				0456964B2D551AB000A2C369 /* CSecurity.swift in Sources */,
 				3B7EEE572C5D60A900611092 /* SMSHandler.swift in Sources */,
@@ -757,7 +762,6 @@
 				0469EB472D3EA1E2003A2B4F /* PlatformsView.swift in Sources */,
 				3B7EEE5B2C5E849800611092 /* relay_publisher.proto in Sources */,
 				3B7EEE5C2C5E849800611092 /* relay_publisher.pb.swift in Sources */,
-				0430A2232D5554D100830BF4 /* Bridges.swift in Sources */,
 				045696542D551FCF00A2C369 /* gRPCHandler.swift in Sources */,
 				3B7EEE5D2C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
 				0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */,
