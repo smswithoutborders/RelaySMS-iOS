@@ -42,7 +42,7 @@ class BridgesTest: XCTestCase {
             subject: subject,
             body: body,
             sk: sharedSecret!,
-            ad: clientPublicKey,
+            ad: peerPublishPublicKey.rawRepresentation.bytes,
             peerDhPubKey: peerPublishPublicKey,
             context: context)
 
@@ -52,7 +52,8 @@ class BridgesTest: XCTestCase {
             clientPublicKey: clientPublicKey,
             serverKeyID: serverPublicKeyID
         )
-        print(payload)
+        print(cipherText.toBase64())
+        //        print(payload)
 
         guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return }
         

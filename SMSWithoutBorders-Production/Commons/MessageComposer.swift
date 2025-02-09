@@ -35,7 +35,9 @@ struct MessageComposer {
         self.useDeviceID = useDeviceID
 
         let fetchStates = try fetchStates()
+        print("AD: \(AD.toBase64())")
         if fetchStates == nil {
+            print("[+] Initializing states...")
             self.state = States()
             try Ratchet.aliceInit(
                 state: self.state,
@@ -43,7 +45,7 @@ struct MessageComposer {
                 bobDhPubKey: peerDhPubKey,
                 keystoreAlias: self.keystoreAlias)
         } else {
-//            print("Fetched state: \(fetchStates!.data?.base64EncodedString())")
+            print("Fetched state: \(fetchStates!.data?.base64EncodedString())")
 //            print(try deserialize(data: fetchStates!.data!))
             self.state = try States.deserialize(data: fetchStates!.data!)!
         }

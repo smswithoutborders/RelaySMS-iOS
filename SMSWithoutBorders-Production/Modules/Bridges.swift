@@ -62,15 +62,20 @@ struct Bridges {
     ) {
         let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
         let clientPublishPubKey = publishPrivateKey.publicKey.rawRepresentation.base64EncodedString()
+        print(clientPublishPubKey)
+        
         let serverPublicKeys = Bridges.getStaticKeys()
         let serverPublicKeyPair = try serverPublicKeys!.first
         let serverPublicKeyID: UInt8 = UInt8(exactly: serverPublicKeyPair!.kid)!
+        
         let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: (serverPublicKeyPair?.keypair.base64Decoded())!)
+//        let peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: ("QdoWCeu1i3Xdmjf45Dpr+8kpLDz+l4936s2Tu+QruRg=".base64Decoded()))
 
         let sharedSecret = try SecurityCurve25519.calculateSharedSecret(
             privateKey: publishPrivateKey, publicKey: peerPublishPublicKey).withUnsafeBytes {
                 return Array($0)
             }
+        print("SK: \(sharedSecret.toBase64())")
         
         return (sharedSecret, publishPrivateKey.publicKey, peerPublishPublicKey, serverPublicKeyID)
     }
