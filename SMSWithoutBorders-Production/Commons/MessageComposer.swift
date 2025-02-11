@@ -12,7 +12,7 @@ import CoreData
 
 struct MessageComposer {
     
-    var SK: [UInt8]
+    var SK: [UInt8]?
     var keystoreAlias: String
     var AD: [UInt8]
     var state = States()
@@ -20,7 +20,7 @@ struct MessageComposer {
     var context: NSManagedObjectContext
     var useDeviceID: Bool
 
-    init(SK: [UInt8], 
+    init(SK: [UInt8]?, 
          AD: [UInt8],
          peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
          keystoreAlias: String,
@@ -41,7 +41,7 @@ struct MessageComposer {
             self.state = States()
             try Ratchet.aliceInit(
                 state: self.state,
-                SK: self.SK,
+                SK: self.SK!,
                 bobDhPubKey: peerDhPubKey,
                 keystoreAlias: self.keystoreAlias)
         } else {
@@ -111,8 +111,12 @@ struct MessageComposer {
         }
     }
     
-    public func messageComposer(platform_letter: UInt8,
-                                sender: String, receiver: String, message: String) throws -> String {
+    public func messageComposer(
+        platform_letter: UInt8,
+        sender: String,
+        receiver: String,
+        message: String
+    ) throws -> String {
         let content = "\(sender):\(receiver):\(message)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
@@ -126,12 +130,21 @@ struct MessageComposer {
         }
     }
     
-    public func bridgeEmailComposer(to: String, cc: String, bcc: String, subject: String, body: String) throws -> Data {
+    public func bridgeEmailComposer(
+        to: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        saveState: Bool = true
+    ) throws -> Data {
         let content = "\(to):\(cc):\(bcc):\(subject):\(body)".data(using: .utf8)!.withUnsafeBytes { data in
             return Array(data)
         }
         let (header, cipherText) = try Ratchet.encrypt(state: self.state, data: content, AD: self.AD)
-//        try saveState()
+        if(saveState) {
+            try self.saveState()
+        }
         return formatBridgeTransmission(header: header, cipherText: cipherText)
     }
     

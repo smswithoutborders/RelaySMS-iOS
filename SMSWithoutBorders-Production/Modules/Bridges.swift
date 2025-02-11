@@ -29,7 +29,7 @@ struct Bridges {
         bcc: String,
         subject: String,
         body: String,
-        sk: [UInt8],
+        sk: [UInt8]?,
         ad: [UInt8],
         peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
         context: NSManagedObjectContext) throws -> [UInt8]{
@@ -107,6 +107,29 @@ struct Bridges {
             payload.append(bridgeLetter)
             payload.append(serverKeyID)
             payload.append(Data(clientPublicKey))
+            payload.append(Data(cipherText))
+
+            return payload.base64EncodedString()
+    }
+    
+    public static func payloadOnly(
+        context: NSManagedObjectContext,
+        cipherText: [UInt8]) throws -> String? {
+            let mode: UInt8 = 0x00
+            let versionMarker: UInt8 = 0x0A
+            let switchValue: UInt8 = 0x01
+            var cipherTextLength: Data = Data(count: 2)
+            cipherTextLength.withUnsafeMutableBytes {
+                $0.storeBytes(of: UInt16(cipherText.count).littleEndian, as: UInt16.self)
+            }
+            let bridgeLetter: UInt8 = "e".data(using: .utf8)!.first!
+            
+            var payload = Data()
+            payload.append(mode)
+            payload.append(versionMarker)
+            payload.append(switchValue)
+            payload.append(cipherTextLength)
+            payload.append(bridgeLetter)
             payload.append(Data(cipherText))
 
             return payload.base64EncodedString()

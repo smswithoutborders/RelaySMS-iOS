@@ -24,8 +24,8 @@ class BridgesTest: XCTestCase {
     func testBridges() async throws {
         let context = DataController().container.viewContext
         
-        let (sharedSecret, clientPublicKeyObject, peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
-        let clientPublicKey = clientPublicKeyObject.rawRepresentation.withUnsafeBytes {
+        let (sharedSecret, _clientPublicKey, peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
+        let clientPublicKey = _clientPublicKey.rawRepresentation.withUnsafeBytes {
             Array($0)
         }
         
@@ -35,27 +35,49 @@ class BridgesTest: XCTestCase {
         var subject = "Test email"
         var body = "Hello world"
         
-        let cipherText = try Bridges.compose(
+        try Vault.resetStates(context: context)
+        
+        var cipherText = try Bridges.compose(
             to: to,
             cc: cc,
             bcc: bcc,
             subject: subject,
             body: body,
-            sk: sharedSecret!,
+            sk: sharedSecret,
             ad: peerPublishPublicKey.rawRepresentation.bytes,
             peerDhPubKey: peerPublishPublicKey,
             context: context)
 
-        let payload = try Bridges.authRequestAndPayload(
+        var payload = try Bridges.authRequestAndPayload(
             context: context,
             cipherText: cipherText,
             clientPublicKey: clientPublicKey,
             serverKeyID: serverPublicKeyID
         )
-        print(cipherText.toBase64())
-        //        print(payload)
+        
+        print("Executing first stage... auth + payload")
+        let responseCode = try await executePayload(payload: payload!)
+        XCTAssertEqual(responseCode, 200)
+        
+       cipherText = try Bridges.compose(
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: "Hello world 2",
+            sk: nil,
+            ad: peerPublishPublicKey.rawRepresentation.bytes,
+            peerDhPubKey: peerPublishPublicKey,
+            context: context)
 
-        guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return }
+        print("Executing second stage... payload")
+        payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
+        let responseCode1 = try await executePayload(payload: payload!)
+        XCTAssertEqual(responseCode1, 200)
+    }
+    
+    func executePayload(payload: String) async throws -> Int? {
+        guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return 0 }
         
         let _requestBody = ["address": "+237123456789", "text": payload]
         let requestBody = try JSONSerialization.data(withJSONObject: _requestBody)
@@ -65,17 +87,11 @@ class BridgesTest: XCTestCase {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let (_data, response) = try await URLSession.shared.data(for: request)
         
-        if let httpResponse = response as? HTTPURLResponse {
-//            XCTAssertTrue((200...299).contains(httpResponse.statusCode))
-            XCTAssertEqual(httpResponse.statusCode, 200)
-        }
         if let json = try JSONSerialization.jsonObject(with: _data, options: []) as? [String: Any] {
-            // try to read out a string array
-//            if let nickname = json["nickname"] as? [String] {
-//                print(nickname)
-//            }
             print(json)
         }
+        let httpResponse = response as? HTTPURLResponse
+        return httpResponse?.statusCode
     }
     
 }
