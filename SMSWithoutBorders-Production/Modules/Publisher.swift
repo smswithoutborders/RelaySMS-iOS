@@ -16,6 +16,7 @@ class Publisher {
     public static var REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
     public static var PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
     public static var PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
+    public static var CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)

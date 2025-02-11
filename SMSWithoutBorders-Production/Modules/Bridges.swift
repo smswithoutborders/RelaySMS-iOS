@@ -12,10 +12,9 @@ import CoreData
 
 struct Bridges {
     
-    public static var BRIDGES_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.BRIDGES_PUBLIC_KEY_KEYSTOREALIAS"
-
     // TODO: download public key files
     // TODO: read the file and reference the kid - could be static or random for now
+    static let CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "com.afkanerd.CLIENT_PUBLIC_KEY_KEYSTOREALIAS"
     
     class StaticKeys: Codable {
         var keypair: String
@@ -31,14 +30,14 @@ struct Bridges {
         body: String,
         sk: [UInt8]?,
         ad: [UInt8],
-        peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
+        peerDhPubKey: Curve25519.KeyAgreement.PublicKey?,
         context: NSManagedObjectContext) throws -> [UInt8]{
             
             let messageComposer = try MessageComposer(
                 SK: sk,
                 AD: ad,
                 peerDhPubKey: peerDhPubKey,
-                keystoreAlias: Bridges.BRIDGES_PUBLIC_KEY_KEYSTOREALIAS,
+                keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
                 context: context)
             
             let data = try messageComposer.bridgeEmailComposer(
@@ -143,11 +142,8 @@ struct Bridges {
         print("[+] File url: \(url)")
         
         do {
-//            let string = try String(contentsOfFile: url, encoding: String.Encoding.utf8)
-//            print(string)
             let data = try Data(contentsOf: URL(fileURLWithPath: url))
 
-            
             let result = try JSONDecoder().decode([StaticKeys].self, from: data)
             print(result)
             
@@ -157,5 +153,21 @@ struct Bridges {
         }
 
         return nil
+    }
+    
+    public static func decryptIncomingMessages(context: NSManagedObjectContext, payload: [UInt8], ad: [UInt8]) throws -> String? {
+        let cipherTextLen = payload[0..<4]
+        let bridgeLetter = payload[4]
+        let cipherText = Array(payload[5...])
+        
+        let messageComposer = try MessageComposer(
+            SK: nil,
+            AD: ad,
+            peerDhPubKey: nil,
+            keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
+            context: context
+        )
+        
+        return try messageComposer.decryptBridgeMessage(payload: cipherText)
     }
 }

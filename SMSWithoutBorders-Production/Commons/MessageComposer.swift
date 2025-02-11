@@ -22,7 +22,7 @@ struct MessageComposer {
 
     init(SK: [UInt8]?, 
          AD: [UInt8],
-         peerDhPubKey: Curve25519.KeyAgreement.PublicKey,
+         peerDhPubKey: Curve25519.KeyAgreement.PublicKey?,
          keystoreAlias: String,
          deviceID: [UInt8]? = nil,
          context: NSManagedObjectContext,
@@ -35,14 +35,14 @@ struct MessageComposer {
         self.useDeviceID = useDeviceID
 
         let fetchStates = try fetchStates()
-        print("AD: \(AD.toBase64())")
+        print("AD in message composer: \(AD.toBase64())")
         if fetchStates == nil {
             print("[+] Initializing states...")
             self.state = States()
             try Ratchet.aliceInit(
                 state: self.state,
                 SK: self.SK!,
-                bobDhPubKey: peerDhPubKey,
+                bobDhPubKey: peerDhPubKey!,
                 keystoreAlias: self.keystoreAlias)
         } else {
             print("Fetched state: \(fetchStates!.data?.base64EncodedString())")
@@ -196,5 +196,24 @@ struct MessageComposer {
         print("Sending: \(data.base64EncodedString())")
 
         return data.base64EncodedString()
+    }
+    
+    public func decryptBridgeMessage(payload: [UInt8]) throws -> String? {
+        let lenHeader = Data(payload[0..<4]).withUnsafeBytes { $0.load(as: Int32.self) }.littleEndian
+        guard let header = HEADERS.deserialize(serializedData: Data(payload[4..<(4+Int(lenHeader))])) else {
+            print("Issue constructing header...")
+            return nil
+        }
+        let cipherText = Array(payload[(4+Int(lenHeader))..<payload.count])
+        
+        let text = try Ratchet.decrypt(
+            state: self.state,
+            header: header,
+            cipherText: cipherText,
+            AD: self.AD,
+            keystoreAlias: self.keystoreAlias
+        )
+        try self.saveState()
+        return String(decoding: text, as: Unicode.UTF8.self)
     }
 }
