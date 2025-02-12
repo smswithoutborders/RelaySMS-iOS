@@ -131,7 +131,7 @@ struct MessagingView: View {
                     Text("Select a contact to send a message")
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                    Text("Make sure phone code e.g +237 is included in the selected number")
+                    Text("Ensure that the selected phone number includes the country code (e.g., +237).")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                     VStack {

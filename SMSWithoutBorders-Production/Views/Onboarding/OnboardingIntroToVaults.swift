@@ -21,7 +21,7 @@ struct signupLoginOnboardingView: View {
                     Button {
                         signupSheetShown = true
                     } label: {
-                        Text("Create Acocunt")
+                        Text("Create Account")
                             .bold()
                             .frame(maxWidth: .infinity)
                     }
@@ -35,7 +35,7 @@ struct signupLoginOnboardingView: View {
                     Button {
                         loginSheetShown = true
                     } label: {
-                        Text("Login")
+                        Text("Log in")
                             .bold()
                             .frame(maxWidth: .infinity)
                     }
@@ -63,8 +63,8 @@ struct addAccountsView: View {
     @Binding var codeVerifier: String
     @Binding var availablePlatformsPresented: Bool
     
-    @State var title: String = "Available platforms"
-    @State var description = "Select a platform to save it for offline use"
+     var title: LocalizedStringKey = "Available Platforms"
+     var description: LocalizedStringKey = "Select a platform to save it for offline use"
     
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     

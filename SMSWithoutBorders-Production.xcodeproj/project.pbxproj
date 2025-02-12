@@ -131,6 +131,8 @@
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
 		3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
 		3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
+		F6E4956F2D5612B6009A5010 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E4956E2D5612AF009A5010 /* LocalizationKeys.swift */; };
+		F6E495702D5612B6009A5010 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E4956E2D5612AF009A5010 /* LocalizationKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +212,7 @@
 		3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3BF3D14E2C32D69D003A3AFB /* SignupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSheetView.swift; sourceTree = "<group>"; };
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
+		F6E4956E2D5612AF009A5010 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,17 +285,18 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
-				3B928A3A2C6692B400BA145F /* PlatformViews */,
-				3BC75BEE2C523F26004233CE /* PlatformComposeViews */,
-				3BF1177E2C290650003D5BB6 /* Proto */,
-				3B37F27A2C1DBB1D008D5BE9 /* Modules */,
+				F6E4956E2D5612AF009A5010 /* LocalizationKeys.swift */,
 				16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */,
 				16EDE37928CBA1A300E50393 /* Info.plist */,
-				16F0E6B328C80BBC00FDD12C /* Commons */,
-				16F0E6AC28C6320F00FDD12C /* Views */,
 				16F0E68628C6308800FDD12C /* Assets.xcassets */,
-				16F0E68828C6308800FDD12C /* Preview Content */,
+				16F0E6B328C80BBC00FDD12C /* Commons */,
 				16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */,
+				3B37F27A2C1DBB1D008D5BE9 /* Modules */,
+				3BC75BEE2C523F26004233CE /* PlatformComposeViews */,
+				3B928A3A2C6692B400BA145F /* PlatformViews */,
+				16F0E68828C6308800FDD12C /* Preview Content */,
+				3BF1177E2C290650003D5BB6 /* Proto */,
+				16F0E6AC28C6320F00FDD12C /* Views */,
 			);
 			path = "SMSWithoutBorders-Production";
 			sourceTree = "<group>";
@@ -554,6 +558,9 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				de,
+				"es-US",
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
@@ -635,6 +642,7 @@
 				3B928A3C2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
 				3B7EEE5F2C5E849800611092 /* relay_publisher.pb.swift in Sources */,
 				3B7EEE602C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
+				F6E4956F2D5612B6009A5010 /* LocalizationKeys.swift in Sources */,
 				1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
 				3BCBA3A42C49819800736B9B /* OnboardingTryExample.swift in Sources */,
@@ -671,6 +679,7 @@
 				3B7EEE432C5BDE3B00611092 /* OnboardingTryExample.swift in Sources */,
 				3B928A3D2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
 				3B7EEE402C5BDE1E00611092 /* LoginSheetView.swift in Sources */,
+				F6E495702D5612B6009A5010 /* LocalizationKeys.swift in Sources */,
 				3B928A362C65140100BA145F /* GatewayClientsView.swift in Sources */,
 				3B7EEE3F2C5BDDF500611092 /* OnboardingIntroToVaults.swift in Sources */,
 				3BDADAE12C54DBDE00539E57 /* SMSWithoutBorders_ProductionApp.swift in Sources */,

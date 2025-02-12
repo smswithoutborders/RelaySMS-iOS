@@ -54,7 +54,7 @@ struct GatewayClientsView: View {
                     ForEach(gatewayClients) { gatewayClient in
                         if gatewayClient.msisdn == defaultGatewayClientMsisdn {
                             VStack {
-                                Text("Selected Gateway client")
+                                Text("Selected Gateway Client")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.caption2)
                                     .padding(.bottom, 3)

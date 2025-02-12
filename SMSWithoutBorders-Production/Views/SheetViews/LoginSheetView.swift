@@ -145,7 +145,7 @@ struct LoginSheetView: View {
                                 }
                             }
                         } label: {
-                            Text("Login")
+                            Text("Log in")
                                 .bold()
                                 .frame(maxWidth: .infinity, maxHeight: 35)
 //                                .frame(width: 200 , height: 50, alignment: .center)
@@ -161,7 +161,7 @@ struct LoginSheetView: View {
                             Button {
                                 
                             } label: {
-                                Text("Create account")
+                                Text("Create Account")
                                     .bold()
                             }
                         }

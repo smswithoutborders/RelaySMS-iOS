@@ -12,10 +12,10 @@ import CoreData
 
 struct OfflineAvailablePlatformsSheetsView: View {
     @State var codeVerifier: String = ""
-    @State var title: String = "Compose for platform"
-    @State var titleRevoke: String = "Revoke Platforms"
-    @State var description: String = "Select a platform to send an example message - you can send a message to yourself"
-    @State var descriptionRevoke: String = "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform."
+    var title: LocalizedStringKey = "Compose for Platform"
+    var titleRevoke: LocalizedStringKey = "Revoke Platforms"
+    @State var description: LocalizedStringKey = "Select a platform to send an example message - you can send a message to yourself"
+    @State var descriptionRevoke: LocalizedStringKey = "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform."
     @State var isRevoke: Bool = false
     
     var body: some View {
@@ -32,8 +32,8 @@ struct OfflineAvailablePlatformsSheetsView: View {
 struct OnlineAvailablePlatformsSheetsView: View {
     @Binding var codeVerifier: String
     
-    @State var title = "Available Platforms"
-    @State var description = "Select a platform to save it for offline use"
+    var title: LocalizedStringKey = "Available Platforms"
+    var description: LocalizedStringKey = "Select a platform to save it for offline use"
     
     var body: some View {
         AvailablePlatformsSheetsView(
@@ -61,8 +61,8 @@ struct AvailablePlatformsSheetsView: View {
     
     @Binding var codeVerifier: String
     
-    @State var title: String
-    @State var description: String
+    var title: LocalizedStringKey
+     var description: LocalizedStringKey
     
     @State var type: TYPE = TYPE.AVAILABLE
     @Environment(\.openURL) var openURL

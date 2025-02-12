@@ -119,7 +119,7 @@ struct SignupSheetView: View {
                         .frame(width: 75, height: 75)
                         .padding()
 
-                    Text("Create account")
+                    Text("Create Account")
                         .font(.title)
                         .bold()
                         .padding()
@@ -213,7 +213,7 @@ struct SignupSheetView: View {
                                 }
                             }
                         } label: {
-                            Text("Create account")
+                            Text("Create Account")
                                 .bold()
                                 .frame(maxWidth: .infinity, maxHeight: 35)
                         }
