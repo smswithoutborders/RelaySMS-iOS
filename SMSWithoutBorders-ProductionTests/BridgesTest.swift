@@ -24,14 +24,15 @@ class BridgesTest: XCTestCase {
     func testBridges() async throws {
         let context = DataController().container.viewContext
         
+        Vault.resetKeystore()
+        Bridges.reset()
+
         var to = "wisdomnji@gmail.com"
         var cc = ""
         var bcc = ""
         var subject = "Test email"
         var body = "Hello world"
         
-        Vault.resetKeystore()
-        Bridges.reset()
         var (cipherText, clientPublicKey) = try Bridges.compose(
             to: to,
             cc: cc,
@@ -91,11 +92,8 @@ class BridgesTest: XCTestCase {
     
     func testBridgeDecryption() async throws {
         let context = DataController().container.viewContext
-        let ad = Data(base64Encoded: "1SxA+mrZGF0DaKOBabbQPPytY7j28JdMND9gzTZhOjk=")?.withUnsafeBytes { Array($0) } ?? []
-//        let ad: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
-        print("AD for decrypting: \(ad)")
 
-        let rawText = "RelaySMS Reply Please paste this entire message in your RelaySMS app\nvAAAAGUoAAAAAAAAAAAAAACxHc73tAyz3QpIajfPiFRWqHzkyhSrPOc7n9JV7h/xfGH9taDkUXr+/YXpePjnOLyqYyTEW/q/isXnlIgYRExt5a8Hjiow4sOrgLVHqSm6+i6/jK9Sb2JWcjpK0O7UFrnmrpobyQbAWQz0D/2EvUZVo0qFQIPEh7jFAgahA1fbqIwyXNRLppjMfs2mPtrfk/TotYX/NpkIeqVm72CUCJw6+MtYMX5RDLkkIcQU3CsZzg=="
+        let rawText = "RelaySMS Reply Please paste this entire message in your RelaySMS app\nzAAAAGUoAAAAAAAAAAAAAAD4eFJY+zgNQ4eFRb8Rg+EkEVhU3FUTEz9h+Ggq1NnxXmz9M3V0nXKAZo2qT5h4R1NuUr4PsK3BWy0cVhWYMJOV3JG4iriNe+BE7T0v80ub6inhxlCC2HPo3b1tNPR3+ms/KOIkYuFIHzzwAhcGIEmZEktSj4NCCIlE/ryuGip9OedJvvDROpx+az1XfrGRUuxi0r5mlLxsxY3EF/eJ+XlWKaUnnqG3Lt5iwQPa60jf/6Q3k5ykyas1AAEbvmndbY4="
         let sampleText: String = String(rawText.split(separator: "\n")[1])
         print("Sending in sampleText: \(sampleText)")
         let cipherText: [UInt8] = Data(base64Encoded: sampleText)?.withUnsafeBytes{ Array($0) } ?? []
@@ -104,8 +102,7 @@ class BridgesTest: XCTestCase {
         
         let text = try Bridges.decryptIncomingMessages(
             context: context,
-            payload: cipherText,
-            ad: ad
+            payload: cipherText
         )
         print(text)
     }

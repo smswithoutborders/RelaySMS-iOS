@@ -36,33 +36,24 @@ struct Bridges {
 
             // Meaning the user has logged in online already
             if(try Vault.getLongLivedToken().isEmpty) {
-                let keypair = try SecurityCurve25519.getKeyPair(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS)
-                
-//                if(UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) == nil) {
-                if(keypair == nil) {
+                if(UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) == nil) {
+                    try Vault.resetStates(context: context)
+                    
                     let (_sharedSecret, _clientPublicKey, _peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
                     peerPublishPublicKey = _peerPublishPublicKey
                     sharedSecret = _sharedSecret
+                    clientPublicKey = _clientPublicKey?.rawRepresentation.bytes
                     
-                    clientPublicKey = _clientPublicKey?.rawRepresentation.withUnsafeBytes { Array($0) }
-//                    UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
+                    UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
                     UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
                 } else {
                     print("\n[+] Bypassing key generation, using stored keys")
-//                    peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(
-//                        rawRepresentation: UserDefaults.standard.object(
-//                            forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8])
-                    
-                    let serverKeyID: [UInt8] = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as! [UInt8]
-                    let pubKey = try Bridges.getStaticKeys(kid: Int(Data(serverKeyID)
-                        .withUnsafeBytes { $0.load(as: Int32.self) }.littleEndian))?
-                        .first?.keypair.base64Decoded()
+                    let serverKeyID: UInt8 = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as! UInt8
+                    var pubKeyB64 = Bridges.getStaticKeys(kid: Int(serverKeyID))?.first?.keypair
+                    let pubKey = Data(base64Encoded: pubKeyB64!)
                     peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: pubKey!)
-
-//                    clientPublicKey = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
-                    clientPublicKey = keypair?.publicKey.rawRepresentation.bytes
+                    clientPublicKey = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as? [UInt8]
                 }
-                try Vault.resetStates(context: context)
 
                 do {
                     messageComposer = try MessageComposer(
@@ -98,12 +89,7 @@ struct Bridges {
     }
     
     public static func reset() {
-        UserDefaults.standard.removeObject(forKey: Bridges.SERVER_KID)
-    }
-    
-    public static func canPublish() -> Bool {
-        let serverKeyID: [UInt8]? = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as? [UInt8]
-        return serverKeyID != nil
+        UserDefaults.standard.removeObject(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
     }
     
     private static func generateKeyRequirements() throws -> (
@@ -217,10 +203,12 @@ struct Bridges {
         return nil
     }
     
-    public static func decryptIncomingMessages(context: NSManagedObjectContext, payload: [UInt8], ad: [UInt8]) throws -> String? {
+    public static func decryptIncomingMessages(context: NSManagedObjectContext, payload: [UInt8]) throws -> String? {
         let cipherTextLen = payload[0..<4]
         let bridgeLetter = payload[4]
         let cipherText = Array(payload[5...])
+        
+        let ad = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
         
         let messageComposer = try MessageComposer(
             SK: nil,

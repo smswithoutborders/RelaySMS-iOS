@@ -112,7 +112,6 @@
 		3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */; };
 		3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117712C28F3F4003D5BB6 /* GRPC */; };
 		3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */; };
-		3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117752C28F3F4003D5BB6 /* _GRPCCore */; };
 		3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */; };
 		3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177A2C28F5BA003D5BB6 /* GRPC */; };
 		3BF1177D2C28F5C0003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177C2C28F5C0003D5BB6 /* GRPC */; };
@@ -120,7 +119,6 @@
 		3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1178E2C2A2B67003D5BB6 /* Vault.swift */; };
 		3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */; };
 		3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */; };
-		3BF117972C2B4EB6003D5BB6 /* _GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117962C2B4EB6003D5BB6 /* _GRPCCore */; };
 		3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */; };
 		3BF1179C2C2B5050003D5BB6 /* VaultTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179B2C2B5050003D5BB6 /* VaultTest.swift */; };
 		3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
@@ -238,7 +236,6 @@
 				3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */,
 				3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */,
 				3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */,
-				3BF117762C28F3F4003D5BB6 /* _GRPCCore in Frameworks */,
 				3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */,
 				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
 				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
@@ -254,7 +251,6 @@
 				3BF117AC2C2F57A8003D5BB6 /* Fernet in Frameworks */,
 				3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */,
 				3B7EEE3D2C5BD92400611092 /* SwobDoubleRatchet in Frameworks */,
-				3BF117972C2B4EB6003D5BB6 /* _GRPCCore in Frameworks */,
 				3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */,
 				3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */,
 				3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
@@ -506,7 +502,6 @@
 				3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */,
 				3BF117712C28F3F4003D5BB6 /* GRPC */,
 				3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */,
-				3BF117752C28F3F4003D5BB6 /* _GRPCCore */,
 				3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */,
 				3BF117B12C30E1F9003D5BB6 /* Fernet */,
 				3BF3D1522C32DC6B003A3AFB /* CountryPicker */,
@@ -537,7 +532,6 @@
 				3BF1177A2C28F5BA003D5BB6 /* GRPC */,
 				3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */,
 				3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */,
-				3BF117962C2B4EB6003D5BB6 /* _GRPCCore */,
 				3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */,
 				3BF117AB2C2F57A8003D5BB6 /* Fernet */,
 				3BF117B42C30F2BF003D5BB6 /* CryptoSwift */,
@@ -1210,11 +1204,6 @@
 			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPCReflectionService;
 		};
-		3BF117752C28F3F4003D5BB6 /* _GRPCCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = _GRPCCore;
-		};
 		3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
@@ -1239,11 +1228,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
 			productName = GRPCReflectionService;
-		};
-		3BF117962C2B4EB6003D5BB6 /* _GRPCCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = _GRPCCore;
 		};
 		3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */ = {
 			isa = XCSwiftPackageProductDependency;
