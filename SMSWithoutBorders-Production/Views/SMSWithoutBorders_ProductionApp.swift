@@ -135,10 +135,10 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var backgroundLoading: Bool = false
     @State private var onboardingViewIndex: Int = 0
     
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+//    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
     
-    @AppStorage(ControllerView.ONBOARDING_COMPLETED)
+//    @AppStorage(ControllerView.ONBOARDING_COMPLETED)
     private var onboardingCompleted: Bool = false
     
     @State private var alreadyLoggedIn: Bool = false

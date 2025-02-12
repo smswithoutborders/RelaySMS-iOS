@@ -10,8 +10,8 @@ import CryptoKit
 import SwobDoubleRatchet
 
 func generateNewKeypairs() throws -> (
-    publisherPublicKey: Curve25519.KeyAgreement.PrivateKey,
-    deviceIDPublicKey: Curve25519.KeyAgreement.PrivateKey) {
+    publisherPublicKey: Curve25519.KeyAgreement.PrivateKey?,
+    deviceIDPublicKey: Curve25519.KeyAgreement.PrivateKey?) {
     
         // TODO: this stops platforms from working with bridges
         CSecurity.deleteKeyFromKeychain(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS)
@@ -22,12 +22,11 @@ func generateNewKeypairs() throws -> (
         
         do {
             clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Vault.DEVICE_PUBLIC_KEY_KEYSTOREALIAS).privateKey
-            
             clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS).privateKey
         } catch {
             throw error
         }
-        return (clientPublishPrivateKey!, clientDeviceIDPrivateKey!)
+        return (clientPublishPrivateKey, clientDeviceIDPrivateKey)
 }
 
 

@@ -236,8 +236,7 @@ struct Vault {
     
     public static func getLongLivedToken() throws -> String {
         do {
-            let llt = try CSecurity.findInKeyChain(keystoreAlias:
-                                                    Vault.VAULT_LONG_LIVED_TOKEN)
+            let llt = try CSecurity.findInKeyChain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
             return String(data: llt, encoding: .utf8)!
         } catch CSecurity.Exceptions.FailedToFetchStoredItem {
             return ""
@@ -249,7 +248,9 @@ struct Vault {
     public static func resetKeystore() {
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Vault.VAULT_LONG_LIVED_TOKEN)
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
-        
+        CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SERVER_PUBLIC_KEY)
+        CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS)
+
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
         }

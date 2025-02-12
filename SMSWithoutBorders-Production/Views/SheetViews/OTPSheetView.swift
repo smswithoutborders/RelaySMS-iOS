@@ -29,9 +29,9 @@ nonisolated func signupAuthenticateRecover(
         print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
     
     let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
-    let clientPublishPubKey = publishPrivateKey.publicKey.rawRepresentation.base64EncodedString()
+        let clientPublishPubKey = publishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
     
-    let clientDeviceIDPubKey = deviceIdPrivateKey.publicKey.rawRepresentation.base64EncodedString()
+        let clientDeviceIDPubKey = deviceIdPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
     
     let vault = Vault()
 
@@ -50,8 +50,8 @@ nonisolated func signupAuthenticateRecover(
             try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                            publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                           clientDeviceIDPrivateKey: deviceIdPrivateKey,
-                           clientPublishPrivateKey: publishPrivateKey,
+                           clientDeviceIDPrivateKey: deviceIdPrivateKey!,
+                           clientPublishPrivateKey: publishPrivateKey!,
                            phoneNumber: phoneNumber)
             
         }
@@ -70,8 +70,8 @@ nonisolated func signupAuthenticateRecover(
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                                      publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: deviceIdPrivateKey,
-                                     clientPublishPrivateKey: publishPrivateKey,
+                                     clientDeviceIDPrivateKey: deviceIdPrivateKey!,
+                                     clientPublishPrivateKey: publishPrivateKey!,
                                      phoneNumber: phoneNumber)
             
             let publisher = Publisher()
@@ -93,8 +93,8 @@ nonisolated func signupAuthenticateRecover(
             let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
                                      publishPubKey: response.serverPublishPubKey.base64Decoded(),
                        llt: response.longLivedToken,
-                       clientDeviceIDPrivateKey: deviceIdPrivateKey,
-                                     clientPublishPrivateKey: publishPrivateKey,
+                                     clientDeviceIDPrivateKey: deviceIdPrivateKey!,
+                                     clientPublishPrivateKey: publishPrivateKey!,
                                      phoneNumber: phoneNumber)
             
             let publisher = Publisher()

@@ -263,6 +263,15 @@ class Publisher {
         return response
     }
     
+    public static func canPublish() throws -> Bool {
+        do {
+            return try !CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS).isEmpty
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
     public static func publish(platform: PlatformsEntity, context: NSManagedObjectContext) throws -> MessageComposer {
         do {
             let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]

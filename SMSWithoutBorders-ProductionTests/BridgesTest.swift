@@ -22,15 +22,7 @@ class BridgesTest: XCTestCase {
     }
     
     func testBridges() async throws {
-// Or your Core Data queue
         let context = DataController().container.viewContext
-        
-        let (sharedSecret, _clientPublicKey, peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
-        
-        let clientPublicKey = _clientPublicKey.rawRepresentation.withUnsafeBytes {
-            Array($0)
-        }
-        print("AD for encrypting: \(_clientPublicKey.rawRepresentation.base64EncodedString())")
         
         var to = "wisdomnji@gmail.com"
         var cc = ""
@@ -38,48 +30,64 @@ class BridgesTest: XCTestCase {
         var subject = "Test email"
         var body = "Hello world"
         
-        try Vault.resetStates(context: context)
-        
-        var cipherText = try Bridges.compose(
+        Vault.resetKeystore()
+        Bridges.reset()
+        var (cipherText, clientPublicKey) = try Bridges.compose(
             to: to,
             cc: cc,
             bcc: bcc,
             subject: subject,
             body: body,
-            sk: sharedSecret,
-            ad: peerPublishPublicKey.rawRepresentation.bytes,
-            peerDhPubKey: peerPublishPublicKey,
-            context: context)
+            context: context
+        )
 
         var payload = try Bridges.authRequestAndPayload(
             context: context,
             cipherText: cipherText,
-            clientPublicKey: clientPublicKey,
-            serverKeyID: serverPublicKeyID
+            clientPublicKey: clientPublicKey!
         )
         
         print("Executing first stage... auth + payload")
-        let responseCode = try await executePayload(payload: payload!)
+        var responseCode = try await executePayload(payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- First stage complete")
+        
+        (cipherText, clientPublicKey) = try Bridges.compose(
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: body,
+            context: context
+        )
 
-//       cipherText = try Bridges.compose(
+        payload = try Bridges.authRequestAndPayload(
+            context: context,
+            cipherText: cipherText,
+            clientPublicKey: clientPublicKey!
+        )
+        
+        print("Executing second stage... auth + payload")
+        responseCode = try await executePayload(payload: payload!)
+        XCTAssertEqual(responseCode, 200)
+        print("- Second stage complete")
+        
+    }
+    
+//    func testBridgesPlatforms() async throws {
+//        (cipherText, clientPublicKey) = try Bridges.compose(
 //            to: to,
 //            cc: cc,
 //            bcc: bcc,
 //            subject: subject,
 //            body: "Hello world 2",
-//            sk: nil,
-//            ad: peerPublishPublicKey.rawRepresentation.bytes,
-//            peerDhPubKey: nil,
 //            context: context)
 //
 //        print("Executing second stage... payload")
 //        payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
 //        let responseCode1 = try await executePayload(payload: payload!)
 //        XCTAssertEqual(responseCode1, 200)
-    
-    }
+//    }
     
     func testBridgeDecryption() async throws {
         let context = DataController().container.viewContext

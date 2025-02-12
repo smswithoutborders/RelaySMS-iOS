@@ -61,6 +61,7 @@ struct MessageComposer {
             }
         } catch {
             print("Error fetching StatesEntity: \(error)")
+            throw error
         }
         return nil
     }
@@ -76,6 +77,7 @@ struct MessageComposer {
             print("Stored state: \(statesEntity.data?.base64EncodedString())")
             
         } catch {
+            print("Error in saving states....")
             throw error
         }
     }
