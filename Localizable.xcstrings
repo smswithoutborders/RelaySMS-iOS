@@ -6,6 +6,12 @@
     },
     "%@ accounts" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Konten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16,6 +22,12 @@
     },
     "Account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26,6 +38,12 @@
     },
     "Add Accounts to Vault" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konten zu Vault hinzufügen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -36,6 +54,12 @@
     },
     "Already got SMS code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SMS-Code bereits erhalten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -46,6 +70,12 @@
     },
     "Already have an account?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben bereits ein Konto?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -56,6 +86,12 @@
     },
     "Available Platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verfügbare Plattformen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -66,6 +102,12 @@
     },
     "Bcc " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bcc"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -76,6 +118,12 @@
     },
     "Cc " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cc"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -86,6 +134,12 @@
     },
     "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie die Plattform aus, für die Sie Konten sperren möchten. Auf dem nächsten Bildschirm können Sie auswählen, welches Konto für die Plattform widerrufen werden soll."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -96,6 +150,12 @@
     },
     "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -106,6 +166,12 @@
     },
     "Come back anytime" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jederzeit wiederkommen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -116,6 +182,12 @@
     },
     "Compose email" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail verfassen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -126,6 +198,12 @@
     },
     "Compose for Platform" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compose für Plattform"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -136,6 +214,12 @@
     },
     "Compose Message" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht verfassen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -147,6 +231,12 @@
     "Compose Post" : {
       "comment" : "Should \"Post\" be translated as \"Publier\"",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beitrag verfassen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -157,6 +247,12 @@
     },
     "composeBody" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "composeBody"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -167,6 +263,12 @@
     },
     "Continue" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -177,6 +279,12 @@
     },
     "Continue Deleting" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschung fortsetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -187,6 +295,12 @@
     },
     "Create a new RelaySMS Vault account or signup to your existing." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen Sie ein neues RelaySMS Vault-Konto oder melden Sie sich bei Ihrem bestehenden Konto an."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -197,6 +311,12 @@
     },
     "Create Account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto erstellen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,6 +327,12 @@
     },
     "Create new account or log into existing one to begin sending messages from stored online platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen Sie ein neues Konto oder melden Sie sich bei einem bestehenden Konto an, um Nachrichten von gespeicherten Online-Plattformen zu versenden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -224,7 +350,8 @@
             "value" : "relaysms"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "default_oauth_path" : {
       "extractionState" : "manual",
@@ -235,10 +362,17 @@
             "value" : "oauth.afkanerd.com/platforms/gmail/protocols/oauth2/redirect_codes/ios/"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Delete Account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto löschen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -249,6 +383,12 @@
     },
     "Don't have an account?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie haben noch kein Konto?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -259,6 +399,12 @@
     },
     "Ensure that the selected phone number includes the country code (e.g., +237)." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vergewissern Sie sich, dass die gewählte Rufnummer die Landesvorwahl enthält (z. B. +49)."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -269,6 +415,12 @@
     },
     "Enter code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -279,6 +431,12 @@
     },
     "Enter code sent by SMS" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per SMS gesendeten Code eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -289,6 +447,12 @@
     },
     "Enter your phone number and new passwords" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geben Sie Ihre Telefonnummer und Ihre neuen Passwörter ein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -299,6 +463,12 @@
     },
     "Error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -309,6 +479,12 @@
     },
     "Finish!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertig!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -319,6 +495,12 @@
     },
     "Forgot password?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort vergessen?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -329,6 +511,12 @@
     },
     "From " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Von"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -339,6 +527,12 @@
     },
     "From: %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "von: %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -350,6 +544,12 @@
     "Gateway Clients" : {
       "comment" : "Noun",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gateway-Clients"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -360,6 +560,12 @@
     },
     "Get code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code erhalten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -370,6 +576,12 @@
     },
     "Get started!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los geht's!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -380,6 +592,12 @@
     },
     "I accept the" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ich akzeptiere die"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -390,6 +608,12 @@
     },
     "If you don't have an account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie noch kein Konto haben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -400,6 +624,12 @@
     },
     "If you forgot your password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie Ihr Passwort vergessen haben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -410,6 +640,12 @@
     },
     "in %lld seconds" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %lld Sekunden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -421,6 +657,12 @@
     "Introducing Vaults" : {
       "comment" : "Vaults is a noun",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einführung von Vaults"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -431,6 +673,12 @@
     },
     "Learn how it works" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfahren Sie, wie es funktioniert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -441,6 +689,12 @@
     },
     "Let's get you started" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "So fangen Sie an"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -452,6 +706,12 @@
     "Log in" : {
       "comment" : "As a verb (eg As an action)",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einloggen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -463,6 +723,12 @@
     "Log out" : {
       "comment" : "As a verb (eg As an action)",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abmelden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -474,6 +740,12 @@
     "Login" : {
       "comment" : "Noun (eg As a page title)",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmeldung"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -484,6 +756,12 @@
     },
     "Make default" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard machen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -494,6 +772,12 @@
     },
     "Message with phone number" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht mit Telefonnummer"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -504,6 +788,12 @@
     },
     "Messages are encrypted meaning the messages will be scrambled - don't worry that's intended" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Nachrichten sind verschlüsselt, d.h. die Nachrichten werden verschlüsselt - keine Sorge, das ist beabsichtigt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -514,6 +804,12 @@
     },
     "Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachrichten werden mit Ihrer Standard-SMS-Anwendung geteilt, die Sie zum Versenden von SMS-Nachrichten von Ihrem Gerät aus verwenden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -524,6 +820,12 @@
     },
     "No messages sent" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Nachrichten gesendet"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -534,6 +836,12 @@
     },
     "No platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Plattformen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -544,6 +852,12 @@
     },
     "No recent messages" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine neuen Nachrichten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -554,6 +868,12 @@
     },
     "No Vault account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Vault-Konto"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -564,6 +884,12 @@
     },
     "OTP Code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OTP-Code"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -574,6 +900,12 @@
     },
     "Password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -590,6 +922,12 @@
     },
     "Passwords don't match" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwörter stimmen nicht überein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -600,6 +938,12 @@
     },
     "Phone Number" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rufnummer"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -610,6 +954,12 @@
     },
     "Please create one to save your platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte erstellen Sie eine, um Ihre Plattformen zu speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -621,6 +971,12 @@
     "Post" : {
       "comment" : "Verb",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beitrag"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -638,10 +994,12 @@
             "value" : "9060"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "publisher_port_production" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "shouldTranslate" : false
     },
     "publisher_url_debug" : {
       "extractionState" : "manual",
@@ -652,7 +1010,8 @@
             "value" : "staging.smswithoutborders.com"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "publisher_url_production" : {
       "extractionState" : "manual",
@@ -663,10 +1022,17 @@
             "value" : "smswithoutbordres.com"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Re-enter password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort erneut eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -677,6 +1043,12 @@
     },
     "Read our privacy policy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesen Sie unsere Datenschutzrichtlinie"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -687,6 +1059,12 @@
     },
     "Recents" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelles"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -697,6 +1075,12 @@
     },
     "RelaySMS Vaults keep secure access to your online accounts while you are offline" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS Vaults bieten sicheren Zugang zu Ihren Online-Konten, während Sie offline sind"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -707,6 +1091,12 @@
     },
     "Resend code" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code erneut senden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -717,6 +1107,12 @@
     },
     "Revoke" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widerrufen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -727,6 +1123,12 @@
     },
     "Revoke Platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plattformen widerrufen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -737,6 +1139,12 @@
     },
     "Revoke stored platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Plattformen widerrufen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -747,6 +1155,12 @@
     },
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durch den Widerruf wird die Möglichkeit zum Senden von Nachrichten von diesem Konto entfernt. Sie können das Konto jederzeit wieder speichern."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -757,6 +1171,12 @@
     },
     "Save Accounts to Vault" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konten in Vault speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -767,6 +1187,12 @@
     },
     "Save platforms" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plattformen speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -777,6 +1203,12 @@
     },
     "Security" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sicherheit"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -787,6 +1219,12 @@
     },
     "Select a contact to send a message" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie einen Kontakt aus, um eine Nachricht zu senden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -798,6 +1236,12 @@
     "Select a platform to save it for offline use" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie eine Plattform, um sie für die Offline-Nutzung zu speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -808,6 +1252,12 @@
     },
     "Select a platform to send an example message - you can send a message to yourself" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie eine Plattform, um eine Beispielnachricht zu senden - Sie können eine Nachricht an sich selbst senden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -818,6 +1268,12 @@
     },
     "Selected Gateway Client" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählter Gateway-Client"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -828,6 +1284,12 @@
     },
     "Send" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senden Sie"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -838,6 +1300,12 @@
     },
     "Send new message" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue Nachricht senden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -848,6 +1316,12 @@
     },
     "Send your first messages" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senden Sie Ihre ersten Nachrichten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -858,6 +1332,12 @@
     },
     "Set as default gateway client?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Als Standard-Gateway-Client festlegen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -868,6 +1348,12 @@
     },
     "Settings" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -878,6 +1364,12 @@
     },
     "Sign in to continue with existing account" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmelden, um mit bestehendem Konto fortzufahren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -888,6 +1380,12 @@
     },
     "skip" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "überspringen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -898,6 +1396,12 @@
     },
     "Subject " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thema"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -908,6 +1412,12 @@
     },
     "Submit" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einreichen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -918,6 +1428,12 @@
     },
     "terms and conditions" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedingungen und Konditionen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -928,6 +1444,12 @@
     },
     "The Vault supports storing for multiple online platforms. Click Save Accounts to Vault to see the list" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault unterstützt das Speichern für mehrere Online-Plattformen. Klicken Sie auf ‘Konten in Vault speichern’, um die Liste zu sehen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -938,6 +1460,12 @@
     },
     "To " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -948,6 +1476,12 @@
     },
     "Try Example" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versuch Beispiel"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -958,6 +1492,12 @@
     },
     "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivieren Sie diese Option, um die Nachricht unter Verwendung Ihrer Telefonnummer und nicht Ihrer Geräte-ID zu veröffentlichen.\n\nDies kann dazu beitragen, die Größe der SMS-Nachricht zu reduzieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -968,6 +1508,12 @@
     },
     "Use SMS to make a post, send emails and messages with no internet connection" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzen Sie SMS, um ohne Internetverbindung zu posten, E-Mails und Nachrichten zu versenden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -977,7 +1523,20 @@
       }
     },
     "Vault" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault"
+          }
+        }
+      }
     },
     "vault_port_debug" : {
       "extractionState" : "manual",
@@ -988,10 +1547,12 @@
             "value" : "9050"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "vault_port_production" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "shouldTranslate" : false
     },
     "vault_url_debug" : {
       "extractionState" : "manual",
@@ -1002,7 +1563,8 @@
             "value" : "staging.smswithoutborders.com"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "vault_url_production" : {
       "extractionState" : "manual",
@@ -1013,10 +1575,17 @@
             "value" : "beta.smswithoutborders.com"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Verify" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überprüfen Sie"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1596,12 @@
     },
     "Verify your Phone number" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überprüfen Sie Ihre Rufnummer"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1037,6 +1612,12 @@
     },
     "Welcome back" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen zurück"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1047,6 +1628,12 @@
     },
     "Welcome to RelaySMS" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen bei RelaySMS"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1057,6 +1644,12 @@
     },
     "You are ready to begin sending messages from you added platforms." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können nun Nachrichten von den hinzugefügten Plattformen aus versenden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1067,6 +1660,12 @@
     },
     "You are ready!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie sind bereit!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1077,6 +1676,12 @@
     },
     "You can add accounts to Vault. This accounts are accessible to you when you are offline" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können Konten in Vault hinzufügen. Diese Konten sind für Sie auch offline zugänglich."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1087,6 +1692,12 @@
     },
     "You can add platforms from the homepage once you are logged in" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können Plattformen von der Homepage aus hinzufügen, sobald Sie eingeloggt sind"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1097,6 +1708,12 @@
     },
     "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können jederzeit ein weiteres Konto erstellen. Alle Ihre gespeicherten Tokens werden aus dem Vault gelöscht und alle Daten entfernt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1107,6 +1724,12 @@
     },
     "You can log back in at anytime. All the messages sent would be deleted." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können sich jederzeit wieder einloggen. Alle gesendeten Nachrichten werden dann gelöscht."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
