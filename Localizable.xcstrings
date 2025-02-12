@@ -5,52 +5,215 @@
 
     },
     "%@ accounts" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ comptes"
+          }
+        }
+      }
     },
     "Account" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte"
+          }
+        }
+      }
+    },
+    "Add Accounts to Vault" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajouter des comptes à la Vault"
+          }
+        }
+      }
     },
     "Already got SMS code" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déjà reçu le code SMS"
+          }
+        }
+      }
     },
     "Already have an account?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous avez déjà un compte ?"
+          }
+        }
+      }
+    },
+    "Available Platforms" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plates-formes disponibles"
+          }
+        }
+      }
     },
     "Bcc " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cci"
+          }
+        }
+      }
     },
     "Cc " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cc"
+          }
+        }
+      }
+    },
+    "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez la plateforme dont vous souhaitez révoquer les comptes. L'écran suivant vous permet de choisir le compte à révoquer pour la plateforme."
+          }
+        }
+      }
     },
     "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le choix d'un client Gateway situé dans la même zone géographique que vous permet d'améliorer la fiabilité de l'acheminement de vos messages."
+          }
+        }
+      }
+    },
+    "Come back anytime" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revenez à tout moment"
+          }
+        }
+      }
     },
     "Compose email" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer un e-mail"
+          }
+        }
+      }
+    },
+    "Compose for Platform" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compose pour la plate-forme"
+          }
+        }
+      }
     },
     "Compose Message" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Composer un message"
+          }
+        }
+      }
     },
     "Compose Post" : {
-
+      "comment" : "Should \"Post\" be translated as \"Publier\"",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Composer un message"
+          }
+        }
+      }
     },
     "composeBody" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "composerCorps"
+          }
+        }
+      }
     },
     "Continue" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        }
+      }
     },
     "Continue Deleting" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poursuivre la suppression"
+          }
+        }
+      }
     },
-    "Create account" : {
-
+    "Create a new RelaySMS Vault account or signup to your existing." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez un nouveau compte RelaySMS Vault ou connectez-vous à votre compte existant."
+          }
+        }
+      }
     },
-    "Create Acocunt" : {
-
+    "Create Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un compte"
+          }
+        }
+      }
     },
     "Create new account or log into existing one to begin sending messages from stored online platforms" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez un nouveau compte ou connectez-vous à un compte existant pour commencer à envoyer des messages à partir des plateformes en ligne stockées."
+          }
+        }
+      }
     },
     "default_app_scheme" : {
       "extractionState" : "manual",
@@ -75,88 +238,339 @@
       }
     },
     "Delete Account" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le compte"
+          }
+        }
+      }
     },
     "Don't have an account?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous n'avez pas de compte ?"
+          }
+        }
+      }
+    },
+    "Ensure that the selected phone number includes the country code (e.g., +237)." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assurez-vous que le numéro de téléphone sélectionné comprend l'indicatif du pays (par exemple, +237)."
+          }
+        }
+      }
     },
     "Enter code" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir le code"
+          }
+        }
+      }
     },
     "Enter code sent by SMS" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir le code envoyé par SMS"
+          }
+        }
+      }
     },
     "Enter your phone number and new passwords" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez votre numéro de téléphone et vos nouveaux mots de passe"
+          }
+        }
+      }
     },
     "Error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
+          }
+        }
+      }
     },
     "Finish!" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finir !"
+          }
+        }
+      }
     },
     "Forgot password?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe oublié ?"
+          }
+        }
+      }
     },
     "From " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De"
+          }
+        }
+      }
     },
     "From: %@" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De : %@"
+          }
+        }
+      }
     },
     "Gateway Clients" : {
-
+      "comment" : "Noun",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clients Gateway"
+          }
+        }
+      }
     },
     "Get code" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenir un code"
+          }
+        }
+      }
     },
     "Get started!" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencez !"
+          }
+        }
+      }
     },
     "I accept the" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "J'accepte la"
+          }
+        }
+      }
     },
     "If you don't have an account" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous n'avez pas de compte"
+          }
+        }
+      }
     },
     "If you forgot your password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous avez oublié votre mot de passe"
+          }
+        }
+      }
     },
     "in %lld seconds" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en %lld secondes"
+          }
+        }
+      }
+    },
+    "Introducing Vaults" : {
+      "comment" : "Vaults is a noun",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduction à Vaults"
+          }
+        }
+      }
+    },
+    "Learn how it works" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus sur son fonctionnement"
+          }
+        }
+      }
+    },
+    "Let's get you started" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commençons par le commencement"
+          }
+        }
+      }
     },
     "Log in" : {
-
+      "comment" : "As a verb (eg As an action)",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se connecter"
+          }
+        }
+      }
     },
     "Log out" : {
-
+      "comment" : "As a verb (eg As an action)",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter"
+          }
+        }
+      }
     },
     "Login" : {
-
+      "comment" : "Noun (eg As a page title)",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion"
+          }
+        }
+      }
     },
     "Make default" : {
-
-    },
-    "Make sure phone code e.g +237 is included in the selected number" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendre par défaut"
+          }
+        }
+      }
     },
     "Message with phone number" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message avec numéro de téléphone"
+          }
+        }
+      }
+    },
+    "Messages are encrypted meaning the messages will be scrambled - don't worry that's intended" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les messages sont cryptés, ce qui signifie qu'ils seront brouillés - ne vous inquiétez pas, c'est voulu."
+          }
+        }
+      }
+    },
+    "Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les messages sont partagés avec l'application de messagerie SMS par défaut que vous utilisez pour envoyer des SMS à partir de votre appareil."
+          }
+        }
+      }
     },
     "No messages sent" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun message envoyé"
+          }
+        }
+      }
     },
     "No platforms" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de plates-formes"
+          }
+        }
+      }
     },
     "No recent messages" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de messages récents"
+          }
+        }
+      }
     },
     "No Vault account" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun compte Vault"
+          }
+        }
+      }
     },
     "OTP Code" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code OTP"
+          }
+        }
+      }
     },
     "Password" : {
       "localizations" : {
@@ -165,20 +579,55 @@
             "state" : "translated",
             "value" : "Password"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
         }
       }
     },
     "Passwords don't match" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mots de passe ne correspondent pas"
+          }
+        }
+      }
     },
     "Phone Number" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numéro de téléphone"
+          }
+        }
+      }
     },
     "Please create one to save your platforms" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez en créer un pour sauvegarder vos plates-formes"
+          }
+        }
+      }
     },
     "Post" : {
-
+      "comment" : "Verb",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier"
+          }
+        }
+      }
     },
     "publisher_port_debug" : {
       "extractionState" : "manual",
@@ -217,79 +666,315 @@
       }
     },
     "Re-enter password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ressaisir le mot de passe"
+          }
+        }
+      }
     },
     "Read our privacy policy" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire notre politique de confidentialité"
+          }
+        }
+      }
     },
     "Recents" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Récents"
+          }
+        }
+      }
+    },
+    "RelaySMS Vaults keep secure access to your online accounts while you are offline" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les Vaults de RelaySMS garantissent un accès sécurisé à vos comptes en ligne même lorsque vous êtes hors ligne."
+          }
+        }
+      }
     },
     "Resend code" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renvoyer le code"
+          }
+        }
+      }
     },
     "Revoke" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Révoquer"
+          }
+        }
+      }
+    },
+    "Revoke Platforms" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Révoquer les plates-formes"
+          }
+        }
+      }
     },
     "Revoke stored platforms" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Révoquer les plates-formes stockées"
+          }
+        }
+      }
     },
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La révocation supprime la possibilité d'envoyer des messages à partir de ce compte. Vous pouvez à tout moment réenregistrer le compte."
+          }
+        }
+      }
     },
     "Save Accounts to Vault" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer les comptes dans Vault"
+          }
+        }
+      }
     },
     "Save platforms" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauvegarder les plateformes"
+          }
+        }
+      }
     },
     "Security" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sécurité"
+          }
+        }
+      }
     },
     "Select a contact to send a message" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez un contact pour envoyer un message"
+          }
+        }
+      }
     },
-    "Selected Gateway client" : {
-
+    "Select a platform to save it for offline use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner une plateforme pour l'enregistrer en vue d'une utilisation hors ligne"
+          }
+        }
+      }
+    },
+    "Select a platform to send an example message - you can send a message to yourself" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez une plate-forme pour envoyer un exemple de message - vous pouvez vous envoyer un message à vous-même"
+          }
+        }
+      }
+    },
+    "Selected Gateway Client" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client Gateway sélectionné"
+          }
+        }
+      }
     },
     "Send" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send"
+          }
+        }
+      }
     },
     "Send new message" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer un nouveau message"
+          }
+        }
+      }
+    },
+    "Send your first messages" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyez vos premiers messages"
+          }
+        }
+      }
     },
     "Set as default gateway client?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Définir comme Client Gateway par défaut"
+          }
+        }
+      }
     },
     "Settings" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres"
+          }
+        }
+      }
     },
     "Sign in to continue with existing account" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'identifier pour continuer avec le compte existant"
+          }
+        }
+      }
     },
     "skip" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sauter"
+          }
+        }
+      }
     },
     "Subject " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sujet"
+          }
+        }
+      }
     },
     "Submit" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soumettre"
+          }
+        }
+      }
     },
     "terms and conditions" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "conditions générales"
+          }
+        }
+      }
+    },
+    "The Vault supports storing for multiple online platforms. Click Save Accounts to Vault to see the list" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le Vault prend en charge le stockage pour plusieurs plateformes en ligne. Cliquez sur ‘Enregistrer les comptes dans Vault’ pour voir la liste."
+          }
+        }
+      }
     },
     "To " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour"
+          }
+        }
+      }
     },
     "Try Example" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayer l'exemple"
+          }
+        }
+      }
     },
     "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez cette option pour publier le message en utilisant votre numéro de téléphone et non votre DeviceID.\n\nCela permet de réduire la taille du message SMS."
+          }
+        }
+      }
     },
     "Use SMS to make a post, send emails and messages with no internet connection" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser les SMS pour envoyer des courriers, des courriels et des messages sans connexion à Internet."
+          }
+        }
+      }
     },
     "Vault" : {
 
@@ -331,22 +1016,104 @@
       }
     },
     "Verify" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier"
+          }
+        }
+      }
     },
     "Verify your Phone number" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifiez votre numéro de téléphone"
+          }
+        }
+      }
     },
     "Welcome back" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue à nouveau"
+          }
+        }
+      }
     },
     "Welcome to RelaySMS" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue à RelaySMS"
+          }
+        }
+      }
+    },
+    "You are ready to begin sending messages from you added platforms." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous êtes prêt à envoyer des messages à partir des plateformes que vous avez ajoutées."
+          }
+        }
+      }
+    },
+    "You are ready!" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous êtes prêts !"
+          }
+        }
+      }
+    },
+    "You can add accounts to Vault. This accounts are accessible to you when you are offline" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez ajouter des comptes dans Vault. Ces comptes sont accessibles même lorsque vous êtes hors ligne."
+          }
+        }
+      }
+    },
+    "You can add platforms from the homepage once you are logged in" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez ajouter des plateformes à partir de la page d'accueil une fois que vous êtes connecté."
+          }
+        }
+      }
     },
     "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez créer un autre compte à tout moment. Tous vos jetons stockés seront révoqués de la chambre forte et toutes les données seront supprimées."
+          }
+        }
+      }
     },
     "You can log back in at anytime. All the messages sent would be deleted." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez vous reconnecter à tout moment. Tous les messages envoyés seront supprimés."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
