@@ -10,7 +10,7 @@ import CoreData
 
 public func logoutAccount(context: NSManagedObjectContext) {
     do {
-        Vault.resetKeystore()
+        try Vault.resetKeystore(context: context)
         try DataController.resetDatabase(context: context)
         try Vault.resetStates(context: context)
     } catch {
@@ -84,6 +84,7 @@ struct SecuritySettingsView: View {
             do {
                 let llt = try Vault.getLongLivedToken()
                 try Vault.completeDeleteEntity(
+                    context: viewContext,
                     longLiveToken: llt,
                     storedTokenEntities: storedPlatforms,
                     platforms: platforms)

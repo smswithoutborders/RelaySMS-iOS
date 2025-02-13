@@ -51,6 +51,16 @@ struct MessageComposer {
         }
     }
     
+    public static func hasStates(context: NSManagedObjectContext) -> Bool {
+        let fetchRequest: NSFetchRequest<StatesEntity> = StatesEntity.fetchRequest()
+        do {
+            let result = try context.fetch(fetchRequest)
+            return result.count > 0
+        } catch {
+            return false
+        }
+    }
+    
     private func fetchStates() throws -> StatesEntity? {
         let fetchRequest: NSFetchRequest<StatesEntity> = StatesEntity.fetchRequest()
         do {

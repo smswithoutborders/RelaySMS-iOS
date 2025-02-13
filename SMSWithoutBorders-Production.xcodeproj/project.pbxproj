@@ -10,7 +10,6 @@
 		041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
 		041BB4E02D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
 		041BB4E12D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
-		041BB4E42D4B3CE70072A097 /* OTPHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4E22D4B3CE70072A097 /* OTPHandlers.swift */; };
 		041BB4E92D4B3D4A0072A097 /* SecurityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */; };
 		042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		0430A2222D5554D100830BF4 /* Bridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430A2202D5554D100830BF4 /* Bridges.swift */; };
@@ -154,7 +153,6 @@
 
 /* Begin PBXFileReference section */
 		041BB4DE2D47FEEC0072A097 /* EmailView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView1.swift; sourceTree = "<group>"; };
-		041BB4E22D4B3CE70072A097 /* OTPHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPHandlers.swift; sourceTree = "<group>"; };
 		041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityHandler.swift; sourceTree = "<group>"; };
 		042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsEntityHandlers.swift; sourceTree = "<group>"; };
 		0430A2202D5554D100830BF4 /* Bridges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridges.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */,
-				041BB4E22D4B3CE70072A097 /* OTPHandlers.swift */,
 				041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */,
 			);
 			path = Handlers;
@@ -677,7 +674,6 @@
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
-				041BB4E42D4B3CE70072A097 /* OTPHandlers.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
 				3B928A432C66A6A500BA145F /* TextPlatformView.swift in Sources */,
 				0430A2222D5554D100830BF4 /* Bridges.swift in Sources */,

@@ -25,59 +25,29 @@ nonisolated func signupAuthenticateRecover(
     password: String,
     type: OTPAuthType.TYPE,
     otpCode: String? = nil,
-    context: NSManagedObjectContext? = nil) async throws -> Int {
-        print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
-    
-    let (publishPrivateKey, deviceIdPrivateKey) = try generateNewKeypairs()
-        let clientPublishPubKey = publishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
-    
-        let clientDeviceIDPubKey = deviceIdPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
+    context: NSManagedObjectContext? = nil
+) async throws -> Int {
+    print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
     
     let vault = Vault()
 
     if(type == OTPAuthType.TYPE.CREATE) {
-        print("Signing in with phone number: \(phoneNumber)")
-        print("Country code: \(countryCode)")
         let response = try vault.createEntity(
             phoneNumber: phoneNumber,
             countryCode: countryCode!,
             password: password,
-            clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIdPubKey: clientDeviceIDPubKey,
-            ownershipResponse: otpCode)
+            ownershipResponse: otpCode
+        )
         
-        if(otpCode != nil) {
-            try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                           publishPubKey: response.serverPublishPubKey.base64Decoded(),
-                       llt: response.longLivedToken,
-                           clientDeviceIDPrivateKey: deviceIdPrivateKey!,
-                           clientPublishPrivateKey: publishPrivateKey!,
-                           phoneNumber: phoneNumber)
-            
-        }
         return Int(response.nextAttemptTimestamp)
 
     } else if type == OTPAuthType.TYPE.AUTHENTICATE {
         let response = try vault.authenticateEntity(
             phoneNumber: phoneNumber,
             password: password,
-            clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIDPubKey: clientDeviceIDPubKey,
-            ownershipResponse: otpCode)
+            ownershipResponse: otpCode
+        )
         
-        
-        if(otpCode != nil) {
-            let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                                     publishPubKey: response.serverPublishPubKey.base64Decoded(),
-                       llt: response.longLivedToken,
-                                     clientDeviceIDPrivateKey: deviceIdPrivateKey!,
-                                     clientPublishPrivateKey: publishPrivateKey!,
-                                     phoneNumber: phoneNumber)
-            
-            let publisher = Publisher()
-            try vault.refreshStoredTokens(llt: llt, context: context!)
-            print("successfully refreshed stored tokens...")
-        }
         return Int(response.nextAttemptTimestamp)
         
     } else {
@@ -85,24 +55,8 @@ nonisolated func signupAuthenticateRecover(
         let response = try vault.recoverPassword(
             phoneNumber: phoneNumber,
             newPassword: password,
-            clientPublishPubKey: clientPublishPubKey,
-            clientDeviceIdPubKey: clientDeviceIDPubKey,
-            ownershipResponse: otpCode)
-        
-        if(otpCode != nil) {
-            let llt = try processOTP(peerDeviceIdPubKey: try response.serverDeviceIDPubKey.base64Decoded(),
-                                     publishPubKey: response.serverPublishPubKey.base64Decoded(),
-                       llt: response.longLivedToken,
-                                     clientDeviceIDPrivateKey: deviceIdPrivateKey!,
-                                     clientPublishPrivateKey: publishPrivateKey!,
-                                     phoneNumber: phoneNumber)
-            
-            let publisher = Publisher()
-            try vault.refreshStoredTokens(llt: llt, context: context!)
-            print("successfully refreshed stored tokens...")
-            
-        }
-        
+            ownershipResponse: otpCode
+        )
         return Int(response.nextAttemptTimestamp)
     }
 }

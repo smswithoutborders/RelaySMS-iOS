@@ -14,7 +14,7 @@ import SwobDoubleRatchet
 import CryptoKit
 
 
-class BridgesTest: XCTestCase {
+public class BridgesTest: XCTestCase {
     
     func testReadStaticKeys() async throws {
         let keys = Bridges.getStaticKeys()
@@ -24,7 +24,7 @@ class BridgesTest: XCTestCase {
     func testBridges() async throws {
         let context = DataController().container.viewContext
         
-        Vault.resetKeystore()
+        try Vault.resetKeystore(context: context)
         Bridges.reset()
 
         var to = "wisdomnji@gmail.com"
@@ -49,7 +49,7 @@ class BridgesTest: XCTestCase {
         )
         
         print("Executing first stage... auth + payload")
-        var responseCode = try await executePayload(payload: payload!)
+        var responseCode = try await BridgesTest.executePayload(payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- First stage complete")
         
@@ -69,7 +69,7 @@ class BridgesTest: XCTestCase {
         )
         
         print("Executing second stage... auth + payload")
-        responseCode = try await executePayload(payload: payload!)
+        responseCode = try await BridgesTest.executePayload(payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- Second stage complete")
         
@@ -107,7 +107,7 @@ class BridgesTest: XCTestCase {
         print(text)
     }
     
-    func executePayload(payload: String) async throws -> Int? {
+    static func executePayload(payload: String) async throws -> Int? {
         guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return 0 }
         
         print(payload)

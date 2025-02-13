@@ -36,7 +36,7 @@ struct Bridges {
 
             // Meaning the user has logged in online already
             if(try Vault.getLongLivedToken().isEmpty) {
-                if(UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) == nil) {
+                if(!MessageComposer.hasStates(context: context)) {
                     try Vault.resetStates(context: context)
                     
                     let (_sharedSecret, _clientPublicKey, _peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
@@ -45,6 +45,10 @@ struct Bridges {
                     clientPublicKey = _clientPublicKey?.rawRepresentation.bytes
                     
                     UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
+                    UserDefaults.standard.set(
+                        peerPublishPublicKey?.rawRepresentation.bytes,
+                        forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
+                    )
                     UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
                 } else {
                     print("\n[+] Bypassing key generation, using stored keys")
@@ -66,14 +70,22 @@ struct Bridges {
                     print("Bridges raising exception: \(error)")
                 }
             } else {
+                print("[+] Got LLT, bypassing key generation")
                 let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
-                
+                clientPublicKey = UserDefaults.standard.object(
+                    forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
+
+                if(!MessageComposer.hasStates(context: context)) {
+                    sharedSecret = try Vault.getPublisherSharedSecret()
+                }
+
                 messageComposer = try MessageComposer(
-                    SK: nil,
+                    SK: sharedSecret,
                     AD: AD,
                     peerDhPubKey: Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD),
                     keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
-                    context: context)
+                    context: context
+                )
             }
             
             let data = try messageComposer!.bridgeEmailComposer(
