@@ -12,6 +12,12 @@
             "value" : "%@ Konten"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ cuentas"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26,6 +32,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konto"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuenta"
           }
         },
         "fr" : {
@@ -45,6 +57,12 @@
             "value" : "Konten zu Vault hinzufügen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir cuentas a Vault"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -61,6 +79,12 @@
             "value" : "SMS-Code bereits erhalten"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya tengo el código SMS"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -75,6 +99,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie haben bereits ein Konto?"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ya tiene una cuenta?"
           }
         },
         "fr" : {
@@ -94,6 +124,12 @@
             "value" : "Verfügbare Plattformen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plataformas disponibles"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -110,6 +146,12 @@
             "value" : "Bcc"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cco"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -121,6 +163,12 @@
     "Cc " : {
       "localizations" : {
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cc"
+          }
+        },
+        "es-US" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cc"
@@ -143,6 +191,12 @@
             "value" : "Wählen Sie die Plattform aus, für die Sie Konten sperren möchten. Auf dem nächsten Bildschirm können Sie auswählen, welches Konto für die Plattform widerrufen werden soll."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elija la plataforma de la que desea revocar cuentas. La siguiente pantalla le permitirá elegir qué cuenta revocar para la plataforma."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -158,6 +212,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir un Gateway Client en la misma ubicación geográfica que tú ayuda a mejorar la fiabilidad de la entrega de tus mensajes."
           }
         },
         "fr" : {
@@ -176,6 +236,12 @@
             "value" : "Jederzeit wiederkommen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelve cuando quieras"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -190,6 +256,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "E-Mail verfassen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redactar correo electrónico"
           }
         },
         "fr" : {
@@ -209,6 +281,12 @@
             "value" : "Compose für Plattform"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Componer para plataforma"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -223,6 +301,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nachricht verfassen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redactar mensaje"
           }
         },
         "fr" : {
@@ -242,6 +326,12 @@
             "value" : "Beitrag verfassen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redactar mensaje"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -256,6 +346,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "composeBody"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "componerCuerpo"
           }
         },
         "fr" : {
@@ -274,6 +370,12 @@
             "value" : "Weiter"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continúe en"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -288,6 +390,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Löschung fortsetzen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar borrando"
           }
         },
         "fr" : {
@@ -307,6 +415,12 @@
             "value" : "Erstellen Sie ein neues RelaySMS Vault-Konto oder melden Sie sich bei Ihrem bestehenden Konto an."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new RelaySMS Vault account or signup to your existing."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -323,6 +437,12 @@
             "value" : "Konto erstellen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear cuenta"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -337,6 +457,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erstellen Sie ein neues Konto oder melden Sie sich bei einem bestehenden Konto an, um Nachrichten von gespeicherten Online-Plattformen zu versenden"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cree una cuenta nueva o inicie sesión en una ya existente para empezar a enviar mensajes desde las plataformas en línea almacenadas"
           }
         },
         "fr" : {
@@ -379,6 +505,12 @@
             "value" : "Konto löschen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuenta"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -393,6 +525,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie haben noch kein Konto?"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't have an account?"
           }
         },
         "fr" : {
@@ -411,6 +549,12 @@
             "value" : "Vergewissern Sie sich, dass die gewählte Rufnummer die Landesvorwahl enthält (z. B. +49)."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asegúrese de que el número de teléfono seleccionado incluye el prefijo del país (por ejemplo, +237)."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -425,6 +569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Code eingeben"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduzca el código"
           }
         },
         "fr" : {
@@ -443,6 +593,12 @@
             "value" : "Per SMS gesendeten Code eingeben"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduzca el código enviado por SMS"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -457,6 +613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Geben Sie Ihre Telefonnummer und Ihre neuen Passwörter ein"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce tu número de teléfono y tus nuevas contraseñas"
           }
         },
         "fr" : {
@@ -475,6 +637,12 @@
             "value" : "Fehler"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -489,6 +657,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fertig!"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Termina!"
           }
         },
         "fr" : {
@@ -507,6 +681,12 @@
             "value" : "Passwort vergessen?"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Ha olvidado su contraseña?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -523,6 +703,12 @@
             "value" : "Von"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -537,6 +723,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "von: %@"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De: %@ "
           }
         },
         "fr" : {
@@ -556,6 +748,12 @@
             "value" : "Gateway-Clients"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clientes de Gateway"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -570,6 +768,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Code erhalten"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener código"
           }
         },
         "fr" : {
@@ -588,6 +792,12 @@
             "value" : "Los geht's!"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Póngase en marcha"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -604,6 +814,12 @@
             "value" : "Ich akzeptiere die"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acepto la"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -613,7 +829,27 @@
       }
     },
     "If you don't have an account,\nPlease create one to save your platforms" : {
-      "comment" : "Explains that you need to create an account to save your platforms if you don't have an account already"
+      "comment" : "Explains that you need to create an account to save your platforms if you don't have an account already",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie noch kein Konto haben,\nBitte erstellen Sie eines, um Ihre Plattformen zu speichern"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si no tiene una cuenta,\ncree una para guardar sus plataformas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous n'avez pas de compte,\nVeuillez en créer un pour sauvegarder vos plateformes"
+          }
+        }
+      }
     },
     "If you forgot your password" : {
       "localizations" : {
@@ -621,6 +857,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wenn Sie Ihr Passwort vergessen haben"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si ha olvidado su contraseña"
           }
         },
         "fr" : {
@@ -637,6 +879,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "in %lld Sekunden"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en %lld segundos"
           }
         },
         "fr" : {
@@ -656,6 +904,12 @@
             "value" : "Einführung von Vaults"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presentamos Vaults"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -670,6 +924,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erfahren Sie, wie es funktioniert"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aprenda cómo funciona"
           }
         },
         "fr" : {
@@ -689,6 +949,12 @@
             "value" : "So fangen Sie an"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empecemos"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -704,6 +970,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Einloggen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectarse"
           }
         },
         "fr" : {
@@ -723,6 +995,12 @@
             "value" : "Abmelden"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerrar sesión"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -738,6 +1016,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anmeldung"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio de sesión"
           }
         },
         "fr" : {
@@ -756,6 +1040,12 @@
             "value" : "Standard machen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por defecto"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -770,6 +1060,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nachricht mit Telefonnummer"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensaje con número de teléfono"
           }
         },
         "fr" : {
@@ -789,6 +1085,12 @@
             "value" : "Die Nachrichten sind verschlüsselt, d.h. die Nachrichten werden verschlüsselt - keine Sorge, das ist beabsichtigt."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los mensajes están encriptados, lo que significa que los mensajes serán codificados - no se preocupe que es la intención"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -804,6 +1106,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nachrichten werden mit Ihrer Standard-SMS-Anwendung geteilt, die Sie zum Versenden von SMS-Nachrichten von Ihrem Gerät aus verwenden."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los mensajes se comparten con la aplicación de mensajería SMS predeterminada que utilizas para enviar mensajes SMS desde tu dispositivo."
           }
         },
         "fr" : {
@@ -822,6 +1130,12 @@
             "value" : "Keine Nachrichten gesendet"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se envían mensajes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -836,6 +1150,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keine Plattformen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin plataformas"
           }
         },
         "fr" : {
@@ -854,6 +1174,12 @@
             "value" : "Keine neuen Nachrichten"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay mensajes recientes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -870,6 +1196,12 @@
             "value" : "Kein Vault-Konto"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin cuenta Vault"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -884,6 +1216,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OTP-Code"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código OTP"
           }
         },
         "fr" : {
@@ -908,6 +1246,12 @@
             "value" : "Password"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraseña"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -922,6 +1266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Passwörter stimmen nicht überein"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las contraseñas no coinciden"
           }
         },
         "fr" : {
@@ -940,6 +1290,12 @@
             "value" : "Rufnummer"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Número de teléfono"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -955,6 +1311,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beitrag"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "publicar"
           }
         },
         "fr" : {
@@ -1013,6 +1375,12 @@
             "value" : "Passwort erneut eingeben"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuelva a introducir la contraseña"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1029,6 +1397,12 @@
             "value" : "Lesen Sie unsere Datenschutzrichtlinie"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lea nuestra política de privacidad"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1043,6 +1417,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aktuelles"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recientes"
           }
         },
         "fr" : {
@@ -1062,6 +1442,12 @@
             "value" : "RelaySMS Vaults bieten sicheren Zugang zu Ihren Online-Konten, während Sie offline sind"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los bóvedas RelaySMS mantienen el acceso seguro a sus cuentas en línea mientras no está conectado."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1078,6 +1464,12 @@
             "value" : "Code erneut senden"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reenviar código"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1092,6 +1484,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Widerrufen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revocar"
           }
         },
         "fr" : {
@@ -1111,6 +1509,12 @@
             "value" : "Plattformen widerrufen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revocar plataformas"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1125,6 +1529,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gespeicherte Plattformen widerrufen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revocar plataformas almacenadas"
           }
         },
         "fr" : {
@@ -1143,6 +1553,12 @@
             "value" : "Durch den Widerruf wird die Möglichkeit zum Senden von Nachrichten von diesem Konto entfernt. Sie können das Konto jederzeit wieder speichern."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La revocación elimina la posibilidad de enviar mensajes desde esta cuenta. Puede almacenar la acocunt de nuevo en cualquier momento."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1157,6 +1573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konten in Vault speichern"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar cuentas en el almacén"
           }
         },
         "fr" : {
@@ -1175,6 +1597,12 @@
             "value" : "Plattformen speichern"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar plataformas"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1191,6 +1619,12 @@
             "value" : "Sicherheit"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seguridad"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1205,6 +1639,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wählen Sie einen Kontakt aus, um eine Nachricht zu senden"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona un contacto para enviarle un mensaje"
           }
         },
         "fr" : {
@@ -1224,6 +1664,12 @@
             "value" : "Wählen Sie eine Plattform, um sie für die Offline-Nutzung zu speichern"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona una plataforma para guardarla y utilizarla sin conexión"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1239,6 +1685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wählen Sie eine Plattform, um eine Beispielnachricht zu senden - Sie können eine Nachricht an sich selbst senden"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona una plataforma para enviar un mensaje de ejemplo: puedes enviarte un mensaje a ti mismo"
           }
         },
         "fr" : {
@@ -1257,6 +1709,12 @@
             "value" : "Ausgewählter Gateway-Client"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliente Gateway seleccionado"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1273,6 +1731,12 @@
             "value" : "Senden Sie"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1287,6 +1751,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Neue Nachricht senden"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar nuevo mensaje"
           }
         },
         "fr" : {
@@ -1306,6 +1776,12 @@
             "value" : "Senden Sie Ihre ersten Nachrichten"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envíe sus primeros mensajes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1320,6 +1796,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Als Standard-Gateway-Client festlegen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Establecer como cliente de puerta de enlace predeterminada?"
           }
         },
         "fr" : {
@@ -1338,6 +1820,12 @@
             "value" : "Einstellungen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1352,6 +1840,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anmelden, um mit bestehendem Konto fortzufahren"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión para continuar con la cuenta existente"
           }
         },
         "fr" : {
@@ -1370,6 +1864,12 @@
             "value" : "überspringen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "omitir"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1384,6 +1884,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thema"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asunto"
           }
         },
         "fr" : {
@@ -1402,6 +1908,12 @@
             "value" : "Einreichen"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1416,6 +1928,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bedingungen und Konditionen"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "condiciones generales"
           }
         },
         "fr" : {
@@ -1435,6 +1953,12 @@
             "value" : "Vault unterstützt das Speichern für mehrere Online-Plattformen. Klicken Sie auf ‘Konten in Vault speichern’, um die Liste zu sehen."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La Bóveda admite el almacenamiento para múltiples plataformas en línea. Haga clic en Guardar cuentas en el almacén para ver la lista."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1449,6 +1973,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A"
           }
         },
         "fr" : {
@@ -1467,6 +1997,12 @@
             "value" : "Versuch Beispiel"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ejemplo de prueba"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1481,6 +2017,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aktivieren Sie diese Option, um die Nachricht unter Verwendung Ihrer Telefonnummer und nicht Ihrer Geräte-ID zu veröffentlichen.\n\nDies kann dazu beitragen, die Größe der SMS-Nachricht zu reduzieren"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active esta opción para publicar el mensaje utilizando su número de teléfono y no su DeviceID.\n\nEsto puede ayudar a reducir el tamaño del mensaje SMS"
           }
         },
         "fr" : {
@@ -1499,6 +2041,12 @@
             "value" : "Nutzen Sie SMS, um ohne Internetverbindung zu posten, E-Mails und Nachrichten zu versenden"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliza SMS para hacer un envío postal, enviar correos electrónicos y mensajes sin conexión a Internet"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1510,6 +2058,12 @@
     "Vault" : {
       "localizations" : {
         "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault"
+          }
+        },
+        "es-US" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vault"
@@ -1571,6 +2125,12 @@
             "value" : "Überprüfen Sie"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1585,6 +2145,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Überprüfen Sie Ihre Rufnummer"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verifique su número de teléfono"
           }
         },
         "fr" : {
@@ -1603,6 +2169,12 @@
             "value" : "Willkommen zurück"
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenido de nuevo"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1617,6 +2189,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Willkommen bei RelaySMS"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenido a RelaySMS"
           }
         },
         "fr" : {
@@ -1636,6 +2214,12 @@
             "value" : "Sie können nun Nachrichten von den hinzugefügten Plattformen aus versenden."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya está listo para empezar a enviar mensajes desde sus plataformas añadidas."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1650,6 +2234,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie sind bereit!"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Estás listo!"
           }
         },
         "fr" : {
@@ -1669,6 +2259,12 @@
             "value" : "Sie können Konten zu Vault hinzufügen. Diese Konten sind auch offline für Sie zugänglich."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes añadir cuentas a Vault. Podrá acceder a estas cuentas cuando esté desconectado"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1684,6 +2280,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie können Plattformen von der Homepage aus hinzufügen, sobald Sie eingeloggt sind"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puede añadir plataformas desde la página de inicio una vez que haya iniciado sesión"
           }
         },
         "fr" : {
@@ -1703,6 +2305,12 @@
             "value" : "Sie können jederzeit ein weiteres Konto erstellen. Alle Ihre gespeicherten Tokens werden aus dem Vault gelöscht und alle Daten entfernt."
           }
         },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes crear otra cuenta en cualquier momento. Todos tus tokens almacenados serán revocados de la Bóveda y todos los datos borrados."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1717,6 +2325,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sie können sich jederzeit wieder einloggen. Alle gesendeten Nachrichten werden dann gelöscht."
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes volver a conectarte en cualquier momento. Se borrarán todos los mensajes enviados."
           }
         },
         "fr" : {
