@@ -37,6 +37,7 @@
       }
     },
     "Add Accounts to Vault" : {
+      "comment" : "Title for Add Accounts View",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -85,6 +86,7 @@
       }
     },
     "Available Platforms" : {
+      "comment" : "Title showing available platforms which can be saved for offline use",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -133,6 +135,7 @@
       }
     },
     "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform." : {
+      "comment" : "Asks the user to select a platform they would like to revoke accounts from, and explains that the next screen will allow them to choose which account to revoke",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -149,6 +152,7 @@
       }
     },
     "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered" : {
+      "comment" : "Describes helpful tip about choosing a default gateway client",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -197,6 +201,7 @@
       }
     },
     "Compose for Platform" : {
+      "comment" : "Title for page showing the platform to compose a message for",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -294,6 +299,7 @@
       }
     },
     "Create a new RelaySMS Vault account or signup to your existing." : {
+      "comment" : "Prompts user to create a RelaySMS Vault account or signup to their existing one",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -606,21 +612,8 @@
         }
       }
     },
-    "If you don't have an account" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn Sie noch kein Konto haben"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si vous n'avez pas de compte"
-          }
-        }
-      }
+    "If you don't have an account,\nPlease create one to save your platforms" : {
+      "comment" : "Explains that you need to create an account to save your platforms if you don't have an account already"
     },
     "If you forgot your password" : {
       "localizations" : {
@@ -655,7 +648,7 @@
       }
     },
     "Introducing Vaults" : {
-      "comment" : "Vaults is a noun",
+      "comment" : "Signup/Sign in Onboarding View subtitle",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -688,6 +681,7 @@
       }
     },
     "Let's get you started" : {
+      "comment" : "Signup/signin Onboarding View title\nTitle for onboarding tab view (default",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -787,6 +781,7 @@
       }
     },
     "Messages are encrypted meaning the messages will be scrambled - don't worry that's intended" : {
+      "comment" : "Explains that messages are securely encrypted and will appear scrambled, which is fine and expected",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -803,6 +798,7 @@
       }
     },
     "Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device" : {
+      "comment" : "Explains that messages are shared default SMS app",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -952,22 +948,6 @@
         }
       }
     },
-    "Please create one to save your platforms" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bitte erstellen Sie eine, um Ihre Plattformen zu speichern"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Veuillez en créer un pour sauvegarder vos plates-formes"
-          }
-        }
-      }
-    },
     "Post" : {
       "comment" : "Verb",
       "localizations" : {
@@ -1074,6 +1054,7 @@
       }
     },
     "RelaySMS Vaults keep secure access to your online accounts while you are offline" : {
+      "comment" : "Explains that RelaySMS Vaults have secure access to youe online accounts even while you are offline",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1122,6 +1103,7 @@
       }
     },
     "Revoke Platforms" : {
+      "comment" : "Title for page showing the platforms to revoke an account for",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1251,6 +1233,7 @@
       }
     },
     "Select a platform to send an example message - you can send a message to yourself" : {
+      "comment" : "Description asking a user to select a platform to send an example message",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1315,6 +1298,7 @@
       }
     },
     "Send your first messages" : {
+      "comment" : "Title OnboardingTryExample View",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1443,6 +1427,7 @@
       }
     },
     "The Vault supports storing for multiple online platforms. Click Save Accounts to Vault to see the list" : {
+      "comment" : "Explains that the Vault supports storing for multiple online platforms and you can click to save accounts to your vault",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1643,6 +1628,7 @@
       }
     },
     "You are ready to begin sending messages from you added platforms." : {
+      "comment" : "Explains that you can start sending messages from you added platforms.",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1674,23 +1660,25 @@
         }
       }
     },
-    "You can add accounts to Vault. This accounts are accessible to you when you are offline" : {
+    "You can add accounts to Vault. These accounts are accessible to you when you are offline" : {
+      "comment" : "Explains that you can add accounts to Vault and the accounts are persisted while offline",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sie können Konten in Vault hinzufügen. Diese Konten sind für Sie auch offline zugänglich."
+            "value" : "Sie können Konten zu Vault hinzufügen. Diese Konten sind auch offline für Sie zugänglich."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous pouvez ajouter des comptes dans Vault. Ces comptes sont accessibles même lorsque vous êtes hors ligne."
+            "value" : "Vous pouvez ajouter des comptes à Vault. Ces comptes sont accessibles même lorsque vous êtes hors ligne."
           }
         }
       }
     },
     "You can add platforms from the homepage once you are logged in" : {
+      "comment" : "Explains that you can add platforms from the homepage once you are logged in",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1707,6 +1695,7 @@
       }
     },
     "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {
+      "comment" : "Explains deleting your account will remoke all previous tokens and your data will be deleted but another account can be created any time",
       "localizations" : {
         "de" : {
           "stringUnit" : {

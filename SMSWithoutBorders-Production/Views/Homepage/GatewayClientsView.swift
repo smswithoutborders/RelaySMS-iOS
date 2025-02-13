@@ -82,7 +82,9 @@ struct GatewayClientsView: View {
                         defaultGatewayClientMsisdn = selectedGatewayClient
                     }
                 } message: {
-                    Text("Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered")
+                    Text(String(localized: "Choosing a Gateway client in the same Geographical location as you helps improves the reliability of your messages being delivered", comment: "Describes helpful tip about choosing a default gateway client")
+                        
+                    )
                 }
             }
             .navigationTitle("Gateway Clients")

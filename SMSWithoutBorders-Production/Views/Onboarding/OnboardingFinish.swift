@@ -13,11 +13,11 @@ struct OnboardingFinish: View {
     var body: some View {
         VStack {
             Tab(buttonView: EmptyView(),
-                title: "You are ready!",
-                subTitle: "Come back anytime",
-                description: "You are ready to begin sending messages from you added platforms.",
+                title: String(localized:"You are ready!"),
+                subTitle: String(localized: "Come back anytime"),
+                description: String(localized: "You are ready to begin sending messages from you added platforms.", comment: "Explains that you can start sending messages from you added platforms."),
                 imageName: "OnboardingAddAccountExample",
-                subDescription: "You can add platforms from the homepage once you are logged in"
+                subDescription: String(localized:"You can add platforms from the homepage once you are logged in", comment: "Explains that you can add platforms from the homepage once you are logged in")
             )
         }
         .padding()

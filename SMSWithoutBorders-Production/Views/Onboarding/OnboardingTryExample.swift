@@ -36,11 +36,11 @@ struct OnboardingTryExample: View {
                                 }.hidden()
                         )
                     },
-                    title:"Send your first messages",
-                    subTitle: "Learn how it works",
-                    description: "Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device",
+                    title:String(localized:"Send your first messages", comment: "Title OnboardingTryExample View"),
+                    subTitle: String(localized:"Learn how it works"),
+                    description: String(localized:"Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device", comment: "Explains that messages are shared default SMS app"),
                     imageName: "OnboardingTryExample",
-                    subDescription: "Messages are encrypted meaning the messages will be scrambled - don't worry that's intended"
+                    subDescription: String(localized:"Messages are encrypted meaning the messages will be scrambled - don't worry that's intended", comment: "Explains that messages are securely encrypted and will appear scrambled, which is fine and expected")
                 )
             }
             

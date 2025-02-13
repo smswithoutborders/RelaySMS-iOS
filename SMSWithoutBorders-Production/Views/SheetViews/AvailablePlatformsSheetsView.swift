@@ -12,10 +12,10 @@ import CoreData
 
 struct OfflineAvailablePlatformsSheetsView: View {
     @State var codeVerifier: String = ""
-    var title: LocalizedStringKey = "Compose for Platform"
-    var titleRevoke: LocalizedStringKey = "Revoke Platforms"
-    @State var description: LocalizedStringKey = "Select a platform to send an example message - you can send a message to yourself"
-    @State var descriptionRevoke: LocalizedStringKey = "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform."
+    var title: String = String(localized:"Compose for Platform", comment: "Title for page showing the platform to compose a message for")
+    var titleRevoke: String = String(localized:"Revoke Platforms", comment: "Title for page showing the platforms to revoke an account for")
+    var description: String = String(localized:"Select a platform to send an example message - you can send a message to yourself", comment: "Description asking a user to select a platform to send an example message")
+    var descriptionRevoke: String = String(localized:"Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform.", comment: "Asks the user to select a platform they would like to revoke accounts from, and explains that the next screen will allow them to choose which account to revoke")
     @State var isRevoke: Bool = false
     
     var body: some View {
@@ -32,8 +32,8 @@ struct OfflineAvailablePlatformsSheetsView: View {
 struct OnlineAvailablePlatformsSheetsView: View {
     @Binding var codeVerifier: String
     
-    var title: LocalizedStringKey = "Available Platforms"
-    var description: LocalizedStringKey = "Select a platform to save it for offline use"
+    var title: String = String(localized: "Available Platforms", comment: "Title showing available platforms which can be saved for offline use" )
+    var description: String = String(localized:"Select a platform to save it for offline use", comment: "Description showing available platforms which can be saved for offline use")
     
     var body: some View {
         AvailablePlatformsSheetsView(
@@ -61,8 +61,8 @@ struct AvailablePlatformsSheetsView: View {
     
     @Binding var codeVerifier: String
     
-    var title: LocalizedStringKey
-     var description: LocalizedStringKey
+    var title: String
+    var description: String
     
     @State var type: TYPE = TYPE.AVAILABLE
     @Environment(\.openURL) var openURL

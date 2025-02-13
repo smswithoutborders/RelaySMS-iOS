@@ -9,11 +9,11 @@ import SwiftUI
 
 struct Tab<ButtonView: View>: View {
     let buttonView: ButtonView
-    @State var title: LocalizedStringKey = "Let's get you started"
-    @State var subTitle: LocalizedStringKey
-    @State var description: LocalizedStringKey
+    @State var title: String = String(localized:"Let's get you started", comment: "Title for onboarding tab view (default")
+    @State var subTitle: String
+    @State var description: String
     @State var imageName: String
-    @State var subDescription: LocalizedStringKey
+    @State var subDescription: String
     
 
     var body: some View {
