@@ -49,7 +49,7 @@ public class BridgesTest: XCTestCase {
         )
         
         print("Executing first stage... auth + payload")
-        var responseCode = try await BridgesTest.executePayload(payload: payload!)
+        var responseCode = try await BridgesTest.executePayload(phoneNumber: "+237123456789", payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- First stage complete")
         
@@ -69,7 +69,7 @@ public class BridgesTest: XCTestCase {
         )
         
         print("Executing second stage... auth + payload")
-        responseCode = try await BridgesTest.executePayload(payload: payload!)
+        responseCode = try await BridgesTest.executePayload(phoneNumber: "+237123456789", payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- Second stage complete")
         
@@ -83,7 +83,7 @@ public class BridgesTest: XCTestCase {
 
         print("Executing second stage... payload")
         payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
-        let responseCode1 = try await BridgesTest.executePayload(payload: payload!)
+        var responseCode1 = try await BridgesTest.executePayload(phoneNumber: "+237123456789", payload: payload!)
         XCTAssertEqual(responseCode1, 200)
 
     }
@@ -120,11 +120,11 @@ public class BridgesTest: XCTestCase {
         print(text)
     }
     
-    static func executePayload(payload: String) async throws -> Int? {
+    static func executePayload(phoneNumber: String, payload: String) async throws -> Int? {
         guard let url = URL(string: "https://gatewayserver.staging.smswithoutborders.com/v3/publish") else { return 0 }
         
         print(payload)
-        let _requestBody = ["address": "+237123456789", "text": payload]
+        let _requestBody = ["address": phoneNumber, "text": payload]
         let requestBody = try JSONSerialization.data(withJSONObject: _requestBody)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

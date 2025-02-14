@@ -104,37 +104,36 @@ class VaultTest: XCTestCase {
         var cc = ""
         var bcc = ""
         var subject = "Test email"
-        var body = "Hello world"
         
-        let messageComposer = try Publisher.publish(context: context)
-        let encryptedCipherText = try messageComposer.emailComposer(
-            platform_letter: "g".data(using: .utf8)!.first!,
-            from: "anarchist.sonsofperdition@gmail.com",
-            to: to,
-            cc: cc,
-            bcc: bcc,
-            subject: subject,
-            body: "Testing platforms..."
-        )
-        
-        let responseCode = try await BridgesTest.executePayload(payload: encryptedCipherText)
-        XCTAssertEqual(responseCode, 200)
-
-//        var (cipherText, clientPublicKey) = try Bridges.compose(
+//        let messageComposer = try Publisher.publish(context: context, checkPhoneNumberSettings: false)
+//        let encryptedCipherText = try messageComposer.emailComposer(
+//            platform_letter: "g".data(using: .utf8)!.first!,
+//            from: "anarchist.sonsofperdition@gmail.com",
 //            to: to,
 //            cc: cc,
 //            bcc: bcc,
 //            subject: subject,
-//            body: body,
-//            context: context
+//            body: "Hello world - platforms"
 //        )
-//
-//        let payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
-//        print("Final payload now looks like this: \(payload)")
 //        
-//        print("Executing first stage... auth + payload")
-//        let responseCode = try await BridgesTest.executePayload(payload: payload!)
+//        let responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: encryptedCipherText)
 //        XCTAssertEqual(responseCode, 200)
-//        print("- First stage complete")
+
+        var (cipherText, clientPublicKey) = try Bridges.compose(
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: "Hello world - Bridges",
+            context: context
+        )
+
+        let payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
+        print("Final payload now looks like this: \(payload)")
+        
+        print("Executing first stage... auth + payload")
+        let responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: payload!)
+        XCTAssertEqual(responseCode, 200)
+        print("- First stage complete")
     }
 }
