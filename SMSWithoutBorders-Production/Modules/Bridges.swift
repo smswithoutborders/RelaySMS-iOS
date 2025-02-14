@@ -71,17 +71,13 @@ struct Bridges {
                     print("Bridges raising exception: \(error)")
                 }
             } else {
-                print("[+] Got LLT, bypassing key generation")
                 let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
-                print("\nAnd here is the AD I use: \(AD.toBase64())\n")
                 clientPublicKey = UserDefaults.standard.object(
                     forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
 
                 if(!MessageComposer.hasStates(context: context)) {
                     sharedSecret = try Vault.getPublisherSharedSecret()
                 }
-                
-                print("\nAnd here is the publishing sk I use: \(sharedSecret!.toBase64())\n")
 
                 messageComposer = try MessageComposer(
                     SK: sharedSecret,

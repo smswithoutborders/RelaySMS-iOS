@@ -105,19 +105,19 @@ class VaultTest: XCTestCase {
         var bcc = ""
         var subject = "Test email"
         
-//        let messageComposer = try Publisher.publish(context: context, checkPhoneNumberSettings: false)
-//        let encryptedCipherText = try messageComposer.emailComposer(
-//            platform_letter: "g".data(using: .utf8)!.first!,
-//            from: "anarchist.sonsofperdition@gmail.com",
-//            to: to,
-//            cc: cc,
-//            bcc: bcc,
-//            subject: subject,
-//            body: "Hello world - platforms"
-//        )
-//        
-//        let responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: encryptedCipherText)
-//        XCTAssertEqual(responseCode, 200)
+        let messageComposer = try Publisher.publish(context: context, checkPhoneNumberSettings: false)
+        let encryptedCipherText = try messageComposer.emailComposer(
+            platform_letter: "g".data(using: .utf8)!.first!,
+            from: "anarchist.sonsofperdition@gmail.com",
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: "Hello world - platforms"
+        )
+        
+        var responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: encryptedCipherText)
+        XCTAssertEqual(responseCode, 200)
 
         var (cipherText, clientPublicKey) = try Bridges.compose(
             to: to,
@@ -129,10 +129,9 @@ class VaultTest: XCTestCase {
         )
 
         let payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
-        print("Final payload now looks like this: \(payload)")
         
         print("Executing first stage... auth + payload")
-        let responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: payload!)
+        responseCode = try await BridgesTest.executePayload(phoneNumber: phoneNumber, payload: payload!)
         XCTAssertEqual(responseCode, 200)
         print("- First stage complete")
     }

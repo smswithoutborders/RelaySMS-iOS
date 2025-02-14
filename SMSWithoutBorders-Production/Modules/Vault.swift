@@ -494,8 +494,6 @@ struct Vault {
             privateKey: clientPublishPrivateKey,
             publicKey: peerPublishPublicKey).withUnsafeBytes { return Array($0) }
         
-        print("\nHere lies my publishing shared key: \(publishingSharedKey.toBase64())\n")
-        
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
         
         try CSecurity.storeInKeyChain(
