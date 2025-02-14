@@ -73,6 +73,19 @@ public class BridgesTest: XCTestCase {
         XCTAssertEqual(responseCode, 200)
         print("- Second stage complete")
         
+        (cipherText, clientPublicKey) = try Bridges.compose(
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: "Hello world 2",
+            context: context)
+
+        print("Executing second stage... payload")
+        payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
+        let responseCode1 = try await BridgesTest.executePayload(payload: payload!)
+        XCTAssertEqual(responseCode1, 200)
+
     }
     
 //    func testBridgesPlatforms() async throws {

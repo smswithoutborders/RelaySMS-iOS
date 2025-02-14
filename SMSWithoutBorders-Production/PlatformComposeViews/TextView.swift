@@ -67,9 +67,7 @@ struct TextView: View {
                         isPosting = true
                         DispatchQueue.background(background: {
                             do {
-                                let messageComposer = try Publisher.publish(
-                                    platform: platform, context: context)
-                                
+                                let messageComposer = try Publisher.publish( context: context)
                                 var shortcode: UInt8? = nil
                                 shortcode = platform.shortcode!.bytes[0]
                                 

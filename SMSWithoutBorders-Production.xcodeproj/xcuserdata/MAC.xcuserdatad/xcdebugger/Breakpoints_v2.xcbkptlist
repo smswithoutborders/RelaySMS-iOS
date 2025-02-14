@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "88244238-81AA-4D68-ABF4-7C2592A18E03"
+            uuid = "B8FAC7A3-4AF7-4168-BF1B-8108F1FB51E5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMSWithoutBorders-Production/Modules/Bridges.swift"
+            filePath = "SMSWithoutBorders-Production/Modules/Publisher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "compose(to:cc:bcc:subject:body:context:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "publish(context:checkPhoneNumberSettings:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

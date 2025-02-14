@@ -73,7 +73,7 @@ struct Vault {
                 $0.ownershipProofResponse = ownershipResponse!
                 
                 UserDefaults.standard.set(
-                    clientPublishPrivateKey.rawRepresentation.bytes,
+                    clientPublishPrivateKey.publicKey.rawRepresentation.bytes,
                     forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS
                 )
             }
@@ -144,7 +144,7 @@ struct Vault {
                 $0.ownershipProofResponse = ownershipResponse!
                 
                 UserDefaults.standard.set(
-                    clientPublishPrivateKey.rawRepresentation.bytes,
+                    clientPublishPrivateKey.publicKey.rawRepresentation.bytes,
                     forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS
                 )
             }
@@ -165,6 +165,8 @@ struct Vault {
             }
             
             if(!response.requiresOwnershipProof) {
+                print("\nHere lies the Ad: \(response.serverPublishPubKey)\n")
+
                 UserDefaults.standard.set(
                     [UInt8](Data(base64Encoded: response.serverPublishPubKey)!),
                     forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
@@ -240,7 +242,7 @@ struct Vault {
                 $0.ownershipProofResponse = ownershipResponse!
                 
                 UserDefaults.standard.set(
-                    clientPublishPrivateKey.rawRepresentation.bytes,
+                    clientPublishPrivateKey.publicKey.rawRepresentation.bytes,
                     forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS
                 )
             }
@@ -491,6 +493,8 @@ struct Vault {
         let publishingSharedKey = try SecurityCurve25519.calculateSharedSecret(
             privateKey: clientPublishPrivateKey,
             publicKey: peerPublishPublicKey).withUnsafeBytes { return Array($0) }
+        
+        print("\nHere lies my publishing shared key: \(publishingSharedKey.toBase64())\n")
         
         CSecurity.deletePasswordFromKeychain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
         

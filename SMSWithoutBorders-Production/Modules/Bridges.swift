@@ -50,7 +50,8 @@ struct Bridges {
                         forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
                     )
                     UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
-                } else {
+                }
+                else {
                     print("\n[+] Bypassing key generation, using stored keys")
                     let serverKeyID: UInt8 = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as! UInt8
                     var pubKeyB64 = Bridges.getStaticKeys(kid: Int(serverKeyID))?.first?.keypair
@@ -72,12 +73,15 @@ struct Bridges {
             } else {
                 print("[+] Got LLT, bypassing key generation")
                 let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
+                print("\nAnd here is the AD I use: \(AD.toBase64())\n")
                 clientPublicKey = UserDefaults.standard.object(
                     forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
 
                 if(!MessageComposer.hasStates(context: context)) {
                     sharedSecret = try Vault.getPublisherSharedSecret()
                 }
+                
+                print("\nAnd here is the publishing sk I use: \(sharedSecret!.toBase64())\n")
 
                 messageComposer = try MessageComposer(
                     SK: sharedSecret,
@@ -102,6 +106,8 @@ struct Bridges {
     
     public static func reset() {
         UserDefaults.standard.removeObject(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
+        UserDefaults.standard.removeObject(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY )
+        UserDefaults.standard.removeObject(forKey: Bridges.SERVER_KID)
     }
     
     private static func generateKeyRequirements() throws -> (
@@ -165,25 +171,26 @@ struct Bridges {
     
     public static func payloadOnly(
         context: NSManagedObjectContext,
-        cipherText: [UInt8]) throws -> String? {
-            let mode: UInt8 = 0x00
-            let versionMarker: UInt8 = 0x0A
-            let switchValue: UInt8 = 0x01
-            var cipherTextLength: Data = Data(count: 2)
-            cipherTextLength.withUnsafeMutableBytes {
-                $0.storeBytes(of: UInt16(cipherText.count).littleEndian, as: UInt16.self)
-            }
-            let bridgeLetter: UInt8 = "e".data(using: .utf8)!.first!
-            
-            var payload = Data()
-            payload.append(mode)
-            payload.append(versionMarker)
-            payload.append(switchValue)
-            payload.append(cipherTextLength)
-            payload.append(bridgeLetter)
-            payload.append(Data(cipherText))
+        cipherText: [UInt8]
+    ) throws -> String? {
+        let mode: UInt8 = 0x00
+        let versionMarker: UInt8 = 0x0A
+        let switchValue: UInt8 = 0x01
+        var cipherTextLength: Data = Data(count: 2)
+        cipherTextLength.withUnsafeMutableBytes {
+            $0.storeBytes(of: UInt16(cipherText.count).littleEndian, as: UInt16.self)
+        }
+        let bridgeLetter: UInt8 = "e".data(using: .utf8)!.first!
+        
+        var payload = Data()
+        payload.append(mode)
+        payload.append(versionMarker)
+        payload.append(switchValue)
+        payload.append(cipherTextLength)
+        payload.append(bridgeLetter)
+        payload.append(Data(cipherText))
 
-            return payload.base64EncodedString()
+        return payload.base64EncodedString()
     }
     
     public static func getStaticKeys(kid: Int? = nil) -> [StaticKeys]? {

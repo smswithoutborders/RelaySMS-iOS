@@ -272,14 +272,18 @@ class Publisher {
         }
     }
     
-    public static func publish(platform: PlatformsEntity, context: NSManagedObjectContext) throws -> MessageComposer {
+    public static func publish(
+        context: NSManagedObjectContext,
+        checkPhoneNumberSettings: Bool = true
+    ) throws -> MessageComposer {
         do {
             let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
             let deviceID: [UInt8] = UserDefaults.standard.object(forKey: Vault.VAULT_DEVICE_ID) as! [UInt8]
             let peerPubkey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD)
             let pubSharedKey = try CSecurity.findInKeyChain(keystoreAlias: Publisher.PUBLISHER_SHARED_KEY)
-            let usePhonenumber = UserDefaults.standard.bool(forKey: SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
-            print("use phone number for publishing: \(!usePhonenumber)")
+            let usePhonenumber = checkPhoneNumberSettings ? UserDefaults
+                .standard.bool(forKey: SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER) : true
+            print("use deviceID for publishing: \(!usePhonenumber)")
             
             let messageComposer = try MessageComposer(
                 SK: pubSharedKey.bytes,

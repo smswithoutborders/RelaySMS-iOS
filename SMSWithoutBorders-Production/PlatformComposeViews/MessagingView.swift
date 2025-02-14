@@ -188,8 +188,7 @@ struct MessagingView: View {
                             DispatchQueue.background(background: {
                                 do {
                                     let messageComposer = try Publisher.publish(
-                                        platform: platform, context: context)
-                                    
+                                        context: context)
                                     var shortcode: UInt8? = nil
                                     shortcode = platform.shortcode!.bytes[0]
                                     

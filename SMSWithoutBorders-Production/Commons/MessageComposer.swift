@@ -35,7 +35,7 @@ struct MessageComposer {
         self.useDeviceID = useDeviceID
 
         let fetchStates = try fetchStates()
-        print("AD in message composer: \(AD.toBase64())")
+//        print("AD in message composer: \(AD.toBase64())")
         if fetchStates == nil {
             print("[+] Initializing states...")
             self.state = States()

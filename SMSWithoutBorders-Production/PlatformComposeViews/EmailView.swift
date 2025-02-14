@@ -93,7 +93,7 @@ struct EmailView: View {
     }
     
     func getEncryptedContent(platform: PlatformsEntity) throws -> String {
-        let messageComposer = try Publisher.publish(platform: platform, context: context)
+        let messageComposer = try Publisher.publish(context: context)
 //        var shortcode: UInt8 = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "g".data(using: .utf8)!.first : platform.shortcode!.bytes[0]
         var shortcode: UInt8 = "g".data(using: .utf8)!.first!
         

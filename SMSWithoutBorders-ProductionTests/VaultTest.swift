@@ -17,8 +17,8 @@ import SwobDoubleRatchet
 
 class VaultTest: XCTestCase {
     var vault = Vault()
-    var password = "LL<O3ZG~=z-epkv"
-    var phoneNumber = "+237123465"
+    var password = "dMd2Kmo9#"
+    var phoneNumber = "+2371123457528"
     var ownershipProof = "123456"
 
     func testEndToEnd() async throws {
@@ -106,27 +106,35 @@ class VaultTest: XCTestCase {
         var subject = "Test email"
         var body = "Hello world"
         
-        var (cipherText, clientPublicKey) = try Bridges.compose(
+        let messageComposer = try Publisher.publish(context: context)
+        let encryptedCipherText = try messageComposer.emailComposer(
+            platform_letter: "g".data(using: .utf8)!.first!,
+            from: "anarchist.sonsofperdition@gmail.com",
             to: to,
             cc: cc,
             bcc: bcc,
             subject: subject,
-            body: body,
-            context: context
+            body: "Testing platforms..."
         )
-
-//        let payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
         
-        var payload = try Bridges.authRequestAndPayload(
-            context: context,
-            cipherText: cipherText,
-            clientPublicKey: clientPublicKey!
-        )
-
-        print("Executing first stage... auth + payload")
-        let responseCode = try await BridgesTest.executePayload(payload: payload!)
+        let responseCode = try await BridgesTest.executePayload(payload: encryptedCipherText)
         XCTAssertEqual(responseCode, 200)
-        print("- First stage complete")
-        
+
+//        var (cipherText, clientPublicKey) = try Bridges.compose(
+//            to: to,
+//            cc: cc,
+//            bcc: bcc,
+//            subject: subject,
+//            body: body,
+//            context: context
+//        )
+//
+//        let payload = try Bridges.payloadOnly(context: context, cipherText: cipherText)
+//        print("Final payload now looks like this: \(payload)")
+//        
+//        print("Executing first stage... auth + payload")
+//        let responseCode = try await BridgesTest.executePayload(payload: payload!)
+//        XCTAssertEqual(responseCode, 200)
+//        print("- First stage complete")
     }
 }
