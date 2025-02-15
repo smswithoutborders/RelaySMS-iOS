@@ -303,6 +303,17 @@ struct Recents1: View {
             ScrollView {
                 VStack(spacing: 10) {
                     NavigationLink(
+                        destination: EmailView(
+                            platformName: Bridges.SERVICE_NAME,
+                            fromAccount: nil,
+                            isBridge: true
+                        ),
+                        isActive: $composeNewMessageRequested
+                    ) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(
                         destination: SignupSheetView(),
                         isActive: $otpRequested) {
                         EmptyView()
@@ -320,15 +331,17 @@ struct Recents1: View {
                         EmptyView()
                     }
                     
-                    SendFirstMessageView(composeNewSheetRequested: $composeNewMessageRequested)
+                    SendFirstMessageView(
+                        composeNewSheetRequested: $composeNewMessageRequested
+                    )
 
                     Divider()
                         .padding(.bottom, 16)
                     
                     LoginWithInternetView(
                         loginSheetRequested: $loginSheetRequested,
-                        createAccountSheetRequsted: $createAccountSheetRequested)
-                        .padding(.bottom)
+                        createAccountSheetRequsted: $createAccountSheetRequested
+                    ).padding(.bottom)
 
                     WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
                 }

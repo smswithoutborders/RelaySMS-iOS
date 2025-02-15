@@ -14,25 +14,28 @@ struct EmailComposeView: View {
     @Binding var composeBCC: String
     @Binding var composeSubject: String
     @Binding var composeBody: String
-    @Binding var fromAccount: String
+    @Binding var fromAccount: String?
 
     var body: some View {
         NavigationView {
             VStack {
-                VStack{
-                    HStack {
-                        Text("From ")
-                            .foregroundColor(Color.secondary)
-                        Spacer()
-                        TextField(fromAccount, text: $composeFrom)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
-                            .disabled(true)
+                if(fromAccount != nil) {
+                    VStack{
+                        HStack {
+                            Text("From ")
+                                .foregroundColor(Color.secondary)
+                            Spacer()
+                            TextField(fromAccount!, text: $composeFrom)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                                .disabled(true)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
                     }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                    Spacer(minLength: 9)
+                    
                 }
-                Spacer(minLength: 9)
                 
                 VStack{
                     HStack {
@@ -106,7 +109,7 @@ struct EmailCompose1_Preview: PreviewProvider {
         @State var composeBCC: String = ""
         @State var composeSubject: String = ""
         @State var composeBody: String = ""
-        @State var fromAccount: String = ""
+        @State var fromAccount: String? = ""
 
         return EmailComposeView(
             composeTo: $composeTo,

@@ -24,7 +24,7 @@ struct EmailView: View {
     @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
     private var messageWithPhoneNumber = false
 
-    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+//    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
 
     @State private var encryptedFormattedContent: String = ""
     
@@ -32,24 +32,26 @@ struct EmailView: View {
     @State var isSendingRequest: Bool = false
 
     private var platformName: String
-//    private var fromAccount: String
-    
+    private var isBridge: Bool = false
+
     @State var composeTo: String = ""
     @State var composeFrom: String = ""
     @State var composeCC: String = ""
     @State var composeBCC: String = ""
     @State var composeSubject: String = ""
     @State var composeBody: String = ""
-    @State var fromAccount: String
+    @State var fromAccount: String? = nil
 
-    init(platformName: String, fromAccount: String) {
+    init(platformName: String, fromAccount: String?, isBridge: Bool = false) {
         self.platformName = platformName
+        self.isBridge = isBridge
         
-        _platforms = FetchRequest<PlatformsEntity>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "name == %@", platformName))
-        
-        print("Searching platform: \(platformName)")
+//        if(!isBridge) {
+//            _platforms = FetchRequest<PlatformsEntity>(
+//                sortDescriptors: [],
+//                predicate: NSPredicate(format: "name == %@", platformName))
+//            print("Searching platform: \(platformName)")
+//        }
 
         self.fromAccount = fromAccount
     }
@@ -71,10 +73,10 @@ struct EmailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Send") {
                     isSendingRequest = true
-                    let platform = platforms.first!
+//                    let platform = platforms.first!
                     DispatchQueue.background(background: {
                         do {
-                            encryptedFormattedContent = try getEncryptedContent(platform: platform)
+                            encryptedFormattedContent = try getEncryptedContent(isBridge: self.isBridge)
                         } catch {
                             print("Some error occured while sending: \(error)")
                         }
@@ -92,19 +94,38 @@ struct EmailView: View {
         })
     }
     
-    func getEncryptedContent(platform: PlatformsEntity) throws -> String {
-        let messageComposer = try Publisher.publish(context: context)
-//        var shortcode: UInt8 = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "g".data(using: .utf8)!.first : platform.shortcode!.bytes[0]
-        var shortcode: UInt8 = "g".data(using: .utf8)!.first!
-        
-        return try messageComposer.emailComposer(
-            platform_letter: shortcode,
-            from: fromAccount,
-            to: composeTo,
-            cc: composeCC,
-            bcc: composeBCC,
-            subject: composeSubject,
-            body: composeBody)
+    func getEncryptedContent(isBridge: Bool = false) throws -> String {
+        if(!isBridge) {
+            let messageComposer = try Publisher.publish(context: context)
+            let shortcode: UInt8 = "g".data(using: .utf8)!.first!
+            
+            return try messageComposer.emailComposer(
+                platform_letter: shortcode,
+                from: fromAccount!,
+                to: composeTo,
+                cc: composeCC,
+                bcc: composeBCC,
+                subject: composeSubject,
+                body: composeBody)
+        } else {
+            let (cipherText, clientPublicKey) = try Bridges.compose(
+                to: composeTo,
+                cc: composeCC,
+                bcc: composeBCC,
+                subject: composeSubject,
+                body: composeBody,
+                context: context
+            )
+            if(try !Vault.getLongLivedToken().isEmpty) {
+                return try Bridges.payloadOnly(context: context, cipherText: cipherText)!
+            } else {
+                return try Bridges.authRequestAndPayload(
+                    context: context,
+                    cipherText: cipherText,
+                    clientPublicKey: clientPublicKey!
+                )!
+            }
+        }
     }
     
     func handleCompletion(_ result: MessageComposeResult) {
@@ -178,7 +199,7 @@ struct EmailCompose_Preview: PreviewProvider {
         @State var composeBCC: String = ""
         @State var composeSubject: String = ""
         @State var composeBody: String = ""
-        @State var fromAccount: String = ""
+        @State var fromAccount: String? = ""
 
         return EmailComposeView(
             composeTo: $composeTo,
