@@ -19,51 +19,73 @@ struct HomepageView: View {
     @Binding var isLoggedIn: Bool
     
     @State var selectedTab: HomepageTabs = .recents
+    
+    @State var composeNewMessageRequested: Bool = false
 
     var body: some View {
         NavigationView {
-            TabView(selection: $selectedTab) {
-                if(isLoggedIn) {
-                    RecentsViewLoggedIn()
-                    .tabItem() {
-                        Image(systemName: "house.circle.fill")
-                            Text("Recents")
-                        }
-                    .tag(HomepageTabs.recents)
-                    
-                    PlatformsView()
-                        .tabItem() {
-                            Image(systemName: "apps.iphone")
-                            Text("Platforms")
-                        }
-                        .tag(HomepageTabs.platforms)
-
-                } else {
-                    
-                    RecentsViewNotLoggedIn(
-                        isLoggedIn: $isLoggedIn
-                    )
-                    .tabItem() {
-                        Image(systemName: "house.circle.fill")
-                            Text("Get started")
-                        }
-                    .tag(HomepageTabs.recents)
-                    
+            VStack {
+                NavigationLink(
+                    destination:
+                        EmailView(
+                        platformName: Bridges.SERVICE_NAME,
+                        fromAccount: nil,
+                        isBridge: true
+                    ),
+                    isActive: $composeNewMessageRequested
+                ) {
+                    EmptyView()
                 }
                 
-                GatewayClientsView()
-                    .tabItem() {
-                        Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
-                        Text("Countries")
+                TabView(selection: Binding(
+                    get: { selectedTab },
+                    set: {
+                        selectedTab = $0
+                        print($0)
                     }
-                    .tag(HomepageTabs.gatewayClients)
-                
-                SettingsView(isLoggedIn: $isLoggedIn)
-                    .tabItem() {
-                        Image(systemName: "gear.circle.fill")
-                        Text("Settings")
+                )){
+                    if(isLoggedIn) {
+                        RecentsViewLoggedIn()
+                        .tabItem() {
+                            Image(systemName: "house.circle.fill")
+                                Text("Recents")
+                            }
+                        .tag(HomepageTabs.recents)
+                        
+                        PlatformsView()
+                            .tabItem() {
+                                Image(systemName: "apps.iphone")
+                                Text("Platforms")
+                            }
+                            .tag(HomepageTabs.platforms)
+
+                    } else {
+                        RecentsViewNotLoggedIn(
+                            isLoggedIn: $isLoggedIn,
+                            composeNewMessageRequested: $composeNewMessageRequested
+                        )
+                        .tabItem() {
+                            Image(systemName: "house.circle.fill")
+                                Text("Get started")
+                            }
+                        .tag(HomepageTabs.recents)
+                        
                     }
-                    .tag(HomepageTabs.settings)
+                    
+                    GatewayClientsView()
+                        .tabItem() {
+                            Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
+                            Text("Countries")
+                        }
+                        .tag(HomepageTabs.gatewayClients)
+                    
+                    SettingsView(isLoggedIn: $isLoggedIn)
+                        .tabItem() {
+                            Image(systemName: "gear.circle.fill")
+                            Text("Settings")
+                        }
+                        .tag(HomepageTabs.settings)
+                }
             }
             
         }

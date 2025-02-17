@@ -218,8 +218,12 @@ struct SignupSheetView: View {
                         Alert(title: Text("Error"), message: Text(errorMessage))
                     }
                     .padding(.bottom, 20)
-                    Button("Already got SMS code") {
+                    Button {
                         OTPRequired = true
+                    } label: {
+                        Text("Already got code")
+                            .padding(.top, 10)
+                            .font(.subheadline)
                     }
                 }
             }
@@ -227,7 +231,6 @@ struct SignupSheetView: View {
             
             HStack {
                 Text("Already have an account?")
-                    .foregroundStyle(.secondary)
                 Button {
                     loginRequested = true
                 } label: {

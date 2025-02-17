@@ -290,28 +290,17 @@ struct WalkthroughViews: View {
 }
 
 struct RecentsViewNotLoggedIn: View {
-    @State var composeNewMessageRequested: Bool = false
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
 
     @Binding var isLoggedIn: Bool
+    @Binding var composeNewMessageRequested: Bool
 
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
-                    NavigationLink(
-                        destination: EmailView(
-                            platformName: Bridges.SERVICE_NAME,
-                            fromAccount: nil,
-                            isBridge: true
-                        ),
-                        isActive: $composeNewMessageRequested
-                    ) {
-                        EmptyView()
-                    }
-                    
                     NavigationLink(
                         destination: SignupSheetView(
                             loginRequested: $loginSheetRequested
@@ -341,7 +330,7 @@ struct RecentsViewNotLoggedIn: View {
                         createAccountSheetRequsted: $createAccountSheetRequested
                     ).padding(.bottom)
 
-                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
+//                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
                 }
                 .navigationTitle("Get Started")
                 .padding()
@@ -353,8 +342,10 @@ struct RecentsViewNotLoggedIn: View {
 struct RecentsViewNotLoggedIn_Preview: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = false
+        @State var composeNewMessageRequested = false
         RecentsViewNotLoggedIn(
-            isLoggedIn: $isLoggedIn
+            isLoggedIn: $isLoggedIn,
+            composeNewMessageRequested: $composeNewMessageRequested
         )
     }
 }
