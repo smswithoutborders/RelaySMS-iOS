@@ -289,14 +289,13 @@ struct WalkthroughViews: View {
     }
 }
 
-struct Recents1: View {
+struct RecentsViewNotLoggedIn: View {
     @State var composeNewMessageRequested: Bool = false
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
-    @State var otpRequested: Bool = false
 
-    @State var isLoggedIn: Bool = false
+    @Binding var isLoggedIn: Bool
 
     var body: some View {
         NavigationView {
@@ -315,18 +314,12 @@ struct Recents1: View {
                     
                     NavigationLink(
                         destination: SignupSheetView(),
-                        isActive: $otpRequested) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(
-                        destination: SignupSheetView(),
                         isActive: $createAccountSheetRequested) {
                         EmptyView()
                     }
                     
                     NavigationLink(
-                        destination: LoginSheetView(otpRequired: $otpRequested, isLoggedIn: $isLoggedIn),
+                        destination: LoginSheetView(isLoggedIn: $isLoggedIn),
                         isActive: $loginSheetRequested) {
                         EmptyView()
                     }
@@ -352,6 +345,12 @@ struct Recents1: View {
     }
 }
 
-#Preview {
-    Recents1()
+struct RecentsViewNotLoggedIn_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var isLoggedIn = false
+        RecentsViewNotLoggedIn(
+            isLoggedIn: $isLoggedIn
+        )
+    }
 }
+

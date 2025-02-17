@@ -115,10 +115,9 @@ struct OTPSheetView: View {
     @Binding var countryCode: String
     @Binding var phoneNumber: String
     @Binding var password: String
-    @Binding var completed: Bool
     @Binding var isLoggedIn: Bool
     @Binding var failed: Bool
-    
+
 
     var body: some View {
         VStack {
@@ -134,23 +133,25 @@ struct OTPSheetView: View {
                         isLoading = true
                         Task {
                             do {
-                                try await signupAuthenticateRecover(phoneNumber: phoneNumber,
-                                                          countryCode: countryCode,
-                                                          password: password,
-                                                               type: type,
-                                                               otpCode: otpCode,
-                                                               context: context)
-                                completed = true
+                                try await signupAuthenticateRecover(
+                                    phoneNumber: phoneNumber,
+                                    countryCode: countryCode,
+                                    password: password,
+                                    type: type,
+                                    otpCode: otpCode,
+                                    context: context
+                                )
                                 isLoggedIn = true
                                 dismiss()
                             } catch Vault.Exceptions.requestNotOK(let status){
                                 failed = true
                                 errorMessage = status.message!
+                                isLoading = false
                             } catch {
                                 failed = true
                                 errorMessage = error.localizedDescription
+                                isLoading = false
                             }
-                            isLoading = false
                         }
                     } label: {
                         Text("Verify")
@@ -183,49 +184,26 @@ struct OTPSheetView: View {
             
         }
     }
-    
-    
 }
-
-//struct OTPSheetView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        @State var otpCode: String = ""
-//        @State var password: String = ""
-//        @State var phoneNumber: String = ""
-//        @State var countryCode: String? = ""
-//        @State var loading: Bool = false
-//        @State var completed: Bool = false
-//        @State var failed: Bool = false
-//        OTPSheetView(type: OTPAuthType.TYPE.CREATE,
-//                     retryTimer: Int(Date().timeIntervalSince1970) + 10,
-//                     phoneNumber: phoneNumber,
-//                     countryCode: countryCode,
-//                     password: $password,
-//                     completed: $completed,
-//                     isLoggedIn: $completed, failed: $failed)
-//    }
-//}
-
-//#Preview {
-//}
 
 struct OTPSheetView_Preview: PreviewProvider {
     static var previews: some View {
-        @State var password: String = ""
         @State var completed: Bool = false
         @State var isLoggedIn: Bool = false
         @State var failed: Bool = false
         
-        @State var countryCode: String = "+237"
-        @State var phoneNumber: String = "+12345678"
+        @State var countryCode: String = "CM"
+        @State var phoneNumber = "1123457528"
+        @State var phoneCode = "+237"
+        @State var password: String = "dMd2Kmo9#"
 
         OTPSheetView(
             countryCode: $countryCode,
             phoneNumber: $phoneNumber,
             password: $password,
-            completed: $completed,
             isLoggedIn: $isLoggedIn,
-            failed: $failed)
+            failed: $failed
+        )
         
 //        OTPView(otpCode: $otpCode, loading: $isLoading)
     }

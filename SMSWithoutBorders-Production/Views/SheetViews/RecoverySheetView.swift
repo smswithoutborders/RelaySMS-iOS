@@ -48,7 +48,6 @@ struct RecoverySheetView: View {
                          countryCode: $countryCode,
                          phoneNumber: $phoneNumber,
                          password: $password,
-                         completed: $completed,
                          isLoggedIn: $completed, failed: $failed)
         }
         else {

@@ -27,10 +27,11 @@
 		0469EB4B2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */; };
 		0469EB4C2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */; };
 		0469EB4D2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */; };
-		0469EB4F2D402FC9003A2B4F /* Recents1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* Recents1.swift */; };
+		0469EB4F2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB4E2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift */; };
 		0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
+		04C2C9C62D636D0500016F86 /* RecentsViewLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */; };
 		04D7903B2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903C2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903D2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
@@ -97,7 +98,6 @@
 		3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
 		3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E6CF28CA16AF00FDD12C /* SecurityAESEncryption.swift */; };
-		3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADD2C538D8000539E57 /* RecentsView.swift */; };
 		3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDADADF2C538E2D00539E57 /* SettingsView.swift */; };
 		3BEC4CF02C47FEC500F92D2A /* vault.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CEE2C47FEC500F92D2A /* vault.grpc.swift */; };
 		3BEC4CF12C47FEC500F92D2A /* vault.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC4CEF2C47FEC500F92D2A /* vault.pb.swift */; };
@@ -160,8 +160,9 @@
 		0456964F2D551E9C00A2C369 /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
 		0469EB442D3EA1E2003A2B4F /* PlatformsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsView.swift; sourceTree = "<group>"; };
 		0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadsComponents.swift; sourceTree = "<group>"; };
-		0469EB4E2D402FC9003A2B4F /* Recents1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recents1.swift; sourceTree = "<group>"; };
+		0469EB4E2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsViewNotLoggedIn.swift; sourceTree = "<group>"; };
 		0469EB522D40EC72003A2B4F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsViewLoggedIn.swift; sourceTree = "<group>"; };
 		04D7903A2D58010000EA4859 /* static-x25519.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "static-x25519.json"; sourceTree = "<group>"; };
 		04DB690E2CE217A000E12978 /* BridgesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgesTest.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
@@ -209,7 +210,6 @@
 		3BCBA3A12C49611100736B9B /* PlatformsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsTest.swift; sourceTree = "<group>"; };
 		3BCBA3A32C49819800736B9B /* OnboardingTryExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTryExample.swift; sourceTree = "<group>"; };
 		3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheetView.swift; sourceTree = "<group>"; };
-		3BDADADD2C538D8000539E57 /* RecentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView.swift; sourceTree = "<group>"; };
 		3BDADADF2C538E2D00539E57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3BEC4CED2C47FEC500F92D2A /* vault.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = vault.proto; sourceTree = "<group>"; };
 		3BEC4CEE2C47FEC500F92D2A /* vault.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vault.grpc.swift; sourceTree = "<group>"; };
@@ -436,11 +436,11 @@
 		3BDADADC2C538D6B00539E57 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
-				3BDADADD2C538D8000539E57 /* RecentsView.swift */,
 				3BDADADF2C538E2D00539E57 /* SettingsView.swift */,
 				3B928A342C65140100BA145F /* GatewayClientsView.swift */,
 				0469EB442D3EA1E2003A2B4F /* PlatformsView.swift */,
-				0469EB4E2D402FC9003A2B4F /* Recents1.swift */,
+				0469EB4E2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift */,
+				04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -663,7 +663,7 @@
 				3BEC4CF02C47FEC500F92D2A /* vault.grpc.swift in Sources */,
 				3BEC4CF12C47FEC500F92D2A /* vault.pb.swift in Sources */,
 				3B7EEE6C2C5EBDD700611092 /* ThreadExecutor.swift in Sources */,
-				0469EB4F2D402FC9003A2B4F /* Recents1.swift in Sources */,
+				0469EB4F2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift in Sources */,
 				3BEC4CF22C47FEC500F92D2A /* vault.proto in Sources */,
 				3BAB09682C1C996000664E90 /* OnboardingTabAdapterView.swift in Sources */,
 				0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
@@ -672,6 +672,7 @@
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
+				04C2C9C62D636D0500016F86 /* RecentsViewLoggedIn.swift in Sources */,
 				041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
@@ -687,7 +688,6 @@
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				0456964A2D551AB000A2C369 /* CSecurity.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
-				3BDADADE2C538D8000539E57 /* RecentsView.swift in Sources */,
 				3B928A3F2C66A26300BA145F /* Messages.swift in Sources */,
 				3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,

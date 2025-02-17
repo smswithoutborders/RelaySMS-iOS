@@ -23,26 +23,34 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedTab) {
-                Recents1()
+                if(isLoggedIn) {
+                    RecentsViewLoggedIn()
                     .tabItem() {
                         Image(systemName: "house.circle.fill")
-                        Text("Recents")
-                    }
+                            Text("Recents")
+                        }
                     .tag(HomepageTabs.recents)
-//                RecentsView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
-//                    .tabItem() {
-//                        Image(systemName: "house.circle.fill")
-//                        Text("Recents")
-//                    }
-//                    .tag(HomepageTabs.recents)
-                
-                PlatformsView()
-                    .tabItem() {
-                        Image(systemName: "apps.iphone")
-                        Text("Platforms")
-                    }
-                    .tag(HomepageTabs.platforms)
+                    
+                    PlatformsView()
+                        .tabItem() {
+                            Image(systemName: "apps.iphone")
+                            Text("Platforms")
+                        }
+                        .tag(HomepageTabs.platforms)
 
+                } else {
+                    
+                    RecentsViewNotLoggedIn(
+                        isLoggedIn: $isLoggedIn
+                    )
+                    .tabItem() {
+                        Image(systemName: "house.circle.fill")
+                            Text("Get started")
+                        }
+                    .tag(HomepageTabs.recents)
+                    
+                }
+                
                 GatewayClientsView()
                     .tabItem() {
                         Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
@@ -67,6 +75,24 @@ struct HomepageView_Previews: PreviewProvider {
     @State static var platformType: Int?
     @State static var codeVerifier: String = ""
     @State static var isLoggedIn: Bool = false
+
+    static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        UserDefaults.standard.register(defaults: [
+            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+        ])
+        
+        return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+    }
+}
+
+struct HomepageViewLoggedIn_Previews: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+    @State static var isLoggedIn: Bool = true
 
     static var previews: some View {
         let container = createInMemoryPersistentContainer()

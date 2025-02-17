@@ -10,6 +10,9 @@
     "Account" : {
 
     },
+    "Already got code" : {
+
+    },
     "Already got SMS code" : {
 
     },
@@ -55,9 +58,6 @@
     "Continue Deleting" : {
 
     },
-    "Continue without internet" : {
-
-    },
     "Countries" : {
 
     },
@@ -68,9 +68,6 @@
 
     },
     "Create Acocunt" : {
-
-    },
-    "Create new account or log into existing one to begin sending messages from stored online platforms" : {
 
     },
     "default_app_scheme" : {
@@ -134,6 +131,9 @@
     "Get me out!" : {
 
     },
+    "Get started" : {
+
+    },
     "Get Started" : {
 
     },
@@ -195,9 +195,6 @@
 
     },
     "No recent messages" : {
-
-    },
-    "No Vault account" : {
 
     },
     "OTP Code" : {
