@@ -30,7 +30,7 @@ struct signupLoginOnboardingView: View {
                     .controlSize(.large)
                     .padding(.bottom, 10)
                     .sheet(isPresented: $signupSheetShown) {
-                        SignupSheetView()
+//                        SignupSheetView()
                     }
 
                     Button {

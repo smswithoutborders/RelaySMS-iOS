@@ -313,13 +313,18 @@ struct RecentsViewNotLoggedIn: View {
                     }
                     
                     NavigationLink(
-                        destination: SignupSheetView(),
+                        destination: SignupSheetView(
+                            loginRequested: $loginSheetRequested
+                        ),
                         isActive: $createAccountSheetRequested) {
                         EmptyView()
                     }
                     
                     NavigationLink(
-                        destination: LoginSheetView(isLoggedIn: $isLoggedIn),
+                        destination: LoginSheetView(
+                            isLoggedIn: $isLoggedIn,
+                            createAccountRequested: $createAccountSheetRequested
+                        ),
                         isActive: $loginSheetRequested) {
                         EmptyView()
                     }

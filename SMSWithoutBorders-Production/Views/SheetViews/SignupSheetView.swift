@@ -103,6 +103,8 @@ struct SignupSheetView: View {
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
     
+    @Binding var loginRequested: Bool
+
 
     var body: some View {
         VStack {
@@ -227,6 +229,7 @@ struct SignupSheetView: View {
                 Text("Already have an account?")
                     .foregroundStyle(.secondary)
                 Button {
+                    loginRequested = true
                 } label: {
                     Text("Log in")
                         .bold()
@@ -243,6 +246,7 @@ struct SignupSheetView_Preview: PreviewProvider {
     static var previews: some View {
         @State var completed: Bool = false
         @State var failed: Bool = false
-        SignupSheetView()
+        @State var loginRequested: Bool = false
+        SignupSheetView(loginRequested: $loginRequested)
     }
 }

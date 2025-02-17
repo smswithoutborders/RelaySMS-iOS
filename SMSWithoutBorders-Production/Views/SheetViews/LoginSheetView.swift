@@ -21,7 +21,8 @@ struct LoginSheetView: View {
     #endif
     
     @Binding var isLoggedIn: Bool
-    
+    @Binding var createAccountRequested: Bool
+
     @State var otpRequired: Bool = false
     @State private var countryCode: String = ""
     @State private var isLoading = false
@@ -162,7 +163,7 @@ struct LoginSheetView: View {
                             Text("Don't have an account?")
                                 .foregroundStyle(.secondary)
                             Button {
-                                
+                                createAccountRequested = true
                             } label: {
                                 Text("Create account")
                                     .bold()
@@ -188,6 +189,10 @@ struct LoginSheetView_Preview: PreviewProvider {
     static var previews: some View {
         @State var completed: Bool = false
         @State var failed: Bool = false
-        LoginSheetView(isLoggedIn: $completed)
+        @State var createAccountRequested: Bool = false
+        LoginSheetView(
+            isLoggedIn: $completed,
+            createAccountRequested: $createAccountRequested
+        )
     }
 }
