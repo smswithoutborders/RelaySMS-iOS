@@ -32,6 +32,9 @@
 		0469EB542D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469EB522D40EC72003A2B4F /* Extensions.swift */; };
 		04C2C9C62D636D0500016F86 /* RecentsViewLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */; };
+		04C2C9C82D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
+		04C2C9C92D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
+		04C2C9CA2D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
 		04D7903B2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903C2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903D2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
@@ -163,6 +166,7 @@
 		0469EB4E2D402FC9003A2B4F /* RecentsViewNotLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsViewNotLoggedIn.swift; sourceTree = "<group>"; };
 		0469EB522D40EC72003A2B4F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsViewLoggedIn.swift; sourceTree = "<group>"; };
+		04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucccessAnimations.swift; sourceTree = "<group>"; };
 		04D7903A2D58010000EA4859 /* static-x25519.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "static-x25519.json"; sourceTree = "<group>"; };
 		04DB690E2CE217A000E12978 /* BridgesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgesTest.swift; sourceTree = "<group>"; };
 		164EF7D02954D431007F8C76 /* MessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingView.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 			children = (
 				0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */,
 				0469EB522D40EC72003A2B4F /* Extensions.swift */,
+				04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -685,6 +690,7 @@
 				1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
 				3BCBA3A42C49819800736B9B /* OnboardingTryExample.swift in Sources */,
+				04C2C9CA2D63B16200016F86 /* SucccessAnimations.swift in Sources */,
 				3BAB09642C1B454B00664E90 /* OnboardingIntroToVaults.swift in Sources */,
 				0456964A2D551AB000A2C369 /* CSecurity.swift in Sources */,
 				3BAB096A2C1CEEBB00664E90 /* LoginSheetView.swift in Sources */,
@@ -723,6 +729,7 @@
 				3BCBA3CA2C51594D00736B9B /* DataController.swift in Sources */,
 				3BC978112C36BFFC00AB626C /* PublisherTest.swift in Sources */,
 				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
+				04C2C9C92D63B16200016F86 /* SucccessAnimations.swift in Sources */,
 				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
 				0439A49D2C7677A1000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
@@ -754,6 +761,7 @@
 				3B7EEE5C2C5E849800611092 /* relay_publisher.pb.swift in Sources */,
 				045696542D551FCF00A2C369 /* gRPCHandler.swift in Sources */,
 				3B7EEE5D2C5E849800611092 /* relay_publisher.grpc.swift in Sources */,
+				04C2C9C82D63B16200016F86 /* SucccessAnimations.swift in Sources */,
 				0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */,
 				3BEC4CF62C47FEC500F92D2A /* vault.grpc.swift in Sources */,
 				3BEC4CF72C47FEC500F92D2A /* vault.pb.swift in Sources */,

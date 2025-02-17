@@ -111,6 +111,8 @@ struct OTPSheetView: View {
     
     @State var errorMessage: String = ""
     @State var isLoading: Bool = false
+    @State var completedSuccessfully: Bool = false
+    @State var callbackText = "Welcome back!"
 
     @Binding var countryCode: String
     @Binding var phoneNumber: String
@@ -118,70 +120,76 @@ struct OTPSheetView: View {
     @Binding var isLoggedIn: Bool
     @Binding var failed: Bool
 
-
     var body: some View {
         VStack {
-            OTPView(otpCode: $otpCode, loading: $isLoading)
-                .textFieldStyle(.roundedBorder)
-            
-            if(isLoading) {
-                ProgressView()
+            if(completedSuccessfully) {
+                SuccessAnimations(callbackText: $callbackText) {
+                    isLoggedIn = true
+                }
             }
             else {
                 VStack {
-                    Button {
-                        isLoading = true
-                        Task {
-                            do {
-                                try await signupAuthenticateRecover(
-                                    phoneNumber: phoneNumber,
-                                    countryCode: countryCode,
-                                    password: password,
-                                    type: type,
-                                    otpCode: otpCode,
-                                    context: context
-                                )
-                                isLoggedIn = true
-                                dismiss()
-                            } catch Vault.Exceptions.requestNotOK(let status){
-                                failed = true
-                                errorMessage = status.message!
-                                isLoading = false
-                            } catch {
-                                failed = true
-                                errorMessage = error.localizedDescription
-                                isLoading = false
+                    OTPView(otpCode: $otpCode, loading: $isLoading)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    if(isLoading) {
+                        ProgressView()
+                    }
+                    else {
+                        VStack {
+                            Button {
+                                isLoading = true
+                                Task {
+                                    do {
+                                        try await signupAuthenticateRecover(
+                                            phoneNumber: phoneNumber,
+                                            countryCode: countryCode,
+                                            password: password,
+                                            type: type,
+                                            otpCode: otpCode,
+                                            context: context
+                                        )
+                                        completedSuccessfully = true
+//                                        dismiss()
+                                    } catch Vault.Exceptions.requestNotOK(let status){
+                                        failed = true
+                                        errorMessage = status.message!
+                                        isLoading = false
+                                    } catch {
+                                        failed = true
+                                        errorMessage = error.localizedDescription
+                                        isLoading = false
+                                    }
+                                }
+                            } label: {
+                                Text("Verify")
+                                    .bold()
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
                             }
-                        }
-                    } label: {
-                        Text("Verify")
-                            .bold()
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, maxHeight: 50)
-                            .background(.blue)
-                            .cornerRadius(15)
-                            .padding()
-                    }
-                    .alert(isPresented: $failed) {
-                        Alert(title: Text("Error"), message: Text(errorMessage))
-                    }
+                            .alert(isPresented: $failed) {
+                                Alert(title: Text("Error"), message: Text(errorMessage))
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .padding(.bottom, 32)
 
-                    HStack {
-                        Button("Resend code") {
-                            dismiss()
-                        }
-                        .disabled(timeTillRetry > -1)
-                        if timeTillRetry > -1 {
-                            Text("in \(timeTillRetry) seconds").onReceive(timer) { _ in
-                                guard !canRetry else { return }
-                                timeTillRetry = retryTimer - Int(Date().timeIntervalSince1970)
-                                canRetry = timeTillRetry < 0
+                            HStack {
+                                Button("Resend code") {
+                                    dismiss()
+                                }
+                                .disabled(timeTillRetry > -1)
+                                if timeTillRetry > -1 {
+                                    Text("in \(timeTillRetry) seconds").onReceive(timer) { _ in
+                                        guard !canRetry else { return }
+                                        timeTillRetry = retryTimer - Int(Date().timeIntervalSince1970)
+                                        canRetry = timeTillRetry < 0
+                                    }
+                                }
                             }
                         }
+                        .padding()
                     }
                 }
             }
-            
         }
     }
 }
