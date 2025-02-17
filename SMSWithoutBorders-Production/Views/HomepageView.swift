@@ -21,19 +21,37 @@ struct HomepageView: View {
     @State var selectedTab: HomepageTabs = .recents
     
     @State var composeNewMessageRequested: Bool = false
+    @State var loginSheetRequested: Bool = false
+    @State var createAccountSheetRequested: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination:
-                        EmailView(
+                    destination: EmailView(
                         platformName: Bridges.SERVICE_NAME,
                         fromAccount: nil,
                         isBridge: true
                     ),
                     isActive: $composeNewMessageRequested
                 ) {
+                    EmptyView()
+                }
+                
+                NavigationLink(
+                    destination: SignupSheetView(
+                        loginRequested: $loginSheetRequested
+                    ),
+                    isActive: $createAccountSheetRequested) {
+                    EmptyView()
+                }
+                
+                NavigationLink(
+                    destination: LoginSheetView(
+                        isLoggedIn: $isLoggedIn,
+                        createAccountRequested: $createAccountSheetRequested
+                    ),
+                    isActive: $loginSheetRequested) {
                     EmptyView()
                 }
                 
@@ -62,7 +80,9 @@ struct HomepageView: View {
                     } else {
                         RecentsViewNotLoggedIn(
                             isLoggedIn: $isLoggedIn,
-                            composeNewMessageRequested: $composeNewMessageRequested
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            createAccountSheetRequested: $createAccountSheetRequested,
+                            loginSheetRequested: $loginSheetRequested
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")

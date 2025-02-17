@@ -290,34 +290,17 @@ struct WalkthroughViews: View {
 }
 
 struct RecentsViewNotLoggedIn: View {
-    @State var loginSheetRequested: Bool = false
-    @State var createAccountSheetRequested: Bool = false
     @State var walkthroughViewsShown: Bool = false
 
     @Binding var isLoggedIn: Bool
     @Binding var composeNewMessageRequested: Bool
+    @Binding var createAccountSheetRequested: Bool 
+    @Binding var loginSheetRequested: Bool
 
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 10) {
-                    NavigationLink(
-                        destination: SignupSheetView(
-                            loginRequested: $loginSheetRequested
-                        ),
-                        isActive: $createAccountSheetRequested) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(
-                        destination: LoginSheetView(
-                            isLoggedIn: $isLoggedIn,
-                            createAccountRequested: $createAccountSheetRequested
-                        ),
-                        isActive: $loginSheetRequested) {
-                        EmptyView()
-                    }
-                    
                     SendFirstMessageView(
                         composeNewSheetRequested: $composeNewMessageRequested
                     )
@@ -343,9 +326,13 @@ struct RecentsViewNotLoggedIn_Preview: PreviewProvider {
     static var previews: some View {
         @State var isLoggedIn = false
         @State var composeNewMessageRequested = false
+        @State var createAccountSheetRequested = false
+        @State var loginSheetRequested = false
         RecentsViewNotLoggedIn(
             isLoggedIn: $isLoggedIn,
-            composeNewMessageRequested: $composeNewMessageRequested
+            composeNewMessageRequested: $composeNewMessageRequested,
+            createAccountSheetRequested: $createAccountSheetRequested,
+            loginSheetRequested: $loginSheetRequested
         )
     }
 }
