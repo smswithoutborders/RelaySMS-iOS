@@ -557,6 +557,10 @@
 				fr,
 				de,
 				"es-US",
+				tr,
+				ar,
+				sw,
+				fa,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
