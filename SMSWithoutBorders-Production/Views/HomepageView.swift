@@ -54,7 +54,7 @@ struct HomepageView: View {
                     isActive: $loginSheetRequested) {
                     EmptyView()
                 }
-                
+
                 TabView(selection: Binding(
                     get: { selectedTab },
                     set: {

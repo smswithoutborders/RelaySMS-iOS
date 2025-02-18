@@ -58,19 +58,6 @@ struct CountryPicker: UIViewControllerRepresentable {
     }
 }
 
-nonisolated func createAccount(phonenumber: String,
-                        countryCode: String,
-                        password: String,
-                        type: OTPAuthType.TYPE) async throws -> Int {
-    let vault = Vault()
-    return try await signupAuthenticateRecover(phoneNumber: phonenumber,
-                         countryCode: countryCode,
-                         password: password,
-                         type: type)
-}
-
-
-
 struct SignupSheetView: View {
     @State private var country: Country? = Country(isoCode: "CM")
     #if DEBUG
@@ -188,12 +175,15 @@ struct SignupSheetView: View {
                         self.isLoading = true
                         Task {
                             do {
-                                self.otpRetryTimer = try await createAccount(
-                                    phonenumber: phoneNumber,
+                                self.otpRetryTimer = try await signupAuthenticateRecover(
+                                    phoneNumber: getPhoneNumber(),
                                     countryCode: countryCode,
                                     password: password,
-                                    type: OTPAuthType.TYPE.CREATE)
+                                    type: OTPAuthType.TYPE.CREATE
+                                )
+
                                 OTPRequired = true
+                                self.phoneNumber = getPhoneNumber()
                             } catch Vault.Exceptions.requestNotOK(let status){
                                 print("Something went wrong authenticating: \(status)")
                                 isLoading = false
@@ -218,13 +208,16 @@ struct SignupSheetView: View {
                         Alert(title: Text("Error"), message: Text(errorMessage))
                     }
                     .padding(.bottom, 20)
+                    
                     Button {
                         OTPRequired = true
+                        phoneNumber = getPhoneNumber()
                     } label: {
                         Text("Already got code")
                             .padding(.top, 10)
                             .font(.subheadline)
                     }
+                    .disabled(phoneNumber.isEmpty)
                 }
             }
             .padding()
@@ -241,7 +234,10 @@ struct SignupSheetView: View {
             .font(.subheadline)
             .padding()
         }
+    }
     
+    private func getPhoneNumber() -> String {
+        return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
     }
 }
 
