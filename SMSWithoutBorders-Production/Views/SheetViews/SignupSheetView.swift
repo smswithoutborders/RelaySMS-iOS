@@ -59,6 +59,8 @@ struct CountryPicker: UIViewControllerRepresentable {
 }
 
 struct SignupSheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var country: Country? = Country(isoCode: "CM")
     #if DEBUG
         @State private var phoneNumber = "1123457528"
@@ -77,162 +79,184 @@ struct SignupSheetView: View {
     
     @State private var countryCode: String = Country(isoCode: "CM").isoCode
     @State private var showCountryPicker = false
-    
     @State private var isLoading = false
-    
-    @State private var OTPRequired = false
-    
+    @State private var otpRequired = false
     @State private var failed: Bool = false
-    
     @State private var acceptTermsConditions: Bool = false
     @State private var passwordsNotMatch: Bool = false
-
+    @State var completedSuccessfully: Bool = false
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
-    
-    @Binding var loginRequested: Bool
+    @State var callbackText: String = "Account created successfully!"
 
+    @Binding var loginRequested: Bool
+    @Binding var accountCreated: Bool
 
     var body: some View {
         VStack {
-            VStack {
-                Image("Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 75, height: 75)
-                    .padding()
-
-                Text("Create account")
-                    .font(.title)
-                    .bold()
-                    .padding()
-                
-                Group {
-                    Text("If you don't have an account")
-                    Text("Please create one to save your platforms")
-                }
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
+            NavigationLink(
+                destination:
+                    OTPSheetView(
+                        countryCode: $countryCode,
+                        phoneNumber: $phoneNumber,
+                        password: $password,
+                        failed: $failed,
+                        completedSuccessfully: $completedSuccessfully
+                    ),
+                isActive: $otpRequired
+            ) {
+                EmptyView()
             }
-            .padding(.bottom, 30)
             
-            VStack {
-                HStack {
-                     Button {
-                         showCountryPicker = true
-                     } label: {
-                         let flag = countryCode
-                         Text(flag.getFlag() + "+" + country!.phoneCode)
-                            .foregroundColor(Color.secondary)
-                     }.sheet(isPresented: $showCountryPicker) {
-                         CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
-                     }
-                     Spacer()
-                     TextField("Phone Number", text: $phoneNumber)
-                         .keyboardType(.numberPad)
-                         .textContentType(.emailAddress)
-                         .autocapitalization(.none)
+            if(completedSuccessfully) {
+                SuccessAnimations( callbackText: $callbackText ) {
+                    accountCreated = true
+                    dismiss()
                 }
-                .padding(.leading)
-                Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    .padding(.bottom, 20)
-                
-                SecureField("Password", text: $password)
-                Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    .padding(.bottom, 20)
-                
-                SecureField("Re-enter password", text: $rePassword)
-                Group {
-                    Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    if passwordsNotMatch {
-                        Text("Passwords don't match")
-                            .foregroundStyle(.red)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-                .padding(.bottom, 20)
+            } else {
+                VStack {
+                    VStack {
+                        Image("Logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 75, height: 75)
+                            .padding()
 
-                HStack {
-                    CheckBoxView(checked: $acceptTermsConditions)
-                    Text("I accept the")
-                    Link("terms and conditions", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
-                }
-                .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
-
-            }
-            .padding()
-            Spacer()
-            
-            VStack {
-                if(self.isLoading) {
-                    ProgressView()
-                } else {
-                    Button {
-                        if password != rePassword {
-                            passwordsNotMatch = true
-                            return
+                        Text("Create account")
+                            .font(.title)
+                            .bold()
+                            .padding()
+                        
+                        Group {
+                            Text("If you don't have an account")
+                            Text("Please create one to save your platforms")
                         }
-                        self.isLoading = true
-                        Task {
-                            do {
-                                self.otpRetryTimer = try await signupAuthenticateRecover(
-                                    phoneNumber: getPhoneNumber(),
-                                    countryCode: countryCode,
-                                    password: password,
-                                    type: OTPAuthType.TYPE.CREATE
-                                )
-
-                                OTPRequired = true
-                                self.phoneNumber = getPhoneNumber()
-                            } catch Vault.Exceptions.requestNotOK(let status){
-                                print("Something went wrong authenticating: \(status)")
-                                isLoading = false
-                                failed = true
-                                errorMessage = status.message!
-                                phoneNumber = ""
-                            } catch {
-                                isLoading = false
-                                failed = true
-                                errorMessage = error.localizedDescription
-                                phoneNumber = ""
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    }
+                    .padding(.bottom, 30)
+                    
+                    VStack {
+                        HStack {
+                             Button {
+                                 showCountryPicker = true
+                             } label: {
+                                 let flag = countryCode
+                                 Text(flag.getFlag() + "+" + country!.phoneCode)
+                                    .foregroundColor(Color.secondary)
+                             }.sheet(isPresented: $showCountryPicker) {
+                                 CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
+                             }
+                             Spacer()
+                             TextField("Phone Number", text: $phoneNumber)
+                                 .keyboardType(.numberPad)
+                                 .textContentType(.emailAddress)
+                                 .autocapitalization(.none)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                            .padding(.bottom, 20)
+                        
+                        SecureField("Password", text: $password)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                            .padding(.bottom, 20)
+                        
+                        SecureField("Re-enter password", text: $rePassword)
+                        Group {
+                            Rectangle().frame(height: 1).foregroundColor(.secondary)
+                            if passwordsNotMatch {
+                                Text("Passwords don't match")
+                                    .foregroundStyle(.red)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
-                    } label: {
-                        Text("Create account")
-                            .bold()
-                            .frame(maxWidth: .infinity, maxHeight: 35)
+                        .padding(.bottom, 20)
+
+                        HStack {
+                            CheckBoxView(checked: $acceptTermsConditions)
+                            Text("I accept the")
+                            Link("terms and conditions", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .init(horizontal: .leading, vertical: .center))
+
                     }
-                    .disabled(!acceptTermsConditions)
-                    .buttonStyle(.borderedProminent)
-                    .alert(isPresented: $failed) {
-                        Alert(title: Text("Error"), message: Text(errorMessage))
-                    }
-                    .padding(.bottom, 20)
+                    .padding()
+                    Spacer()
                     
-                    Button {
-                        OTPRequired = true
-                        phoneNumber = getPhoneNumber()
-                    } label: {
-                        Text("Already got code")
-                            .padding(.top, 10)
-                            .font(.subheadline)
+                    VStack {
+                        if(self.isLoading) {
+                            ProgressView()
+                        } else {
+                            Button {
+                                if password != rePassword {
+                                    passwordsNotMatch = true
+                                    return
+                                }
+                                self.isLoading = true
+                                Task {
+                                    do {
+                                        self.otpRetryTimer = try await signupAuthenticateRecover(
+                                            phoneNumber: getPhoneNumber(),
+                                            countryCode: countryCode,
+                                            password: password,
+                                            type: OTPAuthType.TYPE.CREATE
+                                        )
+
+                                        self.otpRequired = true
+                                        self.phoneNumber = getPhoneNumber()
+                                    } catch Vault.Exceptions.requestNotOK(let status){
+                                        print("Something went wrong authenticating: \(status)")
+                                        isLoading = false
+                                        failed = true
+                                        errorMessage = status.message!
+                                        phoneNumber = ""
+                                    } catch {
+                                        isLoading = false
+                                        failed = true
+                                        errorMessage = error.localizedDescription
+                                        phoneNumber = ""
+                                    }
+                                }
+                            } label: {
+                                Text("Create account")
+                                    .bold()
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                            }
+                            .disabled(!acceptTermsConditions)
+                            .buttonStyle(.borderedProminent)
+                            .alert(isPresented: $failed) {
+                                Alert(title: Text("Error"), message: Text(errorMessage))
+                            }
+                            .padding(.bottom, 20)
+                            
+                            Button {
+                                phoneNumber = getPhoneNumber()
+                                self.otpRequired = true
+                            } label: {
+                                Text("Already got code")
+                                    .padding(.top, 10)
+                                    .font(.subheadline)
+                            }
+                            .disabled(phoneNumber.isEmpty)
+                        }
                     }
-                    .disabled(phoneNumber.isEmpty)
+                    .padding()
+                    
+                    HStack {
+                        Text("Already have an account?")
+                        Button {
+                            loginRequested = true
+                        } label: {
+                            Text("Log in")
+                                .bold()
+                        }
+                    }
+                    .font(.subheadline)
+                    .padding()
                 }
+                
             }
-            .padding()
-            
-            HStack {
-                Text("Already have an account?")
-                Button {
-                    loginRequested = true
-                } label: {
-                    Text("Log in")
-                        .bold()
-                }
-            }
-            .font(.subheadline)
-            .padding()
+
         }
     }
     
@@ -246,6 +270,9 @@ struct SignupSheetView_Preview: PreviewProvider {
         @State var completed: Bool = false
         @State var failed: Bool = false
         @State var loginRequested: Bool = false
-        SignupSheetView(loginRequested: $loginRequested)
+        SignupSheetView(
+            loginRequested: $loginRequested,
+            accountCreated: $completed
+        )
     }
 }

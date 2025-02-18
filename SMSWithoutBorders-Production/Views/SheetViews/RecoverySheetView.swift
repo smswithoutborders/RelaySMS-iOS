@@ -9,6 +9,8 @@ import SwiftUI
 import CountryPicker
 
 struct RecoverySheetView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var country: Country? = Country(isoCode: "CM")
     
     #if DEBUG
@@ -26,19 +28,17 @@ struct RecoverySheetView: View {
 
     @State private var countryCode: String = Country(isoCode: "CM").isoCode
     @State private var showCountryPicker = false
-    
     @State private var isLoading = false
-    
     @State private var otpRequired = false
-    
-    @Binding var completedSuccessfully: Bool
-    
     @State var failed: Bool = false
     @State private var acceptTermsConditions: Bool = false
     @State private var passwordsNotMatch: Bool = false
-
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
+    @State var callbackText: String = "Recovered successfully!"
+    @State var completedSuccessfully: Bool = false
+    
+    @Binding var isRecovered: Bool
 
     var body: some View {
         VStack {
@@ -56,117 +56,126 @@ struct RecoverySheetView: View {
                 EmptyView()
             }
             
-            VStack {
-                Image("Logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 75, height: 75)
-                    .padding()
+            if(completedSuccessfully) {
+                SuccessAnimations( callbackText: $callbackText ) {
+                    isRecovered = true
+                    dismiss()
+                }
+            } else {
+                VStack {
+                    VStack {
+                        Image("Logo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 75, height: 75)
+                            .padding()
 
-                Text("Forgot password?")
-                    .font(.title)
-                    .bold()
-                    .padding()
-                
-                Group {
-                    Text("If you forgot your password")
-                    Text("Enter your phone number and new passwords")
-                }
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
-            }
-            .padding(.bottom, 30)
-            
-            VStack {
-                HStack {
-                     Button {
-                         showCountryPicker = true
-                     } label: {
-                         let flag = countryCode
-                         Text(flag.getFlag() + "+" + country!.phoneCode)
-                            .foregroundColor(Color.secondary)
-                     }.sheet(isPresented: $showCountryPicker) {
-                         CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
-                     }
-                     Spacer()
-                     TextField("Phone Number", text: $phoneNumber)
-                         .keyboardType(.numberPad)
-                         .textContentType(.emailAddress)
-                         .autocapitalization(.none)
-                }
-                .padding(.leading)
-                Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    .padding(.bottom, 20)
-                
-                SecureField("Password", text: $password)
-                Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    .padding(.bottom, 20)
-                
-                SecureField("Re-enter password", text: $rePassword)
-                Rectangle().frame(height: 1).foregroundColor(.secondary)
-                if passwordsNotMatch {
-                    Text("Passwords don't match")
-                        .foregroundStyle(.red)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-
-            }
-            .padding()
-            Spacer()
-            
-            VStack {
-                if(self.isLoading) {
-                    ProgressView()
-                    Spacer()
-                } else {
-                    Button {
-                        if password != rePassword {
-                            passwordsNotMatch = true
-                            return
-                        }
-                        self.isLoading = true
-                        Task {
-                            do {
-                                self.otpRetryTimer = try await signupAuthenticateRecover(
-                                    phoneNumber: getPhoneNumber(),
-                                    countryCode: "",
-                                    password: password,
-                                    type: OTPAuthType.TYPE.RECOVER)
-                                
-                                self.phoneNumber = getPhoneNumber()
-                                self.otpRequired = true
-                            } catch Vault.Exceptions.requestNotOK(let status){
-                                print("Something went wrong authenticating: \(status)")
-                                isLoading = false
-                                failed = true
-                                errorMessage = status.message!
-                            } catch {
-                                isLoading = false
-                                failed = true
-                                errorMessage = error.localizedDescription
-                            }
-                        }
-                    } label: {
-                        Text("Continue")
+                        Text("Forgot password?")
+                            .font(.title)
                             .bold()
-                            .frame(maxWidth: .infinity, maxHeight: 35)
+                            .padding()
+                        
+                        Group {
+                            Text("If you forgot your password")
+                            Text("Enter your phone number and new passwords")
+                        }
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .alert(isPresented: $failed) {
-                        Alert(title: Text("Error"), message: Text(errorMessage))
-                    }
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                     
-                    Button("Already got SMS code") {
-                        self.phoneNumber = getPhoneNumber()
-                        otpRequired = true
+                    VStack {
+                        HStack {
+                             Button {
+                                 showCountryPicker = true
+                             } label: {
+                                 let flag = countryCode
+                                 Text(flag.getFlag() + "+" + country!.phoneCode)
+                                    .foregroundColor(Color.secondary)
+                             }.sheet(isPresented: $showCountryPicker) {
+                                 CountryPicker(country: $country, selectedCountryCodeText: $selectedCountryCodeText)
+                             }
+                             Spacer()
+                             TextField("Phone Number", text: $phoneNumber)
+                                 .keyboardType(.numberPad)
+                                 .textContentType(.emailAddress)
+                                 .autocapitalization(.none)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                            .padding(.bottom, 20)
+                        
+                        SecureField("Password", text: $password)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                            .padding(.bottom, 20)
+                        
+                        SecureField("Re-enter password", text: $rePassword)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                        if passwordsNotMatch {
+                            Text("Passwords don't match")
+                                .foregroundStyle(.red)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+
                     }
-                    .disabled(phoneNumber.isEmpty)
+                    .padding()
+                    Spacer()
+                    
+                    VStack {
+                        if(self.isLoading) {
+                            ProgressView()
+                            Spacer()
+                        } else {
+                            Button {
+                                if password != rePassword {
+                                    passwordsNotMatch = true
+                                    return
+                                }
+                                self.isLoading = true
+                                Task {
+                                    do {
+                                        self.otpRetryTimer = try await signupAuthenticateRecover(
+                                            phoneNumber: getPhoneNumber(),
+                                            countryCode: "",
+                                            password: password,
+                                            type: OTPAuthType.TYPE.RECOVER)
+                                        
+                                        self.phoneNumber = getPhoneNumber()
+                                        self.otpRequired = true
+                                    } catch Vault.Exceptions.requestNotOK(let status){
+                                        print("Something went wrong authenticating: \(status)")
+                                        isLoading = false
+                                        failed = true
+                                        errorMessage = status.message!
+                                    } catch {
+                                        isLoading = false
+                                        failed = true
+                                        errorMessage = error.localizedDescription
+                                    }
+                                }
+                            } label: {
+                                Text("Continue")
+                                    .bold()
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .alert(isPresented: $failed) {
+                                Alert(title: Text("Error"), message: Text(errorMessage))
+                            }
+                            .padding(.bottom, 20)
+                            
+                            Button("Already got SMS code") {
+                                self.phoneNumber = getPhoneNumber()
+                                otpRequired = true
+                            }
+                            .disabled(phoneNumber.isEmpty)
+                        }
+                    }
+                    .padding()
                 }
+            
             }
-            .padding()
         }
-    
     }
     
     private func getPhoneNumber() -> String {
@@ -178,9 +187,8 @@ struct RecoverySheetView_Preview: PreviewProvider {
 
     static var previews: some View {
         @State var completed: Bool = false
+        @State var isRecovered: Bool = false
         @State var failed: Bool = false
-        RecoverySheetView(
-            completedSuccessfully: $completed
-        )
+        RecoverySheetView(isRecovered: $isRecovered)
     }
 }

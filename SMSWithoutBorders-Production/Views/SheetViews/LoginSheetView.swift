@@ -10,7 +10,8 @@ import CountryPicker
 
 
 struct LoginSheetView: View {
-    
+    @Environment(\.dismiss) var dismiss
+
     #if DEBUG
 //        @State private var phoneNumber: String = "123456"
         @State private var phoneNumber = "1123457528"
@@ -22,9 +23,9 @@ struct LoginSheetView: View {
     
     @Binding var isLoggedIn: Bool
     @Binding var createAccountRequested: Bool
+    @Binding var passwordRecoveryRequired: Bool
 
     @State var otpRequired: Bool = false
-    @State var passwordRecoveryRequired: Bool = false
     
     @State private var countryCode: String = ""
     @State private var isLoading = false
@@ -44,14 +45,6 @@ struct LoginSheetView: View {
         VStack {
             NavigationLink(
                 destination:
-                    RecoverySheetView( completedSuccessfully: $completedSuccessfully ),
-                isActive: $passwordRecoveryRequired
-            ) {
-                EmptyView()
-            }
-            
-            NavigationLink(
-                destination:
                     OTPSheetView(
                         countryCode: $countryCode,
                         phoneNumber: $phoneNumber,
@@ -66,7 +59,10 @@ struct LoginSheetView: View {
             
             VStack {
                 if(completedSuccessfully) {
-                    SuccessAnimations( callbackText: $callbackText ) { isLoggedIn = true }
+                    SuccessAnimations( callbackText: $callbackText ) {
+                        isLoggedIn = true
+                        dismiss()
+                    }
                 } else {
                     VStack {
                         Image("Logo")
@@ -211,7 +207,8 @@ struct LoginSheetView_Preview: PreviewProvider {
         @State var createAccountRequested: Bool = false
         LoginSheetView(
             isLoggedIn: $completed,
-            createAccountRequested: $createAccountRequested
+            createAccountRequested: $createAccountRequested,
+            passwordRecoveryRequired: $createAccountRequested
         )
     }
 }

@@ -23,10 +23,19 @@ struct HomepageView: View {
     @State var composeNewMessageRequested: Bool = false
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
+    @State var passwordRecoveryRequired: Bool = false
 
     var body: some View {
         NavigationView {
             VStack {
+                NavigationLink(
+                    destination:
+                        RecoverySheetView( isRecovered: $isLoggedIn ),
+                    isActive: $passwordRecoveryRequired
+                ) {
+                    EmptyView()
+                }
+                
                 NavigationLink(
                     destination: EmailView(
                         platformName: Bridges.SERVICE_NAME,
@@ -40,7 +49,8 @@ struct HomepageView: View {
                 
                 NavigationLink(
                     destination: SignupSheetView(
-                        loginRequested: $loginSheetRequested
+                        loginRequested: $loginSheetRequested,
+                        accountCreated: $isLoggedIn
                     ),
                     isActive: $createAccountSheetRequested) {
                     EmptyView()
@@ -49,7 +59,8 @@ struct HomepageView: View {
                 NavigationLink(
                     destination: LoginSheetView(
                         isLoggedIn: $isLoggedIn,
-                        createAccountRequested: $createAccountSheetRequested
+                        createAccountRequested: $createAccountSheetRequested,
+                        passwordRecoveryRequired: $passwordRecoveryRequired
                     ),
                     isActive: $loginSheetRequested) {
                     EmptyView()
