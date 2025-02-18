@@ -74,7 +74,12 @@ struct SecuritySettingsView: View {
     
     func logout() {
         logoutAccount(context: viewContext)
-        isLoggedIn = false
+        do {
+            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+        } catch {
+            print(error)
+        }
+        dismiss()
     }
     
     
@@ -94,6 +99,11 @@ struct SecuritySettingsView: View {
         }, completion: {
             DispatchQueue.main.async {
                 logoutAccount(context: viewContext)
+                do {
+                    isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+                } catch {
+                    print(error)
+                }
                 dismiss()
             }
         })

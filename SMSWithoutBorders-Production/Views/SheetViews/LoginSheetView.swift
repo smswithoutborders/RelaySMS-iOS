@@ -11,6 +11,7 @@ import CountryPicker
 
 struct LoginSheetView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var context
 
     #if DEBUG
 //        @State private var phoneNumber: String = "123456"
@@ -38,6 +39,8 @@ struct LoginSheetView: View {
     
     @State var callbackText = "Welcome back!"
     @State var completedSuccessfully = false
+    
+    @State var type = OTPAuthType.TYPE.AUTHENTICATE
 
     @State private var selectedCountryCodeText: String? = "CM".getFlag() + " " + Country.init(isoCode: "CM").localizedName
 
@@ -50,7 +53,8 @@ struct LoginSheetView: View {
                         phoneNumber: $phoneNumber,
                         password: $password,
                         failed: $failed,
-                        completedSuccessfully: $completedSuccessfully
+                        completedSuccessfully: $completedSuccessfully,
+                        type: $type
                     ),
                 isActive: $otpRequired
             ) {
@@ -60,6 +64,19 @@ struct LoginSheetView: View {
             VStack {
                 if(completedSuccessfully) {
                     SuccessAnimations( callbackText: $callbackText ) {
+                        do {
+                            let vault = Vault()
+                            let llt = try Vault.getLongLivedToken()
+                            try vault.refreshStoredTokens(
+                                llt: llt,
+                                context: context
+                            )
+                        } catch {
+                            print("Error refreshing tokens: \(error)")
+                            failed = true
+                            errorMessage = error.localizedDescription
+                        }
+                    } callback: {
                         isLoggedIn = true
                         dismiss()
                     }

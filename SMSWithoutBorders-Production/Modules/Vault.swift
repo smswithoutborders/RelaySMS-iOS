@@ -289,7 +289,7 @@ struct Vault {
         return response
     }
     
-    func deleteEntity(context: NSManagedObjectContext, longLiveToken: String) throws -> Vault_V1_DeleteEntityResponse {
+    private func deleteEntity(context: NSManagedObjectContext, longLiveToken: String) throws -> Vault_V1_DeleteEntityResponse {
         let deleteEntityRequest: Vault_V1_DeleteEntityRequest = .with {
             $0.longLivedToken = longLiveToken
         }
@@ -308,6 +308,7 @@ struct Vault {
                 if status.code.rawValue == 16 {
                     throw Exceptions.unauthenticatedLLT(status: status)
                 }
+                print(status)
                 throw Exceptions.requestNotOK(status: status)
             }
             
@@ -331,6 +332,7 @@ struct Vault {
         do {
             let publisher = Publisher()
             for storedTokenEntity in storedTokenEntities {
+                print("[+] Revoking \(storedTokenEntity.name!)")
                 try publisher.revokePlatform(
                     llt: longLiveToken,
                     platform: storedTokenEntity.name!,

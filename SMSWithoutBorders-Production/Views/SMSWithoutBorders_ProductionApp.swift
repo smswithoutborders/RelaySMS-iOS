@@ -36,16 +36,6 @@ struct ControllerView: View {
                 VStack {
                     Button {
                         self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
-                        DispatchQueue.background(background: {
-                            do {
-                                try refreshLocalDBs()
-                                print("Finished refreshing local db")
-                            } catch {
-                                print("Failed to refresh local DBs: \(error)")
-                            }
-                        }, completion: {
-                            
-                        })
                     } label: {
                         Text("Get started!")
                             .bold()
@@ -99,26 +89,6 @@ struct ControllerView: View {
             
         }
     }
-    
-    func refreshLocalDBs() throws {
-        Publisher.getPlatforms() { result in
-            switch result {
-            case .success(let data):
-                print("Success: \(data)")
-                for platform in data {
-                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        if storedPlatforms.first(where: { $0.name == platform.name }) != nil {
-                            DownloadContent.downloadAndSaveIcons( url: URL(string: platform.icon_png)!,
-                                platform: platform,
-                                viewContext: viewContext)
-                        }
-                    }
-                }
-            case .failure(let error):
-                print("Failed to load JSON data: \(error)")
-            }
-        }
-    }
 }
 
 
@@ -156,7 +126,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+                    HomepageView(codeVerifier: $codeVerifier)
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                         .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
                             Button("Get me out!") {
@@ -165,13 +135,18 @@ struct SMSWithoutBorders_ProductionApp: App {
                         } message: {
                             Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
                         }
-                        .onAppear() { validateLLT() }
+                        .onAppear() {
+                            validateLLT()
+                        }
                         .onChange(of: scenePhase) { newPhase in
                             if newPhase == .active {
                                 validateLLT()
                             }
                         }
                 }
+            }
+            .onAppear {
+                Publisher.refreshPlatforms(context: dataController.container.viewContext)
             }
             .onOpenURL { url in
                 processIncomingUrls(url: url)
@@ -269,7 +244,7 @@ struct SMSWithoutBorders_ProductionApp: App {
 #Preview {
     @State var codeVerifier = ""
     @State var isLoggedIn = false
-    return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+    return HomepageView(codeVerifier: $codeVerifier)
 }
 
 struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {

@@ -14,32 +14,46 @@ struct SuccessAnimations: View {
     
     @Binding var callbackText: String
 
+    let processCallback: () throws -> Void
     let callback: () -> Void
-    
+
     var body: some View {
         VStack {
             Spacer()
             VStack {
-                Image(systemName: "checkmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 75, height: 75)
-                    .scaleEffect(isAnimating ? 1.0 : 1.5)
-                    .onAppear() {
-                        withAnimation(
-                            .spring(duration: 1.0)
-        //                    .repeatForever(autoreverses: false)
-                        ) {
-                            isAnimating = true
-                            rotationAngle += 360.0
+                if(!isAnimating && continueBtnVisible) {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 75)
+                        .scaleEffect(isAnimating ? 1.0 : 1.5)
+                        .onAppear() {
+                            withAnimation(
+                                .spring(duration: 1.0)
+                            ) {
+                            }
                         }
-                    }
-                    .rotationEffect(Angle(degrees: rotationAngle))
-                
-                if(!isAnimating) {
+                        .rotationEffect(Angle(degrees: rotationAngle))
+
                     Text(callbackText)
                         .font(.title)
                         .padding()
+                } else {
+                    Image("Logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 75)
+                        .scaleEffect(isAnimating ? 1.0 : 1.5)
+                        .onAppear() {
+                            withAnimation(
+                                .spring(response: 0.5, dampingFraction: 0.6)
+                                .repeatForever(autoreverses: false)
+                            ) {
+                                isAnimating = true
+                                rotationAngle += 360.0
+                            }
+                        }
+                        .rotationEffect(Angle(degrees: rotationAngle))
                 }
             }
             
@@ -60,8 +74,13 @@ struct SuccessAnimations: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation(.easeInOut(duration: 1)) {
-                    continueBtnVisible = true
-                    isAnimating = false
+                    do {
+                        try self.processCallback()
+                        continueBtnVisible = true
+                        isAnimating = false
+                    } catch {
+                        print(error)
+                    }
                 }
             }
         }
@@ -74,7 +93,7 @@ struct SuccessAnimation_Preview: PreviewProvider {
         @State var callbackText = "Welcome back!"
         SuccessAnimations(
             callbackText: $callbackText,
-            callback: { print("Callback happening") }
+            processCallback: {}, callback: { print("Callback happening") }
         )
     }
     

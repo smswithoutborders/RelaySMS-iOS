@@ -60,7 +60,8 @@ struct CountryPicker: UIViewControllerRepresentable {
 
 struct SignupSheetView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(\.managedObjectContext) var context
+
     @State private var country: Country? = Country(isoCode: "CM")
     #if DEBUG
         @State private var phoneNumber = "1123457528"
@@ -88,6 +89,7 @@ struct SignupSheetView: View {
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""
     @State var callbackText: String = "Account created successfully!"
+    @State var type = OTPAuthType.TYPE.CREATE
 
     @Binding var loginRequested: Bool
     @Binding var accountCreated: Bool
@@ -101,7 +103,8 @@ struct SignupSheetView: View {
                         phoneNumber: $phoneNumber,
                         password: $password,
                         failed: $failed,
-                        completedSuccessfully: $completedSuccessfully
+                        completedSuccessfully: $completedSuccessfully,
+                        type: $type
                     ),
                 isActive: $otpRequired
             ) {
@@ -110,6 +113,19 @@ struct SignupSheetView: View {
             
             if(completedSuccessfully) {
                 SuccessAnimations( callbackText: $callbackText ) {
+                    do {
+                        let vault = Vault()
+                        let llt = try Vault.getLongLivedToken()
+                        try vault.refreshStoredTokens(
+                            llt: llt,
+                            context: context
+                        )
+                    } catch {
+                        print("Error refreshing tokens: \(error)")
+                        failed = true
+                        errorMessage = error.localizedDescription
+                    }
+                } callback: {
                     accountCreated = true
                     dismiss()
                 }
@@ -202,8 +218,8 @@ struct SignupSheetView: View {
                                             type: OTPAuthType.TYPE.CREATE
                                         )
 
-                                        self.otpRequired = true
                                         self.phoneNumber = getPhoneNumber()
+                                        self.otpRequired = true
                                     } catch Vault.Exceptions.requestNotOK(let status){
                                         print("Something went wrong authenticating: \(status)")
                                         isLoading = false

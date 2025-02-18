@@ -170,6 +170,7 @@ class Publisher {
     }
 
     func revokePlatform(llt: String, platform: String, account: String, protocolType: String) throws -> Bool {
+        print("[+] Revoking: \(platform) with protocol type: \(protocolType)")
         if protocolType ==  "oauth2" {
             return try revokeOAuthPlatform(llt: llt, platform: platform, account: account).success
         }
@@ -189,7 +190,55 @@ class Publisher {
         let icon_png: String
     }
     
-    static func getPlatforms(completion: @escaping (Result<[PlatformsData], Error>) -> Void) {
+    public static func refreshPlatforms(context: NSManagedObjectContext) {
+        Publisher.getPlatforms() { result in
+            switch result {
+            case .success(let data):
+                print("Success: \(data)")
+                for platform in data {
+                    downloadAndSaveIcons(
+                        url: URL(string: platform.icon_png)!,
+                        platform: platform,
+                        context: context
+                    )
+                }
+            case .failure(let error):
+                print("Failed to load JSON data: \(error)")
+            }
+        }
+
+    }
+    
+    private static func downloadAndSaveIcons(
+        url: URL,
+        platform: Publisher.PlatformsData,
+        context: NSManagedObjectContext
+    ) {
+        print("Storing Platform Icon: \(platform.name)")
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            let platformsEntity = PlatformsEntity(context: context)
+            platformsEntity.image = data
+            platformsEntity.name = platform.name
+            platformsEntity.protocol_type = platform.protocol_type
+            platformsEntity.service_type = platform.service_type
+            platformsEntity.shortcode = platform.shortcode
+            platformsEntity.support_url_scheme = platform.support_url_scheme
+            
+            if(context.hasChanges) {
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed save download image: \(error) \(error.localizedDescription)")
+                }
+            }
+        }
+        task.resume()
+    }
+
+
+    private static func getPlatforms(completion: @escaping (Result<[PlatformsData], Error>) -> Void) {
         let platformsUrl = "https://raw.githubusercontent.com/smswithoutborders/SMSWithoutBorders-Publisher/staging/resources/platforms.json"
         
         Task {

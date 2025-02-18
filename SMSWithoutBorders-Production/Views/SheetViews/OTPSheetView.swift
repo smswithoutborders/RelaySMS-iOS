@@ -105,7 +105,6 @@ struct OTPSheetView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var canRetry: Bool = false
-    @State public var type: OTPAuthType.TYPE = OTPAuthType.TYPE.AUTHENTICATE
     @State public var retryTimer: Int = 0
     @State private var timeTillRetry: Int = 0
     
@@ -117,6 +116,7 @@ struct OTPSheetView: View {
     @Binding var password: String
     @Binding var failed: Bool
     @Binding var completedSuccessfully: Bool
+    @Binding var type: OTPAuthType.TYPE
 
     var body: some View {
 
@@ -195,13 +195,15 @@ struct OTPSheetView_Preview: PreviewProvider {
         @State var phoneNumber = "1123457528"
         @State var phoneCode = "+237"
         @State var password: String = "dMd2Kmo9#"
+        @State var type = OTPAuthType.TYPE.AUTHENTICATE
 
         OTPSheetView(
             countryCode: $countryCode,
             phoneNumber: $phoneNumber,
             password: $password,
             failed: $failed,
-            completedSuccessfully: $completedSuccessfully
+            completedSuccessfully: $completedSuccessfully,
+            type: $type
         )
         
 //        OTPView(otpCode: $otpCode, loading: $isLoading)

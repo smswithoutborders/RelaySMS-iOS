@@ -16,7 +16,6 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Binding var codeVerifier: String
-    @Binding var isLoggedIn: Bool
     
     @State var selectedTab: HomepageTabs = .recents
     
@@ -24,6 +23,17 @@ struct HomepageView: View {
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var passwordRecoveryRequired: Bool = false
+    @State var isLoggedIn: Bool = false
+
+    init(codeVerifier: Binding<String>) {
+        _codeVerifier = codeVerifier
+        
+        do {
+            self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+        } catch {
+            print(error)
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -120,6 +130,13 @@ struct HomepageView: View {
             }
             
         }
+        .onAppear {
+            do {
+                isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
@@ -137,7 +154,7 @@ struct HomepageView_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+        return HomepageView(codeVerifier: $codeVerifier)
     }
 }
 
@@ -155,6 +172,6 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(codeVerifier: $codeVerifier, isLoggedIn: $isLoggedIn)
+        return HomepageView(codeVerifier: $codeVerifier)
     }
 }

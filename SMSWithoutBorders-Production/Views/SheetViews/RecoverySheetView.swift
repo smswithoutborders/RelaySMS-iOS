@@ -10,7 +10,8 @@ import CountryPicker
 
 struct RecoverySheetView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @Environment(\.managedObjectContext) var context
+
     @State private var country: Country? = Country(isoCode: "CM")
     
     #if DEBUG
@@ -37,7 +38,8 @@ struct RecoverySheetView: View {
     @State var errorMessage: String = ""
     @State var callbackText: String = "Recovered successfully!"
     @State var completedSuccessfully: Bool = false
-    
+    @State var type = OTPAuthType.TYPE.RECOVER
+
     @Binding var isRecovered: Bool
 
     var body: some View {
@@ -49,7 +51,8 @@ struct RecoverySheetView: View {
                         phoneNumber: $phoneNumber,
                         password: $password,
                         failed: $failed,
-                        completedSuccessfully: $completedSuccessfully
+                        completedSuccessfully: $completedSuccessfully,
+                        type: $type
                     ),
                 isActive: $otpRequired
             ) {
@@ -58,6 +61,19 @@ struct RecoverySheetView: View {
             
             if(completedSuccessfully) {
                 SuccessAnimations( callbackText: $callbackText ) {
+                    do {
+                        let vault = Vault()
+                        let llt = try Vault.getLongLivedToken()
+                        try vault.refreshStoredTokens(
+                            llt: llt,
+                            context: context
+                        )
+                    } catch {
+                        print("Error refreshing tokens: \(error)")
+                        failed = true
+                        errorMessage = error.localizedDescription
+                    }
+                } callback: {
                     isRecovered = true
                     dismiss()
                 }
