@@ -9,6 +9,9 @@ import SwiftUI
 
 
 struct NoSentMessages: View {
+    @Binding var selectedTab: HomepageTabs
+    @Binding var platformRequestType: RequestType
+
     var body: some View {
         VStack {
             Spacer()
@@ -26,6 +29,8 @@ struct NoSentMessages: View {
 
             VStack {
                 Button {
+                    selectedTab = .platforms
+                    platformRequestType = .compose
                 } label: {
                     Text("Send new message")
                         .bold()
@@ -36,6 +41,8 @@ struct NoSentMessages: View {
                 .padding(.bottom, 10)
                 
                 Button {
+                    selectedTab = .platforms
+                    platformRequestType = .available
                 } label: {
                     Text("Save platforms")
                         .bold()
@@ -47,29 +54,21 @@ struct NoSentMessages: View {
             }
             .padding()
             .padding(.bottom, 32)
-            .background(
-                Group {
-//                    NavigationLink(
-//                        destination: OfflineAvailablePlatformsSheetsView(),
-//                        isActive: $showComposePlatforms) {
-//                            EmptyView()
-//                        }
-//
-//                    NavigationLink(destination: OnlineAvailablePlatformsSheetsView(
-//                        codeVerifier: $codeVerifier), isActive: $showAvailablePlatforms) {
-//                            EmptyView()
-//                    }
-                }.hidden()
-            )
         }
     }
 }
 
 struct RecentsViewLoggedIn: View {
+    @Binding var selectedTab: HomepageTabs
+    @Binding var platformRequestType: RequestType
+
     var body: some View {
         NavigationView {
             VStack {
-                NoSentMessages()
+                NoSentMessages(
+                    selectedTab: $selectedTab,
+                    platformRequestType: $platformRequestType
+                )
             }
             .navigationTitle("Recents")
         }
@@ -77,9 +76,21 @@ struct RecentsViewLoggedIn: View {
 }
 
 #Preview {
-    RecentsViewLoggedIn()
+    @State var selectedTab: HomepageTabs = .recents
+    @State var platformRequestType: RequestType = .available
+    
+    RecentsViewLoggedIn(
+        selectedTab: $selectedTab,
+        platformRequestType: $platformRequestType
+    )
 }
 
 #Preview {
-    NoSentMessages()
+    @State var selectedTab: HomepageTabs = .recents
+    @State var platformRequestType: RequestType = .available
+    
+    NoSentMessages(
+        selectedTab: $selectedTab,
+        platformRequestType: $platformRequestType
+    )
 }

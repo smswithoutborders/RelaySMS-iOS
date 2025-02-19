@@ -18,7 +18,8 @@ struct HomepageView: View {
     @Binding var codeVerifier: String
     
     @State var selectedTab: HomepageTabs = .recents
-    
+    @State var platformRequestType: RequestType = .available
+
     @State var composeNewMessageRequested: Bool = false
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
@@ -79,19 +80,24 @@ struct HomepageView: View {
                 TabView(selection: Binding(
                     get: { selectedTab },
                     set: {
+                        if $0 == .platforms && selectedTab != .platforms {
+                            platformRequestType = .available
+                        }
                         selectedTab = $0
-                        print($0)
                     }
                 )){
                     if(isLoggedIn) {
-                        RecentsViewLoggedIn()
+                        RecentsViewLoggedIn(
+                            selectedTab: $selectedTab,
+                            platformRequestType: $platformRequestType
+                        )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")
                                 Text("Recents")
                             }
                         .tag(HomepageTabs.recents)
                         
-                        PlatformsView()
+                        PlatformsView(requestType: $platformRequestType)
                             .tabItem() {
                                 Image(systemName: "apps.iphone")
                                 Text("Platforms")

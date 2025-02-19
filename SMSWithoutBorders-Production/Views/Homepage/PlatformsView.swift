@@ -247,6 +247,12 @@ struct PlatformCard: View {
 
 }
 
+enum RequestType: CaseIterable {
+    case available
+    case compose
+    case revoke
+}
+
 struct PlatformsView: View {
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(
@@ -258,7 +264,7 @@ struct PlatformsView: View {
     @State private var sheetIsRequested: Bool = false
     @State private var platformsSheetIsRequested: Bool = false
     
-    private var defaultDescription = ""
+    @Binding var requestType: RequestType
 
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -296,8 +302,19 @@ struct PlatformsView: View {
                     
                 }
             }
-            .navigationTitle("Available Platforms")
+            .navigationTitle(getRequestTypeText(type: requestType))
             .padding(16)
+        }
+    }
+    
+    func getRequestTypeText(type: RequestType) -> String {
+        switch(type) {
+        case .compose:
+            return "Send a message"
+        case .revoke:
+            return "Remove a platform"
+        default:
+            return "Available Platforms"
         }
     }
     
@@ -344,7 +361,8 @@ struct Platforms_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return PlatformsView()
+        @State var platformRequestType: RequestType = .available
+        return PlatformsView(requestType: $platformRequestType)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
