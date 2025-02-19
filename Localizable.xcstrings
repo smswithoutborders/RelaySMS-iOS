@@ -125,8 +125,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajouter des comptes à la Vault"
+            "state" : "translated",
+            "value" : "Ajouter des Comptes à Vault"
           }
         },
         "sw" : {
@@ -636,7 +636,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Composer un message"
+            "value" : "Rédiger un Message"
           }
         },
         "sw" : {
@@ -682,8 +682,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Composer un message"
+            "state" : "translated",
+            "value" : "Créer une Publication"
           }
         },
         "sw" : {
@@ -736,6 +736,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "tungaMwili"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "içerik oluştur"
           }
         }
       }
@@ -1539,6 +1545,12 @@
             "state" : "translated",
             "value" : "Gateway Clients"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gateway Clients"
+          }
         }
       }
     },
@@ -1856,6 +1868,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tunatambulisha Vaults"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaults'u Tanıtıyoruz"
           }
         }
       }
@@ -2455,6 +2473,12 @@
             "state" : "translated",
             "value" : "Hakuna akaunti ya Vault"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault hesabı yok"
+          }
         }
       }
     },
@@ -2639,6 +2663,12 @@
             "state" : "translated",
             "value" : "Namba ya Simu"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefon Numarası"
+          }
         }
       }
     },
@@ -2679,6 +2709,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chapisha"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paylaş"
           }
         }
       }
@@ -2759,6 +2795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ingiza tena nenosiri"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreyi tekrar girin"
           }
         }
       }
@@ -2892,6 +2934,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "RelaySMS Vaults huhifadhi ufikiaji salama kwa akaunti zako za mtandaoni wakati uko nje ya mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS Vaults, çevrimdışıyken çevrimiçi hesaplarınıza güvenli erişimi korur"
           }
         }
       }
@@ -3442,6 +3490,12 @@
             "state" : "translated",
             "value" : "Gateway Client Iliyochaguliwa"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seçilen Gateway Client"
+          }
         }
       }
     },
@@ -3620,6 +3674,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Weka kama gateway client ya chaguo-msingi?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varsayılan gateway client olarak ayarlansın mı?"
           }
         }
       }
@@ -3938,6 +3998,12 @@
             "state" : "translated",
             "value" : "Vault inasaidia kuhifadhi kwa majukwaa mengi ya mtandaoni. Bofya Hifadhi Akaunti kwenye Vault kuona orodha"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault birden fazla çevrimiçi platform için depolama destekler. Listeyi görmek için Hesapları Vault'a Kaydet'e tıklayın"
+          }
         }
       }
     },
@@ -4158,6 +4224,12 @@
           }
         },
         "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault"
+          }
+        },
+        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vault"
@@ -4519,6 +4591,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unaweza kuongeza akaunti kwenye Vault. Akaunti hizi zinapatikana kwako wakati uko nje ya mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault'a hesap ekleyebilirsiniz. Bu hesaplara çevrimdışıyken erişebilirsiniz"
           }
         }
       }
