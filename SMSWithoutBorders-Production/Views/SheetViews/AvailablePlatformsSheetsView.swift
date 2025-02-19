@@ -177,7 +177,7 @@ struct AvailablePlatformsSheetsView: View {
                     }.hidden()
             )
             .sheet(isPresented: $showPhonenumberView) {
-                PhoneNumberSheetView(platformName: phonenumberViewPlatform)
+//                PhoneNumberSheetView(platformName: phonenumberViewPlatform)
             }
             .padding(.horizontal, 20)
             

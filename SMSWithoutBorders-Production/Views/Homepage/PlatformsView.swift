@@ -45,7 +45,8 @@ struct PlatformSheetView: View {
     @State var loading = false
     @State var savingNewPlatform = false
     @State var failed: Bool = false
-    
+    @State var phoneNumberAuthenticationRequested: Bool = false
+
     @State var errorMessage: String = ""
 
     var platform: PlatformsEntity?
@@ -62,7 +63,7 @@ struct PlatformSheetView: View {
     
     var body: some View {
         VStack {
-            if(loading && platform != nil) {
+            if loading && platform != nil {
                 SavingNewPlatformView(
                     name: platform!.name!,
                     isSaving: $savingNewPlatform
@@ -83,17 +84,25 @@ struct PlatformSheetView: View {
                     
                     Spacer()
                     
-                    Button {
-                        if(platform != nil) {
-                            triggerPlatformRequest(platform: platform!)
-                        }
-                    } label: {
-                        Text("Add Account")
-                            .frame(maxWidth: .infinity, maxHeight: 35)
+                    if phoneNumberAuthenticationRequested {
+                        PhoneNumberSheetView(
+                            completed: $parentIsEnabled,
+                            platformName: platform!.name!
+                        )
                     }
-                    .buttonStyle(.bordered)
-                    .padding()
+                    else {
+                        Button {
+                            if(platform != nil) {
+                                triggerPlatformRequest(platform: platform!)
+                            }
+                        } label: {
+                            Text("Add Account")
+                                .frame(maxWidth: .infinity, maxHeight: 35)
+                        }
+                        .buttonStyle(.bordered)
+                        .padding()
 
+                    }
                 }
 
             }
@@ -147,9 +156,8 @@ struct PlatformSheetView: View {
                     print("Some error occured: \(error)")
                 }
             }
-//        case Publisher.ProtocolTypes.PNBA.rawValue:
-//            phonenumberViewPlatform = platform.name!
-//            showPhonenumberView = true
+        case Publisher.ProtocolTypes.PNBA.rawValue:
+            phoneNumberAuthenticationRequested = true
         case .none:
             Task {}
         case .some(_):
@@ -311,7 +319,7 @@ struct PlatformsView: View {
 }
 
 #Preview {
-    @State var savingPlatform = false
+    @State var savingPlatform = true
     SavingNewPlatformView(
         name: "RelaySMS",
         isSaving: $savingPlatform
