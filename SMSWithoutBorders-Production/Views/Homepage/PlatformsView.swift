@@ -7,10 +7,51 @@
 
 import SwiftUI
 
+struct PlatformSheetView: View {
+    var image: Data?
+    var description: String
+    
+    init(image: Data?, description: String) {
+        self.image = image
+        self.description = description
+    }
+    
+    var body: some View {
+        VStack(alignment:.center) {
+            (image != nil ?
+             Image(uiImage: UIImage(data: image!)!) : Image("Logo")
+            )
+                .resizable()
+                .scaledToFit()
+                .frame(width: 75, height: 75)
+                .padding()
+            
+            Text(description)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Spacer()
+            
+            Button {
+                
+            } label: {
+                Text("Add Account")
+                    .frame(maxWidth: .infinity, maxHeight: 35)
+            }
+            .buttonStyle(.bordered)
+            .padding()
+
+        }
+    }
+}
+
 struct PlatformCard: View {
-    @Binding var sheetIsPresented: Bool
-    @State var name: String
-    @State var isEnabled: Bool
+    @State var sheetIsPresented: Bool = false
+    
+    let name: String
+    let protocolType: Publisher.ProtocolTypes
+    let isEnabled: Bool
+    let image: Data?
 
     var body: some View {
         VStack {
@@ -20,7 +61,9 @@ struct PlatformCard: View {
                         sheetIsPresented.toggle()
                     }) {
                         VStack {
-                            Image("Logo")
+                            (image != nil ?
+                             Image(uiImage: UIImage(data: image!)!) : Image("Logo")
+                            )
                                 .resizable()
                                 .renderingMode(isEnabled ? .none : .template)
                                 .foregroundColor(isEnabled ? .clear : .gray)
@@ -34,7 +77,14 @@ struct PlatformCard: View {
                     }
                     .buttonStyle(.bordered)
                     .tint(isEnabled ? .accentColor : .gray)
-                    
+                    .sheet(isPresented: $sheetIsPresented) {
+                        PlatformSheetView(
+                            image: image,
+                            description: getProtocolDescription(protocolType: protocolType)
+                        )
+                            .applyPresentationDetentsIfAvailable()
+                    }
+
                 }
                 if(isEnabled) {
                     Circle()
@@ -45,13 +95,27 @@ struct PlatformCard: View {
             }
         }
     }
+    
+    func getProtocolDescription(protocolType: Publisher.ProtocolTypes) -> String {
+        switch(protocolType) {
+        case .BRIDGE:
+            return Publisher.ProtocolDescriptions.BRIDGE.rawValue
+        case .OAUTH2:
+            return Publisher.ProtocolDescriptions.OAUTH2.rawValue
+        case .PNBA:
+            return Publisher.ProtocolDescriptions.PNBA.rawValue
+        }
+    }
 }
 
 struct PlatformsView: View {
-    @State private var sheetIsPresented: Bool = false
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
-    let data = (1...5).map { "Item \($0)" }
-    
+    @State private var sheetIsRequested: Bool = false
+    @State private var platformsSheetIsRequested: Bool = false
+
+    private var defaultDescription = ""
+
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -67,14 +131,12 @@ struct PlatformsView: View {
                         .padding(.bottom, 10)
                     
                     PlatformCard(
-                        sheetIsPresented: $sheetIsPresented,
                         name: "RelaySMS account",
-                        isEnabled: true)
-                        .padding(.bottom, 32)
-                        .sheet(isPresented: $sheetIsPresented) {
-                            Text("Hello world")
-                        }
-                    
+                        protocolType: Publisher.ProtocolTypes.BRIDGE,
+                        isEnabled: true,
+                        image: nil
+                    ).padding(.bottom, 32)
+
 
                     Text("Use your online accounts")
                         .font(.caption)
@@ -82,11 +144,13 @@ struct PlatformsView: View {
                         .padding(.bottom, 10)
 
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(data, id: \.self) { item in
+                        ForEach(platforms, id: \.name) { item in
                             PlatformCard(
-                                sheetIsPresented: $sheetIsPresented,
-                                name: "Signal",
-                                isEnabled: false)
+                                name: item.name!,
+                                protocolType: getProtocolType(type: item.protocol_type!),
+                                isEnabled: false,
+                                image: item.image
+                            )
                         }
                     }
                     
@@ -96,30 +160,58 @@ struct PlatformsView: View {
             .padding(16)
         }
     }
+    
+    func getProtocolType(type: String) -> Publisher.ProtocolTypes {
+        switch(type) {
+        case Publisher.ProtocolTypes.OAUTH2.rawValue:
+            return Publisher.ProtocolTypes.OAUTH2
+            
+        case Publisher.ProtocolTypes.PNBA.rawValue:
+            return Publisher.ProtocolTypes.PNBA
+            
+        default:
+            return Publisher.ProtocolTypes.BRIDGE
+        }
+    }
 }
 
 #Preview {
-    PlatformsView()
+    var description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    PlatformSheetView(
+        image: nil,
+        description: description)
 }
 
-struct PlatformCardDisabled: PreviewProvider {
+struct Platforms_Preview: PreviewProvider {
+    static var previews: some View {
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return PlatformsView()
+            .environment(\.managedObjectContext, container.viewContext)
+    }
+}
+
+struct PlatformCardDisabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
         PlatformCard(
-            sheetIsPresented: $sheetIsPresented,
             name: "Template",
-            isEnabled: true
+            protocolType: Publisher.ProtocolTypes.BRIDGE,
+            isEnabled: true,
+            image: nil
         )
     }
 }
 
-struct PlatformCardEnabled: PreviewProvider {
+struct PlatformCardEnabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
         PlatformCard(
-            sheetIsPresented: $sheetIsPresented,
             name: "Template",
-            isEnabled: false
+            protocolType: Publisher.ProtocolTypes.BRIDGE, isEnabled: false,
+            image: nil
         )
     }
 }

@@ -17,6 +17,18 @@ class Publisher {
     public static var PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
     public static var PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     public static var CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
+    
+    enum ProtocolDescriptions: String {
+        case OAUTH2 = "Give permissions to use SMS to send messages online from RelaySMS"
+        case PNBA = "Give permissions to use SMS to message your contacts from RelaySMS"
+        case BRIDGE = "Send messages using your RelaySMS account alias e.g <example@relaysms.com>.\nEmail messaging is currently supported."
+    }
+
+    enum ProtocolTypes: String {
+        case OAUTH2 = "oauth2"
+        case PNBA = "pnba"
+        case BRIDGE = "bridge"
+    }
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
@@ -171,10 +183,10 @@ class Publisher {
 
     func revokePlatform(llt: String, platform: String, account: String, protocolType: String) throws -> Bool {
         print("[+] Revoking: \(platform) with protocol type: \(protocolType)")
-        if protocolType ==  "oauth2" {
+        if protocolType ==  ProtocolTypes.OAUTH2.rawValue {
             return try revokeOAuthPlatform(llt: llt, platform: platform, account: account).success
         }
-        else if protocolType == "pnba" {
+        else if protocolType == ProtocolTypes.PNBA.rawValue {
             return try revokePNBAPlatform(llt: llt, platform: platform, account: account).success
         }
         return false
