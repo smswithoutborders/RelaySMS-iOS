@@ -52,7 +52,7 @@ struct SecuritySettingsView: View {
                         }.confirmationDialog("", isPresented: $showIsDeleting) {
                             Button("Continue Deleting", role: .destructive, action: deleteAccount)
                         } message: {
-                            Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
+                            Text(String(localized:"You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted", comment: "Explains deleting your account will remoke all previous tokens and your data will be deleted but another account can be created any time"))
                         }
                     }
                 }
