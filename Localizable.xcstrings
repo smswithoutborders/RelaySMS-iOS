@@ -113,6 +113,9 @@
     "Error" : {
 
     },
+    "Error! You did nothing wrong..." : {
+
+    },
     "Finish!" : {
 
     },
@@ -195,6 +198,9 @@
 
     },
     "No recent messages" : {
+
+    },
+    "Not my fault!" : {
 
     },
     "OTP Code" : {
@@ -286,6 +292,9 @@
 
     },
     "Save platforms" : {
+
+    },
+    "Saving new account for %@..." : {
 
     },
     "Security" : {

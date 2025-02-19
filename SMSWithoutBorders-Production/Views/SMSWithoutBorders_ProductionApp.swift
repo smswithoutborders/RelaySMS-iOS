@@ -148,9 +148,9 @@ struct SMSWithoutBorders_ProductionApp: App {
             .onAppear {
                 Publisher.refreshPlatforms(context: dataController.container.viewContext)
             }
-            .onOpenURL { url in
-                processIncomingUrls(url: url)
-            }
+//            .onOpenURL { url in
+//                processIncomingUrls(url: url)
+//            }
         }
     }
     
