@@ -194,6 +194,9 @@
     "No messages sent" : {
 
     },
+    "No online platforms saved yet..." : {
+
+    },
     "No platforms" : {
 
     },
@@ -291,6 +294,9 @@
     "Save Accounts to Vault" : {
 
     },
+    "Save more platforms..." : {
+
+    },
     "Save platforms" : {
 
     },
@@ -310,6 +316,9 @@
 
     },
     "Send new message" : {
+
+    },
+    "Send new message..." : {
 
     },
     "Set as default gateway client?" : {

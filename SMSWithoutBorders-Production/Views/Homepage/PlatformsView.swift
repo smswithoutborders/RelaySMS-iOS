@@ -304,6 +304,8 @@ struct PlatformsView: View {
             selector: #selector(NSString.localizedStandardCompare))]
     ) var platforms: FetchedResults<PlatformsEntity>
     
+    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    
     @State private var sheetIsRequested: Bool = false
     @State private var platformsSheetIsRequested: Bool = false
     
@@ -340,24 +342,64 @@ struct PlatformsView: View {
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 10)
-
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(platforms, id: \.name) { item in
-                            PlatformCard(
-                                composeNewMessageRequested: $composeNewMessageRequested,
-                                platformRequestType: $requestType,
-                                composeViewRequested: getBindingComposeVariable(type: item.service_type!),
-                                platform: item,
-                                protocolType: getProtocolType(type: item.protocol_type!)
-                            )
+                    
+                    if storedPlatforms.isEmpty {
+                        Text("No online platforms saved yet...")
+                    } else {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            if requestType == .compose {
+                                ForEach(filterForStoredPlatforms(), id: \.name) { item in
+                                    PlatformCard(
+                                        composeNewMessageRequested: $composeNewMessageRequested,
+                                        platformRequestType: $requestType,
+                                        composeViewRequested: getBindingComposeVariable(type: item.service_type!),
+                                        platform: item,
+                                        protocolType: getProtocolType(type: item.protocol_type!)
+                                    )
+                                }
+                            }
+                            else {
+                                ForEach(platforms, id: \.name) { item in
+                                    PlatformCard(
+                                        composeNewMessageRequested: $composeNewMessageRequested,
+                                        platformRequestType: $requestType,
+                                        composeViewRequested: getBindingComposeVariable(type: item.service_type!),
+                                        platform: item,
+                                        protocolType: getProtocolType(type: item.protocol_type!)
+                                    )
+                                }
+                            }
                         }
                     }
-                    
+                }
+                
+                VStack(alignment: .center) {
+                    Button {
+                        requestType = requestType == .compose ? .available : .compose
+                    } label: {
+                        if requestType == .compose {
+                            Text("Save more platforms...")
+                        } else {
+                            Text("Send new message...")
+                        }
+                    }
+                    .padding(.top, 32)
                 }
             }
             .navigationTitle(getRequestTypeText(type: requestType))
             .padding(16)
         }
+    }
+    
+    func filterForStoredPlatforms() -> [PlatformsEntity] {
+        var _storedPlatforms: Set<PlatformsEntity> = []
+        
+        for platform in platforms {
+            if storedPlatforms.contains(where: { $0.name == platform.name }) {
+                _storedPlatforms.insert(platform)
+            }
+        }
+        return Array(_storedPlatforms)
     }
     
     func getBindingComposeVariable(type: String) -> Binding<Bool> {
@@ -400,13 +442,48 @@ struct PlatformsView: View {
     
     
 }
+struct Platforms_Preview: PreviewProvider {
+    static var previews: some View {
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        @State var platformRequestType: PlatformsRequestedType = .available
+        @State var composeNewMessage: Bool = false
+        @State var composeTextRequested: Bool = false
+        @State var composeMessageRequested: Bool = false
+        @State var composeEmailRequested: Bool = false
+        return PlatformsView(
+            requestType: $platformRequestType,
+            composeNewMessageRequested: $composeNewMessage,
+            composeTextRequested: $composeTextRequested,
+            composeMessageRequested: $composeMessageRequested,
+            composeEmailRequested: $composeEmailRequested
+        )
+            .environment(\.managedObjectContext, container.viewContext)
+    }
+}
 
-#Preview {
-    @State var savingPlatform = true
-    SavingNewPlatformView(
-        name: "RelaySMS",
-        isSaving: $savingPlatform
-    )
+struct PlatformsCompose_Preview: PreviewProvider {
+    static var previews: some View {
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        @State var platformRequestType: PlatformsRequestedType = .compose
+        @State var composeNewMessage: Bool = false
+        @State var composeTextRequested: Bool = false
+        @State var composeMessageRequested: Bool = false
+        @State var composeEmailRequested: Bool = false
+        return PlatformsView(
+            requestType: $platformRequestType,
+            composeNewMessageRequested: $composeNewMessage,
+            composeTextRequested: $composeTextRequested,
+            composeMessageRequested: $composeMessageRequested,
+            composeEmailRequested: $composeEmailRequested
+        )
+            .environment(\.managedObjectContext, container.viewContext)
+    }
 }
 
 #Preview {
@@ -431,28 +508,6 @@ struct PlatformsView: View {
     )
 }
 
-struct Platforms_Preview: PreviewProvider {
-    static var previews: some View {
-        
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
-        
-        @State var platformRequestType: PlatformsRequestedType = .available
-        @State var composeNewMessage: Bool = false
-        @State var composeTextRequested: Bool = false
-        @State var composeMessageRequested: Bool = false
-        @State var composeEmailRequested: Bool = false
-        return PlatformsView(
-            requestType: $platformRequestType,
-            composeNewMessageRequested: $composeNewMessage,
-            composeTextRequested: $composeTextRequested,
-            composeMessageRequested: $composeMessageRequested,
-            composeEmailRequested: $composeEmailRequested
-        )
-            .environment(\.managedObjectContext, container.viewContext)
-    }
-}
-
 struct PlatformCardDisabled_Preview: PreviewProvider {
     
     static var previews: some View {
@@ -472,6 +527,7 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
     }
 }
 
+
 struct PlatformCardEnabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
@@ -489,3 +545,12 @@ struct PlatformCardEnabled_Preview: PreviewProvider {
         )
     }
 }
+
+#Preview {
+    @State var savingPlatform = true
+    SavingNewPlatformView(
+        name: "RelaySMS",
+        isSaving: $savingPlatform
+    )
+}
+
