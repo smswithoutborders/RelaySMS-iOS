@@ -206,7 +206,7 @@ struct MessagingView: View {
                             .resizable()
                             .frame(width: 25.0, height: 25.0)
                     }
-                    .disabled(isMessaging)
+                    .disabled(!isMessaging &&  fromAccount.isEmpty)
                     .sheet(isPresented: $isShowingMessages) {
                         SMSComposeMessageUIView(
                             recipients: [defaultGatewayClientMsisdn],

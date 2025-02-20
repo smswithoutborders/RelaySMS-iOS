@@ -14,17 +14,21 @@ struct TextComposeView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+    @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
 
     @State var textBody: String = ""
     @State var placeHolder: String = "What's happening?"
-    @State private var fromAccount: String? = nil
+    @State private var fromAccount: String = ""
 
     @State private var encryptedFormattedContent = ""
     @State private var isPosting: Bool = false
     @State private var isShowingMessages: Bool = false
+    
+    @State private var dismissRequested: Bool = false
+    @State private var requestToChooseAccount: Bool = false
 
     @State var platform: PlatformsEntity?
     
@@ -37,12 +41,16 @@ struct TextComposeView: View {
             sortDescriptors: [],
             predicate: NSPredicate(format: "name == %@", platformName))
         
+        _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", platformName))
+
         print("Searching platform: \(platformName)")
     }
 
     var body: some View {
-        VStack {
-            NavigationView {
+        NavigationView {
+            VStack {
                 ZStack {
                     if self.textBody.isEmpty {
                         TextEditor(text: $placeHolder)
@@ -58,42 +66,64 @@ struct TextComposeView: View {
                         .padding()
                 }
             }
-            .navigationBarTitle("Compose Post")
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Post") {
-                        let platform = platforms.first!
-                        isPosting = true
-                        DispatchQueue.background(background: {
-                            do {
-                                let messageComposer = try Publisher.publish( context: context)
-                                var shortcode: UInt8? = nil
-                                shortcode = platform.shortcode!.bytes[0]
-                                
-                                encryptedFormattedContent = try messageComposer.textComposer(
-                                    platform_letter: shortcode!,
-                                    sender: fromAccount!,
-                                    text: textBody)
-                                print("Transmitting to sms app: \(encryptedFormattedContent)")
-                                
-                                isPosting = false
-                                isShowingMessages.toggle()
-                            } catch {
-                                print("Some error occured while sending: \(error)")
-                            }
-                        })
-                    }
-                    .disabled(isPosting)
-                    .sheet(isPresented: $isShowingMessages) {
-                        SMSComposeMessageUIView(
-                            recipients: [defaultGatewayClientMsisdn],
-                            body: $encryptedFormattedContent,
-                            completion: handleCompletion(_:))
-                        .ignoresSafeArea()
-                    }
-                }
-            })
+            .sheet(isPresented: $requestToChooseAccount) {
+                AccountSheetView(
+                    filter: platformName,
+                    fromAccount: $fromAccount,
+                    dismissParent: $dismissRequested
+                )
+                .applyPresentationDetentsIfAvailable()
+                .interactiveDismissDisabled(true)
+            }
         }
+        .onChange(of: dismissRequested) { state in
+            if state {
+                dismiss()
+            }
+        }
+        .task {
+            if storedPlatforms.count > 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    requestToChooseAccount = true
+                }
+            }
+        }
+        .navigationBarTitle("Compose Post")
+        .toolbar(content: {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Post") {
+                    let platform = platforms.first!
+                    isPosting = true
+                    DispatchQueue.background(background: {
+                        do {
+                            let messageComposer = try Publisher.publish( context: context)
+                            var shortcode: UInt8? = nil
+                            shortcode = platform.shortcode!.bytes[0]
+                            
+                            encryptedFormattedContent = try messageComposer.textComposer(
+                                platform_letter: shortcode!,
+                                sender: fromAccount,
+                                text: textBody)
+                            print("Transmitting to sms app: \(encryptedFormattedContent)")
+                            
+                            isPosting = false
+                            isShowingMessages.toggle()
+                        } catch {
+                            print("Some error occured while sending: \(error)")
+                        }
+                    })
+                }
+                .disabled(isPosting || fromAccount.isEmpty)
+                .sheet(isPresented: $isShowingMessages) {
+                    SMSComposeMessageUIView(
+                        recipients: [defaultGatewayClientMsisdn],
+                        body: $encryptedFormattedContent,
+                        completion: handleCompletion(_:))
+                    .ignoresSafeArea()
+                }
+            }
+        })
+        
     }
     
     func handleCompletion(_ result: MessageComposeResult) {
