@@ -97,12 +97,14 @@ struct HomepageView: View {
                             }
                         .tag(HomepageTabs.recents)
                         
-                        PlatformsView(requestType: $platformRequestType)
-                            .tabItem() {
-                                Image(systemName: "apps.iphone")
-                                Text("Platforms")
-                            }
-                            .tag(HomepageTabs.platforms)
+                        PlatformsView(
+                            requestType: $platformRequestType,
+                            composeNewMessageRequested: $composeNewMessageRequested
+                        )
+                        .tabItem() {
+                            Image(systemName: "apps.iphone")
+                            Text("Platforms")
+                        }.tag(HomepageTabs.platforms)
 
                     } else {
                         RecentsViewNotLoggedIn(
@@ -125,6 +127,7 @@ struct HomepageView: View {
                             Text("Countries")
                         }
                         .tag(HomepageTabs.gatewayClients)
+                
                     
                     SettingsView(isLoggedIn: $isLoggedIn)
                         .tabItem() {

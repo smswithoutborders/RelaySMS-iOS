@@ -46,6 +46,7 @@ struct PlatformSheetView: View {
     @State var savingNewPlatform = false
     @State var failed: Bool = false
     @State var phoneNumberAuthenticationRequested: Bool = false
+    @State var sheetComposeNewPresented = false
 
     @State var errorMessage: String = ""
 
@@ -53,12 +54,19 @@ struct PlatformSheetView: View {
     @State private var codeVerifier: String = ""
     
     @Binding var parentIsEnabled: Bool
+    @Binding var composeNewMessageRequested: Bool
 
-    init(description: String, platform: PlatformsEntity?, isEnabled: Binding<Bool>) {
+    init(
+        description: String,
+        platform: PlatformsEntity?,
+        isEnabled: Binding<Bool>,
+        composeNewMessageRequested: Binding<Bool>
+    ) {
         self.description = description
         self.platform = platform
         
         _parentIsEnabled = isEnabled
+        _composeNewMessageRequested = composeNewMessageRequested
     }
     
     var body: some View {
@@ -94,10 +102,18 @@ struct PlatformSheetView: View {
                         Button {
                             if(platform != nil) {
                                 triggerPlatformRequest(platform: platform!)
+                            } else {
+                                composeNewMessageRequested.toggle()
+                                dismiss()
                             }
                         } label: {
-                            Text("Add Account")
-                                .frame(maxWidth: .infinity, maxHeight: 35)
+                            if platform == nil {
+                                Text("Send new message")
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                            } else {
+                                Text("Add Account")
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                            }
                         }
                         .buttonStyle(.bordered)
                         .padding()
@@ -178,11 +194,12 @@ struct PlatformCard: View {
 
 
     @State var sheetIsPresented: Bool = false
+    @State var isEnabled: Bool = false
+    
+    @Binding var composeNewMessageRequested: Bool
 
     let platform: PlatformsEntity?
     let protocolType: Publisher.ProtocolTypes
-
-    @State var isEnabled: Bool = false
 
     var body: some View {
         VStack {
@@ -213,7 +230,8 @@ struct PlatformCard: View {
                         PlatformSheetView(
                             description: getProtocolDescription( protocolType: protocolType),
                             platform: platform,
-                            isEnabled: $isEnabled
+                            isEnabled: $isEnabled,
+                            composeNewMessageRequested: $composeNewMessageRequested
                         ).applyPresentationDetentsIfAvailable()
                     }
                 }
@@ -265,6 +283,7 @@ struct PlatformsView: View {
     @State private var platformsSheetIsRequested: Bool = false
     
     @Binding var requestType: RequestType
+    @Binding var composeNewMessageRequested: Bool
 
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -281,9 +300,10 @@ struct PlatformsView: View {
                         .padding(.bottom, 10)
                     
                     PlatformCard(
+                        isEnabled: true,
+                        composeNewMessageRequested: $composeNewMessageRequested,
                         platform: nil,
-                        protocolType: Publisher.ProtocolTypes.BRIDGE,
-                        isEnabled: true
+                        protocolType: Publisher.ProtocolTypes.BRIDGE
                     ).padding(.bottom, 32)
 
                     Text("Use your online accounts")
@@ -294,6 +314,7 @@ struct PlatformsView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(platforms, id: \.name) { item in
                             PlatformCard(
+                                composeNewMessageRequested: $composeNewMessageRequested,
                                 platform: item,
                                 protocolType: getProtocolType(type: item.protocol_type!)
                             )
@@ -348,10 +369,13 @@ struct PlatformsView: View {
     @State var saveRequested = false
     @State var codeVerifier: String = ""
     @State var isEnabled: Bool = false
+    @State var composeNewMessage: Bool = false
 
     PlatformSheetView(
         description: description,
-        platform: nil, isEnabled: $isEnabled
+        platform: nil,
+        isEnabled: $isEnabled,
+        composeNewMessageRequested: $composeNewMessage
     )
 }
 
@@ -362,7 +386,11 @@ struct Platforms_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var platformRequestType: RequestType = .available
-        return PlatformsView(requestType: $platformRequestType)
+        @State var composeNewMessage: Bool = false
+        return PlatformsView(
+            requestType: $platformRequestType,
+            composeNewMessageRequested: $composeNewMessage
+        )
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
@@ -371,11 +399,13 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
     
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
+        @State var composeNewMessage: Bool = false
 
         PlatformCard(
+            isEnabled: true,
+            composeNewMessageRequested: $composeNewMessage,
             platform: nil,
-            protocolType: Publisher.ProtocolTypes.BRIDGE,
-            isEnabled: true
+            protocolType: Publisher.ProtocolTypes.BRIDGE
         )
     }
 }
@@ -383,10 +413,13 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
 struct PlatformCardEnabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
-        
+        @State var composeNewMessage: Bool = false
+
         PlatformCard(
+            isEnabled: false,
+            composeNewMessageRequested: $composeNewMessage,
             platform: nil,
-            protocolType: Publisher.ProtocolTypes.BRIDGE, isEnabled: false
+            protocolType: Publisher.ProtocolTypes.BRIDGE
         )
     }
 }
