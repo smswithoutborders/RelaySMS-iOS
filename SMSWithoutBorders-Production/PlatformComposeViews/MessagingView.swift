@@ -76,15 +76,13 @@ struct MessagingView: View {
     @State var messageBody :String = ""
     @State var messageContact :String = ""
     @State private var encryptedFormattedContent = ""
-    
+    @State private var fromAccount: String? = nil
     
     @FetchRequest var messages: FetchedResults<MessageEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     private var platformName: String
-    private var fromAccount: String
     
     @FocusState private var isFocused: Bool
-    
     
     @State private var pickedNumber: String?
     @StateObject private var coordinator = Coordinator()
@@ -95,7 +93,7 @@ struct MessagingView: View {
     @State private var isShowingMessages = false
 
     
-    init(platformName: String, fromAccount: String, message: Messages? = nil) {
+    init(platformName: String, message: Messages? = nil) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -119,7 +117,6 @@ struct MessagingView: View {
 
         print("Searching platform: \(platformName)")
 
-        self.fromAccount = fromAccount
         self.message = message
     }
     
@@ -195,7 +192,7 @@ struct MessagingView: View {
                                     messageContact = messageContact.filter{ $0.isWholeNumber }
                                     encryptedFormattedContent = try messageComposer.messageComposer(
                                         platform_letter: shortcode!,
-                                        sender: fromAccount,
+                                        sender: fromAccount!,
                                         receiver: messageContact,
                                         message: messageBody)
                                     
@@ -337,7 +334,7 @@ struct MessageView_Preview: PreviewProvider {
             toAccount: "+137123456781", platformName: "telegram",
             date: Int(Date().timeIntervalSince1970))
         
-        return MessagingView(platformName: "telegram", fromAccount: "+237123456789", message: message)
+        return MessagingView(platformName: "telegram", message: message)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

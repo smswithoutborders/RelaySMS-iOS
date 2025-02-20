@@ -169,12 +169,12 @@ struct AvailablePlatformsSheetsView: View {
                     .frame(width: 50, height: 50)
             }
             .background(
-                NavigationLink(destination: AccountSheetView(
-                    filter: filterPlatformName,
-                    globalDismiss: $accountViewShown,
-                    isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE), isActive: $accountViewShown) {
-                        EmptyView()
-                    }.hidden()
+//                NavigationLink(destination: AccountSheetView(
+//                    filter: filterPlatformName,
+//                    globalDismiss: $accountViewShown,
+//                    isRevoke: type == AvailablePlatformsSheetsView.TYPE.REVOKE), isActive: $accountViewShown) {
+//                        EmptyView()
+//                    }.hidden()
             )
             .sheet(isPresented: $showPhonenumberView) {
 //                PhoneNumberSheetView(platformName: phonenumberViewPlatform)

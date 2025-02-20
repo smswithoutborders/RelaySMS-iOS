@@ -213,13 +213,13 @@ struct PlatformCard: View {
             selector: #selector(NSString.localizedStandardCompare))]
     ) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
-
     @State var sheetIsPresented: Bool = false
     @State var isEnabled: Bool = false
     
     @Binding var composeNewMessageRequested: Bool
     @Binding var platformRequestType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
+    @Binding var requestedPlatformName: String
 
     let platform: PlatformsEntity?
     let protocolType: Publisher.ProtocolTypes
@@ -229,6 +229,9 @@ struct PlatformCard: View {
             ZStack {
                 VStack {
                     Button(action: {
+                        if platform != nil {
+                            requestedPlatformName = platform!.name!
+                        }
                         sheetIsPresented.toggle()
                     }) {
                         VStack {
@@ -291,6 +294,7 @@ struct PlatformCard: View {
     func isStored(platformEntity: PlatformsEntity) -> Bool {
         return storedPlatforms.contains(where: { $0.name == platformEntity.name })
     }
+    
 
 }
 
@@ -314,6 +318,7 @@ struct PlatformsView: View {
     @State private var platformsSheetIsRequested: Bool = false
     
     @Binding var requestType: PlatformsRequestedType
+    @Binding var requestedPlatformName: String
     @Binding var composeNewMessageRequested: Bool
     @Binding var composeTextRequested: Bool
     @Binding var composeMessageRequested: Bool
@@ -338,6 +343,7 @@ struct PlatformsView: View {
                         composeNewMessageRequested: $composeNewMessageRequested,
                         platformRequestType: $requestType,
                         composeViewRequested: getBindingComposeVariable(type: "email"),
+                        requestedPlatformName: $requestedPlatformName,
                         platform: nil,
                         protocolType: Publisher.ProtocolTypes.BRIDGE
                     ).padding(.bottom, 32)
@@ -356,7 +362,9 @@ struct PlatformsView: View {
                                     PlatformCard(
                                         composeNewMessageRequested: $composeNewMessageRequested,
                                         platformRequestType: $requestType,
-                                        composeViewRequested: getBindingComposeVariable(type: item.service_type!),
+                                        composeViewRequested: getBindingComposeVariable(
+                                            type: item.service_type!),
+                                        requestedPlatformName: $requestedPlatformName,
                                         platform: item,
                                         protocolType: getProtocolType(type: item.protocol_type!)
                                     )
@@ -367,7 +375,9 @@ struct PlatformsView: View {
                                     PlatformCard(
                                         composeNewMessageRequested: $composeNewMessageRequested,
                                         platformRequestType: $requestType,
-                                        composeViewRequested: getBindingComposeVariable(type: item.service_type!),
+                                        composeViewRequested: getBindingComposeVariable(
+                                            type: item.service_type!),
+                                        requestedPlatformName: $requestedPlatformName,
                                         platform: item,
                                         protocolType: getProtocolType(type: item.protocol_type!)
                                     )
@@ -407,6 +417,7 @@ struct PlatformsView: View {
     }
     
     func getBindingComposeVariable(type: String) -> Binding<Bool> {
+        @State var defaultNil : Bool? = false
         switch(type) {
         case Publisher.ServiceTypes.EMAIL.rawValue:
             return $composeEmailRequested
@@ -452,6 +463,9 @@ struct Platforms_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var requestedFromAccount: String? = "example@gmail.com"
+        @State var requestedPlatformName: String = "gmail"
+        
         @State var platformRequestType: PlatformsRequestedType = .available
         @State var composeNewMessage: Bool = false
         @State var composeTextRequested: Bool = false
@@ -459,6 +473,7 @@ struct Platforms_Preview: PreviewProvider {
         @State var composeEmailRequested: Bool = false
         return PlatformsView(
             requestType: $platformRequestType,
+            requestedPlatformName: $requestedPlatformName,
             composeNewMessageRequested: $composeNewMessage,
             composeTextRequested: $composeTextRequested,
             composeMessageRequested: $composeMessageRequested,
@@ -474,13 +489,16 @@ struct PlatformsCompose_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var requestedPlatformName: String = "gmail"
         @State var platformRequestType: PlatformsRequestedType = .compose
         @State var composeNewMessage: Bool = false
         @State var composeTextRequested: Bool = false
         @State var composeMessageRequested: Bool = false
         @State var composeEmailRequested: Bool = false
+        @State var requestedFromAccount: String? = "example@gmail.com"
         return PlatformsView(
             requestType: $platformRequestType,
+            requestedPlatformName: $requestedPlatformName,
             composeNewMessageRequested: $composeNewMessage,
             composeTextRequested: $composeTextRequested,
             composeMessageRequested: $composeMessageRequested,
@@ -519,12 +537,14 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
         @State var composeNewMessage: Bool = false
         @State var composeViewRequested: Bool = false
         @State var platformRequestedType: PlatformsRequestedType = .available
+        @State var requestedPlatformName: String = "gmail"
 
         PlatformCard(
             isEnabled: true,
             composeNewMessageRequested: $composeNewMessage,
             platformRequestType: $platformRequestedType,
             composeViewRequested: $composeViewRequested,
+            requestedPlatformName: $requestedPlatformName,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE
         )
@@ -538,12 +558,15 @@ struct PlatformCardEnabled_Preview: PreviewProvider {
         @State var composeNewMessage: Bool = false
         @State var composeViewRequested: Bool = false
         @State var platformRequestedType: PlatformsRequestedType = .available
+        
+        @State var requestedPlatformName: String = "gmail"
 
         PlatformCard(
             isEnabled: false,
             composeNewMessageRequested: $composeNewMessage,
             platformRequestType: $platformRequestedType,
             composeViewRequested: $composeViewRequested,
+            requestedPlatformName: $requestedPlatformName,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE
         )

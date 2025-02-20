@@ -8,28 +8,26 @@
 import SwiftUI
 import CoreData
 
-func getProtocolTypeForPlatform(storedPlatform: StoredPlatformsEntity,
-                                platforms: FetchedResults<PlatformsEntity>) -> String {
-    for platform in platforms {
-        if platform.name == storedPlatform.name {
-            return platform.protocol_type!
-        }
-    }
-    return ""
-}
-
-
-@ViewBuilder func accountView(accountName: String, platformName: String) -> some View {
-    VStack {
-        HStack {
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .frame(width: 50, height: 50)
-            VStack {
-                Text(accountName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text(platformName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+struct AccountView: View {
+    var accountName: String
+    var platformName: String
+    var body : some View {
+        VStack {
+            HStack {
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                VStack {
+                    Text(accountName)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .lineLimit(1)
+//                    Text(platformName)
+//                        .font(.caption2)
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .foregroundStyle(.gray)
+                }
+                .padding()
             }
         }
     }
@@ -37,20 +35,16 @@ func getProtocolTypeForPlatform(storedPlatform: StoredPlatformsEntity,
 
 struct AccountSheetView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.managedObjectContext) var context
+    
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     
+    @Binding var fromAccount: String
+    @Binding var dissmissParent: Bool
     private var platformName: String
-    private var isRevoke: Bool
-
-    @State private var isRevokeSheetShown: Bool = false
-    @State private var isRevoking: Bool = false
-    @State private var revokingShown: Bool = false
     
-    @State private var isLinkActive: Bool = false
-
-    init(filter: String, globalDismiss: Binding<Bool>, isRevoke: Bool = false) {
+    init(filter: String, fromAccount: Binding<String>, dismissParent: Binding<Bool>) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -60,92 +54,73 @@ struct AccountSheetView: View {
             predicate: NSPredicate(format: "name == %@", filter))
         
         self.platformName = filter
-        self.isRevoke = isRevoke
+        _fromAccount = fromAccount
+        _dissmissParent = dismissParent
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            List(storedPlatforms, id: \.self) { platform in
-                if !isRevoke {
-                    Button(action:{
-                        isLinkActive = true
+        NavigationView {
+            VStack(alignment: .leading) {
+                List(storedPlatforms, id: \.self) { platform in
+                    Button(action: {
+                        fromAccount = platform.account!
+                        dismiss()
                     }) {
-                        accountView(accountName: platform.account!, platformName: platform.name!)
-                    }.background(
-                        NavigationLink(
-                            destination: getDestinationForPlatform(fromAccount: platform.account!),
-                            isActive: $isLinkActive) { EmptyView() }.hidden()
-                    )
-                } else {
-                    if isRevoking {
-                        ProgressView()
+                        AccountView(
+                            accountName: platform.account!,
+                            platformName: platform.name!
+                        )
                     }
-                    else {
-                        Button(action: {
-                            isRevokeSheetShown.toggle()
-                        }) {
-                            accountView(accountName: platform.account!, platformName: platform.name!)
-                        }
-                        .confirmationDialog(String("Revoke?"),
-                                            isPresented: $isRevokeSheetShown) {
-
-                            Button("Revoke", role: .destructive) {
-                                isRevoking = true
-                                let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
-                                backgroundQueueu.async {
-                                    do {
-                                        let llt = try Vault.getLongLivedToken()
-                                        let publisher = Publisher()
-                                        let response = try publisher.revokePlatform(
-                                            llt: llt,
-                                            platform: platform.name!,
-                                            account: platform.account!,
-                                            protocolType: getProtocolTypeForPlatform(
-                                                storedPlatform: platform, platforms: platforms))
-                                        
-                                        if response {
-                                            viewContext.delete(platform)
-                                            try viewContext.save()
-                                        }
-                                        
-                                        DispatchQueue.main.async {
-                                            dismiss()
-                                        }
-                                    } catch {
-                                        print("Error revoking: \(error)")
-                                    }
-                                }
-                            }
-//                            Button("Cancel", role: .cancel) {}
-                            
-                        } message: {
-                            Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
-                        }
+    //                .confirmationDialog(String("Revoke?"), isPresented: $isRevokeSheetShown) {
+    //                    Button("Revoke", role: .destructive) {
+    //                        isRevoking = true
+    //                        let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
+    //                        backgroundQueueu.async {
+    //                            do {
+    //                                let llt = try Vault.getLongLivedToken()
+    //                                let publisher = Publisher()
+    //                                let response = try publisher.revokePlatform(
+    //                                    llt: llt,
+    //                                    platform: platform.name!,
+    //                                    account: platform.account!,
+    //                                    protocolType: Publisher.getProtocolTypeForPlatform(
+    //                                        storedPlatform: platform,
+    //                                        platforms: platforms
+    //                                    )
+    //                                )
+    //
+    //                                if response {
+    //                                    context.delete(platform)
+    //                                    try context.save()
+    //                                }
+    //
+    //                                DispatchQueue.main.async {
+    //                                    dismiss()
+    //                                }
+    //                            } catch {
+    //                                print("Error revoking: \(error)")
+    //                            }
+    //                        }
+    //                    }
+    //                } message: {
+    //                    Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
+    //                }
+                }
+            }
+            .navigationTitle("\(platformName) accounts")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dissmissParent.toggle()
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
                     }
                 }
             }
         }
-        .navigationTitle("\(platformName) accounts")
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
-    
-    @ViewBuilder func getDestinationForPlatform(fromAccount: String) -> some View {
-        ForEach(platforms) { platform in
-            switch platform.service_type {
-            case "email":
-                EmailView(platformName: platform.name!, fromAccount: fromAccount)
-            case "text":
-                TextComposeView(platformName: platform.name!, fromAccount: fromAccount)
-            case "message":
-                MessagingView(platformName: platform.name!, fromAccount: fromAccount,
-                              message: nil)
-            default:
-                EmptyView()
-            }
-        }
-    }
-    
 }
 
 struct AccountSheetView_Preview: PreviewProvider {
@@ -156,10 +131,12 @@ struct AccountSheetView_Preview: PreviewProvider {
         @State var globalDismiss = false
         @State var messagePlatformViewRequested = false
         @State var messagePlatformViewFromAccount: String = ""
+        @State var fromAccount: String = ""
+
         return AccountSheetView(
             filter: "twitter",
-            globalDismiss: $globalDismiss,
-            isRevoke: true)
-            .environment(\.managedObjectContext, container.viewContext)
+            fromAccount: $fromAccount,
+            dismissParent: $globalDismiss
+        ).environment(\.managedObjectContext, container.viewContext)
     }
 }

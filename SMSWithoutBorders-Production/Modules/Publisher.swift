@@ -10,6 +10,7 @@ import GRPC
 import Logging
 import CoreData
 import CryptoKit
+import SwiftUI
 
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
@@ -410,4 +411,17 @@ class Publisher {
             throw error
         }
     }
+    
+    public static func getProtocolTypeForPlatform(
+        storedPlatform: StoredPlatformsEntity,
+        platforms: FetchedResults<PlatformsEntity>
+    ) -> String {
+        for platform in platforms {
+            if platform.name == storedPlatform.name {
+                return platform.protocol_type!
+            }
+        }
+        return ""
+    }
+
 }

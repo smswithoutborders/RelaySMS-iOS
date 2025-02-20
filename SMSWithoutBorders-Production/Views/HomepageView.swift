@@ -31,7 +31,6 @@ struct HomepageView: View {
     @State var isLoggedIn: Bool = false
     
     @State var requestedPlatformName: String = ""
-    @State var requstedPlatformFromAccount: String = ""
 
     init(codeVerifier: Binding<String>) {
         _codeVerifier = codeVerifier
@@ -50,7 +49,6 @@ struct HomepageView: View {
                 NavigationLink(
                     destination: EmailView(
                         platformName: Bridges.SERVICE_NAME,
-                        fromAccount: nil,
                         isBridge: true
                     ),
                     isActive: $composeNewMessageRequested
@@ -59,20 +57,14 @@ struct HomepageView: View {
                 }
                 
                 NavigationLink(
-                    destination: EmailView(
-                        platformName: requestedPlatformName,
-                        fromAccount: requstedPlatformFromAccount
-                    ),
+                    destination: EmailView(platformName: requestedPlatformName),
                     isActive: $composeEmailRequested
                 ) {
                     EmptyView()
                 }
 
                 NavigationLink(
-                    destination: TextComposeView(
-                        platformName: requestedPlatformName,
-                        fromAccount: requstedPlatformFromAccount
-                    ),
+                    destination: TextComposeView(platformName: requestedPlatformName),
                     isActive: $composeTextRequested
                 ) {
                     EmptyView()
@@ -80,8 +72,7 @@ struct HomepageView: View {
                 
                 NavigationLink(
                     destination: MessagingView(
-                        platformName: requestedPlatformName,
-                        fromAccount: requstedPlatformFromAccount
+                        platformName: requestedPlatformName
                     ),
                     isActive: $composeMessageRequested
                 ) {
@@ -138,6 +129,7 @@ struct HomepageView: View {
                         
                         PlatformsView(
                             requestType: $platformRequestType,
+                            requestedPlatformName: $requestedPlatformName,
                             composeNewMessageRequested: $composeNewMessageRequested,
                             composeTextRequested: $composeTextRequested,
                             composeMessageRequested: $composeMessageRequested,

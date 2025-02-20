@@ -20,7 +20,8 @@ struct TextComposeView: View {
 
     @State var textBody: String = ""
     @State var placeHolder: String = "What's happening?"
-    
+    @State private var fromAccount: String? = nil
+
     @State private var encryptedFormattedContent = ""
     @State private var isPosting: Bool = false
     @State private var isShowingMessages: Bool = false
@@ -28,9 +29,8 @@ struct TextComposeView: View {
     @State var platform: PlatformsEntity?
     
     private var platformName: String
-    private var fromAccount: String
 
-    init(platformName: String, fromAccount: String) {
+    init(platformName: String) {
         self.platformName = platformName
         
         _platforms = FetchRequest<PlatformsEntity>(
@@ -38,8 +38,6 @@ struct TextComposeView: View {
             predicate: NSPredicate(format: "name == %@", platformName))
         
         print("Searching platform: \(platformName)")
-
-        self.fromAccount = fromAccount
     }
 
     var body: some View {
@@ -74,7 +72,7 @@ struct TextComposeView: View {
                                 
                                 encryptedFormattedContent = try messageComposer.textComposer(
                                     platform_letter: shortcode!,
-                                    sender: fromAccount,
+                                    sender: fromAccount!,
                                     text: textBody)
                                 print("Transmitting to sms app: \(encryptedFormattedContent)")
                                 
@@ -135,7 +133,7 @@ struct TextView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var globalDismiss = false
-        return TextComposeView(platformName: "twitter", fromAccount: "@relaysms")
+        return TextComposeView(platformName: "twitter")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

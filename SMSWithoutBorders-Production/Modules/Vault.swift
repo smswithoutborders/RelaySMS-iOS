@@ -337,7 +337,11 @@ struct Vault {
                     llt: longLiveToken,
                     platform: storedTokenEntity.name!,
                     account: storedTokenEntity.account!,
-                    protocolType: getProtocolTypeForPlatform(storedPlatform: storedTokenEntity, platforms: platforms))
+                    protocolType: Publisher.getProtocolTypeForPlatform(
+                        storedPlatform: storedTokenEntity,
+                        platforms: platforms
+                    )
+                )
             }
             try vault.deleteEntity(context: context, longLiveToken: longLiveToken)
         } catch {

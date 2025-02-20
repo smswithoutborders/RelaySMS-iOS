@@ -17,97 +17,99 @@ struct EmailComposeView: View {
     @Binding var composeBCC: String
     @Binding var composeSubject: String
     @Binding var composeBody: String
-    @Binding var fromAccount: String?
+    @Binding var fromAccount: String
+    
+    var isBridge: Bool
 
     var body: some View {
-        NavigationView {
-            VStack {
-                if(fromAccount != nil) {
-                    VStack{
-                        HStack {
-                            Text("From ")
-                                .foregroundColor(Color.secondary)
-                            Spacer()
-                            TextField(fromAccount!, text: $composeFrom)
-                                .textContentType(.emailAddress)
-                                .autocapitalization(.none)
-                                .disabled(true)
-                        }
-                        .padding(.leading)
-                        Rectangle().frame(height: 1).foregroundColor(.secondary)
-                    }
-                    Spacer(minLength: 9)
-                    
-                }
-                
+        VStack {
+            if(!isBridge) {
                 VStack{
                     HStack {
-                        Text("To ")
+                        Text("From ")
                             .foregroundColor(Color.secondary)
                         Spacer()
-                        TextField("", text: $composeTo)
+                        TextField(fromAccount, text: $composeFrom)
                             .textContentType(.emailAddress)
                             .autocapitalization(.none)
+                            .disabled(true)
                     }
                     .padding(.leading)
                     Rectangle().frame(height: 1).foregroundColor(.secondary)
                 }
                 Spacer(minLength: 9)
                 
-                VStack {
-                    HStack {
-                        Text("Cc ")
-                            .foregroundColor(Color.secondary)
-                        Spacer()
-                        TextField("", text: $composeCC)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
-                    }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+            }
+            
+            VStack{
+                HStack {
+                    Text("To ")
+                        .foregroundColor(Color.secondary)
+                    Spacer()
+                    TextField("", text: $composeTo)
+                        .textContentType(.emailAddress)
+                        .autocapitalization(.none)
                 }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    HStack {
-                        Text("Bcc ")
-                            .foregroundColor(Color.secondary)
-                        Spacer()
-                        TextField("", text: $composeBCC)
-                            .textContentType(.emailAddress)
-                            .autocapitalization(.none)
-                    }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                .padding(.leading)
+                Rectangle().frame(height: 1).foregroundColor(.secondary)
+            }
+            Spacer(minLength: 9)
+            
+            VStack {
+                HStack {
+                    Text("Cc ")
+                        .foregroundColor(Color.secondary)
+                    Spacer()
+                    TextField("", text: $composeCC)
+                        .textContentType(.emailAddress)
+                        .autocapitalization(.none)
                 }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    HStack {
-                        Text("Subject ")
-                            .foregroundColor(Color.secondary)
-                        Spacer()
-                        TextField("", text: $composeSubject)
-                    }
-                    .padding(.leading)
-                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                .padding(.leading)
+                Rectangle().frame(height: 1).foregroundColor(.secondary)
+            }
+            Spacer(minLength: 9)
+            
+            VStack {
+                HStack {
+                    Text("Bcc ")
+                        .foregroundColor(Color.secondary)
+                    Spacer()
+                    TextField("", text: $composeBCC)
+                        .textContentType(.emailAddress)
+                        .autocapitalization(.none)
                 }
-                Spacer(minLength: 9)
-                
-                VStack {
-                    TextEditor(text: $composeBody)
-                        .accessibilityLabel("composeBody")
+                .padding(.leading)
+                Rectangle().frame(height: 1).foregroundColor(.secondary)
+            }
+            Spacer(minLength: 9)
+            
+            VStack {
+                HStack {
+                    Text("Subject ")
+                        .foregroundColor(Color.secondary)
+                    Spacer()
+                    TextField("", text: $composeSubject)
                 }
+                .padding(.leading)
+                Rectangle().frame(height: 1).foregroundColor(.secondary)
+            }
+            Spacer(minLength: 9)
+            
+            VStack {
+                TextEditor(text: $composeBody)
+                    .accessibilityLabel("composeBody")
             }
         }
+    
     }
 }
 
 
 struct EmailView: View {
-
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
-    
+    @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+
     #if DEBUG
         private var defaultGatewayClientMsisdn: String = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "" : ""
     #else
@@ -118,51 +120,81 @@ struct EmailView: View {
     @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
     private var messageWithPhoneNumber = false
 
-//    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
-
     @State private var encryptedFormattedContent: String = ""
-    
     @State var isShowingMessages: Bool = false
     @State var isSendingRequest: Bool = false
+    @State var requestToChooseAccount: Bool = false
+    @State var composeFrom: String = ""
+    @State var fromAccount: String = ""
+    
+    @State var dismissRequested = false
 
     private var platformName: String
     private var isBridge: Bool = false
 
-    @State var composeTo: String = ""
-    @State var composeFrom: String = ""
-    @State var composeCC: String = ""
-    @State var composeBCC: String = ""
-    @State var composeSubject: String = ""
-    @State var composeBody: String = ""
-    @State var fromAccount: String? = nil
+    #if DEBUG
+        @State var composeTo: String = "developers@smswithoutborders.com"
+        @State var composeCC: String = ""
+        @State var composeBCC: String = ""
+        @State var composeSubject: String = "Development at Afkanerd"
+        @State var composeBody: String = "Hello world,\nThis is a message from SMSWithoutBorders"
+    #else
+        @State var composeTo: String = ""
+        @State var composeCC: String = ""
+        @State var composeBCC: String = ""
+        @State var composeSubject: String = ""
+        @State var composeBody: String = ""
+    #endif
 
-    init(platformName: String, fromAccount: String?, isBridge: Bool = false) {
+    init(platformName: String, isBridge: Bool = false) {
+        print("Requested platform name: \(platformName)")
+        _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", platformName))
+        
         self.platformName = platformName
         self.isBridge = isBridge
-        
-//        if(!isBridge) {
-//            _platforms = FetchRequest<PlatformsEntity>(
-//                sortDescriptors: [],
-//                predicate: NSPredicate(format: "name == %@", platformName))
-//            print("Searching platform: \(platformName)")
-//        }
-
-        self.fromAccount = fromAccount
     }
     
     
     var body: some View {
-        EmailComposeView(
-            composeTo: $composeTo,
-            composeFrom: $composeFrom,
-            composeCC: $composeCC,
-            composeBCC: $composeBCC,
-            composeSubject: $composeSubject,
-            composeBody: $composeBody,
-            fromAccount: $fromAccount)
-        .disabled(isSendingRequest)
-        .padding()
-        .navigationTitle("Compose email")
+        NavigationView {
+            VStack {
+                EmailComposeView(
+                    composeTo: $composeTo,
+                    composeFrom: $composeFrom,
+                    composeCC: $composeCC,
+                    composeBCC: $composeBCC,
+                    composeSubject: $composeSubject,
+                    composeBody: $composeBody,
+                    fromAccount: $fromAccount,
+                    isBridge: isBridge
+                )
+            }
+            .padding()
+            .sheet(isPresented: $requestToChooseAccount) {
+                AccountSheetView(
+                    filter: platformName,
+                    fromAccount: $fromAccount,
+                    dismissParent: $dismissRequested
+                )
+                .applyPresentationDetentsIfAvailable()
+                .interactiveDismissDisabled(true)
+            }
+        }
+        .onChange(of: dismissRequested) { state in
+            if state {
+                dismiss()
+            }
+        }
+        .task {
+            print("Stored items count: \(storedPlatforms.count)")
+            if storedPlatforms.count > 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    requestToChooseAccount = true
+                }
+            }
+        }        .navigationTitle("Compose email")
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Send") {
@@ -187,7 +219,7 @@ struct EmailView: View {
             }
         })
     }
-    
+
     func getEncryptedContent(isBridge: Bool = false) throws -> String {
         if(!isBridge) {
             let messageComposer = try Publisher.publish(context: context)
@@ -195,7 +227,7 @@ struct EmailView: View {
             
             return try messageComposer.emailComposer(
                 platform_letter: shortcode,
-                from: fromAccount!,
+                from: fromAccount,
                 to: composeTo,
                 cc: composeCC,
                 bcc: composeBCC,
@@ -276,10 +308,7 @@ struct EmailView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        @State var globalDimiss = false
-        
-        return EmailView(platformName: "gmail", 
-                         fromAccount: "from1@gmail.com")
+        return EmailView(platformName: "gmail" )
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
@@ -293,7 +322,7 @@ struct EmailCompose_Preview: PreviewProvider {
         @State var composeBCC: String = ""
         @State var composeSubject: String = ""
         @State var composeBody: String = ""
-        @State var fromAccount: String? = ""
+        @State var fromAccount: String = ""
 
         return EmailComposeView(
             composeTo: $composeTo,
@@ -302,7 +331,8 @@ struct EmailCompose_Preview: PreviewProvider {
             composeBCC: $composeBCC,
             composeSubject: $composeSubject,
             composeBody: $composeBody,
-            fromAccount: $fromAccount
+            fromAccount: $fromAccount,
+            isBridge: false
         )
     }
 }
