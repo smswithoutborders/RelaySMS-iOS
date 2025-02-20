@@ -118,14 +118,15 @@ struct PlatformSheetView: View {
                             if(platform != nil) {
                                 if platformRequestedType == .compose {
                                     composeViewRequested.toggle()
+                                    dismiss()
                                 }
                                 else {
                                     triggerPlatformRequest(platform: platform!)
                                 }
                             } else {
                                 composeNewMessageRequested.toggle()
+                                dismiss()
                             }
-                            dismiss()
                         } label: {
                             if platform == nil || platformRequestedType == .compose {
                                 Text("Send new message")
@@ -154,6 +155,7 @@ struct PlatformSheetView: View {
                         codeVerifier: codeVerifier
                     )
                     parentIsEnabled = true
+                    dismiss()
                 } catch {
                     print(error)
                     failed = true
@@ -161,7 +163,6 @@ struct PlatformSheetView: View {
                 }
             }, completion: {
                 loading = false
-                dismiss()
             })
         }
         .alert(isPresented: $failed) {
@@ -269,6 +270,9 @@ struct PlatformCard: View {
             }
         }
         .onAppear {
+            isEnabled = platform != nil ? isStored(platformEntity: platform!) : true
+        }
+        .onChange(of: sheetIsPresented) { item in
             isEnabled = platform != nil ? isStored(platformEntity: platform!) : true
         }
     }
