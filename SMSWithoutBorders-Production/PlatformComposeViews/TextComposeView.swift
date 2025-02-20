@@ -8,24 +8,25 @@
 import SwiftUI
 import MessageUI
 
-struct TextView: View {
-    @State var textBody :String = ""
-    @State var placeHolder: String = "What's happening?"
-    @State private var encryptedFormattedContent = ""
+struct TextComposeView: View {
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentationMode
     
+    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
+
+    @State var textBody: String = ""
+    @State var placeHolder: String = "What's happening?"
+    
+    @State private var encryptedFormattedContent = ""
     @State private var isPosting: Bool = false
     @State private var isShowingMessages: Bool = false
 
-    @Environment(\.managedObjectContext) var context
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.presentationMode) var presentationMode
-    
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = ""
-    
     @State var platform: PlatformsEntity?
     
-    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     private var platformName: String
     private var fromAccount: String
 
@@ -134,7 +135,7 @@ struct TextView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var globalDismiss = false
-        return TextView(platformName: "twitter", fromAccount: "@relaysms")
+        return TextComposeView(platformName: "twitter", fromAccount: "@relaysms")
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

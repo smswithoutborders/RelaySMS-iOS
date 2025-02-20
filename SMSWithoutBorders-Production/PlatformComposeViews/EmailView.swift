@@ -10,6 +10,100 @@ import MessageUI
 import CryptoKit
 import CoreData
 
+struct EmailComposeView: View {
+    @Binding var composeTo: String
+    @Binding var composeFrom: String
+    @Binding var composeCC: String
+    @Binding var composeBCC: String
+    @Binding var composeSubject: String
+    @Binding var composeBody: String
+    @Binding var fromAccount: String?
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                if(fromAccount != nil) {
+                    VStack{
+                        HStack {
+                            Text("From ")
+                                .foregroundColor(Color.secondary)
+                            Spacer()
+                            TextField(fromAccount!, text: $composeFrom)
+                                .textContentType(.emailAddress)
+                                .autocapitalization(.none)
+                                .disabled(true)
+                        }
+                        .padding(.leading)
+                        Rectangle().frame(height: 1).foregroundColor(.secondary)
+                    }
+                    Spacer(minLength: 9)
+                    
+                }
+                
+                VStack{
+                    HStack {
+                        Text("To ")
+                            .foregroundColor(Color.secondary)
+                        Spacer()
+                        TextField("", text: $composeTo)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                }
+                Spacer(minLength: 9)
+                
+                VStack {
+                    HStack {
+                        Text("Cc ")
+                            .foregroundColor(Color.secondary)
+                        Spacer()
+                        TextField("", text: $composeCC)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                }
+                Spacer(minLength: 9)
+                
+                VStack {
+                    HStack {
+                        Text("Bcc ")
+                            .foregroundColor(Color.secondary)
+                        Spacer()
+                        TextField("", text: $composeBCC)
+                            .textContentType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                }
+                Spacer(minLength: 9)
+                
+                VStack {
+                    HStack {
+                        Text("Subject ")
+                            .foregroundColor(Color.secondary)
+                        Spacer()
+                        TextField("", text: $composeSubject)
+                    }
+                    .padding(.leading)
+                    Rectangle().frame(height: 1).foregroundColor(.secondary)
+                }
+                Spacer(minLength: 9)
+                
+                VStack {
+                    TextEditor(text: $composeBody)
+                        .accessibilityLabel("composeBody")
+                }
+            }
+        }
+    }
+}
+
+
 struct EmailView: View {
 
     @Environment(\.managedObjectContext) var context

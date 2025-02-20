@@ -136,7 +136,7 @@ struct AccountSheetView: View {
             case "email":
                 EmailView(platformName: platform.name!, fromAccount: fromAccount)
             case "text":
-                TextView(platformName: platform.name!, fromAccount: fromAccount)
+                TextComposeView(platformName: platform.name!, fromAccount: fromAccount)
             case "message":
                 MessagingView(platformName: platform.name!, fromAccount: fromAccount,
                               message: nil)

@@ -41,7 +41,8 @@ struct PlatformSheetView: View {
     @Environment(\.managedObjectContext) var context
 
     var description: String
-    
+    var composeDescription: String
+
     @State var loading = false
     @State var savingNewPlatform = false
     @State var failed: Bool = false
@@ -55,18 +56,26 @@ struct PlatformSheetView: View {
     
     @Binding var parentIsEnabled: Bool
     @Binding var composeNewMessageRequested: Bool
+    @Binding var platformRequestedType: PlatformsRequestedType
+    @Binding var composeViewRequested: Bool
 
     init(
         description: String,
+        composeDescription: String,
         platform: PlatformsEntity?,
         isEnabled: Binding<Bool>,
-        composeNewMessageRequested: Binding<Bool>
+        composeNewMessageRequested: Binding<Bool>,
+        platformRequestedType: Binding<PlatformsRequestedType>,
+        composeViewRequested: Binding<Bool>
     ) {
         self.description = description
+        self.composeDescription = composeDescription
         self.platform = platform
         
         _parentIsEnabled = isEnabled
         _composeNewMessageRequested = composeNewMessageRequested
+        _platformRequestedType = platformRequestedType
+        _composeViewRequested = composeViewRequested
     }
     
     var body: some View {
@@ -86,9 +95,15 @@ struct PlatformSheetView: View {
                         .frame(width: 75, height: 75)
                         .padding()
                     
-                    Text(description)
-                        .multilineTextAlignment(.center)
-                        .padding()
+                    if platformRequestedType == .compose {
+                        Text(composeDescription)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    } else {
+                        Text(description)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
                     
                     Spacer()
                     
@@ -101,13 +116,18 @@ struct PlatformSheetView: View {
                     else {
                         Button {
                             if(platform != nil) {
-                                triggerPlatformRequest(platform: platform!)
+                                if platformRequestedType == .compose {
+                                    composeViewRequested.toggle()
+                                }
+                                else {
+                                    triggerPlatformRequest(platform: platform!)
+                                }
                             } else {
                                 composeNewMessageRequested.toggle()
-                                dismiss()
                             }
+                            dismiss()
                         } label: {
-                            if platform == nil {
+                            if platform == nil || platformRequestedType == .compose {
                                 Text("Send new message")
                                     .frame(maxWidth: .infinity, maxHeight: 35)
                             } else {
@@ -197,6 +217,8 @@ struct PlatformCard: View {
     @State var isEnabled: Bool = false
     
     @Binding var composeNewMessageRequested: Bool
+    @Binding var platformRequestType: PlatformsRequestedType
+    @Binding var composeViewRequested: Bool
 
     let platform: PlatformsEntity?
     let protocolType: Publisher.ProtocolTypes
@@ -228,10 +250,13 @@ struct PlatformCard: View {
                     .tint(isEnabled ? .accentColor : .gray)
                     .sheet(isPresented: $sheetIsPresented) {
                         PlatformSheetView(
-                            description: getProtocolDescription( protocolType: protocolType),
+                            description: getProtocolDescription(protocolType: protocolType),
+                            composeDescription: "",
                             platform: platform,
                             isEnabled: $isEnabled,
-                            composeNewMessageRequested: $composeNewMessageRequested
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            platformRequestedType: $platformRequestType,
+                            composeViewRequested: $composeViewRequested
                         ).applyPresentationDetentsIfAvailable()
                     }
                 }
@@ -265,7 +290,7 @@ struct PlatformCard: View {
 
 }
 
-enum RequestType: CaseIterable {
+enum PlatformsRequestedType: CaseIterable {
     case available
     case compose
     case revoke
@@ -282,8 +307,11 @@ struct PlatformsView: View {
     @State private var sheetIsRequested: Bool = false
     @State private var platformsSheetIsRequested: Bool = false
     
-    @Binding var requestType: RequestType
+    @Binding var requestType: PlatformsRequestedType
     @Binding var composeNewMessageRequested: Bool
+    @Binding var composeTextRequested: Bool
+    @Binding var composeMessageRequested: Bool
+    @Binding var composeEmailRequested: Bool
 
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -302,6 +330,8 @@ struct PlatformsView: View {
                     PlatformCard(
                         isEnabled: true,
                         composeNewMessageRequested: $composeNewMessageRequested,
+                        platformRequestType: $requestType,
+                        composeViewRequested: getBindingComposeVariable(type: "email"),
                         platform: nil,
                         protocolType: Publisher.ProtocolTypes.BRIDGE
                     ).padding(.bottom, 32)
@@ -315,6 +345,8 @@ struct PlatformsView: View {
                         ForEach(platforms, id: \.name) { item in
                             PlatformCard(
                                 composeNewMessageRequested: $composeNewMessageRequested,
+                                platformRequestType: $requestType,
+                                composeViewRequested: getBindingComposeVariable(type: item.service_type!),
                                 platform: item,
                                 protocolType: getProtocolType(type: item.protocol_type!)
                             )
@@ -328,7 +360,20 @@ struct PlatformsView: View {
         }
     }
     
-    func getRequestTypeText(type: RequestType) -> String {
+    func getBindingComposeVariable(type: String) -> Binding<Bool> {
+        switch(type) {
+        case Publisher.ServiceTypes.EMAIL.rawValue:
+            return $composeEmailRequested
+        case Publisher.ServiceTypes.MESSAGE.rawValue:
+            return $composeMessageRequested
+        case Publisher.ServiceTypes.TEXT.rawValue:
+            return $composeTextRequested
+        default:
+            return $composeEmailRequested
+        }
+    }
+    
+    func getRequestTypeText(type: PlatformsRequestedType) -> String {
         switch(type) {
         case .compose:
             return "Send a message"
@@ -366,16 +411,23 @@ struct PlatformsView: View {
 
 #Preview {
     var description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    var composeDescription = "[Compose] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    
     @State var saveRequested = false
     @State var codeVerifier: String = ""
     @State var isEnabled: Bool = false
     @State var composeNewMessage: Bool = false
+    @State var composeViewRequested: Bool = false
+    @State var platformRequestedType: PlatformsRequestedType = .available
 
     PlatformSheetView(
         description: description,
+        composeDescription: composeDescription,
         platform: nil,
         isEnabled: $isEnabled,
-        composeNewMessageRequested: $composeNewMessage
+        composeNewMessageRequested: $composeNewMessage,
+        platformRequestedType: $platformRequestedType,
+        composeViewRequested: $composeViewRequested
     )
 }
 
@@ -385,11 +437,17 @@ struct Platforms_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        @State var platformRequestType: RequestType = .available
+        @State var platformRequestType: PlatformsRequestedType = .available
         @State var composeNewMessage: Bool = false
+        @State var composeTextRequested: Bool = false
+        @State var composeMessageRequested: Bool = false
+        @State var composeEmailRequested: Bool = false
         return PlatformsView(
             requestType: $platformRequestType,
-            composeNewMessageRequested: $composeNewMessage
+            composeNewMessageRequested: $composeNewMessage,
+            composeTextRequested: $composeTextRequested,
+            composeMessageRequested: $composeMessageRequested,
+            composeEmailRequested: $composeEmailRequested
         )
             .environment(\.managedObjectContext, container.viewContext)
     }
@@ -400,10 +458,14 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
         @State var composeNewMessage: Bool = false
+        @State var composeViewRequested: Bool = false
+        @State var platformRequestedType: PlatformsRequestedType = .available
 
         PlatformCard(
             isEnabled: true,
             composeNewMessageRequested: $composeNewMessage,
+            platformRequestType: $platformRequestedType,
+            composeViewRequested: $composeViewRequested,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE
         )
@@ -414,10 +476,14 @@ struct PlatformCardEnabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
         @State var composeNewMessage: Bool = false
+        @State var composeViewRequested: Bool = false
+        @State var platformRequestedType: PlatformsRequestedType = .available
 
         PlatformCard(
             isEnabled: false,
             composeNewMessageRequested: $composeNewMessage,
+            platformRequestType: $platformRequestedType,
+            composeViewRequested: $composeViewRequested,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE
         )

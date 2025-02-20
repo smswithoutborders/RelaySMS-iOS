@@ -29,6 +29,12 @@ class Publisher {
         case PNBA = "pnba"
         case BRIDGE = "bridge"
     }
+    
+    enum ServiceTypes: String {
+        case EMAIL = "email"
+        case MESSAGE = "message"
+        case TEXT = "text"
+    }
 
     enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)

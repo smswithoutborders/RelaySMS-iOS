@@ -18,13 +18,20 @@ struct HomepageView: View {
     @Binding var codeVerifier: String
     
     @State var selectedTab: HomepageTabs = .recents
-    @State var platformRequestType: RequestType = .available
+    @State var platformRequestType: PlatformsRequestedType = .available
 
     @State var composeNewMessageRequested: Bool = false
+    @State var composeTextRequested: Bool = false
+    @State var composeMessageRequested: Bool = false
+    @State var composeEmailRequested: Bool = false
+
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var passwordRecoveryRequired: Bool = false
     @State var isLoggedIn: Bool = false
+    
+    @State var requestedPlatformName: String = ""
+    @State var requstedPlatformFromAccount: String = ""
 
     init(codeVerifier: Binding<String>) {
         _codeVerifier = codeVerifier
@@ -39,14 +46,7 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(
-                    destination:
-                        RecoverySheetView( isRecovered: $isLoggedIn ),
-                    isActive: $passwordRecoveryRequired
-                ) {
-                    EmptyView()
-                }
-                
+                // Compose views
                 NavigationLink(
                     destination: EmailView(
                         platformName: Bridges.SERVICE_NAME,
@@ -54,6 +54,45 @@ struct HomepageView: View {
                         isBridge: true
                     ),
                     isActive: $composeNewMessageRequested
+                ) {
+                    EmptyView()
+                }
+                
+                NavigationLink(
+                    destination: EmailView(
+                        platformName: requestedPlatformName,
+                        fromAccount: requstedPlatformFromAccount
+                    ),
+                    isActive: $composeEmailRequested
+                ) {
+                    EmptyView()
+                }
+
+                NavigationLink(
+                    destination: TextComposeView(
+                        platformName: requestedPlatformName,
+                        fromAccount: requstedPlatformFromAccount
+                    ),
+                    isActive: $composeTextRequested
+                ) {
+                    EmptyView()
+                }
+                
+                NavigationLink(
+                    destination: MessagingView(
+                        platformName: requestedPlatformName,
+                        fromAccount: requstedPlatformFromAccount
+                    ),
+                    isActive: $composeMessageRequested
+                ) {
+                    EmptyView()
+                }
+
+                
+                NavigationLink(
+                    destination:
+                        RecoverySheetView( isRecovered: $isLoggedIn ),
+                    isActive: $passwordRecoveryRequired
                 ) {
                     EmptyView()
                 }
@@ -99,7 +138,10 @@ struct HomepageView: View {
                         
                         PlatformsView(
                             requestType: $platformRequestType,
-                            composeNewMessageRequested: $composeNewMessageRequested
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            composeTextRequested: $composeTextRequested,
+                            composeMessageRequested: $composeMessageRequested,
+                            composeEmailRequested: $composeEmailRequested
                         )
                         .tabItem() {
                             Image(systemName: "apps.iphone")

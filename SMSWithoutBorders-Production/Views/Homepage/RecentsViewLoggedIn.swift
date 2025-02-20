@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NoSentMessages: View {
     @Binding var selectedTab: HomepageTabs
-    @Binding var platformRequestType: RequestType
+    @Binding var platformRequestType: PlatformsRequestedType
 
     var body: some View {
         VStack {
@@ -60,7 +60,7 @@ struct NoSentMessages: View {
 
 struct RecentsViewLoggedIn: View {
     @Binding var selectedTab: HomepageTabs
-    @Binding var platformRequestType: RequestType
+    @Binding var platformRequestType: PlatformsRequestedType
 
     var body: some View {
         NavigationView {
@@ -77,7 +77,7 @@ struct RecentsViewLoggedIn: View {
 
 #Preview {
     @State var selectedTab: HomepageTabs = .recents
-    @State var platformRequestType: RequestType = .available
+    @State var platformRequestType: PlatformsRequestedType = .available
     
     RecentsViewLoggedIn(
         selectedTab: $selectedTab,
@@ -87,7 +87,7 @@ struct RecentsViewLoggedIn: View {
 
 #Preview {
     @State var selectedTab: HomepageTabs = .recents
-    @State var platformRequestType: RequestType = .available
+    @State var platformRequestType: PlatformsRequestedType = .available
     
     NoSentMessages(
         selectedTab: $selectedTab,

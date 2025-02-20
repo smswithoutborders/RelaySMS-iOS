@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
-		041BB4E02D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
-		041BB4E12D47FEEC0072A097 /* EmailView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4DE2D47FEEC0072A097 /* EmailView1.swift */; };
 		041BB4E92D4B3D4A0072A097 /* SecurityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */; };
 		042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */; };
 		0430A2222D5554D100830BF4 /* Bridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430A2202D5554D100830BF4 /* Bridges.swift */; };
@@ -43,7 +40,7 @@
 		1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1686DBCF28E47D8A00895D92 /* HomepageView.swift */; };
 		1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672328E4830B0021BFC5 /* GatewayClients.swift */; };
 		1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1697672528E483F60021BFC5 /* OperatorHandlers.swift */; };
-		16B43B202915CDDC004AEF1F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextView.swift */; };
+		16B43B202915CDDC004AEF1F /* TextComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B43B1F2915CDDC004AEF1F /* TextComposeView.swift */; };
 		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		16EDE38928D3511700E50393 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
 		16EDE38B28D356EB00E50393 /* AvailablePlatformsSheetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38A28D356EA00E50393 /* AvailablePlatformsSheetsView.swift */; };
@@ -155,7 +152,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		041BB4DE2D47FEEC0072A097 /* EmailView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView1.swift; sourceTree = "<group>"; };
 		041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityHandler.swift; sourceTree = "<group>"; };
 		042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformsEntityHandlers.swift; sourceTree = "<group>"; };
 		0430A2202D5554D100830BF4 /* Bridges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridges.swift; sourceTree = "<group>"; };
@@ -173,7 +169,7 @@
 		1686DBCF28E47D8A00895D92 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
 		1697672328E4830B0021BFC5 /* GatewayClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayClients.swift; sourceTree = "<group>"; };
 		1697672528E483F60021BFC5 /* OperatorHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorHandlers.swift; sourceTree = "<group>"; };
-		16B43B1F2915CDDC004AEF1F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		16B43B1F2915CDDC004AEF1F /* TextComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextComposeView.swift; sourceTree = "<group>"; };
 		16EDE37928CBA1A300E50393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		16EDE37A28CC936200E50393 /* SMSWithoutBorders-Production.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMSWithoutBorders-Production.entitlements"; sourceTree = "<group>"; };
 		16EDE37F28D0D23000E50393 /* CSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSecurity.swift; sourceTree = "<group>"; };
@@ -431,9 +427,8 @@
 			children = (
 				0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */,
 				16F0E68428C6308600FDD12C /* EmailView.swift */,
-				16B43B1F2915CDDC004AEF1F /* TextView.swift */,
+				16B43B1F2915CDDC004AEF1F /* TextComposeView.swift */,
 				164EF7D02954D431007F8C76 /* MessagingView.swift */,
-				041BB4DE2D47FEEC0072A097 /* EmailView1.swift */,
 			);
 			path = PlatformComposeViews;
 			sourceTree = "<group>";
@@ -656,7 +651,7 @@
 				16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */,
 				3B928A352C65140100BA145F /* GatewayClientsView.swift in Sources */,
 				041BB4E92D4B3D4A0072A097 /* SecurityHandler.swift in Sources */,
-				16B43B202915CDDC004AEF1F /* TextView.swift in Sources */,
+				16B43B202915CDDC004AEF1F /* TextComposeView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
 				3B7EEE682C5E99ED00611092 /* PhoneNumberSheetView.swift in Sources */,
 				3B7EEE562C5D60A900611092 /* SMSHandler.swift in Sources */,
@@ -678,7 +673,6 @@
 				042DAE302D38432200F0D370 /* PlatformsEntityHandlers.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				04C2C9C62D636D0500016F86 /* RecentsViewLoggedIn.swift in Sources */,
-				041BB4DF2D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
 				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
 				3B928A432C66A6A500BA145F /* TextPlatformView.swift in Sources */,
@@ -719,7 +713,6 @@
 				3B7EEE412C5BDE3B00611092 /* OnboardingFinish.swift in Sources */,
 				3B7EEE422C5BDE3B00611092 /* OnboardingTabAdapterView.swift in Sources */,
 				3B928A3D2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
-				041BB4E02D47FEEC0072A097 /* EmailView1.swift in Sources */,
 				3BDADADA2C52A46700539E57 /* SecurityAESEncryption.swift in Sources */,
 				3BC75BF52C5273B2004233CE /* GatewayClients.swift in Sources */,
 				3BC75BF62C5273B2004233CE /* OperatorHandlers.swift in Sources */,
@@ -768,7 +761,6 @@
 				3BEC4CF82C47FEC500F92D2A /* vault.proto in Sources */,
 				16F0E69E28C6308800FDD12C /* SMSWithoutBorders_ProductionUITests.swift in Sources */,
 				0456964C2D551AB000A2C369 /* CSecurity.swift in Sources */,
-				041BB4E12D47FEEC0072A097 /* EmailView1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
