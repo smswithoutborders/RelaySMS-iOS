@@ -125,6 +125,9 @@
     "From " : {
 
     },
+    "From: %@" : {
+
+    },
     "Gateway Clients" : {
 
     },
@@ -156,6 +159,9 @@
 
     },
     "in %lld seconds" : {
+
+    },
+    "Inbox" : {
 
     },
     "It seems you logged into another device. You can use RelaySMS on only one device at a time." : {

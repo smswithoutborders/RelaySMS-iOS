@@ -63,34 +63,33 @@ struct FieldMultiEntryTextDynamic: View {
 
 struct MessagingView: View {
     
-    @Environment(\.managedObjectContext) var context
     @Environment(\.dismiss) var dismiss
-    
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = ""
-
-    @State var platform: PlatformsEntity?
-    
-    var decoder: Decoder?
-    
-    @State var messageBody :String = ""
-    @State var messageContact :String = ""
-    @State private var encryptedFormattedContent = ""
-    @State private var fromAccount: String? = nil
+    @Environment(\.managedObjectContext) var context
     
     @FetchRequest var messages: FetchedResults<MessageEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
-    private var platformName: String
+
+    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+    private var defaultGatewayClientMsisdn: String = ""
     
     @FocusState private var isFocused: Bool
-    
-    @State private var pickedNumber: String?
     @StateObject private var coordinator = Coordinator()
     
-    var message: Messages?
+    @State var platform: PlatformsEntity?
+    @State var messageBody :String = ""
+    @State var messageContact :String = ""
+    @State private var requestToChooseAccount: Bool = false
+    @State private var encryptedFormattedContent = ""
+    @State private var fromAccount = ""
+    @State private var pickedNumber: String?
     @State private var showMessages = false
     @State private var isMessaging = false
     @State private var isShowingMessages = false
+    @State var dissmissRequested: Bool = false
+    
+    var decoder: Decoder?
+    private var platformName: String
+    var message: Messages?
 
     
     init(platformName: String, message: Messages? = nil) {
@@ -122,115 +121,131 @@ struct MessagingView: View {
     
 
     var body: some View {
-        VStack {
-            NavigationView {
+        NavigationView {
+            VStack {
+                Text("Select a contact to send a message")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text("Make sure phone code e.g +237 is included in the selected number")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
                 VStack {
-                    Text("Select a contact to send a message")
-                        .font(.caption)
+                    Text("From: \(fromAccount)")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    Text("Make sure phone code e.g +237 is included in the selected number")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                    VStack {
-                        Text("From: \(fromAccount)")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        TextInputField(
-                            placeHolder: "To: ",
-                            textValue: $messageContact,
-                            endIcon: Image("Phonebook"), function: {
-                                openContactPicker()
-                            })
-                        .keyboardType(.phonePad)
-                        
-                    }
-                    .padding()
+                    TextInputField(
+                        placeHolder: "To: ",
+                        textValue: $messageContact,
+                        endIcon: Image("Phonebook"), function: {
+                            openContactPicker()
+                        })
+                    .keyboardType(.phonePad)
                     
-                    if messages.isEmpty {
-                        Spacer()
-                        Text("No messages sent")
-                            .font(.title)
-                        Spacer()
-                    }
-                    else {
-                        List{
-                            if message != nil || showMessages {
-                                ForEach(messages, id: \.id) { inbox in
-                                    Button(action: {}) {
-                                        VStack {
-                                            Text(inbox.body!)
-                                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                            Text(Date(timeIntervalSince1970: TimeInterval(inbox.date)), style: .time)
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                        }
+                }
+                .padding()
+                
+                if messages.isEmpty {
+                    Spacer()
+                    Text("No messages sent")
+                        .font(.title)
+                    Spacer()
+                }
+                else {
+                    List{
+                        if message != nil || showMessages {
+                            ForEach(messages, id: \.id) { inbox in
+                                Button(action: {}) {
+                                    VStack {
+                                        Text(inbox.body!)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
+                                        Text(Date(timeIntervalSince1970: TimeInterval(inbox.date)), style: .time)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                            .frame(maxWidth: .infinity, alignment: .trailing)
                                     }
                                 }
                             }
                         }
                     }
-                    
-                    HStack {
-                        FieldMultiEntryTextDynamic(text: $messageBody)
-                            .padding()
-                            .multilineTextAlignment(.leading)
-                            .keyboardType(.alphabet)
-                            .focused($isFocused)
-
-                        Button {
-                            isMessaging = true
-                            let platform = platforms.first!
-                            DispatchQueue.background(background: {
-                                do {
-                                    let messageComposer = try Publisher.publish(
-                                        context: context)
-                                    var shortcode: UInt8? = nil
-                                    shortcode = platform.shortcode!.bytes[0]
-                                    
-                                    messageContact = messageContact.filter{ $0.isWholeNumber }
-                                    encryptedFormattedContent = try messageComposer.messageComposer(
-                                        platform_letter: shortcode!,
-                                        sender: fromAccount!,
-                                        receiver: messageContact,
-                                        message: messageBody)
-                                    
-                                    messageBody = ""
-                                    isMessaging = false
-                                    isShowingMessages.toggle()
-                                } catch {
-                                    print("Some error occured while sending: \(error)")
-                                }
-                            })
-                        } label: {
-                            Image("MessageSend")
-                                .resizable()
-                                .frame(width: 25.0, height: 25.0)
-                        }
-                        .disabled(isMessaging)
-                        .sheet(isPresented: $isShowingMessages) {
-                            SMSComposeMessageUIView(
-                                recipients: [defaultGatewayClientMsisdn],
-                                body: $encryptedFormattedContent,
-                                completion: handleCompletion(_:))
-                            .ignoresSafeArea()
-                        }
+                }
+                
+                HStack {
+                    FieldMultiEntryTextDynamic(text: $messageBody)
                         .padding()
+                        .multilineTextAlignment(.leading)
+                        .keyboardType(.alphabet)
+                        .focused($isFocused)
+
+                    Button {
+                        isMessaging = true
+                        let platform = platforms.first!
+                        DispatchQueue.background(background: {
+                            do {
+                                let messageComposer = try Publisher.publish(
+                                    context: context)
+                                var shortcode: UInt8? = nil
+                                shortcode = platform.shortcode!.bytes[0]
+                                
+                                messageContact = messageContact.filter{ $0.isWholeNumber }
+                                encryptedFormattedContent = try messageComposer.messageComposer(
+                                    platform_letter: shortcode!,
+                                    sender: fromAccount,
+                                    receiver: messageContact,
+                                    message: messageBody)
+                                
+                                messageBody = ""
+                                isMessaging = false
+                                isShowingMessages.toggle()
+                            } catch {
+                                print("Some error occured while sending: \(error)")
+                            }
+                        })
+                    } label: {
+                        Image("MessageSend")
+                            .resizable()
+                            .frame(width: 25.0, height: 25.0)
                     }
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 1))
+                    .disabled(isMessaging)
+                    .sheet(isPresented: $isShowingMessages) {
+                        SMSComposeMessageUIView(
+                            recipients: [defaultGatewayClientMsisdn],
+                            body: $encryptedFormattedContent,
+                            completion: handleCompletion(_:))
+                        .ignoresSafeArea()
+                    }
                     .padding()
                 }
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 1))
+                .padding()
             }
-            .onReceive(coordinator.$pickedNumber, perform: { phoneNumber in
-                self.messageContact = phoneNumber ?? ""
-            })
-            .navigationBarTitle("Compose Message")
+            .sheet(isPresented: $requestToChooseAccount) {
+                AccountSheetView(
+                    filter: platformName,
+                    fromAccount: $fromAccount,
+                    dismissParent: $dissmissRequested
+                )
+                .applyPresentationDetentsIfAvailable()
+                .interactiveDismissDisabled(true)
+            }
         }
+        .onChange(of: dissmissRequested) { state in
+            if state {
+                dismiss()
+            }
+        }
+        .onReceive(coordinator.$pickedNumber, perform: { phoneNumber in
+            self.messageContact = phoneNumber ?? ""
+        })
+        .navigationBarTitle("Compose Message")
         .task {
             if message != nil {
                 self.messageContact = message!.toAccount
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    requestToChooseAccount = true
+                }
             }
         }
     }
@@ -324,6 +339,8 @@ struct MessagingView: View {
 
 struct MessageView_Preview: PreviewProvider {
     static var previews: some View {
+        @State var dissmissRequested = false
+        
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
@@ -334,7 +351,9 @@ struct MessageView_Preview: PreviewProvider {
             toAccount: "+137123456781", platformName: "telegram",
             date: Int(Date().timeIntervalSince1970))
         
-        return MessagingView(platformName: "telegram", message: message)
-            .environment(\.managedObjectContext, container.viewContext)
+        return MessagingView(
+            platformName: "telegram",
+            message: message
+        ).environment(\.managedObjectContext, container.viewContext)
     }
 }

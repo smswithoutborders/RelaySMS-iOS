@@ -12,6 +12,7 @@ enum HomepageTabs {
     case platforms
     case settings
     case gatewayClients
+    case inbox
 }
 
 struct HomepageView: View {
@@ -155,6 +156,13 @@ struct HomepageView: View {
                         
                     }
                     
+                    GatewayClientsView()
+                        .tabItem() {
+                            Image(systemName: "tray")
+                            Text("Inbox")
+                        }
+                        .tag(HomepageTabs.inbox)
+
                     GatewayClientsView()
                         .tabItem() {
                             Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")

@@ -188,13 +188,13 @@ struct EmailView: View {
             }
         }
         .task {
-            print("Stored items count: \(storedPlatforms.count)")
             if storedPlatforms.count > 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     requestToChooseAccount = true
                 }
             }
-        }        .navigationTitle("Compose email")
+        }
+        .navigationTitle("Compose email")
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Send") {
@@ -209,7 +209,9 @@ struct EmailView: View {
                         isShowingMessages.toggle()
                         isSendingRequest = false
                     })
-                }.sheet(isPresented: $isShowingMessages) {
+                }
+                .disabled(!isBridge && fromAccount.isEmpty)
+                .sheet(isPresented: $isShowingMessages) {
                     SMSComposeMessageUIView(
                         recipients: [defaultGatewayClientMsisdn],
                         body: $encryptedFormattedContent,
