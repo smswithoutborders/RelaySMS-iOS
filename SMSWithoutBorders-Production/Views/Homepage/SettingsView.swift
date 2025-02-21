@@ -12,7 +12,6 @@ public func logoutAccount(context: NSManagedObjectContext) {
     do {
         try Vault.resetKeystore(context: context)
         try DataController.resetDatabase(context: context)
-        try Vault.resetStates(context: context)
     } catch {
         print("Error loging out: \(error)")
     }

@@ -71,7 +71,7 @@ struct TextComposeView: View {
                     filter: platformName,
                     fromAccount: $fromAccount,
                     dismissParent: $dismissRequested
-                )
+                ) { dismiss() }
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
             }

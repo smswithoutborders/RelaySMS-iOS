@@ -7,17 +7,32 @@
 
 import SwiftUI
 
-struct SavingNewPlatformView: View {
+struct SavingRevokingNewPlatformView: View {
     var name: String
     
     @Binding var isSaving: Bool
-    
+    @Binding var isRevoking: Bool
+
     @State var isAnimating = false
 
     var body: some View {
         VStack {
             if(isSaving) {
                 Text("Saving new account for \(name)...")
+                    .padding()
+                    .scaleEffect(isAnimating ? 1.0 : 1.2)
+                    .onAppear() {
+                        withAnimation(
+                            .easeInOut(duration: 3)
+                            .repeatForever(autoreverses: true)
+                        ) {
+                            isAnimating = true
+                        }
+                    }
+
+            }
+            else if(isRevoking) {
+                Text("Revoking account for \(name)...")
                     .padding()
                     .scaleEffect(isAnimating ? 1.0 : 1.2)
                     .onAppear() {
@@ -44,16 +59,20 @@ struct PlatformSheetView: View {
     var composeDescription: String
 
     @State var loading = false
+    @State var isRevoking = false
     @State var savingNewPlatform = false
     @State var failed: Bool = false
     @State var phoneNumberAuthenticationRequested: Bool = false
     @State var sheetComposeNewPresented = false
+    @State var accountSheetRequested = false
+    @State var revokeConfirmSheetRequested = false
 
     @State var errorMessage: String = ""
 
     var platform: PlatformsEntity?
     @State private var codeVerifier: String = ""
-    
+    @State private var fromAccount: String = ""
+
     @Binding var parentIsEnabled: Bool
     @Binding var composeNewMessageRequested: Bool
     @Binding var platformRequestedType: PlatformsRequestedType
@@ -80,10 +99,62 @@ struct PlatformSheetView: View {
     
     var body: some View {
         VStack {
-            if loading && platform != nil {
-                SavingNewPlatformView(
+            if accountSheetRequested && platform != nil {
+                AccountSheetView(
+                    filter: platform!.name!,
+                    fromAccount: $fromAccount,
+                    dismissParent: $parentIsEnabled
+                ) {
+                    revokeConfirmSheetRequested.toggle()
+                }
+                .confirmationDialog(String("Revoke?"), isPresented: $revokeConfirmSheetRequested) {
+                    Button("Revoke", role: .destructive) {
+                        isRevoking = true
+                        accountSheetRequested = false
+                        
+                        let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
+                        backgroundQueueu.async {
+                            do {
+                                let llt = try Vault.getLongLivedToken()
+                                let publisher = Publisher()
+                                let response = try publisher.revokePlatform(
+                                    llt: llt,
+                                    platform: platform!.name!,
+                                    account: fromAccount,
+                                    protocolType: platform!.protocol_type!
+                                )
+
+                                if response {
+                                    let vault = Vault()
+                                    do {
+                                        let llt = try Vault.getLongLivedToken()
+                                        try vault.refreshStoredTokens(
+                                            llt: llt,
+                                            context: context
+                                        )
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
+
+                                DispatchQueue.main.async {
+                                    isRevoking = false
+                                    dismiss()
+                                }
+                            } catch {
+                                print("Error revoking: \(error)")
+                            }
+                        }
+                    }
+                } message: {
+                    Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
+                }
+            }
+            else if (isRevoking || loading) && platform != nil {
+                SavingRevokingNewPlatformView(
                     name: platform!.name!,
-                    isSaving: $savingNewPlatform
+                    isSaving: $savingNewPlatform,
+                    isRevoking: $isRevoking
                 )
             } else {
                 VStack(alignment:.center) {
@@ -138,7 +209,12 @@ struct PlatformSheetView: View {
                         }
                         .buttonStyle(.bordered)
                         .padding()
-
+                        
+                        if platform != nil && platformRequestedType == .available && parentIsEnabled {
+                            Button("Remove Accounts", role: .destructive) {
+                                accountSheetRequested = true
+                            }
+                        }
                     }
                 }
 
@@ -305,6 +381,8 @@ enum PlatformsRequestedType: CaseIterable {
 }
 
 struct PlatformsView: View {
+    @Environment(\.managedObjectContext) var context
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(
             key: "name",
@@ -316,7 +394,7 @@ struct PlatformsView: View {
     
     @State private var sheetIsRequested: Bool = false
     @State private var platformsSheetIsRequested: Bool = false
-    
+
     @Binding var requestType: PlatformsRequestedType
     @Binding var requestedPlatformName: String
     @Binding var composeNewMessageRequested: Bool
@@ -348,15 +426,17 @@ struct PlatformsView: View {
                         protocolType: Publisher.ProtocolTypes.BRIDGE
                     ).padding(.bottom, 32)
 
-                    Text("Use your online accounts")
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 10)
+                    HStack {
+                        Text("Use your online accounts")
+                            .font(.caption)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom, 10)
+                    }
                     
                     if storedPlatforms.isEmpty {
                         Text("No online platforms saved yet...")
                     } else {
-                        LazyVGrid(columns: columns, spacing: 20) {
+                        LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
                             if requestType == .compose {
                                 ForEach(filterForStoredPlatforms(), id: \.name) { item in
                                     PlatformCard(
@@ -385,6 +465,7 @@ struct PlatformsView: View {
                             }
                         }
                     }
+                    
                 }
                 
                 VStack(alignment: .center) {
@@ -402,6 +483,9 @@ struct PlatformsView: View {
             }
             .navigationTitle(getRequestTypeText(type: requestType))
             .padding(16)
+        }
+        .task {
+            print("Number of platforms: \(platforms.count)")
         }
     }
     
@@ -575,9 +659,11 @@ struct PlatformCardEnabled_Preview: PreviewProvider {
 
 #Preview {
     @State var savingPlatform = true
-    SavingNewPlatformView(
+    @State var isRevoking = false
+    SavingRevokingNewPlatformView(
         name: "RelaySMS",
-        isSaving: $savingPlatform
+        isSaving: $savingPlatform,
+        isRevoking: $isRevoking
     )
 }
 

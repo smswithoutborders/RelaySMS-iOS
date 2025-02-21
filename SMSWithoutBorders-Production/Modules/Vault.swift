@@ -377,9 +377,13 @@ struct Vault {
         
         try resetStates(context: context)
         
+        let onboardingCompleted = UserDefaults.standard.bool(forKey: ControllerView.ONBOARDING_COMPLETED)
+
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
         }
+        
+        UserDefaults.standard.set(onboardingCompleted, forKey: ControllerView.ONBOARDING_COMPLETED)
         print("[important] keystore reset done...")
     }
     
@@ -404,6 +408,7 @@ struct Vault {
         let vault = Vault()
         do {
             let storedTokens = try vault.listStoredEntityToken(longLiveToken: llt)
+            try Vault.clear(context: context)
             for storedToken in storedTokens.storedTokens {
                 let storedPlatformEntity = StoredPlatformsEntity(context: context)
                 storedPlatformEntity.name = storedToken.platform
@@ -412,12 +417,12 @@ struct Vault {
                     platformName: storedToken.platform,
                     accountIdentifier: storedToken.accountIdentifier
                 )
-                print("[+] stored: \(storedPlatformEntity.name)")
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed to stored platform: \(error)")
-                }
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                print("Failed to stored platform: \(error)")
             }
         } catch Exceptions.unauthenticatedLLT(let status){
             print("Should delete invalid llt: \(status.message)")
@@ -429,6 +434,22 @@ struct Vault {
             throw error
         }
         return true
+    }
+    
+    static func clear(context: NSManagedObjectContext) throws {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredPlatformsEntity")
+        do {
+            let objects = try context.fetch(fetchRequest)
+            for object in objects {
+                context.delete(object as! NSManagedObject)
+            }
+        } catch {
+            print(error)
+            
+            context.rollback()
+            
+            throw error
+        }
     }
     
     func validateLLT(llt: String, context: NSManagedObjectContext) throws -> Bool {

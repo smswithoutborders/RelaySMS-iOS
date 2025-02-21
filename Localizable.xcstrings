@@ -282,10 +282,22 @@
     "Recents" : {
 
     },
+    "Remove Accounts" : {
+
+    },
     "Resend code" : {
 
     },
+    "Revoke" : {
+
+    },
     "Revoke stored platforms" : {
+
+    },
+    "Revoking account for %@..." : {
+
+    },
+    "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
 
     },
     "Save Accounts to Vault" : {

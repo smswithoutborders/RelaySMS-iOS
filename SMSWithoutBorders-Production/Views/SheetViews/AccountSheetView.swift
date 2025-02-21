@@ -44,7 +44,14 @@ struct AccountSheetView: View {
     @Binding var dissmissParent: Bool
     private var platformName: String
     
-    init(filter: String, fromAccount: Binding<String>, dismissParent: Binding<Bool>) {
+    var callback: () -> Void = {}
+    
+    init(
+        filter: String,
+        fromAccount: Binding<String>,
+        dismissParent: Binding<Bool>,
+        callback: @escaping () -> Void = {}
+    ) {
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [], 
             predicate: NSPredicate(format: "name == %@", filter))
@@ -56,6 +63,8 @@ struct AccountSheetView: View {
         self.platformName = filter
         _fromAccount = fromAccount
         _dissmissParent = dismissParent
+        
+        self.callback = callback
     }
     
     var body: some View {
@@ -63,48 +72,16 @@ struct AccountSheetView: View {
             VStack(alignment: .leading) {
                 List(storedPlatforms, id: \.self) { platform in
                     Button(action: {
-                        fromAccount = platform.account!
-                        dismiss()
+                        if fromAccount != nil {
+                            fromAccount = platform.account!
+                        }
+                        callback()
                     }) {
                         AccountView(
                             accountName: platform.account!,
                             platformName: platform.name!
                         )
                     }
-    //                .confirmationDialog(String("Revoke?"), isPresented: $isRevokeSheetShown) {
-    //                    Button("Revoke", role: .destructive) {
-    //                        isRevoking = true
-    //                        let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
-    //                        backgroundQueueu.async {
-    //                            do {
-    //                                let llt = try Vault.getLongLivedToken()
-    //                                let publisher = Publisher()
-    //                                let response = try publisher.revokePlatform(
-    //                                    llt: llt,
-    //                                    platform: platform.name!,
-    //                                    account: platform.account!,
-    //                                    protocolType: Publisher.getProtocolTypeForPlatform(
-    //                                        storedPlatform: platform,
-    //                                        platforms: platforms
-    //                                    )
-    //                                )
-    //
-    //                                if response {
-    //                                    context.delete(platform)
-    //                                    try context.save()
-    //                                }
-    //
-    //                                DispatchQueue.main.async {
-    //                                    dismiss()
-    //                                }
-    //                            } catch {
-    //                                print("Error revoking: \(error)")
-    //                            }
-    //                        }
-    //                    }
-    //                } message: {
-    //                    Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
-    //                }
                 }
             }
             .navigationTitle("\(platformName) accounts")

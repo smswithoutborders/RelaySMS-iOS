@@ -209,11 +209,18 @@ class Publisher {
         let icon_png: String
     }
     
-    public static func refreshPlatforms(context: NSManagedObjectContext) {
+    public static func refreshPlatforms(context: NSManagedObjectContext ) {
         Publisher.getPlatforms() { result in
             switch result {
             case .success(let data):
                 print("Success: \(data)")
+                
+//                do {
+//                    try Publisher.clear(context: context, shouldSave: true)
+//                } catch {
+//                    print(error)
+//                    return
+//                }
                 for platform in data {
                     downloadAndSaveIcons(
                         url: URL(string: platform.icon_png)!,
@@ -221,39 +228,88 @@ class Publisher {
                         context: context
                     )
                 }
+                    
+//                group.notify(queue: .main) { // Notify when all tasks are done
+//
+//                }
+                                   
             case .failure(let error):
                 print("Failed to load JSON data: \(error)")
             }
         }
-
     }
-    
+
     private static func downloadAndSaveIcons(
         url: URL,
         platform: Publisher.PlatformsData,
         context: NSManagedObjectContext
     ) {
         print("Storing Platform Icon: \(platform.name)")
+
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else { return }
-            
-            let platformsEntity = PlatformsEntity(context: context)
-            platformsEntity.image = data
-            platformsEntity.name = platform.name
-            platformsEntity.protocol_type = platform.protocol_type
-            platformsEntity.service_type = platform.service_type
-            platformsEntity.shortcode = platform.shortcode
-            platformsEntity.support_url_scheme = platform.support_url_scheme
-            
-            if(context.hasChanges) {
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed save download image: \(error) \(error.localizedDescription)")
+
+            // 1. Fetch existing entity
+            let fetchRequest = PlatformsEntity.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", platform.name)
+
+            do {
+                let existingPlatforms = try context.fetch(fetchRequest)
+                print(existingPlatforms.count)
+
+                if let existingPlatform = existingPlatforms.first {
+                    // 2. Update existing entity
+                    print("Updating existing Platform Icon: \(platform.name)")
+                    existingPlatform.image = data
+                    existingPlatform.protocol_type = platform.protocol_type
+                    existingPlatform.service_type = platform.service_type
+                    existingPlatform.shortcode = platform.shortcode
+                    existingPlatform.support_url_scheme = platform.support_url_scheme
+                } else {
+                    // 3. Create new entity
+                    print("Creating new Platform Icon: \(platform.name)")
+                    let platformsEntity = PlatformsEntity(context: context)
+                    platformsEntity.image = data
+                    platformsEntity.name = platform.name
+                    platformsEntity.protocol_type = platform.protocol_type
+                    platformsEntity.service_type = platform.service_type
+                    platformsEntity.shortcode = platform.shortcode
+                    platformsEntity.support_url_scheme = platform.support_url_scheme
                 }
+
+                // 4. Save changes (outside the if/else)
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Failed save download image: \(error) \(error.localizedDescription)")
+                    }
+                }
+
+            } catch {
+                print("Error fetching Platform: \(error) \(error.localizedDescription)")
             }
         }
         task.resume()
+    }
+
+    static func clear(context: NSManagedObjectContext, shouldSave: Bool = true) throws {
+        print("Clearing platforms...")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PlatformsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest) // Use batch delete for efficiency
+
+        deleteRequest.resultType = .resultTypeCount // Or .resultTypeObjectIDs if you need object IDs
+
+        do {
+            try context.execute(deleteRequest)
+            if shouldSave {
+                try context.save()
+            }
+        } catch {
+            print("Error clearing PlatformsEntity: \(error)")
+            context.rollback()
+            throw error // Re-throw the error after rollback
+        }
     }
 
 
