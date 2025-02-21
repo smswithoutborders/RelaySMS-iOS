@@ -46,34 +46,88 @@ class GatewayClients: Codable {
         do {
             let gatewayClients = try await fetch()
             
-            for defaultGatewayClient in gatewayClients {
-                let gatewayClient = GatewayClientsEntity(context: context)
-
-                gatewayClient.country = defaultGatewayClient.country
-                gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
-                gatewayClient.msisdn = defaultGatewayClient.msisdn
-                gatewayClient.operatorName = defaultGatewayClient.operator
-                gatewayClient.operatorCode = defaultGatewayClient.operator_code
-                gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
-                gatewayClient.reliability = defaultGatewayClient.reliability
-            }
-            
-            do {
-                try context.save()
-                print("Done refreshing Gateway clients...")
-            }
-            catch {
-                print("Error saving Gateway client!: \(error)")
+            if !gatewayClients.isEmpty {
+//                try GatewayClients.clear(context: context, shouldSave: false)
+                
+                for defaultGatewayClient in gatewayClients {
+                    let fetchRequest = GatewayClientsEntity.fetchRequest()
+                    fetchRequest.predicate = NSPredicate(format: "msisdn == %@", defaultGatewayClient.msisdn)
+                    
+                    do {
+                        let existingGatewayClients = try context.fetch(fetchRequest)
+                        print(existingGatewayClients.count)
+                        
+                        if let gatewayClient = existingGatewayClients.first {
+                            gatewayClient.country = defaultGatewayClient.country
+                            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+                            gatewayClient.operatorName = defaultGatewayClient.operator
+                            gatewayClient.operatorCode = defaultGatewayClient.operator_code
+                            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+                            gatewayClient.reliability = defaultGatewayClient.reliability
+                        } else {
+                            let gatewayClient = GatewayClientsEntity(context: context)
+                            gatewayClient.country = defaultGatewayClient.country
+                            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+                            gatewayClient.msisdn = defaultGatewayClient.msisdn
+                            gatewayClient.operatorName = defaultGatewayClient.operator
+                            gatewayClient.operatorCode = defaultGatewayClient.operator_code
+                            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+                            gatewayClient.reliability = defaultGatewayClient.reliability
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
+                
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Failed to save Gateway client: \(error) \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                print("Going with defaults....")
+                try GatewayClients.addDefaultGatewayClientsIfNeeded(context: context)
             }
         } catch {
             print("Error refreshing gateway clients: \(error)")
+            try GatewayClients.addDefaultGatewayClientsIfNeeded(context: context)
         }
     }
+    
+    static func configureDefaults() {
+        let currentDefault = UserDefaults.standard.object(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
+        
+        if currentDefault.isEmpty {
+            let defaultGatewayClients = GatewayClients.getDefaultGatewayClients()
+            print("configuring default: \(defaultGatewayClients.first?.msisdn)")
+            UserDefaults.standard.set(defaultGatewayClients[0].msisdn, forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        } else {
+            print("Current default: \(currentDefault)")
+        }
+    }
+    
+    static func clear(context: NSManagedObjectContext, shouldSave: Bool = true) throws {
+        print("Clearing GatewayClients...")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GatewayClientsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest) // Use batch delete for efficiency
 
-    public static func addDefaultGatewayClients(context: NSManagedObjectContext, defaultAvailable: Bool = false) {
-        print("Searching for defaults: \(defaultAvailable)")
+        deleteRequest.resultType = .resultTypeCount // Or .resultTypeObjectIDs if you need object IDs
 
-        let defaultGatewayClients = [
+        do {
+            try context.execute(deleteRequest)
+//            try context.save()
+        } catch {
+            print("Error clearing GatewayClients: \(error)")
+            context.rollback()
+            throw error // Re-throw the error after rollback
+        }
+    }
+    
+    public static func getDefaultGatewayClients() -> [GatewayClients]{
+        
+        return [
             GatewayClients(
                 country: "Nigeria",
                 last_published_date: 0,
@@ -101,43 +155,44 @@ class GatewayClients: Codable {
                 protocols:["https", "smtp", "ftp"],
                 reliability:""),
         ]
-        
-        var returningGatewayClient: GatewayClients?
-        for defaultGatewayClient in defaultGatewayClients {
-            let gatewayClient = GatewayClientsEntity(context: context)
+    }
+    
+    public static func addDefaultGatewayClientsIfNeeded(context: NSManagedObjectContext) throws {
+        let defaultGatewayClients = GatewayClients.getDefaultGatewayClients()
 
-            gatewayClient.country = defaultGatewayClient.country
-            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
-            gatewayClient.msisdn = defaultGatewayClient.msisdn
-            gatewayClient.operatorName = defaultGatewayClient.operator
-            gatewayClient.operatorCode = defaultGatewayClient.operator_code
-            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
-            gatewayClient.reliability = defaultGatewayClient.reliability
-            
-            if OperatorHandlers.isMatchingOperatorCode(operatorCode: gatewayClient.operatorCode!) {
-                returningGatewayClient = defaultGatewayClient
-            }
-        }
-        
-        do {
-            print("Saving default Gateway clients")
-            try context.save()
-            
-            if !defaultAvailable && returningGatewayClient != nil {
-                UserDefaults.standard.register(defaults: [
-                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: returningGatewayClient!.msisdn
-                ])
+        for defaultGatewayClient in defaultGatewayClients {
+            // Check if a GatewayClientsEntity with this MSISDN already exists
+            let fetchRequest = NSFetchRequest<GatewayClientsEntity>(entityName: "GatewayClientsEntity")
+            fetchRequest.predicate = NSPredicate(format: "msisdn == %@", defaultGatewayClient.msisdn)
+
+            let existingClients = try context.fetch(fetchRequest)
+
+            if existingClients.isEmpty { // Only add if it doesn't already exist
+                let gatewayClient = GatewayClientsEntity(context: context)
+                gatewayClient.country = defaultGatewayClient.country
+                gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+                gatewayClient.msisdn = defaultGatewayClient.msisdn
+                gatewayClient.operatorName = defaultGatewayClient.operator
+                gatewayClient.operatorCode = defaultGatewayClient.operator_code
+                gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+                gatewayClient.reliability = defaultGatewayClient.reliability
+
+                if OperatorHandlers.isMatchingOperatorCode(operatorCode: gatewayClient.operatorCode!) {
+                    // ... (Your existing logic for setting the returningGatewayClient)
+                }
             } else {
-                UserDefaults.standard.register(defaults: [
-                    GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: defaultGatewayClients[0].msisdn
-                ])
+                print("Gateway client with MSISDN \(defaultGatewayClient.msisdn) already exists. Skipping.")
             }
-            
-            print("Ended the default matter")
         }
-        catch {
+
+        do {
+            print("Saving default Gateway clients (if any were added)")
+            try context.save()
+            configureDefaults()
+            print("Ended the default matter")
+        } catch {
             print("Error saving Gateway client!: \(error)")
+            throw error // Re-throw the error
         }
     }
-
 }

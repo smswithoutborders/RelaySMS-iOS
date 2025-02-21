@@ -94,6 +94,7 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
 
@@ -147,6 +148,17 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
             .onAppear {
                 Publisher.refreshPlatforms(context: dataController.container.viewContext)
+                
+                Task {
+                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                        print("Is searching for default....")
+                        do {
+                            try await GatewayClients.refresh(context: dataController.container.viewContext)
+                        } catch {
+                            print("Error refreshing gateways: \(error)")
+                        }
+                    }
+                }
             }
         }
     }
@@ -154,6 +166,7 @@ struct SMSWithoutBorders_ProductionApp: App {
     func getMeOut() {
         logoutAccount(context: dataController.container.viewContext)
         isLoggedIn = false
+        dismiss()
     }
     
     func validateLLT() {
@@ -166,10 +179,18 @@ struct SMSWithoutBorders_ProductionApp: App {
                     return
                 }
                 
-                let result = try vault.validateLLT(llt: llt,
-                                  context: dataController.container.viewContext)
+                let result = try vault.validateLLT(
+                    llt: llt,
+                    context: dataController.container.viewContext
+                )
                 if !result {
                     alreadyLoggedIn = true
+                } else {
+                    let vault = Vault()
+                    try vault.refreshStoredTokens(
+                        llt: llt,
+                        context: dataController.container.viewContext
+                    )
                 }
             } catch {
                 print(error)

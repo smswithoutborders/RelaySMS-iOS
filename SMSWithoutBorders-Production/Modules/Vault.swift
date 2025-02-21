@@ -408,7 +408,7 @@ struct Vault {
         let vault = Vault()
         do {
             let storedTokens = try vault.listStoredEntityToken(longLiveToken: llt)
-            try Vault.clear(context: context)
+            try Vault.clear(context: context, shouldSave: false)
             for storedToken in storedTokens.storedTokens {
                 let storedPlatformEntity = StoredPlatformsEntity(context: context)
                 storedPlatformEntity.name = storedToken.platform
@@ -436,22 +436,25 @@ struct Vault {
         return true
     }
     
-    static func clear(context: NSManagedObjectContext) throws {
+    static func clear(context: NSManagedObjectContext, shouldSave: Bool = true) throws {
+        print("Clearing platforms...")
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StoredPlatformsEntity")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest) // Use batch delete for efficiency
+
+        deleteRequest.resultType = .resultTypeCount // Or .resultTypeObjectIDs if you need object IDs
+
         do {
-            let objects = try context.fetch(fetchRequest)
-            for object in objects {
-                context.delete(object as! NSManagedObject)
+            try context.execute(deleteRequest)
+            if shouldSave {
+                try context.save()
             }
         } catch {
-            print(error)
-            
+            print("Error clearing PlatformsEntity: \(error)")
             context.rollback()
-            
-            throw error
+            throw error // Re-throw the error after rollback
         }
     }
-    
+
     func validateLLT(llt: String, context: NSManagedObjectContext) throws -> Bool {
         let vault = Vault()
         do {

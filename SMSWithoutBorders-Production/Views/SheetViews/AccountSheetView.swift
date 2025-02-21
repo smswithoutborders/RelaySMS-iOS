@@ -76,6 +76,7 @@ struct AccountSheetView: View {
                             fromAccount = platform.account!
                         }
                         callback()
+                        dismiss()
                     }) {
                         AccountView(
                             accountName: platform.account!,

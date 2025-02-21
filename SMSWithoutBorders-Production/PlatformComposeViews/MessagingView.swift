@@ -225,7 +225,7 @@ struct MessagingView: View {
                     filter: platformName,
                     fromAccount: $fromAccount,
                     dismissParent: $dissmissRequested
-                ) { dismiss() }
+                ) {}
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
             }
