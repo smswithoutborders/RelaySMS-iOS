@@ -30,7 +30,7 @@ struct SentMessages: View {
         ascending: false)]
     ) var messages: FetchedResults<MessageEntity>
     
-    @FetchRequest var platforms: FetchedResults<PlatformsEntity>
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
     @State var requestedMessage: Messages?
     
@@ -38,9 +38,9 @@ struct SentMessages: View {
     @State var textIsRequested: Bool = false
     @State var messageIsRequested: Bool = false
 
-    init() {
-        _platforms = FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: [])
-    }
+//    init() {
+//        _platforms = FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: [])
+//    }
     
     var body : some View {
         VStack {
@@ -221,6 +221,7 @@ struct NoSentMessages: View {
 struct RecentsViewLoggedIn: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
+    @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
     
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
@@ -228,10 +229,15 @@ struct RecentsViewLoggedIn: View {
     var body: some View {
         NavigationView {
             VStack {
-                NoSentMessages(
-                    selectedTab: $selectedTab,
-                    platformRequestType: $platformRequestType
-                )
+                if messages.isEmpty {
+                    SentMessages()
+                }
+                else {
+                    NoSentMessages(
+                        selectedTab: $selectedTab,
+                        platformRequestType: $platformRequestType
+                    )
+                }
             }
             .navigationTitle("Recents")
         }
