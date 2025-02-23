@@ -127,23 +127,26 @@ struct SMSWithoutBorders_ProductionApp: App {
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView(codeVerifier: $codeVerifier)
-                        .environment(\.managedObjectContext, dataController.container.viewContext)
-                        .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
-                            Button("Get me out!") {
-                                getMeOut()
-                            }
-                        } message: {
-                            Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
+                    HomepageView(
+                        codeVerifier: $codeVerifier,
+                        isLoggedIn: $isLoggedIn
+                    )
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                    .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
+                        Button("Get me out!") {
+                            getMeOut()
                         }
-                        .onAppear() {
+                    } message: {
+                        Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
+                    }
+                    .onAppear() {
+                        validateLLT()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .active {
                             validateLLT()
                         }
-                        .onChange(of: scenePhase) { newPhase in
-                            if newPhase == .active {
-                                validateLLT()
-                            }
-                        }
+                    }
                 }
             }
             .onAppear {
@@ -166,7 +169,6 @@ struct SMSWithoutBorders_ProductionApp: App {
     func getMeOut() {
         logoutAccount(context: dataController.container.viewContext)
         isLoggedIn = false
-        dismiss()
     }
     
     func validateLLT() {
@@ -209,12 +211,6 @@ struct SMSWithoutBorders_ProductionApp: App {
         return false
     }
     
-}
-
-#Preview {
-    @State var codeVerifier = ""
-    @State var isLoggedIn = false
-    return HomepageView(codeVerifier: $codeVerifier)
 }
 
 struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {

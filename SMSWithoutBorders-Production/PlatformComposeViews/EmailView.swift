@@ -111,7 +111,8 @@ struct EmailView: View {
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
     #if DEBUG
-        private var defaultGatewayClientMsisdn: String = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "" : ""
+    private var defaultGatewayClientMsisdn: String = 
+    ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "" : UserDefaults.standard.object(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
     #else
         @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
         private var defaultGatewayClientMsisdn: String = ""

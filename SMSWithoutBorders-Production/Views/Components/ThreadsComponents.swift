@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct Card: View {
-    @State var logo: Image
-    @State var subject: String
-    @State var toAccount: String
-    @State var messageBody: String
-    @State var date: Int
+    var logo: Image = Image("Logo")
+    var subject: String = ""
+    var toAccount: String = ""
+    var messageBody: String = ""
+    var date: Int = -1
     
     let radius = 20.0
     var squareSide: CGFloat {

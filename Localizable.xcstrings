@@ -73,6 +73,9 @@
     "Create Acocunt" : {
 
     },
+    "Decrypt message" : {
+
+    },
     "default_app_scheme" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -223,6 +226,9 @@
       }
     },
     "Passwords don't match" : {
+
+    },
+    "Paste encrypted text into this box..." : {
 
     },
     "Phone Number" : {

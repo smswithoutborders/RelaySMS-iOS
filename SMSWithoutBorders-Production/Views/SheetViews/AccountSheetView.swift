@@ -115,6 +115,7 @@ struct AccountSheetView_Preview: PreviewProvider {
             filter: "twitter",
             fromAccount: $fromAccount,
             dismissParent: $globalDismiss
-        ).environment(\.managedObjectContext, container.viewContext)
+        )
+        .environment(\.managedObjectContext, container.viewContext)
     }
 }

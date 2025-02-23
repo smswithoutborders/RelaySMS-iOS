@@ -29,13 +29,14 @@ struct HomepageView: View {
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
     @State var passwordRecoveryRequired: Bool = false
-    @State var isLoggedIn: Bool = false
-    
     @State var requestedPlatformName: String = ""
+    
+    @Binding var isLoggedIn: Bool
 
-    init(codeVerifier: Binding<String>) {
+    init(codeVerifier: Binding<String>, isLoggedIn: Binding<Bool>) {
         _codeVerifier = codeVerifier
-        
+        _isLoggedIn = isLoggedIn
+
         do {
             self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
         } catch {
@@ -156,7 +157,7 @@ struct HomepageView: View {
                         
                     }
                     
-                    GatewayClientsView()
+                    InboxView()
                         .tabItem() {
                             Image(systemName: "tray")
                             Text("Inbox")
@@ -205,7 +206,10 @@ struct HomepageView_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(codeVerifier: $codeVerifier)
+        return HomepageView(
+            codeVerifier: $codeVerifier,
+            isLoggedIn: $isLoggedIn
+        )
     }
 }
 
@@ -223,6 +227,9 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(codeVerifier: $codeVerifier)
+        return HomepageView(
+            codeVerifier: $codeVerifier,
+            isLoggedIn: $isLoggedIn
+        )
     }
 }
