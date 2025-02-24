@@ -215,7 +215,8 @@ struct SignupSheetView: View {
                                             phoneNumber: getPhoneNumber(),
                                             countryCode: countryCode,
                                             password: password,
-                                            type: OTPAuthType.TYPE.CREATE
+                                            type: OTPAuthType.TYPE.CREATE,
+                                            context: context
                                         )
 
                                         self.phoneNumber = getPhoneNumber()

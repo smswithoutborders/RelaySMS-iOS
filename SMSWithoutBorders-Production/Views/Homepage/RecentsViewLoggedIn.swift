@@ -37,6 +37,9 @@ struct SentMessages: View {
     @State var emailIsRequested: Bool = false
     @State var textIsRequested: Bool = false
     @State var messageIsRequested: Bool = false
+    
+    @Binding var selectedTab: HomepageTabs
+    @Binding var platformRequestType: PlatformsRequestedType
 
     var body : some View {
         VStack {
@@ -109,6 +112,8 @@ struct SentMessages: View {
                 VStack {
                     VStack {
                         Button(action: {
+                            selectedTab = .platforms
+                            platformRequestType = .compose
                         }, label: {
                             Image(systemName: "square.and.pencil")
                                 .font(.system(.title))
@@ -128,6 +133,8 @@ struct SentMessages: View {
     
                     VStack {
                         Button(action: {
+                            selectedTab = .platforms
+                            platformRequestType = .available
                         }, label: {
                             Image(systemName: "rectangle.stack.badge.plus")
                                 .font(.system(.title))
@@ -225,7 +232,10 @@ struct RecentsViewLoggedIn: View {
         NavigationView {
             VStack {
                 if !messages.isEmpty {
-                    SentMessages()
+                    SentMessages(
+                        selectedTab: $selectedTab,
+                        platformRequestType: $platformRequestType
+                    )
                 }
                 else {
                     NoSentMessages(
@@ -262,10 +272,16 @@ struct RecentsViewLoggedIn: View {
 struct SentMessages_Preview: PreviewProvider {
 
     static var previews: some View {
+        @State var selectedTab: HomepageTabs = .recents
+        @State var platformRequestType: PlatformsRequestedType = .available
+        
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return SentMessages()
+        return SentMessages(
+            selectedTab: $selectedTab,
+            platformRequestType: $platformRequestType
+        )
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

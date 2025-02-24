@@ -154,7 +154,9 @@ struct RecoverySheetView: View {
                                             phoneNumber: getPhoneNumber(),
                                             countryCode: "",
                                             password: password,
-                                            type: OTPAuthType.TYPE.RECOVER)
+                                            type: OTPAuthType.TYPE.RECOVER,
+                                            context: context
+                                        )
                                         
                                         self.phoneNumber = getPhoneNumber()
                                         self.otpRequired = true

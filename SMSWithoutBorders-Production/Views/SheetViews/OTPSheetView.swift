@@ -25,7 +25,7 @@ nonisolated func signupAuthenticateRecover(
     password: String,
     type: OTPAuthType.TYPE,
     otpCode: String? = nil,
-    context: NSManagedObjectContext? = nil
+    context: NSManagedObjectContext
 ) async throws -> Int {
     print("country code: \(countryCode), phoneNumber: \(phoneNumber)")
     
@@ -33,6 +33,7 @@ nonisolated func signupAuthenticateRecover(
 
     if(type == OTPAuthType.TYPE.CREATE) {
         let response = try vault.createEntity(
+            context: context,
             phoneNumber: phoneNumber,
             countryCode: countryCode!,
             password: password,
@@ -43,6 +44,7 @@ nonisolated func signupAuthenticateRecover(
 
     } else if type == OTPAuthType.TYPE.AUTHENTICATE {
         let response = try vault.authenticateEntity(
+            context: context,
             phoneNumber: phoneNumber,
             password: password,
             ownershipResponse: otpCode
@@ -53,6 +55,7 @@ nonisolated func signupAuthenticateRecover(
     } else {
         print("Recovering password")
         let response = try vault.recoverPassword(
+            context: context,
             phoneNumber: phoneNumber,
             newPassword: password,
             ownershipResponse: otpCode

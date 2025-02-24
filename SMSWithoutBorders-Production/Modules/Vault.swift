@@ -52,11 +52,13 @@ struct Vault {
         )
     }
     
-    func createEntity(phoneNumber: String,
-                       countryCode: String, 
-                       password: String, 
-                       ownershipResponse: String? = nil) throws -> Vault_V1_CreateEntityResponse {
-        
+    func createEntity(
+        context: NSManagedObjectContext,
+        phoneNumber: String,
+        countryCode: String,
+        password: String,
+        ownershipResponse: String? = nil
+    ) throws -> Vault_V1_CreateEntityResponse {
         let clientDeviceIDPrivateKey = try SecurityCurve25519.generateKeyPair()
         let clientDeviceIDPubKey = clientDeviceIDPrivateKey.publicKey.rawRepresentation.base64EncodedString()
         
@@ -116,6 +118,7 @@ struct Vault {
                 )
                 
                 try Vault.derivceStorePublishSharedSecret(
+                    context: context,
                     clientPublishPrivateKey: clientPublishPrivateKey,
                     peerPublishPublicKey: try Curve25519.KeyAgreement.PublicKey(
                         rawRepresentation: [UInt8](Data(base64Encoded: response.serverPublishPubKey)!))
@@ -129,6 +132,7 @@ struct Vault {
     }
     
     func authenticateEntity(
+        context: NSManagedObjectContext,
         phoneNumber: String,
         password: String,
         ownershipResponse: String? = nil
@@ -185,6 +189,7 @@ struct Vault {
                 )
                 
                 try Vault.derivceStorePublishSharedSecret(
+                    context: context,
                     clientPublishPrivateKey: clientPublishPrivateKey,
                     peerPublishPublicKey: try Curve25519.KeyAgreement.PublicKey(
                         rawRepresentation: [UInt8](Data(base64Encoded: response.serverPublishPubKey)!))
@@ -227,6 +232,7 @@ struct Vault {
     }
     
     func recoverPassword(
+        context: NSManagedObjectContext,
         phoneNumber: String,
         newPassword: String,
         ownershipResponse: String? = nil
@@ -281,6 +287,7 @@ struct Vault {
                 )
                 
                 try Vault.derivceStorePublishSharedSecret(
+                    context: context,
                     clientPublishPrivateKey: clientPublishPrivateKey,
                     peerPublishPublicKey: try Curve25519.KeyAgreement.PublicKey(
                         rawRepresentation: [UInt8](Data(base64Encoded: response.serverPublishPubKey)!))
@@ -525,6 +532,7 @@ struct Vault {
     }
     
     private static func derivceStorePublishSharedSecret(
+        context: NSManagedObjectContext,
         clientPublishPrivateKey: Curve25519.KeyAgreement.PrivateKey,
         peerPublishPublicKey: Curve25519.KeyAgreement.PublicKey
     ) throws {
@@ -538,5 +546,7 @@ struct Vault {
             data: Data(publishingSharedKey),
             keystoreAlias: Publisher.PUBLISHER_SHARED_KEY
         )
+        
+        try Vault.resetStates(context: context)
     }
 }

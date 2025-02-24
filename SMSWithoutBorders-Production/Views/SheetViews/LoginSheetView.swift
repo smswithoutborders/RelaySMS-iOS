@@ -154,7 +154,9 @@ struct LoginSheetView: View {
                                             phoneNumber: getPhoneNumber(),
                                             countryCode: "",
                                             password: password,
-                                            type: OTPAuthType.TYPE.AUTHENTICATE)
+                                            type: OTPAuthType.TYPE.AUTHENTICATE,
+                                            context: context
+                                        )
                                         
                                         self.phoneNumber = getPhoneNumber()
                                         self.otpRequired = true

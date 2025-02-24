@@ -38,6 +38,7 @@ struct InboxDecryptMessageView: View {
                             context: context,
                             text: textBody
                         )
+                        print(decryptedText)
                         DispatchQueue.background(background: {
                             let date = Int(Date().timeIntervalSince1970)
                             
@@ -99,6 +100,7 @@ struct InboxView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
+                InboxDecryptMessageView()
             }
         }
     }
