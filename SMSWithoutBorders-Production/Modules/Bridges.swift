@@ -227,7 +227,12 @@ struct Bridges {
         body: String,
         date: Int32
     ) {
-        let splitText: String = String(text.split(separator: "\n")[1])
+        let splitPayload = text.split(separator: "\n")
+        if(splitPayload.count < 2) {
+            throw NSError(domain: "Invalid payload", code: 0, userInfo: nil)
+        }
+        
+        let splitText = String(splitPayload[1])
         if splitText.count < 6 {
             throw NSError(domain: "Invalid payload", code: 0, userInfo: nil)
         }

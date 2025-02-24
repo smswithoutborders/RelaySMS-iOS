@@ -97,7 +97,8 @@ struct HomepageView: View {
                         loginRequested: $loginSheetRequested,
                         accountCreated: $isLoggedIn
                     ),
-                    isActive: $createAccountSheetRequested) {
+                    isActive: $createAccountSheetRequested
+                ) {
                     EmptyView()
                 }
                 
@@ -107,7 +108,8 @@ struct HomepageView: View {
                         createAccountRequested: $createAccountSheetRequested,
                         passwordRecoveryRequired: $passwordRecoveryRequired
                     ),
-                    isActive: $loginSheetRequested) {
+                    isActive: $loginSheetRequested
+                ) {
                     EmptyView()
                 }
 
