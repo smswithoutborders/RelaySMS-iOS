@@ -19,25 +19,25 @@ class Publisher {
     public static var PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     public static var CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     
-    enum ProtocolDescriptions: String {
+    public enum ProtocolDescriptions: String {
         case OAUTH2 = "Give permissions to use SMS to send messages online from RelaySMS"
         case PNBA = "Give permissions to use SMS to message your contacts from RelaySMS"
         case BRIDGE = "Send messages using your RelaySMS account alias e.g <example@relaysms.com>.\nEmail messaging is currently supported."
     }
 
-    enum ProtocolTypes: String {
+    public enum ProtocolTypes: String {
         case OAUTH2 = "oauth2"
         case PNBA = "pnba"
         case BRIDGE = "bridge"
     }
     
-    enum ServiceTypes: String {
+    public enum ServiceTypes: String {
         case EMAIL = "email"
         case MESSAGE = "message"
         case TEXT = "text"
     }
 
-    enum Exceptions: Error {
+    public enum Exceptions: Error {
         case requestNotOK(status: GRPCStatus)
     }
     

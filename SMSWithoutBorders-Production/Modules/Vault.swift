@@ -86,10 +86,12 @@ struct Vault {
             response = try call.response.wait()
             let status = try call.status.wait()
             
+            #if DEBUG
             print("status code - raw value: \(status.code.rawValue)")
             print("response: \(response)")
             print("status code - description: \(status.code.description)")
             print("status code - isOk: \(status.isOk)")
+            #endif
             
             if(!status.isOk) {
                 throw Exceptions.requestNotOK(status: status)
@@ -101,8 +103,10 @@ struct Vault {
                     forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
                 )
                 
+                #if DEBUG
                 print("Peer publish: \(response.serverPublishPubKey) : \(response.serverPublishPubKey.count)")
                 print("Peer pubkey: \(response.serverDeviceIDPubKey) : \(response.serverDeviceIDPubKey.count)")
+                #endif
                 try Vault.derivceStoreLLT(
                     lltEncoded: response.longLivedToken,
                     phoneNumber: phoneNumber,
@@ -378,12 +382,16 @@ struct Vault {
         try resetStates(context: context)
         
         let onboardingCompleted = UserDefaults.standard.bool(forKey: ControllerView.ONBOARDING_COMPLETED)
+        let defaultGatewayClient = UserDefaults.standard.string(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
 
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
         }
         
         UserDefaults.standard.set(onboardingCompleted, forKey: ControllerView.ONBOARDING_COMPLETED)
+        if !defaultGatewayClient.isEmpty {
+            UserDefaults.standard.set(defaultGatewayClient, forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        }
         print("[important] keystore reset done...")
     }
     

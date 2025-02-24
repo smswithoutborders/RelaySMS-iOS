@@ -69,8 +69,13 @@ struct MessagingView: View {
     @FetchRequest var messages: FetchedResults<MessageEntity>
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
 
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = ""
+    #if DEBUG
+    private var defaultGatewayClientMsisdn: String =
+    ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "" : UserDefaults.standard.object(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
+    #else
+        @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        private var defaultGatewayClientMsisdn: String = ""
+    #endif
     
     @FocusState private var isFocused: Bool
     @StateObject private var coordinator = Coordinator()
@@ -268,10 +273,12 @@ struct MessagingView: View {
                 messageEntities.body = messageBody
                 messageEntities.date = Int32(date)
                 
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed to save message entity: \(error)")
+                DispatchQueue.main.async {
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Failed to save message entity: \(error)")
+                    }
                 }
                 
                 if message == nil {

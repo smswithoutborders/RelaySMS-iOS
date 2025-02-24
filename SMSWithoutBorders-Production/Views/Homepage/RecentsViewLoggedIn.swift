@@ -38,10 +38,6 @@ struct SentMessages: View {
     @State var textIsRequested: Bool = false
     @State var messageIsRequested: Bool = false
 
-//    init() {
-//        _platforms = FetchRequest(entity: PlatformsEntity.entity(), sortDescriptors: [])
-//    }
-    
     var body : some View {
         VStack {
             VStack {
@@ -167,7 +163,6 @@ struct SentMessages: View {
 }
 
 
-
 struct NoSentMessages: View {
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
@@ -229,7 +224,7 @@ struct RecentsViewLoggedIn: View {
     var body: some View {
         NavigationView {
             VStack {
-                if messages.isEmpty {
+                if !messages.isEmpty {
                     SentMessages()
                 }
                 else {

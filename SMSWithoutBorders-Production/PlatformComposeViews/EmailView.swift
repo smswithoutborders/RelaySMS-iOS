@@ -198,26 +198,31 @@ struct EmailView: View {
         .navigationTitle("Compose email")
         .toolbar(content: {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Send") {
-                    isSendingRequest = true
-//                    let platform = platforms.first!
-                    DispatchQueue.background(background: {
-                        do {
-                            encryptedFormattedContent = try getEncryptedContent(isBridge: self.isBridge)
-                        } catch {
-                            print("Some error occured while sending: \(error)")
-                        }
-                        isShowingMessages.toggle()
-                        isSendingRequest = false
-                    })
+                if isSendingRequest {
+                    ProgressView()
                 }
-                .disabled(!isBridge && fromAccount.isEmpty)
-                .sheet(isPresented: $isShowingMessages) {
-                    SMSComposeMessageUIView(
-                        recipients: [defaultGatewayClientMsisdn],
-                        body: $encryptedFormattedContent,
-                        completion: handleCompletion(_:))
-                    .ignoresSafeArea()
+                else {
+                    Button("Send") {
+                        isSendingRequest = true
+    //                    let platform = platforms.first!
+                        DispatchQueue.background(background: {
+                            do {
+                                encryptedFormattedContent = try getEncryptedContent(isBridge: self.isBridge)
+                            } catch {
+                                print("Some error occured while sending: \(error)")
+                            }
+                            isShowingMessages.toggle()
+                            isSendingRequest = false
+                        })
+                    }
+                    .disabled(!isBridge && fromAccount.isEmpty)
+                    .sheet(isPresented: $isShowingMessages) {
+                        SMSComposeMessageUIView(
+                            recipients: [defaultGatewayClientMsisdn],
+                            body: $encryptedFormattedContent,
+                            completion: handleCompletion(_:))
+                        .ignoresSafeArea()
+                    }
                 }
             }
         })
@@ -261,34 +266,43 @@ struct EmailView: View {
         switch result {
         case .cancelled:
             print("Yep cancelled")
+            #if DEBUG
+            saveMessageEntity()
+            #endif
             break
         case .failed:
             print("Damn... failed")
             break
         case .sent:
-            print("Yep, all good")
-            
-            DispatchQueue.background(background: {
-                var messageEntities = MessageEntity(context: context)
-                messageEntities.id = UUID()
-                messageEntities.platformName = platformName
-                messageEntities.fromAccount = fromAccount
-                messageEntities.toAccount = composeTo
-                messageEntities.subject = composeSubject
-                messageEntities.body = composeBody
-                messageEntities.date = Int32(Date().timeIntervalSince1970)
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed to save message entity: \(error)")
-                }
-                
-            })
+            saveMessageEntity()
+            dismiss()
             break
         @unknown default:
             print("Not even sure what this means")
             break
         }
+    }
+    
+    private func saveMessageEntity() {
+         DispatchQueue.background(background: {
+             var messageEntities = MessageEntity(context: context)
+             messageEntities.id = UUID()
+             messageEntities.platformName = platformName
+             messageEntities.fromAccount = fromAccount
+             messageEntities.toAccount = composeTo
+             messageEntities.cc = composeCC
+             messageEntities.bcc = composeBCC
+             messageEntities.subject = composeSubject
+             messageEntities.body = composeBody
+             messageEntities.date = Int32(Date().timeIntervalSince1970)
+             DispatchQueue.main.async {
+                 do {
+                    try context.save()
+                } catch {
+                    print("Failed to save message entity: \(error)")
+                }
+            }
+        })
     }
     
     func formatEmailForViewing(decryptedData: String) -> (platformLetter: String, to: String, cc: String, bcc: String, subject: String, body: String) {

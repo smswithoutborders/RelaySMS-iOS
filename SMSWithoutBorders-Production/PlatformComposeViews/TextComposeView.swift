@@ -16,8 +16,13 @@ struct TextComposeView: View {
     @FetchRequest var platforms: FetchedResults<PlatformsEntity>
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
 
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = ""
+    #if DEBUG
+    private var defaultGatewayClientMsisdn: String =
+    ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" ? "" : UserDefaults.standard.object(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
+    #else
+        @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        private var defaultGatewayClientMsisdn: String = ""
+    #endif
 
     @State var textBody: String = ""
     @State var placeHolder: String = "What's happening?"
@@ -143,12 +148,13 @@ struct TextComposeView: View {
                 messageEntities.body = textBody
                 messageEntities.date = Int32(Date().timeIntervalSince1970)
                 
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed to save message entity: \(error)")
+                DispatchQueue.main.async {
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Failed to save message entity: \(error)")
+                    }
                 }
-                
             })
             break
         @unknown default:

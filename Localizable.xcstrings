@@ -197,6 +197,9 @@
     "Messaging with your RelaySMS account" : {
 
     },
+    "No messages in inbox" : {
+
+    },
     "No messages sent" : {
 
     },
@@ -229,6 +232,9 @@
 
     },
     "Paste encrypted text into this box..." : {
+
+    },
+    "Paste new incoming message" : {
 
     },
     "Phone Number" : {

@@ -219,7 +219,16 @@ struct Bridges {
         return nil
     }
     
-    public static func decryptIncomingMessages(context: NSManagedObjectContext, payload: [UInt8]) throws -> String? {
+    public static func decryptIncomingMessages(context: NSManagedObjectContext, text: String) throws -> (
+        fromAccount: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        date: Int32
+    ) {
+        let splitText: String = String(text.split(separator: "\n")[1])
+        let payload: [UInt8] = Data(base64Encoded: splitText)?.withUnsafeBytes{ Array($0) } ?? []
         let cipherTextLen = payload[0..<4]
         let bridgeLetter = payload[4]
         let cipherText = Array(payload[5...])
@@ -234,6 +243,36 @@ struct Bridges {
             context: context
         )
         
-        return try messageComposer.decryptBridgeMessage(payload: cipherText)
+        var decryptedText = ""
+        do {
+            decryptedText = try messageComposer.decryptBridgeMessage(payload: cipherText)!
+        } catch {
+            print(error)
+        }
+        
+        return formatMessageAfterDecryption(message: decryptedText)
+    }
+    
+    public static func formatMessageAfterDecryption(message: String) ->
+    (fromAccount: String, cc: String, bcc: String, subject: String, body: String, date: Int32
+    ) {
+        
+        let splitMessage = message.split(separator: ":", omittingEmptySubsequences: false)
+        print(splitMessage)
+        let fromAccount = splitMessage[0]
+        let cc = splitMessage[1]
+        let bcc = splitMessage[2]
+        let subject = splitMessage[3]
+        let body = splitMessage[4]
+        let date = Int32(Date().timeIntervalSince1970)
+
+        return (
+            String(fromAccount),
+            String(cc),
+            String(bcc),
+            String(subject),
+            String(body),
+            date: date
+        )
     }
 }

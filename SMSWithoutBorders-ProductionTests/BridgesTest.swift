@@ -106,18 +106,22 @@ public class BridgesTest: XCTestCase {
     func testBridgeDecryption() async throws {
         let context = DataController().container.viewContext
 
-        let rawText = "RelaySMS Reply Please paste this entire message in your RelaySMS app\nzAAAAGUoAAAAAAAAAAAAAAD4eFJY+zgNQ4eFRb8Rg+EkEVhU3FUTEz9h+Ggq1NnxXmz9M3V0nXKAZo2qT5h4R1NuUr4PsK3BWy0cVhWYMJOV3JG4iriNe+BE7T0v80ub6inhxlCC2HPo3b1tNPR3+ms/KOIkYuFIHzzwAhcGIEmZEktSj4NCCIlE/ryuGip9OedJvvDROpx+az1XfrGRUuxi0r5mlLxsxY3EF/eJ+XlWKaUnnqG3Lt5iwQPa60jf/6Q3k5ykyas1AAEbvmndbY4="
-        let sampleText: String = String(rawText.split(separator: "\n")[1])
-        print("Sending in sampleText: \(sampleText)")
-        let cipherText: [UInt8] = Data(base64Encoded: sampleText)?.withUnsafeBytes{ Array($0) } ?? []
-        
-        XCTAssertTrue(cipherText.count > 0)
-        
+        let rawText = "RelaySMS Reply Please paste this entire message in your RelaySMS app \nzAAAAGUoAAAAAAAAAAAAAADsO+o0VYLiTX+jBiQTsw3FQxJKpTl3qd7Mv0fKkYdNOvBXA2zM+weiL5gp2K1VfbPE8o4eheFVhE+pWThpb72zW54ujpaS8YUXeWv+MGWMvvE7x1uhvM7AcpxqP774iYy9rZYsh0q9sNdzaWBjAsmakB5KFFeppjLPINE9E6V6xLVpCgjisJFvhEUV0V+zbkRKdVzok9i424MoxSfLg4yrqqGN6uDRhy5UAFiA3LFYnBAWRYlIVXcviHwVu4hq980="
         let text = try Bridges.decryptIncomingMessages(
             context: context,
-            payload: cipherText
+            text: rawText
         )
         print(text)
+    }
+    
+    func testBridgeDecryptionFormatting() throws {
+        let text = "Dev SMSWithoutBorders - dev at relaysms.me <dev_at_relaysms_me_sduzxjiklr@simplelogin.co>:::Re Test email:Hello world back at you"
+        let format = Bridges.formatMessageAfterDecryption(message: text)
+        XCTAssertEqual(format.fromAccount, "Dev SMSWithoutBorders - dev at relaysms.me <dev_at_relaysms_me_sduzxjiklr@simplelogin.co>")
+        XCTAssertEqual(format.cc, "")
+        XCTAssertEqual(format.bcc, "")
+        XCTAssertEqual(format.subject, "Re Test email")
+        XCTAssertEqual(format.body, "Hello world back at you")
     }
     
     static func executePayload(phoneNumber: String, payload: String) async throws -> Int? {

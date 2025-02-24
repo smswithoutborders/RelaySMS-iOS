@@ -53,31 +53,37 @@ class GatewayClients: Codable {
                     let fetchRequest = GatewayClientsEntity.fetchRequest()
                     fetchRequest.predicate = NSPredicate(format: "msisdn == %@", defaultGatewayClient.msisdn)
                     
-                    do {
-                        let existingGatewayClients = try context.fetch(fetchRequest)
-                        print(existingGatewayClients.count)
+                    await context.perform {
                         
-                        if let gatewayClient = existingGatewayClients.first {
-                            gatewayClient.country = defaultGatewayClient.country
-                            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
-                            gatewayClient.operatorName = defaultGatewayClient.operator
-                            gatewayClient.operatorCode = defaultGatewayClient.operator_code
-                            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
-                            gatewayClient.reliability = defaultGatewayClient.reliability
-                        } else {
-                            let gatewayClient = GatewayClientsEntity(context: context)
-                            gatewayClient.country = defaultGatewayClient.country
-                            gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
-                            gatewayClient.msisdn = defaultGatewayClient.msisdn
-                            gatewayClient.operatorName = defaultGatewayClient.operator
-                            gatewayClient.operatorCode = defaultGatewayClient.operator_code
-                            gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
-                            gatewayClient.reliability = defaultGatewayClient.reliability
+                        do {
+                            let existingGatewayClients = try context.fetch(fetchRequest)
+                            print(existingGatewayClients.count)
+                            
+                            if let gatewayClient = existingGatewayClients.first {
+                                gatewayClient.country = defaultGatewayClient.country
+                                gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+                                gatewayClient.operatorName = defaultGatewayClient.operator
+                                gatewayClient.operatorCode = defaultGatewayClient.operator_code
+                                gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+                                gatewayClient.reliability = defaultGatewayClient.reliability
+                            } else {
+                                let gatewayClient = GatewayClientsEntity(context: context)
+                                gatewayClient.country = defaultGatewayClient.country
+                                gatewayClient.lastPublishedDate = Int32(defaultGatewayClient.last_published_date)
+                                gatewayClient.msisdn = defaultGatewayClient.msisdn
+                                gatewayClient.operatorName = defaultGatewayClient.operator
+                                gatewayClient.operatorCode = defaultGatewayClient.operator_code
+                                gatewayClient.protocols = defaultGatewayClient.protocols.joined(separator: ",")
+                                gatewayClient.reliability = defaultGatewayClient.reliability
+                            }
+                        } catch {
+                            print(error)
                         }
-                    } catch {
-                        print(error)
                     }
+                    
                 }
+                
+                configureDefaults()
                 
                 if context.hasChanges {
                     do {
