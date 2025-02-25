@@ -110,7 +110,7 @@ struct PlatformSheetView: View {
                 .confirmationDialog(String("Revoke?"), isPresented: $revokeConfirmSheetRequested) {
                     Button("Revoke", role: .destructive) {
                         isRevoking = true
-                        accountSheetRequested = false
+//                        accountSheetRequested = false
                         
                         let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
                         backgroundQueueu.async {
@@ -433,7 +433,7 @@ struct PlatformsView: View {
                             .padding(.bottom, 10)
                     }
                     
-                    if storedPlatforms.isEmpty {
+                    if platforms.isEmpty {
                         Text("No online platforms saved yet...")
                     } else {
                         LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {

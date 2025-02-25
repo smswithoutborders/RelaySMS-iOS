@@ -230,7 +230,9 @@ struct MessagingView: View {
                     filter: platformName,
                     fromAccount: $fromAccount,
                     dismissParent: $dissmissRequested
-                ) {}
+                ) {
+                    requestToChooseAccount.toggle()
+                }
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
             }

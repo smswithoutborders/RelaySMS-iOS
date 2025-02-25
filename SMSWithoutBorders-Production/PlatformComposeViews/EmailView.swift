@@ -178,7 +178,9 @@ struct EmailView: View {
                     filter: platformName,
                     fromAccount: $fromAccount,
                     dismissParent: $dismissRequested
-                ) {}
+                ) {
+                    requestToChooseAccount.toggle()
+                }
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
             }
