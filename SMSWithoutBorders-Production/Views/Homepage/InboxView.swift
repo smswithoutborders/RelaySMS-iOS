@@ -68,7 +68,7 @@ struct InboxDecryptMessageView: View {
                             messageEntities.subject = decryptedText.subject
                             messageEntities.body = decryptedText.body
                             messageEntities.date = decryptedText.date
-                            messageEntities.type = Bridges.SERVICE_NAME
+                            messageEntities.type = Bridges.SERVICE_NAME_INBOX
 
                             DispatchQueue.main.async {
                                 do {
@@ -126,7 +126,7 @@ struct MessagesPresentInbox: View {
         
         _inboxMessages = FetchRequest<MessageEntity>(
             sortDescriptors: [],
-            predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME)
+            predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME_INBOX)
         )
     }
     
@@ -182,7 +182,7 @@ struct InboxView: View {
     init() {
         _inboxMessages = FetchRequest<MessageEntity>(
             sortDescriptors: [],
-            predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME)
+            predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME_INBOX)
         )
     }
     

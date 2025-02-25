@@ -116,13 +116,13 @@ func populateMockData(container: NSPersistentContainer) {
     for i in 0..<3 {
         let messageEntity = MessageEntity(context: context)
         messageEntity.body = "Hello world - \(i)"
-        messageEntity.platformName = Bridges.SERVICE_NAME
+        messageEntity.platformName = Bridges.SERVICE_NAME_INBOX
         messageEntity.fromAccount = "from\(i)@gmail.com"
         messageEntity.cc = "from\(i)@gmail.com"
         messageEntity.bcc = "from\(i)@gmail.com"
         messageEntity.toAccount = "to\(i)@gmail.com"
         messageEntity.subject = "New subject"
-        messageEntity.type = Bridges.SERVICE_NAME
+        messageEntity.type = Bridges.SERVICE_NAME_INBOX
         messageEntity.date = Int32(Date().timeIntervalSince1970) - 10
     }
     for i in 0..<3 {

@@ -15,6 +15,7 @@ struct Bridges {
     static let CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "com.afkanerd.CLIENT_PUBLIC_KEY_KEYSTOREALIAS"
     static let SERVER_KID = "com.afkanerd.SERVER_KID"
     static let SERVICE_NAME = "com.afkanerd.BRIDGES"
+    static let SERVICE_NAME_INBOX = "com.afkanerd.BRIDGES.INBOX"
 
     class StaticKeys: Codable {
         var keypair: String

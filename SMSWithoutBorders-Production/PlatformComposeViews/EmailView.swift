@@ -297,6 +297,11 @@ struct EmailView: View {
              messageEntities.subject = composeSubject
              messageEntities.body = composeBody
              messageEntities.date = Int32(Date().timeIntervalSince1970)
+             
+             if isBridge {
+                 messageEntities.type = Bridges.SERVICE_NAME
+             }
+             
              DispatchQueue.main.async {
                  do {
                     try context.save()

@@ -289,9 +289,123 @@ struct WalkthroughViews: View {
     }
 }
 
-struct RecentsViewNotLoggedIn: View {
-    @State var walkthroughViewsShown: Bool = false
 
+struct NotLoggedInMessagesPresentInboxView: View {
+    @FetchRequest(sortDescriptors: []) var inboxMessages: FetchedResults<MessageEntity>
+    @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
+    
+    @State var composeNewRequested = false
+    
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var loginSheetRequested: Bool
+    @Binding var createAccountSheetRequested: Bool
+
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+            VStack {
+                List(inboxMessages, id: \.self) { message in
+                    Card(
+                        logo: getImageForPlatform(name: message.platformName!),
+                        subject: message.subject!,
+                        toAccount: message.toAccount!,
+                        messageBody: message.body!,
+                        date: Int(message.date)
+                    )
+                }
+            }
+            VStack {
+                Button {
+                    composeNewRequested.toggle()
+                } label: {
+                    Image(systemName: "person.crop.circle.fill.badge.plus")
+                        .font(.system(.title))
+                        .frame(width: 57, height: 50)
+                        .foregroundColor(Color.white)
+                        .padding(.bottom, 7)
+                }
+                .background(.blue)
+                .cornerRadius(18)
+                 .shadow(color: Color.black.opacity(0.3),
+                         radius: 3,
+                         x: 3,
+                         y: 3
+                 )
+            }
+            .padding()
+        }
+        .onChange(of: composeNewMessageRequested) { newValue in
+            if newValue {
+                composeNewRequested.toggle()
+            }
+        }
+        .onChange(of: loginSheetRequested) { newValue in
+            if newValue {
+                composeNewRequested.toggle()
+            }
+        }
+        .onChange(of: createAccountSheetRequested) { newValue in
+            if newValue {
+                composeNewRequested.toggle()
+            }
+        }
+        .sheet(isPresented: $composeNewRequested) {
+            VStack(alignment: .center) {
+                Text("Get Started")
+                    .font(.headline)
+                
+                NotLoggedInNoMessagesView(
+                    composeNewMessageRequested: $composeNewMessageRequested,
+                    loginSheetRequested: $loginSheetRequested,
+                    createAccountSheetRequested: $createAccountSheetRequested
+                )
+            }
+            .padding()
+        }
+    }
+    
+    func getImageForPlatform(name: String) -> Image {
+        let image = platforms.filter { $0.name == name}.first?.image
+        if image != nil {
+            return Image( uiImage: UIImage(data: image!)!)
+        }
+        return Image("Logo")
+    }
+}
+
+struct NotLoggedInNoMessagesView: View {
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var loginSheetRequested: Bool
+    @Binding var createAccountSheetRequested: Bool
+    
+    var body : some View {
+        ScrollView {
+            VStack(spacing: 10) {
+                SendFirstMessageView(
+                    composeNewSheetRequested: $composeNewMessageRequested
+                )
+
+                Divider()
+                    .padding(.bottom, 16)
+                
+                LoginWithInternetView(
+                    loginSheetRequested: $loginSheetRequested,
+                    createAccountSheetRequsted: $createAccountSheetRequested
+                ).padding(.bottom)
+
+//                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
+            }
+            .navigationTitle("Get Started")
+            .padding()
+        }
+    }
+}
+
+
+struct RecentsViewNotLoggedIn: View {
+    @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
+    
+    @State var walkthroughViewsShown: Bool = false
+    
     @Binding var isLoggedIn: Bool
     @Binding var composeNewMessageRequested: Bool
     @Binding var createAccountSheetRequested: Bool 
@@ -299,24 +413,20 @@ struct RecentsViewNotLoggedIn: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 10) {
-                    SendFirstMessageView(
-                        composeNewSheetRequested: $composeNewMessageRequested
-                    )
-
-                    Divider()
-                        .padding(.bottom, 16)
-                    
-                    LoginWithInternetView(
+            VStack {
+                if !messages.isEmpty {
+                    NotLoggedInMessagesPresentInboxView(
+                        composeNewMessageRequested: $composeNewMessageRequested,
                         loginSheetRequested: $loginSheetRequested,
-                        createAccountSheetRequsted: $createAccountSheetRequested
-                    ).padding(.bottom)
-
-//                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
+                        createAccountSheetRequested: $createAccountSheetRequested
+                    )
+                } else {
+                    NotLoggedInNoMessagesView(
+                        composeNewMessageRequested: $composeNewMessageRequested,
+                        loginSheetRequested: $loginSheetRequested,
+                        createAccountSheetRequested: $createAccountSheetRequested
+                    )
                 }
-                .navigationTitle("Get Started")
-                .padding()
             }
         }
     }
@@ -334,6 +444,26 @@ struct RecentsViewNotLoggedIn_Preview: PreviewProvider {
             createAccountSheetRequested: $createAccountSheetRequested,
             loginSheetRequested: $loginSheetRequested
         )
+    }
+}
+
+struct RecentsViewNotLoggedInMessage_Preview: PreviewProvider {
+    static var previews: some View {
+        @State var isLoggedIn = false
+        @State var composeNewMessageRequested = false
+        @State var createAccountSheetRequested = false
+        @State var loginSheetRequested = false
+        
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        return RecentsViewNotLoggedIn(
+            isLoggedIn: $isLoggedIn,
+            composeNewMessageRequested: $composeNewMessageRequested,
+            createAccountSheetRequested: $createAccountSheetRequested,
+            loginSheetRequested: $loginSheetRequested
+        )
+        .environment(\.managedObjectContext, container.viewContext)
     }
 }
 

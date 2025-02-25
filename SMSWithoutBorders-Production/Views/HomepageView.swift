@@ -17,7 +17,6 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Environment(\.managedObjectContext) var context
-    
     @Binding var codeVerifier: String
     
     @State var selectedTab: HomepageTabs = .recents
@@ -38,7 +37,7 @@ struct HomepageView: View {
     init(codeVerifier: Binding<String>, isLoggedIn: Binding<Bool>) {
         _codeVerifier = codeVerifier
         _isLoggedIn = isLoggedIn
-
+        
         do {
             self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
         } catch {
@@ -230,6 +229,28 @@ struct HomepageView_Previews: PreviewProvider {
             codeVerifier: $codeVerifier,
             isLoggedIn: $isLoggedIn
         )
+    }
+}
+
+struct HomepageViewInboxMessages_Previews: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+    @State static var isLoggedIn: Bool = false
+
+    static var previews: some View {
+        let container = createInMemoryPersistentContainer()
+        populateMockData(container: container)
+        
+        UserDefaults.standard.register(defaults: [
+            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+        ])
+        
+        return HomepageView(
+            codeVerifier: $codeVerifier,
+            isLoggedIn: $isLoggedIn
+        )
+        .environment(\.managedObjectContext, container.viewContext)
     }
 }
 
