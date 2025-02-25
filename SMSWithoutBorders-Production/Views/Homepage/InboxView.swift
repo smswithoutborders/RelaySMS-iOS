@@ -163,6 +163,7 @@ struct MessagesPresentInbox: View {
             }
             .padding()
         }
+        .navigationTitle("Inbox")
     }
     
     func getImageForPlatform(name: String) -> Image {

@@ -36,14 +36,6 @@ struct SecuritySettingsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: Text("Vault")) {
-                    NavigationLink {
-                        OfflineAvailablePlatformsSheetsView(isRevoke: true)
-                    } label: {
-                        Text("Revoke stored platforms")
-                    }
-                }
-                
                 Section(header: Text("Account")) {
                     Button("Log out") {
                         showIsLoggingOut.toggle()
@@ -52,6 +44,7 @@ struct SecuritySettingsView: View {
                     } message: {
                         Text("You can log back in at anytime. All the messages sent would be deleted.")
                     }
+                    .disabled(!isLoggedIn)
 
                     if deleteProcessing {
                         ProgressView()
@@ -63,6 +56,7 @@ struct SecuritySettingsView: View {
                         } message: {
                             Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
                         }
+                        .disabled(!isLoggedIn)
                     }
                 }
             }
@@ -121,6 +115,18 @@ struct SettingsView: View {
             VStack {
                 List {
                     Section {
+                        NavigationLink(destination: EmptyView()) {
+                            Text("Language")
+                        }
+                    }
+                    
+                    Section {
+                        NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
+                            Text("Security")
+                        }
+                    }
+
+                    Section {
                         VStack(alignment: .leading) {
                             Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
                             Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
@@ -130,11 +136,6 @@ struct SettingsView: View {
                         }
                     }
                     
-                    Section {
-                        NavigationLink(destination: SecuritySettingsView(isLoggedIn: $isLoggedIn)) {
-                            Text("Security")
-                        }
-                    }
                 }
             }
             .navigationTitle("Settings")
@@ -163,7 +164,7 @@ struct SettingsView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        @State var isLoggedIn = true
+        @State var isLoggedIn = false
         return SettingsView(isLoggedIn: $isLoggedIn)
             .environment(\.managedObjectContext, container.viewContext)
     }
