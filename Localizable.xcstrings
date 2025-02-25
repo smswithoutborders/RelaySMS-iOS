@@ -173,6 +173,9 @@
     "It seems you logged into another device. You can use RelaySMS on only one device at a time." : {
 
     },
+    "Language" : {
+
+    },
     "Log in" : {
 
     },
@@ -306,9 +309,6 @@
     "Revoke" : {
 
     },
-    "Revoke stored platforms" : {
-
-    },
     "Revoking account for %@..." : {
 
     },
@@ -391,9 +391,6 @@
 
     },
     "Use your RelaySMS account" : {
-
-    },
-    "Vault" : {
 
     },
     "vault_port_debug" : {
