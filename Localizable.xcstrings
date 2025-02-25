@@ -1093,6 +1093,9 @@
         }
       }
     },
+    "English" : {
+
+    },
     "Ensure that the selected phone number includes the country code (e.g., +237)." : {
       "localizations" : {
         "ar" : {

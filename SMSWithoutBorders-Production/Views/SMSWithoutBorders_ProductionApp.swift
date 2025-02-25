@@ -147,8 +147,10 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @StateObject private var languagePreferencesManager = LanguagePreferencesManager()
+    @Environment(\.scenePhase) private var scenePhase
     
-    @StateObject private var dataController = DataController()
+    @StateObject var dataController = DataController()
 
     @State var isFinished = false
     @State var navigatingFromURL: Bool = false
@@ -156,13 +158,13 @@ struct SMSWithoutBorders_ProductionApp: App {
     @State var codeVerifier: String = ""
     
     @State var backgroundLoading: Bool = false
-    @State private var onboardingViewIndex: Int = 0
+    @State var onboardingViewIndex: Int = 0
     
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = ""
+     var defaultGatewayClientMsisdn: String = ""
     
     @AppStorage(ControllerView.ONBOARDING_COMPLETED)
-    private var onboardingCompleted: Bool = false
+     var onboardingCompleted: Bool = false
 
     var body: some Scene {
         WindowGroup {
@@ -204,7 +206,6 @@ struct SMSWithoutBorders_ProductionApp: App {
                 
                 let code = url.valueOf("code")
                 print("state: \(state)\ncode: \(code)\ncodeVerifier: \(codeVerifier)")
-                
                 do {
                     let llt = try Vault.getLongLivedToken()
                     let publisher = Publisher()
@@ -231,9 +232,11 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
                 backgroundLoading = false
             }
+            }
         }
     }
 
+   
     func getIsLoggedIn() -> Bool {
         do {
             return try !Vault.getLongLivedToken().isEmpty
@@ -243,7 +246,7 @@ struct SMSWithoutBorders_ProductionApp: App {
         return false
     }
     
-}
+
 
 struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
     @State static var platform: PlatformsEntity?
