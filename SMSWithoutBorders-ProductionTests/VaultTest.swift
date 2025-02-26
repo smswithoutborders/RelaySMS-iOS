@@ -31,6 +31,7 @@ class VaultTest: XCTestCase {
         
         do {
             var entityCreationResponse = try vault.createEntity(
+                context: context,
                 phoneNumber: phoneNumber,
                 countryCode: countryCode,
                 password: password)
@@ -39,6 +40,7 @@ class VaultTest: XCTestCase {
             XCTAssertNotNil(entityCreationResponse.serverDeviceIDPubKey)
 
             entityCreationResponse = try vault.createEntity(
+                context: context,
                 phoneNumber: phoneNumber,
                 countryCode: countryCode,
                 password: password,
@@ -59,6 +61,7 @@ class VaultTest: XCTestCase {
         
         
         var response = try vault.authenticateEntity(
+            context: context,
             phoneNumber: phoneNumber,
             password: password
         )
@@ -67,6 +70,7 @@ class VaultTest: XCTestCase {
 
         // ** LOGIN **
         response = try vault.authenticateEntity(
+            context: context,
             phoneNumber: phoneNumber,
             password: password,
             ownershipResponse: ownershipProof

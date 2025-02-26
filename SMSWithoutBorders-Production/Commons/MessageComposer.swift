@@ -210,7 +210,7 @@ struct MessageComposer {
         return data.base64EncodedString()
     }
     
-    public func decryptBridgeMessage(payload: [UInt8]) throws -> String? {
+    public func decryptBridgeMessage(payload: [UInt8]) throws -> [UInt8]? {
         let lenHeader = Data(payload[0..<4]).withUnsafeBytes { $0.load(as: Int32.self) }.littleEndian
         guard let header = HEADERS.deserialize(serializedData: Data(payload[4..<(4+Int(lenHeader))])) else {
             print("Issue constructing header...")
@@ -226,6 +226,7 @@ struct MessageComposer {
             keystoreAlias: self.keystoreAlias
         )
         try self.saveState()
-        return String(decoding: text, as: Unicode.UTF8.self)
+//        return String(decoding: text, as: Unicode.UTF8.self)
+        return text
     }
 }

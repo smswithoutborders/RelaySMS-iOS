@@ -238,10 +238,22 @@ struct Bridges {
             throw NSError(domain: "Invalid payload", code: 0, userInfo: nil)
         }
         let payload: [UInt8] = Data(base64Encoded: splitText)?.withUnsafeBytes{ Array($0) } ?? []
-        let cipherTextLen = payload[0..<4]
-        let bridgeLetter = payload[4]
-        let cipherText = Array(payload[5...])
+//        let cipherTextLen = payload[0..<4]
+//        let bridgeLetter = payload[4]
+//        let cipherText = Array(payload[5...])
         
+        let lengthAliasAddress: Int = Int(payload[0])
+        let lengthSender: Int = Int(payload[1])
+        let lengthCC: Int = Int(payload[2])
+        let lengthBCC: Int = Int(payload[3])
+        let lengthSubject: Int = Int(payload[4])
+        let lengthBody: Int = UnsafeRawPointer([payload[5], payload[6]]).assumingMemoryBound(to: Int.self).pointee.littleEndian
+        let cipherTextLength: Int = UnsafeRawPointer([payload[7], payload[8]]).assumingMemoryBound(to: Int.self).pointee.littleEndian
+
+        let bridgeLetter: UInt8 = payload[9]
+        
+        let cipherText = Array(payload[10...])
+
         let ad = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
         
         let messageComposer = try MessageComposer(
@@ -252,27 +264,51 @@ struct Bridges {
             context: context
         )
         
-        var decryptedText = ""
+        var decryptedText: [UInt8] = []
         do {
             decryptedText = try messageComposer.decryptBridgeMessage(payload: cipherText)!
         } catch {
             print(error)
+            throw error
         }
         
-        return formatMessageAfterDecryption(message: decryptedText)
+        return formatMessageAfterDecryption(
+            lenAliasAddress: lengthAliasAddress,
+            lenSender: lengthSender,
+            lenCC: lengthCC,
+            lenBCC: lengthBCC,
+            lenSubject: lengthSubject,
+            lenBody: lengthBody,
+            message: decryptedText,
+            timestamp: String(splitPayload[2])
+        )
     }
     
-    public static func formatMessageAfterDecryption(message: String) ->
-    (fromAccount: String, cc: String, bcc: String, subject: String, body: String, date: Int32
+    public static func formatMessageAfterDecryption(
+        lenAliasAddress: Int,
+        lenSender: Int,
+        lenCC: Int,
+        lenBCC: Int,
+        lenSubject: Int,
+        lenBody: Int,
+        message: [UInt8],
+        timestamp: String
+    ) ->
+    (
+        fromAccount: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        date: Int32
     ) {
-        
-        let splitMessage = message.split(separator: ":", omittingEmptySubsequences: false)
-        print(splitMessage)
-        let fromAccount = splitMessage[0]
-        let cc = splitMessage[1]
-        let bcc = splitMessage[2]
-        let subject = splitMessage[3]
-        let body = splitMessage[4]
+        let aliasAddress = String(decoding: message[0..<lenAliasAddress], as: Unicode.UTF8.self)
+        let fromAccount = String(decoding: message[lenAliasAddress..<(lenAliasAddress + lenSender)], as: Unicode.UTF8.self)
+        let cc = String(decoding: message[(lenAliasAddress + lenSender)..<(lenAliasAddress + lenSender + lenCC)], as: Unicode.UTF8.self)
+        let bcc = String(decoding: message[(lenAliasAddress + lenSender + lenCC)..<(lenAliasAddress + lenSender + lenCC + lenBCC)], as: Unicode.UTF8.self)
+        let subject = String(decoding: message[(lenAliasAddress + lenSender + lenCC + lenBCC)..<(lenAliasAddress + lenSender + lenCC + lenBCC + lenSubject)], as: Unicode.UTF8.self)
+        let body = String(decoding: message[(lenAliasAddress + lenSender + lenCC + lenBCC + lenSubject)...], as: Unicode.UTF8.self)
+//        let date = Int32(Date(timeIntervalSince1970: TimeInterval(timestamp)!).timeIntervalSince1970)
         let date = Int32(Date().timeIntervalSince1970)
 
         return (
