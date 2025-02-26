@@ -355,12 +355,16 @@ class Publisher {
         return response
     }
     
-    public func phoneNumberBaseAuthenticationExchange( authorizationCode: String,
-                                                       llt: String, phoneNumber: String, platform: String) throws -> Publisher_V1_ExchangePNBACodeAndStoreResponse {
+    public func phoneNumberBaseAuthenticationExchange(
+        authorizationCode: String,
+        llt: String, phoneNumber: String,
+        platform: String,
+        password: String = ""
+    ) throws -> Publisher_V1_ExchangePNBACodeAndStoreResponse {
         let pnbaExchangeRequest: Publisher_V1_ExchangePNBACodeAndStoreRequest = .with {
             $0.authorizationCode = authorizationCode
             $0.longLivedToken = llt
-            $0.password = ""
+            $0.password = password
             $0.phoneNumber = phoneNumber
             $0.platform = platform
         }

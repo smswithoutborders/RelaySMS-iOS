@@ -113,6 +113,9 @@
     "Enter code sent by SMS" : {
 
     },
+    "Enter password" : {
+
+    },
     "Enter your phone number and new passwords" : {
 
     },
@@ -212,9 +215,6 @@
     "No online platforms saved yet..." : {
 
     },
-    "No platforms" : {
-
-    },
     "No recent messages" : {
 
     },
@@ -250,6 +250,9 @@
 
     },
     "Please create one to save your platforms" : {
+
+    },
+    "Please enter your Telegram code without copying it from the message - copying might get flagged and Telegram might block your account." : {
 
     },
     "Post" : {

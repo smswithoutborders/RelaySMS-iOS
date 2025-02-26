@@ -84,7 +84,7 @@ struct addAccountsView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .sheet(isPresented: $availablePlatformsPresented) {
-                    AvailablePlatformsSheetsView(codeVerifier: $codeVerifier, title: title, description: description)
+//                    AvailablePlatformsS/*heetsView(codeVerifier: $codeVerifier, title: title, descript*/ion: description)
                 }
                 .controlSize(.large)
                 .padding(.bottom, 10)

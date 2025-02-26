@@ -77,6 +77,7 @@ struct PlatformSheetView: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var platformRequestedType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
+    @Binding var refreshParent: Bool
 
     init(
         description: String,
@@ -85,7 +86,8 @@ struct PlatformSheetView: View {
         isEnabled: Binding<Bool>,
         composeNewMessageRequested: Binding<Bool>,
         platformRequestedType: Binding<PlatformsRequestedType>,
-        composeViewRequested: Binding<Bool>
+        composeViewRequested: Binding<Bool>,
+        refreshParent: Binding<Bool>
     ) {
         self.description = description
         self.composeDescription = composeDescription
@@ -95,11 +97,19 @@ struct PlatformSheetView: View {
         _composeNewMessageRequested = composeNewMessageRequested
         _platformRequestedType = platformRequestedType
         _composeViewRequested = composeViewRequested
+        _refreshParent = refreshParent
     }
     
     var body: some View {
         VStack {
-            if accountSheetRequested && platform != nil {
+            if (isRevoking || loading) && platform != nil {
+                SavingRevokingNewPlatformView(
+                    name: platform!.name!,
+                    isSaving: $savingNewPlatform,
+                    isRevoking: $isRevoking
+                )
+            }
+            else if accountSheetRequested && platform != nil {
                 AccountSheetView(
                     filter: platform!.name!,
                     fromAccount: $fromAccount,
@@ -139,6 +149,7 @@ struct PlatformSheetView: View {
 
                                 DispatchQueue.main.async {
                                     isRevoking = false
+                                    refreshParent.toggle()
                                     dismiss()
                                 }
                             } catch {
@@ -150,13 +161,7 @@ struct PlatformSheetView: View {
                     Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
                 }
             }
-            else if (isRevoking || loading) && platform != nil {
-                SavingRevokingNewPlatformView(
-                    name: platform!.name!,
-                    isSaving: $savingNewPlatform,
-                    isRevoking: $isRevoking
-                )
-            } else {
+            else {
                 VStack(alignment:.center) {
                     (platform != nil && platform!.image != nil ?
                      Image(uiImage: UIImage(data: platform!.image!)!) : Image("Logo")
@@ -336,8 +341,10 @@ struct PlatformCard: View {
                             isEnabled: $isEnabled,
                             composeNewMessageRequested: $composeNewMessageRequested,
                             platformRequestedType: $platformRequestType,
-                            composeViewRequested: $composeViewRequested
-                        ).applyPresentationDetentsIfAvailable()
+                            composeViewRequested: $composeViewRequested,
+                            refreshParent: $sheetIsPresented
+                        )
+//                        .applyPresentationDetentsIfAvailable()
                     }
                 }
                 if(isEnabled) {
@@ -610,7 +617,8 @@ struct PlatformsCompose_Preview: PreviewProvider {
         isEnabled: $isEnabled,
         composeNewMessageRequested: $composeNewMessage,
         platformRequestedType: $platformRequestedType,
-        composeViewRequested: $composeViewRequested
+        composeViewRequested: $composeViewRequested,
+        refreshParent: $isEnabled
     )
 }
 

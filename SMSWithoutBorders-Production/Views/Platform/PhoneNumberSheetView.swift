@@ -18,12 +18,25 @@ struct PhoneNumberCodeEntryView: View {
 
     @State var loading = false
     @State var failed = false
-    
+    @State var havePassword = false
+
     @State var code: String = ""
+    @State var password: String = ""
     @State var errorMessage: String = ""
 
     var body: some View {
         VStack {
+            if platformName == "telegram" {
+                Text("Please enter your Telegram code without copying it from the message - copying might get flagged and Telegram might block your account.")
+                    .padding()
+                    .font(.caption)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.orange)
+                    )
+                    .multilineTextAlignment(.center)
+            }
+            
             TextField("Enter code", text: $code)
                 .padding()
                 .keyboardType(.numberPad)
@@ -35,6 +48,17 @@ struct PhoneNumberCodeEntryView: View {
                         .stroke(lineWidth: 1)
                         .foregroundColor(.gray)
                 )
+            
+            if havePassword {
+                SecureField("Enter password", text: $password)
+                    .padding()
+                    .controlSize(.large)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(lineWidth: 1)
+                            .foregroundColor(.gray)
+                    )
+            }
 
             if loading {
                 ProgressView()
@@ -47,7 +71,7 @@ struct PhoneNumberCodeEntryView: View {
                 .buttonStyle(.borderedProminent)
                 .padding()
                 .controlSize(.large)
-                .disabled(code.count < 3)
+                .disabled(code.count < 3 || (havePassword && password.isEmpty))
             }
         }
         .padding()
@@ -67,22 +91,27 @@ struct PhoneNumberCodeEntryView: View {
                 let publisher = Publisher()
                 let llt = try Vault.getLongLivedToken()
                 print("Sending code for phone number: \(phoneNumber)")
-                 
+
                 let response = try publisher.phoneNumberBaseAuthenticationExchange(
                     authorizationCode: code,
                     llt: llt,
                     phoneNumber: phoneNumber,
-                    platform: platformName
+                    platform: platformName,
+                    password: password
                 )
 
                 if response.success {
-                    print("Successfully stored: \(platformName)")
-                    try Vault().refreshStoredTokens(
-                        llt: llt,
-                        context: context
-                    )
-                    completed = true
-                    dismiss()
+                    if response.twoStepVerificationEnabled {
+                        havePassword = true
+                    } else {
+                        print("Successfully stored: \(platformName)")
+                        try Vault().refreshStoredTokens(
+                            llt: llt,
+                            context: context
+                        )
+                        completed = true
+                        dismiss()
+                    }
                 }
                 else {
                      print("Failed to store platform: \(platformName)")

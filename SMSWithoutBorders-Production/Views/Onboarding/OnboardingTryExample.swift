@@ -29,12 +29,12 @@ struct OnboardingTryExample: View {
                         .controlSize(.large)
                         .padding(.bottom, 10)
                         .buttonStyle(.borderedProminent)
-                        .background(
-                            NavigationLink(destination: OfflineAvailablePlatformsSheetsView(),
-                                           isActive: $shownStoredPlatforms) {
-                                    EmptyView()
-                                }.hidden()
-                        )
+//                        .background(
+//                            NavigationLink(destination: OfflineAvailablePlatformsSheetsView(),
+//                                           isActive: $shownStoredPlatforms) {
+//                                    EmptyView()
+//                                }.hidden()
+//                        )
                     },
                     title:"Send your first messages",
                     subTitle: "Learn how it works",
