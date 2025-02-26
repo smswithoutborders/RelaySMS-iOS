@@ -300,6 +300,7 @@ struct PlatformCard: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var platformRequestType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
+    @Binding var parentRefreshRequested: Bool
     @Binding var requestedPlatformName: String
 
     let platform: PlatformsEntity?
@@ -342,9 +343,10 @@ struct PlatformCard: View {
                             composeNewMessageRequested: $composeNewMessageRequested,
                             platformRequestedType: $platformRequestType,
                             composeViewRequested: $composeViewRequested,
-                            refreshParent: $sheetIsPresented
+                            refreshParent: $parentRefreshRequested
                         )
-//                        .applyPresentationDetentsIfAvailable()
+                        .applyPresentationDetentsIfAvailable(
+                            canLarge: platform?.protocol_type == Publisher.ProtocolTypes.PNBA.rawValue)
                     }
                 }
                 if(isEnabled) {
@@ -356,9 +358,6 @@ struct PlatformCard: View {
             }
         }
         .onAppear {
-            isEnabled = platform != nil ? isStored(platformEntity: platform!) : true
-        }
-        .onChange(of: sheetIsPresented) { item in
             isEnabled = platform != nil ? isStored(platformEntity: platform!) : true
         }
     }
@@ -399,8 +398,8 @@ struct PlatformsView: View {
     
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
     
-    @State private var sheetIsRequested: Bool = false
-    @State private var platformsSheetIsRequested: Bool = false
+    @State private var id = UUID()
+    @State private var refreshRequested = false
 
     @Binding var requestType: PlatformsRequestedType
     @Binding var requestedPlatformName: String
@@ -428,6 +427,7 @@ struct PlatformsView: View {
                         composeNewMessageRequested: $composeNewMessageRequested,
                         platformRequestType: $requestType,
                         composeViewRequested: getBindingComposeVariable(type: "email"),
+                        parentRefreshRequested: $refreshRequested,
                         requestedPlatformName: $requestedPlatformName,
                         platform: nil,
                         protocolType: Publisher.ProtocolTypes.BRIDGE
@@ -451,6 +451,7 @@ struct PlatformsView: View {
                                         platformRequestType: $requestType,
                                         composeViewRequested: getBindingComposeVariable(
                                             type: item.service_type!),
+                                        parentRefreshRequested: $refreshRequested,
                                         requestedPlatformName: $requestedPlatformName,
                                         platform: item,
                                         protocolType: getProtocolType(type: item.protocol_type!)
@@ -464,6 +465,7 @@ struct PlatformsView: View {
                                         platformRequestType: $requestType,
                                         composeViewRequested: getBindingComposeVariable(
                                             type: item.service_type!),
+                                        parentRefreshRequested: $refreshRequested,
                                         requestedPlatformName: $requestedPlatformName,
                                         platform: item,
                                         protocolType: getProtocolType(type: item.protocol_type!)
@@ -473,6 +475,12 @@ struct PlatformsView: View {
                         }
                     }
                     
+                }
+                .id(id)
+                .onChange(of: refreshRequested) { refresh in
+                    if refresh {
+                        id = UUID()
+                    }
                 }
                 
                 VStack(alignment: .center) {
@@ -626,6 +634,7 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
     
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
+        @State var parentRefreshRequested: Bool = false
         @State var composeNewMessage: Bool = false
         @State var composeViewRequested: Bool = false
         @State var platformRequestedType: PlatformsRequestedType = .available
@@ -636,6 +645,7 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
             composeNewMessageRequested: $composeNewMessage,
             platformRequestType: $platformRequestedType,
             composeViewRequested: $composeViewRequested,
+            parentRefreshRequested: $parentRefreshRequested,
             requestedPlatformName: $requestedPlatformName,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE
@@ -647,6 +657,7 @@ struct PlatformCardDisabled_Preview: PreviewProvider {
 struct PlatformCardEnabled_Preview: PreviewProvider {
     static var previews: some View {
         @State var sheetIsPresented: Bool = false
+        @State var parentRefreshRequested: Bool = false
         @State var composeNewMessage: Bool = false
         @State var composeViewRequested: Bool = false
         @State var platformRequestedType: PlatformsRequestedType = .available
@@ -658,6 +669,7 @@ struct PlatformCardEnabled_Preview: PreviewProvider {
             composeNewMessageRequested: $composeNewMessage,
             platformRequestType: $platformRequestedType,
             composeViewRequested: $composeViewRequested,
+            parentRefreshRequested: $parentRefreshRequested,
             requestedPlatformName: $requestedPlatformName,
             platform: nil,
             protocolType: Publisher.ProtocolTypes.BRIDGE

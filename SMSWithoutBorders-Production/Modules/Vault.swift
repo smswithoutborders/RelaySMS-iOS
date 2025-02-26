@@ -434,11 +434,13 @@ struct Vault {
                 )
             }
             
-            do {
-                try context.save()
-            } catch {
-                print("Failed to stored platform: \(error)")
-            }
+            DispatchQueue.main.async {
+                do {
+                   try context.save()
+               } catch {
+                   print("Failed to refresh entities: \(error)")
+               }
+           }
         } catch Exceptions.unauthenticatedLLT(let status){
             print("Should delete invalid llt: \(status.message)")
             try Vault.resetKeystore(context: context)
