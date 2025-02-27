@@ -32,48 +32,21 @@ struct SentMessages: View {
     
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
-    @State var requestedMessage: Messages?
-    
-    @State var emailIsRequested: Bool = false
-    @State var textIsRequested: Bool = false
-    @State var messageIsRequested: Bool = false
     
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
+    
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
+    @Binding var textIsRequested: Bool
+    @Binding var messageIsRequested: Bool
+    
 
     var body : some View {
         VStack {
-            VStack {
-                if requestedMessage != nil {
-                    NavigationLink(
-                        destination: EmailPlatformView(message: requestedMessage!),
-                        isActive: $emailIsRequested
-                    ) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(
-                        destination: TextPlatformView(message: requestedMessage!),
-                        isActive: $textIsRequested
-                    ) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(
-                        destination: MessagingView(
-                            platformName: requestedMessage!.platformName,
-                            message: requestedMessage!
-                        ),
-                        isActive: $messageIsRequested
-                    ) {
-                        EmptyView()
-                    }
-                }
-            }
-            
             ZStack(alignment: .bottomTrailing) {
                 VStack {
-                    List(messages, id: \.self) { message in
+                    List(messages, id: \.id) { message in
                         Card(
                             logo: getImageForPlatform(name: message.platformName!),
                             subject: message.subject!,
@@ -228,13 +201,22 @@ struct RecentsViewLoggedIn: View {
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
     
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
+    @Binding var textIsRequested: Bool
+    @Binding var messageIsRequested: Bool
+
     var body: some View {
         NavigationView {
             VStack {
                 if !messages.isEmpty {
                     SentMessages(
                         selectedTab: $selectedTab,
-                        platformRequestType: $platformRequestType
+                        platformRequestType: $platformRequestType,
+                        requestedMessage: $requestedMessage,
+                        emailIsRequested: $emailIsRequested,
+                        textIsRequested: $textIsRequested,
+                        messageIsRequested: $messageIsRequested
                     )
                 }
                 else {
@@ -278,10 +260,19 @@ struct SentMessages_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        
+        @State var requestedMessage: Messages? = nil
+        @State var emailIsRequested: Bool = false
+        @State var textIsRequested: Bool = false
+        @State var messageIsRequested: Bool = false
+
         return SentMessages(
             selectedTab: $selectedTab,
-            platformRequestType: $platformRequestType
-        )
-            .environment(\.managedObjectContext, container.viewContext)
+            platformRequestType: $platformRequestType,
+            requestedMessage: $requestedMessage,
+            emailIsRequested: $emailIsRequested,
+            textIsRequested: $textIsRequested,
+            messageIsRequested: $messageIsRequested
+        ).environment(\.managedObjectContext, container.viewContext)
     }
 }

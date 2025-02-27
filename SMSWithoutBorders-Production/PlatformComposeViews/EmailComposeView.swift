@@ -273,7 +273,10 @@ struct EmailComposeView: View {
             #endif
             break
         case .failed:
-            print("Damn... failed")
+            print("Yep failed")
+            #if DEBUG
+            saveMessageEntity()
+            #endif
             break
         case .sent:
             saveMessageEntity()

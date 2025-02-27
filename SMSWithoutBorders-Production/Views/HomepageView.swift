@@ -33,6 +33,8 @@ struct HomepageView: View {
     @State var requestedPlatformName: String = ""
     
     @State var emailIsRequested = false
+    @State var textIsRequested = false
+    @State var messageIsRequested = false
 
     @State var requestedMessage: Messages?
 
@@ -56,6 +58,23 @@ struct HomepageView: View {
                     NavigationLink(
                         destination: EmailPlatformView(message: requestedMessage!),
                         isActive: $emailIsRequested
+                    ) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(
+                        destination: TextPlatformView(message: requestedMessage!),
+                        isActive: $textIsRequested
+                    ) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(
+                        destination: MessagingView(
+                            platformName: requestedMessage!.platformName,
+                            message: requestedMessage!
+                        ),
+                        isActive: $messageIsRequested
                     ) {
                         EmptyView()
                     }
@@ -137,7 +156,11 @@ struct HomepageView: View {
                     if(isLoggedIn) {
                         RecentsViewLoggedIn(
                             selectedTab: $selectedTab,
-                            platformRequestType: $platformRequestType
+                            platformRequestType: $platformRequestType,
+                            requestedMessage: $requestedMessage,
+                            emailIsRequested: $emailIsRequested,
+                            textIsRequested: $textIsRequested,
+                            messageIsRequested: $messageIsRequested
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")
