@@ -291,7 +291,7 @@ struct WalkthroughViews: View {
 
 
 struct NotLoggedInMessagesPresentInboxView: View {
-    @FetchRequest(sortDescriptors: []) var inboxMessages: FetchedResults<MessageEntity>
+    @FetchRequest var inboxMessages: FetchedResults<MessageEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
     @State var composeNewRequested = false
@@ -299,6 +299,33 @@ struct NotLoggedInMessagesPresentInboxView: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var loginSheetRequested: Bool
     @Binding var createAccountSheetRequested: Bool
+    
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
+    
+    init(
+        composeNewMessageRequested: Binding<Bool>,
+        loginSheetRequested: Binding<Bool>,
+        createAccountSheetRequested: Binding<Bool>,
+        requestedMessage: Binding<Messages?>,
+        emailIsRequested: Binding<Bool>
+    ) {
+        _inboxMessages = FetchRequest<MessageEntity>(
+            sortDescriptors: [
+                NSSortDescriptor(
+                    keyPath: \MessageEntity.date,
+                    ascending: false
+                )
+            ],
+            predicate: NSPredicate(format: "type != %@", Bridges.SERVICE_NAME_INBOX)
+        )
+        
+        _composeNewMessageRequested = composeNewMessageRequested
+        _loginSheetRequested = loginSheetRequested
+        _createAccountSheetRequested = createAccountSheetRequested
+        _requestedMessage = requestedMessage
+        _emailIsRequested = emailIsRequested
+    }
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -311,6 +338,20 @@ struct NotLoggedInMessagesPresentInboxView: View {
                         messageBody: message.body!,
                         date: Int(message.date)
                     )
+                    .onTapGesture {
+                        requestedMessage = Messages(
+                            subject: message.subject!,
+                            data: message.body!,
+                            fromAccount: message.fromAccount!,
+                            toAccount: message.toAccount!,
+                            platformName: message.platformName!,
+                            date: Int(message.date)
+                        )
+                        if message.type == Bridges.SERVICE_NAME_INBOX ||
+                            message.type == Bridges.SERVICE_NAME {
+                            emailIsRequested.toggle()
+                        }
+                    }
                 }
             }
             VStack {
@@ -410,6 +451,9 @@ struct RecentsViewNotLoggedIn: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var createAccountSheetRequested: Bool 
     @Binding var loginSheetRequested: Bool
+    
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
 
     var body: some View {
         NavigationView {
@@ -418,8 +462,11 @@ struct RecentsViewNotLoggedIn: View {
                     NotLoggedInMessagesPresentInboxView(
                         composeNewMessageRequested: $composeNewMessageRequested,
                         loginSheetRequested: $loginSheetRequested,
-                        createAccountSheetRequested: $createAccountSheetRequested
+                        createAccountSheetRequested: $createAccountSheetRequested,
+                        requestedMessage: $requestedMessage,
+                        emailIsRequested: $emailIsRequested
                     )
+                    .navigationTitle("Recents")
                 } else {
                     NotLoggedInNoMessagesView(
                         composeNewMessageRequested: $composeNewMessageRequested,
@@ -438,11 +485,15 @@ struct RecentsViewNotLoggedIn_Preview: PreviewProvider {
         @State var composeNewMessageRequested = false
         @State var createAccountSheetRequested = false
         @State var loginSheetRequested = false
+        @State var requestedMessage: Messages? = nil
+        @State var emailIsRequested = false
         RecentsViewNotLoggedIn(
             isLoggedIn: $isLoggedIn,
             composeNewMessageRequested: $composeNewMessageRequested,
             createAccountSheetRequested: $createAccountSheetRequested,
-            loginSheetRequested: $loginSheetRequested
+            loginSheetRequested: $loginSheetRequested,
+            requestedMessage: $requestedMessage,
+            emailIsRequested: $emailIsRequested
         )
     }
 }
@@ -454,6 +505,9 @@ struct RecentsViewNotLoggedInMessage_Preview: PreviewProvider {
         @State var createAccountSheetRequested = false
         @State var loginSheetRequested = false
         
+        @State var requestedMessage: Messages? = nil
+        @State var emailIsRequested = false
+
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
@@ -461,7 +515,9 @@ struct RecentsViewNotLoggedInMessage_Preview: PreviewProvider {
             isLoggedIn: $isLoggedIn,
             composeNewMessageRequested: $composeNewMessageRequested,
             createAccountSheetRequested: $createAccountSheetRequested,
-            loginSheetRequested: $loginSheetRequested
+            loginSheetRequested: $loginSheetRequested,
+            requestedMessage: $requestedMessage,
+            emailIsRequested: $emailIsRequested
         )
         .environment(\.managedObjectContext, container.viewContext)
     }

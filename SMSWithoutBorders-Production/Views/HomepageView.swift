@@ -32,6 +32,10 @@ struct HomepageView: View {
     @State var passwordRecoveryRequired: Bool = false
     @State var requestedPlatformName: String = ""
     
+    @State var emailIsRequested = false
+
+    @State var requestedMessage: Messages?
+
     @Binding var isLoggedIn: Bool
 
     init(codeVerifier: Binding<String>, isLoggedIn: Binding<Bool>) {
@@ -48,9 +52,18 @@ struct HomepageView: View {
     var body: some View {
         NavigationView {
             VStack {
+                if requestedMessage != nil {
+                    NavigationLink(
+                        destination: EmailPlatformView(message: requestedMessage!),
+                        isActive: $emailIsRequested
+                    ) {
+                        EmptyView()
+                    }
+                }
+                
                 // Compose views
                 NavigationLink(
-                    destination: EmailView(
+                    destination: EmailComposeView(
                         platformName: Bridges.SERVICE_NAME,
                         isBridge: true
                     ),
@@ -60,7 +73,7 @@ struct HomepageView: View {
                 }
                 
                 NavigationLink(
-                    destination: EmailView(platformName: requestedPlatformName),
+                    destination: EmailComposeView(platformName: requestedPlatformName),
                     isActive: $composeEmailRequested
                 ) {
                     EmptyView()
@@ -150,7 +163,9 @@ struct HomepageView: View {
                             isLoggedIn: $isLoggedIn,
                             composeNewMessageRequested: $composeNewMessageRequested,
                             createAccountSheetRequested: $createAccountSheetRequested,
-                            loginSheetRequested: $loginSheetRequested
+                            loginSheetRequested: $loginSheetRequested,
+                            requestedMessage: $requestedMessage,
+                            emailIsRequested: $emailIsRequested
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")
@@ -160,12 +175,15 @@ struct HomepageView: View {
                         
                     }
                     
-                    InboxView()
-                        .tabItem() {
-                            Image(systemName: "tray")
-                            Text("Inbox")
-                        }
-                        .tag(HomepageTabs.inbox)
+                    InboxView(
+                        requestedMessage: $requestedMessage,
+                        emailIsRequested: $emailIsRequested
+                    )
+                    .tabItem() {
+                        Image(systemName: "tray")
+                        Text("Inbox")
+                    }
+                    .tag(HomepageTabs.inbox)
 
                     GatewayClientsView()
                         .tabItem() {

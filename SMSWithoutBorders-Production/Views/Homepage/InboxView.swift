@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InboxDecryptMessageView: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
     
     @State var textBody = ""
@@ -77,6 +78,8 @@ struct InboxDecryptMessageView: View {
                                     print("Failed to save message entity: \(error)")
                                 }
                             }
+                        }, completion: {
+                            dismiss()
                         })
                     } catch {
                         print("Error decrypting: \(error)")
@@ -120,9 +123,18 @@ struct MessagesPresentInbox: View {
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
     
     @Binding var pasteIncomingRequested: Bool
+    
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
 
-    init(pasteIncomingRequested: Binding<Bool>) {
+    init(
+        pasteIncomingRequested: Binding<Bool>,
+        requestedMessage: Binding<Messages?>,
+        emailIsRequested: Binding<Bool>
+    ) {
         _pasteIncomingRequested = pasteIncomingRequested
+        _requestedMessage = requestedMessage
+        _emailIsRequested = emailIsRequested
         
         _inboxMessages = FetchRequest<MessageEntity>(
             sortDescriptors: [],
@@ -141,6 +153,20 @@ struct MessagesPresentInbox: View {
                         messageBody: message.body!,
                         date: Int(message.date)
                     )
+                    .onTapGesture {
+                        requestedMessage = Messages(
+                            subject: message.subject!,
+                            data: message.body!,
+                            fromAccount: message.fromAccount!,
+                            toAccount: message.toAccount!,
+                            platformName: message.platformName!,
+                            date: Int(message.date)
+                        )
+                        if message.type == Bridges.SERVICE_NAME_INBOX ||
+                            message.type == Bridges.SERVICE_NAME {
+                            emailIsRequested.toggle()
+                        }
+                    }
                 }
             }
             VStack {
@@ -180,11 +206,16 @@ struct InboxView: View {
     
     @State var pasteIncomingMessage = false
     
-    init() {
+    @Binding var requestedMessage: Messages?
+    @Binding var emailIsRequested: Bool
+
+    init(requestedMessage: Binding<Messages?>, emailIsRequested: Binding<Bool>) {
         _inboxMessages = FetchRequest<MessageEntity>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME_INBOX)
         )
+        _requestedMessage = requestedMessage
+        _emailIsRequested = emailIsRequested
     }
     
     var body: some View {
@@ -200,7 +231,11 @@ struct InboxView: View {
                 if inboxMessages.isEmpty {
                     NoMessagesInbox(pasteIncomingRequested: $pasteIncomingMessage)
                 } else {
-                    MessagesPresentInbox(pasteIncomingRequested: $pasteIncomingMessage)
+                    MessagesPresentInbox(
+                        pasteIncomingRequested: $pasteIncomingMessage,
+                        requestedMessage: $requestedMessage,
+                        emailIsRequested: $emailIsRequested
+                    )
                 }
             }
         }
@@ -212,9 +247,15 @@ struct InboxView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var requestedMessage: Messages? = nil
+        @State var emailIsRequested: Bool = false
+
         @State var pasteIncomingRequested = false
-        return InboxView()
-            .environment(\.managedObjectContext, container.viewContext)
+        return InboxView(
+            requestedMessage: $requestedMessage,
+            emailIsRequested: $emailIsRequested
+        )
+        .environment(\.managedObjectContext, container.viewContext)
     }
 }
 
@@ -232,8 +273,15 @@ struct MessagesPresent_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var requestedMessage: Messages? = nil
+        @State var emailIsRequested: Bool = false
+
         @State var pasteIncomingRequested = false
-        return MessagesPresentInbox(pasteIncomingRequested: $pasteIncomingRequested)
+        return MessagesPresentInbox(
+            pasteIncomingRequested: $pasteIncomingRequested,
+            requestedMessage: $requestedMessage,
+            emailIsRequested: $emailIsRequested
+        )
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

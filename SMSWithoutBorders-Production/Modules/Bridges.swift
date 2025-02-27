@@ -234,9 +234,6 @@ struct Bridges {
         }
         
         let splitText = String(splitPayload[1])
-        if splitText.count < 6 {
-            throw NSError(domain: "Invalid payload", code: 0, userInfo: nil)
-        }
         let payload: [UInt8] = Data(base64Encoded: splitText)?.withUnsafeBytes{ Array($0) } ?? []
 //        let cipherTextLen = payload[0..<4]
 //        let bridgeLetter = payload[4]

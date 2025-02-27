@@ -10,7 +10,7 @@ import MessageUI
 import CryptoKit
 import CoreData
 
-struct EmailComposeView: View {
+struct EmailComposerView: View {
     @Binding var composeTo: String
     @Binding var composeFrom: String
     @Binding var composeCC: String
@@ -105,7 +105,7 @@ struct EmailComposeView: View {
 }
 
 
-struct EmailView: View {
+struct EmailComposeView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
     @FetchRequest var storedPlatforms: FetchedResults<StoredPlatformsEntity>
@@ -161,7 +161,7 @@ struct EmailView: View {
     var body: some View {
         NavigationView {
             VStack {
-                EmailComposeView(
+                EmailComposerView(
                     composeTo: $composeTo,
                     composeFrom: $composeFrom,
                     composeCC: $composeCC,
@@ -332,7 +332,7 @@ struct EmailView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
-        return EmailView(platformName: "gmail" )
+        return EmailComposeView(platformName: "gmail" )
             .environment(\.managedObjectContext, container.viewContext)
     }
 }
@@ -348,7 +348,7 @@ struct EmailCompose_Preview: PreviewProvider {
         @State var composeBody: String = ""
         @State var fromAccount: String = ""
 
-        return EmailComposeView(
+        return EmailComposerView(
             composeTo: $composeTo,
             composeFrom: $composeFrom,
             composeCC: $composeCC,

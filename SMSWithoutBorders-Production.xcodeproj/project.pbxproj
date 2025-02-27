@@ -52,7 +52,7 @@
 		16EDE38528D2331C00E50393 /* Datastore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38328D2331C00E50393 /* Datastore.xcdatamodeld */; };
 		16EDE38928D3511700E50393 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE38828D3511700E50393 /* DataController.swift */; };
 		16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */; };
-		16F0E68528C6308600FDD12C /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailView.swift */; };
+		16F0E68528C6308600FDD12C /* EmailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E68428C6308600FDD12C /* EmailComposeView.swift */; };
 		16F0E68728C6308800FDD12C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68628C6308800FDD12C /* Assets.xcassets */; };
 		16F0E68A28C6308800FDD12C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16F0E68928C6308800FDD12C /* Preview Assets.xcassets */; };
 		16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F0E69328C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift */; };
@@ -173,7 +173,7 @@
 		16EDE38828D3511700E50393 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68228C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSWithoutBorders_ProductionApp.swift; sourceTree = "<group>"; };
-		16F0E68428C6308600FDD12C /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
+		16F0E68428C6308600FDD12C /* EmailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposeView.swift; sourceTree = "<group>"; };
 		16F0E68628C6308800FDD12C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16F0E68928C6308800FDD12C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,7 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				0439A49A2C766E9A000B8D30 /* SMSComposeMessageUIView.swift */,
-				16F0E68428C6308600FDD12C /* EmailView.swift */,
+				16F0E68428C6308600FDD12C /* EmailComposeView.swift */,
 				16B43B1F2915CDDC004AEF1F /* TextComposeView.swift */,
 				164EF7D02954D431007F8C76 /* MessagingView.swift */,
 				3BCBA3A82C4FE3C300736B9B /* AccountSheetView.swift */,
@@ -682,7 +682,7 @@
 				3B928A3F2C66A26300BA145F /* Messages.swift in Sources */,
 				3BCBA3A92C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
 				3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */,
-				16F0E68528C6308600FDD12C /* EmailView.swift in Sources */,
+				16F0E68528C6308600FDD12C /* EmailComposeView.swift in Sources */,
 				0469EB462D3EA1E2003A2B4F /* PlatformsView.swift in Sources */,
 				3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */,
 				164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */,
