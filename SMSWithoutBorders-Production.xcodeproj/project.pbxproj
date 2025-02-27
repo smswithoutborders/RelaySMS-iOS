@@ -131,6 +131,8 @@
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
 		3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
 		3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EDE37F28D0D23000E50393 /* CSecurity.swift */; };
+		F65410D52D7092A70044032F /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65410D42D70929A0044032F /* LanguagePreferencesManager.swift */; };
+		F65410D62D7092A70044032F /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65410D42D70929A0044032F /* LanguagePreferencesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +212,7 @@
 		3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3BF3D14E2C32D69D003A3AFB /* SignupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSheetView.swift; sourceTree = "<group>"; };
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
+		F65410D42D70929A0044032F /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +332,7 @@
 		16F0E6AC28C6320F00FDD12C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F65410D42D70929A0044032F /* LanguagePreferencesManager.swift */,
 				3BDADADC2C538D6B00539E57 /* Homepage */,
 				3BF3D1572C32E7EE003A3AFB /* SheetViews */,
 				3BAB09602C1B21B400664E90 /* Onboarding */,
@@ -556,11 +560,11 @@
 				Base,
 				fr,
 				de,
-				"es-US",
 				tr,
 				ar,
 				sw,
 				fa,
+				es,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
@@ -633,6 +637,7 @@
 				0439A49C2C7677A0000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
 				3BAB09662C1C94A400664E90 /* OnboardingFinish.swift in Sources */,
 				3BF3D14F2C32D69D003A3AFB /* SignupSheetView.swift in Sources */,
+				F65410D52D7092A70044032F /* LanguagePreferencesManager.swift in Sources */,
 				16F0E6D028CA16AF00FDD12C /* SecurityAESEncryption.swift in Sources */,
 				3BF1178F2C2A2B67003D5BB6 /* Vault.swift in Sources */,
 				1697672428E4830B0021BFC5 /* GatewayClients.swift in Sources */,
@@ -694,6 +699,7 @@
 				3BF3D1662C3499A6003A3AFB /* CSecurity.swift in Sources */,
 				3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */,
 				3BF3D1622C3498BD003A3AFB /* Vault.swift in Sources */,
+				F65410D62D7092A70044032F /* LanguagePreferencesManager.swift in Sources */,
 				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
 				3B928A2F2C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				3BCBA3AA2C4FE3C300736B9B /* AccountSheetView.swift in Sources */,
