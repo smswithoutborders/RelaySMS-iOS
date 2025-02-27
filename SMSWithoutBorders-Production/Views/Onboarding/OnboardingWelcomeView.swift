@@ -95,7 +95,7 @@ struct LanguageSelectorButtonView: View {
                 
             }
         } message: {
-            Text(String(localized: "Continue to iOS settings and select your preffered language for RelaySMS.", comment: "Instructions for chnaging application langueg via system settings.") )
+            Text(String(localized: "Continue to iOS settings and select your preferred language for RelaySMS.", comment: "Instructions for chnaging application langueg via system settings.") )
         }
     }
 }
