@@ -147,27 +147,38 @@ struct ControllerView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
-    @StateObject private var languagePreferencesManager = LanguagePreferencesManager()
-    @Environment(\.scenePhase) private var scenePhase
-    
+    @StateObject private var languageManager: LanguagePreferencesManager = LanguagePreferencesManager()
     @StateObject var dataController = DataController()
-
-    @State var isFinished = false
-    @State var navigatingFromURL: Bool = false
-    @State var absoluteURLString: String = ""
-    @State var codeVerifier: String = ""
-    
-    @State var backgroundLoading: Bool = false
-    @State var onboardingViewIndex: Int = 0
-    
-    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-     var defaultGatewayClientMsisdn: String = ""
-    
-    @AppStorage(ControllerView.ONBOARDING_COMPLETED)
-     var onboardingCompleted: Bool = false
 
     var body: some Scene {
         WindowGroup {
+            RootView()
+                .environmentObject(languageManager)
+                .environmentObject(dataController)
+        }
+    }
+    
+
+    // Create RootView view to act as root baseline view
+    struct RootView: View {
+        @EnvironmentObject var languageManager: LanguagePreferencesManager
+        @EnvironmentObject var dataController: DataController
+        
+        @State var isFinished = false
+        @State var navigatingFromURL: Bool = false
+        @State var absoluteURLString: String = ""
+        @State var codeVerifier: String = ""
+        
+        @State var backgroundLoading: Bool = false
+        @State var onboardingViewIndex: Int = 0
+        
+        @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        var defaultGatewayClientMsisdn: String = ""
+        
+        @AppStorage(ControllerView.ONBOARDING_COMPLETED)
+        var onboardingCompleted: Bool = false
+        
+        var body: some View {
             Group {
                 if(!isFinished && !onboardingCompleted) {
                     ControllerView(isFinished: $isFinished,
@@ -179,7 +190,6 @@ struct SMSWithoutBorders_ProductionApp: App {
                 else {
                     HomepageView(codeVerifier: $codeVerifier, isLoggedIn: getIsLoggedIn())
                         .environment(\.managedObjectContext, dataController.container.viewContext)
-                        
                 }
             }
             .task {
@@ -193,7 +203,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                 guard let decodedData = Data(base64Encoded: stateB64Values!) else {
                     fatalError("Failed to decode Base64 string")
                 }
-
+                
                 // Convert Data to String
                 guard let decodedString = String(data: decodedData, encoding: .utf8) else {
                     fatalError("Failed to convert Data to String")
@@ -232,36 +242,38 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
                 backgroundLoading = false
             }
+        }
+        
+        
+        
+        
+        func getIsLoggedIn() -> Bool {
+            do {
+                return try !Vault.getLongLivedToken().isEmpty
+            } catch {
+                print("Failed to check if llt exist: \(error)")
+            }
+            return false
+        }
+        
+        
+        
+        struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
+            @State static var platform: PlatformsEntity?
+            @State static var platformType: Int?
+            @State static var codeVerifier: String = ""
+            
+            static var previews: some View {
+                @State var isFinished = false
+                @State var codeVerifier = ""
+                @State var onboardingIndex = 0
+                @State var isBackgroundLoading: Bool = true
+                
+                ControllerView(isFinished: $isFinished,
+                               onboardingViewIndex: $onboardingIndex,
+                               codeVerifier: $codeVerifier,
+                               backgroundLoading: $isBackgroundLoading)
             }
         }
-    }
-
-   
-    func getIsLoggedIn() -> Bool {
-        do {
-            return try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print("Failed to check if llt exist: \(error)")
-        }
-        return false
-    }
-    
-
-
-struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
-    @State static var platform: PlatformsEntity?
-    @State static var platformType: Int?
-    @State static var codeVerifier: String = ""
-
-    static var previews: some View {
-        @State var isFinished = false
-        @State var codeVerifier = ""
-        @State var onboardingIndex = 0
-        @State var isBackgroundLoading: Bool = true
-        
-        ControllerView(isFinished: $isFinished,
-                       onboardingViewIndex: $onboardingIndex,
-                       codeVerifier: $codeVerifier,
-                       backgroundLoading: $isBackgroundLoading)
     }
 }
