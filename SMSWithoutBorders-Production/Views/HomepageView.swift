@@ -17,7 +17,6 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Environment(\.managedObjectContext) var context
-    @Binding var codeVerifier: String
     
     @State var selectedTab: HomepageTabs = .recents
     @State var platformRequestType: PlatformsRequestedType = .available
@@ -38,12 +37,9 @@ struct HomepageView: View {
 
     @State var requestedMessage: Messages?
 
-    @Binding var isLoggedIn: Bool
-
-    init(codeVerifier: Binding<String>, isLoggedIn: Binding<Bool>) {
-        _codeVerifier = codeVerifier
-        _isLoggedIn = isLoggedIn
-        
+    @State var isLoggedIn: Bool = false
+    
+    init() {
         do {
             self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
         } catch {
@@ -266,10 +262,7 @@ struct HomepageView_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(
-            codeVerifier: $codeVerifier,
-            isLoggedIn: $isLoggedIn
-        )
+        return HomepageView()
     }
 }
 
@@ -287,10 +280,7 @@ struct HomepageViewInboxMessages_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(
-            codeVerifier: $codeVerifier,
-            isLoggedIn: $isLoggedIn
-        )
+        return HomepageView()
         .environment(\.managedObjectContext, container.viewContext)
     }
 }
@@ -309,9 +299,6 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView(
-            codeVerifier: $codeVerifier,
-            isLoggedIn: $isLoggedIn
-        )
+        return HomepageView()
     }
 }

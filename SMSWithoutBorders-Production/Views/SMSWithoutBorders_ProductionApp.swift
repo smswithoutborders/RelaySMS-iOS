@@ -9,88 +9,6 @@ import SwiftUI
 import Foundation
 import CoreData
 
-struct ControllerView: View {
-    public static var ONBOARDING_COMPLETED: String = "com.afkanerd.relaysms.ONBOARDING_COMPLETED"
-    
-    @Environment(\.managedObjectContext) var viewContext
-    @Binding var isFinished: Bool
-    
-    @Binding var onboardingViewIndex: Int
-    @State private var lastOnboardingView = false
-    
-    @Binding var codeVerifier: String
-    @Binding var backgroundLoading: Bool
-    @Binding var isLoggedIn: Bool
-
-    @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
-    
-    @State var onboardingCompleted: Bool = false
-    
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        Group {
-            switch onboardingViewIndex {
-            case ...0:
-                OnboardingWelcomeView()
-                VStack {
-                    Button {
-                        self.onboardingViewIndex = storedPlatforms.isEmpty ? 1 : 2
-                    } label: {
-                        Text("Get started!")
-                            .bold()
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-                    .padding(.bottom, 10)
-                    
-                    Link("Read our privacy policy", destination: URL(string:"https://smswithoutborders.com/privacy-policy")!)
-                        .font(.caption)
-                }
-                .padding()
-            case 1:
-                OnboardingIntroToVaults(codeVerifier: $codeVerifier,
-                                        backgroundLoading: $backgroundLoading,
-                                        onboardingIndex: $onboardingViewIndex,
-                                        isLoggedIn: $isLoggedIn)
-            case 2:
-                OnboardingTryExample()
-            default:
-                OnboardingFinish(lastOnboardingView: $lastOnboardingView)
-            }
-            
-            if(!backgroundLoading) {
-                HStack {
-                    if(self.onboardingViewIndex > 0) {
-                        if(!lastOnboardingView) {
-                            Button("skip") {
-                                self.onboardingViewIndex = 3
-                            }
-                            .padding()
-                            .frame(alignment: .bottom)
-                        } else {
-                            Button {
-                                isFinished = true
-                                UserDefaults.standard.set(true, forKey: ControllerView.ONBOARDING_COMPLETED)
-                            } label: {
-                                Text("Finish!")
-                                    .bold()
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.large)
-                            .padding(.bottom, 10)
-                        }
-                    }
-                    
-                }.padding()
-            }
-            
-        }
-    }
-}
-
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
@@ -98,19 +16,8 @@ struct SMSWithoutBorders_ProductionApp: App {
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
 
-    @State var isFinished = false
-    @State var navigatingFromURL: Bool = false
-    @State var absoluteURLString: String = ""
-    @State var codeVerifier: String = ""
-    
-    @State var backgroundLoading: Bool = false
-    @State private var onboardingViewIndex: Int = 0
-    
-//    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-    private var defaultGatewayClientMsisdn: String = UserDefaults.standard.string(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) ?? ""
-    
-//    @AppStorage(ControllerView.ONBOARDING_COMPLETED)
-    private var onboardingCompleted: Bool = UserDefaults.standard.bool(forKey: ControllerView.ONBOARDING_COMPLETED)
+    private var onboardingCompleted: Bool = UserDefaults.standard.bool(
+        forKey: OnboardingView.ONBOARDING_COMPLETED)
     
     @State private var alreadyLoggedIn: Bool = false
     @State private var isLoggedIn: Bool = false
@@ -118,19 +25,12 @@ struct SMSWithoutBorders_ProductionApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if(!isFinished && !onboardingCompleted) {
-                    ControllerView(isFinished: $isFinished,
-                                   onboardingViewIndex: $onboardingViewIndex,
-                                   codeVerifier: $codeVerifier,
-                                   backgroundLoading: $backgroundLoading,
-                                   isLoggedIn: $isLoggedIn)
-                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                if(!onboardingCompleted) {
+                    OnboardingView()
+                        .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView(
-                        codeVerifier: $codeVerifier,
-                        isLoggedIn: $isLoggedIn
-                    )
+                    HomepageView()
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                     .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
                         Button("Get me out!") {
@@ -213,22 +113,4 @@ struct SMSWithoutBorders_ProductionApp: App {
     
 }
 
-struct SMSWithoutBorders_ProductionApp_Preview: PreviewProvider {
-    @State static var platform: PlatformsEntity?
-    @State static var platformType: Int?
-    @State static var codeVerifier: String = ""
 
-    static var previews: some View {
-        @State var isFinished = false
-        @State var codeVerifier = ""
-        @State var onboardingIndex = 0
-        @State var isBackgroundLoading: Bool = true
-        @State var isLoggedIn: Bool = false
-
-        ControllerView(isFinished: $isFinished,
-                       onboardingViewIndex: $onboardingIndex,
-                       codeVerifier: $codeVerifier,
-                       backgroundLoading: $isBackgroundLoading,
-                       isLoggedIn: $isLoggedIn)
-    }
-}

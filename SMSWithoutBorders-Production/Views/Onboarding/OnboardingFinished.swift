@@ -1,13 +1,13 @@
 //
-//  OnboardingIntroToVaults.swift
+//  OnboardingFinished.swift
 //  SMSWithoutBorders-Production
 //
-//  Created by sh3rlock on 13/06/2024.
+//  Created by MAC on 28/02/2025.
 //
 
 import SwiftUI
 
-struct OnboardingIntroToVaults: View {
+struct OnboardingFinished: View {
     @Binding var pageIndex: Int
     
     var body: some View {
@@ -15,31 +15,27 @@ struct OnboardingIntroToVaults: View {
             Spacer()
             
             VStack {
-                Image("2")
+                Image("4")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 300, height: 300)
                     .padding()
                 
-                Text("RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection")
+                Text("You are ready to begin sending messages from RelaySMS!")
                     .font(.title2)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
-                
 
             }.padding()
             
             Spacer()
-
+            
             Button {
-                pageIndex += 1
+                
             } label: {
-                Image(systemName: "arrow.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .padding()
+                Text("Great!")
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
@@ -49,8 +45,7 @@ struct OnboardingIntroToVaults: View {
     }
 }
 
-
 #Preview {
     @State var pageIndex = 0
-    OnboardingIntroToVaults(pageIndex: $pageIndex)
+    OnboardingFinished(pageIndex: $pageIndex)
 }

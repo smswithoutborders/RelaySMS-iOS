@@ -1,33 +1,30 @@
 //
-//  OnboardingIntroToVaults.swift
+//  OnboardingIntroToAccounts.swift
 //  SMSWithoutBorders-Production
 //
-//  Created by sh3rlock on 13/06/2024.
+//  Created by MAC on 28/02/2025.
 //
 
 import SwiftUI
 
-struct OnboardingIntroToVaults: View {
+struct OnboardingIntroToAccounts: View {
     @Binding var pageIndex: Int
     
     var body: some View {
         VStack {
             Spacer()
-            
             VStack {
-                Image("2")
+                Image("3")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 300, height: 300)
                     .padding()
                 
-                Text("RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection")
+                Text("You can add online accounts to your Vault")
                     .font(.title2)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
-                
-
             }.padding()
             
             Spacer()
@@ -49,8 +46,7 @@ struct OnboardingIntroToVaults: View {
     }
 }
 
-
 #Preview {
     @State var pageIndex = 0
-    OnboardingIntroToVaults(pageIndex: $pageIndex)
+    OnboardingIntroToAccounts(pageIndex: $pageIndex)
 }

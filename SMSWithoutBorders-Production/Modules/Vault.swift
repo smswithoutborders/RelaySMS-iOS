@@ -388,14 +388,14 @@ struct Vault {
         
         try resetStates(context: context)
         
-        let onboardingCompleted = UserDefaults.standard.bool(forKey: ControllerView.ONBOARDING_COMPLETED)
+        let onboardingCompleted = UserDefaults.standard.bool(forKey: OnboardingView.ONBOARDING_COMPLETED)
         let defaultGatewayClient = UserDefaults.standard.string(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
 
         if let appDomain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
         }
         
-        UserDefaults.standard.set(onboardingCompleted, forKey: ControllerView.ONBOARDING_COMPLETED)
+        UserDefaults.standard.set(onboardingCompleted, forKey: OnboardingView.ONBOARDING_COMPLETED)
         if !defaultGatewayClient.isEmpty {
             UserDefaults.standard.set(defaultGatewayClient, forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
         }
