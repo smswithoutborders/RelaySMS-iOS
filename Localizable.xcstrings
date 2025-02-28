@@ -73,9 +73,6 @@
     "Create Account" : {
 
     },
-    "Create Acocunt" : {
-
-    },
     "Decrypt message" : {
 
     },
@@ -107,6 +104,9 @@
     "Don't have an account?" : {
 
     },
+    "English" : {
+
+    },
     "Enter code" : {
 
     },
@@ -123,9 +123,6 @@
 
     },
     "Error! You did nothing wrong..." : {
-
-    },
-    "Finish!" : {
 
     },
     "Forgot password?" : {
@@ -152,7 +149,7 @@
     "Get Started" : {
 
     },
-    "Get started!" : {
+    "Great!" : {
 
     },
     "Having trouble using the app?" : {
@@ -177,6 +174,9 @@
 
     },
     "Language" : {
+
+    },
+    "Learn how it works" : {
 
     },
     "Log in" : {
@@ -303,6 +303,9 @@
     "Recents" : {
 
     },
+    "RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection" : {
+
+    },
     "Remove Accounts" : {
 
     },
@@ -316,9 +319,6 @@
 
     },
     "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
-
-    },
-    "Save Accounts to Vault" : {
 
     },
     "Save more platforms..." : {
@@ -357,9 +357,6 @@
     "Sign in to continue with existing account" : {
 
     },
-    "skip" : {
-
-    },
     "Subject " : {
 
     },
@@ -379,9 +376,6 @@
 
     },
     "To " : {
-
-    },
-    "Try Example" : {
 
     },
     "Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message" : {
@@ -441,10 +435,16 @@
     "Welcome back" : {
 
     },
-    "Welcome to RelaySMS" : {
+    "Welcome to RelaySMS!" : {
 
     },
     "You are being logged out!" : {
+
+    },
+    "You are ready to begin sending messages from RelaySMS!" : {
+
+    },
+    "You can add online accounts to your Vault" : {
 
     },
     "You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted" : {

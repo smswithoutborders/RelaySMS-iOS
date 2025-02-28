@@ -13,7 +13,7 @@ struct OnboardingWelcomeView: View {
     var body: some View {
         VStack {
             Text("Welcome to RelaySMS!")
-                .font(.title)
+                .font(Font.custom("unbounded", size: 18))
                 .fontWeight(.semibold)
                 .padding(.top, 40)
                 
@@ -34,7 +34,7 @@ struct OnboardingWelcomeView: View {
                 .padding()
 
                 Text("Use SMS to make a post, send emails and messages with no internet connection")
-                    .font(.title2)
+                    .font(Font.custom("unbounded", size: 18))
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
