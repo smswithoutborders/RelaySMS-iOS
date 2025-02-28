@@ -572,7 +572,7 @@
 		16F0E67728C6308600FDD12C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
@@ -596,6 +596,13 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
+				fr,
+				es,
+				tr,
+				fa,
+				sw,
+				de,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
