@@ -16,9 +16,11 @@ struct SMSWithoutBorders_ProductionApp: App {
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
 
-    private var onboardingCompleted: Bool = UserDefaults.standard.bool(
-        forKey: OnboardingView.ONBOARDING_COMPLETED)
-    
+//    private var onboardingCompleted: Bool = UserDefaults.standard.bool(forKey: OnboardingView.ONBOARDING_COMPLETED)
+
+    @AppStorage(OnboardingView.ONBOARDING_COMPLETED)
+    private var onboardingCompleted: Bool = false
+
     @State private var alreadyLoggedIn: Bool = false
     @State private var isLoggedIn: Bool = false
 

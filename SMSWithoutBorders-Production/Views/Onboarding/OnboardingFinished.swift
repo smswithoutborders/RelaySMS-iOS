@@ -32,7 +32,7 @@ struct OnboardingFinished: View {
             Spacer()
             
             Button {
-                
+                UserDefaults.standard.set(true, forKey: OnboardingView.ONBOARDING_COMPLETED)
             } label: {
                 Text("Great!")
                     .frame(maxWidth: .infinity)
