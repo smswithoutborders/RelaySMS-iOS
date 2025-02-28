@@ -12,6 +12,7 @@ import CoreData
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @StateObject private var languageManager: LanguagePreferencesManager = LanguagePreferencesManager()
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
@@ -48,7 +49,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                         }
                     }
                 }
-            }
+            }.environmentObject(languageManager)
             .onAppear {
                 Publisher.refreshPlatforms(context: dataController.container.viewContext)
                 

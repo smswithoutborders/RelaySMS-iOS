@@ -25,13 +25,6 @@ struct OnboardingWelcomeView: View {
                     .frame(width: 300, height: 300)
                     .padding()
                 
-                Button("English", systemImage: "globe") {
-                    
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.secondary)
-                .cornerRadius(38.5)
-                .padding()
                 LanguageSelectorButtonView()
 
 
