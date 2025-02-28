@@ -64,10 +64,34 @@
             "value" : "%@ Telefonnummer"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Número de teléfono %@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شماره تلفن %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Numéro de téléphone %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namba ya simu %@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ telefon numarası"
           }
         }
       }
@@ -132,10 +156,34 @@
             "value" : "Konto hinzufügen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir cuenta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افزودن حساب"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajouter un compte"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongeza Akaunti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesap Ekle"
           }
         }
       }
@@ -202,10 +250,34 @@
             "value" : "Code bereits erhalten"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ya tengo el código"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کد را دریافت کرده‌ام"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Code déjà reçu"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nimepata msimbo tayari"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kodu zaten aldım"
           }
         }
       }
@@ -307,8 +379,8 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "مثال على رسالة… رد RelaySMS الرجاء لصق هذه الرسالة بالكامل في تطبيق RelaySMS الخاص بك 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
+            "state" : "translated",
+            "value" : "مثال على رسالة...\n\nرد RelaySMS الرجاء لصق هذه الرسالة بأكملها في تطبيق RelaySMS الخاص بك\n3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
           }
         },
         "de" : {
@@ -317,10 +389,34 @@
             "value" : "Eine Beispielnachricht...\n\nRelaySMS-Antwort Bitte fügen Sie diese gesamte Nachricht in Ihre RelaySMS-App ein 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mensaje de ejemplo...\n\nRespuesta de RelaySMS Por favor, pega este mensaje completo en tu aplicación RelaySMS 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یک پیام نمونه...\n \nپاسخ RelaySMS لطفاً کل این پیام را در برنامه RelaySMS خود بچسبانید 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Un exemple de message... \n\nRéponse RelaySMS Veuillez coller ce message entier dans votre application RelaySMS 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mfano wa ujumbe...\n\nJibu la RelaySMS Tafadhali bandika ujumbe huu wote katika programu yako ya RelaySMS 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Örnek bir mesaj...\n\nRelaySMS Yanıtı Lütfen bu mesajın tamamını RelaySMS uygulamanıza yapıştırın 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
           }
         }
       }
@@ -573,10 +669,34 @@
             "value" : "Schauen Sie sich unsere Schritt-für-Schritt-Anleitung an"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consulta nuestra guía paso a paso"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "راهنمای گام به گام ما را بررسی کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Consultez notre guide étape par étape"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angalia mwongozo wetu wa hatua kwa hatua"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adım adım kılavuzumuza göz atın"
           }
         }
       }
@@ -643,10 +763,34 @@
             "value" : "Auswahl eines Landes für die Weiterleitung Ihrer Nachrichten"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elegir un país para enrutar tus mensajes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب کشور برای مسیریابی پیام‌های شما"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choisir un pays pour l'acheminement de vos messages"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuchagua nchi ya kupitisha ujumbe wako"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesajlarınızın yönlendirilmesi için ülke seçimi"
           }
         }
       }
@@ -899,10 +1043,34 @@
             "value" : "Neue Nachricht verfassen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redactar nuevo mensaje"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوشتن پیام جدید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Composer un nouveau message"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andika ujumbe mpya"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni mesaj oluştur"
           }
         }
       }
@@ -1154,10 +1322,34 @@
             "value" : "Länder"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Países"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کشورها"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pays"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nchi"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ülkeler"
           }
         }
       }
@@ -1224,10 +1416,34 @@
             "value" : "Konto erstellen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear cuenta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ایجاد حساب"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Créer un compte"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fungua akaunti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesap oluştur"
           }
         }
       }
@@ -1339,10 +1555,34 @@
             "value" : "Nachricht entschlüsseln\n"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descifrar mensaje"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگشایی پیام"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Déchiffrer le message"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fungua ujumbe uliofichwa"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesajı deşifre et"
           }
         }
       }
@@ -1465,10 +1705,46 @@
     },
     "English" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإنجليزية (Al-Ingliziyyah)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Englisch"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inglés"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انگلیسی (Engelisi)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anglais"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiingereza"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İngilizce"
           }
         }
       }
@@ -1626,10 +1902,34 @@
             "value" : "Passwort eingeben"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introducir contraseña"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمز عبور را وارد کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saisir le mot de passe"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingiza nenosiri"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreyi girin"
           }
         }
       }
@@ -1740,10 +2040,34 @@
             "value" : "Fehler! Sie haben nichts falsch gemacht..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Error! No has hecho nada mal..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطا! شما کار اشتباهی انجام نداده‌اید..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erreur ! Vous n'avez rien fait de mal..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hitilafu! Hukufanya kosa lolote..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hata! Yanlış bir şey yapmadınız..."
           }
         }
       }
@@ -2040,10 +2364,34 @@
             "value" : "Hol mich hier raus!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Sácame de aquí!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "من را خارج کن!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sortez-moi de là !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nitoe hapa!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beni çıkar!"
           }
         }
       }
@@ -2062,10 +2410,34 @@
             "value" : "Erste schritte"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comenzar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza kutumia"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başla"
           }
         }
       }
@@ -2084,10 +2456,34 @@
             "value" : "Erste Schritte"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comenzar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza kutumia"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başla"
           }
         }
       }
@@ -2153,10 +2549,34 @@
             "value" : "Prima!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Genial!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عالی!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Parfait !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vizuri!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harika!"
           }
         }
       }
@@ -2175,10 +2595,34 @@
             "value" : "Haben Sie Probleme bei der Nutzung der App?"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Tienes problemas para usar la aplicación?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در استفاده از برنامه مشکل دارید؟"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Des difficultés à utiliser l'application ?"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una shida kutumia programu?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamayı kullanmakta sorun mu yaşıyorsunuz?"
           }
         }
       }
@@ -2243,10 +2687,34 @@
             "value" : "Wenn Sie kein Konto haben"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si no tienes una cuenta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اگر حساب کاربری ندارید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Si vous n'avez pas de compte"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikiwa huna akaunti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eğer bir hesabınız yoksa"
           }
         }
       }
@@ -2405,10 +2873,34 @@
             "value" : "Posteingang"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandeja de entrada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " صندوق ورودی"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Boîte de réception"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kikasha cha ujumbe"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gelen kutusu"
           }
         }
       }
@@ -2476,10 +2968,34 @@
             "value" : "Es scheint, dass Sie sich auf einem anderen Gerät angemeldet haben. Sie können RelaySMS nur auf einem Gerät gleichzeitig verwenden."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parece que has iniciado sesión en otro dispositivo. Puedes usar RelaySMS solo en un dispositivo a la vez."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "به نظر می‌رسد در دستگاه دیگری وارد شده‌اید. شما می‌توانید RelaySMS را فقط در یک دستگاه در یک زمان استفاده کنید."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Il semble que vous vous soyez connecté sur un autre appareil. Vous ne pouvez utiliser RelaySMS que sur un seul appareil à la fois."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inaonekana umeingia kwenye kifaa kingine. Unaweza kutumia RelaySMS kwenye kifaa kimoja tu kwa wakati mmoja."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başka bir cihazda oturum açmış görünüyorsunuz. RelaySMS'i aynı anda yalnızca bir cihazda kullanabilirsiniz."
           }
         }
       }
@@ -2498,10 +3014,34 @@
             "value" : "Sprache"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idioma"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Langue"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lugha"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dil"
           }
         }
       }
@@ -2755,10 +3295,34 @@
             "value" : "Mit Internet anmelden"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar sesión con internet"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ورود با اینترنت"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se connecter avec internet\n"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingia na mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İnternet ile giriş yap"
           }
         }
       }
@@ -2823,10 +3387,34 @@
             "value" : "Stellen Sie sicher, dass der Telefoncode, z.B. +237, in der ausgewählten Nummer enthalten ist"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asegúrate de que el código de teléfono, por ejemplo +34, esté incluido en el número seleccionado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مطمئن شوید که کد تلفن مانند +98 در شماره انتخاب شده گنجانده شده است"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Assurez-vous que l'indicatif téléphonique (ex : +33) est inclus dans le numéro sélectionné"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakikisha msimbo wa simu kama +255 umejumuishwa kwenye namba iliyochaguliwa"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefon kodu örn. +90'ın seçilen numaraya dahil edildiğinden emin olun"
           }
         }
       }
@@ -2987,10 +3575,34 @@
             "value" : "Nachrichten mit Ihren persönlichen Konten"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensajería con tus cuentas personales"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام‌رسانی با حساب‌های شخصی شما"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Messagerie avec vos comptes personnels"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kutuma ujumbe na akaunti yako ya RelaySMS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kişisel hesaplarınızla mesajlaşma"
           }
         }
       }
@@ -3009,10 +3621,34 @@
             "value" : "Nachrichten mit Ihrem RelaySMS-Konto"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensajería con tu cuenta de RelaySMS"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام‌رسانی با حساب RelaySMS شما"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Messagerie avec votre compte RelaySMS"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kutuma ujumbe na akaunti yako ya RelaySMS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS hesabınızla mesajlaşma"
           }
         }
       }
@@ -3031,10 +3667,34 @@
             "value" : "Keine Nachrichten im Posteingang"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay mensajes en la bandeja de entrada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هیچ پیامی در صندوق ورودی نیست"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun message dans la boîte de réception"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna ujumbe kwenye kikasha"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gelen kutusunda mesaj yok"
           }
         }
       }
@@ -3099,10 +3759,34 @@
             "value" : "Noch keine Online-Plattformen gespeichert..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay plataformas en línea guardadas..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنوز هیچ پلتفرم آنلاینی ذخیره نشده است..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucune plateforme en ligne enregistrée pour le moment..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bado hakuna majukwaa ya mtandao yaliyohifadhiwa..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz kaydedilmiş çevrimiçi platform yok..."
           }
         }
       }
@@ -3261,10 +3945,34 @@
             "value" : "Nicht meine Schuld!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " ¡No es mi culpa!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تقصیر من نیست!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ce n'est pas ma faute !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si kosa langu!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benim hatam değil!"
           }
         }
       }
@@ -3474,10 +4182,34 @@
             "value" : "Fügen Sie verschlüsselten Text in dieses Feld ein..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pega el texto cifrado en este cuadro..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متن رمزگذاری شده را در این کادر بچسبانید..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Collez le nouveau message entrant"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandika maandishi yaliyofichwa katika kisanduku hiki..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrelenmiş metni bu kutuya yapıştırın..."
           }
         }
       }
@@ -3496,10 +4228,34 @@
             "value" : "Neue eingehende Nachricht einfügen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pegar nuevo mensaje entrante"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام ورودی جدید را بچسبانید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coller un nouveau message entrant"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bandika ujumbe mpya unaopokelewa"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni gelen mesajı yapıştır"
           }
         }
       }
@@ -3564,10 +4320,34 @@
             "value" : "Plattformen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plataformas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پلتفرم‌ها"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plateformes"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Majukwaa"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platformlar"
           }
         }
       }
@@ -3586,10 +4366,34 @@
             "value" : "Bitte erstellen Sie einen, um Ihre Plattformen zu speichern"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, crea uno para guardar tus plataformas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً یکی ایجاد کنید تا پلتفرم‌های خود را ذخیره کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Veuillez en créer un pour sauvegarder vos plateformes\n"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafadhali tengeneza moja ili kuhifadhi majukwaa yako"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platformlarınızı kaydetmek için lütfen bir tane oluşturun"
           }
         }
       }
@@ -3608,10 +4412,34 @@
             "value" : "Bitte geben Sie Ihren Telegram-Code ein, ohne ihn aus der Nachricht zu kopieren - das Kopieren könnte markiert werden und Telegram könnte Ihr Konto sperren."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, introduce tu código de Telegram sin copiarlo del mensaje - copiar podría ser marcado y Telegram podría bloquear tu cuenta."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً کد تلگرام خود را بدون کپی کردن از پیام وارد کنید - کپی کردن ممکن است علامت‌گذاری شود و تلگرام ممکن است حساب شما را مسدود کند."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Veuillez saisir votre code Telegram sans le copier depuis le message - la copie pourrait être signalée et Telegram pourrait bloquer votre compte."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafadhali ingiza msimbo wako wa Telegram bila kuunakili kutoka kwenye ujumbe - kunakili kunaweza kugundulika na Telegram inaweza kuzuia akaunti yako."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lütfen Telegram kodunuzu mesajdan kopyalamadan girin - kopyalama işaretlenebilir ve Telegram hesabınızı engelleyebilir."
           }
         }
       }
@@ -3904,10 +4732,34 @@
             "value" : "RelaySMS Vaults speichert Ihre Online-Konten sicher, sodass Sie auch ohne Internetverbindung darauf zugreifen können"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS Vault almacena de forma segura tus cuentas en línea, para que puedas acceder a ellas sin conexión a internet"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vault رلی‌اس‌ام‌اس حساب‌های آنلاین شما را به طور ایمن ذخیره می‌کند، تا بتوانید بدون اتصال به اینترنت به آنها دسترسی داشته باشید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "RelaySMS Vault stocke en toute sécurité vos comptes en ligne, afin que vous puissiez y accéder sans connexion internet"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS Vault inahifadhi akaunti zako za mtandao kwa usalama, ili uweze kuzifikia bila muunganisho wa mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS Vault, çevrimiçi hesaplarınızı güvenli bir şekilde saklar, böylece internet bağlantısı olmadan onlara erişebilirsiniz"
           }
         }
       }
@@ -3926,10 +4778,34 @@
             "value" : "Konten entfernen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar cuentas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف حساب‌ها"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer des comptes"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ondoa Akaunti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesapları Kaldır"
           }
         }
       }
@@ -4135,10 +5011,34 @@
             "value" : "Konto für %@ wird widerrufen..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revocando cuenta para %@..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لغو حساب برای %@..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Révocation du compte pour %@..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inafuta akaunti ya %@..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ için hesap iptal ediliyor..."
           }
         }
       }
@@ -4158,10 +5058,34 @@
             "value" : "Durch das Widerrufen wird die Möglichkeit entfernt, Nachrichten von diesem Konto zu senden. Sie können das Konto jederzeit erneut speichern."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La revocación elimina la capacidad de enviar mensajes desde esta cuenta. Puedes volver a almacenar la cuenta en cualquier momento."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لغو، توانایی ارسال پیام از این حساب را حذف می‌کند. شما می‌توانید حساب را در هر زمان دوباره ذخیره کنید."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "La révocation supprime la capacité d'envoyer des messages depuis ce compte. Vous pouvez stocker à nouveau le compte à tout moment."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kufuta kunaondoa uwezo wa kutuma ujumbe kutoka kwa akaunti hii. Unaweza kuhifadhi akaunti tena wakati wowote."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal etmek, bu hesaptan mesaj gönderme yeteneğini kaldırır. Hesabı istediğiniz zaman tekrar saklayabilirsiniz."
           }
         }
       }
@@ -4274,10 +5198,34 @@
             "value" : "Weitere Plattformen speichern..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar más plataformas..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره پلتفرم‌های بیشتر..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enregistrer plus de plateformes..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hifadhi majukwaa zaidi..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha fazla platform kaydet..."
           }
         }
       }
@@ -4342,10 +5290,34 @@
             "value" : "Neues Konto für %@ wird gespeichert..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardando nueva cuenta para %@..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره حساب جدید برای %@..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enregistrement du nouveau compte pour %@..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inahifadhi akaunti mpya ya %@..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ için yeni hesap kaydediliyor..."
           }
         }
       }
@@ -4551,10 +5523,34 @@
             "value" : "Ausgewählter Gateway-Client"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gateway Client seleccionado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gateway Client انتخاب شده"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gateway Client sélectionné"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gateway Client iliyochaguliwa"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seçilen Gateway Client"
           }
         }
       }
@@ -4712,10 +5708,34 @@
             "value" : "Neue Nachricht senden..."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar nuevo mensaje..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال پیام جدید..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Envoyer un nouveau message..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuma ujumbe mpya..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni mesaj gönder..."
           }
         }
       }
@@ -5153,10 +6173,34 @@
             "value" : "Diese Funktionen erfordern eine Internetverbindung\n"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Estas funciones requieren que tengas una conexión a internet"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این ویژگی‌ها نیاز به اتصال اینترنت دارند"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ces fonctionnalités nécessitent une connexion internet"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vipengele hivi vinahitaji uwe na muunganisho wa mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu özellikler internet bağlantınızın olmasını gerektirir"
           }
         }
       }
@@ -5175,10 +6219,34 @@
             "value" : "Dies ist eine kurze Zusammenfassung dessen, was passiert"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este es un breve resumen de lo que sucede"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این خلاصه کوتاهی از آنچه اتفاق می‌افتد است"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Telefonnummer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hii ni muhtasari mfupi wa kinachotokea"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu, olanların kısa bir özetidir"
           }
         }
       }
@@ -5197,10 +6265,34 @@
             "value" : "Dies ist präzise Information darüber, was passiert"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta es información precisa de lo que sucede"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این اطلاعات دقیقی درباره آنچه اتفاق می‌افتد است"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Voici des informations précises sur ce qui se passe"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hii ni habari kamili ya kinachotokea"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "u, olanlar hakkında kesin bilgidir"
           }
         }
       }
@@ -5406,10 +6498,34 @@
             "value" : "Verwenden Sie Ihre Online-Konten"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa tus cuentas en línea"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از حساب‌های آنلاین خود استفاده کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Utilisez vos comptes en ligne"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia akaunti zako za mtandao"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çevrimiçi hesaplarınızı kullanın"
           }
         }
       }
@@ -5428,10 +6544,34 @@
             "value" : "Verwenden Sie Ihr RelaySMS-Konto\n"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa tu cuenta de RelaySMS"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از حساب RelaySMS خود استفاده کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Utilisez votre compte RelaySMS"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia akaunti yako ya RelaySMS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS hesabınızı kullanın"
           }
         }
       }
@@ -5722,10 +6862,34 @@
             "value" : "Willkommen bei RelaySMS!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Bienvenido a RelaySMS!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "به RelaySMS خوش آمدید!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bienvenue sur RelaySMS !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karibu kwenye RelaySMS!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS'e hoş geldiniz!"
           }
         }
       }
@@ -5744,10 +6908,34 @@
             "value" : "Sie werden abgemeldet!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Estás siendo desconectado!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما در حال خروج هستید!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous êtes en train d'être déconnecté !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unatoka nje ya akaunti!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oturumunuz kapatılıyor!"
           }
         }
       }
@@ -5766,10 +6954,34 @@
             "value" : "Sie sind bereit, Nachrichten von RelaySMS zu senden!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Estás listo para empezar a enviar mensajes desde RelaySMS!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما آماده شروع ارسال پیام از RelaySMS هستید!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous êtes prêt à commencer à envoyer des messages depuis RelaySMS !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uko tayari kuanza kutuma ujumbe kutoka RelaySMS!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RelaySMS'den mesaj göndermeye başlamaya hazırsınız!"
           }
         }
       }
@@ -5931,10 +7143,34 @@
             "value" : "Sie können Online-Konten zu Ihrem Vault hinzufügen"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puedes añadir cuentas en línea a tu Vault"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما می‌توانید حساب‌های آنلاین را به Vault خود اضافه کنید"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous pouvez ajouter des comptes en ligne à votre Vault"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unaweza kuongeza akaunti za mtandao kwenye Vault yako"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çevrimiçi hesaplarınızı Vault'a ekleyebilirsiniz"
           }
         }
       }
@@ -6095,20 +7331,80 @@
             "value" : "Ihre Telefonnummer ist Ihr Hauptkonto!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu número de teléfono es tu cuenta principal!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شماره تلفن شما حساب اصلی شماست!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Votre numéro de téléphone est votre compte principal !"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namba yako ya simu ndiyo akaunti yako kuu!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telefon numaranız ana hesabınızdır!"
           }
         }
       }
     },
     "your_phonenumber@relaysms.me" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رقم_هاتفك@relaysms.me"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "deine_telefonnummer@relaysms.me"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tu_numero@relaysms.me"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شماره_تلفن_شما@relaysms.me"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "votre_numero@relaysms.me"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "namba_yako@relaysms.me"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "telefon_numaraniz@relaysms.me"
           }
         }
       }
