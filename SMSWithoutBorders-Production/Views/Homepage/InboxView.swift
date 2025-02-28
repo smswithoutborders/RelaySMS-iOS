@@ -94,7 +94,6 @@ struct InboxDecryptMessageView: View {
             }
         }
         .padding()
-        .navigationTitle("Inbox")
     }
 }
 
@@ -103,18 +102,34 @@ struct NoMessagesInbox: View {
     
     var body: some View {
         VStack {
+            Spacer()
             VStack {
+                Image(systemName: "tray")
+                    .resizable()
+                    .foregroundStyle(Color("SecondaryColor"))
+                    .frame(width: 150, height: 120)
+                    .padding(.bottom, 7)
+                
                 Text("No messages in inbox")
+                    .foregroundStyle(Color("AccentColor"))
             }
+            
+            Spacer()
+            
             VStack {
                 Button {
                     pasteIncomingRequested.toggle()
                 } label: {
                     Text("Paste new incoming message")
                 }
-                .buttonStyle(.bordered)
+                .tint(Color("SecondaryColor"))
+                .foregroundStyle(Color("AccentColor"))
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .padding(.bottom, 50)
             }
         }
+        .navigationTitle("Inbox")
     }
 }
 

@@ -94,7 +94,6 @@ struct SentMessages: View {
                                 .foregroundColor(Color.white)
                                 .padding(.bottom, 7)
                         })
-                        .background(Color.blue)
                         .cornerRadius(18)
                         .shadow(color: Color.black.opacity(0.3),
     
@@ -115,7 +114,6 @@ struct SentMessages: View {
                                 .foregroundColor(Color.white)
                                 .padding(.bottom, 7)
                         })
-                        .background(Color.blue)
                         .cornerRadius(18)
                         .shadow(color: Color.black.opacity(0.3),
                                 radius: 3,
@@ -185,6 +183,7 @@ struct NoSentMessages: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
+                .foregroundStyle(.secondary)
                 
             }
             .padding()
