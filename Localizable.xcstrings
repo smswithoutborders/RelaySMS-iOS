@@ -188,54 +188,6 @@
         }
       }
     },
-    "Add Accounts to Vault" : {
-      "comment" : "Title for Add Accounts View",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إضافة الحسابات إلى Vault"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konten zu Vault hinzufügen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Añadir cuentas a Vault"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "افزودن حساب‌ها به Vault"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajouter des Comptes à Vault"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ongeza Akaunti kwenye Vault"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kasaya Hesap Ekleme"
-          }
-        }
-      }
-    },
     "Already got code" : {
       "localizations" : {
         "ar" : {
@@ -417,54 +369,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Örnek bir mesaj...\n\nRelaySMS Yanıtı Lütfen bu mesajın tamamını RelaySMS uygulamanıza yapıştırın 3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO..."
-          }
-        }
-      }
-    },
-    "Available Platforms" : {
-      "comment" : "Title showing available platforms which can be saved for offline use",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "المنصات المتاحة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verfügbare Plattformen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plataformas disponibles"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پلتفرم‌های موجود"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plates-formes disponibles"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Majukwaa Yaliyopo"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mevcut Platformlar"
           }
         }
       }
@@ -699,54 +603,6 @@
         }
       }
     },
-    "Choose the platform you will like to revoke accounts from. Next screen will let you choose which account to revoke for the platform." : {
-      "comment" : "Asks the user to select a platform they would like to revoke accounts from, and explains that the next screen will allow them to choose which account to revoke",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اختر المنصة التي ترغب في إلغاء الحسابات منها. ستتيح لك الشاشة التالية اختيار الحساب الذي تريد إلغاءه للمنصة.\n"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wählen Sie die Plattform aus, für die Sie Konten sperren möchten. Auf dem nächsten Bildschirm können Sie auswählen, welches Konto für die Plattform widerrufen werden soll."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elija la plataforma de la que desea revocar cuentas. La siguiente pantalla le permitirá elegir qué cuenta revocar para la plataforma."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پلتفرمی را که می‌خواهید حساب‌ها را از آن لغو کنید انتخاب کنید. صفحه بعدی به شما اجازه می‌دهد حسابی را که می‌خواهید برای پلتفرم لغو کنید انتخاب نمایید."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choisissez la plateforme dont vous souhaitez révoquer les comptes. L'écran suivant vous permet de choisir le compte à révoquer pour la plateforme."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chagua jukwaa ambalo ungependa kufuta akaunti kutoka. Skrini inayofuata itakuwezesha kuchagua akaunti gani utafuta kutoka kwenye jukwaa."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hesapları iptal etmek istediğiniz platformu seçin. Sonraki ekran, platform için hangi hesabın iptal edileceğini seçmenize izin verecektir."
-          }
-        }
-      }
-    },
     "Choosing a country for routing your messages" : {
       "localizations" : {
         "ar" : {
@@ -840,53 +696,6 @@
         }
       }
     },
-    "Come back anytime" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "عد في أي وقت"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jederzeit wiederkommen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vuelve cuando quieras"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "هر زمان که خواستید برگردید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Revenez à tout moment"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rudi wakati wowote"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "İstediğin zaman gel."
-          }
-        }
-      }
-    },
     "Compose email" : {
       "localizations" : {
         "ar" : {
@@ -929,54 +738,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "E-posta oluşturma"
-          }
-        }
-      }
-    },
-    "Compose for Platform" : {
-      "comment" : "Title for page showing the platform to compose a message for",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إنشاء للمنصة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compose für Plattform"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Componer para plataforma"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نوشتن برای پلتفرم"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Compose pour la plate-forme"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tunga kwa Jukwaa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Platform için Compose"
           }
         }
       }
@@ -1351,54 +1112,6 @@
         }
       }
     },
-    "Create a new RelaySMS Vault account or signup to your existing." : {
-      "comment" : "Prompts user to create a RelaySMS Vault account or signup to their existing one",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إنشاء حساب RelaySMS Vault جديد أو تسجيل الدخول إلى حسابك الحالي."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erstellen Sie ein neues RelaySMS Vault-Konto oder melden Sie sich bei Ihrem bestehenden Konto an."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create a new RelaySMS Vault account or signup to your existing."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "یک حساب RelaySMS Vault جدید ایجاد کنید یا وارد حساب موجود خود شوید."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Créez un nouveau compte RelaySMS Vault ou connectez-vous à votre compte existant."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fungua akaunti mpya ya RelaySMS Vault au ingia kwenye akaunti yako iliyopo."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yeni bir RelaySMS Vault hesabı oluşturun veya mevcut hesabınıza kaydolun."
-          }
-        }
-      }
-    },
     "Create account" : {
       "localizations" : {
         "ar" : {
@@ -1487,53 +1200,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesap Oluştur"
-          }
-        }
-      }
-    },
-    "Create new account or log into existing one to begin sending messages from stored online platforms" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إنشاء حساب جديد أو تسجيل الدخول إلى حساب موجود لبدء إرسال الرسائل من المنصات المخزنة عبر الإنترنت"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erstellen Sie ein neues Konto oder melden Sie sich bei einem bestehenden Konto an, um Nachrichten von gespeicherten Online-Plattformen zu versenden"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cree una cuenta nueva o inicie sesión en una ya existente para empezar a enviar mensajes desde las plataformas en línea almacenadas"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "حساب جدید ایجاد کنید یا وارد حساب موجود شوید تا بتوانید از پلتفرم‌های آنلاین ذخیره شده پیام ارسال کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Créez un nouveau compte ou connectez-vous à un compte existant pour commencer à envoyer des messages à partir des plateformes en ligne stockées."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fungua akaunti mpya au ingia kwenye iliyopo ili kuanza kutuma ujumbe kutoka kwenye majukwaa ya mtandaoni yaliyohifadhiwa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saklanan çevrimiçi platformlardan mesaj göndermeye başlamak için yeni hesap oluşturun veya mevcut hesabınızda oturum açın"
           }
         }
       }
@@ -1696,100 +1362,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hesabınız yok mu?"
-          }
-        }
-      }
-    },
-    "English" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الإنجليزية (Al-Ingliziyyah)"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Englisch"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inglés"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "انگلیسی (Engelisi)"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anglais"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kiingereza"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "İngilizce"
-          }
-        }
-      }
-    },
-    "Ensure that the selected phone number includes the country code (e.g., +237)." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تأكد من أن رقم الهاتف المحدد يتضمن رمز البلد (مثل +237)."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vergewissern Sie sich, dass die gewählte Rufnummer die Landesvorwahl enthält (z. B. +49)."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Asegúrese de que el número de teléfono seleccionado incluye el prefijo del país (por ejemplo, +237)."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اطمینان حاصل کنید که شماره تلفن انتخاب شده شامل کد کشور است (مثلاً +237)."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Assurez-vous que le numéro de téléphone sélectionné comprend l'indicatif du pays (par exemple, +237)."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hakikisha namba ya simu iliyochaguliwa inajumuisha msimbo wa nchi (k.m., +237)."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seçilen telefon numarasının ülke kodunu içerdiğinden emin olun (örn. +90)."
           }
         }
       }
@@ -2066,53 +1638,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hata! Yanlış bir şey yapmadınız..."
-          }
-        }
-      }
-    },
-    "Finish!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "انتهى!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fertig!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¡Termina!"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پایان!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finir !"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Maliza!"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bitir!"
           }
         }
       }
@@ -2486,53 +2011,6 @@
         }
       }
     },
-    "Get started!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ابدأ الآن!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Los geht's!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Póngase en marcha"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "شروع کنید!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencez !"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anza!"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Başlayın!"
-          }
-        }
-      }
-    },
     "Great!" : {
       "localizations" : {
         "ar" : {
@@ -2717,54 +2195,6 @@
         }
       }
     },
-    "If you don't have an account,\nPlease create one to save your platforms" : {
-      "comment" : "Explains that you need to create an account to save your platforms if you don't have an account already",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يرجى إنشاء واحد لحفظ منصاتك\n إذا لم يكن لديك حساب،\n"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn Sie noch kein Konto haben,\nBitte erstellen Sie eines, um Ihre Plattformen zu speichern"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si no tiene una cuenta,\ncree una para guardar sus plataformas"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اگر حساب ندارید،\nلطفاً یکی ایجاد کنید تا پلتفرم‌های خود را ذخیره کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si vous n'avez pas de compte,\nVeuillez en créer un pour sauvegarder vos plateformes"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ikiwa huna akaunti,\nTafadhali tengeneza moja ili kuhifadhi majukwaa yako"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eğer bir hesabınız yoksa,\nLütfen platformlarınızı kaydetmek için bir tane oluşturun"
-          }
-        }
-      }
-    },
     "If you forgot your password" : {
       "localizations" : {
         "ar" : {
@@ -2899,54 +2329,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gelen kutusu"
-          }
-        }
-      }
-    },
-    "Introducing Vaults" : {
-      "comment" : "Signup/Sign in Onboarding View subtitle",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نقدم Vaults"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einführung von Vaults"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Presentamos Vaults"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "معرفی Vaults"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Introduction à Vaults"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tunatambulisha Vaults"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vaults'u Tanıtıyoruz"
           }
         }
       }
@@ -3086,54 +2468,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nasıl çalıştığını öğrenin"
-          }
-        }
-      }
-    },
-    "Let's get you started" : {
-      "comment" : "Title for onboarding tab view (default",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لنبدأ معك"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "So fangen Sie an"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Empecemos"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بیایید شروع کنیم"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commençons par le commencement"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hebu tukuanzishe"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hadi başlayalım"
           }
         }
       }
@@ -3463,102 +2797,6 @@
         }
       }
     },
-    "Messages are encrypted meaning the messages will be scrambled - don't worry that's intended" : {
-      "comment" : "Explains that messages are securely encrypted and will appear scrambled, which is fine and expected",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الرسائل مشفرة مما يعني أن الرسائل ستكون مختلطة - لا تقلق هذا مقصود"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Nachrichten sind verschlüsselt, d.h. die Nachrichten werden verschlüsselt - keine Sorge, das ist beabsichtigt."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Los mensajes están encriptados, lo que significa que los mensajes serán codificados - no se preocupe que es la intención"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پیام‌ها رمزگذاری می‌شوند یعنی پیام‌ها درهم خواهند شد - نگران نباشید این عمدی است"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les messages sont cryptés, ce qui signifie qu'ils seront brouillés - ne vous inquiétez pas, c'est voulu."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ujumbe umesimbwa maana ujumbe utachanganywa - usijali hiyo ni nia"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mesajlar şifrelenir, yani mesajlar karıştırılır - endişelenmeyin bu amaçlanmıştır"
-          }
-        }
-      }
-    },
-    "Messages are shared with your default SMS messaging app which you use to send out SMS messages from your device" : {
-      "comment" : "Explains that messages are shared default SMS app",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تتم مشاركة الرسائل مع تطبيق الرسائل القصيرة الافتراضي الذي تستخدمه لإرسال رسائل SMS من جهازك"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nachrichten werden mit Ihrer Standard-SMS-Anwendung geteilt, die Sie zum Versenden von SMS-Nachrichten von Ihrem Gerät aus verwenden."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Los mensajes se comparten con la aplicación de mensajería SMS predeterminada que utilizas para enviar mensajes SMS desde tu dispositivo."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پیام‌ها با برنامه پیام‌رسانی پیش‌فرض SMS شما به اشتراک گذاشته می‌شوند که از آن برای ارسال پیام‌های SMS از دستگاه خود استفاده می‌کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les messages sont partagés avec l'application de messagerie SMS par défaut que vous utilisez pour envoyer des SMS à partir de votre appareil."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ujumbe unashirikiwa na programu yako ya ujumbe wa SMS chaguo-msingi ambayo unatumia kutuma ujumbe wa SMS kutoka kwenye kifaa chako"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mesajlar, cihazınızdan SMS mesajları göndermek için kullandığınız varsayılan SMS mesajlaşma uygulamanızla paylaşılır"
-          }
-        }
-      }
-    },
     "Messaging with your personal accounts" : {
       "localizations" : {
         "ar" : {
@@ -3789,53 +3027,6 @@
         }
       }
     },
-    "No platforms" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لا توجد منصات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keine Plattformen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sin plataformas"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بدون پلتفرم"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pas de plates-formes"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hakuna majukwaa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Platform yok"
-          }
-        }
-      }
-    },
     "No recent messages" : {
       "localizations" : {
         "ar" : {
@@ -3878,53 +3069,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Son mesaj yok"
-          }
-        }
-      }
-    },
-    "No Vault account" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لا يوجد حساب Vault"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kein Vault-Konto"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sin cuenta Vault"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بدون حساب Vault"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun compte Vault"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hakuna akaunti ya Vault"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault hesabı yok"
           }
         }
       }
@@ -4666,54 +3810,6 @@
         }
       }
     },
-    "RelaySMS Vaults keep secure access to your online accounts while you are offline" : {
-      "comment" : "Explains that RelaySMS Vaults have secure access to youe online accounts even while you are offline",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تحتفظ RelaySMS Vaults بوصول آمن إلى حساباتك عبر الإنترنت أثناء عدم اتصالك بالإنترنت"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "RelaySMS Vaults bieten sicheren Zugang zu Ihren Online-Konten, während Sie offline sind"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Los bóvedas RelaySMS mantienen el acceso seguro a sus cuentas en línea mientras no está conectado."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "RelaySMS Vaults دسترسی امن به حساب‌های آنلاین شما را هنگامی که آفلاین هستید حفظ می‌کند"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les Vaults de RelaySMS garantissent un accès sécurisé à vos comptes en ligne même lorsque vous êtes hors ligne."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "RelaySMS Vaults huhifadhi ufikiaji salama kwa akaunti zako za mtandaoni wakati uko nje ya mtandao"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "RelaySMS Vaults, çevrimdışıyken çevrimiçi hesaplarınıza güvenli erişimi korur"
-          }
-        }
-      }
-    },
     "RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection" : {
       "comment" : "Explains that your online platforms are stored securely",
       "localizations" : {
@@ -4899,101 +3995,6 @@
         }
       }
     },
-    "Revoke Platforms" : {
-      "comment" : "Title for page showing the platforms to revoke an account for",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إلغاء المنصات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plattformen widerrufen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Revocar plataformas"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لغو پلتفرم‌ها"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Révoquer les plates-formes"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Batilisha Majukwaa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Platformları İptal Et"
-          }
-        }
-      }
-    },
-    "Revoke stored platforms" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إلغاء المنصات المخزنة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gespeicherte Plattformen widerrufen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Revocar plataformas almacenadas"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لغو پلتفرم‌های ذخیره شده"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Révoquer les plates-formes stockées"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Batilisha majukwaa yaliyohifadhiwa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Depolanan platformları iptal etme"
-          }
-        }
-      }
-    },
     "Revoking account for %@..." : {
       "localizations" : {
         "ar" : {
@@ -5083,100 +4084,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "İptal etmek, bu hesaptan mesaj gönderme yeteneğini kaldırır. Hesabı istediğiniz zaman tekrar saklayabilirsiniz."
-          }
-        }
-      }
-    },
-    "Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يؤدي الإلغاء إلى إزالة القدرة على إرسال رسائل من هذا الحساب. يمكنك تخزين الحساب مرة أخرى في أي وقت."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Durch den Widerruf wird die Möglichkeit zum Senden von Nachrichten von diesem Konto entfernt. Sie können das Konto jederzeit wieder speichern."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La revocación elimina la posibilidad de enviar mensajes desde esta cuenta. Puede almacenar la acocunt de nuevo en cualquier momento."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "لغو کردن توانایی ارسال پیام از این حساب را حذف می‌کند. شما می‌توانید حساب را در هر زمان دوباره ذخیره کنید."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La révocation supprime la possibilité d'envoyer des messages à partir de ce compte. Vous pouvez à tout moment réenregistrer le compte."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kubatilisha kuondoa uwezo wa kutuma ujumbe kutoka akaunti hii. Unaweza kuhifadhi akaunti tena wakati wowote."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "İptal etmek, bu hesaptan mesaj gönderme yeteneğini ortadan kaldırır. İstediğiniz zaman hesabı tekrar saklayabilirsiniz."
-          }
-        }
-      }
-    },
-    "Save Accounts to Vault" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "حفظ الحسابات في Vault"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konten in Vault speichern"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guardar cuentas en el almacén"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ذخیره حساب‌ها در Vault"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enregistrer les comptes dans Vault"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hifadhi Akaunti kwenye Vault"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hesapları Kasaya Kaydetme"
           }
         }
       }
@@ -5458,54 +4365,6 @@
         }
       }
     },
-    "Select a platform to send an example message - you can send a message to yourself" : {
-      "comment" : "Description asking a user to select a platform to send an example message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "حدد منصة لإرسال رسالة كمثال - يمكنك إرسال رسالة لنفسك"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wählen Sie eine Plattform, um eine Beispielnachricht zu senden - Sie können eine Nachricht an sich selbst senden"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selecciona una plataforma para enviar un mensaje de ejemplo: puedes enviarte un mensaje a ti mismo"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "یک پلتفرم را برای ارسال پیام نمونه انتخاب کنید - می‌توانید پیامی به خودتان ارسال کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sélectionnez une plate-forme pour envoyer un exemple de message - vous pouvez vous envoyer un message à vous-même"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chagua jukwaa kutuma ujumbe wa mfano - unaweza kutuma ujumbe kwako mwenyewe"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Örnek bir mesaj göndermek için bir platform seçin - kendinize bir mesaj gönderebilirsiniz"
-          }
-        }
-      }
-    },
     "Selected Gateway client" : {
       "localizations" : {
         "ar" : {
@@ -5542,53 +4401,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gateway Client iliyochaguliwa"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seçilen Gateway Client"
-          }
-        }
-      }
-    },
-    "Selected Gateway Client" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gateway Client المحدد"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ausgewählter Gateway-Client"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cliente Gateway seleccionado"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gateway Client انتخاب شده"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Client Gateway sélectionné"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gateway Client Iliyochaguliwa"
           }
         },
         "tr" : {
@@ -5737,54 +4549,6 @@
         }
       }
     },
-    "Send your first messages" : {
-      "comment" : "Title OnboardingTryExample View",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "أرسل رسائلك الأولى"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Senden Sie Ihre ersten Nachrichten"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envíe sus primeros mensajes"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اولین پیام‌های خود را ارسال کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envoyez vos premiers messages"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tuma ujumbe wako wa kwanza"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "İlk mesajlarınızı gönderin"
-          }
-        }
-      }
-    },
     "Set as default gateway client?" : {
       "localizations" : {
         "ar" : {
@@ -5923,53 +4687,6 @@
         }
       }
     },
-    "skip" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تخطي"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "überspringen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "omitir"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "رد کردن"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "sauter"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ruka"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "atlamak"
-          }
-        }
-      }
-    },
     "Subject " : {
       "localizations" : {
         "ar" : {
@@ -6104,54 +4821,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "şartlar ve koşullar"
-          }
-        }
-      }
-    },
-    "The Vault supports storing for multiple online platforms. Click Save Accounts to Vault to see the list" : {
-      "comment" : "Explains that the Vault supports storing for multiple online platforms and you can click to save accounts to your vault",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يدعم Vault تخزين العديد من المنصات عبر الإنترنت. انقر على حفظ الحسابات في Vault لرؤية القائمة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault unterstützt das Speichern für mehrere Online-Plattformen. Klicken Sie auf ‘Konten in Vault speichern’, um die Liste zu sehen."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La Bóveda admite el almacenamiento para múltiples plataformas en línea. Haga clic en Guardar cuentas en el almacén para ver la lista."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault از ذخیره‌سازی برای چندین پلتفرم آنلاین پشتیبانی می‌کند. برای مشاهده لیست روی ذخیره حساب‌ها در Vault کلیک کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le Vault prend en charge le stockage pour plusieurs plateformes en ligne. Cliquez sur ‘Enregistrer les comptes dans Vault’ pour voir la liste."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault inasaidia kuhifadhi kwa majukwaa mengi ya mtandaoni. Bofya Hifadhi Akaunti kwenye Vault kuona orodha"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault birden fazla çevrimiçi platform için depolama destekler. Listeyi görmek için Hesapları Vault'a Kaydet'e tıklayın"
           }
         }
       }
@@ -6336,53 +5005,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "için"
-          }
-        }
-      }
-    },
-    "Try Example" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تجربة المثال"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Versuch Beispiel"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ejemplo de prueba"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "امتحان نمونه"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Essayer l'exemple"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jaribu Mfano"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Örnek Deneyin"
           }
         }
       }
@@ -6573,53 +5195,6 @@
         }
       }
     },
-    "Vault" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault"
-          }
-        }
-      }
-    },
     "vault_port_debug" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6798,53 +5373,6 @@
         }
       }
     },
-    "Welcome to RelaySMS" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مرحباً بك في RelaySMS"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Willkommen bei RelaySMS"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bienvenido a RelaySMS"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "به RelaySMS خوش آمدید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bienvenue à RelaySMS"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Karibu kwenye RelaySMS"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "RelaySMS'e Hoş Geldiniz"
-          }
-        }
-      }
-    },
     "Welcome to RelaySMS!" : {
       "localizations" : {
         "ar" : {
@@ -6983,149 +5511,6 @@
         }
       }
     },
-    "You are ready to begin sending messages from you added platforms." : {
-      "comment" : "Explains that you can start sending messages from you added platforms.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "أنت جاهز لبدء إرسال الرسائل من المنصات التي أضفتها."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sie können nun Nachrichten von den hinzugefügten Plattformen aus versenden."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ya está listo para empezar a enviar mensajes desde sus plataformas añadidas."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "شما آماده شروع ارسال پیام از پلتفرم‌های اضافه شده خود هستید."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous êtes prêt à envoyer des messages à partir des plateformes que vous avez ajoutées."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uko tayari kuanza kutuma ujumbe kutoka majukwaa uliyoongeza."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eklediğiniz platformlardan mesaj göndermeye başlamaya hazırsınız."
-          }
-        }
-      }
-    },
-    "You are ready!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "أنت جاهز!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sie sind bereit!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¡Estás listo!"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "شما آماده هستید!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous êtes prêts !"
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uko tayari!"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sen hazırsın!"
-          }
-        }
-      }
-    },
-    "You can add accounts to Vault. These accounts are accessible to you when you are offline" : {
-      "comment" : "Explains that you can add accounts to Vault and the accounts are persisted while offline",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكنك إضافة حسابات إلى Vault. يمكنك الوصول إلى هذه الحسابات عندما تكون غير متصل بالإنترنت"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sie können Konten zu Vault hinzufügen. Diese Konten sind auch offline für Sie zugänglich."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puedes añadir cuentas a Vault. Podrá acceder a estas cuentas cuando esté desconectado"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "می‌توانید حساب‌ها را به Vault اضافه کنید. این حساب‌ها هنگامی که آفلاین هستید برای شما قابل دسترسی هستند"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous pouvez ajouter des comptes à Vault. Ces comptes sont accessibles même lorsque vous êtes hors ligne."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unaweza kuongeza akaunti kwenye Vault. Akaunti hizi zinapatikana kwako wakati uko nje ya mtandao"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vault'a hesap ekleyebilirsiniz. Bu hesaplara çevrimdışıyken erişebilirsiniz"
-          }
-        }
-      }
-    },
     "You can add online accounts to your Vault" : {
       "localizations" : {
         "ar" : {
@@ -7168,54 +5553,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Çevrimiçi hesaplarınızı Vault'a ekleyebilirsiniz"
-          }
-        }
-      }
-    },
-    "You can add platforms from the homepage once you are logged in" : {
-      "comment" : "Explains that you can add platforms from the homepage once you are logged in",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكنك إضافة منصات من الصفحة الرئيسية بمجرد تسجيل الدخول"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sie können Plattformen von der Homepage aus hinzufügen, sobald Sie eingeloggt sind"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puede añadir plataformas desde la página de inicio una vez que haya iniciado sesión"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پس از ورود می‌توانید از صفحه اصلی پلتفرم‌ها را اضافه کنید"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous pouvez ajouter des plateformes à partir de la page d'accueil une fois que vous êtes connecté."
-          }
-        },
-        "sw" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unaweza kuongeza majukwaa kutoka ukurasa wa mwanzo mara tu utakapoingia"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Giriş yaptıktan sonra ana sayfadan platform ekleyebilirsiniz"
           }
         }
       }
