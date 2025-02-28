@@ -33,7 +33,7 @@ struct OnboardingWelcomeView: View {
                 .cornerRadius(38.5)
                 .padding()
 
-                Text("Use SMS to make a post, send emails and messages with no internet connection")
+                Text(String(localized: "Use SMS to make a post, send emails and messages with no internet connection", comment: "Explains that you can use Relay to make posts, and send emails and messages without an internet conenction"))
                     .font(Font.custom("unbounded", size: 18))
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)

@@ -37,7 +37,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                             getMeOut()
                         }
                     } message: {
-                        Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
+                        Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
                     }
                     .onAppear() {
                         validateLLT()

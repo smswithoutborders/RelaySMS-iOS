@@ -42,7 +42,7 @@ struct SecuritySettingsView: View {
                     }.confirmationDialog("", isPresented: $showIsLoggingOut) {
                         Button("Log out", role: .destructive, action: logout)
                     } message: {
-                        Text("You can log back in at anytime. All the messages sent would be deleted.")
+                        Text(String(localized:"You can log back in at anytime. All the messages sent would be deleted.", comment: "Explains that you can log into your account at any time, and all the messages sent would be deleted"))
                     }
                     .disabled(!isLoggedIn)
 
@@ -54,7 +54,7 @@ struct SecuritySettingsView: View {
                         }.confirmationDialog("", isPresented: $showIsDeleting) {
                             Button("Continue Deleting", role: .destructive, action: deleteAccount)
                         } message: {
-                            Text("You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted")
+                            Text(String(localized:"You can create another account anytime. All your stored tokens would be revoked from the Vault and all data deleted", comment: "Explains that you can always create an account at a later date, but all previously stored tokens and platforms for your old account will be revoked and data deleted"))
                         }
                         .disabled(!isLoggedIn)
                     }
@@ -129,7 +129,7 @@ struct SettingsView: View {
                     Section {
                         VStack(alignment: .leading) {
                             Toggle("Message with phone number", isOn: $messageWithPhoneNumber)
-                            Text("Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message")
+                            Text(String(localized:"Turn this on to publish the message using your phone number and not your DeviceID.\n\nThis can help reduce the size of the SMS message", comment: "Says that enabling this setting will allow you to use your phone number instead of your DeviceID, which can help reduce the size of the SMS message"))
                                 .font(.caption)
                                 .padding(.trailing, 60)
                                 .foregroundColor(.secondary)
