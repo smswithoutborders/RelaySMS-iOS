@@ -158,7 +158,7 @@ struct PlatformSheetView: View {
                         }
                     }
                 } message: {
-                    Text("Revoking removes the ability to send messages from this account. You can store the acocunt again at anytime.")
+                    Text(String(localized: "Revoking removes the ability to send messages from this account. You can store the account again at anytime.", comment: "Sats that revoking a social platform will remove yout ability to send messages to that platform from your account, but you can always add the account again at anytime"))
                 }
             }
             else {
@@ -608,8 +608,8 @@ struct PlatformsCompose_Preview: PreviewProvider {
 }
 
 #Preview {
-    var description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-    var composeDescription = "[Compose] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+    var description: String = String(localized:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book", comment: "Explains some history about lorem Impsum")
+    var composeDescription: String = String(localized:"[Compose] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book", comment: "Explains some history about Lorem Ipsum")
     
     @State var saveRequested = false
     @State var codeVerifier: String = ""

@@ -21,7 +21,7 @@ struct InboxDecryptMessageView: View {
                     .font(.subheadline)
                     .padding(.bottom, 32)
 
-                Text("An example message...\n\nRelaySMS Reply Please paste this entire message in your RelaySMS app\n3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO...")
+                Text(String(localized:"An example message...\n\nRelaySMS Reply Please paste this entire message in your RelaySMS app\n3AAAAGUoAAAAAAAAAAAAAADN2pJG+1g5bNt1ziT84plbYcgwbbp+PbQHBf7ekxkOO...", comment: "Shows an explain message which can be pasted into the inbox view and decrypted"))
                     .font(.caption2)
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(.secondary)

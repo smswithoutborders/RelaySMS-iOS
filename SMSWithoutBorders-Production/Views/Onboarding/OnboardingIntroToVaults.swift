@@ -21,7 +21,7 @@ struct OnboardingIntroToVaults: View {
                     .frame(width: 300, height: 300)
                     .padding()
                 
-                Text("RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection")
+                Text(String(localized:"RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection", comment: "Explains that your online platforms are stored securely"))
                     .font(.title2)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)

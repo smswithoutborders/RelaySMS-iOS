@@ -12,6 +12,7 @@ import CoreData
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @StateObject private var languageManager: LanguagePreferencesManager = LanguagePreferencesManager()
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @StateObject private var dataController = DataController()
@@ -39,7 +40,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                             getMeOut()
                         }
                     } message: {
-                        Text("It seems you logged into another device. You can use RelaySMS on only one device at a time.")
+                        Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
                     }
                     .onAppear() {
                         validateLLT()
@@ -50,7 +51,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                         }
                     }
                 }
-            }
+            }.environmentObject(languageManager)
             .onAppear {
                 Publisher.refreshPlatforms(context: dataController.container.viewContext)
                 

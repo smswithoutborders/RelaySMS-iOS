@@ -123,6 +123,7 @@
 		3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */; };
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
 		3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
+		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3BF3D14E2C32D69D003A3AFB /* SignupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSheetView.swift; sourceTree = "<group>"; };
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
+		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 			children = (
 				042DAE2E2D38432200F0D370 /* PlatformsEntityHandlers.swift */,
 				041BB4E62D4B3D4A0072A097 /* SecurityHandler.swift */,
+				F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -568,7 +571,7 @@
 		16F0E67728C6308600FDD12C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
@@ -592,6 +595,13 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
+				fr,
+				es,
+				tr,
+				fa,
+				sw,
+				de,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
@@ -681,6 +691,7 @@
 				1686DBD028E47D8A00895D92 /* HomepageView.swift in Sources */,
 				3B928A432C66A6A500BA145F /* TextPlatformView.swift in Sources */,
 				0430A2222D5554D100830BF4 /* Bridges.swift in Sources */,
+				F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */,
 				3B928A3C2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
 				1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */,
 				04DC2B0C2D71C17100676ED1 /* OnboardingIntroToAccounts.swift in Sources */,
