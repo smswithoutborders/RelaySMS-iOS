@@ -108,16 +108,32 @@ struct SettingsView: View {
     
     @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
     private var messageWithPhoneNumber = false
-
+    
+    @State private var showLanguageChangeConfirmationAlert = false
 
     var body: some View {
         NavigationView {
             VStack {
                 List {
                     Section {
-                        NavigationLink(destination: EmptyView()) {
-                            Text("Language")
+                        Button("Language"){
+                            showLanguageChangeConfirmationAlert.toggle()
                         }
+                        .alert("Change App Language", isPresented: $showLanguageChangeConfirmationAlert) {
+                            Button("Cancel", role: .cancel){
+                                showLanguageChangeConfirmationAlert.toggle()
+                            }
+                            Button("Open Settings"){
+                                // Open language settings page instead
+                                if let url: URL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+                                    UIApplication.shared.open(url)
+                                }
+                                
+                            }
+                        } message: {
+                            Text(String(localized: "Continue to iOS settings and select your preferred language for RelaySMS.", comment: "Instructions for chnaging application langueg via system settings.") )
+                        }
+                        .padding(.bottom, 10)
                     }
                     
                     Section {
