@@ -37,15 +37,15 @@ struct HomepageView: View {
 
     @State var requestedMessage: Messages?
 
-    @State var isLoggedIn: Bool = false
+    @Binding var isLoggedIn: Bool
     
-    init() {
-        do {
-            self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print(error)
-        }
-    }
+//    init() {
+//        do {
+//            self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+//        } catch {
+//            print(error)
+//        }
+//    }
 
     var body: some View {
         NavigationView {
@@ -267,7 +267,7 @@ struct HomepageView_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView()
+        return HomepageView(isLoggedIn: $isLoggedIn)
     }
 }
 
@@ -285,7 +285,7 @@ struct HomepageViewInboxMessages_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView()
+        return HomepageView(isLoggedIn: $isLoggedIn)
         .environment(\.managedObjectContext, container.viewContext)
     }
 }
@@ -304,6 +304,6 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
         
-        return HomepageView()
+        return HomepageView(isLoggedIn: $isLoggedIn)
     }
 }

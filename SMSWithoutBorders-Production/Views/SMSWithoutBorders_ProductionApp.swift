@@ -21,7 +21,7 @@ struct SMSWithoutBorders_ProductionApp: App {
 
     @State private var alreadyLoggedIn: Bool = false
     @State private var isLoggedIn: Bool = false
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -30,7 +30,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                         .environment(\.managedObjectContext, dataController.container.viewContext)
                 }
                 else {
-                    HomepageView()
+                    HomepageView(isLoggedIn: $isLoggedIn)
                     .environment(\.managedObjectContext, dataController.container.viewContext)
                     .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
                         Button("Get me out!") {
@@ -68,7 +68,11 @@ struct SMSWithoutBorders_ProductionApp: App {
     
     func getMeOut() {
         logoutAccount(context: dataController.container.viewContext)
-        isLoggedIn = false
+        do {
+            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+        } catch {
+            print(error)
+        }
     }
     
     func validateLLT() {
