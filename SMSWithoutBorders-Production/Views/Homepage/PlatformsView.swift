@@ -78,6 +78,8 @@ struct PlatformSheetView: View {
     @Binding var platformRequestedType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
     @Binding var refreshParent: Bool
+    
+    var callback: (() -> Void)?
 
     init(
         description: String,
@@ -87,7 +89,8 @@ struct PlatformSheetView: View {
         composeNewMessageRequested: Binding<Bool>,
         platformRequestedType: Binding<PlatformsRequestedType>,
         composeViewRequested: Binding<Bool>,
-        refreshParent: Binding<Bool>
+        refreshParent: Binding<Bool>,
+        callback: (() -> Void)? = {}
     ) {
         self.description = description
         self.composeDescription = composeDescription
@@ -98,6 +101,7 @@ struct PlatformSheetView: View {
         _platformRequestedType = platformRequestedType
         _composeViewRequested = composeViewRequested
         _refreshParent = refreshParent
+        self.callback = callback
     }
     
     var body: some View {
@@ -202,6 +206,7 @@ struct PlatformSheetView: View {
                             } else {
                                 composeNewMessageRequested.toggle()
                                 dismiss()
+                                callback?()
                             }
                         } label: {
                             if platform == nil || platformRequestedType == .compose {
@@ -305,6 +310,8 @@ struct PlatformCard: View {
 
     let platform: PlatformsEntity?
     let protocolType: Publisher.ProtocolTypes
+    
+    var callback: (() -> Void)?
 
     var body: some View {
         VStack {
@@ -343,7 +350,8 @@ struct PlatformCard: View {
                             composeNewMessageRequested: $composeNewMessageRequested,
                             platformRequestedType: $platformRequestType,
                             composeViewRequested: $composeViewRequested,
-                            refreshParent: $parentRefreshRequested
+                            refreshParent: $parentRefreshRequested,
+                            callback: callback
                         )
                         .applyPresentationDetentsIfAvailable(
                             canLarge: platform?.protocol_type == Publisher.ProtocolTypes.PNBA.rawValue)
@@ -407,6 +415,8 @@ struct PlatformsView: View {
     @Binding var composeTextRequested: Bool
     @Binding var composeMessageRequested: Bool
     @Binding var composeEmailRequested: Bool
+    
+    var callback: (() -> Void)?
 
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
@@ -430,7 +440,8 @@ struct PlatformsView: View {
                         parentRefreshRequested: $refreshRequested,
                         requestedPlatformName: $requestedPlatformName,
                         platform: nil,
-                        protocolType: Publisher.ProtocolTypes.BRIDGE
+                        protocolType: Publisher.ProtocolTypes.BRIDGE,
+                        callback: callback
                     ).padding(.bottom, 32)
 
                     HStack {
@@ -454,7 +465,8 @@ struct PlatformsView: View {
                                         parentRefreshRequested: $refreshRequested,
                                         requestedPlatformName: $requestedPlatformName,
                                         platform: item,
-                                        protocolType: getProtocolType(type: item.protocol_type!)
+                                        protocolType: getProtocolType(type: item.protocol_type!),
+                                        callback: callback
                                     )
                                 }
                             }
@@ -468,7 +480,8 @@ struct PlatformsView: View {
                                         parentRefreshRequested: $refreshRequested,
                                         requestedPlatformName: $requestedPlatformName,
                                         platform: item,
-                                        protocolType: getProtocolType(type: item.protocol_type!)
+                                        protocolType: getProtocolType(type: item.protocol_type!),
+                                        callback: callback
                                     )
                                 }
                             }

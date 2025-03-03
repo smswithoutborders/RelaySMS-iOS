@@ -156,7 +156,12 @@ struct HomepageView: View {
                             requestedMessage: $requestedMessage,
                             emailIsRequested: $emailIsRequested,
                             textIsRequested: $textIsRequested,
-                            messageIsRequested: $messageIsRequested
+                            messageIsRequested: $messageIsRequested,
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            composeTextRequested: $composeTextRequested,
+                            composeMessageRequested: $composeMessageRequested,
+                            composeEmailRequested: $composeEmailRequested,
+                            requestedPlatformName: $requestedPlatformName
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")

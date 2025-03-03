@@ -144,6 +144,14 @@ struct SentMessages: View {
 struct NoSentMessages: View {
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
+    
+    @Binding var requestedPlatformName: String
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var composeTextRequested: Bool
+    @Binding var composeMessageRequested: Bool
+    @Binding var composeEmailRequested: Bool
+    
+    @State var platformIsRequested = false
 
     var body: some View {
         VStack {
@@ -162,8 +170,9 @@ struct NoSentMessages: View {
 
             VStack {
                 Button {
-                    selectedTab = .platforms
+//                    selectedTab = .platforms
                     platformRequestType = .compose
+                    platformIsRequested.toggle()
                 } label: {
                     Text("Send new message")
                         .bold()
@@ -172,6 +181,18 @@ struct NoSentMessages: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .padding(.bottom, 10)
+                .sheet(isPresented: $platformIsRequested) {
+                    PlatformsView(
+                        requestType: $platformRequestType,
+                        requestedPlatformName: $requestedPlatformName,
+                        composeNewMessageRequested: $composeNewMessageRequested,
+                        composeTextRequested: $composeTextRequested,
+                        composeMessageRequested: $composeMessageRequested,
+                        composeEmailRequested: $composeEmailRequested
+                    ) {
+                        platformIsRequested.toggle()
+                    }
+                }
                 
                 Button {
                     selectedTab = .platforms
@@ -204,6 +225,12 @@ struct RecentsViewLoggedIn: View {
     @Binding var emailIsRequested: Bool
     @Binding var textIsRequested: Bool
     @Binding var messageIsRequested: Bool
+    
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var composeTextRequested: Bool
+    @Binding var composeMessageRequested: Bool
+    @Binding var composeEmailRequested: Bool
+    @Binding var requestedPlatformName: String
 
     var body: some View {
         NavigationView {
@@ -221,7 +248,12 @@ struct RecentsViewLoggedIn: View {
                 else {
                     NoSentMessages(
                         selectedTab: $selectedTab,
-                        platformRequestType: $platformRequestType
+                        platformRequestType: $platformRequestType,
+                        requestedPlatformName: $requestedPlatformName,
+                        composeNewMessageRequested: $composeNewMessageRequested,
+                        composeTextRequested: $composeTextRequested,
+                        composeMessageRequested: $composeMessageRequested,
+                        composeEmailRequested: $composeEmailRequested
                     )
                 }
             }
@@ -243,10 +275,21 @@ struct RecentsViewLoggedIn: View {
 #Preview {
     @State var selectedTab: HomepageTabs = .recents
     @State var platformRequestType: PlatformsRequestedType = .available
-    
+    @State var requestedMessage: Messages? = nil
+    @State var emailIsRequested: Bool = false
+    @State var textIsRequested: Bool = false
+    @State var messageIsRequested: Bool = false
+    @State var composeNewMessagesIsRequested: Bool = false
+    @State var requestedPlatformName = "gmail"
+
     NoSentMessages(
         selectedTab: $selectedTab,
-        platformRequestType: $platformRequestType
+        platformRequestType: $platformRequestType,
+        requestedPlatformName: $requestedPlatformName,
+        composeNewMessageRequested: $composeNewMessagesIsRequested,
+        composeTextRequested: $textIsRequested,
+        composeMessageRequested: $messageIsRequested,
+        composeEmailRequested: $emailIsRequested
     )
 }
 
