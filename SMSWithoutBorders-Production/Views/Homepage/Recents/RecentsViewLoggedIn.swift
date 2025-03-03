@@ -158,12 +158,13 @@ struct NoSentMessages: View {
             Spacer()
             
             VStack {
-                Image("NoRecents")
+                Image("5")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
                     .padding(.bottom, 20)
-                Text("No recent messages")
+                Text("Send your first message...")
+                    .font(.title2)
             }
             
             Spacer()

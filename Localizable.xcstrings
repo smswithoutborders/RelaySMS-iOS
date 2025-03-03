@@ -3028,6 +3028,7 @@
       }
     },
     "No recent messages" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -4548,6 +4549,9 @@
           }
         }
       }
+    },
+    "Send your first message..." : {
+
     },
     "Set as default gateway client?" : {
       "localizations" : {
