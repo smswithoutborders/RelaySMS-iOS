@@ -83,12 +83,12 @@ struct AvailablePlatformView: View {
             if platformRequestedType == .compose {
                 Text(composeDescription)
                     .multilineTextAlignment(.center)
-                    .font(.title3)
+                    .font(.caption)
                     .padding()
             } else {
                 Text(description)
                     .multilineTextAlignment(.center)
-                    .font(.title3)
+                    .font(.body)
                     .padding()
             }
             
@@ -387,7 +387,9 @@ struct PlatformCard: View {
                             description: getServiceTypeDescriptions(
                                 serviceType: serviceType
                             ),
-                            composeDescription: "",
+                            composeDescription: getServiceTypeComposeDescriptions(
+                                serviceType: serviceType
+                            ),
                             platform: platform,
                             isEnabled: $isEnabled,
                             composeNewMessageRequested: $composeNewMessageRequested,
@@ -423,6 +425,19 @@ struct PlatformCard: View {
             return Publisher.ServiceTypeDescriptions.TEXT.rawValue
         case .BRIDGE:
             return Publisher.ServiceTypeDescriptions.BRIDGE.rawValue
+        }
+    }
+    
+    func getServiceTypeComposeDescriptions(serviceType: Publisher.ServiceTypes) -> String {
+        switch(serviceType) {
+        case .EMAIL:
+            return Publisher.ServiceComposeTypeDescriptions.EMAIL.rawValue
+        case .MESSAGE:
+            return Publisher.ServiceComposeTypeDescriptions.MESSAGE.rawValue
+        case .TEXT:
+            return Publisher.ServiceComposeTypeDescriptions.TEXT.rawValue
+        case .BRIDGE:
+            return Publisher.ServiceComposeTypeDescriptions.BRIDGE.rawValue
         }
     }
     
