@@ -19,10 +19,11 @@ class Publisher {
     public static var PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     public static var CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     
-    public enum ProtocolDescriptions: String {
-        case OAUTH2 = "Give permissions to use SMS to send messages online from RelaySMS"
-        case PNBA = "Give permissions to use SMS to message your contacts from RelaySMS"
-        case BRIDGE = "Send messages using your RelaySMS account alias e.g <example@relaysms.com>.\nEmail messaging is currently supported."
+    public enum ServiceTypeDescriptions: String {
+        case EMAIL = "Adding emails to your RelaySMS account enables you use them to send emails using SMS messaging.\n\nGmail are currently supported."
+        case MESSAGE = "Adding numbers to your RelaySMS account enables you use them to send messages using SMS messaging.\n\nTelegram messaging is currently supported."
+        case TEXT = "Adding accounts to your RelaySMS account enables you use them to make post using SMS messaging.\n\nPosting is currently supported."
+        case BRIDGE = "Your RelaySMS account is an alias of your phone number with the domain @relaysms.me.\n\nYou can receive replies by SMS whenever a message is sent to your alias."
     }
 
     public enum ProtocolTypes: String {
@@ -35,6 +36,7 @@ class Publisher {
         case EMAIL = "email"
         case MESSAGE = "message"
         case TEXT = "text"
+        case BRIDGE = "bridge"
     }
 
     public enum Exceptions: Error {
