@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BackButtonAndSkip: View {
+struct PreviousAndSkipButton: View {
     @Binding var pageIndex: Int
     var body: some View {
         HStack(alignment: VerticalAlignment.center) {
@@ -16,11 +16,12 @@ struct BackButtonAndSkip: View {
             } label: {
                 Image(systemName: "arrow.left")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame( width: 24.0, height: 24.0)
-                    .foregroundColor(.black).padding(.top, 12)
-            
-            }
+                    .aspectRatio(contentMode: .fit).frame( width: 20.0, height: 20.0 )
+                Text("Previous")
+            }                                .padding(12)
+                .background(Color.blue.opacity(0.1))
+                .clipShape(Capsule())
+
             Spacer()
             Button {
                 UserDefaults.standard.set(true, forKey: OnboardingView.ONBOARDING_COMPLETED)
@@ -29,7 +30,10 @@ struct BackButtonAndSkip: View {
                 Image(systemName: "arrow.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit).frame( width: 20.0, height: 20.0 )
-            }
+            }                                .padding(12)
+                .background(Color.blue.opacity(0.1))
+                .clipShape(Capsule())
+
         }.padding([.leading, .trailing], 16)
     }
 }

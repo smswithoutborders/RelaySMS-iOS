@@ -13,7 +13,7 @@ struct OnboardingFinished: View {
     var body: some View {
     
         VStack {
-            BackButtonAndSkip(pageIndex: $pageIndex)
+            PreviousAndSkipButton(pageIndex: $pageIndex)
             Spacer()
             
             VStack {
