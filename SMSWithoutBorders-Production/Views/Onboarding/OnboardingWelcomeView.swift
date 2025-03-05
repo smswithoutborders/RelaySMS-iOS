@@ -15,21 +15,9 @@ struct OnboardingWelcomeView: View {
     
     var body: some View {
         VStack {
-            Text("Welcome to RelaySMS!")
-                .font(Font.custom("unbounded", size: 18))
-                .fontWeight(.semibold)
-                .padding(.top, 30)
+            HStack {
+                Spacer()
                 
-                
-            VStack {
-                Image("1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 300, height: 300)
-                    .padding()
-                    .padding(.bottom, 20)
-
-
                 Button {
                     showLanguageChangeConfirmationAlert = true
                 } label: {
@@ -41,7 +29,7 @@ struct OnboardingWelcomeView: View {
                                 .background(Color.blue.opacity(0.1))
                                 .clipShape(Capsule())
                         }
-                            
+                        
                     } else {
                         if let languageCode = locale.languageCode,
                            let languageName = Locale.current.localizedString(forLanguageCode: languageCode) {
@@ -51,7 +39,7 @@ struct OnboardingWelcomeView: View {
                                 .clipShape(Capsule())
                         }
                     }
-                }
+                }.padding(16)
                 .alert("Change App Language", isPresented: $showLanguageChangeConfirmationAlert) {
                     Button("Cancel", role: .cancel){
                         showLanguageChangeConfirmationAlert = false
@@ -66,14 +54,26 @@ struct OnboardingWelcomeView: View {
                 } message: {
                     Text(String(localized: "Continue to iOS settings and select your preferred language for RelaySMS.", comment: "Instructions for chnaging application langueg via system settings.") )
                 }
-                .padding(.bottom, 10)
+            }
+            Text("Welcome to RelaySMS!")
+                .font(Font.custom("unbounded", size: 22))
+                .fontWeight(.semibold)
+                .padding(.top, 30)
+                
+                
+            VStack {
+                Image("1")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 300, height: 300)
+                    .padding()
+                    .padding(.bottom, 20)
 
 
                 Text(String(localized: "Use SMS to make a post, send emails and messages with no internet connection", comment: "Explains that you can use Relay to make posts, and send emails and messages without an internet conenction"))
-                    .font(Font.custom("unbounded", size: 18))
+                    .font(Font.custom("unbounded", size: 18)).fontWeight(.medium)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
                 
 
             }.padding()
@@ -86,10 +86,10 @@ struct OnboardingWelcomeView: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
+            .clipShape(Capsule())
             .padding()
 
             Button {
-                
             } label: {
                 Text("Read our privacy policy")
             }

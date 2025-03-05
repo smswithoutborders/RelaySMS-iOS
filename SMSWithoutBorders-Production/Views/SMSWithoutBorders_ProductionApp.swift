@@ -21,7 +21,7 @@ struct SMSWithoutBorders_ProductionApp: App {
 
     @State private var alreadyLoggedIn: Bool = false
     @State private var isLoggedIn: Bool = false
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -51,7 +51,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
             .onAppear {
                 Publisher.refreshPlatforms(context: dataController.container.viewContext)
-                
+
                 Task {
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                         print("Is searching for default....")
@@ -65,7 +65,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             }
         }
     }
-    
+
     func getMeOut() {
         logoutAccount(context: dataController.container.viewContext)
         do {
@@ -74,7 +74,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             print(error)
         }
     }
-    
+
     func validateLLT() {
         print("Validating LLT for continuation...")
         DispatchQueue.background(background: {
@@ -84,7 +84,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                 if llt.isEmpty{
                     return
                 }
-                
+
                 let result = try vault.validateLLT(
                     llt: llt,
                     context: dataController.container.viewContext
@@ -102,7 +102,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                 print(error)
             }
         }, completion: {
-            
+
         })
     }
 
@@ -114,7 +114,7 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
         return false
     }
-    
+
 }
 
 

@@ -12,6 +12,7 @@ struct OnboardingIntroToAccounts: View {
     
     var body: some View {
         VStack {
+            BackButtonAndSkip(pageIndex: $pageIndex)
             Spacer()
             VStack {
                 Image("3")
@@ -35,13 +36,13 @@ struct OnboardingIntroToAccounts: View {
                 Image(systemName: "arrow.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 24, height: 24)
                     .padding()
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .cornerRadius(100)
-            .padding()
+            .clipShape(.circle)
+            .padding(.bottom, 24)
         }
     }
 }

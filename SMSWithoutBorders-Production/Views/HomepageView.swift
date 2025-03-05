@@ -17,7 +17,7 @@ enum HomepageTabs {
 
 struct HomepageView: View {
     @Environment(\.managedObjectContext) var context
-    
+
     @State var selectedTab: HomepageTabs = .recents
     @State var platformRequestType: PlatformsRequestedType = .available
 
@@ -30,7 +30,7 @@ struct HomepageView: View {
     @State var createAccountSheetRequested: Bool = false
     @State var passwordRecoveryRequired: Bool = false
     @State var requestedPlatformName: String = ""
-    
+
     @State var emailIsRequested = false
     @State var textIsRequested = false
     @State var messageIsRequested = false
@@ -38,7 +38,7 @@ struct HomepageView: View {
     @State var requestedMessage: Messages?
 
     @Binding var isLoggedIn: Bool
-    
+
 //    init() {
 //        do {
 //            self.isLoggedIn = try !Vault.getLongLivedToken().isEmpty
@@ -57,14 +57,14 @@ struct HomepageView: View {
                     ) {
                         EmptyView()
                     }
-                    
+
                     NavigationLink(
                         destination: TextPlatformView(message: requestedMessage!),
                         isActive: $textIsRequested
                     ) {
                         EmptyView()
                     }
-                    
+
                     NavigationLink(
                         destination: MessagingView(
                             platformName: requestedMessage!.platformName,
@@ -75,7 +75,7 @@ struct HomepageView: View {
                         EmptyView()
                     }
                 }
-                
+
                 // Compose views
                 NavigationLink(
                     destination: EmailComposeView(
@@ -86,7 +86,7 @@ struct HomepageView: View {
                 ) {
                     EmptyView()
                 }
-                
+
                 NavigationLink(
                     destination: EmailComposeView(platformName: requestedPlatformName),
                     isActive: $composeEmailRequested
@@ -100,7 +100,7 @@ struct HomepageView: View {
                 ) {
                     EmptyView()
                 }
-                
+
                 NavigationLink(
                     destination: MessagingView(
                         platformName: requestedPlatformName
@@ -110,7 +110,7 @@ struct HomepageView: View {
                     EmptyView()
                 }
 
-                
+
                 NavigationLink(
                     destination:
                         RecoverySheetView( isRecovered: $isLoggedIn ),
@@ -118,7 +118,7 @@ struct HomepageView: View {
                 ) {
                     EmptyView()
                 }
-                
+
                 NavigationLink(
                     destination: SignupSheetView(
                         loginRequested: $loginSheetRequested,
@@ -128,7 +128,7 @@ struct HomepageView: View {
                 ) {
                     EmptyView()
                 }
-                
+
                 NavigationLink(
                     destination: LoginSheetView(
                         isLoggedIn: $isLoggedIn,
@@ -168,7 +168,7 @@ struct HomepageView: View {
                                 Text("Recents")
                             }
                         .tag(HomepageTabs.recents)
-                        
+
                         PlatformsView(
                             requestType: $platformRequestType,
                             requestedPlatformName: $requestedPlatformName,
@@ -196,9 +196,9 @@ struct HomepageView: View {
                                 Text("Get started")
                             }
                         .tag(HomepageTabs.recents)
-                        
+
                     }
-                    
+
                     InboxView(
                         requestedMessage: $requestedMessage,
                         emailIsRequested: $emailIsRequested
@@ -215,8 +215,8 @@ struct HomepageView: View {
                             Text("Countries")
                         }
                         .tag(HomepageTabs.gatewayClients)
-                
-                    
+
+
                     SettingsView(isLoggedIn: $isLoggedIn)
                         .tabItem() {
                             Image(systemName: "gear.circle.fill")
@@ -225,12 +225,12 @@ struct HomepageView: View {
                         .tag(HomepageTabs.settings)
                 }
             }
-            
+
         }
         .onChange(of: isLoggedIn) { state in
             if state {
                 Publisher.refreshPlatforms(context: context)
-                
+
                 Task {
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                         print("Is searching for default....")
@@ -262,11 +262,11 @@ struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         UserDefaults.standard.register(defaults: [
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
-        
+
         return HomepageView(isLoggedIn: $isLoggedIn)
     }
 }
@@ -280,11 +280,11 @@ struct HomepageViewInboxMessages_Previews: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         UserDefaults.standard.register(defaults: [
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
-        
+
         return HomepageView(isLoggedIn: $isLoggedIn)
         .environment(\.managedObjectContext, container.viewContext)
     }
@@ -299,11 +299,11 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         UserDefaults.standard.register(defaults: [
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
-        
+
         return HomepageView(isLoggedIn: $isLoggedIn)
     }
 }
