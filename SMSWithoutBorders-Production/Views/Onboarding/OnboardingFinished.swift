@@ -11,7 +11,9 @@ struct OnboardingFinished: View {
     @Binding var pageIndex: Int
     
     var body: some View {
+    
         VStack {
+            BackButtonAndSkip(pageIndex: $pageIndex)
             Spacer()
             
             VStack {
@@ -22,14 +24,13 @@ struct OnboardingFinished: View {
                     .padding()
                 
                 Text("You are ready to begin sending messages from RelaySMS!")
-                    .font(.title2)
+                    .font(Font.custom("unbounded", size: 18))
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
 
             }.padding()
             
-            Spacer()
+            Spacer().frame(height: 100)
             
             Button {
                 UserDefaults.standard.set(true, forKey: OnboardingView.ONBOARDING_COMPLETED)
@@ -39,8 +40,9 @@ struct OnboardingFinished: View {
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .cornerRadius(100)
-            .padding()
+            .clipShape(.capsule)
+            .padding([.leading, .trailing], 16)
+            .padding(.bottom, 24)
         }
     }
 }

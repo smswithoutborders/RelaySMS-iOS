@@ -12,9 +12,12 @@ struct OnboardingIntroToVaults: View {
     
     var body: some View {
         VStack {
+            BackButtonAndSkip(pageIndex: $pageIndex)
             Spacer()
             
             VStack {
+                Spacer()
+                
                 Image("2")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -22,29 +25,26 @@ struct OnboardingIntroToVaults: View {
                     .padding()
                 
                 Text(String(localized:"RelaySMS Vaults securely stores your online accounts, so that you can access them without an internet connection", comment: "Explains that your online platforms are stored securely"))
-                    .font(.title2)
+                    .font(Font.custom("unbounded", size: 18)).fontWeight(.medium)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
                 
-
-            }.padding()
+            }.padding([.leading, .trailing], 16)
             
             Spacer()
-
+            
             Button {
                 pageIndex += 1
             } label: {
                 Image(systemName: "arrow.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 24, height: 24)
                     .padding()
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .cornerRadius(100)
-            .padding()
+            .clipShape(.circle).padding(.bottom, 24)
         }
     }
 }
@@ -54,3 +54,5 @@ struct OnboardingIntroToVaults: View {
     @State var pageIndex = 0
     OnboardingIntroToVaults(pageIndex: $pageIndex)
 }
+
+
