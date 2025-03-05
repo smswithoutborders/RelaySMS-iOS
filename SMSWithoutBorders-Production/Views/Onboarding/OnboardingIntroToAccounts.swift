@@ -12,7 +12,7 @@ struct OnboardingIntroToAccounts: View {
     
     var body: some View {
         VStack {
-            BackButtonAndSkip(pageIndex: $pageIndex)
+            PreviousAndSkipButton(pageIndex: $pageIndex)
             Spacer()
             VStack {
                 Image("3")
@@ -22,13 +22,12 @@ struct OnboardingIntroToAccounts: View {
                     .padding()
                 
                 Text("You can add online accounts to your Vault")
-                    .font(.title2)
-                    .padding(.bottom, 30)
+                    .font(Font.custom("unbounded", size: 18)).fontWeight(.medium)
+                    .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
             }.padding()
             
-            Spacer()
+            Spacer().frame(maxHeight: 24)
 
             Button {
                 pageIndex += 1
