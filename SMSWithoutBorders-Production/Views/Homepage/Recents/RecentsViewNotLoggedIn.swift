@@ -108,12 +108,9 @@ struct SendFirstMessageView: View {
     var body: some View {
         VStack() {
             Image("5")
-            Button(
-                action: {
-                    sheetComposeNewPresented.toggle()
-                }
-            )
-            {
+            Button {
+                sheetComposeNewPresented.toggle()
+            } label: {
                 Label("Compose new message", systemImage: "pencil.circle")
             }
             .buttonStyle(.relayButton(variant: .primary))
@@ -127,8 +124,10 @@ struct SendFirstMessageView: View {
             Spacer().frame(height: 16)
             
             Text("Your phone number is your primary account!")
+                .font(.caption)
                 .multilineTextAlignment(.center)
             Text("your_phonenumber@relaysms.me")
+                .font(.caption2)
                 .foregroundStyle(Color("AccentColor"))
         }
 
@@ -146,10 +145,10 @@ struct LoginWithInternetView: View {
         VStack(spacing: 16) {
             Text("Login with internet")
                 .font(Font.custom("unbounded", size: 18))
-                .font(.headline)
                 .foregroundColor(Color("AccentColor"))
 
             Text("These features requires you to have an internet connection")
+                .font(.caption)
                 .multilineTextAlignment(.center)
         }
 
