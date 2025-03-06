@@ -33,6 +33,7 @@
 		04C2C9C82D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
 		04C2C9C92D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
 		04C2C9CA2D63B16200016F86 /* SucccessAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */; };
+		04C6BCAB2D7A086200420775 /* PreviousAndSkipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6BCAA2D7A086200420775 /* PreviousAndSkipButton.swift */; };
 		04D7903B2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903C2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
 		04D7903D2D58010000EA4859 /* static-x25519.json in Resources */ = {isa = PBXBuildFile; fileRef = 04D7903A2D58010000EA4859 /* static-x25519.json */; };
@@ -126,9 +127,6 @@
 		F60CD38B2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F60CD38C2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
-		F6B253342D77204F0084940C /* OnboardingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253332D77204B0084940C /* OnboardingBase.swift */; };
-		F6B253372D7861050084940C /* PreviousAndSkipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */; };
-		F6B253372D7861050084940C /* BackButtonAndSkip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253362D7860FD0084940C /* BackButtonAndSkip.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +161,7 @@
 		046DBD5C2D71E45400D1C43B /* unbounded.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = unbounded.ttf; sourceTree = "<group>"; };
 		04C2C9C52D636D0500016F86 /* RecentsViewLoggedIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsViewLoggedIn.swift; sourceTree = "<group>"; };
 		04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucccessAnimations.swift; sourceTree = "<group>"; };
+		04C6BCAA2D7A086200420775 /* PreviousAndSkipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAndSkipButton.swift; sourceTree = "<group>"; };
 		04D7903A2D58010000EA4859 /* static-x25519.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "static-x25519.json"; sourceTree = "<group>"; };
 		04DB690E2CE217A000E12978 /* BridgesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgesTest.swift; sourceTree = "<group>"; };
 		04DC2B0B2D71C17100676ED1 /* OnboardingIntroToAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroToAccounts.swift; sourceTree = "<group>"; };
@@ -219,9 +218,6 @@
 		3BF3D14E2C32D69D003A3AFB /* SignupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSheetView.swift; sourceTree = "<group>"; };
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
 		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
-		F6B253332D77204B0084940C /* OnboardingBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBase.swift; sourceTree = "<group>"; };
-		F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAndSkipButton.swift; sourceTree = "<group>"; };
-		F6B253362D7860FD0084940C /* BackButtonAndSkip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonAndSkip.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -500,7 +496,7 @@
 		F6B253352D7860DC0084940C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */,
+				04C6BCAA2D7A086200420775 /* PreviousAndSkipButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -696,6 +692,7 @@
 				045C1A482D6B8B6800779636 /* InboxView.swift in Sources */,
 				0469EB4B2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */,
 				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,
+				04C6BCAB2D7A086200420775 /* PreviousAndSkipButton.swift in Sources */,
 				3B7EEE652C5E8BB500611092 /* MockDataGenerator.swift in Sources */,
 				3BC978152C36C0D700AB626C /* Publisher.swift in Sources */,
 				3BEC4CF02C47FEC500F92D2A /* vault.grpc.swift in Sources */,
@@ -729,7 +726,6 @@
 				3B7EEE4E2C5BEA6000611092 /* MessageComposer.swift in Sources */,
 				04E63AA22D71A6D80017103B /* OnboardingView.swift in Sources */,
 				164EF7D12954D431007F8C76 /* MessagingView.swift in Sources */,
-				F6B253372D7861050084940C /* PreviousAndSkipButton.swift in Sources */,
 				3BF117AE2C2F6E7B003D5BB6 /* Helpers.swift in Sources */,
 				3B928A302C62FB8F00BA145F /* RecoverySheetView.swift in Sources */,
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
@@ -938,7 +934,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = Q42NLHCB95;
+				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -978,7 +974,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = Q42NLHCB95;
+				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
