@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUICore
 
 @ViewBuilder
 func getPlatformView(message: Messages, type: Publisher.ServiceTypes) -> some View {
@@ -83,43 +84,30 @@ struct SentMessages: View {
                 }
 
                 VStack {
-                    VStack {
-                        Button(action: {
-                            selectedTab = .platforms
-                            platformRequestType = .compose
-                        }, label: {
-                            Image(systemName: "square.and.pencil")
-                                .font(.system(.title))
-                                .frame(width: 57, height: 50)
-                                .foregroundColor(Color.white)
-                                .padding(.bottom, 7)
-                        })
-                        .cornerRadius(18)
-                        .shadow(color: Color.black.opacity(0.3),
 
-                                radius: 3,
-                                x: 3,
-                                y: 3)
+                    Button(action: {
+                        selectedTab = .platforms
+                        platformRequestType = .compose
+                    }, label: {
+                        Image(systemName: "square.and.pencil")
+                            .frame(maxWidth: 48, maxHeight: 48)
+                            .foregroundColor(Color.white)
+                    })
+                    .background(Color("AccentColor"))
+                    .cornerRadius(12.0)
 
-                    }
+                    Button(action: {
+                        selectedTab = .platforms
+                        platformRequestType = .available
+                    }, label: {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                            .frame(maxWidth: 48, maxHeight: 48)
+                            .foregroundColor(Color.white)
+                    })
+                    .background(Color("AccentColor"))
+                    .cornerRadius(12.0)
 
-                    VStack {
-                        Button(action: {
-                            selectedTab = .platforms
-                            platformRequestType = .available
-                        }, label: {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                                .font(.system(.title))
-                                .frame(width: 57, height: 50)
-                                .foregroundColor(Color.white)
-                                .padding(.bottom, 7)
-                        })
-                        .cornerRadius(18)
-                        .shadow(color: Color.black.opacity(0.3),
-                                radius: 3,
-                                x: 3,
-                                y: 3)
-                    }
+
                 }
                 .padding()
             }

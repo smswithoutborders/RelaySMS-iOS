@@ -246,7 +246,7 @@ struct HomepageView: View {
         }
         .onAppear {
             do {
-                isLoggedIn = try ! Vault.getLongLivedToken().isEmpty
+                isLoggedIn = try !Vault.getLongLivedToken().isEmpty
             } catch {
                 print(error)
             }
@@ -255,8 +255,8 @@ struct HomepageView: View {
 }
 
 
-// //// PREVIEWS //// //
 
+// //// PREVIEWS //// //
 struct HomepageView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
     @State static var platformType: Int?

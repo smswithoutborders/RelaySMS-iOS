@@ -92,8 +92,7 @@ struct AvailablePlatformView: View {
                     .padding()
             }
 
-            Spacer()
-
+            Spacer().frame(maxHeight: 120)
             if phoneNumberAuthenticationRequested {
                 PhoneNumberSheetView(
                     completed: $parentIsEnabled,
@@ -118,14 +117,15 @@ struct AvailablePlatformView: View {
                 } label: {
                     if platform == nil || platformRequestedType == .compose {
                         Text("Send new message")
-                            .frame(maxWidth: .infinity, maxHeight: 35)
+                            .frame(maxWidth: .infinity)
                     } else {
                         Text("Add Account")
-                            .frame(maxWidth: .infinity, maxHeight: 35)
+                            .frame(maxWidth: .infinity)
                     }
                 }
-                .buttonStyle(.bordered)
-                .padding()
+                .buttonStyle(.relayButton(variant: .primary))
+                .padding([.leading, .trailing], 16)
+                .padding([.bottom], 24)
 
                 if platform != nil && platformRequestedType == .available && parentIsEnabled {
                     Button("Remove Accounts", role: .destructive) {

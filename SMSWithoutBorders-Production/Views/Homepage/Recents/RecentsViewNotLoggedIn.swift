@@ -106,36 +106,30 @@ struct SendFirstMessageView: View {
     @Binding var composeNewSheetRequested: Bool
 
     var body: some View {
-        HStack(spacing: 16) {
-            Button(action: {
-                sheetComposeNewPresented.toggle()
-            }) {
-                VStack {
-                    Image(systemName: "pencil.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                        .padding(.bottom)
-                    Text("Compose new message")
-                        .font(.footnote)
+        VStack() {
+            Image("5")
+            Button(
+                action: {
+                    sheetComposeNewPresented.toggle()
                 }
-                .padding()
+            )
+            {
+                Label("Compose new message", systemImage: "pencil.circle")
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.relayButton(variant: .primary))
             .sheet(isPresented: $sheetComposeNewPresented) {
                 ComposeNewMessageSheetView(
                     composeNewMessageSheetRequested: $sheetComposeNewPresented,
                     parentSheetShown: $composeNewSheetRequested)
                     .applyPresentationDetentsIfAvailable()
             }
-            .padding()
-        }
-        VStack {
+            
+            Spacer().frame(height: 16)
+            
             Text("Your phone number is your primary account!")
-                .font(.caption)
                 .multilineTextAlignment(.center)
             Text("your_phonenumber@relaysms.me")
-                .font(.caption2)
+                .foregroundStyle(Color("AccentColor"))
         }
 
     }
@@ -153,25 +147,22 @@ struct LoginWithInternetView: View {
             Text("Login with internet")
                 .font(Font.custom("unbounded", size: 18))
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundColor(Color("AccentColor"))
 
             Text("These features requires you to have an internet connection")
                 .multilineTextAlignment(.center)
         }
 
-        HStack(spacing: 16) {
+        HStack(spacing: 8) {
             Button(action: {
                 sheetCreateAccountIsPresented.toggle()
             }) {
 
-                Label("Create Account", systemImage: "person.crop.circle.badge.plus")
+                Label("Sign Up", systemImage: "person.crop.circle.badge.plus")
                     .frame(maxWidth: .infinity)
 
             }
-            .buttonStyle(.bordered)
-            .clipShape(.capsule)
-            .controlSize(.large)
-            .padding(.bottom, 10)
+            .buttonStyle(.relayButton(variant: .secondary))
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
                 CreateAccountSheetView(
                     createAccountSheetRequested: $createAccountSheetRequsted,
@@ -186,9 +177,7 @@ struct LoginWithInternetView: View {
                 Label("Log in", systemImage: "person.crop.circle.badge")
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
-            .clipShape(.capsule)
-            .controlSize(.large)
+            .buttonStyle(.relayButton(variant: .secondary))
             .sheet(isPresented: $sheetLoginIsPresented) {
                 LoginAccountSheetView(
                     loginSheetRequested: $loginSheetRequested,
@@ -197,7 +186,6 @@ struct LoginWithInternetView: View {
             }
             .buttonStyle(.bordered)
         }
-        .padding()
     }
 }
 
@@ -361,18 +349,12 @@ struct NotLoggedInMessagesPresentInboxView: View {
                     composeNewRequested.toggle()
                 } label: {
                     Image(systemName: "person.crop.circle.fill.badge.plus")
-                        .font(.system(.title))
-                        .frame(width: 57, height: 50)
+                        .frame(width: 48, height: 48)
                         .foregroundColor(Color.white)
-                        .padding(.bottom, 7)
                 }
-                .background(.blue)
-                .cornerRadius(18)
-                .shadow(color: Color.black.opacity(0.3),
-                        radius: 3,
-                        x: 3,
-                        y: 3
-                )
+                .background(Color("AccentColor"))
+                .cornerRadius(12)
+        
             }
             .padding()
         }
@@ -424,23 +406,20 @@ struct NotLoggedInNoMessagesView: View {
     @Binding var createAccountSheetRequested: Bool
 
     var body: some View {
-        ScrollView {
             VStack(spacing: 10) {
+                Spacer()
                 SendFirstMessageView(
                     composeNewSheetRequested: $composeNewMessageRequested
                 )
                 Spacer()
-
                 LoginWithInternetView(
                     loginSheetRequested: $loginSheetRequested,
                     createAccountSheetRequsted: $createAccountSheetRequested
-                ).padding(.bottom)
-
+                ).padding(.bottom, 48)
 //                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
             }
             .navigationTitle("Get Started")
-            .padding()
-        }
+            .padding([.trailing, .leading], 16)
     }
 }
 
