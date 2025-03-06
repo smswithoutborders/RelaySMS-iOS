@@ -10,7 +10,7 @@ import SwiftUI
 struct InboxDecryptMessageView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
-    
+
     @State var textBody = ""
     @State var placeHolder = "Click to paste..."
 
@@ -47,7 +47,7 @@ struct InboxDecryptMessageView: View {
                         .stroke(textBody.isEmpty ? .secondary : .primary, lineWidth: 4)
                 )
             }
-            
+
             VStack {
                 Button {
                     do {
@@ -58,7 +58,7 @@ struct InboxDecryptMessageView: View {
                         print(decryptedText)
                         DispatchQueue.background(background: {
                             let date = Int(Date().timeIntervalSince1970)
-                            
+
                             var messageEntities = MessageEntity(context: context)
                             messageEntities.id = UUID()
                             messageEntities.platformName = Bridges.SERVICE_NAME
@@ -99,7 +99,7 @@ struct InboxDecryptMessageView: View {
 
 struct NoMessagesInbox: View {
     @Binding var pasteIncomingRequested: Bool
-    
+
     var body: some View {
         VStack {
             Spacer()
@@ -109,13 +109,13 @@ struct NoMessagesInbox: View {
                     .foregroundStyle(Color("SecondaryColor"))
                     .frame(width: 150, height: 120)
                     .padding(.bottom, 7)
-                
+
                 Text("No messages in inbox")
                     .foregroundStyle(Color("AccentColor"))
             }
-            
+
             Spacer()
-            
+
             VStack {
                 Button {
                     pasteIncomingRequested.toggle()
@@ -136,9 +136,9 @@ struct NoMessagesInbox: View {
 struct MessagesPresentInbox: View {
     @FetchRequest var inboxMessages: FetchedResults<MessageEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
+
     @Binding var pasteIncomingRequested: Bool
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
 
@@ -150,13 +150,13 @@ struct MessagesPresentInbox: View {
         _pasteIncomingRequested = pasteIncomingRequested
         _requestedMessage = requestedMessage
         _emailIsRequested = emailIsRequested
-        
+
         _inboxMessages = FetchRequest<MessageEntity>(
             sortDescriptors: [],
             predicate: NSPredicate(format: "type == %@", Bridges.SERVICE_NAME_INBOX)
         )
     }
-    
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack {
@@ -206,7 +206,7 @@ struct MessagesPresentInbox: View {
         }
         .navigationTitle("Inbox")
     }
-    
+
     func getImageForPlatform(name: String) -> Image {
         let image = platforms.filter { $0.name == name}.first?.image
         if image != nil {
@@ -218,9 +218,9 @@ struct MessagesPresentInbox: View {
 
 struct InboxView: View {
     @FetchRequest var inboxMessages: FetchedResults<MessageEntity>
-    
+
     @State var pasteIncomingMessage = false
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
 
@@ -232,7 +232,7 @@ struct InboxView: View {
         _requestedMessage = requestedMessage
         _emailIsRequested = emailIsRequested
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -242,7 +242,7 @@ struct InboxView: View {
                 ) {
                     EmptyView()
                 }
-                
+
                 if inboxMessages.isEmpty {
                     NoMessagesInbox(pasteIncomingRequested: $pasteIncomingMessage)
                 } else {
@@ -261,7 +261,7 @@ struct InboxView_Preview: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         @State var requestedMessage: Messages? = nil
         @State var emailIsRequested: Bool = false
 
@@ -287,7 +287,7 @@ struct MessagesPresent_Preview: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         @State var requestedMessage: Messages? = nil
         @State var emailIsRequested: Bool = false
 

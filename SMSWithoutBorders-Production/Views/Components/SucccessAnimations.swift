@@ -11,7 +11,7 @@ struct SuccessAnimations: View {
     @State var isAnimating = false
     @State var continueBtnVisible = false
     @State var rotationAngle = 0.0
-    
+
     @Binding var callbackText: String
 
     let processCallback: () throws -> Void
@@ -36,7 +36,7 @@ struct SuccessAnimations: View {
                         .rotationEffect(Angle(degrees: rotationAngle))
 
                     Text(callbackText)
-                        .font(.title)
+                        .font(Font.custom("unbounded", size: 18))
                         .padding()
                 } else {
                     Image("Logo")
@@ -56,9 +56,9 @@ struct SuccessAnimations: View {
                         .rotationEffect(Angle(degrees: rotationAngle))
                 }
             }
-            
+
             Spacer()
-            
+
             if(continueBtnVisible) {
                 Button {
                     callback()
@@ -96,5 +96,5 @@ struct SuccessAnimation_Preview: PreviewProvider {
             processCallback: {}, callback: { print("Callback happening") }
         )
     }
-    
+
 }

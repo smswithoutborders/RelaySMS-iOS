@@ -58,7 +58,7 @@ func getNoLoggedInView() -> some View {
 struct RecentsView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
+
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageEntity.date, ascending: false)])
     var messages: FetchedResults<MessageEntity>
 
@@ -70,18 +70,18 @@ struct RecentsView: View {
 
     @State var showAvailablePlatforms: Bool = false
     @State var showComposePlatforms: Bool = false
-    
+
     @State var messagePlatformViewRequested: Bool = false
     @State var emailPlatformViewRequested: Bool = false
     @State var textPlatformViewRequested: Bool = false
-    
+
     @State var messagePlatformViewPlatformName: String = ""
     @State var messagePlatformViewFromAccount: String = ""
 
     @State var loginSheetVisible: Bool = false
     @State var signupSheetVisible: Bool = false
     @State var loginFailed: Bool = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -108,11 +108,11 @@ struct RecentsView: View {
                     print("Failed to refresh local DBs: \(error)")
                 }
             }, completion: {
-                
+
             })
         }
     }
-    
+
     func getImageForPlatform(name: String) -> Image {
         for platform in platforms {
             if platform.name == name {
@@ -123,7 +123,7 @@ struct RecentsView: View {
         }
         return Image("Logo")
     }
-    
+
     @ViewBuilder func getPlatformView(message: Messages) -> some View {
         ForEach(platforms) { platform in
             if platform.name == message.platformName {
@@ -142,7 +142,7 @@ struct RecentsView: View {
             }
         }
     }
-    
+
     func refreshLocalDBs() throws {
         Publisher.getPlatforms() { result in
             switch result {
@@ -172,7 +172,7 @@ struct RecentsView: View {
         getNoLoggedInView()
         .padding()
         Spacer()
-        
+
         VStack {
             Button {
                 signupSheetVisible = true
@@ -203,7 +203,7 @@ struct RecentsView: View {
             .buttonStyle(.bordered)
             .padding(.bottom, 10)
             .controlSize(.large)
-            
+
             Button {
                 loginSheetVisible = true
             } label: {
@@ -222,12 +222,12 @@ struct RecentsView: View {
         .padding()
         Spacer()
     }
-    
+
     @ViewBuilder
     func noSentMessages() -> some View {
         getNoRecentsView()
                 .padding()
-        
+
         VStack {
             Button {
                 showComposePlatforms = true
@@ -239,7 +239,7 @@ struct RecentsView: View {
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .padding(.bottom, 10)
-            
+
             Button {
                 showAvailablePlatforms = true
             } label: {
@@ -249,7 +249,7 @@ struct RecentsView: View {
             }
             .buttonStyle(.bordered)
             .controlSize(.large)
-            
+
         }
         .padding()
         .background(

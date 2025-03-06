@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftUICore
 
 @ViewBuilder
 func getPlatformView(message: Messages, type: Publisher.ServiceTypes) -> some View {
-    switch(type){
+    switch (type) {
     case .EMAIL:
         EmailPlatformView(message: message)
     case .TEXT:
@@ -29,20 +30,20 @@ struct SentMessages: View {
         keyPath: \MessageEntity.date,
         ascending: false)]
     ) var messages: FetchedResults<MessageEntity>
-    
+
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
-    
+
+
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
     @Binding var textIsRequested: Bool
     @Binding var messageIsRequested: Bool
-    
 
-    var body : some View {
+
+    var body: some View {
         VStack {
             ZStack(alignment: .bottomTrailing) {
                 VStack {
@@ -54,87 +55,81 @@ struct SentMessages: View {
                             messageBody: message.body!,
                             date: Int(message.date)
                         )
-                        .onTapGesture {
-                            requestedMessage = Messages(
-                                subject: message.subject!,
-                                data: message.body!,
-                                fromAccount: message.fromAccount!,
-                                toAccount: message.toAccount!,
-                                platformName: message.platformName!,
-                                date: Int(message.date)
-                            )
-                            switch getServiceTypeForPlatform(name: message.platformName!) {
-                            case Publisher.ServiceTypes.EMAIL.rawValue:
-                                emailIsRequested = true
-                                break
-                            case Publisher.ServiceTypes.TEXT.rawValue:
-                                textIsRequested = true
-                                break
-                            case Publisher.ServiceTypes.MESSAGE.rawValue:
-                                messageIsRequested = true
-                                break
-                            default:
-                                print("No acceptable type")
-                                break
+                            .onTapGesture {
+                                requestedMessage = Messages(
+                                    subject: message.subject!,
+                                    data: message.body!,
+                                    fromAccount: message.fromAccount!,
+                                    toAccount: message.toAccount!,
+                                    platformName: message.platformName!,
+                                    date: Int(message.date)
+                                )
+                                switch getServiceTypeForPlatform(name: message.platformName!) {
+                                case Publisher.ServiceTypes.EMAIL.rawValue:
+                                    emailIsRequested = true
+                                    break
+                                case Publisher.ServiceTypes.TEXT.rawValue:
+                                    textIsRequested = true
+                                    break
+                                case Publisher.ServiceTypes.MESSAGE.rawValue:
+                                    messageIsRequested = true
+                                    break
+                                default:
+                                    print("No acceptable type")
+                                    break
+                                }
                             }
-                        }
-                        
+
                     }
                 }
-                
+
                 VStack {
-                    VStack {
-                        Button(action: {
-                            selectedTab = .platforms
-                            platformRequestType = .compose
-                        }, label: {
-                            Image(systemName: "square.and.pencil")
-                                .font(.system(.title))
-                                .frame(width: 57, height: 50)
-                                .foregroundColor(Color.white)
-                                .padding(.bottom, 7)
-                        })
-                        .cornerRadius(18)
-                        .shadow(color: Color.black.opacity(0.3),
-    
-                                radius: 3,
-                                x: 3,
-                                y: 3)
-    
-                    }
-    
-                    VStack {
-                        Button(action: {
-                            selectedTab = .platforms
-                            platformRequestType = .available
-                        }, label: {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                                .font(.system(.title))
-                                .frame(width: 57, height: 50)
-                                .foregroundColor(Color.white)
-                                .padding(.bottom, 7)
-                        })
-                        .cornerRadius(18)
-                        .shadow(color: Color.black.opacity(0.3),
-                                radius: 3,
-                                x: 3,
-                                y: 3)
-                    }
+
+                    Button(action: {
+                        selectedTab = .platforms
+                        platformRequestType = .compose
+                    }, label: {
+                        Image(systemName: "square.and.pencil")
+                            .frame(maxWidth: 48, maxHeight: 48)
+                            .foregroundColor(Color.white)
+                    })
+                    .background(Color("AccentColor"))
+                    .cornerRadius(12.0)
+
+                    Button(action: {
+                        selectedTab = .platforms
+                        platformRequestType = .available
+                    }, label: {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                            .frame(maxWidth: 48, maxHeight: 48)
+                            .foregroundColor(Color.white)
+                    })
+                    .background(Color("AccentColor"))
+                    .cornerRadius(12.0)
+
+
                 }
                 .padding()
             }
-            
+
         }
     }
-    
+
     func getServiceTypeForPlatform(name: String) -> String {
-        return platforms.filter { $0.name == name }.first?.service_type ?? ""
+        return platforms.filter {
+            $0.name == name
+        }
+        .first?.service_type ?? ""
     }
+
 //    
     func getImageForPlatform(name: String) -> Image {
-        let image = platforms.filter { $0.name == name}.first?.image
+        let image = platforms.filter {
+            $0.name == name
+        }
+        .first?.image
         if image != nil {
-            return Image( uiImage: UIImage(data: image!)!)
+            return Image(uiImage: UIImage(data: image!)!)
         }
         return Image("Logo")
     }
@@ -144,19 +139,20 @@ struct SentMessages: View {
 struct NoSentMessages: View {
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
-    
+
     @Binding var requestedPlatformName: String
     @Binding var composeNewMessageRequested: Bool
     @Binding var composeTextRequested: Bool
     @Binding var composeMessageRequested: Bool
     @Binding var composeEmailRequested: Bool
-    
+
     @State var platformIsRequested = false
 
     var body: some View {
         VStack {
             Spacer()
-            
+            Spacer()
+
             VStack {
                 Image("5")
                     .resizable()
@@ -164,24 +160,22 @@ struct NoSentMessages: View {
                     .frame(width: 200, height: 200)
                     .padding(.bottom, 20)
                 Text("Send your first message...")
-                    .font(.title2)
+                    .font(Font.custom("unbounded", size: 18))
             }
-            
+
             Spacer()
 
-            VStack {
+            VStack(spacing: 16) {
                 Button {
 //                    selectedTab = .platforms
                     platformRequestType = .compose
                     platformIsRequested.toggle()
                 } label: {
                     Text("Send new message")
-                        .bold()
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .padding(.bottom, 10)
+                .buttonStyle(.relayButton(variant: .primary))
+
                 .sheet(isPresented: $platformIsRequested) {
                     PlatformsView(
                         requestType: $platformRequestType,
@@ -194,7 +188,7 @@ struct NoSentMessages: View {
                         platformIsRequested.toggle()
                     }
                 }
-                
+
                 Button {
                     selectedTab = .platforms
                     platformRequestType = .available
@@ -203,10 +197,8 @@ struct NoSentMessages: View {
                         .bold()
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .foregroundStyle(.secondary)
-                
+                .buttonStyle(.relayButton(variant: .secondary))
+
             }
             .padding()
             .padding(.bottom, 32)
@@ -218,15 +210,15 @@ struct RecentsViewLoggedIn: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
-    
+
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
     @Binding var textIsRequested: Bool
     @Binding var messageIsRequested: Bool
-    
+
     @Binding var composeNewMessageRequested: Bool
     @Binding var composeTextRequested: Bool
     @Binding var composeMessageRequested: Bool
@@ -245,8 +237,7 @@ struct RecentsViewLoggedIn: View {
                         textIsRequested: $textIsRequested,
                         messageIsRequested: $messageIsRequested
                     )
-                }
-                else {
+                } else {
                     NoSentMessages(
                         selectedTab: $selectedTab,
                         platformRequestType: $platformRequestType,
@@ -299,11 +290,11 @@ struct SentMessages_Preview: PreviewProvider {
     static var previews: some View {
         @State var selectedTab: HomepageTabs = .recents
         @State var platformRequestType: PlatformsRequestedType = .available
-        
+
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
-        
+
+
         @State var requestedMessage: Messages? = nil
         @State var emailIsRequested: Bool = false
         @State var textIsRequested: Bool = false

@@ -123,6 +123,9 @@
 		3BF3D1552C32E7E1003A3AFB /* OTPSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */; };
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
 		3BF3D1652C349977003A3AFB /* gRPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF1179E2C2B6727003D5BB6 /* gRPCHandler.swift */; };
+		F60CD38B2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
+		F60CD38C2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
+		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F6B253342D77204F0084940C /* OnboardingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253332D77204B0084940C /* OnboardingBase.swift */; };
 		F6B253372D7861050084940C /* PreviousAndSkipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
@@ -214,6 +217,7 @@
 		3BF117AD2C2F6E7B003D5BB6 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		3BF3D14E2C32D69D003A3AFB /* SignupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSheetView.swift; sourceTree = "<group>"; };
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
+		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
 		F6B253332D77204B0084940C /* OnboardingBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBase.swift; sourceTree = "<group>"; };
 		F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAndSkipButton.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 		0469EB492D3EEAA2003A2B4F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F60CD38A2D79958000E020F5 /* RelayButton.swift */,
 				0469EB4A2D3EEAC6003A2B4F /* ThreadsComponents.swift */,
 				0469EB522D40EC72003A2B4F /* Extensions.swift */,
 				04C2C9C72D63B16200016F86 /* SucccessAnimations.swift */,
@@ -682,6 +687,7 @@
 				04E63A972D6F32A70017103B /* relay_publisher.proto in Sources */,
 				04E63A982D6F32A70017103B /* relay_publisher.grpc.swift in Sources */,
 				04E63A992D6F32A70017103B /* relay_publisher.pb.swift in Sources */,
+				F60CD38B2D79958400E020F5 /* RelayButton.swift in Sources */,
 				041BB4E92D4B3D4A0072A097 /* SecurityHandler.swift in Sources */,
 				16B43B202915CDDC004AEF1F /* TextComposeView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
@@ -750,6 +756,7 @@
 				04C2C9C92D63B16200016F86 /* SucccessAnimations.swift in Sources */,
 				3BCBA3C92C5153CF00736B9B /* Datastore.xcdatamodeld in Sources */,
 				0439A49D2C7677A1000B8D30 /* SMSComposeMessageUIView.swift in Sources */,
+				F60CD38C2D79958400E020F5 /* RelayButton.swift in Sources */,
 				16F0E69428C6308800FDD12C /* SMSWithoutBorders_ProductionTests.swift in Sources */,
 				3BCBA3A22C49611100736B9B /* PlatformsTest.swift in Sources */,
 				04E63A9A2D6F32A70017103B /* relay_publisher.proto in Sources */,
@@ -776,6 +783,7 @@
 				0469EB4D2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */,
 				045696542D551FCF00A2C369 /* gRPCHandler.swift in Sources */,
 				04C2C9C82D63B16200016F86 /* SucccessAnimations.swift in Sources */,
+				F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */,
 				0469EB532D40EC72003A2B4F /* Extensions.swift in Sources */,
 				3BEC4CF62C47FEC500F92D2A /* vault.grpc.swift in Sources */,
 				3BEC4CF72C47FEC500F92D2A /* vault.pb.swift in Sources */,
@@ -926,10 +934,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -948,6 +957,7 @@
 				MARKETING_VERSION = 0.0.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afkanerd.smswithoutborders.relaysms;
 				PRODUCT_NAME = SMSWithoutBorders;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -964,10 +974,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -986,6 +997,7 @@
 				MARKETING_VERSION = 0.0.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afkanerd.smswithoutborders.relaysms;
 				PRODUCT_NAME = SMSWithoutBorders;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -10,21 +10,21 @@ import SwiftUI
 struct ComposeNewMessageSheetView: View {
     @Binding var composeNewMessageSheetRequested: Bool
     @Binding var parentSheetShown: Bool
-    
+
     var body: some View {
         VStack {
             Image(systemName: "person.crop.circle.badge.plus")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 75, height: 75)
-            
+
             Text("This is a brief summary of what happens")
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 .padding()
-            
+
             Text("This is precise information for what happens")
-            
+
             Button(action: {
                 parentSheetShown.toggle()
                 composeNewMessageSheetRequested.toggle()
@@ -41,31 +41,33 @@ struct ComposeNewMessageSheetView: View {
 struct CreateAccountSheetView: View {
     @Binding var createAccountSheetRequested: Bool
     @Binding var parentSheetShown: Bool
-    
+
     var body: some View {
         VStack {
             Image(systemName: "person.crop.circle.badge.plus")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 75, height: 75)
-            
+
             Text("This is a brief summary of what happens")
-                .font(.title2)
+                .font(Font.custom("unbounded", size: 18))
                 .multilineTextAlignment(.center)
                 .padding()
-            
+
             Text("This is precise information for what happens")
-            
+            Spacer().frame(height: 32)
             Button(action: {
                 parentSheetShown.toggle()
                 createAccountSheetRequested.toggle()
             }) {
-                Text("Continue")
+                Text("Continue").frame(maxWidth: .infinity)
             }
-            .buttonStyle(.bordered)
-            .tint(.primary)
-            .padding()
+            .buttonStyle(.borderedProminent)
+            .clipShape(.capsule)
+            .controlSize(.large)
+            .padding(.bottom, 10)
         }
+        .padding([.leading, .trailing], 16)
     }
 }
 
@@ -79,14 +81,14 @@ struct LoginAccountSheetView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 75, height: 75)
-            
+
             Text("This is a brief summary of what happens")
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 .padding()
-            
+
             Text("This is precise information for what happens")
-            
+
             Button(action: {
                 parentSheetShown.toggle()
                 loginSheetRequested.toggle()
@@ -104,42 +106,36 @@ struct SendFirstMessageView: View {
     @Binding var composeNewSheetRequested: Bool
 
     var body: some View {
-        HStack(spacing: 50) {
-            Button(action: {
-                sheetComposeNewPresented.toggle()
-            }) {
-                VStack {
-                    Image(systemName: "pencil.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                        .padding(.bottom)
-                    Text("Compose new message")
-                        .font(.footnote)
+        VStack() {
+            Image("5")
+            Button(
+                action: {
+                    sheetComposeNewPresented.toggle()
                 }
-                .padding()
+            )
+            {
+                Label("Compose new message", systemImage: "pencil.circle")
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.relayButton(variant: .primary))
             .sheet(isPresented: $sheetComposeNewPresented) {
                 ComposeNewMessageSheetView(
                     composeNewMessageSheetRequested: $sheetComposeNewPresented,
                     parentSheetShown: $composeNewSheetRequested)
-                .applyPresentationDetentsIfAvailable()
+                    .applyPresentationDetentsIfAvailable()
             }
-            .padding()
-        }
-        VStack {
+            
+            Spacer().frame(height: 16)
+            
             Text("Your phone number is your primary account!")
-                .font(.caption)
                 .multilineTextAlignment(.center)
             Text("your_phonenumber@relaysms.me")
-                .font(.caption2)
+                .foregroundStyle(Color("AccentColor"))
         }
 
     }
 }
 
-struct LoginWithInternetView : View {
+struct LoginWithInternetView: View {
     @State private var sheetCreateAccountIsPresented: Bool = false
     @State private var sheetLoginIsPresented: Bool = false
     @State private var isLoggedIn: Bool = false
@@ -147,26 +143,26 @@ struct LoginWithInternetView : View {
     @Binding var createAccountSheetRequsted: Bool
 
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             Text("Login with internet")
+                .font(Font.custom("unbounded", size: 18))
                 .font(.headline)
+                .foregroundColor(Color("AccentColor"))
+
             Text("These features requires you to have an internet connection")
-                .font(.caption2)
                 .multilineTextAlignment(.center)
         }
-        HStack(spacing: 50) {
+
+        HStack(spacing: 8) {
             Button(action: {
                 sheetCreateAccountIsPresented.toggle()
             }) {
-                VStack {
-                    Image(systemName: "person.crop.circle.badge.plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                    Text("Create Account")
-                        .font(.caption)
-                }
+
+                Label("Sign Up", systemImage: "person.crop.circle.badge.plus")
+                    .frame(maxWidth: .infinity)
+
             }
+            .buttonStyle(.relayButton(variant: .secondary))
             .sheet(isPresented: $sheetCreateAccountIsPresented) {
                 CreateAccountSheetView(
                     createAccountSheetRequested: $createAccountSheetRequsted,
@@ -174,19 +170,14 @@ struct LoginWithInternetView : View {
                     .applyPresentationDetentsIfAvailable()
             }
             .buttonStyle(.bordered)
-            
+
             Button(action: {
                 sheetLoginIsPresented.toggle()
             }) {
-                VStack {
-                    Image(systemName: "person.crop.circle.badge")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
-                    Text("Log in")
-                        .font(.caption)
-                }
+                Label("Log in", systemImage: "person.crop.circle.badge")
+                    .frame(maxWidth: .infinity)
             }
+            .buttonStyle(.relayButton(variant: .secondary))
             .sheet(isPresented: $sheetLoginIsPresented) {
                 LoginAccountSheetView(
                     loginSheetRequested: $loginSheetRequested,
@@ -195,7 +186,6 @@ struct LoginWithInternetView : View {
             }
             .buttonStyle(.bordered)
         }
-        .padding()
     }
 }
 
@@ -226,7 +216,7 @@ struct WalkthroughViews: View {
                             .font(.caption2)
                     }
                     .padding()
-                    
+
                     Image(systemName: "info.circle")
                         .offset(x: 55, y: -70)
                 }
@@ -250,7 +240,7 @@ struct WalkthroughViews: View {
                             .font(.caption2)
                     }
                     .padding()
-                    
+
                     Image(systemName: "info.circle")
                         .offset(x: 55, y: -70)
                 }
@@ -276,7 +266,7 @@ struct WalkthroughViews: View {
                             .font(.caption2)
                     }
                     .padding()
-                    
+
                     Image(systemName: "info.circle")
                         .offset(x: 120, y: -60)
                 }
@@ -293,16 +283,16 @@ struct WalkthroughViews: View {
 struct NotLoggedInMessagesPresentInboxView: View {
     @FetchRequest var inboxMessages: FetchedResults<MessageEntity>
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
-    
+
     @State var composeNewRequested = false
-    
+
     @Binding var composeNewMessageRequested: Bool
     @Binding var loginSheetRequested: Bool
     @Binding var createAccountSheetRequested: Bool
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
-    
+
     init(
         composeNewMessageRequested: Binding<Bool>,
         loginSheetRequested: Binding<Bool>,
@@ -319,7 +309,7 @@ struct NotLoggedInMessagesPresentInboxView: View {
             ],
             predicate: NSPredicate(format: "type != %@", Bridges.SERVICE_NAME_INBOX)
         )
-        
+
         _composeNewMessageRequested = composeNewMessageRequested
         _loginSheetRequested = loginSheetRequested
         _createAccountSheetRequested = createAccountSheetRequested
@@ -338,20 +328,20 @@ struct NotLoggedInMessagesPresentInboxView: View {
                         messageBody: message.body!,
                         date: Int(message.date)
                     )
-                    .onTapGesture {
-                        requestedMessage = Messages(
-                            subject: message.subject!,
-                            data: message.body!,
-                            fromAccount: message.fromAccount!,
-                            toAccount: message.toAccount!,
-                            platformName: message.platformName!,
-                            date: Int(message.date)
-                        )
-                        if message.type == Bridges.SERVICE_NAME_INBOX ||
-                            message.type == Bridges.SERVICE_NAME {
-                            emailIsRequested.toggle()
+                        .onTapGesture {
+                            requestedMessage = Messages(
+                                subject: message.subject!,
+                                data: message.body!,
+                                fromAccount: message.fromAccount!,
+                                toAccount: message.toAccount!,
+                                platformName: message.platformName!,
+                                date: Int(message.date)
+                            )
+                            if message.type == Bridges.SERVICE_NAME_INBOX ||
+                                   message.type == Bridges.SERVICE_NAME {
+                                emailIsRequested.toggle()
+                            }
                         }
-                    }
                 }
             }
             VStack {
@@ -359,18 +349,12 @@ struct NotLoggedInMessagesPresentInboxView: View {
                     composeNewRequested.toggle()
                 } label: {
                     Image(systemName: "person.crop.circle.fill.badge.plus")
-                        .font(.system(.title))
-                        .frame(width: 57, height: 50)
+                        .frame(width: 48, height: 48)
                         .foregroundColor(Color.white)
-                        .padding(.bottom, 7)
                 }
-                .background(.blue)
-                .cornerRadius(18)
-                 .shadow(color: Color.black.opacity(0.3),
-                         radius: 3,
-                         x: 3,
-                         y: 3
-                 )
+                .background(Color("AccentColor"))
+                .cornerRadius(12)
+        
             }
             .padding()
         }
@@ -393,7 +377,7 @@ struct NotLoggedInMessagesPresentInboxView: View {
             VStack(alignment: .center) {
                 Text("Get Started")
                     .font(.headline)
-                
+
                 NotLoggedInNoMessagesView(
                     composeNewMessageRequested: $composeNewMessageRequested,
                     loginSheetRequested: $loginSheetRequested,
@@ -403,11 +387,14 @@ struct NotLoggedInMessagesPresentInboxView: View {
             .padding()
         }
     }
-    
+
     func getImageForPlatform(name: String) -> Image {
-        let image = platforms.filter { $0.name == name}.first?.image
+        let image = platforms.filter {
+            $0.name == name
+        }
+        .first?.image
         if image != nil {
-            return Image( uiImage: UIImage(data: image!)!)
+            return Image(uiImage: UIImage(data: image!)!)
         }
         return Image("Logo")
     }
@@ -417,41 +404,36 @@ struct NotLoggedInNoMessagesView: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var loginSheetRequested: Bool
     @Binding var createAccountSheetRequested: Bool
-    
-    var body : some View {
-        ScrollView {
+
+    var body: some View {
             VStack(spacing: 10) {
+                Spacer()
                 SendFirstMessageView(
                     composeNewSheetRequested: $composeNewMessageRequested
                 )
-
-                Divider()
-                    .padding(.bottom, 16)
-                
+                Spacer()
                 LoginWithInternetView(
                     loginSheetRequested: $loginSheetRequested,
                     createAccountSheetRequsted: $createAccountSheetRequested
-                ).padding(.bottom)
-
+                ).padding(.bottom, 48)
 //                    WalkthroughViews(sheetCreateAccountIsPresented: $walkthroughViewsShown)
             }
             .navigationTitle("Get Started")
-            .padding()
-        }
+            .padding([.trailing, .leading], 16)
     }
 }
 
 
 struct RecentsViewNotLoggedIn: View {
     @FetchRequest(sortDescriptors: []) var messages: FetchedResults<MessageEntity>
-    
+
     @State var walkthroughViewsShown: Bool = false
-    
+
     @Binding var isLoggedIn: Bool
     @Binding var composeNewMessageRequested: Bool
-    @Binding var createAccountSheetRequested: Bool 
+    @Binding var createAccountSheetRequested: Bool
     @Binding var loginSheetRequested: Bool
-    
+
     @Binding var requestedMessage: Messages?
     @Binding var emailIsRequested: Bool
 
@@ -466,7 +448,7 @@ struct RecentsViewNotLoggedIn: View {
                         requestedMessage: $requestedMessage,
                         emailIsRequested: $emailIsRequested
                     )
-                    .navigationTitle("Recents")
+                        .navigationTitle("Recents")
                 } else {
                     NotLoggedInNoMessagesView(
                         composeNewMessageRequested: $composeNewMessageRequested,
@@ -504,13 +486,13 @@ struct RecentsViewNotLoggedInMessage_Preview: PreviewProvider {
         @State var composeNewMessageRequested = false
         @State var createAccountSheetRequested = false
         @State var loginSheetRequested = false
-        
+
         @State var requestedMessage: Messages? = nil
         @State var emailIsRequested = false
 
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         return RecentsViewNotLoggedIn(
             isLoggedIn: $isLoggedIn,
             composeNewMessageRequested: $composeNewMessageRequested,
@@ -519,7 +501,7 @@ struct RecentsViewNotLoggedInMessage_Preview: PreviewProvider {
             requestedMessage: $requestedMessage,
             emailIsRequested: $emailIsRequested
         )
-        .environment(\.managedObjectContext, container.viewContext)
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }
 
