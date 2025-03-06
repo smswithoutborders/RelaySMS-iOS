@@ -89,6 +89,7 @@ struct SecuritySettingsView: View {
             } catch {
                 print("Error deleting: \(error)")
             }
+            deleteProcessing = false
         }, completion: {
             DispatchQueue.main.async {
                 logoutAccount(context: viewContext)

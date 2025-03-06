@@ -62,29 +62,27 @@ struct SignupSheetView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
 
-    @State private var country: Country? = Country(isoCode: "CM")
+    @State var country: Country? = Country(isoCode: "CM")
     #if DEBUG
-        @State private var phoneNumber = "1123457528"
-        @State private var password: String = "dMd2Kmo9#"
-        @State private var rePassword: String = "dMd2Kmo9#"
-        @State private var selectedCountryCodeText: String? = "CM"
+        @State var phoneNumber = "1123457528"
+        @State var password: String = "dMd2Kmo9#"
+        @State var rePassword: String = "dMd2Kmo9#"
+        @State var selectedCountryCodeText: String? = "CM"
     #else
-        @State private var phoneNumber: String {
-            return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
-        }
-        @State private var password: String = ""
-        @State private var rePassword: String = ""
-        @State private var selectedCountryCodeText: String? = "Select country"
+        @State var phoneNumber: String = ""
+        @State var password: String = ""
+        @State var rePassword: String = ""
+        @State var selectedCountryCodeText: String? = "Select country"
     #endif
 
     
-    @State private var countryCode: String = Country(isoCode: "CM").isoCode
-    @State private var showCountryPicker = false
-    @State private var isLoading = false
-    @State private var otpRequired = false
-    @State private var failed: Bool = false
-    @State private var acceptTermsConditions: Bool = false
-    @State private var passwordsNotMatch: Bool = false
+    @State var countryCode: String = Country(isoCode: "CM").isoCode
+    @State var showCountryPicker = false
+    @State var isLoading = false
+    @State var otpRequired = false
+    @State var failed: Bool = false
+    @State var acceptTermsConditions: Bool = false
+    @State var passwordsNotMatch: Bool = false
     @State var completedSuccessfully: Bool = false
     @State var otpRetryTimer: Int = 0
     @State var errorMessage: String = ""

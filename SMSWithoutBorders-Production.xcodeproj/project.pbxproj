@@ -128,6 +128,7 @@
 		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F6B253342D77204F0084940C /* OnboardingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253332D77204B0084940C /* OnboardingBase.swift */; };
 		F6B253372D7861050084940C /* PreviousAndSkipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */; };
+		F6B253372D7861050084940C /* BackButtonAndSkip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B253362D7860FD0084940C /* BackButtonAndSkip.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -220,6 +221,7 @@
 		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
 		F6B253332D77204B0084940C /* OnboardingBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingBase.swift; sourceTree = "<group>"; };
 		F6B253362D7860FD0084940C /* PreviousAndSkipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAndSkipButton.swift; sourceTree = "<group>"; };
+		F6B253362D7860FD0084940C /* BackButtonAndSkip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonAndSkip.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -443,7 +445,6 @@
 			isa = PBXGroup;
 			children = (
 				F6B253352D7860DC0084940C /* Components */,
-				F6B253332D77204B0084940C /* OnboardingBase.swift */,
 				3BAB09612C1B21F700664E90 /* OnboardingWelcomeView.swift */,
 				3BAB09632C1B454B00664E90 /* OnboardingIntroToVaults.swift */,
 				04DC2B0B2D71C17100676ED1 /* OnboardingIntroToAccounts.swift */,
@@ -734,7 +735,6 @@
 				16F0E68328C6308600FDD12C /* SMSWithoutBorders_ProductionApp.swift in Sources */,
 				16EDE38928D3511700E50393 /* DataController.swift in Sources */,
 				0469EB552D40EC72003A2B4F /* Extensions.swift in Sources */,
-				F6B253342D77204F0084940C /* OnboardingBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,7 +936,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
 				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
@@ -954,7 +954,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.11;
+				MARKETING_VERSION = 0.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afkanerd.smswithoutborders.relaysms;
 				PRODUCT_NAME = SMSWithoutBorders;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -976,7 +976,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
 				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
@@ -994,7 +994,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.11;
+				MARKETING_VERSION = 0.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afkanerd.smswithoutborders.relaysms;
 				PRODUCT_NAME = SMSWithoutBorders;
 				PROVISIONING_PROFILE_SPECIFIER = "";
