@@ -113,7 +113,7 @@ struct HomepageView: View {
 
                 NavigationLink(
                     destination:
-                        RecoverySheetView( isRecovered: $isLoggedIn ),
+                    RecoverySheetView(isRecovered: $isLoggedIn),
                     isActive: $passwordRecoveryRequired
                 ) {
                     EmptyView()
@@ -148,8 +148,8 @@ struct HomepageView: View {
                         }
                         selectedTab = $0
                     }
-                )){
-                    if(isLoggedIn) {
+                )) {
+                    if (isLoggedIn) {
                         RecentsViewLoggedIn(
                             selectedTab: $selectedTab,
                             platformRequestType: $platformRequestType,
@@ -165,8 +165,8 @@ struct HomepageView: View {
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")
-                                Text("Recents")
-                            }
+                            Text("Recents")
+                        }
                         .tag(HomepageTabs.recents)
 
                         PlatformsView(
@@ -180,7 +180,8 @@ struct HomepageView: View {
                         .tabItem() {
                             Image(systemName: "apps.iphone")
                             Text("Platforms")
-                        }.tag(HomepageTabs.platforms)
+                        }
+                        .tag(HomepageTabs.platforms)
 
                     } else {
                         RecentsViewNotLoggedIn(
@@ -193,8 +194,8 @@ struct HomepageView: View {
                         )
                         .tabItem() {
                             Image(systemName: "house.circle.fill")
-                                Text("Get started")
-                            }
+                            Text("Get started")
+                        }
                         .tag(HomepageTabs.recents)
 
                     }
@@ -210,19 +211,19 @@ struct HomepageView: View {
                     .tag(HomepageTabs.inbox)
 
                     GatewayClientsView()
-                        .tabItem() {
-                            Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
-                            Text("Countries")
-                        }
-                        .tag(HomepageTabs.gatewayClients)
+                    .tabItem() {
+                        Image(systemName: "antenna.radiowaves.left.and.right.circle.fill")
+                        Text("Countries")
+                    }
+                    .tag(HomepageTabs.gatewayClients)
 
 
                     SettingsView(isLoggedIn: $isLoggedIn)
-                        .tabItem() {
-                            Image(systemName: "gear.circle.fill")
-                            Text("Settings")
-                        }
-                        .tag(HomepageTabs.settings)
+                    .tabItem() {
+                        Image(systemName: "gear.circle.fill")
+                        Text("Settings")
+                    }
+                    .tag(HomepageTabs.settings)
                 }
             }
 
@@ -232,7 +233,7 @@ struct HomepageView: View {
                 Publisher.refreshPlatforms(context: context)
 
                 Task {
-                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                    if (ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                         print("Is searching for default....")
                         do {
                             try await GatewayClients.refresh(context: context)
@@ -245,13 +246,16 @@ struct HomepageView: View {
         }
         .onAppear {
             do {
-                isLoggedIn = try !Vault.getLongLivedToken().isEmpty
+                isLoggedIn = try ! Vault.getLongLivedToken().isEmpty
             } catch {
                 print(error)
             }
         }
     }
 }
+
+
+// //// PREVIEWS //// //
 
 struct HomepageView_Previews: PreviewProvider {
     @State static var platform: PlatformsEntity?
@@ -286,7 +290,7 @@ struct HomepageViewInboxMessages_Previews: PreviewProvider {
         ])
 
         return HomepageView(isLoggedIn: $isLoggedIn)
-        .environment(\.managedObjectContext, container.viewContext)
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }
 

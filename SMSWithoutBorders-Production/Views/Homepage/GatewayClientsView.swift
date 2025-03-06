@@ -18,14 +18,14 @@ struct GatewayClientView: View {
                     .font(.headline)
                     .padding(.bottom, 5)
                     .foregroundColor(disabled ? .secondary : .primary )
-                
+
                 HStack {
                     Text(selectedGatewayClient.operatorName! + " -")
                     Text(selectedGatewayClient.operatorCode!)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
-                
+
                 Text(selectedGatewayClient.country!)
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -36,19 +36,19 @@ struct GatewayClientView: View {
 }
 
 struct GatewayClientsView: View {
-    
+
     @Environment(\.managedObjectContext) var context
     @FetchRequest(sortDescriptors: [NSSortDescriptor(
         key: "msisdn",
         ascending: true)]
     ) var gatewayClients: FetchedResults<GatewayClientsEntity>
-    
+
     @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
     private var defaultGatewayClientMsisdn: String = ""
-    
+
     @State var selectedGatewayClient: String = ""
     @State var changeDefaultGatewayClient: Bool = false
-    
+
     @State var defaultGatewayClient: GatewayClientsEntity?
 
     var body: some View {
@@ -96,7 +96,7 @@ struct GatewayClientsView: View {
             }
         }
     }
-    
+
     func getDefaultGatewayClient() -> GatewayClientsEntity? {
         return gatewayClients.filter { $0.msisdn == defaultGatewayClientMsisdn }.first
     }
@@ -106,7 +106,7 @@ struct GatewayClientsView_Previoew: PreviewProvider {
     static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         UserDefaults.standard.register(defaults: [
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])

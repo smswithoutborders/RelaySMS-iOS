@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SavingRevokingNewPlatformView: View {
     var name: String
-    
+
     @Binding var isSaving: Bool
     @Binding var isRevoking: Bool
 
@@ -62,7 +62,7 @@ struct AvailablePlatformView: View {
     @Binding var composeViewRequested: Bool
     @Binding var loading: Bool
     @Binding var codeVerifier: String
-    
+
     var platform: PlatformsEntity?
     var callback: (() -> Void)?
     var description: String
@@ -71,7 +71,7 @@ struct AvailablePlatformView: View {
     var body: some View {
         VStack(alignment:.center) {
             Spacer()
-            
+
             (platform != nil && platform!.image != nil ?
              Image(uiImage: UIImage(data: platform!.image!)!) : Image("Logo")
             )
@@ -79,7 +79,7 @@ struct AvailablePlatformView: View {
                 .scaledToFit()
                 .frame(width: 75, height: 75)
                 .padding()
-            
+
             if platformRequestedType == .compose {
                 Text(composeDescription)
                     .multilineTextAlignment(.center)
@@ -91,9 +91,9 @@ struct AvailablePlatformView: View {
                     .font(.body)
                     .padding()
             }
-            
+
             Spacer()
-            
+
             if phoneNumberAuthenticationRequested {
                 PhoneNumberSheetView(
                     completed: $parentIsEnabled,
@@ -126,7 +126,7 @@ struct AvailablePlatformView: View {
                 }
                 .buttonStyle(.bordered)
                 .padding()
-                
+
                 if platform != nil && platformRequestedType == .available && parentIsEnabled {
                     Button("Remove Accounts", role: .destructive) {
                         accountSheetRequested = true
@@ -135,10 +135,10 @@ struct AvailablePlatformView: View {
             }
         }
     }
-    
+
     private func triggerPlatformRequest(platform: PlatformsEntity) {
         let backgroundQueueu = DispatchQueue(label: "addingNewPlatformQueue", qos: .background)
-        
+
         switch platform.protocol_type {
         case Publisher.ProtocolTypes.OAUTH2.rawValue:
             loading = true
@@ -193,7 +193,7 @@ struct PlatformSheetView: View {
     @Binding var platformRequestedType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
     @Binding var refreshParent: Bool
-    
+
     var callback: (() -> Void)?
 
     init(
@@ -210,7 +210,7 @@ struct PlatformSheetView: View {
         self.description = description
         self.composeDescription = composeDescription
         self.platform = platform
-        
+
         _parentIsEnabled = isEnabled
         _composeNewMessageRequested = composeNewMessageRequested
         _platformRequestedType = platformRequestedType
@@ -218,7 +218,7 @@ struct PlatformSheetView: View {
         _refreshParent = refreshParent
         self.callback = callback
     }
-    
+
     var body: some View {
         VStack {
             if (isRevoking || loading) && platform != nil {
@@ -240,7 +240,7 @@ struct PlatformSheetView: View {
                     Button("Revoke", role: .destructive) {
                         isRevoking = true
 //                        accountSheetRequested = false
-                        
+
                         let backgroundQueueu = DispatchQueue(label: "revokeAccountQueue", qos: .background)
                         backgroundQueueu.async {
                             do {
@@ -326,13 +326,13 @@ struct PlatformSheetView: View {
             )
         }
     }
-    
-    
+
+
 }
 
 struct PlatformCard: View {
     @Environment(\.managedObjectContext) var context
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(
             key: "name",
@@ -342,7 +342,7 @@ struct PlatformCard: View {
 
     @State var sheetIsPresented: Bool = false
     @State var isEnabled: Bool = false
-    
+
     @Binding var composeNewMessageRequested: Bool
     @Binding var platformRequestType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
@@ -351,7 +351,7 @@ struct PlatformCard: View {
 
     let platform: PlatformsEntity?
     let serviceType: Publisher.ServiceTypes
-    
+
     var callback: (() -> Void)?
 
     var body: some View {
@@ -414,7 +414,7 @@ struct PlatformCard: View {
             isEnabled = platform != nil ? isStored(platformEntity: platform!) : true
         }
     }
-    
+
     func getServiceTypeDescriptions(serviceType: Publisher.ServiceTypes) -> String {
         switch(serviceType) {
         case .EMAIL:
@@ -427,7 +427,7 @@ struct PlatformCard: View {
             return Publisher.ServiceTypeDescriptions.BRIDGE.rawValue
         }
     }
-    
+
     func getServiceTypeComposeDescriptions(serviceType: Publisher.ServiceTypes) -> String {
         switch(serviceType) {
         case .EMAIL:
@@ -440,11 +440,11 @@ struct PlatformCard: View {
             return Publisher.ServiceComposeTypeDescriptions.BRIDGE.rawValue
         }
     }
-    
+
     func isStored(platformEntity: PlatformsEntity) -> Bool {
         return storedPlatforms.contains(where: { $0.name == platformEntity.name })
     }
-    
+
 
 }
 
@@ -456,16 +456,16 @@ enum PlatformsRequestedType: CaseIterable {
 
 struct PlatformsView: View {
     @Environment(\.managedObjectContext) var context
-    
+
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(
             key: "name",
             ascending: true,
             selector: #selector(NSString.localizedStandardCompare))]
     ) var platforms: FetchedResults<PlatformsEntity>
-    
+
     @FetchRequest(sortDescriptors: []) var storedPlatforms: FetchedResults<StoredPlatformsEntity>
-    
+
     @State private var id = UUID()
     @State private var refreshRequested = false
 
@@ -475,14 +475,14 @@ struct PlatformsView: View {
     @Binding var composeTextRequested: Bool
     @Binding var composeMessageRequested: Bool
     @Binding var composeEmailRequested: Bool
-    
+
     var callback: (() -> Void)?
 
     let columns = [
         GridItem(.flexible(minimum: 40), spacing: 10),
         GridItem(.flexible(minimum: 40), spacing: 10),
     ]
-    
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -491,7 +491,7 @@ struct PlatformsView: View {
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 10)
-                    
+
                     PlatformCard(
                         isEnabled: true,
                         composeNewMessageRequested: $composeNewMessageRequested,
@@ -510,7 +510,7 @@ struct PlatformsView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.bottom, 10)
                     }
-                    
+
                     if platforms.isEmpty {
                         Text("No online platforms saved yet...")
                     } else {
@@ -547,7 +547,7 @@ struct PlatformsView: View {
                             }
                         }
                     }
-                    
+
                 }
                 .id(id)
                 .onChange(of: refreshRequested) { refresh in
@@ -555,7 +555,7 @@ struct PlatformsView: View {
                         id = UUID()
                     }
                 }
-                
+
                 VStack(alignment: .center) {
                     Button {
                         requestType = requestType == .compose ? .available : .compose
@@ -576,10 +576,10 @@ struct PlatformsView: View {
             print("Number of platforms: \(platforms.count)")
         }
     }
-    
+
     func filterForStoredPlatforms() -> [PlatformsEntity] {
         var _storedPlatforms: Set<PlatformsEntity> = []
-        
+
         for platform in platforms {
             if storedPlatforms.contains(where: { $0.name == platform.name }) {
                 _storedPlatforms.insert(platform)
@@ -587,7 +587,7 @@ struct PlatformsView: View {
         }
         return Array(_storedPlatforms)
     }
-    
+
     func getBindingComposeVariable(type: String) -> Binding<Bool> {
         @State var defaultNil : Bool? = false
         switch(type) {
@@ -601,7 +601,7 @@ struct PlatformsView: View {
             return $composeEmailRequested
         }
     }
-    
+
     func getRequestTypeText(type: PlatformsRequestedType) -> String {
         switch(type) {
         case .compose:
@@ -612,8 +612,8 @@ struct PlatformsView: View {
             return "Available Platforms"
         }
     }
-    
-    
+
+
     func getServiceType(type: String) -> Publisher.ServiceTypes {
         switch(type) {
         case Publisher.ServiceTypes.EMAIL.rawValue:
@@ -627,18 +627,18 @@ struct PlatformsView: View {
             return Publisher.ServiceTypes.BRIDGE
         }
     }
-    
-    
+
+
 }
 struct Platforms_Preview: PreviewProvider {
     static var previews: some View {
-        
+
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
-        
+
         @State var requestedFromAccount: String? = "example@gmail.com"
         @State var requestedPlatformName: String = "gmail"
-        
+
         @State var platformRequestType: PlatformsRequestedType = .available
         @State var composeNewMessage: Bool = false
         @State var composeTextRequested: Bool = false
@@ -658,10 +658,10 @@ struct Platforms_Preview: PreviewProvider {
 
 //struct PlatformsCompose_Preview: PreviewProvider {
 //    static var previews: some View {
-//        
+//
 //        let container = createInMemoryPersistentContainer()
 //        populateMockData(container: container)
-//        
+//
 //        @State var requestedPlatformName: String = "gmail"
 //        @State var platformRequestType: PlatformsRequestedType = .compose
 //        @State var composeNewMessage: Bool = false
@@ -684,7 +684,7 @@ struct Platforms_Preview: PreviewProvider {
 #Preview {
     var description: String = String(localized:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book", comment: "Explains some history about lorem Impsum")
     var composeDescription: String = String(localized:"[Compose] Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book", comment: "Explains some history about Lorem Ipsum")
-    
+
     @State var saveRequested = false
     @State var codeVerifier: String = ""
     @State var isEnabled: Bool = false
@@ -727,7 +727,7 @@ struct Platforms_Preview: PreviewProvider {
     @State var composeViewRequested: Bool = false
     @State var loading: Bool = false
     @State var codeVerifier: String = ""
-    
+
     AvailablePlatformView(
         platformRequestedType: $platformRequestedType,
         phoneNumberAuthenticationRequested: $phoneNumberAuthenticationRequested,
