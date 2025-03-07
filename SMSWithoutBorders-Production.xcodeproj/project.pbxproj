@@ -128,6 +128,7 @@
 		F60CD38C2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
+		F6FD28A42D7B05BD00DA1178 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FD28A32D7B05B900DA1178 /* AppColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
 		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
+		F6FD28A32D7B05B900DA1178 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -505,6 +507,7 @@
 		F6FD28A22D7B052300DA1178 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F6FD28A32D7B05B900DA1178 /* AppColors.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				0430A2222D5554D100830BF4 /* Bridges.swift in Sources */,
 				F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */,
 				3B928A3C2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
+				F6FD28A42D7B05BD00DA1178 /* AppColors.swift in Sources */,
 				1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */,
 				04DC2B0C2D71C17100676ED1 /* OnboardingIntroToAccounts.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
