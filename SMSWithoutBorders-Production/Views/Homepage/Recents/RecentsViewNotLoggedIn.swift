@@ -50,7 +50,7 @@ struct CreateAccountSheetView: View {
                 .frame(width: 75, height: 75)
 
             Text("This is a brief summary of what happens")
-                .font(Font.custom("unbounded", size: 18))
+                .font(RelayTypography.titleLarge)
                 .multilineTextAlignment(.center)
                 .padding()
 
@@ -144,7 +144,7 @@ struct LoginWithInternetView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text("Login with internet")
-                .font(Font.custom("unbounded", size: 18))
+                .font(RelayTypography.titleLarge)
                 .foregroundColor(Color("AccentColor"))
 
             Text("These features requires you to have an internet connection")

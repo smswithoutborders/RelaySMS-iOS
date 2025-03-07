@@ -129,6 +129,7 @@
 		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
 		F6FD28A42D7B05BD00DA1178 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FD28A32D7B05B900DA1178 /* AppColors.swift */; };
+		F6FD28A62D7B0F5F00DA1178 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +222,7 @@
 		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
 		F6FD28A32D7B05B900DA1178 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,7 +343,6 @@
 		16F0E68128C6308600FDD12C /* SMSWithoutBorders-Production */ = {
 			isa = PBXGroup;
 			children = (
-				F6FD28A22D7B052300DA1178 /* Core */,
 				04DC2B4B2D71E07200676ED1 /* Fonts */,
 				042DAE2D2D38430300F0D370 /* Handlers */,
 				3B928A3A2C6692B400BA145F /* PlatformViews */,
@@ -394,6 +395,7 @@
 		16F0E6AC28C6320F00FDD12C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F6FD28A72D7B489A00DA1178 /* Theme */,
 				04E63A932D6E85530017103B /* Platform */,
 				0469EB492D3EEAA2003A2B4F /* Components */,
 				3BDADADC2C538D6B00539E57 /* Homepage */,
@@ -504,12 +506,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		F6FD28A22D7B052300DA1178 /* Core */ = {
+		F6FD28A72D7B489A00DA1178 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */,
 				F6FD28A32D7B05B900DA1178 /* AppColors.swift */,
 			);
-			path = Core;
+			path = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -700,6 +703,7 @@
 				16B43B202915CDDC004AEF1F /* TextComposeView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
 				3B7EEE682C5E99ED00611092 /* PhoneNumberSheetView.swift in Sources */,
+				F6FD28A62D7B0F5F00DA1178 /* AppTypography.swift in Sources */,
 				045C1A482D6B8B6800779636 /* InboxView.swift in Sources */,
 				0469EB4B2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */,
 				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,

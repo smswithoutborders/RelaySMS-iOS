@@ -56,8 +56,7 @@ struct OnboardingWelcomeView: View {
                 }
             }
             Text("Welcome to RelaySMS!")
-                .font(Font.custom("unbounded", size: 22))
-                .fontWeight(.semibold)
+                .font(RelayTypography.headlineSmall)
                 .padding(.top, 30)
                 
                 
@@ -71,7 +70,7 @@ struct OnboardingWelcomeView: View {
 
 
                 Text(String(localized: "Use SMS to make a post, send emails and messages with no internet connection", comment: "Explains that you can use Relay to make posts, and send emails and messages without an internet conenction"))
-                    .font(Font.custom("unbounded", size: 18)).fontWeight(.medium)
+                    .font(RelayTypography.titleLarge)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
                 
