@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TextPlatformView: View {
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
     @State var message: Messages
     
     @Binding var textComposeRequested: Bool
@@ -48,7 +50,8 @@ struct TextPlatformView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        Messages.deleteMessage(context: context, message: message)
+                        dismiss()
                     } label: {
                         Image(systemName: "trash.circle")
                     }
@@ -64,6 +67,7 @@ struct TextPlatformView_Preview: PreviewProvider {
         @State var requestedPlatformName: String = "twitter"
 
         @State var message = Messages(
+            id: UUID(),
             subject: "Hello world",
             data: "The scroll view displays its content within the scrollable content region. As the user performs platform-appropriate scroll gestures, the scroll view adjusts what portion of the underlying content is visible. ScrollView can scroll horizontally, vertically, or both, but does not provide zooming functionality.",
             fromAccount: "@afkanerd",

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct EmailPlatformView: View {
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.dismiss) var dismiss
+    
     @State var message: Messages
     
     @Binding var composeNewMessageRequested: Bool
@@ -63,7 +66,8 @@ struct EmailPlatformView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        Messages.deleteMessage(context: context, message: message)
+                        dismiss()
                     } label: {
                         Image(systemName: "trash.circle")
                     }
@@ -80,6 +84,7 @@ struct EmailPlatformView_Preview: PreviewProvider {
         @State var requestedPlatformName: String = ""
 
         @State var message = Messages(
+            id: UUID(),
             subject: "Hello world",
             data: "Hello world",
             fromAccount: "fromAccount@gmail.com",

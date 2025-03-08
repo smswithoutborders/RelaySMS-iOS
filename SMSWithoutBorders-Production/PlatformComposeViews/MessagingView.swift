@@ -354,6 +354,7 @@ struct MessageView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         let message = Messages(
+            id: UUID(),
             subject: "Subject",
             data: "Hello world",
             fromAccount: "+137123456781",

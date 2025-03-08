@@ -170,6 +170,7 @@ struct MessagesPresentInbox: View {
                     )
                     .onTapGesture {
                         requestedMessage = Messages(
+                            id: message.id!,
                             subject: message.subject!,
                             data: message.body!,
                             fromAccount: message.fromAccount!,

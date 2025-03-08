@@ -351,6 +351,7 @@ struct EmailComposeView: View {
 struct EmailView_Preview: PreviewProvider {
     static var previews: some View {
         @State var message: Messages? = Messages(
+            id: UUID(),
             subject: "Test subject",
             data: "Test body",
             fromAccount: "from@test.com",

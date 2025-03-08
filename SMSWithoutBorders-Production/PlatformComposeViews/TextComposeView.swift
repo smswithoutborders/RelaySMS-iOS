@@ -180,6 +180,7 @@ struct TextView_Preview: PreviewProvider {
         populateMockData(container: container)
         
         @State var message: Messages? = Messages(
+            id: UUID(),
             subject: "Hello world",
             data: "The scroll view displays its content within the scrollable content region. As the user performs platform-appropriate scroll gestures, the scroll view adjusts what portion of the underlying content is visible. ScrollView can scroll horizontally, vertically, or both, but does not provide zooming functionality.",
             fromAccount: "@afkanerd",
