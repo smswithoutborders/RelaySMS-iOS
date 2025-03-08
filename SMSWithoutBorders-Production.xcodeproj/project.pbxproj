@@ -950,7 +950,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = Q42NLHCB95;
+				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -990,7 +990,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = Q42NLHCB95;
+				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";

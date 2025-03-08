@@ -33,7 +33,8 @@ struct SentMessages: View {
 
     @FetchRequest(sortDescriptors: []) var platforms: FetchedResults<PlatformsEntity>
 
-
+    @State var platformIsRequested = false
+    
     @Binding var selectedTab: HomepageTabs
     @Binding var platformRequestType: PlatformsRequestedType
 
@@ -41,6 +42,12 @@ struct SentMessages: View {
     @Binding var emailIsRequested: Bool
     @Binding var textIsRequested: Bool
     @Binding var messageIsRequested: Bool
+    
+    @Binding var requestedPlatformName: String
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var composeTextRequested: Bool
+    @Binding var composeMessageRequested: Bool
+    @Binding var composeEmailRequested: Bool
 
 
     var body: some View {
@@ -76,6 +83,7 @@ struct SentMessages: View {
                                     break
                                 default:
                                     print("No acceptable type")
+                                    emailIsRequested = true
                                     break
                                 }
                             }
@@ -86,13 +94,25 @@ struct SentMessages: View {
                 VStack {
 
                     Button(action: {
-                        selectedTab = .platforms
                         platformRequestType = .compose
+                        platformIsRequested.toggle()
                     }, label: {
                         Image(systemName: "square.and.pencil")
                             .frame(maxWidth: 48, maxHeight: 48)
                             .foregroundColor(Color.white)
                     })
+                    .sheet(isPresented: $platformIsRequested) {
+                        PlatformsView(
+                            requestType: $platformRequestType,
+                            requestedPlatformName: $requestedPlatformName,
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            composeTextRequested: $composeTextRequested,
+                            composeMessageRequested: $composeMessageRequested,
+                            composeEmailRequested: $composeEmailRequested
+                        ) {
+                            platformIsRequested.toggle()
+                        }
+                    }
                     .background(Color("AccentColor"))
                     .cornerRadius(12.0)
 
@@ -106,8 +126,6 @@ struct SentMessages: View {
                     })
                     .background(Color("AccentColor"))
                     .cornerRadius(12.0)
-
-
                 }
                 .padding()
             }
@@ -119,7 +137,7 @@ struct SentMessages: View {
         return platforms.filter {
             $0.name == name
         }
-        .first?.service_type ?? ""
+        .first?.service_type ?? Bridges.SERVICE_NAME
     }
 
 //    
@@ -175,7 +193,6 @@ struct NoSentMessages: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.relayButton(variant: .primary))
-
                 .sheet(isPresented: $platformIsRequested) {
                     PlatformsView(
                         requestType: $platformRequestType,
@@ -235,7 +252,12 @@ struct RecentsViewLoggedIn: View {
                         requestedMessage: $requestedMessage,
                         emailIsRequested: $emailIsRequested,
                         textIsRequested: $textIsRequested,
-                        messageIsRequested: $messageIsRequested
+                        messageIsRequested: $messageIsRequested,
+                        requestedPlatformName: $requestedPlatformName,
+                        composeNewMessageRequested: $composeNewMessageRequested,
+                        composeTextRequested: $composeTextRequested,
+                        composeMessageRequested: $composeMessageRequested,
+                        composeEmailRequested: $composeEmailRequested
                     )
                 } else {
                     NoSentMessages(
@@ -299,6 +321,8 @@ struct SentMessages_Preview: PreviewProvider {
         @State var emailIsRequested: Bool = false
         @State var textIsRequested: Bool = false
         @State var messageIsRequested: Bool = false
+        @State var requestedPlatformName = "gmail"
+        @State var composeNewMessagesIsRequested: Bool = false
 
         return SentMessages(
             selectedTab: $selectedTab,
@@ -306,7 +330,12 @@ struct SentMessages_Preview: PreviewProvider {
             requestedMessage: $requestedMessage,
             emailIsRequested: $emailIsRequested,
             textIsRequested: $textIsRequested,
-            messageIsRequested: $messageIsRequested
+            messageIsRequested: $messageIsRequested,
+            requestedPlatformName: $requestedPlatformName,
+            composeNewMessageRequested: $composeNewMessagesIsRequested,
+            composeTextRequested: $textIsRequested,
+            composeMessageRequested: $messageIsRequested,
+            composeEmailRequested: $emailIsRequested
         ).environment(\.managedObjectContext, container.viewContext)
     }
 }

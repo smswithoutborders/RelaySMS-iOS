@@ -301,6 +301,21 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
     @State static var isLoggedIn: Bool = true
 
     static var previews: some View {
+        UserDefaults.standard.register(defaults: [
+            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+        ])
+
+        return HomepageView(isLoggedIn: $isLoggedIn)
+    }
+}
+
+struct HomepageViewLoggedInMessages_Previews: PreviewProvider {
+    @State static var platform: PlatformsEntity?
+    @State static var platformType: Int?
+    @State static var codeVerifier: String = ""
+    @State static var isLoggedIn: Bool = true
+
+    static var previews: some View {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
 
@@ -309,5 +324,6 @@ struct HomepageViewLoggedIn_Previews: PreviewProvider {
         ])
 
         return HomepageView(isLoggedIn: $isLoggedIn)
+            .environment(\.managedObjectContext, container.viewContext)
     }
 }
