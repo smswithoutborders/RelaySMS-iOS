@@ -128,6 +128,8 @@
 		F60CD38C2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F60CD38D2D79958400E020F5 /* RelayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60CD38A2D79958000E020F5 /* RelayButton.swift */; };
 		F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */; };
+		F6FD28A42D7B05BD00DA1178 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FD28A32D7B05B900DA1178 /* AppColors.swift */; };
+		F6FD28A62D7B0F5F00DA1178 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +221,8 @@
 		3BF3D1542C32E7E1003A3AFB /* OTPSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPSheetView.swift; sourceTree = "<group>"; };
 		F60CD38A2D79958000E020F5 /* RelayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayButton.swift; sourceTree = "<group>"; };
 		F6B339352D725E3A00004674 /* LanguagePreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePreferencesManager.swift; sourceTree = "<group>"; };
+		F6FD28A32D7B05B900DA1178 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +395,7 @@
 		16F0E6AC28C6320F00FDD12C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F6FD28A72D7B489A00DA1178 /* Theme */,
 				04E63A932D6E85530017103B /* Platform */,
 				0469EB492D3EEAA2003A2B4F /* Components */,
 				3BDADADC2C538D6B00539E57 /* Homepage */,
@@ -499,6 +504,15 @@
 				04C6BCAA2D7A086200420775 /* PreviousAndSkipButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		F6FD28A72D7B489A00DA1178 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				F6FD28A52D7B0F5700DA1178 /* AppTypography.swift */,
+				F6FD28A32D7B05B900DA1178 /* AppColors.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -689,6 +703,7 @@
 				16B43B202915CDDC004AEF1F /* TextComposeView.swift in Sources */,
 				3BAB09622C1B21F700664E90 /* OnboardingWelcomeView.swift in Sources */,
 				3B7EEE682C5E99ED00611092 /* PhoneNumberSheetView.swift in Sources */,
+				F6FD28A62D7B0F5F00DA1178 /* AppTypography.swift in Sources */,
 				045C1A482D6B8B6800779636 /* InboxView.swift in Sources */,
 				0469EB4B2D3EEAC6003A2B4F /* ThreadsComponents.swift in Sources */,
 				3BDADAE02C538E2D00539E57 /* SettingsView.swift in Sources */,
@@ -711,6 +726,7 @@
 				0430A2222D5554D100830BF4 /* Bridges.swift in Sources */,
 				F6B339362D725E3A00004674 /* LanguagePreferencesManager.swift in Sources */,
 				3B928A3C2C6692CF00BA145F /* EmailPlatformView.swift in Sources */,
+				F6FD28A42D7B05BD00DA1178 /* AppColors.swift in Sources */,
 				1697672628E483F60021BFC5 /* OperatorHandlers.swift in Sources */,
 				04DC2B0C2D71C17100676ED1 /* OnboardingIntroToAccounts.swift in Sources */,
 				3BF1179F2C2B6727003D5BB6 /* gRPCHandler.swift in Sources */,
@@ -934,7 +950,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -974,7 +990,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"SMSWithoutBorders-Production/Preview Content\"";
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = Q42NLHCB95;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMSWithoutBorders-Production/Info.plist";
@@ -1010,7 +1026,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
@@ -1033,7 +1049,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
@@ -1055,7 +1071,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
@@ -1077,7 +1093,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7J8Q6GLPGN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;

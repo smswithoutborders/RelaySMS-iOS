@@ -22,7 +22,7 @@ struct OnboardingIntroToAccounts: View {
                     .padding()
                 
                 Text("You can add online accounts to your Vault")
-                    .font(Font.custom("unbounded", size: 18)).fontWeight(.medium)
+                    .font(RelayTypography.headlineSmall)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
             }.padding()

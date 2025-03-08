@@ -160,7 +160,7 @@ struct NoSentMessages: View {
                     .frame(width: 200, height: 200)
                     .padding(.bottom, 20)
                 Text("Send your first message...")
-                    .font(Font.custom("unbounded", size: 18))
+                    .font(RelayTypography.titleLarge)
             }
 
             Spacer()

@@ -19,7 +19,7 @@ struct AccountView: View {
                     .frame(width: 50, height: 50)
                 VStack {
                     Text(accountName)
-                        .font(.headline)
+                        .font(RelayTypography.bodyMedium)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(1)
 //                    Text(platformName)

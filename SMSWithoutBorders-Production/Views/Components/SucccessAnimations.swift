@@ -36,7 +36,7 @@ struct SuccessAnimations: View {
                         .rotationEffect(Angle(degrees: rotationAngle))
 
                     Text(callbackText)
-                        .font(Font.custom("unbounded", size: 18))
+                        .font(RelayTypography.titleLarge)
                         .padding()
                 } else {
                     Image("Logo")

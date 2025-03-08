@@ -24,13 +24,12 @@ extension RelayButton {
     func makeBody(configuration: Configuration) -> some View {
 
       switch variant {
-
       case .primary:
         configuration.label
             .font(.body)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color("AccentColor"))
+            .background(RelayColors.colorScheme.primary)
             .foregroundColor(Color.white)
             .clipShape(.capsule)
 
@@ -39,8 +38,8 @@ extension RelayButton {
             .frame(maxWidth: .infinity)
             .padding()
             .clipShape(.capsule).background(
-              Color("AccentColor").opacity(0.15))
-            .foregroundStyle(Color("AccentColor"))
+                RelayColors.colorScheme.primaryContainer)
+            .foregroundStyle(RelayColors.colorScheme.primary)
             .clipShape(.capsule)
 
       case .outline:
@@ -50,7 +49,7 @@ extension RelayButton {
             .clipShape(.capsule)
             .background(Color.clear)
       case .text:
-        configuration.label
+          configuration.label.foregroundStyle(RelayColors.colorScheme.primary)
       }
 
     }

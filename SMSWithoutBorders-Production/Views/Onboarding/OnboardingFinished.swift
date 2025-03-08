@@ -9,29 +9,30 @@ import SwiftUI
 
 struct OnboardingFinished: View {
     @Binding var pageIndex: Int
-    
+
     var body: some View {
-    
+
         VStack {
             PreviousAndSkipButton(pageIndex: $pageIndex)
             Spacer()
-            
+
             VStack {
                 Image("4")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 300, height: 300)
                     .padding()
-                
+
                 Text("You are ready to begin sending messages from RelaySMS!")
-                    .font(Font.custom("unbounded", size: 18))
+                    .font(RelayTypography.headlineSmall)
                     .padding(.bottom, 30)
                     .multilineTextAlignment(.center)
 
-            }.padding()
-            
+            }
+            .padding()
+
             Spacer().frame(height: 100)
-            
+
             Button {
                 UserDefaults.standard.set(true, forKey: OnboardingView.ONBOARDING_COMPLETED)
             } label: {
