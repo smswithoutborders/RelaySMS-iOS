@@ -10,14 +10,14 @@ import SwiftUI
 struct EmailPlatformView: View {
     @State var message: Messages
     
+    @Binding var composeNewMessageRequested: Bool
+    @Binding var emailComposeRequested: Bool
+    @Binding var requestedPlatformName: String
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
-                    Text(message.subject)
-                        .font(.title)
-                        .padding()
-
                     HStack {
                         Image(systemName: "person.circle")
                             .resizable()
@@ -47,13 +47,38 @@ struct EmailPlatformView: View {
                 Spacer()
                 
             }
+            .navigationTitle(message.subject)
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        requestedPlatformName = message.platformName
+                        if message.platformName == Bridges.SERVICE_NAME {
+                            composeNewMessageRequested.toggle()
+                        } else {
+                            emailComposeRequested = true
+                        }
+                    } label: {
+                        Image(systemName: "pencil.circle")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "trash.circle")
+                    }
+                }
+            })
         }
-        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 
 struct EmailPlatformView_Preview: PreviewProvider {
     static var previews: some View {
+        @State var composeNewMessageRequested: Bool = false
+        @State var emailComposeRequested: Bool = false
+        @State var requestedPlatformName: String = ""
+
         @State var message = Messages(
             subject: "Hello world",
             data: "Hello world",
@@ -61,6 +86,11 @@ struct EmailPlatformView_Preview: PreviewProvider {
             toAccount: "toAccount@gmail.com",
             platformName: "gmail",
             date: Int(Date().timeIntervalSince1970))
-        EmailPlatformView(message: message)
+        EmailPlatformView(
+            message: message,
+            composeNewMessageRequested: $composeNewMessageRequested,
+            emailComposeRequested: $emailComposeRequested,
+            requestedPlatformName: $requestedPlatformName
+        )
     }
 }

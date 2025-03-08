@@ -52,14 +52,23 @@ struct HomepageView: View {
             VStack {
                 if requestedMessage != nil {
                     NavigationLink(
-                        destination: EmailPlatformView(message: requestedMessage!),
+                        destination: EmailPlatformView(
+                            message: requestedMessage!,
+                            composeNewMessageRequested: $composeNewMessageRequested,
+                            emailComposeRequested: $composeEmailRequested,
+                            requestedPlatformName: $requestedPlatformName
+                        ),
                         isActive: $emailIsRequested
                     ) {
                         EmptyView()
                     }
 
                     NavigationLink(
-                        destination: TextPlatformView(message: requestedMessage!),
+                        destination: TextPlatformView(
+                            message: requestedMessage!,
+                            textComposeRequested: $composeTextRequested,
+                            requestPlatformName: $requestedPlatformName
+                        ),
                         isActive: $textIsRequested
                     ) {
                         EmptyView()
@@ -79,8 +88,9 @@ struct HomepageView: View {
                 // Compose views
                 NavigationLink(
                     destination: EmailComposeView(
-                        platformName: Bridges.SERVICE_NAME,
-                        isBridge: true
+                        platformName: $requestedPlatformName,
+                        isBridge: true,
+                        message: $requestedMessage
                     ),
                     isActive: $composeNewMessageRequested
                 ) {
@@ -88,14 +98,20 @@ struct HomepageView: View {
                 }
 
                 NavigationLink(
-                    destination: EmailComposeView(platformName: requestedPlatformName),
+                    destination: EmailComposeView(
+                        platformName: $requestedPlatformName,
+                        message: $requestedMessage
+                    ),
                     isActive: $composeEmailRequested
                 ) {
                     EmptyView()
                 }
 
                 NavigationLink(
-                    destination: TextComposeView(platformName: requestedPlatformName),
+                    destination: TextComposeView(
+                        platformName: $requestedPlatformName,
+                        message: $requestedMessage
+                    ),
                     isActive: $composeTextRequested
                 ) {
                     EmptyView()

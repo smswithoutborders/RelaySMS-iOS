@@ -9,15 +9,13 @@ import SwiftUI
 
 struct TextPlatformView: View {
     @State var message: Messages
+    
+    @Binding var textComposeRequested: Bool
+    @Binding var requestPlatformName: String
 
     var body: some View {
         NavigationView {
             VStack {
-                Text(message.platformName)
-                    .font(.title)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
                 HStack {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -25,8 +23,6 @@ struct TextPlatformView: View {
                         .padding()
                     
                     HStack {
-                        Text(message.fromAccount)
-                            .bold()
                         Text(Date(timeIntervalSince1970: TimeInterval(message.date)), formatter: RelativeDateTimeFormatter())
                             .font(.caption)
                     }
@@ -40,20 +36,44 @@ struct TextPlatformView: View {
 
                 Spacer()
             }
+            .navigationTitle(message.fromAccount)
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        requestPlatformName = message.platformName
+                        textComposeRequested = true
+                    } label: {
+                        Image(systemName: "pencil.circle")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "trash.circle")
+                    }
+                }
+            })
         }
-        .navigationBarTitle(Text(""), displayMode: .inline)
     }
 }
 
 struct TextPlatformView_Preview: PreviewProvider {
     static var previews: some View {
+        @State var textComposeRequested: Bool = false
+        @State var requestedPlatformName: String = "twitter"
+
         @State var message = Messages(
             subject: "Hello world",
             data: "The scroll view displays its content within the scrollable content region. As the user performs platform-appropriate scroll gestures, the scroll view adjusts what portion of the underlying content is visible. ScrollView can scroll horizontally, vertically, or both, but does not provide zooming functionality.",
-            fromAccount: "fromAccount@gmail.com",
+            fromAccount: "@afkanerd",
             toAccount: "toAccount@gmail.com",
             platformName: "twitter",
             date: Int(Date().timeIntervalSince1970))
-        TextPlatformView(message: message)
+        TextPlatformView(
+            message: message,
+            textComposeRequested: $textComposeRequested,
+            requestPlatformName: $requestedPlatformName
+        )
     }
 }

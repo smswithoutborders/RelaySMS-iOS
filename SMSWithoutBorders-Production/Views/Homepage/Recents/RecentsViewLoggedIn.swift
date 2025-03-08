@@ -8,23 +8,6 @@
 import SwiftUI
 import SwiftUICore
 
-@ViewBuilder
-func getPlatformView(message: Messages, type: Publisher.ServiceTypes) -> some View {
-    switch (type) {
-    case .EMAIL:
-        EmailPlatformView(message: message)
-    case .TEXT:
-        TextPlatformView(message: message)
-    case .MESSAGE:
-        MessagingView(
-            platformName: message.platformName,
-            message: message
-        )
-    default:
-        EmptyView()
-    }
-}
-
 struct SentMessages: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(
         keyPath: \MessageEntity.date,

@@ -129,34 +129,32 @@ struct EmailComposeView: View {
     @State var fromAccount: String = ""
     
     @State var dismissRequested = false
-
-    private var platformName: String
+    
     private var isBridge: Bool = false
+    
+    @Binding var message: Messages?
+    @Binding var platformName: String
 
-    #if DEBUG
-        @State var composeTo: String = "developers@smswithoutborders.com"
-        @State var composeCC: String = ""
-        @State var composeBCC: String = ""
-        @State var composeSubject: String = "Development at Afkanerd"
-        @State var composeBody: String = "Hello world,\nThis is a message from SMSWithoutBorders"
-    #else
-        @State var composeTo: String = ""
-        @State var composeCC: String = ""
-        @State var composeBCC: String = ""
-        @State var composeSubject: String = ""
-        @State var composeBody: String = ""
-    #endif
+    @State var composeTo: String = ""
+    @State var composeCC: String = ""
+    @State var composeBCC: String = ""
+    @State var composeSubject: String = ""
+    @State var composeBody: String = ""
 
-    init(platformName: String, isBridge: Bool = false) {
+    init(
+        platformName: Binding<String>,
+        isBridge: Bool = false,
+        message: Binding<Messages?>
+    ) {
         print("Requested platform name: \(platformName)")
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
             sortDescriptors: [],
-            predicate: NSPredicate(format: "name == %@", platformName))
-        
-        self.platformName = platformName
+            predicate: NSPredicate(format: "name == %@", platformName.wrappedValue))
+        _message = message
+
+        _platformName = platformName
         self.isBridge = isBridge
     }
-    
     
     var body: some View {
         NavigationView {
@@ -180,6 +178,15 @@ struct EmailComposeView: View {
                     dismissParent: $dismissRequested
                 ) {
                     requestToChooseAccount.toggle()
+                    if self.message != nil {
+                        composeTo = self.message!.toAccount
+                        composeCC = self.message!.cc
+                        composeBCC = self.message!.bcc
+                        composeSubject = self.message!.subject
+                        composeBody = self.message!.data
+                        self.message = nil
+                        self.platformName = ""
+                    }
                 }
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
@@ -194,6 +201,17 @@ struct EmailComposeView: View {
             if storedPlatforms.count > 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     requestToChooseAccount = true
+                }
+            }
+            if(isBridge) {
+                if self.message != nil {
+                    composeTo = self.message!.toAccount
+                    composeCC = self.message!.cc
+                    composeBCC = self.message!.bcc
+                    composeSubject = self.message!.subject
+                    composeBody = self.message!.data
+                    self.message = nil
+                    self.platformName = ""
                 }
             }
         }
@@ -332,11 +350,19 @@ struct EmailComposeView: View {
 
 struct EmailView_Preview: PreviewProvider {
     static var previews: some View {
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
+        @State var message: Messages? = Messages(
+            subject: "Test subject",
+            data: "Test body",
+            fromAccount: "from@test.com",
+            toAccount: "to@test.com",
+            platformName: "test platform",
+            date: 0
+        )
         
-        return EmailComposeView(platformName: "gmail" )
-            .environment(\.managedObjectContext, container.viewContext)
+        @State var platformName = ""
+        return EmailComposeView(
+            platformName: $platformName, message: $message
+        )
     }
 }
 

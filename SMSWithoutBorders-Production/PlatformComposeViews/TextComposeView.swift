@@ -37,20 +37,23 @@ struct TextComposeView: View {
 
     @State var platform: PlatformsEntity?
     
-    private var platformName: String
+    @Binding var message: Messages?
+    @Binding var platformName: String
 
-    init(platformName: String) {
-        self.platformName = platformName
+    init(platformName: Binding<String>, message: Binding<Messages?>) {
+        _platformName = platformName
+        _message = message
+
+        let platformNameWrapped = platformName.wrappedValue
+        _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", platformNameWrapped))
         
         _platforms = FetchRequest<PlatformsEntity>(
             sortDescriptors: [],
-            predicate: NSPredicate(format: "name == %@", platformName))
-        
-        _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
-            sortDescriptors: [],
-            predicate: NSPredicate(format: "name == %@", platformName))
+            predicate: NSPredicate(format: "name == %@", platformNameWrapped))
 
-        print("Searching platform: \(platformName)")
+        print("Searching platform: \(platformNameWrapped)")
     }
 
     var body: some View {
@@ -78,6 +81,12 @@ struct TextComposeView: View {
                     dismissParent: $dismissRequested
                 ) {
                     requestToChooseAccount.toggle()
+                    
+                    if self.message != nil {
+                        textBody = self.message!.data
+                        self.message = nil
+                        self.platformName = ""
+                    }
                 }
                 .applyPresentationDetentsIfAvailable()
                 .interactiveDismissDisabled(true)
@@ -146,7 +155,7 @@ struct TextComposeView: View {
                 messageEntities.platformName = platformName
                 messageEntities.fromAccount = fromAccount
                 messageEntities.toAccount = ""
-                messageEntities.subject = ""
+                messageEntities.subject = fromAccount
                 messageEntities.body = textBody
                 messageEntities.date = Int32(Date().timeIntervalSince1970)
                 
@@ -170,8 +179,17 @@ struct TextView_Preview: PreviewProvider {
         let container = createInMemoryPersistentContainer()
         populateMockData(container: container)
         
+        @State var message: Messages? = Messages(
+            subject: "Hello world",
+            data: "The scroll view displays its content within the scrollable content region. As the user performs platform-appropriate scroll gestures, the scroll view adjusts what portion of the underlying content is visible. ScrollView can scroll horizontally, vertically, or both, but does not provide zooming functionality.",
+            fromAccount: "@afkanerd",
+            toAccount: "toAccount@gmail.com",
+            platformName: "twitter",
+            date: Int(Date().timeIntervalSince1970))
+        
         @State var globalDismiss = false
-        return TextComposeView(platformName: "twitter")
+        @State var platformName = "twitter"
+        return TextComposeView(platformName: $platformName, message: $message)
             .environment(\.managedObjectContext, container.viewContext)
     }
 }

@@ -358,7 +358,7 @@ struct NotLoggedInMessagesPresentInboxView: View {
             .padding()
         }
         .onChange(of: composeNewMessageRequested) { newValue in
-            if newValue {
+            if newValue && requestedMessage == nil {
                 composeNewRequested.toggle()
             }
         }
