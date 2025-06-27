@@ -68,7 +68,6 @@
 				Notes.txt,
 				Proto/relay_publisher.grpc.swift,
 				Proto/relay_publisher.pb.swift,
-				Proto/relay_publisher.proto,
 				Proto/vault.grpc.swift,
 				Proto/vault.pb.swift,
 				Proto/vault.proto,
@@ -83,7 +82,6 @@
 			membershipExceptions = (
 				Proto/relay_publisher.grpc.swift,
 				Proto/relay_publisher.pb.swift,
-				Proto/relay_publisher.proto,
 				Proto/vault.grpc.swift,
 				Proto/vault.pb.swift,
 				Proto/vault.proto,

@@ -42,7 +42,7 @@ struct PlatformCard: View {
                     }) {
                         VStack {
                             (platform != nil && platform!.image != nil ?
-                             Image(uiImage: UIImage(data: platform!.image!)!) : Image("Logo")
+                             Image(uiImage: UIImage(data: platform!.image!) ?? UIImage(imageLiteralResourceName: "Logo")) : Image("Logo")
                             )
                                 .resizable()
                                 .renderingMode(isEnabled ? .none : .template)

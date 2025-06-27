@@ -4,6 +4,58 @@
     "" : {
 
     },
+    "%@" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
     "%@ accounts" : {
       "localizations" : {
         "ar" : {
@@ -57,6 +109,7 @@
       }
     },
     "%@ phone number" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -473,6 +526,7 @@
       }
     },
     "Alias" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -994,6 +1048,7 @@
       }
     },
     "Bcc " : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1098,6 +1153,7 @@
       }
     },
     "Cc " : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1672,6 +1728,7 @@
       }
     },
     "composeBody" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2841,6 +2898,7 @@
       }
     },
     "Enter code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3200,6 +3258,7 @@
       }
     },
     "From " : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3251,7 +3310,60 @@
         }
       }
     },
+    "From account: " : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "من الحساب:"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Von Konto:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desde cuenta:"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از حساب:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Du compte :"
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kubva kuaccount:"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Kutoka akaunti:"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hesaptan:"
+          }
+        }
+      }
+    },
     "From account: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3356,6 +3468,7 @@
       }
     },
     "Get code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3403,6 +3516,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kod al"
+          }
+        }
+      }
+    },
+    "Get Code" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الحصول على الرمز"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code abrufen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtener código"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دریافت کد"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenir le code"
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tora Code"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pata Nambari"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kod Al"
           }
         }
       }
@@ -4188,6 +4353,58 @@
         }
       }
     },
+    "Loading Platforms..." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحميل المنصات..."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plattformen werden geladen..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando plataformas..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بارگیری پلتفرم‌ها..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des plateformes..."
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kurodhera Mapuratifomu..."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inapakia Majukwaa..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Platformlar Yükleniyor..."
+          }
+        }
+      }
+    },
     "Log in" : {
       "comment" : "As a verb (eg As an action)",
       "localizations" : {
@@ -4504,6 +4721,7 @@
       }
     },
     "Make sure phone code e.g +237 is included in the selected number" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5388,6 +5606,7 @@
       }
     },
     "Operator Alias" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -5440,6 +5659,7 @@
       }
     },
     "OTP Code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -7039,6 +7259,7 @@
       }
     },
     "Select a contact to send a message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -7086,6 +7307,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mesaj göndermek için bir kişi seçin"
+          }
+        }
+      }
+    },
+    "Select a contact to send a message, Make sure phone code e.g +237 is included in the selected number" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر جهة اتصال لإرسال رسالة، تأكد من تضمين رمز الهاتف مثل +237 في الرقم المحدد"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie einen Kontakt zum Senden einer Nachricht, Stellen Sie sicher, dass die Telefonvorwahl z.B. +237 in der ausgewählten Nummer enthalten ist"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona un contacto para enviar un mensaje, Asegúrate de que el código de teléfono ej. +237 esté incluido en el número seleccionado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " مخاطبی را برای ارسال پیام انتخاب کنید، مطمئن شوید که کد تلفن مثل +237 در شماره انتخابی گنجانده شده است"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionnez un contact pour envoyer un message, Assurez-vous que le code téléphone ex. +237 est inclus dans le numéro sélectionné"
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sarudza munhu wekutumira meseji, Ita kuti code yefoni semuenzaniso +237 iiswe munhamba yawasarudza"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua mwasiliani kutuma ujumbe, Hakikisha nambari ya simu mfano +237 imejumuishwa kwenye nambari uliyochagua"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesaj göndermek için bir kişi seçin, Seçilen numarada telefon kodu örn. +237'nin dahil olduğundan emin olun"
           }
         }
       }
@@ -7872,6 +8145,7 @@
       }
     },
     "Subject " : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -8132,6 +8406,7 @@
       }
     },
     "To " : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
