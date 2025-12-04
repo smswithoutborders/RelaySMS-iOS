@@ -592,7 +592,7 @@ class Publisher {
             print("[Publisher] use deviceID for publishing: \(!usePhonenumber)")
 
             let messageComposer = try MessageComposer(
-                SK: pubSharedKey.bytes,
+                SK: [UInt8](pubSharedKey),
                 AD: AD,
                 peerDhPubKey: peerPubkey,
                 keystoreAlias: Publisher.PUBLISHER_SHARED_KEY,

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftUICore
+//import SwiftUICore
 
 struct RecentsLoggedInView: View {
     @Environment(\.dismiss) var dismiss

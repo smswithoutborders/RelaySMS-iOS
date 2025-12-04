@@ -50,11 +50,11 @@ struct Bridges {
                     let (_sharedSecret, _clientPublicKey, _peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
                     peerPublishPublicKey = _peerPublishPublicKey
                     sharedSecret = _sharedSecret
-                    clientPublicKey = _clientPublicKey?.rawRepresentation.bytes
+                    clientPublicKey = [UInt8](_clientPublicKey!.rawRepresentation)
                     
                     UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
                     UserDefaults.standard.set(
-                        peerPublishPublicKey?.rawRepresentation.bytes,
+                        [UInt8](peerPublishPublicKey!.rawRepresentation),
                         forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
                     )
                     UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
@@ -71,7 +71,7 @@ struct Bridges {
                 do {
                     messageComposer = try MessageComposer(
                         SK: sharedSecret,
-                        AD: peerPublishPublicKey!.rawRepresentation.bytes,
+                        AD: [UInt8](peerPublishPublicKey!.rawRepresentation),
                         peerDhPubKey: peerPublishPublicKey,
                         keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
                         context: context)
