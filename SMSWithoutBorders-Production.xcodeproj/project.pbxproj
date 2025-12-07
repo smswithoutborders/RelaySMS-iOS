@@ -64,7 +64,7 @@
 		F6790DEC2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Commons/Theme/Fonts/unbounded.ttf,
+				Helpers/Theme/Fonts/unbounded.ttf,
 				Notes.txt,
 				Proto/relay_publisher.grpc.swift,
 				Proto/relay_publisher.pb.swift,
