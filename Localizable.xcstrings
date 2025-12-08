@@ -6286,6 +6286,7 @@
       }
     },
     "Present missing token error alert" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
