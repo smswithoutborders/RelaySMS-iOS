@@ -72,7 +72,6 @@
 				Proto/vault.grpc.swift,
 				Proto/vault.pb.swift,
 				Proto/vault.proto,
-				"static-x25519-staging.json",
 				"static-x25519.json",
 				Views/PlatformComposeViews/SMSComposeMessageUIView.swift,
 			);
@@ -86,7 +85,6 @@
 				Proto/vault.grpc.swift,
 				Proto/vault.pb.swift,
 				Proto/vault.proto,
-				"static-x25519-staging.json",
 			);
 			target = 16F0E69828C6308800FDD12C /* SMSWithoutBorders-ProductionUITests */;
 		};
