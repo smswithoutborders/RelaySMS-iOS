@@ -290,8 +290,12 @@ struct EmailComposeView: View {
                     )
                     
                     Spacer()
-                    EmailAttachmentView(image: $attachmentImage)
-                    Spacer()
+                    Button(action: {
+                        showEditImage.toggle()
+                    }) {
+                        EmailAttachmentView(image: $attachmentImage)
+                        Spacer()
+                    }
 
                     Button(
                         action: {
