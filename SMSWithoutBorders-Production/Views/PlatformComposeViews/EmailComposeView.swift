@@ -9,6 +9,41 @@ import CoreData
 import CryptoKit
 import MessageUI
 import SwiftUI
+import PhotosUI
+import lib_image_ios
+
+struct EmailAttachmentView: View {
+    @Binding var image: Image?
+    
+    var body: some View {
+        if(image != nil) {
+            VStack {
+                image!
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 150)
+                    .clipped()
+                HStack {
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Button("x") {
+                            image = nil
+                        }
+                    }
+                }
+                .frame(width: 200)
+                .padding(.trailing, 12,)
+                .padding(.bottom, 4)
+                .padding(.top, 4)
+                .background(.secondary)
+            }
+            .padding(20)
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+            .padding(.horizontal)
+        }
+    }
+}
 
 struct EmailComposeForm: View {
     @Binding var composeTo: String
@@ -35,42 +70,69 @@ struct EmailComposeForm: View {
                 }
                 
                 HStack {
-                    Text("To")
+                    Text("To: ")
                     TextField("", text: $composeTo)
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
                 }
+                .frame(height: 30)
+                .padding(.leading, 8)
+                .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
+                .overlay( // Adds the actual border overlay
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
 
                 HStack {
-                    Text("CC")
+                    Text("CC:")
                     TextField("", text: $composeCC)
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
 
                 }
-                
+                .frame(height: 30)
+                .padding(.leading, 8)
+                .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
+                .overlay( // Adds the actual border overlay
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+
                 HStack {
-                    Text("BCC")
+                    Text("BCC:")
                     TextField("", text: $composeBCC)
                     .autocapitalization(.none)
                     .textContentType(.emailAddress)
                 }
-                
+                .frame(height: 30)
+                .padding(.leading, 8)
+                .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
+                .overlay( // Adds the actual border overlay
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+
                 HStack {
-                    Text("Subject")
+                    Text("Subject:")
                     TextField("", text: $composeSubject)
                     .autocapitalization(.sentences)
                 }
+                .frame(height: 30)
+                .padding(.leading, 8)
+                .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
+                .overlay( // Adds the actual border overlay
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
             }
-            .textFieldStyle(.roundedBorder)
             
 
             Spacer()
             VStack {
                 ZStack(alignment: .topLeading) {
                     TextEditor(text: $composeBody)
-                        .frame(height: 400)
-                        .background(Color(.systemGray6)) // Optional: Add a light background color
+                        .frame(height: 200)
+                        .padding()
                         .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
                         .overlay( // Adds the actual border overlay
                             RoundedRectangle(cornerRadius: 15)
@@ -137,6 +199,13 @@ struct EmailComposeView: View {
     @State private var alertTitle: String = ""
     @State private var alertMessage: String = ""
     @State private var isLoading = false
+    
+    @State private var showImagePicker = false
+    @State private var showEditImage = false
+    @State var imageViewModel = ImageCustomizationViewModel()
+
+    @State private var selectedPhoto : PhotosPickerItem?
+    @State private var attachmentImage: Image?
 
     init(
         platformName: Binding<String>,
@@ -163,6 +232,52 @@ struct EmailComposeView: View {
         NavigationView {
             ScrollView {
                 VStack {
+                    if #available(iOS 17.0, *) {
+                        if(isBridge || message?.platformName == "BRIDGE") {
+                            NavigationLink(
+                                destination: ImageProcessingView(viewModel: $imageViewModel){ image in
+                                    Task {
+                                        attachmentImage = Image(uiImage: UIImage(data: Data(image))!)
+                                        do {
+                                            let dp = divideImagePayload(
+                                                payload: [UInt8](Data(image).base64EncodedData()),
+                                                version: 1,
+                                                sessionId: 2,
+                                                imageLength: UInt16(image.count),
+                                                textLength: 0
+                                            )
+                                            showEditImage.toggle()
+                                            if(dp != nil) {
+                                                // TODO()
+                                            }
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
+                                },
+                                isActive: $showEditImage
+                            ) {
+                                EmptyView()
+                            }
+                            .onChange(of: selectedPhoto) {
+                                if(selectedPhoto != nil) {
+                                    Task {
+                                        if let loaded = try? await selectedPhoto?.loadTransferable(type: Image.self) {
+                                            let renderer = ImageRenderer(content: loaded)
+                                            imageViewModel = ImageCustomizationViewModel()
+                                            imageViewModel.setImage(renderer.uiImage!)
+                                            showEditImage.toggle()
+                                            selectedPhoto = nil
+                                        } else {
+                                            print("Failed")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    
                     EmailComposeForm(
                         composeTo: $composeTo,
                         composeFrom: $composeFrom,
@@ -173,7 +288,10 @@ struct EmailComposeView: View {
                         fromAccount: $fromAccount,
                         isBridge: isBridge
                     )
-                    Spacer(minLength: 24)
+                    
+                    Spacer()
+                    EmailAttachmentView(image: $attachmentImage)
+                    Spacer()
 
                     Button(
                         action: {
@@ -211,7 +329,21 @@ struct EmailComposeView: View {
                         .ignoresSafeArea()
                     }
                 }
+                .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto, matching: .images)
                 .padding()
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if #available(iOS 17.0, *) {
+                            if(isBridge || message?.platformName == "BRIDGE") {
+                                Button {
+                                    showImagePicker.toggle()
+                                } label: {
+                                    Image(systemName: "paperclip.circle")
+                                }
+                            }
+                        }
+                    }
+                })
             }
 
             .sheet(isPresented: $requestToChooseAccount) {
@@ -381,7 +513,7 @@ struct EmailView_Preview: PreviewProvider {
             data: "Test body",
             fromAccount: "from@test.com",
             toAccount: "to@test.com",
-            platformName: "test platform",
+            platformName: "BRIDGE",
             date: 0
         )
 
@@ -392,25 +524,30 @@ struct EmailView_Preview: PreviewProvider {
     }
 }
 
-struct EmailCompose_Preview: PreviewProvider {
-    static var previews: some View {
-        @State var composeTo: String = ""
-        @State var composeFrom: String = ""
-        @State var composeCC: String = ""
-        @State var composeBCC: String = ""
-        @State var composeSubject: String = ""
-        @State var composeBody: String = ""
-        @State var fromAccount: String = ""
+//struct EmailCompose_Preview: PreviewProvider {
+//    static var previews: some View {
+//        @State var composeTo: String = ""
+//        @State var composeFrom: String = ""
+//        @State var composeCC: String = ""
+//        @State var composeBCC: String = ""
+//        @State var composeSubject: String = ""
+//        @State var composeBody: String = ""
+//        @State var fromAccount: String = ""
+//
+//        return EmailComposeForm(
+//            composeTo: $composeTo,
+//            composeFrom: $composeFrom,
+//            composeCC: $composeCC,
+//            composeBCC: $composeBCC,
+//            composeSubject: $composeSubject,
+//            composeBody: $composeBody,
+//            fromAccount: $fromAccount,
+//            isBridge: false
+//        )
+//    }
+//}
 
-        return EmailComposeForm(
-            composeTo: $composeTo,
-            composeFrom: $composeFrom,
-            composeCC: $composeCC,
-            composeBCC: $composeBCC,
-            composeSubject: $composeSubject,
-            composeBody: $composeBody,
-            fromAccount: $fromAccount,
-            isBridge: false
-        )
-    }
+#Preview {
+    @State var image: Image? = Image("OnboardingTryExample")
+    EmailAttachmentView(image: $image)
 }

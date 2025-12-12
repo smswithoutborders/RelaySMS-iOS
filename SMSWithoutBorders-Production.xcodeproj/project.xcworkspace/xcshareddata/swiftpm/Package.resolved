@@ -1,5 +1,5 @@
 {
-  "originHash" : "7c66c5812fbaf6c56faf0129338d6d334093634fde7e93daab1be9a3a377b9f8",
+  "originHash" : "eb65c77ace6abd8b855444d41505d1b1ab5ab41889b03e6ed84528c90ef54990",
   "pins" : [
     {
       "identity" : "countrypicker",
@@ -43,7 +43,7 @@
       "location" : "https://github.com/smswithoutborders/lib_image_ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6781a64654807cabc7f3eb2a32740d20ee47c52b"
+        "revision" : "627faeb9a2bab91206fc4c5dd1c05c013a0789cb"
       }
     },
     {
