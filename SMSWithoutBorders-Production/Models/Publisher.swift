@@ -90,6 +90,7 @@ class Publisher {
 
     func getRedirectUrl(platformName: String) -> String {
         return "https://oauth.afkanerd.com/platforms/\(platformName)/protocols/oauth2/redirect_codes/ios/"
+//        return "https://relay.smswithoutborders.com/ios"
     }
 
     func getOAuthURL(
@@ -673,5 +674,4 @@ class Publisher {
         }
         return ""
     }
-
 }

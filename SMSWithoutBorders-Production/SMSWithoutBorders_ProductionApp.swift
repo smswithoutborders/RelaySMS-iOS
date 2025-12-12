@@ -36,61 +36,54 @@ struct SMSWithoutBorders_ProductionApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-                Text("Running Unit Tests. Main UI suppressed.")
-                                   .onAppear {
-                                        print("Test UI WindowGroup appeared.")
-                                   }
-            } else {
-                Group {
-                    if(!onboardingCompleted) {
-                        OnboardingView()
-                            .environment(\.managedObjectContext, dataController.container.viewContext)
-                    }
-                    else {
-                        HomepageView(isLoggedIn: $isLoggedIn)
+            Group {
+                if(!onboardingCompleted) {
+                    OnboardingView()
                         .environment(\.managedObjectContext, dataController.container.viewContext)
-                        .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
-                            Button("Get me out!") {
-                                getMeOut()
-                            }
-                        } message: {
-                            Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
-                        }
-                        .onAppear() {
-                            validateLLT()
-                        }
-                        .onChange(of: scenePhase) { newPhase in
-                            if newPhase == .active {
-                                validateLLT()
-                            }
-                        }
-                    }
                 }
-                .onAppear {
-                    
-                    Publisher.refreshPlatforms(context: dataController.container.viewContext) { success in
-                        DispatchQueue.main.async {
-                            if success {
-                                print("[App Init]: Successfully fetched platforms")
-                            }
+                else {
+                    HomepageView(isLoggedIn: $isLoggedIn)
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                    .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
+                        Button("Get me out!") {
+                            getMeOut()
                         }
+                    } message: {
+                        Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
                     }
-                    
-
-                    Task {
-                        if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                            print("Is searching for default....")
-                            do {
-                                try await GatewayClients.refresh(context: dataController.container.viewContext)
-                            } catch {
-                                print("Error refreshing gateways: \(error)")
-                            }
+                    .onAppear() {
+                        validateLLT()
+                    }
+                    .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .active {
+                            validateLLT()
                         }
                     }
                 }
             }
-   
+            .onAppear {
+                
+                Publisher.refreshPlatforms(context: dataController.container.viewContext) { success in
+                    DispatchQueue.main.async {
+                        if success {
+                            print("[App Init]: Successfully fetched platforms")
+                        }
+                    }
+                }
+                
+
+                Task {
+                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
+                        print("Is searching for default....")
+                        do {
+                            try await GatewayClients.refresh(context: dataController.container.viewContext)
+                        } catch {
+                            print("Error refreshing gateways: \(error)")
+                        }
+                    }
+                }
+            }
+            
         }
     }
 
@@ -145,6 +138,11 @@ struct SMSWithoutBorders_ProductionApp: App {
         return false
     }
 
+}
+
+#Preview {
+    @State var isLoggedIn: Bool = false
+    HomepageView(isLoggedIn: $isLoggedIn)
 }
 
 

@@ -523,4 +523,5 @@ struct MessageComposer {
 //        return String(decoding: text, as: Unicode.UTF8.self)
         return text
     }
+    
 }

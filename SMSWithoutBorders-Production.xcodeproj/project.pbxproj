@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 26E910762EEBF9E00075E42C /* lib-image-ios */; };
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
 		3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */; };
 		3B7EEE3D2C5BD92400611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3C2C5BD92400611092 /* SwobDoubleRatchet */; };
@@ -102,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */,
 				3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */,
 				3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */,
 				3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */,
@@ -201,6 +203,7 @@
 				3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */,
 				3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */,
 				F6F2D1CF2DAE88790017BD59 /* SwiftProtobuf */,
+				26E910762EEBF9E00075E42C /* lib-image-ios */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -308,6 +311,7 @@
 				3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				3B6ADC482C5B960000D4EB30 /* XCRemoteSwiftPackageReference "lib_signal_double_ratchet_ios" */,
 				F6F2D1CE2DAE88600017BD59 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */,
 			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
@@ -709,6 +713,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/smswithoutborders/lib_image_ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mchoe/SwiftSVG";
@@ -776,6 +788,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		26E910762EEBF9E00075E42C /* lib-image-ios */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */;
+			productName = "lib-image-ios";
+		};
 		3B082A9B2C3D24C700C7DE41 /* SwiftSVG */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */;

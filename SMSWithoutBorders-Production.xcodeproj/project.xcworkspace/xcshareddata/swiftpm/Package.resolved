@@ -1,5 +1,5 @@
 {
-  "originHash" : "bf0dcfb6f7af92d5ee39049c032f8c412e08796bf45b02cdc8a3ae7716a7b0fb",
+  "originHash" : "7c66c5812fbaf6c56faf0129338d6d334093634fde7e93daab1be9a3a377b9f8",
   "pins" : [
     {
       "identity" : "countrypicker",
@@ -38,12 +38,30 @@
       }
     },
     {
+      "identity" : "lib_image_ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smswithoutborders/lib_image_ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6781a64654807cabc7f3eb2a32740d20ee47c52b"
+      }
+    },
+    {
       "identity" : "lib_signal_double_ratchet_ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smswithoutborders/lib_signal_double_ratchet_ios",
       "state" : {
         "branch" : "main",
         "revision" : "1d72689320b7ee313036e48c82bc2d6eb4839805"
+      }
+    },
+    {
+      "identity" : "libwebp-xcode",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/libwebp-Xcode.git",
+      "state" : {
+        "revision" : "0d60654eeefd5d7d2bef3835804892c40225e8b2",
+        "version" : "1.5.0"
       }
     },
     {
@@ -143,6 +161,15 @@
       "state" : {
         "revision" : "c8a44d836fe7913603e246acab7c528c2e780168",
         "version" : "1.4.0"
+      }
+    },
+    {
+      "identity" : "swift-webp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ainame/Swift-WebP.git",
+      "state" : {
+        "revision" : "3f5895711566ee862e7cff7694867c6f77adf452",
+        "version" : "0.5.0"
       }
     },
     {

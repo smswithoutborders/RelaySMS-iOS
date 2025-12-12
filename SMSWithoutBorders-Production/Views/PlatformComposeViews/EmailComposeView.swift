@@ -22,30 +22,72 @@ struct EmailComposeForm: View {
     var isBridge: Bool
 
     var body: some View {
-        VStack(spacing: 12) {
-            if !isBridge {
-                VStack {
-                    RelayTextField(label: "From", text: $fromAccount)
-                        .autocapitalization(.none)
-                        .textContentType(.emailAddress)
-                        .disabled(true)
+        VStack {
+            VStack {
+                if !isBridge {
+                    HStack {
+                        Text("From")
+                        TextField("From", text: $fromAccount)
+                    }
+                    .autocapitalization(.none)
+                    .textContentType(.emailAddress)
+                    .disabled(true)
+                }
+                
+                HStack {
+                    Text("To")
+                    TextField("", text: $composeTo)
+                    .autocapitalization(.none)
+                    .textContentType(.emailAddress)
                 }
 
+                HStack {
+                    Text("CC")
+                    TextField("", text: $composeCC)
+                    .autocapitalization(.none)
+                    .textContentType(.emailAddress)
+
+                }
+                
+                HStack {
+                    Text("BCC")
+                    TextField("", text: $composeBCC)
+                    .autocapitalization(.none)
+                    .textContentType(.emailAddress)
+                }
+                
+                HStack {
+                    Text("Subject")
+                    TextField("", text: $composeSubject)
+                    .autocapitalization(.sentences)
+                }
             }
+            .textFieldStyle(.roundedBorder)
+            
 
-            RelayTextField(label: "To", text: $composeTo)
-                .autocapitalization(.none)
-                .textContentType(.emailAddress)
-            RelayTextField(label: "Cc", text: $composeCC)
-                .autocapitalization(.none)
-                .textContentType(.emailAddress)
-            RelayTextField(label: "Bcc", text: $composeBCC)
-                .autocapitalization(.none)
-                .textContentType(.emailAddress)
-            RelayTextField(label: "Subject", text: $composeSubject)
-            RelayTextEditor(label: "Content", text: $composeBody)
+            Spacer()
+            VStack {
+                ZStack(alignment: .topLeading) {
+                    TextEditor(text: $composeBody)
+                        .frame(height: 400)
+                        .background(Color(.systemGray6)) // Optional: Add a light background color
+                        .clipShape(RoundedRectangle(cornerRadius: 15)) // Clips the editor's background to a rounded shape
+                        .overlay( // Adds the actual border overlay
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                        .autocapitalization(.sentences)
+                    
+                    if composeBody.isEmpty {
+                        Text("Content")
+                        .foregroundColor(Color(.systemGray3))
+                        .padding(.top, 16) // Adjust padding to align with TextEditor's text
+                        .padding(.leading, 12)
+                        .allowsHitTesting(false) // Allows taps to pass through to the TextEditor
+                    }
+                }
+            }
         }
-
     }
 }
 
