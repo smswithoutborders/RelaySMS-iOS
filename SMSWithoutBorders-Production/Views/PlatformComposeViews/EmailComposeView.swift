@@ -11,6 +11,7 @@ import MessageUI
 import SwiftUI
 import PhotosUI
 import lib_image_ios
+import Combine
 
 struct EmailAttachmentView: View {
     @Binding var image: Image?
@@ -202,6 +203,8 @@ struct EmailComposeView: View {
     
     @State private var showImagePicker = false
     @State private var showEditImage = false
+    @State private var imageSelected = false
+    
     @State var imageViewModel = ImageCustomizationViewModel()
 
     @State private var selectedPhoto : PhotosPickerItem?
@@ -232,52 +235,6 @@ struct EmailComposeView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    if #available(iOS 17.0, *) {
-                        if(isBridge || message?.platformName == "BRIDGE") {
-                            NavigationLink(
-                                destination: ImageProcessingView(viewModel: $imageViewModel){ image in
-                                    Task {
-                                        attachmentImage = Image(uiImage: UIImage(data: Data(image))!)
-                                        do {
-                                            let dp = divideImagePayload(
-                                                payload: [UInt8](Data(image).base64EncodedData()),
-                                                version: 1,
-                                                sessionId: 2,
-                                                imageLength: UInt16(image.count),
-                                                textLength: 0
-                                            )
-                                            showEditImage.toggle()
-                                            if(dp != nil) {
-                                                // TODO()
-                                            }
-                                        } catch {
-                                            print(error)
-                                        }
-                                    }
-                                },
-                                isActive: $showEditImage
-                            ) {
-                                EmptyView()
-                            }
-                            .onChange(of: selectedPhoto) {
-                                if(selectedPhoto != nil) {
-                                    Task {
-                                        if let loaded = try? await selectedPhoto?.loadTransferable(type: Image.self) {
-                                            let renderer = ImageRenderer(content: loaded)
-                                            imageViewModel = ImageCustomizationViewModel()
-                                            imageViewModel.setImage(renderer.uiImage!)
-                                            showEditImage.toggle()
-                                            selectedPhoto = nil
-                                        } else {
-                                            print("Failed")
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    
                     EmailComposeForm(
                         composeTo: $composeTo,
                         composeFrom: $composeFrom,
@@ -333,14 +290,48 @@ struct EmailComposeView: View {
                         .ignoresSafeArea()
                     }
                 }
-                .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto, matching: .images)
+                .sheet(isPresented: $showEditImage) {
+                    VStack {
+                        if(selectedPhoto == nil) {
+                            Button("Select image") {
+                                showImagePicker.toggle()
+                            }
+                        } else {
+                            ImageProcessingView(viewModel: $imageViewModel){ image in
+                                Task {
+                                    attachmentImage = Image(uiImage: imageViewModel.displayImage)
+                                    do {
+                                        let dp = divideImagePayload(
+                                            payload: [UInt8](Data(image).base64EncodedData()),
+                                            version: 1,
+                                            sessionId: 2,
+                                            imageLength: UInt16(image.count),
+                                            textLength: 0
+                                        )
+                                        showEditImage.toggle()
+                                        if(dp != nil) {
+                                            // TODO()
+                                        }
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                    .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto, matching: .images)
+                }
                 .padding()
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         if #available(iOS 17.0, *) {
                             if(isBridge || message?.platformName == "BRIDGE") {
                                 Button {
-                                    showImagePicker.toggle()
+                                    selectedPhoto = nil
+                                    attachmentImage = nil
+                                    imageSelected = false
+                                    showEditImage.toggle()
                                 } label: {
                                     Image(systemName: "paperclip.circle")
                                 }
@@ -348,8 +339,22 @@ struct EmailComposeView: View {
                         }
                     }
                 })
+                .onReceive(Just(selectedPhoto)) { _ in
+                    if(selectedPhoto != nil && !imageSelected) {
+                        Task {
+                            if let loaded = try? await selectedPhoto?.loadTransferable(type: Image.self) {
+                                let renderer = ImageRenderer(content: loaded)
+                                imageViewModel = ImageCustomizationViewModel()
+                                imageViewModel.setImage(renderer.uiImage!)
+                                imageSelected = true
+                                print("[+] Image selected...")
+                            } else {
+                                print("Failed")
+                            }
+                        }
+                    }
+                }
             }
-
             .sheet(isPresented: $requestToChooseAccount) {
                 SelectAccountSheetView(
                     filter: platformName,
