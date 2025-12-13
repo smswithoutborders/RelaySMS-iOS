@@ -126,9 +126,8 @@ struct EmailComposeForm: View {
                         .stroke(Color.gray, lineWidth: 1)
                 )
             }
-            
 
-            Spacer()
+            Spacer(minLength: 32)
             VStack {
                 ZStack(alignment: .topLeading) {
                     TextEditor(text: $composeBody)
@@ -254,41 +253,14 @@ struct EmailComposeView: View {
                         Spacer()
                     }
 
-                    Button(
-                        action: {
-                            isSendingRequest = true
-                            DispatchQueue.background(background: {
-                                do {
-                                    encryptedFormattedContent =
-                                        try getEncryptedContent(
-                                            isBridge: self.isBridge)
-                                } catch {
-                                    print(
-                                        "Some error occured while sending: \(error)"
-                                    )
-                                }
-                                isShowingMessages.toggle()
-                                isSendingRequest = false
-                            })
-                        },
-                        label: {
-                            if isSendingRequest {
-                                ProgressView()
-                            } else {
-                                Text("Send")
-                            }
-                        }
+                }
+                .sheet(isPresented: $isShowingMessages) {
+                    SMSComposeMessageUIView(
+                        recipients: [defaultGatewayClientMsisdn],
+                        body: $encryptedFormattedContent,
+                        completion: handleCompletion(_:)
                     )
-                    .buttonStyle(.relayButton(variant: .secondary))
-                    .disabled(!isBridge && fromAccount.isEmpty)
-                    .sheet(isPresented: $isShowingMessages) {
-                        SMSComposeMessageUIView(
-                            recipients: [defaultGatewayClientMsisdn],
-                            body: $encryptedFormattedContent,
-                            completion: handleCompletion(_:)
-                        )
-                        .ignoresSafeArea()
-                    }
+                    .ignoresSafeArea()
                 }
                 .sheet(isPresented: $showEditImage) {
                     VStack {
@@ -296,6 +268,10 @@ struct EmailComposeView: View {
                             Button("Select image") {
                                 showImagePicker.toggle()
                             }
+                            .buttonStyle(BorderedButtonStyle())
+                            
+                            Text("You will be prompted to edit the image after this. You can modify the images to the size you seem most comfortable with sending.")
+                                .padding()
                         } else {
                             ImageProcessingView(viewModel: $imageViewModel){ image in
                                 Task {
@@ -337,6 +313,31 @@ struct EmailComposeView: View {
                                 }
                             }
                         }
+                    }
+                    ToolbarItem {
+                        Button {
+                            isSendingRequest = true
+                            DispatchQueue.background(background: {
+                                do {
+                                    encryptedFormattedContent =
+                                        try getEncryptedContent(
+                                            isBridge: self.isBridge)
+                                } catch {
+                                    print(
+                                        "Some error occured while sending: \(error)"
+                                    )
+                                }
+                                isShowingMessages.toggle()
+                                isSendingRequest = false
+                            })
+                        } label: {
+                            if isSendingRequest {
+                                ProgressView()
+                            } else {
+                                Image(systemName: "paperplane.circle")
+                            }
+                        }
+                        .disabled(!isBridge && fromAccount.isEmpty)
                     }
                 })
                 .onReceive(Just(selectedPhoto)) { _ in
