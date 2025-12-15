@@ -140,9 +140,61 @@ struct MessageComposer {
         }
     }
     
-    public func emailComposerV1(platform_letter: UInt8, from: String, to: String, cc: String, bcc: String,
-                              subject: String,
-                              body: String, accessToken: String? = nil, refreshToken: String? = nil) throws -> String {
+    public func emailComposeV1(
+        from: String? = nil,
+        to: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+    ) -> [UInt8]{
+        let fromData = (from == nil) ? Data() : Data(from!.utf8)
+        let toData = Data(to.utf8)
+        let ccData = Data(cc.utf8)
+        let bccData = Data(bcc.utf8)
+        let subjectData = Data(subject.utf8) // Subject length is UInt8!
+        let bodyData = Data(body.utf8)
+        
+        let fromLength: UInt8 = (from == nil) ? 0 : UInt8(min(fromData.count, Int(UInt8.max)))
+        let toLength: UInt16 = UInt16(min(toData.count, Int(UInt16.max)))
+        let ccLength: UInt16 = UInt16(min(ccData.count, Int(UInt16.max)))
+        let bccLength: UInt16 = UInt16(min(bccData.count, Int(UInt16.max)))
+        let subjectLength: UInt8 = UInt8(min(subjectData.count, Int(UInt8.max))) // Subject length is 1 bytes
+        let bodyLength: UInt16 = UInt16(min(bodyData.count, Int(UInt16.max)))
+        
+  
+        var contentData = Data()
+        
+        // Append Lengths
+        contentData.append(fromLength)
+        contentData.append(contentsOf: withUnsafeBytes(of: toLength.littleEndian) {Data($0)})
+        contentData.append(contentsOf: withUnsafeBytes(of: ccLength.littleEndian) {Data($0)})
+        contentData.append(contentsOf: withUnsafeBytes(of: bccLength.littleEndian) {Data($0)})
+        contentData.append(subjectLength)
+        contentData.append(contentsOf: withUnsafeBytes(of: bodyLength.littleEndian) {Data($0)})
+        
+        // Append values only if their length > 0 and in the same order
+        if fromLength > 0 {contentData.append(fromData)}
+        if toLength > 0 {contentData.append(toData)}
+        if ccLength > 0 {contentData.append(ccData)}
+        if bccLength > 0 {contentData.append(bccData)}
+        if subjectLength > 0 {contentData.append(subjectData)}
+        if bodyLength > 0 {contentData.append(bodyData)}
+        
+        return contentData.withUnsafeBytes { Array($0) }
+    }
+    
+    public func emailComposerV1(
+        platform_letter: UInt8,
+        from: String,
+        to: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        accessToken: String? = nil,
+        refreshToken: String? = nil
+    ) throws -> String {
         
         let fromData = Data(from.utf8)
         let toData = Data(to.utf8)
@@ -381,6 +433,7 @@ struct MessageComposer {
         bcc: String,
         subject: String,
         body: String,
+        image: [UInt8]? = nil,
         saveState: Bool = true
     ) throws -> Data {
         let content = "\(to):\(cc):\(bcc):\(subject):\(body)".data(using: .utf8)!.withUnsafeBytes { data in

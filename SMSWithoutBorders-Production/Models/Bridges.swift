@@ -35,6 +35,7 @@ struct Bridges {
         bcc: String,
         subject: String,
         body: String,
+        image: [UInt8]? = nil,
         context: NSManagedObjectContext
     ) throws -> ([UInt8], [UInt8]?){
         
@@ -104,6 +105,14 @@ struct Bridges {
             subject: subject,
             body: body
         )
+        
+//        let data = messageComposer!.emailComposeV1(
+//            to: to,
+//            cc: cc,
+//            bcc: bcc,
+//            subject: subject,
+//            body: body
+//        )
         
         let cipherText = data.withUnsafeBytes { Array($0) }
         return (cipherText, clientPublicKey)

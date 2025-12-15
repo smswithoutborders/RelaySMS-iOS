@@ -188,6 +188,7 @@ struct EmailComposeView: View {
 
     @Binding var message: Messages?
     @Binding var platformName: String
+    @Binding var imageTransmissionViewRequested: Bool
 
     @State var composeTo: String = ""
     @State var composeCC: String = ""
@@ -208,11 +209,13 @@ struct EmailComposeView: View {
 
     @State private var selectedPhoto : PhotosPickerItem?
     @State private var attachmentImage: Image?
+    @State private var rawImage: [UInt8]?
 
     init(
         platformName: Binding<String>,
         isBridge: Bool = false,
-        message: Binding<Messages?>
+        message: Binding<Messages?>,
+        imageTransmissionViewRequested: Binding<Bool>
     ) {
         print("Requested platform name: \(platformName.wrappedValue )")
         _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
@@ -227,6 +230,7 @@ struct EmailComposeView: View {
                 format: "name == %@", platformName.wrappedValue))
 
         _platformName = platformName
+        _imageTransmissionViewRequested = imageTransmissionViewRequested
         self.isBridge = isBridge
     }
 
@@ -276,21 +280,8 @@ struct EmailComposeView: View {
                             ImageProcessingView(viewModel: $imageViewModel){ image in
                                 Task {
                                     attachmentImage = Image(uiImage: imageViewModel.displayImage)
-                                    do {
-                                        let dp = divideImagePayload(
-                                            payload: [UInt8](Data(image).base64EncodedData()),
-                                            version: 1,
-                                            sessionId: 2,
-                                            imageLength: UInt16(image.count),
-                                            textLength: 0
-                                        )
-                                        showEditImage.toggle()
-                                        if(dp != nil) {
-                                            // TODO()
-                                        }
-                                    } catch {
-                                        print(error)
-                                    }
+                                    rawImage = image
+                                    showEditImage.toggle()
                                 }
                             }
                         }
@@ -317,19 +308,31 @@ struct EmailComposeView: View {
                     ToolbarItem {
                         Button {
                             isSendingRequest = true
-                            DispatchQueue.background(background: {
-                                do {
-                                    encryptedFormattedContent =
-                                        try getEncryptedContent(
-                                            isBridge: self.isBridge)
-                                } catch {
-                                    print(
-                                        "Some error occured while sending: \(error)"
-                                    )
-                                }
-                                isShowingMessages.toggle()
-                                isSendingRequest = false
-                            })
+                            if(attachmentImage == nil ) {
+                                DispatchQueue.background(background: {
+                                    do {
+                                        encryptedFormattedContent = try getEncryptedContent()
+                                    } catch {
+                                        print(
+                                            "Some error occured while sending: \(error)"
+                                        )
+                                    }
+                                    isShowingMessages.toggle()
+                                    isSendingRequest = false
+                                })
+                            } else {
+                                imageTransmissionViewRequested = true
+                                message = Messages(
+                                    id: UUID(),
+                                    subject: composeSubject,
+                                    data: "",
+                                    fromAccount: fromAccount,
+                                    toAccount: composeTo,
+                                    platformName: platformName,
+                                    date: Int(Date().timeIntervalSince1970),
+                                    image: rawImage
+                                )
+                            }
                         } label: {
                             if isSendingRequest {
                                 ProgressView()
@@ -337,7 +340,10 @@ struct EmailComposeView: View {
                                 Image(systemName: "paperplane.circle")
                             }
                         }
-                        .disabled(!isBridge && fromAccount.isEmpty)
+                        .disabled(
+                            composeTo.isEmpty ||
+                            composeBody.isEmpty
+                        )
                     }
                 })
                 .onReceive(Just(selectedPhoto)) { _ in
@@ -402,7 +408,7 @@ struct EmailComposeView: View {
         .navigationTitle("Compose email")
     }
 
-    func getEncryptedContent(isBridge: Bool = false) throws -> String {
+    func getEncryptedContent() throws -> String {
         if !isBridge {
             let messageComposer = try Publisher.publish(context: context)
             let shortcode: UInt8 = "g".data(using: .utf8)!.first!
@@ -485,7 +491,7 @@ struct EmailComposeView: View {
             if isBridge {
                 messageEntities.type = Bridges.SERVICE_NAME
             }
-
+            
             DispatchQueue.main.async {
                 do {
                     try context.save()
@@ -515,23 +521,25 @@ struct EmailComposeView: View {
 
 }
 
-struct EmailView_Preview: PreviewProvider {
-    static var previews: some View {
-        @State var message: Messages? = Messages(
-            id: UUID(),
-            subject: "Test subject",
-            data: "Test body",
-            fromAccount: "from@test.com",
-            toAccount: "to@test.com",
-            platformName: "BRIDGE",
-            date: 0
-        )
+#Preview {
+    @State var message: Messages? = Messages(
+        id: UUID(),
+        subject: "Test subject",
+        data: "Test body",
+        fromAccount: "from@test.com",
+        toAccount: "to@test.com",
+        platformName: "BRIDGE",
+        date: 0
+    )
 
-        @State var platformName = ""
-        return EmailComposeView(
-            platformName: $platformName, message: $message
-        )
-    }
+    @State var platformName = ""
+    @State var imageTransmissionViewRequested = false
+    EmailComposeView(
+        platformName: $platformName,
+        isBridge: true,
+        message: $message,
+        imageTransmissionViewRequested: $imageTransmissionViewRequested
+    )
 }
 
 //struct EmailCompose_Preview: PreviewProvider {

@@ -7,11 +7,29 @@
 
 import SwiftUI
 import lib_image_ios
+import MessageUI
 
 struct ImageTransmissionView: View {
-    @State var transmissionPayloads: [ImageTransmissionPayload]
+    @Binding var transmissionMessage: Messages?
+    @State private var transmissionPayloads: [ImageTransmissionPayload] = []
     @State private var states: [String: Bool] = [:]
     
+    @State private var sendSmsIsShown: Bool = false
+    @State private var content: String = ""
+
+//#if DEBUG
+//    private var defaultGatewayClientMsisdn: String =
+//        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"]
+//            == "1"
+//        ? ""
+//        : UserDefaults.standard.object(
+//            forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String
+//            ?? ""
+//#else
+//    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+//    private var defaultGatewayClientMsisdn: String = ""
+//#endif
+
     var body: some View {
         VStack {
             List(transmissionPayloads) { payload in
@@ -33,13 +51,59 @@ struct ImageTransmissionView: View {
                     }
                     Spacer()
                     Button((states.contains(where: { $0.key == id })) ? "Resend" :"Send") {
-                        let defaults = UserDefaults.standard
-                        states[id] = true
-                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
+//                        let defaults = UserDefaults.standard
+//                        states[id] = true
+//                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
+                        content = payload.payload
+                        sendSmsIsShown.toggle()
                     }
                     .buttonStyle(.bordered)
                 }
             }
+        }
+        .sheet(isPresented: $sendSmsIsShown) {
+            SMSComposeMessageUIView(
+                recipients: ["+237690826242"],
+                body: $content,
+                completion: handleCompletion(_:)
+            )
+            .ignoresSafeArea()
+        }
+        .task {
+            Task {
+                if(transmissionMessage != nil) {
+                    let payload = [UInt8](Data(transmissionMessage!.image!).base64EncodedData())
+                    print("[+] Payload length: \(payload.count)")
+                    let dividedPayload = divideImagePayload(
+                        payload: payload,
+                        version: 0x4,
+                        sessionId: 0,
+                        imageLength: UInt16(payload.count),
+                        textLength: 0
+                    )
+                    transmissionPayloads = ImageTransmissionPayload.fromString(itp: dividedPayload!)
+                }
+            }
+        }
+        .navigationTitle("Manual image sending")
+    }
+    
+    func handleCompletion(_ result: MessageComposeResult) {
+        switch result {
+        case .cancelled:
+            print("Yep cancelled")
+            break
+        case .failed:
+            print("Yep failed")
+            break
+        case .sent:
+            print("Sent")
+//            let defaults = UserDefaults.standard
+//            states[id] = true
+//            defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
+        @unknown default:
+            print("Not even sure what this means")
+            break
         }
     }
 }
@@ -61,5 +125,17 @@ struct ImageTransmissionView: View {
             payload: "Hello world"
         ),
     ]
-    ImageTransmissionView(transmissionPayloads: transmissionPayloads)
+    
+    @State var message: Messages? = Messages(
+        id: UUID(),
+        subject: "",
+        data: "",
+        fromAccount: "",
+        toAccount: "",
+        platformName: "",
+        date: Int(Date().timeIntervalSince1970),
+        image: (0..<1000).map { _ in UInt8.random(in: 0...255) }
+    )
+    
+    ImageTransmissionView(transmissionMessage: $message)
 }

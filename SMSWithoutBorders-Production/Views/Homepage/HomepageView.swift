@@ -54,6 +54,7 @@ struct HomepageView: View {
     @State var composeTextRequested: Bool = false
     @State var composeMessageRequested: Bool = false
     @State var composeEmailRequested: Bool = false
+    @State var imageTransmissionViewRequested: Bool = false
 
     @State var loginSheetRequested: Bool = false
     @State var createAccountSheetRequested: Bool = false
@@ -105,6 +106,16 @@ struct HomepageView: View {
                     ) {
                         EmptyView()
                     }
+                    
+                    NavigationLink(
+                        destination: ImageTransmissionView(
+                            transmissionMessage: $requestedMessage
+                        ),
+                        isActive: $imageTransmissionViewRequested
+                    ) {
+                        EmptyView()
+                    }
+
                 }
 
                 if requestedPlatformName.isEmpty == false
@@ -114,7 +125,8 @@ struct HomepageView: View {
                         destination: EmailComposeView(
                             platformName: $requestedPlatformName,
                             isBridge: true,
-                            message: $requestedMessage
+                            message: $requestedMessage,
+                            imageTransmissionViewRequested: $imageTransmissionViewRequested
                         ),
                         isActive: $composeNewMessageRequested
                     ) {
@@ -124,7 +136,8 @@ struct HomepageView: View {
                     NavigationLink(
                         destination: EmailComposeView(
                             platformName: $requestedPlatformName,
-                            message: $requestedMessage
+                            message: $requestedMessage,
+                            imageTransmissionViewRequested: $imageTransmissionViewRequested
                         ),
                         isActive: $composeEmailRequested
                     ) {
@@ -386,66 +399,67 @@ struct HomepageView_Previews: PreviewProvider {
     @State static var isLoggedIn: Bool = false
 
     static var previews: some View {
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
+//        let container = createInMemoryPersistentContainer()
+//        populateMockData(container: container)
 
         UserDefaults.standard.register(defaults: [
             GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
         ])
 
         return HomepageView(isLoggedIn: $isLoggedIn)
+//            .environment(\.managedObjectContext, container.viewContext)
     }
 }
 
-struct HomepageViewInboxMessages_Previews: PreviewProvider {
-    @State static var platform: PlatformsEntity?
-    @State static var platformType: Int?
-    @State static var codeVerifier: String = ""
-    @State static var isLoggedIn: Bool = false
-
-    static var previews: some View {
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
-
-        UserDefaults.standard.register(defaults: [
-            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
-        ])
-
-        return HomepageView(isLoggedIn: $isLoggedIn)
-            .environment(\.managedObjectContext, container.viewContext)
-    }
-}
-
-struct HomepageViewLoggedIn_Previews: PreviewProvider {
-    @State static var platform: PlatformsEntity?
-    @State static var platformType: Int?
-    @State static var codeVerifier: String = ""
-    @State static var isLoggedIn: Bool = true
-
-    static var previews: some View {
-        UserDefaults.standard.register(defaults: [
-            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
-        ])
-
-        return HomepageView(isLoggedIn: $isLoggedIn)
-    }
-}
-
-struct HomepageViewLoggedInMessages_Previews: PreviewProvider {
-    @State static var platform: PlatformsEntity?
-    @State static var platformType: Int?
-    @State static var codeVerifier: String = ""
-    @State static var isLoggedIn: Bool = true
-
-    static var previews: some View {
-        let container = createInMemoryPersistentContainer()
-        populateMockData(container: container)
-
-        UserDefaults.standard.register(defaults: [
-            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
-        ])
-
-        return HomepageView(isLoggedIn: $isLoggedIn)
-            .environment(\.managedObjectContext, container.viewContext)
-    }
-}
+//struct HomepageViewInboxMessages_Previews: PreviewProvider {
+//    @State static var platform: PlatformsEntity?
+//    @State static var platformType: Int?
+//    @State static var codeVerifier: String = ""
+//    @State static var isLoggedIn: Bool = false
+//
+//    static var previews: some View {
+//        let container = createInMemoryPersistentContainer()
+//        populateMockData(container: container)
+//
+//        UserDefaults.standard.register(defaults: [
+//            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+//        ])
+//
+//        return HomepageView(isLoggedIn: $isLoggedIn)
+//            .environment(\.managedObjectContext, container.viewContext)
+//    }
+//}
+//
+//struct HomepageViewLoggedIn_Previews: PreviewProvider {
+//    @State static var platform: PlatformsEntity?
+//    @State static var platformType: Int?
+//    @State static var codeVerifier: String = ""
+//    @State static var isLoggedIn: Bool = true
+//
+//    static var previews: some View {
+//        UserDefaults.standard.register(defaults: [
+//            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+//        ])
+//
+//        return HomepageView(isLoggedIn: $isLoggedIn)
+//    }
+//}
+//
+//struct HomepageViewLoggedInMessages_Previews: PreviewProvider {
+//    @State static var platform: PlatformsEntity?
+//    @State static var platformType: Int?
+//    @State static var codeVerifier: String = ""
+//    @State static var isLoggedIn: Bool = true
+//
+//    static var previews: some View {
+//        let container = createInMemoryPersistentContainer()
+//        populateMockData(container: container)
+//
+//        UserDefaults.standard.register(defaults: [
+//            GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN: "+237123456782"
+//        ])
+//
+//        return HomepageView(isLoggedIn: $isLoggedIn)
+//            .environment(\.managedObjectContext, container.viewContext)
+//    }
+//}
