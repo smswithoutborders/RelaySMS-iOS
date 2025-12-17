@@ -79,7 +79,8 @@ struct HomepageView: View {
                             composeNewMessageRequested:
                                 $composeNewMessageRequested,
                             emailComposeRequested: $composeEmailRequested,
-                            requestedPlatformName: $requestedPlatformName
+                            requestedPlatformName: $requestedPlatformName,
+                            showImageTransmissionView: $imageTransmissionViewRequested
                         ),
                         isActive: $emailIsRequested
                     ) {

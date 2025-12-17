@@ -52,7 +52,8 @@ struct SentMessagesList: View {
                                     fromAccount: message.fromAccount ?? "unknown",
                                     toAccount: message.toAccount ?? "unknown",
                                     platformName: message.platformName ?? "unknown",
-                                    date: Int(message.date)
+                                    date: Int(message.date),
+                                    image: message.rawImage == nil ? nil : [UInt8](Data(base64Encoded: message.rawImage!)!)
                                 )
                                 switch getServiceTypeForPlatform(name: message.platformName ?? "unknown") {
                                 case Publisher.ServiceTypes.EMAIL.rawValue:

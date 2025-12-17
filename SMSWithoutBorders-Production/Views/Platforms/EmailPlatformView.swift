@@ -16,10 +16,14 @@ struct EmailPlatformView: View {
     @Binding var composeNewMessageRequested: Bool
     @Binding var emailComposeRequested: Bool
     @Binding var requestedPlatformName: String
+    @Binding var showImageTransmissionView: Bool
+
+    @State private var showEditImage: Bool = false
+    @State private var attachmentImage: Image?
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -47,7 +51,20 @@ struct EmailPlatformView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Spacer()
-                
+                VStack {
+                    EmailAttachmentView(
+                        image: $attachmentImage,
+                        closeable: false
+                    )
+                    .border(Color.gray)
+                }
+                .padding()
+            }
+            .task {
+                if(message != nil) {
+                    let uIImage = UIImage(data: Data(bytes: message.image ?? []))
+                    attachmentImage = Image(uiImage: uIImage!)
+                }
             }
             .navigationTitle(message.subject)
             .toolbar(content: {
@@ -71,6 +88,13 @@ struct EmailPlatformView: View {
                         Image(systemName: "trash.circle")
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showImageTransmissionView = true
+                    } label: {
+                        Image(systemName: "paperclip.circle")
+                    }
+                }
             })
         }
     }
@@ -80,7 +104,11 @@ struct EmailPlatformView_Preview: PreviewProvider {
     static var previews: some View {
         @State var composeNewMessageRequested: Bool = false
         @State var emailComposeRequested: Bool = false
+        @State var showImageTransmissionView: Bool = false
         @State var requestedPlatformName: String = ""
+        
+        let image: Image? = Image("OnboardingTryExample")
+        let pngImage = ImageRenderer(content: image).uiImage?.pngData()
 
         @State var message = Messages(
             id: UUID(),
@@ -89,12 +117,15 @@ struct EmailPlatformView_Preview: PreviewProvider {
             fromAccount: "a@g.com",
             toAccount: "toAccount@gmail.com",
             platformName: "gmail",
-            date: Int(Date().timeIntervalSince1970))
+            date: Int(Date().timeIntervalSince1970),
+            image: [UInt8](pngImage!)
+        )
         EmailPlatformView(
             message: message,
             composeNewMessageRequested: $composeNewMessageRequested,
             emailComposeRequested: $emailComposeRequested,
-            requestedPlatformName: $requestedPlatformName
+            requestedPlatformName: $requestedPlatformName,
+            showImageTransmissionView: $showImageTransmissionView
         )
     }
 }

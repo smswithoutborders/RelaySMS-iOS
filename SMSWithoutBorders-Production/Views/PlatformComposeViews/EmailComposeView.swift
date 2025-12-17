@@ -15,7 +15,8 @@ import Combine
 
 struct EmailAttachmentView: View {
     @Binding var image: Image?
-    
+    @State var closeable: Bool = true
+
     var body: some View {
         if(image != nil) {
             VStack {
@@ -24,19 +25,21 @@ struct EmailAttachmentView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 150)
                     .clipped()
-                HStack {
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Button("x") {
-                            image = nil
+                if(closeable) {
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Button("x") {
+                                image = nil
+                            }
                         }
                     }
+                    .frame(width: 200)
+                    .padding(.trailing, 12,)
+                    .padding(.bottom, 4)
+                    .padding(.top, 4)
+                    .background(.secondary)
                 }
-                .frame(width: 200)
-                .padding(.trailing, 12,)
-                .padding(.bottom, 4)
-                .padding(.top, 4)
-                .background(.secondary)
             }
             .padding(20)
             .cornerRadius(12)
