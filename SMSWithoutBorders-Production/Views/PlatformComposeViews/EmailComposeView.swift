@@ -271,7 +271,7 @@ struct EmailComposeView: View {
                 }
                 .sheet(isPresented: $showEditImage) {
                     VStack {
-                        if(selectedPhoto == nil) {
+                        if(!imageSelected) {
                             Button("Select image") {
                                 showImagePicker.toggle()
                             }
