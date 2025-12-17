@@ -373,7 +373,6 @@ struct EmailComposeView: View {
                         Task {
                             if let loaded = try? await selectedPhoto?.loadTransferable(type: Image.self) {
                                 let renderer = ImageRenderer(content: loaded)
-                                imageViewModel = ImageCustomizationViewModel()
                                 imageViewModel.setImage(renderer.uiImage!)
                                 imageSelected = true
                                 print("[+] Image selected...")
