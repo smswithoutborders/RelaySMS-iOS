@@ -43,28 +43,86 @@ struct ImageTransmissionView: View {
             VStack {
                 List(transmissionPayloads) { payload in
                     let id = "\(payload.version).\(payload.sessionId).\(payload.segNumber)"
-                    HStack {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                            .padding()
-
-                        VStack {
+                    let sent = states.contains(where: { $0.key == id })
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading)  {
+                            Image(systemName: (sent) ? "checkmark.circle.fill" : "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 40)
+                                .padding(.trailing, 12)
+                                .foregroundStyle((sent) ? .green : .primary)
+                        }
+                        
+                        VStack(alignment: .leading)  {
                             VStack(alignment: .leading)  {
                                 Text(String("version: \(payload.version)"))
                                 Text(String("session_id: \(payload.sessionId)"))
                                 Text(String("seg_number: \(payload.segNumber)\n"))
-                                Text(String("payload: \(payload.payload)"))
+                            }
+                            .foregroundStyle(Color(.secondaryLabel))
+
+                            VStack(alignment: .leading)  {
+                                Text(String("PAYLOAD:"))
+                                    .foregroundStyle(Color(.secondaryLabel))
+                                Text(String("\(payload.payload)"))
+                                    .lineLimit(4)
                             }
                         }
+                        
+
                         Spacer()
-                        Button((states.contains(where: { $0.key == id })) ? "Resend" :"Send") {
-                            contentId = id
-                            content = payload.payload
-                            sendSmsIsShown.toggle()
+                        VStack(alignment: .center) {
+                            Spacer()
+                            if(sent) {
+                                Text("SENT")
+                                    .foregroundStyle(.green)
+                                    .font(Font.system(size: 12))
+                                Button {
+                                    contentId = id
+                                    content = payload.payload
+                                    
+                                    if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+                                    ) {
+                                        let defaults = UserDefaults.standard
+                                        states[contentId] = true
+                                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
+                                    } else {
+                                        sendSmsIsShown.toggle()
+                                    }
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "arrow.clockwise")
+                                            .resizable()
+                                            .frame(width: 12, height: 16)
+                                        Text("Resend")
+                                    }
+                                    .foregroundStyle(.secondary)
+                                }
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 18)
+                                        .stroke(Color.gray, lineWidth: 2)
+                                )
+                                .buttonStyle(.plain)
+                            } else {
+                                Button("Send") {
+                                    contentId = id
+                                    content = payload.payload
+                                    
+                                    if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+                                    ) {
+                                        let defaults = UserDefaults.standard
+                                        states[contentId] = true
+                                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
+                                    } else {
+                                        sendSmsIsShown.toggle()
+                                    }
+                                }
+                                .buttonStyle(.bordered)
+                            }
                         }
-                        .buttonStyle(.bordered)
+                        .padding(.leading, 12)
                     }
                 }
             }
