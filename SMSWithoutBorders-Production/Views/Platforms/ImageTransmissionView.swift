@@ -152,7 +152,7 @@ struct ImageTransmissionView: View {
                 let payload = [UInt8](Data(self.transmissionMessage!.image!).base64EncodedData())
                 
                 let defaults = UserDefaults.standard
-                let states = defaults.dictionary(forKey: transmissionId ?? "") as? [String: Bool] ?? [:]
+                states = defaults.dictionary(forKey: transmissionId ?? "") as? [String: Bool] ?? [:]
                 let dividedPayload = divideImagePayload(
                     payload: payload,
                     version: 0x4,
