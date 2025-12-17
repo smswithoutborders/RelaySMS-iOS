@@ -261,6 +261,22 @@ struct MessageComposer {
         }
     }
     
+    public func encryptContents(content: [UInt8]) throws -> (header: [UInt8], cipherText: [UInt8]){
+        do {
+            let (header, cipherText) = try Ratchet.encrypt(
+                state: self.state,
+                data: content,
+                AD: self.AD
+            )
+            try saveState()
+            
+            return ([UInt8](header.serialize()), cipherText)
+        } catch {
+            print("Error saving state message cannot be sent: \(error)")
+            throw error
+        }
+    }
+    
     public func textComposer(platform_letter: UInt8,
                              sender: String,
                              text: String,

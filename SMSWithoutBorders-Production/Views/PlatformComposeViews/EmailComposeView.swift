@@ -321,17 +321,36 @@ struct EmailComposeView: View {
                                     isSendingRequest = false
                                 })
                             } else {
-                                imageTransmissionViewRequested = true
-                                message = Messages(
-                                    id: UUID(),
-                                    subject: composeSubject,
-                                    data: "",
-                                    fromAccount: fromAccount,
-                                    toAccount: composeTo,
-                                    platformName: platformName,
-                                    date: Int(Date().timeIntervalSince1970),
-                                    image: rawImage
-                                )
+                                
+                                do {
+                                    let payload = try Bridges.imageCompose(
+                                        context: context,
+                                        to: composeTo,
+                                        cc: composeCC,
+                                        bcc: composeCC,
+                                        subject: composeSubject,
+                                        body: composeBody,
+                                        image: rawImage ?? []
+                                    )
+                                    
+                                    saveMessageEntity() { id in
+                                        let defaults = UserDefaults.standard
+                                        defaults.set(payload, forKey: "com.relaysms.image_sending_sessions.\(id)")
+                                        message = Messages(
+                                            id: id,
+                                            subject: composeSubject,
+                                            data: "",
+                                            fromAccount: fromAccount,
+                                            toAccount: composeTo,
+                                            platformName: platformName,
+                                            date: Int(Date().timeIntervalSince1970),
+                                            image: rawImage
+                                        )
+                                        imageTransmissionViewRequested = true
+                                    }
+                                } catch {
+                                    print(error)
+                                }
                             }
                         } label: {
                             if isSendingRequest {
@@ -440,13 +459,13 @@ struct EmailComposeView: View {
             )
             if try !Vault.getLongLivedToken().isEmpty {
                 return try Bridges.payloadOnly(
-                    context: context, cipherText: cipherText)!
+                    context: context, cipherText: cipherText).base64EncodedString()
             } else {
                 return try Bridges.authRequestAndPayload(
                     context: context,
                     cipherText: cipherText,
                     clientPublicKey: clientPublicKey!
-                )!
+                ).base64EncodedString()
             }
         }
     }
@@ -475,10 +494,11 @@ struct EmailComposeView: View {
         }
     }
 
-    private func saveMessageEntity() {
+    private func saveMessageEntity(callback: ((_ id: UUID) -> Void)? = nil) {
         DispatchQueue.background(background: {
+            let id = UUID()
             let messageEntities = MessageEntity(context: context)
-            messageEntities.id = UUID()
+            messageEntities.id = id
             messageEntities.platformName = platformName
             messageEntities.fromAccount = fromAccount
             messageEntities.toAccount = composeTo
@@ -487,18 +507,23 @@ struct EmailComposeView: View {
             messageEntities.subject = composeSubject
             messageEntities.body = composeBody
             messageEntities.date = Int32(Date().timeIntervalSince1970)
+            messageEntities.rawImage = rawImage?.toBase64()
 
             if isBridge {
                 messageEntities.type = Bridges.SERVICE_NAME
             }
             
-            DispatchQueue.main.async {
-                do {
-                    try context.save()
-                    dismiss()
-                } catch {
-                    print("Failed to save message entity: \(error)")
+            if(callback == nil) {
+                DispatchQueue.main.async {
+                    do {
+                        try context.save()
+                        dismiss()
+                    } catch {
+                        print("Failed to save message entity: \(error)")
+                    }
                 }
+            } else {
+                callback!(id)
             }
         })
     }

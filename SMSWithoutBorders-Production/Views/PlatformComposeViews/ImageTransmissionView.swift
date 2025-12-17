@@ -16,19 +16,25 @@ struct ImageTransmissionView: View {
     
     @State private var sendSmsIsShown: Bool = false
     @State private var content: String = ""
+    @State private var contentId: String = ""
 
-//#if DEBUG
-//    private var defaultGatewayClientMsisdn: String =
-//        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"]
-//            == "1"
-//        ? ""
-//        : UserDefaults.standard.object(
-//            forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String
-//            ?? ""
-//#else
-//    @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-//    private var defaultGatewayClientMsisdn: String = ""
-//#endif
+    #if DEBUG
+        var defaultGatewayClientMsisdn: String =
+            ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"]
+                == "1"
+            ? ""
+            : UserDefaults.standard.object(
+                forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String
+                ?? ""
+    #else
+        @AppStorage(GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
+        var defaultGatewayClientMsisdn: String = ""
+    #endif
+    
+    init(transmissionMessage: Binding<Messages?>) {
+        _transmissionMessage = transmissionMessage
+        
+    }
 
     var body: some View {
         VStack {
@@ -54,6 +60,7 @@ struct ImageTransmissionView: View {
 //                        let defaults = UserDefaults.standard
 //                        states[id] = true
 //                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
+                        contentId = id
                         content = payload.payload
                         sendSmsIsShown.toggle()
                     }
@@ -63,7 +70,7 @@ struct ImageTransmissionView: View {
         }
         .sheet(isPresented: $sendSmsIsShown) {
             SMSComposeMessageUIView(
-                recipients: ["+237690826242"],
+                recipients: [defaultGatewayClientMsisdn],
                 body: $content,
                 completion: handleCompletion(_:)
             )
@@ -71,18 +78,18 @@ struct ImageTransmissionView: View {
         }
         .task {
             Task {
-                if(transmissionMessage != nil) {
-                    let payload = [UInt8](Data(transmissionMessage!.image!).base64EncodedData())
-                    print("[+] Payload length: \(payload.count)")
-                    let dividedPayload = divideImagePayload(
-                        payload: payload,
-                        version: 0x4,
-                        sessionId: 0,
-                        imageLength: UInt16(payload.count),
-                        textLength: 0
-                    )
-                    transmissionPayloads = ImageTransmissionPayload.fromString(itp: dividedPayload!)
-                }
+                let payload = [UInt8](Data(self.transmissionMessage!.image!).base64EncodedData())
+                
+                let defaults = UserDefaults.standard
+                let states = UserDefaults.standard.dictionary(forKey: "com.relaysms.image_sending_sessions.sending_status.\(self.transmissionMessage!.id)") as? [String: Bool] ?? [:]
+                let dividedPayload = divideImagePayload(
+                    payload: payload,
+                    version: 0x4,
+                    sessionId: 0,
+                    imageLength: UInt16(payload.count),
+                    textLength: 0
+                )
+                transmissionPayloads = ImageTransmissionPayload.fromString(itp: dividedPayload!)
             }
         }
         .navigationTitle("Manual image sending")
@@ -98,9 +105,9 @@ struct ImageTransmissionView: View {
             break
         case .sent:
             print("Sent")
-//            let defaults = UserDefaults.standard
-//            states[id] = true
-//            defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
+            let defaults = UserDefaults.standard
+            states[contentId] = true
+            defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
         @unknown default:
             print("Not even sure what this means")
             break

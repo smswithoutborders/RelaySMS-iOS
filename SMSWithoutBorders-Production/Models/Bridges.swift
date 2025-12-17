@@ -29,22 +29,12 @@ struct Bridges {
         var status: String
     }
     
-    public static func compose(
-        to: String,
-        cc: String,
-        bcc: String,
-        subject: String,
-        body: String,
-        image: [UInt8]? = nil,
-        context: NSManagedObjectContext
-    ) throws -> ([UInt8], [UInt8]?){
-        
+    public static func getMessageComposer(context: NSManagedObjectContext) throws -> (clientPubKey: [UInt8], messageComposer: MessageComposer) {
         var messageComposer: MessageComposer? = nil
         var clientPublicKey: [UInt8]? = nil
         var sharedSecret: [UInt8]? = nil
         var peerPublishPublicKey: Curve25519.KeyAgreement.PublicKey? = nil
 
-        // Meaning the user has logged in online already
         if(try Vault.getLongLivedToken().isEmpty) {
             if(!MessageComposer.hasStates(context: context)) {
                 try Vault.resetStates(context: context)
@@ -69,7 +59,6 @@ struct Bridges {
                 peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: pubKey!)
                 clientPublicKey = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as? [UInt8]
             }
-
             do {
                 messageComposer = try MessageComposer(
                     SK: sharedSecret,
@@ -80,7 +69,7 @@ struct Bridges {
             } catch {
                 print("Bridges raising exception: \(error)")
             }
-        } else {
+            } else {
             let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
             clientPublicKey = UserDefaults.standard.object(
                 forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
@@ -97,22 +86,28 @@ struct Bridges {
                 context: context
             )
         }
+        return (clientPublicKey!, messageComposer!)
+    }
+    
+    public static func compose(
+        to: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        image: [UInt8]? = nil,
+        context: NSManagedObjectContext
+    ) throws -> ([UInt8], [UInt8]?){
         
-        let data = try messageComposer!.bridgeEmailComposer(
+        let (clientPublicKey, messageComposer) = try getMessageComposer(context: context)
+
+        let data = try messageComposer.bridgeEmailComposer(
             to: to,
             cc: cc,
             bcc: bcc,
             subject: subject,
             body: body
         )
-        
-//        let data = messageComposer!.emailComposeV1(
-//            to: to,
-//            cc: cc,
-//            bcc: bcc,
-//            subject: subject,
-//            body: body
-//        )
         
         let cipherText = data.withUnsafeBytes { Array($0) }
         return (cipherText, clientPublicKey)
@@ -151,10 +146,11 @@ struct Bridges {
     public static func authRequestAndPayload(
         context: NSManagedObjectContext,
         cipherText: [UInt8],
-        clientPublicKey: [UInt8]
-    ) throws -> String? {
+        clientPublicKey: [UInt8],
+        versionMarker: UInt8 = 0x0A
+    ) throws -> Data {
         let mode: UInt8 = 0x00
-        let versionMarker: UInt8 = 0x0A
+        let versionMarker: UInt8 = versionMarker
         let switchValue: UInt8 = 0x00
         var clientPublicKeyLength: Data = Data(count: 1)
         clientPublicKeyLength.withUnsafeMutableBytes {
@@ -178,15 +174,16 @@ struct Bridges {
         payload.append(Data(clientPublicKey))
         payload.append(Data(cipherText))
 
-        return payload.base64EncodedString()
+        return payload
     }
     
     public static func payloadOnly(
         context: NSManagedObjectContext,
-        cipherText: [UInt8]
-    ) throws -> String? {
+        cipherText: [UInt8],
+        versionMarker: UInt8 = 0x0A
+    ) throws -> Data {
         let mode: UInt8 = 0x00
-        let versionMarker: UInt8 = 0x0A
+        let versionMarker: UInt8 = versionMarker
         let switchValue: UInt8 = 0x01
         var cipherTextLength: Data = Data(count: 2)
         cipherTextLength.withUnsafeMutableBytes {
@@ -202,7 +199,7 @@ struct Bridges {
         payload.append(bridgeLetter)
         payload.append(Data(cipherText))
 
-        return payload.base64EncodedString()
+        return payload
     }
     
     public static func getStaticKeys(kid: Int? = nil) -> [StaticKeys]? {
@@ -333,23 +330,44 @@ struct Bridges {
     }
     
     public static func imageCompose(
+        context: NSManagedObjectContext,
         to: String,
         cc: String,
         bcc: String,
         subject: String,
         body: String,
-        smsTransmission: Bool = false,
-        imageLength: Int,
-        textLength: Int,
-    ) {
-        /**
-         # Notes:
-         # Payload is versioned for transmission - content matches payload version and used for structure
-         
-         - Bridges uses v2 on Android and v2 structure for content
-         - Payload = encrypt(image content + text content)
-         */
-        
+        image: [UInt8]
+    ) throws -> [UInt8] {
+        do {
+            let (clientPublicKey, messageComposer) = try getMessageComposer(context: context)
+            let emailPayload = messageComposer.emailComposeV1(
+                to: to,
+                cc: cc,
+                bcc: bcc,
+                subject: subject,
+                body: body
+            )
+            let (header, cipherText) = try messageComposer.encryptContents(content: image + emailPayload)
+            let payload = header + cipherText
+            
+            if try !Vault.getLongLivedToken().isEmpty {
+                return try [UInt8](Bridges.payloadOnly(
+                    context: context,
+                    cipherText: payload,
+                    versionMarker: 0x02
+                ))
+            } else {
+                return try [UInt8](Bridges.authRequestAndPayload(
+                    context: context,
+                    cipherText: cipherText,
+                    clientPublicKey: clientPublicKey,
+                    versionMarker: 0x02
+                ))
+            }
+
+        } catch {
+            throw error
+        }
     }
     
 }
