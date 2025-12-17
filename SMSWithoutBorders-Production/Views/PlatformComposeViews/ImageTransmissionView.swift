@@ -10,6 +10,7 @@ import lib_image_ios
 import MessageUI
 
 struct ImageTransmissionView: View {
+    @Environment(\.dismiss) var dismiss
     @Binding var transmissionMessage: Messages?
     @State private var transmissionPayloads: [ImageTransmissionPayload] = []
     @State private var states: [String: Bool] = [:]
@@ -17,6 +18,8 @@ struct ImageTransmissionView: View {
     @State private var sendSmsIsShown: Bool = false
     @State private var content: String = ""
     @State private var contentId: String = ""
+    
+    @State private var transmissionId: String? = nil
 
     #if DEBUG
         var defaultGatewayClientMsisdn: String =
@@ -33,55 +36,65 @@ struct ImageTransmissionView: View {
     
     init(transmissionMessage: Binding<Messages?>) {
         _transmissionMessage = transmissionMessage
-        
     }
 
     var body: some View {
-        VStack {
-            List(transmissionPayloads) { payload in
-                let id = "\(payload.version).\(payload.sessionId).\(payload.segNumber)"
-                HStack {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .padding()
+        NavigationView {
+            VStack {
+                List(transmissionPayloads) { payload in
+                    let id = "\(payload.version).\(payload.sessionId).\(payload.segNumber)"
+                    HStack {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                            .padding()
 
-                    VStack {
-                        VStack(alignment: .leading)  {
-                            Text(String("version: \(payload.version)"))
-                            Text(String("session_id: \(payload.sessionId)"))
-                            Text(String("seg_numner: \(payload.segNumber)"))
-                            Text(String("payload: \(payload.payload)"))
+                        VStack {
+                            VStack(alignment: .leading)  {
+                                Text(String("version: \(payload.version)"))
+                                Text(String("session_id: \(payload.sessionId)"))
+                                Text(String("seg_number: \(payload.segNumber)\n"))
+                                Text(String("payload: \(payload.payload)"))
+                            }
                         }
+                        Spacer()
+                        Button((states.contains(where: { $0.key == id })) ? "Resend" :"Send") {
+                            contentId = id
+                            content = payload.payload
+                            sendSmsIsShown.toggle()
+                        }
+                        .buttonStyle(.bordered)
                     }
-                    Spacer()
-                    Button((states.contains(where: { $0.key == id })) ? "Resend" :"Send") {
-//                        let defaults = UserDefaults.standard
-//                        states[id] = true
-//                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions")
-                        contentId = id
-                        content = payload.payload
-                        sendSmsIsShown.toggle()
-                    }
-                    .buttonStyle(.bordered)
                 }
             }
-        }
-        .sheet(isPresented: $sendSmsIsShown) {
-            SMSComposeMessageUIView(
-                recipients: [defaultGatewayClientMsisdn],
-                body: $content,
-                completion: handleCompletion(_:)
-            )
-            .ignoresSafeArea()
+            .sheet(isPresented: $sendSmsIsShown) {
+                SMSComposeMessageUIView(
+                    recipients: [defaultGatewayClientMsisdn],
+                    body: $content,
+                    completion: handleCompletion(_:)
+                )
+                .ignoresSafeArea()
+            }
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(role: .destructive) {
+                        let defaults = UserDefaults.standard
+                        defaults.removeObject(forKey: transmissionId!)
+                        dismiss()
+                    } label: {
+                        Image(systemName: "trash.circle")
+                    }
+                }
+            })
         }
         .task {
+            self.transmissionId = "com.relaysms.image_sending_sessions.sending_status.\(self.transmissionMessage!.id)"
             Task {
                 let payload = [UInt8](Data(self.transmissionMessage!.image!).base64EncodedData())
                 
                 let defaults = UserDefaults.standard
-                let states = UserDefaults.standard.dictionary(forKey: "com.relaysms.image_sending_sessions.sending_status.\(self.transmissionMessage!.id)") as? [String: Bool] ?? [:]
+                let states = defaults.dictionary(forKey: transmissionId ?? "") as? [String: Bool] ?? [:]
                 let dividedPayload = divideImagePayload(
                     payload: payload,
                     version: 0x4,
