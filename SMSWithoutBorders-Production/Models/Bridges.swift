@@ -69,7 +69,7 @@ struct Bridges {
             } catch {
                 print("Bridges raising exception: \(error)")
             }
-            } else {
+        } else {
             let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
             clientPublicKey = UserDefaults.standard.object(
                 forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
@@ -348,18 +348,23 @@ struct Bridges {
                 body: body
             )
             let (header, cipherText) = try messageComposer.encryptContents(content: image + emailPayload)
-            let payload = header + cipherText
+            let headerLength = UInt32(min(header.count, Int(UInt32.max))).littleEndian // UInt32 because the header length should be 4 bytes
             
+            var payload = Data()
+            payload.append(contentsOf: withUnsafeBytes(of: headerLength.littleEndian) {Data($0)})
+            payload.append(Data(header))
+            payload.append(Data(cipherText))
+
             if try !Vault.getLongLivedToken().isEmpty {
                 return try [UInt8](Bridges.payloadOnly(
                     context: context,
-                    cipherText: payload,
+                    cipherText: [UInt8](payload),
                     versionMarker: 0x02
                 ))
             } else {
                 return try [UInt8](Bridges.authRequestAndPayload(
                     context: context,
-                    cipherText: cipherText,
+                    cipherText: [UInt8](payload),
                     clientPublicKey: clientPublicKey,
                     versionMarker: 0x02
                 ))

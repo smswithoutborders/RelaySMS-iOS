@@ -154,8 +154,12 @@ struct ImageTransmissionView: View {
         .task {
             self.transmissionId = "com.relaysms.image_sending_sessions.sending_status.\(self.transmissionMessage!.id)"
             Task {
-
                 let defaults = UserDefaults.standard
+                var sessionId = defaults.integer(forKey: "com.relaysms.image_sending_sessions.id.\(self.transmissionMessage!.id)")
+                if(sessionId == 0) {
+                    sessionId = Int(getSessionId())
+                    defaults.set(sessionId, forKey: "com.relaysms.image_sending_sessions.id.\(self.transmissionMessage!.id)")
+                }
                 states = defaults.dictionary(forKey: transmissionId ?? "") as? [String: Bool] ?? [:]
                 
                 let rawPayload = defaults.array(forKey: "com.relaysms.image_sending_sessions.\(self.transmissionMessage!.id)") as! [UInt8]
@@ -163,7 +167,7 @@ struct ImageTransmissionView: View {
                 self.payload = divideImagePayload(
                     payload: rawPayload,
                     version: 4,
-                    sessionId: 0,
+                    sessionId: UInt8(sessionId),
                     imageLength: UInt16(transmissionMessage!.image?.count ?? 0),
                     textLength: UInt16(MessageComposer.getTextLength(message: transmissionMessage!))
                 ) ?? []
@@ -171,6 +175,14 @@ struct ImageTransmissionView: View {
             }
         }
         .navigationTitle("Manual image sending")
+    }
+    
+    private func getSessionId() -> UInt8 {
+        let defaults = UserDefaults.standard
+        var id = defaults.integer(forKey: "com.relaysms.image_sending_sessions.id")
+        id = (id >= 255) ? 1 : id + 1
+        defaults.set(id, forKey: "com.relaysms.image_sending_sessions.id")
+        return UInt8(id)
     }
     
     func handleCompletion(_ result: MessageComposeResult) {
