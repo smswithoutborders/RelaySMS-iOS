@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C26DCE22-27A8-4740-B7AC-9188936C1735"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Library/Developer/Xcode/DerivedData/SMSWithoutBorders-Production-hiwsnvuyufynzwarrduwqpfzzukj/SourcePackages/checkouts/lib_image_ios/Sources/lib-image-ios/viewModels/customizationViewModel.swift"
