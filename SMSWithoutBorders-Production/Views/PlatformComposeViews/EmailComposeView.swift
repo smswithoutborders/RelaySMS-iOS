@@ -330,7 +330,7 @@ struct EmailComposeView: View {
                                         context: context,
                                         to: composeTo,
                                         cc: composeCC,
-                                        bcc: composeCC,
+                                        bcc: composeBCC,
                                         subject: composeSubject,
                                         body: composeBody,
                                         image: rawImage ?? []
