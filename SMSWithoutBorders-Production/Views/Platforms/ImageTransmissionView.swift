@@ -20,6 +20,7 @@ struct ImageTransmissionView: View {
     @State private var contentId: String = ""
     
     @State private var transmissionId: String? = nil
+    @State private var payload: [String] = []
 
     #if DEBUG
         var defaultGatewayClientMsisdn: String =
@@ -41,88 +42,92 @@ struct ImageTransmissionView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List(transmissionPayloads) { payload in
-                    let id = "\(payload.version).\(payload.sessionId).\(payload.segNumber)"
-                    let sent = states.contains(where: { $0.key == id })
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading)  {
-                            Image(systemName: (sent) ? "checkmark.circle.fill" : "photo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 40)
-                                .padding(.trailing, 12)
-                                .foregroundStyle((sent) ? .green : .primary)
-                        }
-                        
-                        VStack(alignment: .leading)  {
+                List {
+                    ForEach(transmissionPayloads.indices, id: \.self) { index in
+                        let payload = transmissionPayloads[index]
+                        let id = "\(payload.version).\(payload.sessionId).\(payload.segNumber)"
+                        let sent = states.contains(where: { $0.key == id })
+                        HStack(alignment: .top) {
                             VStack(alignment: .leading)  {
-                                Text(String("version: \(payload.version)"))
-                                Text(String("session_id: \(payload.sessionId)"))
-                                Text(String("seg_number: \(payload.segNumber)\n"))
+                                Image(systemName: (sent) ? "checkmark.circle.fill" : "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 40)
+                                    .padding(.trailing, 12)
+                                    .foregroundStyle((sent) ? .green : .primary)
                             }
-                            .foregroundStyle(Color(.secondaryLabel))
-
+                            
                             VStack(alignment: .leading)  {
-                                Text(String("PAYLOAD:"))
-                                    .foregroundStyle(Color(.secondaryLabel))
-                                Text(String("\(payload.payload)"))
-                                    .lineLimit(4)
-                            }
-                        }
-                        
+                                VStack(alignment: .leading)  {
+                                    Text(String("version: \(payload.version)"))
+                                    Text(String("session_id: \(payload.sessionId)"))
+                                    Text(String("seg_number: \(payload.segNumber)\n"))
+                                }
+                                .foregroundStyle(Color(.secondaryLabel))
 
-                        Spacer()
-                        VStack(alignment: .center) {
+                                VStack(alignment: .leading)  {
+                                    Text(String("PAYLOAD:"))
+                                        .foregroundStyle(Color(.secondaryLabel))
+                                    Text(String("\(payload.payload)"))
+                                        .lineLimit(4)
+                                }
+                            }
+                            
+
                             Spacer()
-                            if(sent) {
-                                Text("SENT")
-                                    .foregroundStyle(.green)
-                                    .font(Font.system(size: 12))
-                                Button {
-                                    contentId = id
-                                    content = payload.payload
-                                    
-                                    if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-                                    ) {
-                                        let defaults = UserDefaults.standard
-                                        states[contentId] = true
-                                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
-                                    } else {
-                                        sendSmsIsShown.toggle()
+                            VStack(alignment: .center) {
+                                Spacer()
+                                if(sent) {
+                                    Text("SENT")
+                                        .foregroundStyle(.green)
+                                        .font(Font.system(size: 12))
+                                    Button {
+                                        contentId = id
+                                        content = self.payload[index]
+                                        
+                                        if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+                                        ) {
+                                            let defaults = UserDefaults.standard
+                                            states[contentId] = true
+                                            defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
+                                        } else {
+                                            sendSmsIsShown.toggle()
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "arrow.clockwise")
+                                                .resizable()
+                                                .frame(width: 12, height: 16)
+                                            Text("Resend")
+                                        }
+                                        .foregroundStyle(.secondary)
                                     }
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "arrow.clockwise")
-                                            .resizable()
-                                            .frame(width: 12, height: 16)
-                                        Text("Resend")
+                                    .padding(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 18)
+                                            .stroke(Color.gray, lineWidth: 2)
+                                    )
+                                    .buttonStyle(.plain)
+                                } else {
+                                    Button("Send") {
+                                        contentId = id
+                                        content = self.payload[index]
+
+                                        if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+                                        ) {
+                                            let defaults = UserDefaults.standard
+                                            states[contentId] = true
+                                            defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
+                                        } else {
+                                            sendSmsIsShown.toggle()
+                                        }
                                     }
-                                    .foregroundStyle(.secondary)
+                                    .buttonStyle(.bordered)
                                 }
-                                .padding(10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 18)
-                                        .stroke(Color.gray, lineWidth: 2)
-                                )
-                                .buttonStyle(.plain)
-                            } else {
-                                Button("Send") {
-                                    contentId = id
-                                    content = payload.payload
-                                    
-                                    if( ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-                                    ) {
-                                        let defaults = UserDefaults.standard
-                                        states[contentId] = true
-                                        defaults.set(states, forKey: "com.relaysms.image_sending_sessions.sending_status.\(transmissionMessage!.id)")
-                                    } else {
-                                        sendSmsIsShown.toggle()
-                                    }
-                                }
-                                .buttonStyle(.bordered)
                             }
+                            .padding(.leading, 12)
                         }
-                        .padding(.leading, 12)
+
                     }
                 }
             }
@@ -149,18 +154,20 @@ struct ImageTransmissionView: View {
         .task {
             self.transmissionId = "com.relaysms.image_sending_sessions.sending_status.\(self.transmissionMessage!.id)"
             Task {
-                let payload = [UInt8](Data(self.transmissionMessage!.image!).base64EncodedData())
-                
+
                 let defaults = UserDefaults.standard
                 states = defaults.dictionary(forKey: transmissionId ?? "") as? [String: Bool] ?? [:]
-                let dividedPayload = divideImagePayload(
-                    payload: payload,
-                    version: 0x4,
+                
+                let rawPayload = defaults.array(forKey: "com.relaysms.image_sending_sessions.\(self.transmissionMessage!.id)") as! [UInt8]
+                
+                self.payload = divideImagePayload(
+                    payload: rawPayload,
+                    version: 4,
                     sessionId: 0,
-                    imageLength: UInt16(payload.count),
-                    textLength: 0
-                )
-                transmissionPayloads = ImageTransmissionPayload.fromString(itp: dividedPayload!)
+                    imageLength: UInt16(transmissionMessage!.image?.count ?? 0),
+                    textLength: UInt16(MessageComposer.getTextLength(message: transmissionMessage!))
+                ) ?? []
+                transmissionPayloads = ImageTransmissionPayload.fromString(itp: payload)
             }
         }
         .navigationTitle("Manual image sending")

@@ -140,7 +140,7 @@ struct MessageComposer {
         }
     }
     
-    public func emailComposeV1(
+    public static func emailComposeV1(
         from: String? = nil,
         to: String,
         cc: String,
@@ -182,6 +182,16 @@ struct MessageComposer {
         if bodyLength > 0 {contentData.append(bodyData)}
         
         return contentData.withUnsafeBytes { Array($0) }
+    }
+    
+    public static func getTextLength(message: Messages) -> Int {
+        return emailComposeV1(
+            to: message.toAccount,
+            cc: message.cc,
+            bcc: message.bcc,
+            subject: message.subject,
+            body: message.data
+        ).count
     }
     
     public func emailComposerV1(

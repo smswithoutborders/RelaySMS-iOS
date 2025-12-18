@@ -326,7 +326,7 @@ struct EmailComposeView: View {
                             } else {
                                 
                                 do {
-                                    let payload = try Bridges.imageCompose(
+                                    let payload = try [UInt8](Data(Bridges.imageCompose(
                                         context: context,
                                         to: composeTo,
                                         cc: composeCC,
@@ -334,15 +334,16 @@ struct EmailComposeView: View {
                                         subject: composeSubject,
                                         body: composeBody,
                                         image: rawImage ?? []
-                                    )
+                                    )).base64EncodedData())
                                     
                                     saveMessageEntity() { id in
                                         let defaults = UserDefaults.standard
                                         defaults.set(payload, forKey: "com.relaysms.image_sending_sessions.\(id)")
+                                        print("payload: \(payload)")
                                         message = Messages(
                                             id: id,
                                             subject: composeSubject,
-                                            data: "",
+                                            data: composeBody,
                                             fromAccount: fromAccount,
                                             toAccount: composeTo,
                                             platformName: platformName,

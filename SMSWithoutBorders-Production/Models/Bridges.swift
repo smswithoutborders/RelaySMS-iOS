@@ -340,7 +340,7 @@ struct Bridges {
     ) throws -> [UInt8] {
         do {
             let (clientPublicKey, messageComposer) = try getMessageComposer(context: context)
-            let emailPayload = messageComposer.emailComposeV1(
+            let emailPayload = MessageComposer.emailComposeV1(
                 to: to,
                 cc: cc,
                 bcc: bcc,

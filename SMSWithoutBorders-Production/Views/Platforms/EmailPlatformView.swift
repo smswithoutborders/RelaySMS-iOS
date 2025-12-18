@@ -61,7 +61,7 @@ struct EmailPlatformView: View {
                 .padding()
             }
             .task {
-                if(message != nil) {
+                if(message != nil && message.image != nil) {
                     let uIImage = UIImage(data: Data(bytes: message.image ?? []))
                     attachmentImage = Image(uiImage: uIImage!)
                 }

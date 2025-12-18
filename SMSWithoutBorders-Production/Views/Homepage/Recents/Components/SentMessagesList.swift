@@ -45,6 +45,7 @@ struct SentMessagesList: View {
                             date: Int(message.date)
                         )
                             .onTapGesture {
+                                print("[+] tapped message: \(message.rawImage == nil)")
                                 requestedMessage = Messages(
                                     id: message.id!,
                                     subject: message.subject ?? "unknown",
