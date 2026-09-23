@@ -14,13 +14,25 @@ import CoreData
 struct SMSWithoutBorders_ProductionApp: App {
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
-    @StateObject private var dataController = DataController()
+    @StateObject private var dataController: DataController
 
     @AppStorage(OnboardingView.ONBOARDING_COMPLETED)
     private var onboardingCompleted: Bool = false
 
     @State private var alreadyLoggedIn: Bool = false
     @State private var isLoggedIn: Bool = false
+    
+    init() {
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            // RUNNING TESTS
+            self._dataController = StateObject(wrappedValue: DataController(forTesting: true))
+            print("Test initialization: Test launch. Initializing standard DataController." )
+        } else {
+            self._dataController = StateObject(wrappedValue: DataController())
+            print("App initialization: Normal launch. Initializing standard DataController." )
+        }
+        
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -50,9 +62,16 @@ struct SMSWithoutBorders_ProductionApp: App {
                 }
             }
             .onAppear {
-                Publisher.refreshPlatforms(context: dataController.container.viewContext)
-
                 Task {
+                    Publisher.refreshPlatforms(context: dataController.container.viewContext) { success in
+                        DispatchQueue.main.async {
+                            if success {
+                                print("[App Init]: Successfully fetched platforms")
+                            }
+                        }
+                    }
+                    
+
                     if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
                         print("Is searching for default....")
                         do {
@@ -63,6 +82,7 @@ struct SMSWithoutBorders_ProductionApp: App {
                     }
                 }
             }
+            
         }
     }
 
@@ -91,13 +111,15 @@ struct SMSWithoutBorders_ProductionApp: App {
                 )
                 if !result {
                     alreadyLoggedIn = true
-                } else {
-                    let vault = Vault()
-                    try vault.refreshStoredTokens(
-                        llt: llt,
-                        context: dataController.container.viewContext
-                    )
                 }
+//                else {
+//                    let vault = Vault()
+//                    try vault.refreshStoredTokens(
+//                        llt: llt,
+//                        context: dataController.container.viewContext,
+//                        storedTokenEntities: <#FetchedResults<StoredPlatformsEntity>#>
+//                    )
+//                }
             } catch {
                 print(error)
             }
@@ -115,6 +137,11 @@ struct SMSWithoutBorders_ProductionApp: App {
         return false
     }
 
+}
+
+#Preview {
+    @State var isLoggedIn: Bool = false
+    HomepageView(isLoggedIn: $isLoggedIn)
 }
 
 

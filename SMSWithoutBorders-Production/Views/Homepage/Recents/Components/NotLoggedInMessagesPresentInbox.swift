@@ -51,7 +51,7 @@ struct NotLoggedInMessagesPresentInbox: View {
                         logo: getImageForPlatform(name: message.platformName!),
                         subject: message.subject!,
                         toAccount: message.toAccount!,
-                        messageBody: message.body!,
+                        messageBody: message.body ?? "unkown message",
                         date: Int(message.date)
                     )
                         .onTapGesture {
@@ -63,7 +63,8 @@ struct NotLoggedInMessagesPresentInbox: View {
                                 toAccount: message.toAccount!,
                                 platformName: message.platformName!,
                                 date: Int(message.date),
-                                type: message.type!
+                                type: message.type!,
+                                image: message.rawImage == nil ? nil : [UInt8](Data(base64Encoded: message.rawImage!)!)
                             )
                             if message.type == Bridges.SERVICE_NAME_INBOX ||
                                    message.type == Bridges.SERVICE_NAME {

@@ -29,83 +29,88 @@ struct Bridges {
         var status: String
     }
     
+    public static func getMessageComposer(context: NSManagedObjectContext) throws -> (clientPubKey: [UInt8], messageComposer: MessageComposer) {
+        var messageComposer: MessageComposer? = nil
+        var clientPublicKey: [UInt8]? = nil
+        var sharedSecret: [UInt8]? = nil
+        var peerPublishPublicKey: Curve25519.KeyAgreement.PublicKey? = nil
+
+        if(try Vault.getLongLivedToken().isEmpty) {
+            if(!MessageComposer.hasStates(context: context)) {
+                try Vault.resetStates(context: context)
+                
+                let (_sharedSecret, _clientPublicKey, _peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
+                peerPublishPublicKey = _peerPublishPublicKey
+                sharedSecret = _sharedSecret
+                clientPublicKey = [UInt8](_clientPublicKey!.rawRepresentation)
+                
+                UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
+                UserDefaults.standard.set(
+                    [UInt8](peerPublishPublicKey!.rawRepresentation),
+                    forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
+                )
+                UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
+            }
+            else {
+                print("\n[+] Bypassing key generation, using stored keys")
+                let serverKeyID: UInt8 = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as! UInt8
+                var pubKeyB64 = Bridges.getStaticKeys(kid: Int(serverKeyID))?.first?.keypair
+                let pubKey = Data(base64Encoded: pubKeyB64!)
+                peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: pubKey!)
+                clientPublicKey = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as? [UInt8]
+            }
+            do {
+                messageComposer = try MessageComposer(
+                    SK: sharedSecret,
+                    AD: [UInt8](peerPublishPublicKey!.rawRepresentation),
+                    peerDhPubKey: peerPublishPublicKey,
+                    keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
+                    context: context)
+            } catch {
+                print("Bridges raising exception: \(error)")
+            }
+        } else {
+            let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
+            clientPublicKey = UserDefaults.standard.object(
+                forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
+
+            if(!MessageComposer.hasStates(context: context)) {
+                sharedSecret = try Vault.getPublisherSharedSecret()
+            }
+
+            messageComposer = try MessageComposer(
+                SK: sharedSecret,
+                AD: AD,
+                peerDhPubKey: Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD),
+                keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
+                context: context
+            )
+        }
+        return (clientPublicKey!, messageComposer!)
+    }
+    
     public static func compose(
         to: String,
         cc: String,
         bcc: String,
         subject: String,
         body: String,
-        context: NSManagedObjectContext) throws -> ([UInt8], [UInt8]?){
-            
-            var messageComposer: MessageComposer? = nil
-            var clientPublicKey: [UInt8]? = nil
-            var sharedSecret: [UInt8]? = nil
-            var peerPublishPublicKey: Curve25519.KeyAgreement.PublicKey? = nil
+        image: [UInt8]? = nil,
+        context: NSManagedObjectContext
+    ) throws -> ([UInt8], [UInt8]?){
+        
+        let (clientPublicKey, messageComposer) = try getMessageComposer(context: context)
 
-            // Meaning the user has logged in online already
-            if(try Vault.getLongLivedToken().isEmpty) {
-                if(!MessageComposer.hasStates(context: context)) {
-                    try Vault.resetStates(context: context)
-                    
-                    let (_sharedSecret, _clientPublicKey, _peerPublishPublicKey, serverPublicKeyID) = try Bridges.generateKeyRequirements()
-                    peerPublishPublicKey = _peerPublishPublicKey
-                    sharedSecret = _sharedSecret
-                    clientPublicKey = _clientPublicKey?.rawRepresentation.bytes
-                    
-                    UserDefaults.standard.set(clientPublicKey, forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS)
-                    UserDefaults.standard.set(
-                        peerPublishPublicKey?.rawRepresentation.bytes,
-                        forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY
-                    )
-                    UserDefaults.standard.set(serverPublicKeyID, forKey: Bridges.SERVER_KID)
-                }
-                else {
-                    print("\n[+] Bypassing key generation, using stored keys")
-                    let serverKeyID: UInt8 = UserDefaults.standard.object(forKey: Bridges.SERVER_KID) as! UInt8
-                    var pubKeyB64 = Bridges.getStaticKeys(kid: Int(serverKeyID))?.first?.keypair
-                    let pubKey = Data(base64Encoded: pubKeyB64!)
-                    peerPublishPublicKey = try Curve25519.KeyAgreement.PublicKey(rawRepresentation: pubKey!)
-                    clientPublicKey = UserDefaults.standard.object(forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as? [UInt8]
-                }
-
-                do {
-                    messageComposer = try MessageComposer(
-                        SK: sharedSecret,
-                        AD: peerPublishPublicKey!.rawRepresentation.bytes,
-                        peerDhPubKey: peerPublishPublicKey,
-                        keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
-                        context: context)
-                } catch {
-                    print("Bridges raising exception: \(error)")
-                }
-            } else {
-                let AD: [UInt8] = UserDefaults.standard.object(forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as! [UInt8]
-                clientPublicKey = UserDefaults.standard.object(
-                    forKey: Bridges.CLIENT_PUBLIC_KEY_KEYSTOREALIAS) as! [UInt8]
-
-                if(!MessageComposer.hasStates(context: context)) {
-                    sharedSecret = try Vault.getPublisherSharedSecret()
-                }
-
-                messageComposer = try MessageComposer(
-                    SK: sharedSecret,
-                    AD: AD,
-                    peerDhPubKey: Curve25519.KeyAgreement.PublicKey(rawRepresentation: AD),
-                    keystoreAlias: Publisher.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS,
-                    context: context
-                )
-            }
-            
-            let data = try messageComposer!.bridgeEmailComposer(
-                to: to,
-                cc: cc,
-                bcc: bcc,
-                subject: subject,
-                body: body
-            )
-            
-            let cipherText = data.withUnsafeBytes { Array($0) }
-            return (cipherText, clientPublicKey)
+        let data = try messageComposer.bridgeEmailComposer(
+            to: to,
+            cc: cc,
+            bcc: bcc,
+            subject: subject,
+            body: body
+        )
+        
+        let cipherText = data.withUnsafeBytes { Array($0) }
+        return (cipherText, clientPublicKey)
     }
     
     public static func reset() {
@@ -141,10 +146,11 @@ struct Bridges {
     public static func authRequestAndPayload(
         context: NSManagedObjectContext,
         cipherText: [UInt8],
-        clientPublicKey: [UInt8]
-    ) throws -> String? {
+        clientPublicKey: [UInt8],
+        versionMarker: UInt8 = 0x0A
+    ) throws -> Data {
         let mode: UInt8 = 0x00
-        let versionMarker: UInt8 = 0x0A
+        let versionMarker: UInt8 = versionMarker
         let switchValue: UInt8 = 0x00
         var clientPublicKeyLength: Data = Data(count: 1)
         clientPublicKeyLength.withUnsafeMutableBytes {
@@ -168,15 +174,16 @@ struct Bridges {
         payload.append(Data(clientPublicKey))
         payload.append(Data(cipherText))
 
-        return payload.base64EncodedString()
+        return payload
     }
     
     public static func payloadOnly(
         context: NSManagedObjectContext,
-        cipherText: [UInt8]
-    ) throws -> String? {
+        cipherText: [UInt8],
+        versionMarker: UInt8 = 0x0A
+    ) throws -> Data {
         let mode: UInt8 = 0x00
-        let versionMarker: UInt8 = 0x0A
+        let versionMarker: UInt8 = versionMarker
         let switchValue: UInt8 = 0x01
         var cipherTextLength: Data = Data(count: 2)
         cipherTextLength.withUnsafeMutableBytes {
@@ -192,7 +199,7 @@ struct Bridges {
         payload.append(bridgeLetter)
         payload.append(Data(cipherText))
 
-        return payload.base64EncodedString()
+        return payload
     }
     
     public static func getStaticKeys(kid: Int? = nil) -> [StaticKeys]? {
@@ -321,4 +328,51 @@ struct Bridges {
             date: date
         )
     }
+    
+    public static func imageCompose(
+        context: NSManagedObjectContext,
+        to: String,
+        cc: String,
+        bcc: String,
+        subject: String,
+        body: String,
+        image: [UInt8]
+    ) throws -> [UInt8] {
+        do {
+            let (clientPublicKey, messageComposer) = try getMessageComposer(context: context)
+            let emailPayload = MessageComposer.emailComposeV1(
+                to: to,
+                cc: cc,
+                bcc: bcc,
+                subject: subject,
+                body: body
+            )
+            let (header, cipherText) = try messageComposer.encryptContents(content: image + emailPayload)
+            let headerLength = UInt32(min(header.count, Int(UInt32.max))).littleEndian // UInt32 because the header length should be 4 bytes
+            
+            var payload = Data()
+            payload.append(contentsOf: withUnsafeBytes(of: headerLength.littleEndian) {Data($0)})
+            payload.append(Data(header))
+            payload.append(Data(cipherText))
+
+            if try !Vault.getLongLivedToken().isEmpty {
+                return try [UInt8](Bridges.payloadOnly(
+                    context: context,
+                    cipherText: [UInt8](payload),
+                    versionMarker: 0x02
+                ))
+            } else {
+                return try [UInt8](Bridges.authRequestAndPayload(
+                    context: context,
+                    cipherText: [UInt8](payload),
+                    clientPublicKey: clientPublicKey,
+                    versionMarker: 0x02
+                ))
+            }
+
+        } catch {
+            throw error
+        }
+    }
+    
 }

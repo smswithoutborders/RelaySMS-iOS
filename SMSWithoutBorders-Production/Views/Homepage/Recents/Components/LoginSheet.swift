@@ -17,6 +17,9 @@ struct LoginSheet: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 75, height: 75)
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(
+                    RelayColors.colorScheme.primary)
 
             Text("Login")
                 .font(RelayTypography.titleLarge)

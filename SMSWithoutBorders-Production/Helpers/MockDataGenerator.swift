@@ -66,7 +66,7 @@ func populateMockData(container: NSPersistentContainer) {
     
     for i in 0..<3 {
         let name = "twitter"
-        let account = "@twitter_account_\(i)"
+        let account = "twitter_account_\(i)"
         let storedPlatformsEntity = StoredPlatformsEntity(context: context)
         storedPlatformsEntity.name = name
         storedPlatformsEntity.account = account

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D70" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24411" systemVersion="25B78" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GatewayClientsEntity" representedClassName="GatewayClientsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="lastPublishedDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -22,6 +22,7 @@
         <attribute name="fromAccount" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="platformName" optional="YES" attributeType="String"/>
+        <attribute name="rawImage" optional="YES" attributeType="String"/>
         <attribute name="subject" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="toAccount" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String" defaultValueString="platforms"/>
@@ -33,11 +34,11 @@
     </entity>
     <entity name="PlatformsEntity" representedClassName="PlatformsEntity" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="protocol_type" optional="YES" attributeType="String"/>
-        <attribute name="service_type" optional="YES" attributeType="String"/>
-        <attribute name="shortcode" optional="YES" attributeType="String"/>
-        <attribute name="support_url_scheme" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="protocol_type" attributeType="String"/>
+        <attribute name="service_type" attributeType="String"/>
+        <attribute name="shortcode" attributeType="String"/>
+        <attribute name="support_url_scheme" attributeType="Boolean" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="name"/>
@@ -48,13 +49,22 @@
         <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="StoredPlatformsEntity" representedClassName="StoredPlatformsEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="account" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="access_token" attributeType="String" defaultValueString=""/>
+        <attribute name="account" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="is_stored_on_device" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="refresh_token" attributeType="String" defaultValueString=""/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
+    </entity>
+    <entity name="StoredTokenEntity" representedClassName="StoredTokenEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="accessToken" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="idToken" optional="YES" attributeType="String"/>
+        <attribute name="refreshToken" optional="YES" attributeType="String"/>
     </entity>
 </model>

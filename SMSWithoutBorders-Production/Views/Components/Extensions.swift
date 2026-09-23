@@ -31,3 +31,24 @@ extension DispatchQueue {
     }
 
 }
+
+extension Array {
+    var removeDuplicates: [Element] {
+        NSOrderedSet(array: self).array.compactMap({ $0 as? Element })
+    }
+}
+
+
+extension StoredPlatformsEntity {
+    var tokensExists: Bool {
+        if let aToken = access_token, let rToken = refresh_token {
+            return !aToken.isEmpty && !rToken.isEmpty
+        } else {
+            return false
+        }
+    }
+    
+    var isMissing: Bool {
+        return  self.is_stored_on_device && !self.tokensExists
+    }
+}

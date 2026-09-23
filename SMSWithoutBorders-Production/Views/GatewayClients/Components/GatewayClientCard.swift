@@ -22,8 +22,6 @@ struct GatewayClientCard: View {
                     Text(clientEntity.msisdn ?? "N/A")
                         .font(.headline)
                         .padding(.bottom, 5)
-                    //.foregroundColor(disabled ? .secondary : .primary)
-
                     Spacer()
                     if !canEdit {
                         Image(systemName: "lock.fill").foregroundColor(RelayColors.colorScheme.onSurface.opacity(0.5))
@@ -42,9 +40,14 @@ struct GatewayClientCard: View {
                     .foregroundColor(.secondary)
             }.padding(.vertical, 4)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            
 
         }.padding()
-            .background(isSelected ? RelayColors.colorScheme.primaryContainer : Color.clear).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-
+            .background(isSelected ? RelayColors.colorScheme.primaryContainer : RelayColors.colorScheme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(isSelected ? RelayColors.colorScheme.primary : RelayColors.colorScheme.onSurface.opacity(0.1), lineWidth: 1)
+            )
     }
 }

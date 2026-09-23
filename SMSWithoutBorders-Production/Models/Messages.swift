@@ -19,6 +19,7 @@ class Messages {
     var cc: String
     var bcc: String
     var type: String
+    var image: [UInt8]?
 
     init(
         id: UUID,
@@ -30,7 +31,8 @@ class Messages {
         date: Int,
         cc: String = "",
         bcc: String = "",
-        type: String = ""
+        type: String = "",
+        image: [UInt8]? = nil
     ) {
         self.id = id
         self.subject = subject
@@ -42,6 +44,7 @@ class Messages {
         self.cc = cc
         self.bcc = bcc
         self.type = type
+        self.image = image
     }
     
     public static func deleteMessage(context: NSManagedObjectContext, message: Messages) {
