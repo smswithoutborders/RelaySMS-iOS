@@ -27,7 +27,16 @@ struct PlatformDetailsBottomsheet: View {
     @State var errorMessage: String = ""
 
     var platform: PlatformsEntity?
-    @State private var codeVerifier: String = ""
+    
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(
+        keyPath: \StoredPlatformsEntity.name,
+        ascending: true)]
+    ) private var storedPlatforms: FetchedResults<StoredPlatformsEntity>
+    
+    
+    @AppStorage(Publisher.PLATFORM_CODE_VERIFIER)
+    var codeVerifier: String = ""
+    
     @State private var fromAccount: String = ""
 
     @Binding var parentIsEnabled: Bool
@@ -35,6 +44,7 @@ struct PlatformDetailsBottomsheet: View {
     @Binding var platformRequestedType: PlatformsRequestedType
     @Binding var composeViewRequested: Bool
     @Binding var refreshParent: Bool
+    @State var storePlatformOnDevice: Bool = false
 
     var callback: (() -> Void)?
 
@@ -59,19 +69,23 @@ struct PlatformDetailsBottomsheet: View {
         _composeViewRequested = composeViewRequested
         _refreshParent = refreshParent
         self.callback = callback
+        
+        _storedPlatforms = FetchRequest<StoredPlatformsEntity>(
+            sortDescriptors: [],
+            predicate: NSPredicate(format: "name == %@", platform?.name ?? "unkown"))
     }
 
     var body: some View {
         VStack {
             if (isRevoking || loading) && platform != nil {
                 SaveRevokePlatform(
-                    name: platform!.name!,
+                    name: platform!.name ?? "",
                     isSaving: $savingNewPlatform,
                     isRevoking: $isRevoking
                 )
             }
             else if accountSheetRequested && platform != nil {
-                AccountSheetView(
+                SelectAccountSheetView(
                     filter: platform!.name!,
                     fromAccount: $fromAccount,
                     dismissParent: $parentIsEnabled
@@ -94,14 +108,29 @@ struct PlatformDetailsBottomsheet: View {
                                     account: fromAccount,
                                     protocolType: platform!.protocol_type!
                                 )
-
+                                
+                                // Delete token for the account beign revoked
+                                print("Searching for token for the platform for: \(platform!.name?.localizedCapitalized ?? "unkown" ) beign revoked to delete")
+                                for storedEntity in storedPlatforms {
+                                    if storedEntity.name  == platform!.name! {
+                                        do {
+                                            context.delete(storedEntity)
+                                            try context.save()
+                                        } catch {
+                                            print(error)
+                                            context.rollback()
+                                        }
+                                    }
+                                }
+                              
                                 if response {
                                     let vault = Vault()
                                     do {
                                         let llt = try Vault.getLongLivedToken()
                                         try vault.refreshStoredTokens(
                                             llt: llt,
-                                            context: context
+                                            context: context,
+                                            storedTokenEntities: storedPlatforms
                                         )
                                     } catch {
                                         print(error)
@@ -131,12 +160,12 @@ struct PlatformDetailsBottomsheet: View {
                     accountSheetRequested: $accountSheetRequested,
                     composeViewRequested: $composeViewRequested,
                     loading: $loading,
-                    codeVerifier: $codeVerifier,
                     platform: platform,
                     callback: callback,
                     description: description,
                     composeDescription: composeDescription
                 )
+                Spacer()
             }
         }
         .onOpenURL { url in
@@ -144,12 +173,25 @@ struct PlatformDetailsBottomsheet: View {
             DispatchQueue.background(background: {
                 savingNewPlatform = true
                 do {
-                    try Publisher.processIncomingUrls(
-                        context: context,
-                        url: url,
-                        codeVerifier: codeVerifier
-                    )
-                    parentIsEnabled = true
+                    if !codeVerifier.isEmpty {
+                        print("Platofmr code verifier is available")
+                        try Publisher.processIncomingUrls(
+                            context: context,
+                            url: url,
+                            codeVerifier: codeVerifier,
+                            storeOnDevice: storePlatformOnDevice,
+                            storedTokenEntities: storedPlatforms
+                        )
+                        parentIsEnabled = true
+               
+                        codeVerifier = "" // Important!! - Set the code verifier back to empty so we do not keep stale code verifiers
+                        print("Removed stale code verifier")
+                    }
+                    else {
+                        failed = true
+                        errorMessage = "An error occured please try again later: Missing code verifier"
+                    }
+             
                     dismiss()
                 } catch {
                     print(error)

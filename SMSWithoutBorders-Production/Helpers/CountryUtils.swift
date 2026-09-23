@@ -25,6 +25,19 @@ struct CountryUtils {
         return foundCountry?.isoCode
     }
     
+    static func getCountryFromName(fromFullName fullName: String) -> Country? {
+
+        let allCountries: [Country] = CountryManager.shared.getCountries()
+
+        let normalizedInputName = fullName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        let foundCountry = allCountries.first {
+            $0.localizedName.lowercased() == fullName.lowercased()
+        }
+
+        return foundCountry
+    }
+    
     static func getCountryNameFromPhoneCode(phoneCode: String) -> String? {
         let allCountries: [Country] = CountryManager.shared.getCountries()
         
@@ -32,7 +45,6 @@ struct CountryUtils {
             country in
         
             let countryCode = country.phoneCode
-            print("country code is : \(countryCode)")
             return countryCode == phoneCode.replacingOccurrences(of: "+", with: "")
         }
         
@@ -41,7 +53,7 @@ struct CountryUtils {
 
 
     static func getLocalNumber(fullNumber: String, isoCode: String) -> String? {
-        var phoneCode: String = "+" + Country.init(isoCode: isoCode).phoneCode
+        let phoneCode: String = "+" + Country.init(isoCode: isoCode).phoneCode
         var phoneNumber: String = fullNumber
         phoneNumber = phoneNumber.replacingOccurrences(of: phoneCode, with: "")
 

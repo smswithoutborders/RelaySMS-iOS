@@ -20,7 +20,7 @@ public func logoutAccount(context: NSManagedObjectContext) {
 struct SettingsView: View {
     @Binding var isLoggedIn: Bool
     
-    @AppStorage(SecuritySettingsView.SETTINGS_MESSAGE_WITH_PHONENUMBER)
+    @AppStorage(SettingsKeys.SETTINGS_MESSAGE_WITH_PHONENUMBER)
     private var messageWithPhoneNumber = false
     
     @State private var showLanguageChangeConfirmationAlert = false

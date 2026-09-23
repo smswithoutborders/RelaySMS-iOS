@@ -542,6 +542,16 @@ internal protocol Vault_V1_EntityInternalClientProtocol: GRPCClient {
     _ request: Vault_V1_DeleteEntityTokenRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>
+
+  func createBridgeEntity(
+    _ request: Vault_V1_CreateBridgeEntityRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse>
+
+  func authenticateBridgeEntity(
+    _ request: Vault_V1_AuthenticateBridgeEntityRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse>
 }
 
 extension Vault_V1_EntityInternalClientProtocol {
@@ -656,6 +666,42 @@ extension Vault_V1_EntityInternalClientProtocol {
       interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
     )
   }
+
+  /// Creates a bridge entity.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to CreateBridgeEntity.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func createBridgeEntity(
+    _ request: Vault_V1_CreateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.createBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateBridgeEntityInterceptors() ?? []
+    )
+  }
+
+  /// Authenticates a bridge entity.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to AuthenticateBridgeEntity.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func authenticateBridgeEntity(
+    _ request: Vault_V1_AuthenticateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse> {
+    return self.makeUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.authenticateBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAuthenticateBridgeEntityInterceptors() ?? []
+    )
+  }
 }
 
 @available(*, deprecated)
@@ -750,6 +796,16 @@ internal protocol Vault_V1_EntityInternalAsyncClientProtocol: GRPCClient {
     _ request: Vault_V1_DeleteEntityTokenRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>
+
+  func makeCreateBridgeEntityCall(
+    _ request: Vault_V1_CreateBridgeEntityRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse>
+
+  func makeAuthenticateBridgeEntityCall(
+    _ request: Vault_V1_AuthenticateBridgeEntityRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -833,6 +889,30 @@ extension Vault_V1_EntityInternalAsyncClientProtocol {
       interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
     )
   }
+
+  internal func makeCreateBridgeEntityCall(
+    _ request: Vault_V1_CreateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.createBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateBridgeEntityInterceptors() ?? []
+    )
+  }
+
+  internal func makeAuthenticateBridgeEntityCall(
+    _ request: Vault_V1_AuthenticateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.authenticateBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAuthenticateBridgeEntityInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -908,6 +988,30 @@ extension Vault_V1_EntityInternalAsyncClientProtocol {
       interceptors: self.interceptors?.makeDeleteEntityTokenInterceptors() ?? []
     )
   }
+
+  internal func createBridgeEntity(
+    _ request: Vault_V1_CreateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_CreateBridgeEntityResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.createBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateBridgeEntityInterceptors() ?? []
+    )
+  }
+
+  internal func authenticateBridgeEntity(
+    _ request: Vault_V1_AuthenticateBridgeEntityRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Vault_V1_AuthenticateBridgeEntityResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Vault_V1_EntityInternalClientMetadata.Methods.authenticateBridgeEntity.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAuthenticateBridgeEntityInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -946,6 +1050,12 @@ internal protocol Vault_V1_EntityInternalClientInterceptorFactoryProtocol: Senda
 
   /// - Returns: Interceptors to use when invoking 'deleteEntityToken'.
   func makeDeleteEntityTokenInterceptors() -> [ClientInterceptor<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'createBridgeEntity'.
+  func makeCreateBridgeEntityInterceptors() -> [ClientInterceptor<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'authenticateBridgeEntity'.
+  func makeAuthenticateBridgeEntityInterceptors() -> [ClientInterceptor<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse>]
 }
 
 internal enum Vault_V1_EntityInternalClientMetadata {
@@ -959,6 +1069,8 @@ internal enum Vault_V1_EntityInternalClientMetadata {
       Vault_V1_EntityInternalClientMetadata.Methods.encryptPayload,
       Vault_V1_EntityInternalClientMetadata.Methods.updateEntityToken,
       Vault_V1_EntityInternalClientMetadata.Methods.deleteEntityToken,
+      Vault_V1_EntityInternalClientMetadata.Methods.createBridgeEntity,
+      Vault_V1_EntityInternalClientMetadata.Methods.authenticateBridgeEntity,
     ]
   )
 
@@ -996,6 +1108,18 @@ internal enum Vault_V1_EntityInternalClientMetadata {
     internal static let deleteEntityToken = GRPCMethodDescriptor(
       name: "DeleteEntityToken",
       path: "/vault.v1.EntityInternal/DeleteEntityToken",
+      type: GRPCCallType.unary
+    )
+
+    internal static let createBridgeEntity = GRPCMethodDescriptor(
+      name: "CreateBridgeEntity",
+      path: "/vault.v1.EntityInternal/CreateBridgeEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let authenticateBridgeEntity = GRPCMethodDescriptor(
+      name: "AuthenticateBridgeEntity",
+      path: "/vault.v1.EntityInternal/AuthenticateBridgeEntity",
       type: GRPCCallType.unary
     )
   }
@@ -1324,6 +1448,12 @@ internal protocol Vault_V1_EntityInternalProvider: CallHandlerProvider {
 
   /// Deletes an entity's access token.
   func deleteEntityToken(request: Vault_V1_DeleteEntityTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_DeleteEntityTokenResponse>
+
+  /// Creates a bridge entity.
+  func createBridgeEntity(request: Vault_V1_CreateBridgeEntityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_CreateBridgeEntityResponse>
+
+  /// Authenticates a bridge entity.
+  func authenticateBridgeEntity(request: Vault_V1_AuthenticateBridgeEntityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Vault_V1_AuthenticateBridgeEntityResponse>
 }
 
 extension Vault_V1_EntityInternalProvider {
@@ -1392,6 +1522,24 @@ extension Vault_V1_EntityInternalProvider {
         userFunction: self.deleteEntityToken(request:context:)
       )
 
+    case "CreateBridgeEntity":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_CreateBridgeEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_CreateBridgeEntityResponse>(),
+        interceptors: self.interceptors?.makeCreateBridgeEntityInterceptors() ?? [],
+        userFunction: self.createBridgeEntity(request:context:)
+      )
+
+    case "AuthenticateBridgeEntity":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_AuthenticateBridgeEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_AuthenticateBridgeEntityResponse>(),
+        interceptors: self.interceptors?.makeAuthenticateBridgeEntityInterceptors() ?? [],
+        userFunction: self.authenticateBridgeEntity(request:context:)
+      )
+
     default:
       return nil
     }
@@ -1441,6 +1589,18 @@ internal protocol Vault_V1_EntityInternalAsyncProvider: CallHandlerProvider, Sen
     request: Vault_V1_DeleteEntityTokenRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Vault_V1_DeleteEntityTokenResponse
+
+  /// Creates a bridge entity.
+  func createBridgeEntity(
+    request: Vault_V1_CreateBridgeEntityRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_CreateBridgeEntityResponse
+
+  /// Authenticates a bridge entity.
+  func authenticateBridgeEntity(
+    request: Vault_V1_AuthenticateBridgeEntityRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Vault_V1_AuthenticateBridgeEntityResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1516,6 +1676,24 @@ extension Vault_V1_EntityInternalAsyncProvider {
         wrapping: { try await self.deleteEntityToken(request: $0, context: $1) }
       )
 
+    case "CreateBridgeEntity":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_CreateBridgeEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_CreateBridgeEntityResponse>(),
+        interceptors: self.interceptors?.makeCreateBridgeEntityInterceptors() ?? [],
+        wrapping: { try await self.createBridgeEntity(request: $0, context: $1) }
+      )
+
+    case "AuthenticateBridgeEntity":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Vault_V1_AuthenticateBridgeEntityRequest>(),
+        responseSerializer: ProtobufSerializer<Vault_V1_AuthenticateBridgeEntityResponse>(),
+        interceptors: self.interceptors?.makeAuthenticateBridgeEntityInterceptors() ?? [],
+        wrapping: { try await self.authenticateBridgeEntity(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -1547,6 +1725,14 @@ internal protocol Vault_V1_EntityInternalServerInterceptorFactoryProtocol: Senda
   /// - Returns: Interceptors to use when handling 'deleteEntityToken'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeDeleteEntityTokenInterceptors() -> [ServerInterceptor<Vault_V1_DeleteEntityTokenRequest, Vault_V1_DeleteEntityTokenResponse>]
+
+  /// - Returns: Interceptors to use when handling 'createBridgeEntity'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCreateBridgeEntityInterceptors() -> [ServerInterceptor<Vault_V1_CreateBridgeEntityRequest, Vault_V1_CreateBridgeEntityResponse>]
+
+  /// - Returns: Interceptors to use when handling 'authenticateBridgeEntity'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeAuthenticateBridgeEntityInterceptors() -> [ServerInterceptor<Vault_V1_AuthenticateBridgeEntityRequest, Vault_V1_AuthenticateBridgeEntityResponse>]
 }
 
 internal enum Vault_V1_EntityInternalServerMetadata {
@@ -1560,6 +1746,8 @@ internal enum Vault_V1_EntityInternalServerMetadata {
       Vault_V1_EntityInternalServerMetadata.Methods.encryptPayload,
       Vault_V1_EntityInternalServerMetadata.Methods.updateEntityToken,
       Vault_V1_EntityInternalServerMetadata.Methods.deleteEntityToken,
+      Vault_V1_EntityInternalServerMetadata.Methods.createBridgeEntity,
+      Vault_V1_EntityInternalServerMetadata.Methods.authenticateBridgeEntity,
     ]
   )
 
@@ -1597,6 +1785,18 @@ internal enum Vault_V1_EntityInternalServerMetadata {
     internal static let deleteEntityToken = GRPCMethodDescriptor(
       name: "DeleteEntityToken",
       path: "/vault.v1.EntityInternal/DeleteEntityToken",
+      type: GRPCCallType.unary
+    )
+
+    internal static let createBridgeEntity = GRPCMethodDescriptor(
+      name: "CreateBridgeEntity",
+      path: "/vault.v1.EntityInternal/CreateBridgeEntity",
+      type: GRPCCallType.unary
+    )
+
+    internal static let authenticateBridgeEntity = GRPCMethodDescriptor(
+      name: "AuthenticateBridgeEntity",
+      path: "/vault.v1.EntityInternal/AuthenticateBridgeEntity",
       type: GRPCCallType.unary
     )
   }

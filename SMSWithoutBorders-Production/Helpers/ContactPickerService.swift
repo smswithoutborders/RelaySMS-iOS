@@ -38,6 +38,7 @@ class ContactPickerServiceDelegate: NSObject, ObservableObject, CNContactPickerD
     @Published var phoneCode: String?
     @Published var rawValue: String?
     @Published var name: String?
+    @Published var contact: RelayContact?
 
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         // Clear the pickedNumber initially
@@ -79,6 +80,14 @@ class ContactPickerServiceDelegate: NSObject, ObservableObject, CNContactPickerD
             self.localPhoneNumber = cleanedNumber
             self.internationPhoneNumber = phoneCode.isEmpty ? nil : "\(phoneCode)\(cleanedNumber)"
             self.rawValue = phoneNumber
+            
+            self.contact = RelayContact(
+                phoneCode: self.phoneCode ?? "",
+                localPhoneNumber: self.localPhoneNumber ?? "",
+                internationalPhoneNumber: self.internationPhoneNumber ?? "",
+                rawValue: self.rawValue ?? "",
+                name: self.name ?? ""
+            )
 
             print("international Phone Number: \(self.internationPhoneNumber ?? "N/A") ")
             print("Local Phone Number: \(self.localPhoneNumber ?? "N/A") ")
@@ -87,9 +96,19 @@ class ContactPickerServiceDelegate: NSObject, ObservableObject, CNContactPickerD
             print("name: \(self.name ?? "N/A")")
         }
     }
+    
+    
 
 }
 
+
+struct RelayContact {
+    var phoneCode: String = ""
+    var localPhoneNumber: String = ""
+    var internationalPhoneNumber: String = ""
+    var rawValue: String = ""
+    var name: String = ""
+}
 
 
 

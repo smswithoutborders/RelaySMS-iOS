@@ -66,7 +66,8 @@ struct RecoverySheetView: View {
                         let llt = try Vault.getLongLivedToken()
                         try vault.refreshStoredTokens(
                             llt: llt,
-                            context: context
+                            context: context,
+                            storedTokenEntities: nil
                         )
                     } catch {
                         print("Error refreshing tokens: \(error)")
@@ -121,11 +122,11 @@ struct RecoverySheetView: View {
                         Rectangle().frame(height: 1).foregroundColor(.secondary)
                             .padding(.bottom, 20)
                         
-                        PasswordField(placeholder: "Password", text: $password)
+                        RelayPasswordField(label: "Password", text: $password)
                         Rectangle().frame(height: 1).foregroundColor(.secondary)
                             .padding(.bottom, 20)
                         
-                        PasswordField(placeholder: "Re-enter password", text: $rePassword)
+                        RelayPasswordField(label: "Re-enter password", text: $rePassword)
                         Rectangle().frame(height: 1).foregroundColor(.secondary)
                         if passwordsNotMatch {
                             Text("Passwords don't match")

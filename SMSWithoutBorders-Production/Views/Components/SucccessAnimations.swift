@@ -22,18 +22,21 @@ struct SuccessAnimations: View {
             Spacer()
             VStack {
                 if(!isAnimating && continueBtnVisible) {
-                    Image(systemName: "checkmark")
+                    Image(systemName: "checkmark.seal.fill")
+                        .symbolRenderingMode(.hierarchical)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 75, height: 75)
+                        .foregroundStyle(Color.green)
                         .scaleEffect(isAnimating ? 1.0 : 1.5)
+                        .padding(.bottom, 24)
                         .onAppear() {
                             withAnimation(
                                 .spring(duration: 1.0)
                             ) {
                             }
                         }
-                        .rotationEffect(Angle(degrees: rotationAngle))
+                        //.rotationEffect(Angle(degrees: rotationAngle))
 
                     Text(callbackText)
                         .font(RelayTypography.titleLarge)
@@ -43,11 +46,11 @@ struct SuccessAnimations: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 75, height: 75)
-                        .scaleEffect(isAnimating ? 1.0 : 1.5)
                         .onAppear() {
                             withAnimation(
-                                .spring(response: 0.5, dampingFraction: 0.6)
+                                .default
                                 .repeatForever(autoreverses: false)
+                                
                             ) {
                                 isAnimating = true
                                 rotationAngle += 360.0
@@ -56,18 +59,15 @@ struct SuccessAnimations: View {
                         .rotationEffect(Angle(degrees: rotationAngle))
                 }
             }
-
             Spacer()
-
             if(continueBtnVisible) {
                 Button {
                     callback()
                 } label: {
                     Text("Continue")
-                        .frame(maxWidth: .infinity, maxHeight: 35)
                 }
                 .padding(.bottom, 32)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.relayButton(variant: .primary))
                 .opacity(continueBtnVisible ? 1 : 0)
             }
         }
@@ -84,7 +84,6 @@ struct SuccessAnimations: View {
                 }
             }
         }
-        .padding()
     }
 }
 

@@ -5,13 +5,15 @@
 //  Created by sh3rlock on 03/08/2024.
 //
 
-import SwiftUI
 import CountryPicker
+import SwiftUI
 
 struct PhoneNumberCodeEntryView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var context
-    
+    @FetchRequest(sortDescriptors: []) var storedPlatforms:
+        FetchedResults<StoredPlatformsEntity>
+
     var platformName: String
     @Binding var phoneNumber: String
     @Binding var completed: Bool
@@ -27,52 +29,40 @@ struct PhoneNumberCodeEntryView: View {
     var body: some View {
         VStack {
             if platformName == "telegram" {
-                Text("Please enter your Telegram code without copying it from the message - copying might get flagged and Telegram might block your account.")
-                    .padding()
-                    .font(.caption)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.orange)
-                    )
-                    .multilineTextAlignment(.center)
-            }
-            
-            TextField("Enter code", text: $code)
+                Text(
+                    "Please enter your Telegram code without copying it from the message - copying might get flagged and Telegram might block your account."
+                )
                 .padding()
+                .font(RelayTypography.bodyMedium)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(RelayColors.colorScheme.secondary.opacity(0.2))
+                ).foregroundStyle(RelayColors.colorScheme.secondary)
+                .multilineTextAlignment(.leading)
+            }
+            Spacer().frame(height: 24)
+
+            RelayTextField(label: "Code", text: $code)
                 .keyboardType(.numberPad)
                 .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .controlSize(.large)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(lineWidth: 1)
-                        .foregroundColor(.gray)
-                )
-            
+                .padding(.bottom, 24)
+
             if havePassword {
-                PasswordField(placeholder: "Enter password", text: $password)
-                    .padding()
-                    .controlSize(.large)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(lineWidth: 1)
-                            .foregroundColor(.gray)
-                    )
+                RelayPasswordField(label: "Enter password", text: $password)
             }
 
-            if loading {
-                ProgressView()
-                    .padding()
-            }
-            else {
-                Button("Submit") {
-                    phoneNumberAuthExchange()
+            Button {
+                phoneNumberAuthExchange()
+            } label: {
+                if loading {
+                    ProgressView()
+                } else {
+                    Text("Submit")
                 }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                .controlSize(.large)
-                .disabled(code.count < 3 || (havePassword && password.isEmpty))
             }
+            .disabled(code.count < 3 || (havePassword && password.isEmpty))
+            .buttonStyle(.relayButton(variant: .secondary))
+
         }
         .padding()
         .alert(isPresented: $failed) {
@@ -83,154 +73,163 @@ struct PhoneNumberCodeEntryView: View {
             )
         }
     }
-    
+
     func phoneNumberAuthExchange() {
-        DispatchQueue.background(background: {
-            loading = true
-            do {
-                let publisher = Publisher()
-                let llt = try Vault.getLongLivedToken()
-                print("Sending code for phone number: \(phoneNumber)")
 
-                let response = try publisher.phoneNumberBaseAuthenticationExchange(
-                    authorizationCode: code,
-                    llt: llt,
-                    phoneNumber: phoneNumber,
-                    platform: platformName,
-                    password: password
-                )
+        self.loading = true
+        self.failed = false
+        self.errorMessage = ""
+        DispatchQueue.background(
+            background: {
+                do {
+                    let publisher = Publisher()
+                    let llt = try Vault.getLongLivedToken()
+                    print("Sending code for phone number: \(phoneNumber)")
 
-                if response.success {
-                    if response.twoStepVerificationEnabled {
-                        havePassword = true
-                    } else {
-                        print("Successfully stored: \(platformName)")
-                        try Vault().refreshStoredTokens(
+                    let response =
+                        try publisher.phoneNumberBaseAuthenticationExchange(
+                            authorizationCode: code,
                             llt: llt,
-                            context: context
+                            phoneNumber: phoneNumber,
+                            platform: platformName,
+                            password: password
                         )
-                        completed = true
-                        dismiss()
+
+                    DispatchQueue.main.async {
+                        if response.success {
+                            if response.twoStepVerificationEnabled {
+                                havePassword = true
+                            } else {
+                                print("Successfully stored: \(platformName)")
+                                do {
+                                    try Vault().refreshStoredTokens(
+                                        llt: llt,
+                                        context: context,
+                                        storedTokenEntities: storedPlatforms
+                                    )
+                                    self.completed = true
+                                    self.dismiss()
+                                } catch {
+                                    print("Failed to refresh tokens: \(error)")
+                                    self.failed = true
+                                    self.errorMessage =
+                                        "Failed to store platform: \(error.localizedDescription)"
+                                }
+
+                            }
+                        } else {
+                            print("Failed to store platform: \(platformName)")
+                        }
+                    }
+
+                } catch {
+                    DispatchQueue.main.async {
+                        print("Failed to submit code: \(error)")
+                        self.failed = true
+                        self.errorMessage = error.localizedDescription
                     }
                 }
-                else {
-                     print("Failed to store platform: \(platformName)")
-                }
-            } catch {
-                print("Failed to submit code: \(error)")
-                failed = true
-                errorMessage = error.localizedDescription
-            }
-        }, completion: {
-//            submittingCode = false
-            loading = false
-        })
+            },
+            completion: {
+                //            submittingCode = false
+                self.loading = false
+            })
     }
 }
 
 struct PhoneNumberEntryView: View {
     @Environment(\.dismiss) var dismiss
-    
-    @State private var selectedCountryCodeText: String? = "CM".getFlag() + " " + Country.init(isoCode: "CM").localizedName
-    
     @State private var errorMessage: String = ""
-    
     @State var platformName: String
-    @State private var showCountryPicker = false
     @State private var submittingCode = false
     @State private var isLoading = false
     @State private var failed = false
-    @State private var country: Country?
-    
+
     @Binding var codeRequested: Bool
     @Binding var phoneNumber: String
 
     var body: some View {
         VStack {
-            Group {
-                HStack {
-                    Button {
-                        showCountryPicker.toggle()
-                    } label: {
-                        Text("+" + (country?.phoneCode ?? Country.init(isoCode: "CM").phoneCode))
-                           .foregroundColor(Color.secondary)
-                    }
-                    .sheet(isPresented: $showCountryPicker) {
-                        CountryPicker(
-                            country: $country,
-                            selectedCountryCodeText: $selectedCountryCodeText
-                        )
-                    }
-                    Spacer()
-                    TextField("\(platformName) phone number", text: $phoneNumber)
-                        .padding()
-                        .keyboardType(.numberPad)
-                        .textContentType(.emailAddress)
-                        .autocapitalization(.none)
-                        .disabled(isLoading)
-               }
-               Rectangle().frame(height: 1).foregroundColor(.secondary)
-            }
-            .padding(.leading)
-            .alert(isPresented: $failed) {
-                Alert(
-                    title: Text("Error! You did nothing wrong..."),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("Not my fault!"))
-                )
-            }
-
-            if isLoading {
-                ProgressView()
-                    .padding()
-            }
-            else {
-                Button("Get code") {
-                    phoneNumberAuthRequest()
+            Spacer().frame(height: 32)
+            RelayContactField(
+                label: "\(platformName.localizedCapitalized) phone number",
+                onPhoneNumberInputted: { contact in
+                    phoneNumber = contact.internationalPhoneNumber
                 }
-                .padding()
-                .buttonStyle(.borderedProminent)
-                .disabled(phoneNumber.count < 3)
-                .controlSize(.large)
+            )
+            .keyboardType(.numberPad)
+            .disabled(isLoading)
+            .padding(.horizontal, 16)
+
+            Spacer().frame(height: 32)
+
+            Button {
+                phoneNumberAuthRequest()
+            } label: {
+                if isLoading {
+                    ProgressView()
+                } else {
+                    Text("Get Code")
+                }
             }
+            .disabled(phoneNumber.count < 3)
+            .buttonStyle(.relayButton(variant: .secondary))
+            .padding()
+
+        }
+        .alert(isPresented: $failed) {
+            Alert(
+                title: Text("Error! You did nothing wrong..."),
+                message: Text(errorMessage),
+                dismissButton: .default(Text("Not my fault!"))
+            )
         }
         .padding(.bottom, 32)
     }
-    
+
     func phoneNumberAuthRequest() {
-        DispatchQueue.background(background: {
-            isLoading = true
-            do {
-                let publisher = Publisher()
-                let response = try publisher.phoneNumberBaseAuthenticationRequest(
-                    phoneNumber: getPhoneNumber(),
-                    platform: platformName
-                )
-                
-                phoneNumber = getPhoneNumber()
-                
-                if response.success {
-                    codeRequested = true
+        self.isLoading = true
+        self.failed = false
+        self.errorMessage = ""
+
+        DispatchQueue.background(
+            background: {
+                isLoading = true
+                do {
+                    let publisher = Publisher()
+                    let response =
+                        try publisher.phoneNumberBaseAuthenticationRequest(
+                            phoneNumber: phoneNumber,
+                            platform: platformName
+                        )
+
+                    DispatchQueue.main.async {
+                        self.phoneNumber = phoneNumber
+
+                        if response.success {
+                            codeRequested = true
+                        } else {
+                            self.failed = true
+                            self.errorMessage = response.message
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        print("Some error occured: \(error)")
+                        self.failed = true
+                        self.errorMessage = error.localizedDescription
+                    }
                 }
-            }
-            catch {
-                print("Some error occured: \(error)")
-                failed = true
-                errorMessage = error.localizedDescription
-            }
-        }, completion: {
-            isLoading = false
-        })
-    }
-    
-    private func getPhoneNumber() -> String {
-        return "+" + (country?.phoneCode ?? Country(isoCode: "CM").phoneCode) + phoneNumber
+            },
+            completion: {
+                self.isLoading = false
+            })
     }
 }
 
 struct PhoneNumberSheetView: View {
     @Binding var completed: Bool
-    
+
     @State private var phoneNumber: String = ""
     @State private var codeRequested = false
     @State private var requestingCode = false
@@ -238,24 +237,23 @@ struct PhoneNumberSheetView: View {
     var platformName: String
 
     var body: some View {
-         VStack {
-             if codeRequested {
-                 PhoneNumberCodeEntryView(
+        VStack {
+            if codeRequested {
+                PhoneNumberCodeEntryView(
                     platformName: platformName,
                     phoneNumber: $phoneNumber,
                     completed: $completed
-                 )
-             }
-             else {
-                 PhoneNumberEntryView(
+                )
+            } else {
+                PhoneNumberEntryView(
                     platformName: platformName,
                     codeRequested: $codeRequested,
                     phoneNumber: $phoneNumber
-                 )
-             }
+                )
+            }
         }
     }
-    
+
 }
 
 #Preview {
@@ -272,9 +270,9 @@ struct PhoneNumberSheetView: View {
     @State var phoneNumber = ""
     @State var completed: Bool = false
     PhoneNumberCodeEntryView(
-       platformName: platformName,
-       phoneNumber: $phoneNumber,
-       completed: $completed
+        platformName: platformName,
+        phoneNumber: $phoneNumber,
+        completed: $completed
     )
 }
 

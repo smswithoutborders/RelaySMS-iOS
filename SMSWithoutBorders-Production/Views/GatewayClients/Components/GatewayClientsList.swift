@@ -20,9 +20,8 @@ struct GatewayClientList: View {
 
 
     var body: some View {
-        List {
+        VStack {
             ForEach(gatewayClients) { client in
-                // Row creation is now isolated here
                 GatewayClientCardListItem(
                     client: client,
                     isSelected: client.msisdn == defaultGatewayClientMsisdn,
@@ -37,10 +36,9 @@ struct GatewayClientList: View {
                         onRequestDelete(client)  // Pass the client back up
                     }
                 )
-                // Modifiers specific to the row *could* go here, but are better in GatewayClientRow
             }
-            .onDelete(perform: onDeleteSwipe)  // Handle swipe delete
+            .onDelete(perform: onDeleteSwipe) // Handle swipe delete
+            .padding([.horizontal, .bottom], 16)
         }
-        .listStyle(.plain)  // Apply list style here
     }
 }

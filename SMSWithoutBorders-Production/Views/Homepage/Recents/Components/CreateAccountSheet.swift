@@ -17,6 +17,9 @@ struct CreateAccountSheetView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 75, height: 75)
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(
+                    RelayColors.colorScheme.primary)
 
             Text("Create Account")
                 .font(RelayTypography.titleLarge)

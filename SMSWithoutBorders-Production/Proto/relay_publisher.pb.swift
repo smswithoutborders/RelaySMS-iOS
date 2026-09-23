@@ -41,6 +41,9 @@ struct Publisher_V1_GetOAuth2AuthorizationUrlRequest: Sendable {
   /// Optional redirect URL for the OAuth2 application
   var redirectURL: String = String()
 
+  /// Optional request identifier for tracking the request
+  var requestIdentifier: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -99,6 +102,12 @@ struct Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: Sendable {
   /// Optional redirect URL for the OAuth2 application
   var redirectURL: String = String()
 
+  /// Indicates if the token should be stored on the device instead of the cloud
+  var storeOnDevice: Bool = false
+
+  /// Optional request identifier for tracking the request
+  var requestIdentifier: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -115,6 +124,9 @@ struct Publisher_V1_ExchangeOAuth2CodeAndStoreResponse: Sendable {
 
   /// A response message
   var message: String = String()
+
+  /// Access and refresh tokens
+  var tokens: Dictionary<String,String> = [:]
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -207,6 +219,9 @@ struct Publisher_V1_GetPNBACodeRequest: Sendable {
   /// The identifier for the platform
   var phoneNumber: String = String()
 
+  /// Optional request identifier for tracking the request
+  var requestIdentifier: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -249,6 +264,9 @@ struct Publisher_V1_ExchangePNBACodeAndStoreRequest: Sendable {
 
   /// The password for two-step verification
   var password: String = String()
+
+  /// Optional request identifier for tracking the request
+  var requestIdentifier: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -324,6 +342,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     3: .standard(proto: "code_verifier"),
     4: .standard(proto: "autogenerate_code_verifier"),
     5: .standard(proto: "redirect_url"),
+    6: .standard(proto: "request_identifier"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -337,6 +356,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
       case 3: try { try decoder.decodeSingularStringField(value: &self.codeVerifier) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.autogenerateCodeVerifier) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.redirectURL) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.requestIdentifier) }()
       default: break
       }
     }
@@ -358,6 +378,9 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     if !self.redirectURL.isEmpty {
       try visitor.visitSingularStringField(value: self.redirectURL, fieldNumber: 5)
     }
+    if !self.requestIdentifier.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestIdentifier, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -367,6 +390,7 @@ extension Publisher_V1_GetOAuth2AuthorizationUrlRequest: SwiftProtobuf.Message, 
     if lhs.codeVerifier != rhs.codeVerifier {return false}
     if lhs.autogenerateCodeVerifier != rhs.autogenerateCodeVerifier {return false}
     if lhs.redirectURL != rhs.redirectURL {return false}
+    if lhs.requestIdentifier != rhs.requestIdentifier {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -448,6 +472,8 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     3: .standard(proto: "authorization_code"),
     4: .standard(proto: "code_verifier"),
     5: .standard(proto: "redirect_url"),
+    6: .standard(proto: "store_on_device"),
+    7: .standard(proto: "request_identifier"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -461,6 +487,8 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
       case 3: try { try decoder.decodeSingularStringField(value: &self.authorizationCode) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.codeVerifier) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.redirectURL) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.storeOnDevice) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.requestIdentifier) }()
       default: break
       }
     }
@@ -482,6 +510,12 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     if !self.redirectURL.isEmpty {
       try visitor.visitSingularStringField(value: self.redirectURL, fieldNumber: 5)
     }
+    if self.storeOnDevice != false {
+      try visitor.visitSingularBoolField(value: self.storeOnDevice, fieldNumber: 6)
+    }
+    if !self.requestIdentifier.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestIdentifier, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -491,6 +525,8 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreRequest: SwiftProtobuf.Message,
     if lhs.authorizationCode != rhs.authorizationCode {return false}
     if lhs.codeVerifier != rhs.codeVerifier {return false}
     if lhs.redirectURL != rhs.redirectURL {return false}
+    if lhs.storeOnDevice != rhs.storeOnDevice {return false}
+    if lhs.requestIdentifier != rhs.requestIdentifier {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -501,6 +537,7 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreResponse: SwiftProtobuf.Message
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "success"),
     2: .same(proto: "message"),
+    3: .same(proto: "tokens"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -511,6 +548,7 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreResponse: SwiftProtobuf.Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self.success) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.message) }()
+      case 3: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.tokens) }()
       default: break
       }
     }
@@ -523,12 +561,16 @@ extension Publisher_V1_ExchangeOAuth2CodeAndStoreResponse: SwiftProtobuf.Message
     if !self.message.isEmpty {
       try visitor.visitSingularStringField(value: self.message, fieldNumber: 2)
     }
+    if !self.tokens.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.tokens, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Publisher_V1_ExchangeOAuth2CodeAndStoreResponse, rhs: Publisher_V1_ExchangeOAuth2CodeAndStoreResponse) -> Bool {
     if lhs.success != rhs.success {return false}
     if lhs.message != rhs.message {return false}
+    if lhs.tokens != rhs.tokens {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -703,6 +745,7 @@ extension Publisher_V1_GetPNBACodeRequest: SwiftProtobuf.Message, SwiftProtobuf.
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "platform"),
     2: .standard(proto: "phone_number"),
+    3: .standard(proto: "request_identifier"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -713,6 +756,7 @@ extension Publisher_V1_GetPNBACodeRequest: SwiftProtobuf.Message, SwiftProtobuf.
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.platform) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.phoneNumber) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.requestIdentifier) }()
       default: break
       }
     }
@@ -725,12 +769,16 @@ extension Publisher_V1_GetPNBACodeRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.phoneNumber.isEmpty {
       try visitor.visitSingularStringField(value: self.phoneNumber, fieldNumber: 2)
     }
+    if !self.requestIdentifier.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestIdentifier, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Publisher_V1_GetPNBACodeRequest, rhs: Publisher_V1_GetPNBACodeRequest) -> Bool {
     if lhs.platform != rhs.platform {return false}
     if lhs.phoneNumber != rhs.phoneNumber {return false}
+    if lhs.requestIdentifier != rhs.requestIdentifier {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -782,6 +830,7 @@ extension Publisher_V1_ExchangePNBACodeAndStoreRequest: SwiftProtobuf.Message, S
     3: .standard(proto: "phone_number"),
     4: .standard(proto: "authorization_code"),
     5: .same(proto: "password"),
+    6: .standard(proto: "request_identifier"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -795,6 +844,7 @@ extension Publisher_V1_ExchangePNBACodeAndStoreRequest: SwiftProtobuf.Message, S
       case 3: try { try decoder.decodeSingularStringField(value: &self.phoneNumber) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.authorizationCode) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.password) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.requestIdentifier) }()
       default: break
       }
     }
@@ -816,6 +866,9 @@ extension Publisher_V1_ExchangePNBACodeAndStoreRequest: SwiftProtobuf.Message, S
     if !self.password.isEmpty {
       try visitor.visitSingularStringField(value: self.password, fieldNumber: 5)
     }
+    if !self.requestIdentifier.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestIdentifier, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -825,6 +878,7 @@ extension Publisher_V1_ExchangePNBACodeAndStoreRequest: SwiftProtobuf.Message, S
     if lhs.phoneNumber != rhs.phoneNumber {return false}
     if lhs.authorizationCode != rhs.authorizationCode {return false}
     if lhs.password != rhs.password {return false}
+    if lhs.requestIdentifier != rhs.requestIdentifier {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
