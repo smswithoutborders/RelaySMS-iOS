@@ -7,6 +7,7 @@
 
 import CryptoKit
 import Foundation
+import SwiftData
 
 class PublisherImpl {
     enum PublisherImplError: Error {
@@ -14,12 +15,13 @@ class PublisherImpl {
         case failedToGetAuthUrl(status: String)
         case failedToGenerateRequestIdentifier
         case failedToSendOAuthAuthorizationCode
-        case invalidDecryptionKeyRequested(keyId: Int)
-        case failedToFindStaticKeyForId(keyId: Int)
+        case invalidDecryptionKeyRequested(keyId: UInt32)
+        case failedToFindStaticKeyForId(keyId: UInt32)
         case failedToDecryptClientToken
         case failedToDeserializeData
-        case failedToSaveLocalKey(keyId: Int)
-        case failedToFindServerPublicKey(keyId: Int)
+        case failedToSaveLocalKey(keyId: UInt32)
+        case failedToFindServerPublicKey(keyId: UInt32)
+        case failedToSaveLocalKeysToSwiftData
     }
     
     public static let REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
@@ -128,12 +130,12 @@ class PublisherImpl {
         }
     }
     
-    private func getLocalKeysAccountTag(keyId: Int) -> String {
+    public static func getLocalKeysAccountTag(keyId: UInt8) -> String {
         return PublisherImpl.PUBLISHER_KEY_ID_PRIVATE_KEYS + "_" + String(keyId)
     }
     
     
-    private class LocalKeypair {
+    public class LocalKeypair {
         let privateKey: Curve25519.KeyAgreement.PrivateKey
         let serverPublicKey: Data
         let tokenId: UInt32
@@ -186,9 +188,13 @@ class PublisherImpl {
         accountId: String,
         platformName: String,
     ) throws {
+        let container = try ModelContainer(for: LocalKeys.self)
+        let context = ModelContext(container)
+        context.autosaveEnabled = false
+        
         for keypair in keys {
             let (keyId, privateKey) = keypair
-            let accountTag = getLocalKeysAccountTag(keyId: keyId)
+            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: keyId)
             let serverPublicKey = serverEphemeralPublicKeys.first{ $0.keyID == keyId }
             
             if serverPublicKey == nil {
@@ -206,8 +212,16 @@ class PublisherImpl {
                 .savePrivateKeyToKeychain(keyData: localKeypair)) {
                 throw PublisherImplError.failedToSaveLocalKey(keyId: keyId)
             }
+            
+            let localKeys = LocalKeys(keyId: UInt32(keyId))
+            context.insert(localKeys)
+            
         }
-        
+        do {
+            try context.save()
+        } catch {
+            throw PublisherImplError.failedToSaveLocalKeysToSwiftData
+        }
     }
     
     private func processEphemeralKeys(

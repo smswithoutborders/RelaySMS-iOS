@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum OfflineFirstPublisherError: Error {
-    case failedToGenerateKeypair
-    case failedToGetStaticKey
-    case failedToPublishOffline(status: any Error)
-}
-
 class OfflineFirstPublisher {
+    enum OfflineFirstPublisherError: Error {
+        case failedToGenerateKeypair
+        case failedToGetStaticKey
+        case failedToPublishOffline(status: any Error)
+    }
+    
     func encrypt(
         plaintext: [UInt8],
         withAttachment: Bool,
@@ -25,15 +25,8 @@ class OfflineFirstPublisher {
                 throw OfflineFirstPublisherError.failedToGetStaticKey
             }
             
-            let ecKeypair = try generateNewKeypair()
-            if(ecKeypair == nil) {
-                throw OfflineFirstPublisherError.failedToGenerateKeypair
-            }
-            
-            let scKeypair = try generateNewKeypair()
-            if(scKeypair == nil) {
-                throw OfflineFirstPublisherError.failedToGenerateKeypair
-            }
+            let ecKeypair = generateNewKeypair()
+            let scKeypair = generateNewKeypair()
 
             let offlineFirst = try OfflineFirst.encrypt(
                 ssPk: Data((authenticationKey?.keypair.bytes)!),

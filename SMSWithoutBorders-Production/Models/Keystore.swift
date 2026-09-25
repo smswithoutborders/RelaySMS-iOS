@@ -7,9 +7,10 @@
 
 import Foundation
 import CryptoKit
+import SwiftData
 
 class Keystore {
-    let accountTag: String
+    var accountTag: String
     
     init(accountTag: String) {
         self.accountTag = accountTag
@@ -32,7 +33,7 @@ class Keystore {
         return status == errSecSuccess
     }
     
-    func loadPrivateKeyFromKeychain() -> Curve25519.KeyAgreement.PrivateKey? {
+    func loadPrivateKeyFromKeychain() -> Data? {
         let query: [CFString: Any] = [
             kSecClass: kSecClassKey,
             kSecAttrApplicationTag: accountTag.data(using: .utf8)!,
@@ -48,6 +49,6 @@ class Keystore {
         }
         
         // Reconstruct the Curve25519 object from the retrieved raw bytes
-        return try? Curve25519.KeyAgreement.PrivateKey(rawRepresentation: data)
+        return data
     }
 }
