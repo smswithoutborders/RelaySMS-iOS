@@ -8,14 +8,11 @@
 import CoreData
 import CryptoKit
 import Foundation
-import GRPC
-import Logging
 import SwiftUI
 
 class Publisher {
     public static var PUBLISHER_SHARED_KEY = "COM.AFKANERD.RELAYSMS.PUBLISHER_SHARED_KEY"
     public static var REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
-    public static var PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
     public static var PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
     public static var CLIENT_PUBLIC_KEY_KEYSTOREALIAS = "COM.AFKANERD.PUBLISHER_PUBLIC_KEY_KEYSTOREALIAS"
 
@@ -59,9 +56,6 @@ class Publisher {
         case requestNotOK(status: GRPCStatus)
     }
 
-    var channel: ClientConnection?
-    var callOptions: CallOptions?
-    var publisherStub: Publisher_V1_PublisherNIOClient?
 
     init() {
         channel = GRPCHandler.getChannelPublisher()
@@ -73,20 +67,6 @@ class Publisher {
             defaultCallOptions: callOptions!)
     }
 
-    private func getBase64EncodedPublisherPublicKey() -> String {
-        if let publisherPublicKeyBytes = UserDefaults.standard.object(
-            forKey: Publisher.PUBLISHER_SERVER_PUBLIC_KEY) as? [UInt8]
-        {
-            let data = Data(publisherPublicKeyBytes)
-            let base64String = data.base64EncodedString()
-            print("[Publisher]: Base64 ecoded Publisher Public Key: \(base64String)")
-            return base64String
-        } else {
-            print("[Publisher]: No public key found or wrong type")
-            return ""
-            //throw NSError(domain: "Publisher", code: -1, userInfo: [NSLocalizedDescriptionKey : "No public key found or wrong type"])
-        }
-    }
 
     func getRedirectUrl(platformName: String) -> String {
         return "https://oauth.afkanerd.com/platforms/\(platformName)/protocols/oauth2/redirect_codes/ios/"
@@ -674,4 +654,5 @@ class Publisher {
         }
         return ""
     }
+    
 }

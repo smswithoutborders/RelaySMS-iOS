@@ -7,9 +7,7 @@
 
 import CoreData
 import CryptoKit
-import Fernet
 import SwiftUI
-import SwobDoubleRatchet
 
 public class OTPAuthType {
     public enum TYPE {

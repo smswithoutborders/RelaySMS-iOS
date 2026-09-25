@@ -8,9 +8,6 @@
 import SwiftUI
 
 
-
-
-
 struct InboxView: View {
     @FetchRequest var inboxMessages: FetchedResults<MessageEntity>
 

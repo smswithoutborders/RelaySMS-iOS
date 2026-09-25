@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwobDoubleRatchet
 import CryptoKit
 import CoreData
 

@@ -5,7 +5,7 @@
 //  Created by Nui Lewis on 13/06/2025.
 //
 
-struct StoredPlatforms {
+struct SupportedPlatforms {
     let name: String
     let displayName: String
     let supportsOfflineFirst: Bool

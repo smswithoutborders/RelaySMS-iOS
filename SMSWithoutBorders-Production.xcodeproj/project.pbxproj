@@ -7,23 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2640535130646025001F093C /* GRPCCodeGen in Frameworks */ = {isa = PBXBuildFile; productRef = 2640535030646025001F093C /* GRPCCodeGen */; };
+		2640535330646025001F093C /* GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2640535230646025001F093C /* GRPCCore */; };
+		2640535530646025001F093C /* GRPCInProcessTransport in Frameworks */ = {isa = PBXBuildFile; productRef = 2640535430646025001F093C /* GRPCInProcessTransport */; };
+		264A9C1A3065209C0026F703 /* GRPCProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C193065209C0026F703 /* GRPCProtobuf */; };
+		264A9C1C3065209C0026F703 /* protoc-gen-grpc-swift-2 in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C1B3065209C0026F703 /* protoc-gen-grpc-swift-2 */; };
+		26DE8FC930629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
+		26DE8FCA30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
+		26DE8FCB30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
+		26DE8FCD3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
+		26DE8FCE3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
+		26DE8FCF3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
 		26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 26E910762EEBF9E00075E42C /* lib-image-ios */; };
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
-		3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */; };
-		3B7EEE3D2C5BD92400611092 /* SwobDoubleRatchet in Frameworks */ = {isa = PBXBuildFile; productRef = 3B7EEE3C2C5BD92400611092 /* SwobDoubleRatchet */; };
-		3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */; };
-		3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */; };
-		3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117712C28F3F4003D5BB6 /* GRPC */; };
-		3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */; };
-		3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */; };
-		3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177A2C28F5BA003D5BB6 /* GRPC */; };
-		3BF1177D2C28F5C0003D5BB6 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF1177C2C28F5C0003D5BB6 /* GRPC */; };
-		3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */; };
-		3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */; };
-		3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */; };
 		3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */; };
-		3BF117AC2C2F57A8003D5BB6 /* Fernet in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117AB2C2F57A8003D5BB6 /* Fernet */; };
-		3BF117B22C30E1F9003D5BB6 /* Fernet in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117B12C30E1F9003D5BB6 /* Fernet */; };
 		3BF117B52C30F2BF003D5BB6 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117B42C30F2BF003D5BB6 /* CryptoSwift */; };
 		3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1522C32DC6B003A3AFB /* CountryPicker */; };
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
@@ -51,10 +48,20 @@
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RelaySMS_spec_payload.xcframework; sourceTree = "<group>"; };
+		26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relaysms_spec_payload.swift; sourceTree = "<group>"; };
 		3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		26DE8FF43064329900C8461E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Proto/publisher.grpc.swift,
+				Proto/publisher.pb.swift,
+			);
+			target = 16F0E69828C6308800FDD12C /* SMSWithoutBorders-ProductionUITests */;
+		};
 		F6790DEB2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -65,33 +72,18 @@
 		F6790DEC2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Helpers/Theme/Fonts/unbounded.ttf,
 				Notes.txt,
-				Proto/relay_publisher.grpc.swift,
-				Proto/relay_publisher.pb.swift,
-				Proto/vault.grpc.swift,
-				Proto/vault.pb.swift,
-				Proto/vault.proto,
-				"static-x25519.json",
+				Proto/publisher.grpc.swift,
+				Proto/publisher.pb.swift,
+				Utilities/Theme/Fonts/unbounded.ttf,
 				Views/PlatformComposeViews/SMSComposeMessageUIView.swift,
 			);
 			target = 16F0E68E28C6308800FDD12C /* SMSWithoutBorders-ProductionTests */;
 		};
-		F6790DED2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Proto/relay_publisher.grpc.swift,
-				Proto/relay_publisher.pb.swift,
-				Proto/vault.grpc.swift,
-				Proto/vault.pb.swift,
-				Proto/vault.proto,
-			);
-			target = 16F0E69828C6308800FDD12C /* SMSWithoutBorders-ProductionUITests */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F6790D5C2DAE66C30070A55E /* SMSWithoutBorders-Production */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F6790DEB2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, F6790DEC2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, F6790DED2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "SMSWithoutBorders-Production"; sourceTree = "<group>"; };
+		F6790D5C2DAE66C30070A55E /* SMSWithoutBorders-Production */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F6790DEB2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, F6790DEC2DAE66C30070A55E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 26DE8FF43064329900C8461E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "SMSWithoutBorders-Production"; sourceTree = "<group>"; };
 		F6790DF42DAE66CB0070A55E /* SMSWithoutBorders-ProductionTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SMSWithoutBorders-ProductionTests"; sourceTree = "<group>"; };
 		F6790DFD2DAE66CF0070A55E /* SMSWithoutBorders-ProductionUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "SMSWithoutBorders-ProductionUITests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -102,17 +94,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */,
-				3BF117722C28F3F4003D5BB6 /* GRPC in Frameworks */,
-				3BCBA3A72C49ADFD00736B9B /* CachedAsyncImage in Frameworks */,
-				3B7EEE3B2C5BD87D00611092 /* SwobDoubleRatchet in Frameworks */,
-				3BF117702C28F3F4003D5BB6 /* CGRPCZlib in Frameworks */,
 				F6F2D1D02DAE88790017BD59 /* SwiftProtobuf in Frameworks */,
-				3BF117742C28F3F4003D5BB6 /* GRPCReflectionService in Frameworks */,
+				26DE8FC930629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
+				2640535330646025001F093C /* GRPCCore in Frameworks */,
+				2640535130646025001F093C /* GRPCCodeGen in Frameworks */,
+				264A9C1C3065209C0026F703 /* protoc-gen-grpc-swift-2 in Frameworks */,
 				3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */,
+				2640535530646025001F093C /* GRPCInProcessTransport in Frameworks */,
 				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
 				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
-				3BF117B22C30E1F9003D5BB6 /* Fernet in Frameworks */,
-				3BF117782C28F3F4003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
+				264A9C1A3065209C0026F703 /* GRPCProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,12 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BF117AC2C2F57A8003D5BB6 /* Fernet in Frameworks */,
-				3BF117952C2B4EB6003D5BB6 /* GRPCReflectionService in Frameworks */,
-				3B7EEE3D2C5BD92400611092 /* SwobDoubleRatchet in Frameworks */,
-				3BF1177B2C28F5BA003D5BB6 /* GRPC in Frameworks */,
-				3BF117932C2B4EB6003D5BB6 /* CGRPCZlib in Frameworks */,
-				3BF117992C2B4EB6003D5BB6 /* protoc-gen-grpc-swift in Frameworks */,
+				26DE8FCA30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
 				3BF117B52C30F2BF003D5BB6 /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BF1177D2C28F5C0003D5BB6 /* GRPC in Frameworks */,
+				26DE8FCB30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +136,8 @@
 				F6790DFD2DAE66CF0070A55E /* SMSWithoutBorders-ProductionUITests */,
 				16F0E68028C6308600FDD12C /* Products */,
 				3BF117792C28F5BA003D5BB6 /* Frameworks */,
+				26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */,
+				26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,18 +178,16 @@
 			);
 			name = "SMSWithoutBorders-Production";
 			packageProductDependencies = (
-				3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */,
-				3BF117712C28F3F4003D5BB6 /* GRPC */,
-				3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */,
-				3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */,
-				3BF117B12C30E1F9003D5BB6 /* Fernet */,
 				3BF3D1522C32DC6B003A3AFB /* CountryPicker */,
 				3BF3D1632C349907003A3AFB /* CryptoSwift */,
 				3B082A9B2C3D24C700C7DE41 /* SwiftSVG */,
-				3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */,
-				3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */,
 				F6F2D1CF2DAE88790017BD59 /* SwiftProtobuf */,
 				26E910762EEBF9E00075E42C /* lib-image-ios */,
+				2640535030646025001F093C /* GRPCCodeGen */,
+				2640535230646025001F093C /* GRPCCore */,
+				2640535430646025001F093C /* GRPCInProcessTransport */,
+				264A9C193065209C0026F703 /* GRPCProtobuf */,
+				264A9C1B3065209C0026F703 /* protoc-gen-grpc-swift-2 */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -225,13 +211,7 @@
 			);
 			name = "SMSWithoutBorders-ProductionTests";
 			packageProductDependencies = (
-				3BF1177A2C28F5BA003D5BB6 /* GRPC */,
-				3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */,
-				3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */,
-				3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */,
-				3BF117AB2C2F57A8003D5BB6 /* Fernet */,
 				3BF117B42C30F2BF003D5BB6 /* CryptoSwift */,
-				3B7EEE3C2C5BD92400611092 /* SwobDoubleRatchet */,
 			);
 			productName = "SMSWithoutBorders-ProductionTests";
 			productReference = 16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */;
@@ -255,7 +235,6 @@
 			);
 			name = "SMSWithoutBorders-ProductionUITests";
 			packageProductDependencies = (
-				3BF1177C2C28F5C0003D5BB6 /* GRPC */,
 			);
 			productName = "SMSWithoutBorders-ProductionUITests";
 			productReference = 16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */;
@@ -269,7 +248,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					16F0E67E28C6308600FDD12C = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -301,15 +280,13 @@
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
-				3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */,
-				3BF117AA2C2F5154003D5BB6 /* XCRemoteSwiftPackageReference "fernet" */,
 				3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */,
 				3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */,
-				3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
-				3B6ADC482C5B960000D4EB30 /* XCRemoteSwiftPackageReference "lib_signal_double_ratchet_ios" */,
 				F6F2D1CE2DAE88600017BD59 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */,
+				2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */,
+				264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */,
 			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
@@ -352,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DE8FCF3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DE8FCD3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26DE8FCE3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -421,6 +402,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -440,6 +422,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -450,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -483,6 +467,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -496,6 +481,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -525,7 +511,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,7 +551,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -591,7 +577,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q42NLHCB95;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -613,7 +599,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q42NLHCB95;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -634,7 +620,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -655,7 +641,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.afkanerd.smswithoutborders.SMSWithoutBorders-ProductionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -711,12 +697,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift-2";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+		264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift-protobuf";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 		26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/smswithoutborders/lib_image_ios.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = revision;
+				revision = ef9d9ae3198b57d412eaf14a658fab6a128da7b1;
 			};
 		};
 		3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */ = {
@@ -724,38 +726,6 @@
 			repositoryURL = "https://github.com/mchoe/SwiftSVG";
 			requirement = {
 				branch = master;
-				kind = branch;
-			};
-		};
-		3B6ADC482C5B960000D4EB30 /* XCRemoteSwiftPackageReference "lib_signal_double_ratchet_ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/smswithoutborders/lib_signal_double_ratchet_ios";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.1;
-			};
-		};
-		3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/grpc/grpc-swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.24.2;
-			};
-		};
-		3BF117AA2C2F5154003D5BB6 /* XCRemoteSwiftPackageReference "fernet" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sherlockwisdom/fernet.git";
-			requirement = {
-				branch = main;
 				kind = branch;
 			};
 		};
@@ -779,13 +749,38 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.28.2;
+				kind = exactVersion;
+				version = 1.38.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2640535030646025001F093C /* GRPCCodeGen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
+			productName = GRPCCodeGen;
+		};
+		2640535230646025001F093C /* GRPCCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
+			productName = GRPCCore;
+		};
+		2640535430646025001F093C /* GRPCInProcessTransport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
+			productName = GRPCInProcessTransport;
+		};
+		264A9C193065209C0026F703 /* GRPCProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */;
+			productName = GRPCProtobuf;
+		};
+		264A9C1B3065209C0026F703 /* protoc-gen-grpc-swift-2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */;
+			productName = "protoc-gen-grpc-swift-2";
+		};
 		26E910762EEBF9E00075E42C /* lib-image-ios */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */;
@@ -795,76 +790,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */;
 			productName = SwiftSVG;
-		};
-		3B7EEE3A2C5BD87D00611092 /* SwobDoubleRatchet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6ADC482C5B960000D4EB30 /* XCRemoteSwiftPackageReference "lib_signal_double_ratchet_ios" */;
-			productName = SwobDoubleRatchet;
-		};
-		3B7EEE3C2C5BD92400611092 /* SwobDoubleRatchet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6ADC482C5B960000D4EB30 /* XCRemoteSwiftPackageReference "lib_signal_double_ratchet_ios" */;
-			productName = SwobDoubleRatchet;
-		};
-		3BCBA3A62C49ADFD00736B9B /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BCBA3A52C49ADFD00736B9B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
-		3BF1176F2C28F3F4003D5BB6 /* CGRPCZlib */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = CGRPCZlib;
-		};
-		3BF117712C28F3F4003D5BB6 /* GRPC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = GRPC;
-		};
-		3BF117732C28F3F4003D5BB6 /* GRPCReflectionService */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = GRPCReflectionService;
-		};
-		3BF117772C28F3F4003D5BB6 /* protoc-gen-grpc-swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = "protoc-gen-grpc-swift";
-		};
-		3BF1177A2C28F5BA003D5BB6 /* GRPC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = GRPC;
-		};
-		3BF1177C2C28F5C0003D5BB6 /* GRPC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = GRPC;
-		};
-		3BF117922C2B4EB6003D5BB6 /* CGRPCZlib */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = CGRPCZlib;
-		};
-		3BF117942C2B4EB6003D5BB6 /* GRPCReflectionService */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = GRPCReflectionService;
-		};
-		3BF117982C2B4EB6003D5BB6 /* protoc-gen-grpc-swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF1176E2C28F3F4003D5BB6 /* XCRemoteSwiftPackageReference "grpc-swift" */;
-			productName = "protoc-gen-grpc-swift";
-		};
-		3BF117AB2C2F57A8003D5BB6 /* Fernet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF117AA2C2F5154003D5BB6 /* XCRemoteSwiftPackageReference "fernet" */;
-			productName = Fernet;
-		};
-		3BF117B12C30E1F9003D5BB6 /* Fernet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF117AA2C2F5154003D5BB6 /* XCRemoteSwiftPackageReference "fernet" */;
-			productName = Fernet;
 		};
 		3BF117B42C30F2BF003D5BB6 /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;

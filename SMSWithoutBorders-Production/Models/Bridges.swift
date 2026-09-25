@@ -7,7 +7,6 @@
 
 import Foundation
 import CryptoKit
-import SwobDoubleRatchet
 import CoreData
 
 struct Bridges {
