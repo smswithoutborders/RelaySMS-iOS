@@ -1,0 +1,7 @@
+module relaysms_spec_payloadFFI {
+    header "relaysms_spec_payloadFFI.h"
+    export *
+    use "Darwin"
+    use "_Builtin_stdbool"
+    use "_Builtin_stdint"
+}
