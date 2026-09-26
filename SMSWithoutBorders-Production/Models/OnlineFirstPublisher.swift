@@ -17,6 +17,7 @@ class OnlineFirstPublisher {
         case failedToFetchLocalKey
         case failedToFetchPrivateKeyDataForKeyId(keyId: UInt8)
         case failedToEncrypt
+        case failedToPublishOnline
     }
     
     public func encrypt(
@@ -79,6 +80,40 @@ class OnlineFirstPublisher {
             return (ciphertext, serverKeys.keyId)
         } catch {
             throw OnlineFirstPublisherError.failedToEncrypt
+        }
+    }
+    
+    func publish(
+        catId: V1ContentCategories,
+        body: String,
+        platformName: String,
+        tokenId: Int,
+        to: String?,
+        subject: String?,
+    ) throws -> V1ContentsContainer {
+        do {
+            return try TransportImpl.publishWithoutAttachment(
+                catId: catId,
+                tokenId: UInt32(tokenId),
+                body: body,
+                to: to,
+                subject: subject,
+                encrypt: { plaintext in
+                    guard let payload = try encrypt(
+                        tokenId: tokenId,
+                        plaintext: Data(plaintext),
+                        withAttachment: false
+                    ) else {
+                        throw OnlineFirstPublisherError.failedToEncrypt
+                    }
+                    return payload
+                },
+                transmissionCallback: { serializePayload in
+                    
+                }
+            )
+        } catch {
+            throw OnlineFirstPublisherError.failedToPublishOnline
         }
     }
 }
