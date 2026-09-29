@@ -12,136 +12,23 @@ import CoreData
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.scenePhase) var scenePhase
-    @StateObject private var dataController: DataController
+//    @Environment(\.dismiss) var dismiss
+//    @Environment(\.scenePhase) var scenePhase
+//    @StateObject private var dataController: DataController
 
-    @AppStorage(OnboardingView.ONBOARDING_COMPLETED)
-    private var onboardingCompleted: Bool = false
+//    @AppStorage(OnboardingView.ONBOARDING_COMPLETED)
+//    private var onboardingCompleted: Bool = false
 
-    @State private var alreadyLoggedIn: Bool = false
-    @State private var isLoggedIn: Bool = false
-    
-    init() {
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            // RUNNING TESTS
-            self._dataController = StateObject(wrappedValue: DataController(forTesting: true))
-            print("Test initialization: Test launch. Initializing standard DataController." )
-        } else {
-            self._dataController = StateObject(wrappedValue: DataController())
-            print("App initialization: Normal launch. Initializing standard DataController." )
-        }
-        
-    }
+//    init() {
+//    }
 
     var body: some Scene {
         WindowGroup {
-            Group {
-                if(!onboardingCompleted) {
-                    OnboardingView()
-                        .environment(\.managedObjectContext, dataController.container.viewContext)
-                }
-                else {
-                    HomepageView(isLoggedIn: $isLoggedIn)
-                    .environment(\.managedObjectContext, dataController.container.viewContext)
-                    .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
-                        Button("Get me out!") {
-                            getMeOut()
-                        }
-                    } message: {
-                        Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
-                    }
-                    .onAppear() {
-                        validateLLT()
-                    }
-                    .onChange(of: scenePhase) { newPhase in
-                        if newPhase == .active {
-                            validateLLT()
-                        }
-                    }
-                }
-            }
-            .onAppear {
-                Task {
-                    Publisher.refreshPlatforms(context: dataController.container.viewContext) { success in
-                        DispatchQueue.main.async {
-                            if success {
-                                print("[App Init]: Successfully fetched platforms")
-                            }
-                        }
-                    }
-                    
-
-                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        print("Is searching for default....")
-                        do {
-                            try await GatewayClients.refresh(context: dataController.container.viewContext)
-                        } catch {
-                            print("Error refreshing gateways: \(error)")
-                        }
-                    }
-                }
-            }
-            
+            Group {}
         }
-    }
-
-    func getMeOut() {
-        logoutAccount(context: dataController.container.viewContext)
-        do {
-            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print(error)
-        }
-    }
-
-    func validateLLT() {
-        print("Validating LLT for continuation...")
-        DispatchQueue.background(background: {
-            do {
-                let vault = Vault()
-                let llt = try Vault.getLongLivedToken()
-                if llt.isEmpty{
-                    return
-                }
-
-                let result = try vault.validateLLT(
-                    llt: llt,
-                    context: dataController.container.viewContext
-                )
-                if !result {
-                    alreadyLoggedIn = true
-                }
-//                else {
-//                    let vault = Vault()
-//                    try vault.refreshStoredTokens(
-//                        llt: llt,
-//                        context: dataController.container.viewContext,
-//                        storedTokenEntities: <#FetchedResults<StoredPlatformsEntity>#>
-//                    )
-//                }
-            } catch {
-                print(error)
-            }
-        }, completion: {
-
-        })
-    }
-
-    func getIsLoggedIn() -> Bool {
-        do {
-            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print("Failed to check if llt exist: \(error)")
-        }
-        return false
     }
 
 }
 
-#Preview {
-    @State var isLoggedIn: Bool = false
-    HomepageView(isLoggedIn: $isLoggedIn)
-}
 
 

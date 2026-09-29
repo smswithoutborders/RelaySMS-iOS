@@ -15,7 +15,7 @@ class OnlineFirstPublisher {
         case failedToPublishOffline(status: any Error)
         case failedToGetRandomKey
         case failedToFetchLocalKey
-        case failedToFetchPrivateKeyDataForKeyId(keyId: UInt8)
+        case failedToFetchPrivateKeyDataForKeyId(keyId: Int)
         case failedToEncrypt
         case failedToPublishOnline
     }
@@ -45,8 +45,9 @@ class OnlineFirstPublisher {
                 throw OnlineFirstPublisherError.failedToFetchLocalKey
             }
             
+            let serverKeyId = serverKeys.keyId
             let forKeyId = #Predicate<LocalKeys> { keys in
-                keys.keyId == serverKeys.keyId
+                keys.keyId == serverKeyId
             }
             
             let descriptor = FetchDescriptor<LocalKeys>( predicate: forKeyId )
@@ -61,10 +62,11 @@ class OnlineFirstPublisher {
                 throw OnlineFirstPublisherError.failedToGetStaticKey
             }
             
-            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: serverKeys.keyId)
+            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: UInt8(serverKeyId))
             let keystore = Keystore(accountTag: accountTag)
             guard let rawKeyData = keystore.loadPrivateKeyFromKeychain() else {
-                throw OnlineFirstPublisherError.failedToFetchPrivateKeyDataForKeyId(keyId: serverKeys.keyId)
+                throw OnlineFirstPublisherError
+                    .failedToFetchPrivateKeyDataForKeyId(keyId: serverKeyId)
             }
             let keypair = try PublisherImpl.LocalKeypair.deserialize(data: rawKeyData)
 
@@ -73,11 +75,11 @@ class OnlineFirstPublisher {
                 ecKid: keypair.privateKey.rawRepresentation,
                 ssKidPk: authenticationPublicKey,
                 esKidPk: keypair.serverPublicKey,
-                keyId: serverKeys.keyId,
+                keyId: UInt8(serverKeyId),
                 plaintext: plaintext
             )
             
-            return (ciphertext, serverKeys.keyId)
+            return (ciphertext, UInt8(serverKeyId))
         } catch {
             throw OnlineFirstPublisherError.failedToEncrypt
         }

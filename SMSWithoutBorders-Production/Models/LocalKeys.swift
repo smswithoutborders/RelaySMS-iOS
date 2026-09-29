@@ -11,9 +11,9 @@ import Foundation
 @Model
 class LocalKeys {
     @Attribute(.unique) var id: UUID
-    var keyId: UInt8
+    var keyId: Int
     
-    init(keyId: UInt8) {
+    init(keyId: Int) {
         self.id = UUID()
         self.keyId = keyId
     }

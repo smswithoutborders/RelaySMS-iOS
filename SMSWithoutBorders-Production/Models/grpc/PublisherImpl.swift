@@ -19,8 +19,8 @@ class PublisherImpl {
         case failedToFindStaticKeyForId(keyId: UInt32)
         case failedToDecryptClientToken
         case failedToDeserializeData
-        case failedToSaveLocalKey(keyId: UInt32)
-        case failedToFindServerPublicKey(keyId: UInt32)
+        case failedToSaveLocalKey(keyId: Int)
+        case failedToFindServerPublicKey(keyId: Int)
         case failedToSaveLocalKeysToSwiftData
     }
     
@@ -32,8 +32,7 @@ class PublisherImpl {
     public static var PUBLISHER_TOKEN_HASH = "PUBLISHER_TOKEN_HASH"
     public static var PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
 
-    let channel = GRPCHandler.getChannelPublisher()
-    let publisherStub = Publisher_V3_Publisher(channel: channel)
+    let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
     
     private func getBase64EncodedPublisherPublicKey() throws -> String {
         if let publisherPublicKeyBytes = UserDefaults.standard.object(
@@ -52,37 +51,20 @@ class PublisherImpl {
         requestIdentifier: String,
         autogenerateCodeVerifier: Bool = true,
         supportsUrlScheme: Bool = true,
-    ) throws -> Publisher_V3_GetOAuth2AuthorizationUrlResponse {
+    ) async throws -> Publisher_V3_GetOAuth2AuthorizationUrlResponse {
         let scheme = supportsUrlScheme ? "true" : "false"
         
-        let publishingUrlRequest:
-            Publisher_V3_GetOAuth2AuthorizationUrlRequest = try .with {
-                $0.platform = availablePlatform.name
-                $0.state = (availablePlatform.name + "," + scheme)
-                    .data(using: .utf8)!.base64EncodedString()
-                $0.redirectURL = supportsUrlScheme ?
-                PublisherImpl.REDIRECT_URL_SCHEME :
-                PublisherImpl.REDIRECT_URL_URL
-                $0.autogenerateCodeVerifier = autogenerateCodeVerifier
-                $0.requestIdentifier = try getBase64EncodedPublisherPublicKey()
-            }
-
-        let call = publisherStub.getOAuth2AuthorizationUrl(publishingUrlRequest)
-        let response: Publisher_V3_GetOAuth2AuthorizationUrlResponse
-
-        do {
-            response = try call.response.wait()
-            let status = try call.status.wait()
-
-            if !status.isOk {
-                throw PublisherImplError.failedToGetAuthUrl(
-                    status: status.code.description)
-            }
-        } catch {
-            throw error
-        }
-
-        return response
+        let reply = try await publisherStub.getOAuth2AuthorizationUrl(.with {
+            $0.platform = availablePlatform.name
+            $0.state = (availablePlatform.name + "," + scheme)
+                .data(using: .utf8)!.base64EncodedString()
+            $0.redirectURL = supportsUrlScheme ?
+            PublisherImpl.REDIRECT_URL_SCHEME :
+            PublisherImpl.REDIRECT_URL_URL
+            $0.autogenerateCodeVerifier = autogenerateCodeVerifier
+            $0.requestIdentifier = try getBase64EncodedPublisherPublicKey()
+        })
+        return reply
     }
     
     private func getKeys() throws -> (
@@ -194,7 +176,7 @@ class PublisherImpl {
         
         for keypair in keys {
             let (keyId, privateKey) = keypair
-            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: keyId)
+            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: UInt8(keyId))
             let serverPublicKey = serverEphemeralPublicKeys.first{ $0.keyID == keyId }
             
             if serverPublicKey == nil {
@@ -213,7 +195,7 @@ class PublisherImpl {
                 throw PublisherImplError.failedToSaveLocalKey(keyId: keyId)
             }
             
-            let localKeys = LocalKeys(keyId: UInt32(keyId))
+            let localKeys = LocalKeys(keyId: keyId)
             context.insert(localKeys)
             
         }
@@ -244,7 +226,7 @@ class PublisherImpl {
             throw PublisherImplError.invalidDecryptionKeyRequested(keyId: keyId)
         }
         
-        guard let ssKidPk = StaticKeys.getStaticKey(kid: keyId)?.getKey() else {
+        guard let ssKidPk = StaticKeys.getStaticKey(kid: Int(keyId))?.getKey() else {
             throw PublisherImplError.failedToFindStaticKeyForId(keyId: keyId)
         }
         
@@ -279,26 +261,18 @@ class PublisherImpl {
         code: String,
         codeVerifier: String,
         requestIdentifier: String,
-    ) throws -> Publisher_V3_ExchangeOAuth2CodeAndStoreResponse {
+    ) async throws -> Publisher_V3_ExchangeOAuth2CodeAndStoreResponse {
         do {
             let (publisherKeys, keys) = try getKeys()
             
-            let request: Publisher_V3_ExchangeOAuth2CodeAndStoreRequest = .with {
+            let response = try await publisherStub.exchangeOAuth2CodeAndStore(.with {
                 $0.platform = platformName
                 $0.authorizationCode = code
                 $0.codeVerifier = codeVerifier
                 $0.redirectURL = PublisherImpl.REDIRECT_URL_URL
                 $0.requestIdentifier = requestIdentifier
                 $0.clientEphemeralPublicKeys = publisherKeys
-            }
-            
-            let call = publisherStub.exchangeOAuth2CodeAndStore(request: request)
-            let response: Publisher_V3_ExchangeOAuth2CodeAndStoreResponse = try call.response.wait()
-            let status = try call.status.wait()
-            
-            if !status.isOk {
-                throw PublisherImplError.failedToSendOAuthAuthorizationCode
-            }
+            })
             
             try processEphemeralKeys(
                 keyId: response.keyID,

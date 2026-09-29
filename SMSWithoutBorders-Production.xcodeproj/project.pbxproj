@@ -12,12 +12,10 @@
 		2640535530646025001F093C /* GRPCInProcessTransport in Frameworks */ = {isa = PBXBuildFile; productRef = 2640535430646025001F093C /* GRPCInProcessTransport */; };
 		264A9C1A3065209C0026F703 /* GRPCProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C193065209C0026F703 /* GRPCProtobuf */; };
 		264A9C1C3065209C0026F703 /* protoc-gen-grpc-swift-2 in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C1B3065209C0026F703 /* protoc-gen-grpc-swift-2 */; };
-		26DE8FC930629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
-		26DE8FCA30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
-		26DE8FCB30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */; };
-		26DE8FCD3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
-		26DE8FCE3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
-		26DE8FCF3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */; };
+		264A9C2A306BA44F0026F703 /* GRPCNIOTransportHTTP2 in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C29306BA44F0026F703 /* GRPCNIOTransportHTTP2 */; };
+		264A9C2C306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C2B306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix */; };
+		264A9C2E306BA44F0026F703 /* GRPCNIOTransportHTTP2TransportServices in Frameworks */ = {isa = PBXBuildFile; productRef = 264A9C2D306BA44F0026F703 /* GRPCNIOTransportHTTP2TransportServices */; };
+		264A9C38306C05C50026F703 /* relaySMS_spec_payload.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 264A9C37306C05C50026F703 /* relaySMS_spec_payload.xcframework */; };
 		26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */ = {isa = PBXBuildFile; productRef = 26E910762EEBF9E00075E42C /* lib-image-ios */; };
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
 		3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */; };
@@ -48,8 +46,7 @@
 		16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSWithoutBorders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E68F28C6308800FDD12C /* SMSWithoutBorders-ProductionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F0E69928C6308800FDD12C /* SMSWithoutBorders-ProductionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SMSWithoutBorders-ProductionUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RelaySMS_spec_payload.xcframework; sourceTree = "<group>"; };
-		26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = relaysms_spec_payload.swift; sourceTree = "<group>"; };
+		264A9C37306C05C50026F703 /* relaySMS_spec_payload.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = relaySMS_spec_payload.xcframework; sourceTree = "<group>"; };
 		3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,7 +73,6 @@
 				Proto/publisher.grpc.swift,
 				Proto/publisher.pb.swift,
 				Utilities/Theme/Fonts/unbounded.ttf,
-				Views/PlatformComposeViews/SMSComposeMessageUIView.swift,
 			);
 			target = 16F0E68E28C6308800FDD12C /* SMSWithoutBorders-ProductionTests */;
 		};
@@ -93,17 +89,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264A9C2E306BA44F0026F703 /* GRPCNIOTransportHTTP2TransportServices in Frameworks */,
 				26E910772EEBF9E00075E42C /* lib-image-ios in Frameworks */,
 				F6F2D1D02DAE88790017BD59 /* SwiftProtobuf in Frameworks */,
-				26DE8FC930629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
 				2640535330646025001F093C /* GRPCCore in Frameworks */,
 				2640535130646025001F093C /* GRPCCodeGen in Frameworks */,
 				264A9C1C3065209C0026F703 /* protoc-gen-grpc-swift-2 in Frameworks */,
+				264A9C2A306BA44F0026F703 /* GRPCNIOTransportHTTP2 in Frameworks */,
 				3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */,
 				2640535530646025001F093C /* GRPCInProcessTransport in Frameworks */,
+				264A9C2C306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix in Frameworks */,
 				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
 				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
 				264A9C1A3065209C0026F703 /* GRPCProtobuf in Frameworks */,
+				264A9C38306C05C50026F703 /* relaySMS_spec_payload.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +110,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DE8FCA30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
 				3BF117B52C30F2BF003D5BB6 /* CryptoSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,7 +118,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DE8FCB30629F3000C8461E /* RelaySMS_spec_payload.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +133,6 @@
 				F6790DFD2DAE66CF0070A55E /* SMSWithoutBorders-ProductionUITests */,
 				16F0E68028C6308600FDD12C /* Products */,
 				3BF117792C28F5BA003D5BB6 /* Frameworks */,
-				26DE8FC830629F3000C8461E /* RelaySMS_spec_payload.xcframework */,
-				26DE8FCC3062A5FB00C8461E /* relaysms_spec_payload.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +149,7 @@
 		3BF117792C28F5BA003D5BB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				264A9C37306C05C50026F703 /* relaySMS_spec_payload.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,6 +184,9 @@
 				2640535430646025001F093C /* GRPCInProcessTransport */,
 				264A9C193065209C0026F703 /* GRPCProtobuf */,
 				264A9C1B3065209C0026F703 /* protoc-gen-grpc-swift-2 */,
+				264A9C29306BA44F0026F703 /* GRPCNIOTransportHTTP2 */,
+				264A9C2B306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix */,
+				264A9C2D306BA44F0026F703 /* GRPCNIOTransportHTTP2TransportServices */,
 			);
 			productName = "SMSWithoutBorders-Production";
 			productReference = 16F0E67F28C6308600FDD12C /* SMSWithoutBorders.app */;
@@ -287,6 +286,7 @@
 				26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */,
 				2640534F30646025001F093C /* XCRemoteSwiftPackageReference "grpc-swift-2" */,
 				264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */,
+				264A9C28306BA44F0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */,
 			);
 			productRefGroup = 16F0E68028C6308600FDD12C /* Products */;
 			projectDirPath = "";
@@ -329,7 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DE8FCF3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +336,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DE8FCD3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,7 +343,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26DE8FCE3062A5FB00C8461E /* relaysms_spec_payload.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,7 +508,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,7 +548,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -713,6 +710,14 @@
 				minimumVersion = 2.4.1;
 			};
 		};
+		264A9C28306BA44F0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift-nio-transport.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
 		26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/smswithoutborders/lib_image_ios.git";
@@ -780,6 +785,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 264A9C183065209C0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */;
 			productName = "protoc-gen-grpc-swift-2";
+		};
+		264A9C29306BA44F0026F703 /* GRPCNIOTransportHTTP2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 264A9C28306BA44F0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2;
+		};
+		264A9C2B306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 264A9C28306BA44F0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2Posix;
+		};
+		264A9C2D306BA44F0026F703 /* GRPCNIOTransportHTTP2TransportServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 264A9C28306BA44F0026F703 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2TransportServices;
 		};
 		26E910762EEBF9E00075E42C /* lib-image-ios */ = {
 			isa = XCSwiftPackageProductDependency;

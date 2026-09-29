@@ -14,8 +14,8 @@
             filePath = "SMSWithoutBorders-Production/SMSWithoutBorders_ProductionApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "SMSWithoutBorders_ProductionApp"
             landmarkType = "14">
          </BreakpointContent>
@@ -34,6 +34,22 @@
             endingLineNumber = "69"
             landmarkName = "processImage()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7635AD72-69FF-4C8C-9780-E94F4EF20475"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Views/Platforms/ImageTransmissionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

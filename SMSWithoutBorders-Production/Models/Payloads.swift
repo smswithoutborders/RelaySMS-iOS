@@ -11,17 +11,19 @@ import Foundation
 @Model
 class Payloads {
     @Attribute(.unique) var id: UUID
-    var content: V1ContentsContainer
+    var content: Data
     var platformName: String
     var isOfflineFirst: Bool
     
     init(
         id: UUID,
         plaformName: String,
+        content: Data,
         isOfflineFirst: Bool = false
     ) {
         self.id = id
         self.platformName = plaformName
         self.isOfflineFirst = isOfflineFirst
+        self.content = content
     }
 }
