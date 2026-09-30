@@ -13,33 +13,33 @@ class SupportedPlatforms {
     static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/platforms"
     @Attribute(.unique) var name: String
     var displayName: String
-    var supportsOfflineFirst: String
+    var supportsOfflineFirst: Bool
     var catId: Int
     var protoId: Int
     var iconSvg: String
     var iconPng: String
-    var authProvider: String
+    var authProvider: String?
 
     public class SupportPlatformsData: Decodable {
         let name: String
-        let displayName: String
-        let supportsOfflineFirst: String
-        let catId: Int
-        let protoId: Int
-        let iconSvg: String
-        let iconPng: String
-        let authProvider: String
+        let display_name: String
+        let proto_id: Int
+        let cat_id: Int
+        let auth_provider: String?
+        let supports_offline_first: Bool
+        let icon_svg: String
+        let icon_png: String
     }
     
     init(
         name: String,
         displayName: String,
-        supportsOfflineFirst: String,
+        supportsOfflineFirst: Bool,
         catId: Int,
         protoId: Int,
         iconSvg: String,
         iconPng: String,
-        authProvider: String
+        authProvider: String?
     ) {
         self.name = name
         self.displayName = displayName
@@ -52,21 +52,20 @@ class SupportedPlatforms {
     }
     
     
-    static func save(data: [SupportPlatformsData]) throws {
-        let container = try ModelContainer(for: SupportedPlatforms.self)
+    static func save(data: [SupportPlatformsData], into container: ModelContainer) throws {
         let context = ModelContext(container)
         context.autosaveEnabled = false
         
-        data.forEach { data in
+        data.forEach { item in
             let sp = SupportedPlatforms(
-                name: data.name,
-                displayName: data.displayName,
-                supportsOfflineFirst: data.supportsOfflineFirst,
-                catId: data.catId,
-                protoId: data.protoId,
-                iconSvg: data.iconSvg,
-                iconPng: data.iconPng,
-                authProvider: data.authProvider
+                name: item.name,
+                displayName: item.display_name,
+                supportsOfflineFirst: item.supports_offline_first,
+                catId: item.cat_id,
+                protoId: item.proto_id,
+                iconSvg: item.icon_svg,
+                iconPng: item.icon_png,
+                authProvider: item.auth_provider
             )
             context.insert(sp)
         }

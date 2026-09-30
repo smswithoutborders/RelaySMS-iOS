@@ -26,11 +26,11 @@ class PublisherImpl {
     
     public static let REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
     public static let REDIRECT_URL_URL = "https://relay.smswithoutborders.com/ios"
-    public static var PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
+    public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
     
-    public static var PUBLISHER_TOKEN_ID = "PUBLISHER_TOKEN_ID"
-    public static var PUBLISHER_TOKEN_HASH = "PUBLISHER_TOKEN_HASH"
-    public static var PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
+    public static let PUBLISHER_TOKEN_ID = "PUBLISHER_TOKEN_ID"
+    public static let PUBLISHER_TOKEN_HASH = "PUBLISHER_TOKEN_HASH"
+    public static let PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
 
     let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
     

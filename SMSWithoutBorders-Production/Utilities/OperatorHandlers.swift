@@ -12,27 +12,27 @@ import CoreTelephony
 
 class OperatorHandlers {
     
-    public static func findGatewayClientsWithOperatorId(operatorCode: String, context: NSManagedObjectContext) -> GatewayClients? {
-        let fetchRequest: NSFetchRequest<GatewayClientsEntity> = GatewayClientsEntity.fetchRequest()
-        do {
-            let result = try context.fetch(fetchRequest)
-            for gatewayClientEntity in result {
-                if gatewayClientEntity.operatorCode == operatorCode {
-                    return GatewayClients(
-                        country: gatewayClientEntity.country!,
-                        last_published_date: Int(gatewayClientEntity.lastPublishedDate),
-                        msisdn: gatewayClientEntity.msisdn!,
-                        operator: gatewayClientEntity.operatorCode!,
-                        operator_code: gatewayClientEntity.operatorCode!,
-                        protocols: gatewayClientEntity.protocols!.split(separator: ",").map { String($0)},
-                        reliability: gatewayClientEntity.reliability!)
-                }
-            }
-        } catch {
-            print("Error fetching StatesEntity: \(error)")
-        }
-        return nil
-    }
+//    public static func findGatewayClientsWithOperatorId(operatorCode: String, context: NSManagedObjectContext) -> GatewayClients? {
+//        let fetchRequest: NSFetchRequest<GatewayClientsEntity> = GatewayClientsEntity.fetchRequest()
+//        do {
+//            let result = try context.fetch(fetchRequest)
+//            for gatewayClientEntity in result {
+//                if gatewayClientEntity.operatorCode == operatorCode {
+//                    return GatewayClients(
+//                        country: gatewayClientEntity.country!,
+//                        last_published_date: Int(gatewayClientEntity.lastPublishedDate),
+//                        msisdn: gatewayClientEntity.msisdn!,
+//                        operator: gatewayClientEntity.operatorCode!,
+//                        operator_code: gatewayClientEntity.operatorCode!,
+//                        protocols: gatewayClientEntity.protocols!.split(separator: ",").map { String($0)},
+//                        reliability: gatewayClientEntity.reliability!)
+//                }
+//            }
+//        } catch {
+//            print("Error fetching StatesEntity: \(error)")
+//        }
+//        return nil
+//    }
     
     public static func isMatchingOperatorCode(operatorCode: String) -> Bool {
         let cellularProviders: [String: CTCarrier] = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders ?? [:]

@@ -8,38 +8,41 @@
 import Observation
 import Foundation
 import CoreData
+import SwiftData
 
-enum FetchState {
+enum SupportedPlatformsFetchState {
     case loading
     case idle
     case failure(data: String)
 }
 
 @Observable
-class SupportPlatformsViewModel {
-    private(set) var fetchState: FetchState = .idle
+@MainActor
+class SupportedPlatformsViewModel {
+    private(set) var fetchState: SupportedPlatformsFetchState = .idle
     
-    func fetch() async {
+    func fetch(into container: ModelContainer) async {
+        fetchState = .loading
         guard let url = URL(string: SupportedPlatforms.supportedUrl) else {
             print("Invalid URL")
             return
         }
         
         do {
-            // 3. Perform the network request
-            let (data, response) = try await URLSession.shared.data(from: url)
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
-            // 4. Validate the HTTP response status code
+            let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 fetchState = .failure(data: "https request failed")
                 return
             }
-            
-            // 5. Decode the JSON data into your model
+
             let supportedPlatforms = try JSONDecoder().decode([SupportedPlatforms.SupportPlatformsData].self, from: data)
             print("Successfully fetched \(supportedPlatforms.count) platforms.")
             
-            try SupportedPlatforms.save(data: supportedPlatforms)
+            try SupportedPlatforms.save(data: supportedPlatforms, into: container)
             fetchState = .idle
         } catch {
             print("Failed to fetch data: \(error.localizedDescription)")

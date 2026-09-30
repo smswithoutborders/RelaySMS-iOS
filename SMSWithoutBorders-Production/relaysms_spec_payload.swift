@@ -1067,7 +1067,7 @@ fileprivate struct UniffiCallbackInterfaceV1Contents {
 
     // Rust stores this pointer for future callback invocations, so it must live
     // for the process lifetime (not just for the init function call).
-    static let vtablePtr: UnsafePointer<UniffiVTableCallbackInterfaceV1Contents> = {
+    nonisolated(unsafe) static let vtablePtr: UnsafePointer<UniffiVTableCallbackInterfaceV1Contents> = {
         let ptr = UnsafeMutablePointer<UniffiVTableCallbackInterfaceV1Contents>.allocate(capacity: 1)
         ptr.initialize(to: vtable)
         return UnsafePointer(ptr)

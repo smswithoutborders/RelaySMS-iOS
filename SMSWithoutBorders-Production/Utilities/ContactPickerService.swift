@@ -76,24 +76,24 @@ class ContactPickerServiceDelegate: NSObject, ObservableObject, CNContactPickerD
         let phoneCode: String = phoneNumber.starts(with: "+") ? String(phoneNumber.split(separator: " ").first ?? "") : ""
 
         DispatchQueue.main.async {
-            self.phoneCode = phoneCode
-            self.localPhoneNumber = cleanedNumber
-            self.internationPhoneNumber = phoneCode.isEmpty ? nil : "\(phoneCode)\(cleanedNumber)"
-            self.rawValue = phoneNumber
-            
-            self.contact = RelayContact(
-                phoneCode: self.phoneCode ?? "",
-                localPhoneNumber: self.localPhoneNumber ?? "",
-                internationalPhoneNumber: self.internationPhoneNumber ?? "",
-                rawValue: self.rawValue ?? "",
-                name: self.name ?? ""
-            )
-
-            print("international Phone Number: \(self.internationPhoneNumber ?? "N/A") ")
-            print("Local Phone Number: \(self.localPhoneNumber ?? "N/A") ")
-            print("phoneCode: \(self.phoneCode ?? "N/A") ")
-            print("rawValue: \(self.rawValue ?? "N/A") ")
-            print("name: \(self.name ?? "N/A")")
+//            self.phoneCode = phoneCode
+//            self.localPhoneNumber = cleanedNumber
+//            self.internationPhoneNumber = phoneCode.isEmpty ? nil : "\(phoneCode)\(cleanedNumber)"
+//            self.rawValue = phoneNumber
+//            
+//            self.contact = RelayContact(
+//                phoneCode: self.phoneCode ?? "",
+//                localPhoneNumber: self.localPhoneNumber ?? "",
+//                internationalPhoneNumber: self.internationPhoneNumber ?? "",
+//                rawValue: self.rawValue ?? "",
+//                name: self.name ?? ""
+//            )
+//
+//            print("international Phone Number: \(self.internationPhoneNumber ?? "N/A") ")
+//            print("Local Phone Number: \(self.localPhoneNumber ?? "N/A") ")
+//            print("phoneCode: \(self.phoneCode ?? "N/A") ")
+//            print("rawValue: \(self.rawValue ?? "N/A") ")
+//            print("name: \(self.name ?? "N/A")")
         }
     }
     
