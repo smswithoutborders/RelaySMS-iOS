@@ -7,100 +7,126 @@
 
 import CoreData
 import Foundation
+import SwiftData
 
-class GatewayClients: Codable {
-    public static let GATEWAY_CLIENT_URL = "https://gatewayserver.smswithoutborders.com/v3/clients"
-    public static let DEFAULT_GATEWAY_CLIENT_MSISDN = "COM.AFKANERD.RELAY.DEFAULT_GATEWAY_CLIENT_MSISDN"
+@Model
+class GatewayClients {
+    enum GatewayClientErrors: Error {
+        case noDefaultGatewayClientSet
+    }
     
+//    #if DEBUG
+//    static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/gateway-clients"
+//    #else
+//    static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/gateway-clients"
+//    #endif
+    static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/gateway-clients"
+
+    @Attribute(.unique) var msisdn: String
     var country: String
-    var last_published_date: Int
-    var msisdn: String
-    var `operator`: String
-    var operator_code: String
-    var protocols: [String]
-    var reliability: String
+    var serviceProvider: String
+    var isDefault: Bool = false
+
+    public class GatewayClientsData: Codable {
+        var msisdn: String
+        var country: String
+        var `operator`: String
+        var protocols: [String]
+    }
     
     init(
         country: String,
-        last_published_date: Int,
         msisdn: String,
-        operator _operator: String,
-        operator_code: String,
-        protocols: [String],
-        reliability: String
+        serviceProvider: String,
+        isDefault: Bool = false
     ) {
         self.country = country
         self.msisdn = msisdn
-        self.operator = _operator
-        self.operator_code = operator_code
-        self.protocols = protocols
-        self.reliability = reliability
-        self.last_published_date = last_published_date
+        self.serviceProvider = serviceProvider
+        self.isDefault = isDefault
     }
     
-    private static func fetch() async throws -> [GatewayClients] {
-        let (data, _) = try await URLSession.shared.data(from: URL(string: GATEWAY_CLIENT_URL)!)
-        return try! JSONDecoder().decode([GatewayClients].self, from: data)
-    }
-    
-    static func configureDefaults() {
-        let currentDefault = UserDefaults.standard.object(forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN) as? String ?? ""
+    static func save(data: [GatewayClientsData], into container: ModelContainer) throws {
+        let context = ModelContext(container)
+        context.autosaveEnabled = false
         
-        if currentDefault.isEmpty {
-            let defaultGatewayClients = GatewayClients.getDefaultGatewayClients()
-            print("configuring default: \(defaultGatewayClients.first?.msisdn)")
-            UserDefaults.standard.set(defaultGatewayClients[0].msisdn, forKey: GatewayClients.DEFAULT_GATEWAY_CLIENT_MSISDN)
-        } else {
-            print("Current default: \(currentDefault)")
+        data.forEach { item in
+            let sp = GatewayClients(
+                country: item.country,
+                msisdn: item.msisdn,
+                serviceProvider: item.operator
+            )
+            context.insert(sp)
         }
-    }
-    
-    static func clear(context: NSManagedObjectContext, shouldSave: Bool = true) throws {
-        print("Clearing GatewayClients...")
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GatewayClientsEntity")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)  // Use batch delete for efficiency
-        
-        deleteRequest.resultType = .resultTypeCount  // Or .resultTypeObjectIDs if you need object IDs
-        
         do {
-            try context.execute(deleteRequest)
-            //            try context.save()
+            try context.save()
         } catch {
-            print("Error clearing GatewayClients: \(error)")
-            context.rollback()
-            throw error  // Re-throw the error after rollback
+            throw error
         }
     }
-    
-    public static func getDefaultGatewayClients() -> [GatewayClients] {
+
+    func getHardCodedValues() -> [GatewayClients] {
         return [
             GatewayClients(
+                country: "USA",
+                msisdn: "+15024439537",
+                serviceProvider: "Twilio",
+                isDefault: true
+            ),
+            
+            GatewayClients(
                 country: "Nigeria",
-                last_published_date: 0,
                 msisdn: "+2348131498393",
-                operator: "MTN Nigeria",
-                operator_code: "62130",
-                protocols: ["https", "smtp", "ftp"],
-                reliability: ""),
+                serviceProvider: "MTN Nigeria",
+            ),
             
             GatewayClients(
                 country: "Cameroon",
-                last_published_date: 0,
                 msisdn: "+237679466332",
-                operator: "MTN Cameroon",
-                operator_code: "62401",
-                protocols: ["https", "smtp", "ftp"],
-                reliability: ""),
+                serviceProvider: "MTN Cameroon",
+            ),
             
             GatewayClients(
                 country: "Cameroon",
-                last_published_date: 0,
                 msisdn: "+237690826242",
-                operator: "Orange Cameroon",
-                operator_code: "62402",
-                protocols: ["https", "smtp", "ftp"],
-                reliability: ""),
+                serviceProvider: "Orange Cameroon",
+            ),
         ]
     }
     
+    static func getDefault(into container: ModelContainer) throws -> GatewayClients? {
+        let predicate = #Predicate<GatewayClients> { gc in
+            gc.isDefault == true
+        }
+        var descriptor = FetchDescriptor<GatewayClients>(predicate: predicate)
+        descriptor.fetchLimit = 1
+        
+        do {
+            let context = ModelContext(container)
+            return try context.fetch(descriptor).first
+        } catch {
+            throw error
+        }
+    }
+    
+    func setDefault(into container: ModelContainer) throws {
+        let context = ModelContext(container)
+        context.autosaveEnabled = false
+        
+        guard let defaultGc = try GatewayClients.getDefault(into: container) else {
+            throw GatewayClientErrors.noDefaultGatewayClientSet
+        }
+        
+        defaultGc.isDefault = false
+        self.isDefault = true
+        
+        context.insert(defaultGc)
+        context.insert(self)
+        
+        do {
+            try context.save()
+        } catch {
+            throw error
+        }
+    }
 }

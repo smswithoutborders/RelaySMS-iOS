@@ -10,7 +10,12 @@ import Foundation
 
 @Model
 class SupportedPlatforms {
+    #if DEBUG
     static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/platforms"
+    #else
+    static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/platforms"
+    #endif
+    
     @Attribute(.unique) var name: String
     var displayName: String
     var supportsOfflineFirst: Bool

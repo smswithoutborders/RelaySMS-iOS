@@ -10,18 +10,43 @@ import Foundation
 import CoreData
 import SwiftData
 
+struct HomepageView: View {
+    var body: some View {
+        TabView {
+            Tab("Recent", systemImage: "house.circle") {
+                EmptyView()
+            }
+            
+            Tab("Platforms", systemImage: "server.rack") {
+                SupportedPlatformsView()
+            }
+            
+            Tab("Routing numbers", systemImage: "phone.arrow.up.right.circle") {
+                GatewayClientsView()
+            }
+        }
+    }
+}
+
+
+
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                SupportedPlatformsView()
+                HomepageView()
             }
         }
-        .modelContainer(for: SupportedPlatforms.self)
+        .modelContainer(for: [
+            SupportedPlatforms.self,
+            GatewayClients.self
+        ])
     }
 
 }
 
 
-
+#Preview {
+    HomepageView()
+}

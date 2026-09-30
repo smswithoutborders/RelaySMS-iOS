@@ -18,7 +18,6 @@ struct SupportedPlatform: View {
     }
 }
 
-
 struct SupportedPlatformsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var supportedPlatforms: [SupportedPlatforms]

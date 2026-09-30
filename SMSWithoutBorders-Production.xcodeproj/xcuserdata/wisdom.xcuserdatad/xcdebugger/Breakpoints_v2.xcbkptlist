@@ -14,10 +14,10 @@
             filePath = "SMSWithoutBorders-Production/SMSWithoutBorders_ProductionApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "SMSWithoutBorders_ProductionApp"
-            landmarkType = "14">
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
