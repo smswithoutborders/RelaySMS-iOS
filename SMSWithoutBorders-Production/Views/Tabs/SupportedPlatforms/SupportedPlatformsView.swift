@@ -92,35 +92,17 @@ struct SupportedPlatformsView: View {
             }
             
         }
-        .onOpenURL { url in
-            dismiss()
-            handleIncomingUrl(url)
-        }
         .task {
             await viewModel.fetch(into: modelContext.container)
         }
     }
-    
-    private func handleIncomingUrl(_ url: URL) {
-        print("incoming url: \(url)")
-    }
-
 
     private func oauthRequested() async{
         do {
-            guard let (response, requestId) = try await viewModel.requestOAuthUrl(platform: selectedPlatform!) else {
-                return
-            }
-            let oAuthRequest = OAuthManager.OAuthRequest(
-                platformName: selectedPlatform!.name,
-                codeVerifier: response.codeVerifier,
-                requestIdentifier: requestId
-            )
-            oauthManager.oAuthRequest = oAuthRequest
-            
-            try oauthManager.startOAuthFlow(
-                url: response.authorizationURL,
-                platformName: selectedPlatform!.name
+            try await viewModel.requestOAuthUrl(
+                platform: selectedPlatform!,
+                into: modelContext.container,
+                oauthManager: oauthManager
             )
         } catch {
             print(error)

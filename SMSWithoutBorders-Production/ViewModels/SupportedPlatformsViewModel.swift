@@ -17,7 +17,6 @@ enum SupportedPlatformsFetchState {
 }
 
 @Observable
-@MainActor
 class SupportedPlatformsViewModel {
     enum SupportedPlatformsViewModelError: Error {
         case failedToGenerateRequestId
@@ -55,12 +54,13 @@ class SupportedPlatformsViewModel {
         }
     }
     
-    func requestOAuthUrl(platform: SupportedPlatforms) async throws -> (Publisher_V3_GetOAuth2AuthorizationUrlResponse, String)? {
+    func requestOAuthUrl(
+        platform: SupportedPlatforms,
+        into container: ModelContainer,
+        oauthManager: OAuthManager,
+    ) async throws {
         isStoring = true
-        defer {
-            isStoring = false
-        }
-        let publisherImpl = PublisherImpl()
+        let publisherImpl = PublisherImpl(container: container)
 
         guard let requestId = generate32RandomBytes()?.base64EncodedString() else {
             throw SupportedPlatformsViewModelError.failedToGenerateRequestId
@@ -71,10 +71,41 @@ class SupportedPlatformsViewModel {
                 availablePlatform: platform,
                 requestIdentifier: requestId
             )
-            return (response, requestId)
+            
+            let oAuthRequest = OAuthManager.OAuthRequest(
+                platformName: platform.name,
+                codeVerifier: response.codeVerifier,
+                requestIdentifier: requestId
+            )
+            
+            try await oauthManager.startOAuthFlow(
+                url: response.authorizationURL,
+                platformName: platform.name,
+            ) { code in
+                Task.detached(priority: .background) {
+                    do {
+                        let response = try await publisherImpl.sendOAuthAuthorizationCode(
+                            platformName: platform.name,
+                            code: code,
+                            codeVerifier: response.codeVerifier,
+                            requestIdentifier: requestId,
+                        )
+                        DispatchQueue.main.async {
+                            oauthManager.isAuthenticated = true
+                        }
+                    } catch {
+                        print(error)
+                    }
+                    self.isStoring = false
+                }
+            }
         } catch {
             throw error
         }
+    }
+    
+    func setIsStoring(isStoring: Bool) {
+        self.isStoring = isStoring
     }
 
 }

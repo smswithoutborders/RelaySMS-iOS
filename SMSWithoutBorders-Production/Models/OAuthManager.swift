@@ -21,10 +21,6 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
     /**
      This is temporal, waiting for figure out this AASA thing
      */
-    let onRequestCallback: (@Sendable () -> Data?)? = nil
-    
-    var oAuthRequest: OAuthRequest?
-    var container: ModelContainer? = nil
 
     enum OAuthManagerError: Error {
         case failedToGetRedirectComponents
@@ -36,7 +32,8 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
 
     func startOAuthFlow(
         url: String,
-        platformName: String
+        platformName: String,
+        onCompleteCallback: @escaping (String) -> Void
     ) throws {
         let authURL = URL(string: url)!
         
@@ -64,30 +61,7 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
                 print("OAuthManagerError.failedToGetCode")
                 return
             }
-            
-            guard self.oAuthRequest != nil else { return }
-            guard self.container != nil else {
-                print("OAuthManagerError.contextContainerCannotBeNil")
-                return
-            }
-            let publisherImpl = PublisherImpl(container: self.container!)
-
-            Task.detached(priority: .background) {
-                do {
-                    let response = try await publisherImpl.sendOAuthAuthorizationCode(
-                        platformName: self.oAuthRequest!.platformName,
-                        code: code,
-                        codeVerifier: self.oAuthRequest!.codeVerifier,
-                        requestIdentifier: self.oAuthRequest!.requestIdentifier
-                    )
-                    
-                    DispatchQueue.main.async {
-                        self.isAuthenticated = true
-                    }
-                } catch {
-                    print(error)
-                }
-            }
+            onCompleteCallback(code)
         }
 
         self.webAuthSession?.presentationContextProvider = self
@@ -106,10 +80,9 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
             return nil
         }
         
-        guard let decodedString = String(data: decodedData, encoding: .utf8) else {
-            return nil
-        }
-        
+//        guard let decodedString = String(data: decodedData, encoding: .utf8) else {
+//            return nil
+//        }
 //        let values = decodedString.split(separator: ",")
 //        let state = values[0]
 //        let supportsUrlScheme = values[1] == "true"
