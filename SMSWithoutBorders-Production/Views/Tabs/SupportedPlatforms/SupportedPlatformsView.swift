@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct SupportedPlatform: View {
+struct SupportedPlatformView: View {
     let displayName: String
     var body: some View {
         VStack {
@@ -35,7 +35,10 @@ struct PlatformSelectedView: View {
 
 struct SupportedPlatformsView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var supportedPlatforms: [SupportedPlatforms]
+    @Environment(\.dismiss) private var dismiss
+    
+    @Query(sort: \SupportedPlatforms.name)
+    private var supportedPlatforms: [SupportedPlatforms]
     
     @State private var viewModel = SupportedPlatformsViewModel()
     @State private var platformSelected = false
@@ -45,15 +48,15 @@ struct SupportedPlatformsView: View {
 
     var body: some View {
         VStack {
-            if case .loading = viewModel.fetchState {
-                ProgressView()
-                    .progressViewStyle(LinearProgressViewStyle())
-                    .padding()
-            }
-            
             List {
+                if case .loading = viewModel.fetchState {
+                    ProgressView()
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .padding()
+                }
+                
                 ForEach(supportedPlatforms) { sp in
-                    SupportedPlatform( displayName: sp.displayName )
+                    SupportedPlatformView( displayName: sp.displayName )
                     .onTapGesture {
                         selectedPlatform = sp
                     }
@@ -62,7 +65,14 @@ struct SupportedPlatformsView: View {
         }
         .sheet(item: $selectedPlatform) { platform in
             if oauthManager.isAuthenticated {
-                Image("checkmark.circle.fill")
+                VStack {
+                    Image(systemName: "checkmark.circle.fill")
+                    Button(action: {
+                        selectedPlatform = nil
+                    }) {
+                        Text("Close")
+                    }
+                }
             }
             else if viewModel.isStoring {
                 ProgressView("Getting things ready..")
@@ -82,18 +92,34 @@ struct SupportedPlatformsView: View {
             }
             
         }
+        .onOpenURL { url in
+            dismiss()
+            handleIncomingUrl(url)
+        }
         .task {
             await viewModel.fetch(into: modelContext.container)
         }
     }
     
+    private func handleIncomingUrl(_ url: URL) {
+        print("incoming url: \(url)")
+    }
+
+
     private func oauthRequested() async{
         do {
-            guard let responseUrl = try await viewModel.requestOAuthUrl(platform: selectedPlatform!) else {
+            guard let (response, requestId) = try await viewModel.requestOAuthUrl(platform: selectedPlatform!) else {
                 return
             }
-            oauthManager.startOAuthFlow(
-                url: responseUrl,
+            let oAuthRequest = OAuthManager.OAuthRequest(
+                platformName: selectedPlatform!.name,
+                codeVerifier: response.codeVerifier,
+                requestIdentifier: requestId
+            )
+            oauthManager.oAuthRequest = oAuthRequest
+            
+            try oauthManager.startOAuthFlow(
+                url: response.authorizationURL,
                 platformName: selectedPlatform!.name
             )
         } catch {
@@ -103,7 +129,7 @@ struct SupportedPlatformsView: View {
 }
 
 #Preview {
-    SupportedPlatform(displayName: "RMail")
+    SupportedPlatformView(displayName: "RMail")
 }
 
 #Preview {

@@ -55,7 +55,7 @@ class SupportedPlatformsViewModel {
         }
     }
     
-    func requestOAuthUrl(platform: SupportedPlatforms) async throws -> String? {
+    func requestOAuthUrl(platform: SupportedPlatforms) async throws -> (Publisher_V3_GetOAuth2AuthorizationUrlResponse, String)? {
         isStoring = true
         defer {
             isStoring = false
@@ -71,7 +71,7 @@ class SupportedPlatformsViewModel {
                 availablePlatform: platform,
                 requestIdentifier: requestId
             )
-            return response.authorizationURL
+            return (response, requestId)
         } catch {
             throw error
         }

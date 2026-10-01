@@ -40,10 +40,11 @@ struct SMSWithoutBorders_ProductionApp: App {
         }
         .modelContainer(for: [
             SupportedPlatforms.self,
-            GatewayClients.self
+            GatewayClients.self,
+            LocalKeys.self,
         ])
     }
-
+    
 }
 
 

@@ -9,14 +9,6 @@ import Foundation
 import GRPCCore
 import GRPCNIOTransportHTTP2
 
-#if DEBUG
-    let GRPC_URL = "publisher.relaysms.afkanerd.de"
-    let GRPC_PORT = 443
-#else
-    let GRPC_URL = "relaysms.smswithoutborders.afkanerd.com"
-    let GRPC_PORT = 443
-#endif
-
 struct HeadersInterceptor: ClientInterceptor {
     enum HeadersInterceptorError: Error {
         case failedToGetAuthenticationKey
@@ -68,7 +60,10 @@ struct HeadersInterceptor: ClientInterceptor {
 }
 
 final class GRPCService: Sendable {
-    static let shared = try! GRPCService(host: GRPC_URL, port: GRPC_PORT)
+    static let shared = try! GRPCService(
+        host: StaticVariables.GRPC.getUrl(),
+        port: StaticVariables.GRPC.getPort()
+    )
     
     let client: GRPCClient<HTTP2ClientTransport.Posix>
     private let runTask: Task<Void, Error>

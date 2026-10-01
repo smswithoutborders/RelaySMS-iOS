@@ -63,6 +63,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Models/StaticVariables.swift,
 			);
 			target = 16F0E67E28C6308600FDD12C /* SMSWithoutBorders-Production */;
 		};
@@ -493,7 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-Production.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SMSWithoutBorders-Production/SMSWithoutBorders-ProductionDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18;

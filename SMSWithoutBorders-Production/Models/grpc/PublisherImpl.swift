@@ -22,10 +22,9 @@ class PublisherImpl {
         case failedToSaveLocalKey(keyId: Int)
         case failedToFindServerPublicKey(keyId: Int)
         case failedToSaveLocalKeysToSwiftData
+        case failedToInitializeContextCOntainer
     }
     
-    public static let REDIRECT_URL_SCHEME = "relaysms://relaysms.com/ios/"
-    public static let REDIRECT_URL_URL = "https://relay.smswithoutborders.com/ios"
     public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
     
     public static let PUBLISHER_TOKEN_ID = "PUBLISHER_TOKEN_ID"
@@ -33,6 +32,11 @@ class PublisherImpl {
     public static let PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
 
     let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
+    
+    var container: ModelContainer
+    init(container: ModelContainer) {
+        self.container = container
+    }
 
     public func getAuthUrl(
         availablePlatform: SupportedPlatforms,
@@ -46,9 +50,7 @@ class PublisherImpl {
             $0.platform = availablePlatform.name
             $0.state = (availablePlatform.name + "," + scheme)
                 .data(using: .utf8)!.base64EncodedString()
-            $0.redirectURL = supportsUrlScheme ?
-            PublisherImpl.REDIRECT_URL_SCHEME :
-            PublisherImpl.REDIRECT_URL_URL
+            $0.redirectURL = StaticVariables.Publisher.getRedirectUrl()
             $0.autogenerateCodeVerifier = autogenerateCodeVerifier
             $0.requestIdentifier = requestIdentifier
         })
@@ -158,8 +160,7 @@ class PublisherImpl {
         accountId: String,
         platformName: String,
     ) throws {
-        let container = try ModelContainer(for: LocalKeys.self)
-        let context = ModelContext(container)
+        let context = ModelContext(self.container)
         context.autosaveEnabled = false
         
         for keypair in keys {
@@ -185,8 +186,8 @@ class PublisherImpl {
             
             let localKeys = LocalKeys(keyId: keyId)
             context.insert(localKeys)
-            
         }
+        
         do {
             try context.save()
         } catch {
@@ -257,7 +258,7 @@ class PublisherImpl {
                 $0.platform = platformName
                 $0.authorizationCode = code
                 $0.codeVerifier = codeVerifier
-                $0.redirectURL = PublisherImpl.REDIRECT_URL_URL
+                $0.redirectURL = StaticVariables.Publisher.getRedirectUrl()
                 $0.requestIdentifier = requestIdentifier
                 $0.clientEphemeralPublicKeys = publisherKeys
             })
