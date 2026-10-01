@@ -33,24 +33,12 @@ class PublisherImpl {
     public static let PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
 
     let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
-    
-    private func getBase64EncodedPublisherPublicKey() throws -> String {
-        if let publisherPublicKeyBytes = UserDefaults.standard.object(
-            forKey: PublisherImpl.PUBLISHER_SERVER_PUBLIC_KEY) as? [UInt8]
-        {
-            let data = Data(publisherPublicKeyBytes)
-            let base64String = data.base64EncodedString()
-            return base64String
-        } else {
-            throw PublisherImplError.failedToGenerateRequestIdentifier
-        }
-    }
 
     public func getAuthUrl(
         availablePlatform: SupportedPlatforms,
         requestIdentifier: String,
         autogenerateCodeVerifier: Bool = true,
-        supportsUrlScheme: Bool = true,
+        supportsUrlScheme: Bool = false,
     ) async throws -> Publisher_V3_GetOAuth2AuthorizationUrlResponse {
         let scheme = supportsUrlScheme ? "true" : "false"
         
@@ -62,7 +50,7 @@ class PublisherImpl {
             PublisherImpl.REDIRECT_URL_SCHEME :
             PublisherImpl.REDIRECT_URL_URL
             $0.autogenerateCodeVerifier = autogenerateCodeVerifier
-            $0.requestIdentifier = try getBase64EncodedPublisherPublicKey()
+            $0.requestIdentifier = requestIdentifier
         })
         return reply
     }
@@ -226,7 +214,7 @@ class PublisherImpl {
             throw PublisherImplError.invalidDecryptionKeyRequested(keyId: keyId)
         }
         
-        guard let ssKidPk = StaticKeys.getStaticKey(kid: Int(keyId))?.getKey() else {
+        guard let ssKidPk = try StaticKeys.getStaticKey(kid: Int(keyId))?.getKey() else {
             throw PublisherImplError.failedToFindStaticKeyForId(keyId: keyId)
         }
         

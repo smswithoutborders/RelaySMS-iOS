@@ -30,3 +30,15 @@ extension URL {
         return url.queryItems?.first(where: { $0.name == queryParameterName })?.value
     }
 }
+
+
+func generate32RandomBytes() -> Data? {
+    var bytes = [UInt8](repeating: 0, count: 32)
+    let status = SecRandomCopyBytes(kSecRandomDefault, 32, &bytes)
+    
+    guard status == errSecSuccess else {
+        return nil
+    }
+    
+    return Data(bytes)
+}

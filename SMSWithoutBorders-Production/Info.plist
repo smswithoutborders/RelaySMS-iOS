@@ -8,7 +8,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>com.afkanerd.smswithoutborders</string>
+			<string>com.smswithoutborders.relay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>relaysms</string>
@@ -16,13 +16,11 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string>com.smswithoutborders.com/ios</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>https</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>UIAppFonts</key>

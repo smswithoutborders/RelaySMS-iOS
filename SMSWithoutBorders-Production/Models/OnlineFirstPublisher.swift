@@ -55,10 +55,10 @@ class OnlineFirstPublisher {
                 throw OnlineFirstPublisherError.failedToFetchLocalKey
             }
             
-            guard let staticKeys = StaticKeys.getStaticKey(kid: Int(localKey.keyId)) else {
+            guard let staticKeys = try StaticKeys.getStaticKey(kid: Int(localKey.keyId)) else {
                 throw OnlineFirstPublisherError.failedToGetStaticKey
             }
-            guard let authenticationPublicKey = staticKeys.getKey() else {
+            guard let authenticationPublicKey = try staticKeys.getKey() else {
                 throw OnlineFirstPublisherError.failedToGetStaticKey
             }
             

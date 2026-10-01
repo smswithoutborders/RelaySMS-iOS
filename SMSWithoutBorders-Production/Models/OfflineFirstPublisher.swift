@@ -20,8 +20,7 @@ class OfflineFirstPublisher {
     ) throws -> (Data, Int){
         do {
             let keyId = withAttachment ? Int.random(in: 0...15) : Int.random(in: 16...255)
-            let authenticationKey = StaticKeys.getStaticKey(kid: keyId)
-            if(authenticationKey == nil) {
+            guard let authenticationKey = try StaticKeys.getStaticKey(kid: keyId)?.getKey() else {
                 throw OfflineFirstPublisherError.failedToGetStaticKey
             }
             
@@ -29,7 +28,7 @@ class OfflineFirstPublisher {
             let scKeypair = generateNewKeypair()
 
             let offlineFirst = try OfflineFirst.encrypt(
-                ssPk: Data((authenticationKey?.keypair.bytes)!),
+                ssPk: authenticationKey,
                 ec: ecKeypair!.rawRepresentation,
                 sc: scKeypair!.rawRepresentation,
                 payload: Data(plaintext)
