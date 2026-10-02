@@ -11,6 +11,7 @@ import SwiftData
 
 class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationContextProviding {
     @Published var isAuthenticated = false
+    @Published var isCancelled = false
     struct OAuthRequest {
         let platformName: String
         let codeVerifier: String
@@ -28,6 +29,11 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
         case failedToGetStringForUrlData
         case failedToGetCode
         case contextContainerCannotBeNil
+    }
+    
+    func reset() {
+        self.isAuthenticated = false
+        self.isCancelled = false
     }
 
     func startOAuthFlow(
@@ -52,6 +58,7 @@ class OAuthManager: NSObject, ObservableObject, ASWebAuthenticationPresentationC
         ) { callbackURL, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
+                self.isCancelled = true
                 return
             }
             

@@ -101,6 +101,7 @@ class SupportedPlatformsViewModel {
             }
         } catch {
             throw error
+            self.isStoring = false
         }
     }
     

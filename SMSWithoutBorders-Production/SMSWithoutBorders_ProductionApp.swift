@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 import SwiftData
 
-struct HomepageView: View {
+struct MainView: View {
     var body: some View {
         TabView {
             Tab("Recent", systemImage: "house.circle") {
-                EmptyView()
+                HomepageView()
             }
             
             Tab("Platforms", systemImage: "server.rack") {
@@ -35,13 +35,14 @@ struct SMSWithoutBorders_ProductionApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                HomepageView()
+                MainView()
             }
         }
         .modelContainer(for: [
             SupportedPlatforms.self,
             GatewayClients.self,
             LocalKeys.self,
+            Tokens.self,
         ])
     }
     
@@ -49,5 +50,5 @@ struct SMSWithoutBorders_ProductionApp: App {
 
 
 #Preview {
-    HomepageView()
+    MainView()
 }

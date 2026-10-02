@@ -163,6 +163,14 @@ class PublisherImpl {
         let context = ModelContext(self.container)
         context.autosaveEnabled = false
         
+        let token = Tokens(
+            catId: Int(catId.rawValue),
+            account: accountId,
+            platformName: platformName
+        )
+        context.insert(token)
+        print("Token stored: \(token.id)")
+        
         for keypair in keys {
             let (keyId, privateKey) = keypair
             let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: UInt8(keyId))
@@ -184,10 +192,15 @@ class PublisherImpl {
                 throw PublisherImplError.failedToSaveLocalKey(keyId: keyId)
             }
             
-            let localKeys = LocalKeys(keyId: keyId)
+
+            let localKeys = LocalKeys(
+                keyId: keyId,
+                tokenId: token.id
+            )
             context.insert(localKeys)
         }
-        
+        print("Local keys stored: \(keys.count)")
+
         do {
             try context.save()
         } catch {

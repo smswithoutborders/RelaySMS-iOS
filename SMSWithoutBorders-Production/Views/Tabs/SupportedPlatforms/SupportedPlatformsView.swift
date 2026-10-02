@@ -8,6 +8,37 @@
 import SwiftUI
 import SwiftData
 
+struct AccountView: View {
+    let accountId: String
+    let displayName: String
+    var body: some View {
+
+        HStack {
+            Image(systemName: "person.crop.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+            
+            VStack(alignment: .leading) {
+                Text(accountId)
+                    .font(.headline)
+                Text(displayName)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            Button(action: {
+                
+            }) {
+                Image(systemName: "trash")
+                    .foregroundColor(Color.red)
+            }
+        }
+    
+    }
+}
+
 struct SupportedPlatformView: View {
     let displayName: String
     var body: some View {
@@ -19,15 +50,73 @@ struct SupportedPlatformView: View {
 }
 
 struct PlatformSelectedView: View {
+    @Query private var accounts: [Tokens]
+    
     let displayName: String
+    let name: String
     var onClick: () -> Void
+    var onClose: () -> Void
+    
+    init(
+        displayName: String,
+        name: String,
+        onClick: @escaping () -> Void,
+        onClose: @escaping () -> Void
+    ) {
+        self.displayName = displayName
+        self.name = name
+        self.onClick = onClick
+        self.onClose = onClose
+        
+        let predicate = #Predicate<Tokens> { token in
+            return token.platformName == name
+        }
+        
+        _accounts = Query(filter: predicate, sort: [SortDescriptor(\.date)])
+    }
+
     var body: some View {
         VStack {
-            Text("\(displayName) selected")
+            HStack {
+                Text(String(localized: "Your \(displayName) account(s)"))
+                Spacer()
+                Button(action: {
+                    onClose()
+                }) {
+                    Image(systemName: "x.circle")
+                }
+            }
+            .padding()
+            
             Button(action: {
                 onClick()
             }) {
-                Text("Store")
+                Label(String(localized: "Add new"), systemImage: "plus")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.primary)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding(.top, 10)
+            
+            if accounts.isEmpty {
+                Spacer()
+                    .frame(maxHeight: 50)
+                
+                Text(String(localized: "You have not saved any account yet. Click the add button to connect your \(displayName) account."))
+            } else {
+                Spacer()
+                    .frame(maxHeight: 30)
+                List {
+                    ForEach(accounts) { account in
+                        AccountView(
+                            accountId: account.account,
+                            displayName: account.platformName,
+                        )
+                    }
+                }
             }
         }
     }
@@ -64,36 +153,47 @@ struct SupportedPlatformsView: View {
             }
         }
         .sheet(item: $selectedPlatform) { platform in
-            if oauthManager.isAuthenticated {
-                VStack {
-                    Image(systemName: "checkmark.circle.fill")
-                    Button(action: {
-                        selectedPlatform = nil
-                    }) {
-                        Text("Close")
-                    }
+            Group {
+                if viewModel.isStoring {
+                    ProgressView("Getting things ready..")
+                        .progressViewStyle(.circular)
+                        .tint(.blue)
+                        .controlSize(.large)
+                } else {
+                    PlatformSelectedView(
+                        displayName: platform.displayName,
+                        name: platform.name,
+                        onClick: {
+                            Task {
+                                await oauthRequested()
+                                platformSelected = false
+                            }
+                        },
+                        onClose: {
+                            selectedPlatform = nil
+                        }
+                    )
                 }
             }
-            else if viewModel.isStoring {
-                ProgressView("Getting things ready..")
-                    .progressViewStyle(.circular)
-                    .tint(.blue)
-                    .controlSize(.large)
-            } else {
-                PlatformSelectedView(
-                    displayName: platform.displayName,
-                    onClick: {
-                        Task {
-                            await oauthRequested()
-                            platformSelected = false
-                        }
-                    }
-                )
-            }
-            
+            .presentationDetents([.medium, .large])
+            .padding()
         }
         .task {
             await viewModel.fetch(into: modelContext.container)
+        }
+        .task(id: oauthManager.isCancelled) {
+            if oauthManager.isCancelled {
+                selectedPlatform = nil
+                dismiss()
+                oauthManager.reset()
+                viewModel.setIsStoring(isStoring: false)
+            }
+        }
+        .task(id: oauthManager.isAuthenticated) {
+            if oauthManager.isAuthenticated {
+                oauthManager.reset()
+                viewModel.setIsStoring(isStoring: false)
+            }
         }
     }
 
@@ -115,5 +215,17 @@ struct SupportedPlatformsView: View {
 }
 
 #Preview {
-    PlatformSelectedView(displayName: "RMail", onClick: {})
+    PlatformSelectedView(
+        displayName: "RMail",
+        name: "rmail",
+        onClick: {},
+        onClose: {},
+    )
+}
+
+#Preview {
+    AccountView(
+        accountId: "developer@relaysms.org",
+        displayName: "relaysms"
+    )
 }

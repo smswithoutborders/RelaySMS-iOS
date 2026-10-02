@@ -12,9 +12,14 @@ import Foundation
 class LocalKeys {
     @Attribute(.unique) var id: UUID
     var keyId: Int
+    var tokenId: UUID
     
-    init(keyId: Int) {
+    init(
+        keyId: Int,
+        tokenId: UUID
+    ) {
         self.id = UUID()
         self.keyId = keyId
+        self.tokenId = tokenId
     }
 }
