@@ -12,17 +12,19 @@ import SwiftData
 
 struct MainView: View {
     var body: some View {
-        TabView {
-            Tab("Recent", systemImage: "house.circle") {
-                HomepageView()
-            }
-            
-            Tab("Platforms", systemImage: "server.rack") {
-                SupportedPlatformsView()
-            }
-            
-            Tab("Routing numbers", systemImage: "phone.arrow.up.right.circle") {
-                GatewayClientsView()
+        NavigationStack {
+            TabView {
+                Tab("Recent", systemImage: "house.circle") {
+                    HomepageView()
+                }
+                
+                Tab("Platforms", systemImage: "server.rack") {
+                    SupportedPlatformsView()
+                }
+                
+                Tab("Routing numbers", systemImage: "phone.arrow.up.right.circle") {
+                    GatewayClientsView()
+                }
             }
         }
     }

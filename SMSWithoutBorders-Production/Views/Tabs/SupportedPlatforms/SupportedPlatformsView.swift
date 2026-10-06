@@ -54,18 +54,21 @@ struct PlatformSelectedView: View {
     
     let displayName: String
     let name: String
-    var onClick: () -> Void
+    var onAddNewClick: () -> Void
+    var onAccountClicked: (Tokens?) -> Void
     var onClose: () -> Void
     
     init(
         displayName: String,
         name: String,
-        onClick: @escaping () -> Void,
+        onAddNewClick: @escaping () -> Void,
+        onAccountClicked: @escaping (Tokens?) -> Void,
         onClose: @escaping () -> Void
     ) {
         self.displayName = displayName
         self.name = name
-        self.onClick = onClick
+        self.onAddNewClick = onAddNewClick
+        self.onAccountClicked = onAccountClicked
         self.onClose = onClose
         
         let predicate = #Predicate<Tokens> { token in
@@ -89,7 +92,7 @@ struct PlatformSelectedView: View {
             .padding()
             
             Button(action: {
-                onClick()
+                onAddNewClick()
             }) {
                 Label(String(localized: "Add new"), systemImage: "plus")
                     .font(.subheadline)
@@ -115,6 +118,9 @@ struct PlatformSelectedView: View {
                             accountId: account.account,
                             displayName: account.platformName,
                         )
+                        .onTapGesture {
+                            onAccountClicked(account)
+                        }
                     }
                 }
             }
@@ -163,11 +169,13 @@ struct SupportedPlatformsView: View {
                     PlatformSelectedView(
                         displayName: platform.displayName,
                         name: platform.name,
-                        onClick: {
+                        onAddNewClick: {
                             Task {
                                 await oauthRequested()
                                 platformSelected = false
                             }
+                        },
+                        onAccountClicked: { _ in
                         },
                         onClose: {
                             selectedPlatform = nil
@@ -218,7 +226,8 @@ struct SupportedPlatformsView: View {
     PlatformSelectedView(
         displayName: "RMail",
         name: "rmail",
-        onClick: {},
+        onAddNewClick: {},
+        onAccountClicked: { _ in },
         onClose: {},
     )
 }
