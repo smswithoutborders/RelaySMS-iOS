@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MessagingComposeView: View {
-    @State private var to: String = ""
-    @State private var content: String = ""
+    @Binding var to: String
+    @Binding var content: String
     
     var body: some View {
         VStack {
@@ -28,5 +28,10 @@ struct MessagingComposeView: View {
 }
 
 #Preview {
-    MessagingComposeView()
+    @Previewable @State var to = "to"
+    @Previewable @State var content = "content"
+    MessagingComposeView(
+        to: $to,
+        content: $content
+    )
 }

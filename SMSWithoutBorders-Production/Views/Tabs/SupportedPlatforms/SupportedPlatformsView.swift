@@ -144,18 +144,17 @@ struct SupportedPlatformsView: View {
     var body: some View {
         VStack {
             List {
-                if case .loading = viewModel.fetchState {
-                    ProgressView()
-                        .progressViewStyle(LinearProgressViewStyle())
-                        .padding()
-                }
-                
                 ForEach(supportedPlatforms) { sp in
                     SupportedPlatformView( displayName: sp.displayName )
                     .onTapGesture {
                         selectedPlatform = sp
                     }
                 }
+            }
+            if case .loading = viewModel.fetchState {
+                ProgressView()
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .padding()
             }
         }
         .sheet(item: $selectedPlatform) { platform in

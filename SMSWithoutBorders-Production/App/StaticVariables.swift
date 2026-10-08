@@ -27,6 +27,12 @@ class StaticVariables {
     
     class Publisher {
         private static let redirectUrl = "https://relay.smswithoutborders.com/ios"
+        
+        #if DEBUG
+        static let mimiGatewayClientUrl = "https://publisher.relaysms.afkanerd.de/v1/publications"
+        #else
+        static let mimiGatewayClientUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/publications"
+        #endif
 
         static func getRedirectUrl() -> String {
             return redirectUrl

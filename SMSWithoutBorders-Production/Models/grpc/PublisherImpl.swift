@@ -25,12 +25,6 @@ class PublisherImpl {
         case failedToInitializeContextCOntainer
     }
     
-    public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
-    
-    public static let PUBLISHER_TOKEN_ID = "PUBLISHER_TOKEN_ID"
-    public static let PUBLISHER_TOKEN_HASH = "PUBLISHER_TOKEN_HASH"
-    public static let PUBLISHER_KEY_ID_PRIVATE_KEYS = "PUBLISHER_KEY_ID_PRIVATE_KEYS"
-
     let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
     
     var container: ModelContainer
@@ -102,55 +96,6 @@ class PublisherImpl {
         }
     }
     
-    public static func getLocalKeysAccountTag(keyId: UInt8) -> String {
-        return PublisherImpl.PUBLISHER_KEY_ID_PRIVATE_KEYS + "_" + String(keyId)
-    }
-    
-    
-    public class LocalKeypair {
-        let privateKey: Curve25519.KeyAgreement.PrivateKey
-        let serverPublicKey: Data
-        let tokenId: UInt32
-        let tokenHash: Data
-        
-        init(
-            privateKey: Curve25519.KeyAgreement.PrivateKey,
-            serverPublicKey: Data,
-            tokenId: UInt32,
-            tokenHash: Data
-        ) {
-            self.privateKey = privateKey
-            self.serverPublicKey = serverPublicKey
-            self.tokenId = tokenId
-            self.tokenHash = tokenHash
-        }
-        
-        public func serialize() -> Data {
-            return privateKey.rawRepresentation
-            + serverPublicKey
-            + withUnsafeBytes(of: tokenId) { Data($0) }
-            + tokenHash
-        }
-        
-        public static func deserialize(data: Data) throws -> LocalKeypair {
-            let rawPrivateKey = data.prefix(32)
-            let serverPublicKey = data.subdata(in: 32..<65)
-            let tokenId = data.subdata(in: 65..<70).withUnsafeBytes { pointer in
-                pointer.load(as: UInt32.self)
-            }
-            let tokenHash = data[70...]
-
-            let privateKey = try Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawPrivateKey)
-            return LocalKeypair(
-                privateKey: privateKey,
-                serverPublicKey: serverPublicKey,
-                tokenId: tokenId,
-                tokenHash: tokenHash
-            )
-        }
-    }
-    
-    
     private func storeKeys(
         keys: [(Int, Curve25519.KeyAgreement.PrivateKey)],
         serverEphemeralPublicKeys: [Publisher_V3_PublicKey],
@@ -173,7 +118,10 @@ class PublisherImpl {
         
         for keypair in keys {
             let (keyId, privateKey) = keypair
-            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: UInt8(keyId))
+            let accountTag = Keystore.getLocalKeysAccountTag(
+                keyId: UInt8(keyId),
+                tokenId: token.id,
+            )
             let serverPublicKey = serverEphemeralPublicKeys.first{ $0.keyID == keyId }
             
             if serverPublicKey == nil {

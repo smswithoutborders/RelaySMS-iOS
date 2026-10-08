@@ -26,18 +26,19 @@ struct GatewayClientsView: View {
 
     var body: some View {
         VStack {
-            switch viewModel.fetchState {
-            case .loading:
-                ProgressView("Fetching platforms...")
-            case .failure(let reason):
+            List {
+                ForEach(gatewayClients) { gc in
+                    GatewayClient(msisdn: gc.msisdn)
+                }
+            }
+            if case .loading = viewModel.fetchState {
+                ProgressView()
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .padding()
+            }
+            else if case .failure(let reason) = viewModel.fetchState {
                 Text("Error: \(reason)")
                     .foregroundColor(.red)
-            case .idle:
-                List {
-                    ForEach(gatewayClients) { gc in
-                        GatewayClient(msisdn: gc.msisdn)
-                    }
-                }
             }
         }
         .task {

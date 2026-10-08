@@ -14,11 +14,10 @@ class TransportImpl {
     
     public static func publishWithoutAttachment(
         catId: V1ContentCategories,
-        tokenId: UInt32,
         body: String,
         to: String?,
         subject: String?,
-        encrypt: ([UInt8]) throws -> (cipherText: Data, keyId: UInt8),
+        encrypt: ([UInt8]) throws -> (cipherText: Data, keyId: UInt8, tokenId: UInt32),
         transmissionCallback: (String) -> (),
     ) throws -> V1ContentsContainer {
         let contentContainer = V1ContentsContainer(
@@ -31,7 +30,7 @@ class TransportImpl {
         
         do {
             let content = try contentContainer.serialize()
-            let (ciphertext, keyId) = try encrypt([UInt8](content))
+            let (ciphertext, keyId, tokenId) = try encrypt([UInt8](content))
             
             let payloads = try V1Payloads(
                 contents: Data(ciphertext),

@@ -20,9 +20,20 @@ enum GatewayClientsState {
 class GatewayClientsViewModel {
     private(set) var fetchState: GatewayClientsState = .idle
     
-    private(set) var defaultGatwayClient: GatewayClients?
+    private(set) var defaultGatewayClient: GatewayClients?
     
     func fetch(into container: ModelContainer) async {
+        do {
+            defaultGatewayClient = try GatewayClients.getDefault(into: container)
+            if defaultGatewayClient == nil {
+                let hdv = GatewayClients.getHardCodedValues()
+                try GatewayClients.save(hdv, into: container)
+                defaultGatewayClient = try GatewayClients.getDefault(into: container)
+            }
+        } catch {
+            print(error)
+        }
+        
         fetchState = .loading
         guard let url = URL(string: GatewayClients.supportedUrl) else {
             print("Invalid URL")
@@ -43,7 +54,7 @@ class GatewayClientsViewModel {
             let gatewayClients = try JSONDecoder().decode([GatewayClients.GatewayClientsData].self, from: data)
             print("Successfully fetched \(gatewayClients.count) gateway clients.")
             
-            try GatewayClients.save(data: gatewayClients, into: container)
+            try GatewayClients.save(gatewayClients, into: container)
             fetchState = .idle
         } catch {
             print("Failed to fetch data: \(error.localizedDescription)")

@@ -11,65 +11,26 @@ import SwiftData
 class OnlineFirstPublisher {
     enum OnlineFirstPublisherError: Error {
         case failedToGenerateKeypair
-        case failedToGetStaticKey
         case failedToPublishOffline(status: any Error)
         case failedToGetRandomKey
-        case failedToFetchLocalKey
-        case failedToFetchPrivateKeyDataForKeyId(keyId: Int)
         case failedToEncrypt
         case failedToPublishOnline
     }
     
     public func encrypt(
-        tokenId: Int,
+        tokenId: UUID,
         plaintext: Data,
-        withAttachment: Bool = false
-    ) throws -> (Data, UInt8)?{
-        let container = try ModelContainer(for: LocalKeys.self)
-        let context = ModelContext(container)
-        
-        let descriptor = FetchDescriptor<LocalKeys>()
+        withAttachment: Bool = false,
+        into container: ModelContainer
+    ) throws -> (Data, UInt8, UInt32)?{
         do {
-            let totalCount = try context.fetchCount(descriptor)
-            guard totalCount > 0 else { return nil }
-            
-            let startRange = withAttachment ? 0 : 16
-            let endRange = withAttachment ? 16 : 256
-            let randomOffset = Int.random(in: startRange..<endRange)
-            
-            var randomDescriptor = FetchDescriptor<LocalKeys>()
-            randomDescriptor.fetchLimit = 1
-            randomDescriptor.fetchOffset = randomOffset
-            
-            guard let serverKeys = try context.fetch(randomDescriptor).first else {
-                throw OnlineFirstPublisherError.failedToFetchLocalKey
+            guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+                tokenId: tokenId,
+                withAttachment: withAttachment,
+                into: container
+            ) else {
+                throw OnlineFirstPublisherError.failedToGenerateKeypair
             }
-            
-            let serverKeyId = serverKeys.keyId
-            let forKeyId = #Predicate<LocalKeys> { keys in
-                keys.keyId == serverKeyId
-            }
-            
-            let descriptor = FetchDescriptor<LocalKeys>( predicate: forKeyId )
-            guard let localKey = try context.fetch(descriptor).first else {
-                throw OnlineFirstPublisherError.failedToFetchLocalKey
-            }
-            
-            guard let staticKeys = try StaticKeys.getStaticKey(kid: Int(localKey.keyId)) else {
-                throw OnlineFirstPublisherError.failedToGetStaticKey
-            }
-            guard let authenticationPublicKey = try staticKeys.getKey() else {
-                throw OnlineFirstPublisherError.failedToGetStaticKey
-            }
-            
-            let accountTag = PublisherImpl.getLocalKeysAccountTag(keyId: UInt8(serverKeyId))
-            let keystore = Keystore(accountTag: accountTag)
-            guard let rawKeyData = keystore.loadPrivateKeyFromKeychain() else {
-                throw OnlineFirstPublisherError
-                    .failedToFetchPrivateKeyDataForKeyId(keyId: serverKeyId)
-            }
-            let keypair = try PublisherImpl.LocalKeypair.deserialize(data: rawKeyData)
-
 
             let ciphertext = try v1PlatformPublisherEncrypt(
                 ecKid: keypair.privateKey.rawRepresentation,
@@ -79,7 +40,7 @@ class OnlineFirstPublisher {
                 plaintext: plaintext
             )
             
-            return (ciphertext, UInt8(serverKeyId))
+            return (ciphertext, UInt8(serverKeyId), keypair.tokenId)
         } catch {
             throw OnlineFirstPublisherError.failedToEncrypt
         }
@@ -89,14 +50,15 @@ class OnlineFirstPublisher {
         catId: V1ContentCategories,
         body: String,
         platformName: String,
-        tokenId: Int,
+        tokenId: UUID,
         to: String?,
         subject: String?,
+        into container: ModelContainer,
+        transmissionCallback: (String) -> Void,
     ) throws -> V1ContentsContainer {
         do {
             return try TransportImpl.publishWithoutAttachment(
                 catId: catId,
-                tokenId: UInt32(tokenId),
                 body: body,
                 to: to,
                 subject: subject,
@@ -104,15 +66,14 @@ class OnlineFirstPublisher {
                     guard let payload = try encrypt(
                         tokenId: tokenId,
                         plaintext: Data(plaintext),
-                        withAttachment: false
+                        withAttachment: false,
+                        into: container
                     ) else {
                         throw OnlineFirstPublisherError.failedToEncrypt
                     }
                     return payload
                 },
-                transmissionCallback: { serializePayload in
-                    
-                }
+                transmissionCallback: transmissionCallback
             )
         } catch {
             throw OnlineFirstPublisherError.failedToPublishOnline

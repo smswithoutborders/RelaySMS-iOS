@@ -46,7 +46,7 @@ class GatewayClients {
         self.isDefault = isDefault
     }
     
-    static func save(data: [GatewayClientsData], into container: ModelContainer) throws {
+    static func save(_ data: [GatewayClientsData], into container: ModelContainer) throws {
         let context = ModelContext(container)
         context.autosaveEnabled = false
         
@@ -64,8 +64,22 @@ class GatewayClients {
             throw error
         }
     }
+    
+    static func save(_ data: [GatewayClients], into container: ModelContainer) throws {
+        let context = ModelContext(container)
+        context.autosaveEnabled = false
+        
+        data.forEach { item in
+            context.insert(item)
+        }
+        do {
+            try context.save()
+        } catch {
+            throw error
+        }
+    }
 
-    func getHardCodedValues() -> [GatewayClients] {
+    static func getHardCodedValues() -> [GatewayClients] {
         return [
             GatewayClients(
                 country: "USA",

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TextComposeView: View {
-    @State private var content: String = ""
+    @Binding var content: String
     
     var body: some View {
         VStack {
@@ -20,5 +20,9 @@ struct TextComposeView: View {
 }
 
 #Preview {
-    TextComposeView()
+    @Previewable @State var to = "to"
+    @Previewable @State var content = "content"
+    TextComposeView(
+        content: $content
+    )
 }

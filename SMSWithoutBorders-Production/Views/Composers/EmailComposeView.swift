@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct EmailComposeView: View {
-    @State private var to: String = ""
-    @State private var subject: String = ""
-    @State private var content: String = ""
+    @Binding var to: String
+    @Binding var subject: String
+    @Binding var content: String
     
     var body: some View {
         VStack {
@@ -36,5 +36,12 @@ struct EmailComposeView: View {
 }
 
 #Preview {
-    EmailComposeView()
+    @Previewable @State var to = "to"
+    @Previewable @State var subject = "subject"
+    @Previewable @State var content = "content"
+    EmailComposeView(
+        to: $to,
+        subject: $subject,
+        content: $content
+    )
 }

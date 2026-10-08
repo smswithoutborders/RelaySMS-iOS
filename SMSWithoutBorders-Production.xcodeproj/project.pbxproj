@@ -20,7 +20,6 @@
 		3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 3B082A9B2C3D24C700C7DE41 /* SwiftSVG */; };
 		3BF117A12C2B6892003D5BB6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3BF117A02C2B6892003D5BB6 /* Localizable.xcstrings */; };
 		3BF117B52C30F2BF003D5BB6 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF117B42C30F2BF003D5BB6 /* CryptoSwift */; };
-		3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1522C32DC6B003A3AFB /* CountryPicker */; };
 		3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF3D1632C349907003A3AFB /* CryptoSwift */; };
 		F6F2D1D02DAE88790017BD59 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F6F2D1CF2DAE88790017BD59 /* SwiftProtobuf */; };
 /* End PBXBuildFile section */
@@ -63,7 +62,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				Models/StaticVariables.swift,
 			);
 			target = 16F0E67E28C6308600FDD12C /* SMSWithoutBorders-Production */;
 		};
@@ -73,7 +71,7 @@
 				Notes.txt,
 				Proto/publisher.grpc.swift,
 				Proto/publisher.pb.swift,
-				Utilities/Theme/Fonts/unbounded.ttf,
+				Views/Theme/Fonts/unbounded.ttf,
 			);
 			target = 16F0E68E28C6308800FDD12C /* SMSWithoutBorders-ProductionTests */;
 		};
@@ -100,7 +98,6 @@
 				3B082A9C2C3D24C700C7DE41 /* SwiftSVG in Frameworks */,
 				2640535530646025001F093C /* GRPCInProcessTransport in Frameworks */,
 				264A9C2C306BA44F0026F703 /* GRPCNIOTransportHTTP2Posix in Frameworks */,
-				3BF3D1532C32DC6B003A3AFB /* CountryPicker in Frameworks */,
 				3BF3D1642C349907003A3AFB /* CryptoSwift in Frameworks */,
 				264A9C1A3065209C0026F703 /* GRPCProtobuf in Frameworks */,
 				264A9C38306C05C50026F703 /* relaySMS_spec_payload.xcframework in Frameworks */,
@@ -175,7 +172,6 @@
 			);
 			name = "SMSWithoutBorders-Production";
 			packageProductDependencies = (
-				3BF3D1522C32DC6B003A3AFB /* CountryPicker */,
 				3BF3D1632C349907003A3AFB /* CryptoSwift */,
 				3B082A9B2C3D24C700C7DE41 /* SwiftSVG */,
 				F6F2D1CF2DAE88790017BD59 /* SwiftProtobuf */,
@@ -281,7 +277,6 @@
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
 				3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
-				3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */,
 				3B082A9A2C3D24C700C7DE41 /* XCRemoteSwiftPackageReference "SwiftSVG" */,
 				F6F2D1CE2DAE88600017BD59 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				26E910752EEBF9E00075E42C /* XCRemoteSwiftPackageReference "lib_image_ios" */,
@@ -745,14 +740,6 @@
 				minimumVersion = 1.8.2;
 			};
 		};
-		3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mobven/CountryPicker.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.3;
-			};
-		};
 		F6F2D1CE2DAE88600017BD59 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -818,11 +805,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BF117B32C30F2BF003D5BB6 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
-		};
-		3BF3D1522C32DC6B003A3AFB /* CountryPicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF3D1512C32D9FF003A3AFB /* XCRemoteSwiftPackageReference "CountryPicker" */;
-			productName = CountryPicker;
 		};
 		3BF3D1632C349907003A3AFB /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
