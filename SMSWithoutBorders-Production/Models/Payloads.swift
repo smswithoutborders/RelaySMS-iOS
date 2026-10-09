@@ -14,16 +14,22 @@ class Payloads {
     var content: Data
     var platformName: String
     var isOfflineFirst: Bool
-    
+    var date: Int64
+    var catId: Int
+
     init(
-        id: UUID,
+        id: UUID = UUID(), 
         plaformName: String,
         content: Data,
-        isOfflineFirst: Bool = false
+        catId: Int,
+        isOfflineFirst: Bool = false,
+        date: Int64 = Int64(Date().timeIntervalSince1970 * 1000),
     ) {
         self.id = id
         self.platformName = plaformName
         self.isOfflineFirst = isOfflineFirst
         self.content = content
+        self.catId = catId
+        self.date = date
     }
 }

@@ -35,7 +35,7 @@ class ComposerViewModel {
         
         let ofp = OnlineFirstPublisher()
         do {
-            try ofp.publish(
+            let contentContainer = try ofp.publish(
                 catId: catId,
                 body: body,
                 platformName: platformName,
@@ -46,7 +46,15 @@ class ComposerViewModel {
             ) { sp in
                 payload = sp
             }
-            // TODO: save this output
+            
+            let payload = Payloads(
+                plaformName: platformName,
+                content: try contentContainer.serializeForStorage(),
+                catId: Int(catId.rawValue)
+            )
+            let payloadsViewModel = PayloadsViewModel()
+            try payloadsViewModel.insert(payload: payload, into: container)
+            
             composeState = .idle
         } catch {
             composeState = .failure(data: error.localizedDescription)

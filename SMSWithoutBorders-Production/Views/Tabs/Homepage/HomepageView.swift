@@ -96,49 +96,121 @@ struct PlatformsPresentedView: View {
     }
 }
 
+private struct Contents : Identifiable {
+    let id: UUID = UUID()
+    var to: String
+    var subject: String
+    var content: String
+    var date: Int64
+}
+
+
+private struct PayloadViews: View {
+    @State var contents: Contents
+
+    var body: some View {
+        HStack(alignment: .top) {
+            Image(systemName: "person.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date))
+                    Text("To:")
+                        .bold()
+                    Text(contents.to)
+                        .bold()
+                        .lineLimit(1)
+                    Spacer()
+                    Text(dateFromSeconds.formatted(date: .omitted, time: .shortened))
+                        .font(.caption2)
+                }
+                .padding(.bottom, 2)
+                Text(contents.subject)
+                    .padding(.bottom, 2)
+                    .lineLimit(1)
+                Text(contents.content)
+                    .lineLimit(1)
+            }
+        }
+    }
+}
+
 struct HomepageView: View {
     @State private var isPlatformsPresented = false
     @State private var selectedAccount: Tokens? = nil
     
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                EmptyView()
-                    .ignoresSafeArea()
-                Spacer()
-            }
-            .overlay(alignment: .bottomTrailing) {
-                Button(action: {
-                    isPlatformsPresented.toggle()
-                }) {
-                    Image(systemName: "square.and.pencil")
-                        .font(.title)
-                        .padding()
-                        .background(Color.primary)
-                        .foregroundColor(Color.white)
-                        .clipShape(Circle())
-                        .shadow(radius: 4)
-                }
-                .padding() // Adds space from screen edges
-            }
-            .navigationDestination(item: $selectedAccount) { account in
-                ComposerManagerView(
-                    account: account,
-                    catId: getContentCategories(account)!
+    @Query(sort: \Payloads.date, order: .reverse)
+    private var payloads: [Payloads]
+    
+    private var contents: [Contents] {
+        payloads.compactMap { payload in
+            do {
+                let cc = try V1ContentsContainer.deserializeFromStorage(bytes: payload.content)
+                return Contents(
+                    to: String(data: cc.getTo()!, encoding: .utf8) ?? "",
+                    subject: String(data: cc.getSubject()!, encoding: .utf8) ?? "",
+                    content: String(data: cc.getBody(), encoding: .utf8) ?? "",
+                    date: payload.date
                 )
+            } catch {
+                print("Failed to deserialize payload:", error)
+                return nil
             }
-            .navigationTitle("Recents")
-            .sheet(isPresented: $isPlatformsPresented) {
-                Group {
-                    PlatformsPresentedView { account in
-                        isPlatformsPresented.toggle()
-                        selectedAccount = account
-                    }
-                }
-                .presentationDetents([.medium, .large])
-            }
-            .padding()
         }
+    }
+
+    var body: some View {
+        ZStack {
+            Color.clear
+                .ignoresSafeArea()
+            List {
+                ForEach(contents) { content in
+                    PayloadViews(contents: content)
+                        .padding()
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            .scrollContentBackground(.hidden)
+            .listStyle(.plain)
+        }
+        .overlay(alignment: .bottomTrailing) {
+            Button(action: {
+                isPlatformsPresented.toggle()
+            }) {
+                Image(systemName: "square.and.pencil")
+                    .font(.title)
+                    .padding()
+                    .background(Color.primary)
+                    .foregroundColor(Color.white)
+                    .clipShape(Circle())
+                    .shadow(radius: 4)
+            }
+            .padding() // Adds space from screen edges
+        }
+        .navigationTitle("RelaySMS")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(item: $selectedAccount) { account in
+            ComposerManagerView(
+                account: account,
+                catId: getContentCategories(account)!
+            )
+        }
+        .sheet(isPresented: $isPlatformsPresented) {
+            Group {
+                PlatformsPresentedView { account in
+                    isPlatformsPresented.toggle()
+                    selectedAccount = account
+                }
+            }
+            .presentationDetents([.medium, .large])
+        }
+        .padding()
+    
     }
     
     private func getContentCategories(_ account: Tokens) -> V1ContentCategories?{
@@ -152,6 +224,16 @@ struct HomepageView: View {
 }
 
 #Preview {
+    let content = Contents(
+        to: "developers@afkanerd.com",
+        subject: "meeting reminder",
+        content: "The design has to communicate indentity vs",
+        date: 0
+    )
+    PayloadViews(contents: content)
+}
+
+#Preview {
     HomepageView()
 }
 
@@ -162,3 +244,4 @@ struct HomepageView: View {
 #Preview {
     PlatformView()
 }
+

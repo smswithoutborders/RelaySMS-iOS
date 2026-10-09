@@ -45,6 +45,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             GatewayClients.self,
             LocalKeys.self,
             Tokens.self,
+            Payloads.self,
         ])
     }
     

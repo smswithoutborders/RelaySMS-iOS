@@ -12,7 +12,12 @@ private struct ComposerOnlineSender: View {
     @State private var viewModel = OnlineFirstPublisherViewModel()
 
     var body: some View {
+        VStack(alignment: .center) {
+            Text("Debug online transmission")
+                .font(.headline)
+        }
         VStack(alignment: .leading) {
+            
             VStack(alignment: .leading) {
                 Text("Payload")
                     .foregroundColor(.secondary)
