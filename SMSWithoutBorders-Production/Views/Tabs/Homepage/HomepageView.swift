@@ -185,8 +185,8 @@ struct HomepageView: View {
                 Image(systemName: "square.and.pencil")
                     .font(.title)
                     .padding()
-                    .background(Color.primary)
-                    .foregroundColor(Color.white)
+                    .background(Color(.primary))
+                    .foregroundColor(Color(.onPrimary))
                     .clipShape(Circle())
                     .shadow(radius: 4)
             }

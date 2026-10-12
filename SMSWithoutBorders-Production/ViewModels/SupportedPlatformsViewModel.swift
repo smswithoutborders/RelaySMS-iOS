@@ -16,13 +16,25 @@ enum SupportedPlatformsFetchState {
     case failure(data: String)
 }
 
+enum PnbaState {
+    case idle
+    case complete
+    case phoneNumberRequested
+    case authCodeRequested
+    case passwordRequested
+}
+
 @Observable
 class SupportedPlatformsViewModel {
     enum SupportedPlatformsViewModelError: Error {
         case failedToGenerateRequestId
         case failedToGetOAuthUrl
     }
+    
     private(set) var fetchState: SupportedPlatformsFetchState = .loading
+    private(set) var pnbaState: PnbaState = .idle
+    private(set) var pnbaStateFailure: String = ""
+    
     private(set) var isStoring: Bool = false
 
     func fetch(into container: ModelContainer) async {
@@ -100,13 +112,105 @@ class SupportedPlatformsViewModel {
                 }
             }
         } catch {
-            throw error
             self.isStoring = false
+            throw error
         }
+    }
+    
+    func requestPnba(
+        platform: SupportedPlatforms,
+        phoneNumber: String,
+        code: String?,
+        password: String?,
+        channel: String,
+        into container: ModelContainer,
+    ) async throws {
+        pnbaStateFailure = ""
+        let publisherImpl = PublisherImpl(container: container)
+        
+        if phoneNumber.isEmpty {
+            pnbaState = .phoneNumberRequested
+            return
+        }
+        isStoring = true
+        
+        if pnbaState == .phoneNumberRequested && (code != nil && !code!.isEmpty) {
+            pnbaState = .authCodeRequested
+        }
+
+        switch pnbaState {
+        case .phoneNumberRequested:
+            do {
+                let _ = try await publisherImpl.requestPnbaCode(
+                    phoneNumber: phoneNumber,
+                    platformName: platform.name,
+                    channel: channel
+                )
+                pnbaState = .authCodeRequested
+            } catch {
+                print(error)
+                if error.localizedDescription.hasPrefix("invalidArgument:") {
+                    pnbaStateFailure = String(localized: "The phone number has a problem")
+                } else {
+                    pnbaStateFailure = error.localizedDescription
+                }
+            }
+            
+        case .authCodeRequested:
+            do {
+                let response = try await publisherImpl.sendPnbaAuthorizationExchange(
+                    code: code!,
+                    phoneNumber: phoneNumber,
+                    platformName: platform.name,
+                    channel: channel,
+                    password: password
+                )
+                if response != nil {
+                    pnbaState = .passwordRequested
+                } else {
+                    pnbaState = .complete
+                }
+            } catch {
+                print(error)
+                if error.localizedDescription.hasPrefix("invalidArgument:") {
+                    pnbaStateFailure = String(localized: "Invalid or wrong code")
+                } else {
+                    pnbaStateFailure = error.localizedDescription
+                }
+            }
+        case .passwordRequested:
+            do {
+                let _ = try await publisherImpl.sendPnbaAuthorizationExchange(
+                    code: code!,
+                    phoneNumber: phoneNumber,
+                    platformName: platform.name,
+                    channel: channel,
+                    password: password
+                )
+                pnbaState = .complete
+            } catch {
+                print(error)
+                if error.localizedDescription.hasPrefix("invalidArgument:") {
+                    pnbaStateFailure = String(localized: "Invalid or wrong password")
+                } else {
+                    pnbaStateFailure = error.localizedDescription
+                }
+            }
+        case .idle, .complete:
+            break
+        }
+            
+        
+        isStoring = false
     }
     
     func setIsStoring(isStoring: Bool) {
         self.isStoring = isStoring
+    }
+    
+    func setPnbaState(state: PnbaState) {
+        self.pnbaState = state
+        self.pnbaStateFailure = ""
     }
 
 }

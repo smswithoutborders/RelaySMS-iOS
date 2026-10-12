@@ -241,4 +241,69 @@ class PublisherImpl {
         }
     }
     
+    public func requestPnbaCode(
+        phoneNumber: String,
+        platformName: String,
+        channel: String?,
+    ) async throws -> Publisher_V3_GetPNBACodeResponse? {
+        do {
+            let (publisherKeys, keys) = try getKeys()
+            
+            let response = try await publisherStub.getPNBACode(.with {
+                $0.platform = platformName
+                $0.phoneNumber = phoneNumber
+                if channel != nil {
+                    $0.channel = channel!
+                }
+            })
+            
+            return response
+        } catch {
+            throw error
+        }
+    }
+
+    public func sendPnbaAuthorizationExchange(
+        code: String,
+        phoneNumber: String,
+        platformName: String,
+        channel: String?,
+        password: String?,
+    ) async throws -> Publisher_V3_ExchangePNBACodeAndStoreResponse? {
+        do {
+            let (publisherKeys, keys) = try getKeys()
+            
+            let response = try await publisherStub.exchangePNBACodeAndStore(.with {
+                $0.platform = platformName
+                $0.authorizationCode = code
+                $0.phoneNumber = phoneNumber
+                $0.clientEphemeralPublicKeys = publisherKeys
+                if password != nil {
+                    $0.password = password!
+                }
+                if channel != nil {
+                    $0.channel = channel!
+                }
+            })
+            
+            if !response.twoStepVerificationEnabled {
+                try processEphemeralKeys(
+                    keyId: response.keyID,
+                    serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
+                    keys: keys,
+                    tokenCipherText: response.tokenCiphertext,
+                    catId: v1ContentCategoryFromU8(value: UInt8(response.catID)),
+                    accountId: response.accountIdentifier,
+                    platformName: response.platform,
+                    tokenId: response.tokenID
+                )
+            }
+            else {
+                return response
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
 }

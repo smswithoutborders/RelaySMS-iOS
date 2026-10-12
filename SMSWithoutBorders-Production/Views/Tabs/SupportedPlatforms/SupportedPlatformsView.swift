@@ -128,6 +128,10 @@ struct PlatformSelectedView: View {
     }
 }
 
+extension String: LocalizedError {
+    public var errorDescription: String? { return self }
+}
+
 struct SupportedPlatformsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
@@ -136,9 +140,14 @@ struct SupportedPlatformsView: View {
     private var supportedPlatforms: [SupportedPlatforms]
     
     @State private var viewModel = SupportedPlatformsViewModel()
+    
     @State private var platformSelected = false
     @State private var selectedPlatform: SupportedPlatforms? = nil
     
+    @State private var pnbaPhoneNumber: String = ""
+    @State private var pnbaCode: String = ""
+    @State private var pnbaPassword: String = ""
+
     @StateObject private var oauthManager = OAuthManager()
 
     var body: some View {
@@ -157,20 +166,52 @@ struct SupportedPlatformsView: View {
                     .padding()
             }
         }
-        .sheet(item: $selectedPlatform) { platform in
+        .sheet(item: $selectedPlatform, onDismiss: {
+            viewModel.setIsStoring(isStoring: false)
+            viewModel.setPnbaState(state: .idle)
+            
+            pnbaCode = ""
+            pnbaPhoneNumber = ""
+            pnbaPassword = ""
+            
+            oauthManager.reset()
+            selectedPlatform = nil
+        }) { platform in
             Group {
                 if viewModel.isStoring {
-                    ProgressView("Getting things ready..")
+                    ProgressView(String(localized: "Getting things ready.."))
                         .progressViewStyle(.circular)
                         .tint(.blue)
                         .controlSize(.large)
-                } else {
+                        .presentationDetents([.medium])
+                } else if viewModel.pnbaState != .idle {
+                    PnbaComponentsView(
+                        phoneNumber: $pnbaPhoneNumber,
+                        code: $pnbaCode,
+                        password: $pnbaPassword,
+                        displayName: platform.displayName,
+                        showCode: viewModel.pnbaState == .authCodeRequested || viewModel.pnbaState == .passwordRequested,
+                        showPassword: viewModel.pnbaState == .passwordRequested,
+                        errorMessage: viewModel.pnbaStateFailure,
+                        onClick: {
+                            Task {
+                                await pnbaRequested()
+                            }
+                        }
+                    )
+                    .presentationDetents([.medium])
+                }
+                else {
                     PlatformSelectedView(
                         displayName: platform.displayName,
                         name: platform.name,
                         onAddNewClick: {
                             Task {
-                                await oauthRequested()
+                                if platform.catId == V1PayloadsSupportedProtocols.pnba.rawValue {
+                                    await pnbaRequested()
+                                } else {
+                                    await oauthRequested()
+                                }
                                 platformSelected = false
                             }
                         },
@@ -180,9 +221,9 @@ struct SupportedPlatformsView: View {
                             selectedPlatform = nil
                         }
                     )
+                    .presentationDetents([.medium, .large])
                 }
             }
-            .presentationDetents([.medium, .large])
             .padding()
         }
         .task {
@@ -190,16 +231,17 @@ struct SupportedPlatformsView: View {
         }
         .task(id: oauthManager.isCancelled) {
             if oauthManager.isCancelled {
-                selectedPlatform = nil
                 dismiss()
-                oauthManager.reset()
-                viewModel.setIsStoring(isStoring: false)
             }
         }
         .task(id: oauthManager.isAuthenticated) {
             if oauthManager.isAuthenticated {
-                oauthManager.reset()
-                viewModel.setIsStoring(isStoring: false)
+                dismiss()
+            }
+        }
+        .onChange(of: viewModel.pnbaState) { _, newState in
+            if case .complete = newState {
+                dismiss()
             }
         }
     }
@@ -211,6 +253,25 @@ struct SupportedPlatformsView: View {
                 into: modelContext.container,
                 oauthManager: oauthManager
             )
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func pnbaRequested() async{
+        do {
+            print("Auth provider: \(selectedPlatform!.authProvider)")
+            
+            if selectedPlatform!.authProvider == "self" {
+                try await viewModel.requestPnba(
+                    platform: selectedPlatform!,
+                    phoneNumber: pnbaPhoneNumber,
+                    code: pnbaCode,
+                    password: pnbaPassword,
+                    channel: selectedPlatform!.name,
+                    into: modelContext.container
+                )
+            }
         } catch {
             print(error)
         }
