@@ -16,8 +16,7 @@ struct HeadersInterceptor: ClientInterceptor {
         case failedToGetMethodName
         case failedToEncryptPayload
     }
-    let onRequest: @Sendable () -> Data?
-    var payload: Data?
+    let onRequest: @Sendable () throws -> Data?
 
     func intercept<Input: Sendable, Output: Sendable>(
         request: StreamingClientRequest<Input>,
@@ -41,6 +40,8 @@ struct HeadersInterceptor: ClientInterceptor {
             throw HeadersInterceptorError.failedToGetMethodName
         }
         
+        let payload = try onRequest()
+        
         let cipherText = try v1RequestsEncrypt(
             ec: keypair.rawRepresentation,
             ssKidPk: authenticationKey,
@@ -60,22 +61,29 @@ struct HeadersInterceptor: ClientInterceptor {
 }
 
 final class GRPCService: Sendable {
-    static let shared = try! GRPCService(
-        host: StaticVariables.GRPC.getUrl(),
-        port: StaticVariables.GRPC.getPort()
-    )
+//    static let shared = try! GRPCService(
+//        host: StaticVariables.GRPC.getUrl(),
+//        port: StaticVariables.GRPC.getPort(),
+//        onRequest: {
+//            
+//        }
+//    )
     
     let client: GRPCClient<HTTP2ClientTransport.Posix>
     private let runTask: Task<Void, Error>
 
-    init(host: String, port: Int) throws {
+    init(
+        host: String,
+        port: Int,
+        onRequest: @escaping @Sendable () throws -> Data?
+    ) throws {
         let transport = try HTTP2ClientTransport.Posix(
             target: .dns(host: host, port: port),
             transportSecurity: .tls
         )
         let client = GRPCClient(
             transport: transport,
-            interceptors: [HeadersInterceptor(onRequest: { nil })]
+            interceptors: [HeadersInterceptor(onRequest: onRequest)]
         )
         self.client = client
         

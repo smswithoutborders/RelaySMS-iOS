@@ -8,28 +8,69 @@
 import SwiftUI
 import SwiftData
 
+struct RevokeConfirmation: View {
+    @State var account: String
+    
+    var onCancelClick: () -> Void
+    var onYesClicked: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(String(localized: "Are you sure you want to remove this account"))
+            Text("\(account)?")
+                .bold()
+
+            Spacer()
+                .frame(height: 50)
+            HStack {
+                Spacer()
+                Button(String(localized: "Cancel")) {
+                    onCancelClick()
+                }
+                
+                Spacer()
+                    .frame(width: 20)
+                Button(String(localized: "Yes, remove.")) {
+                    onYesClicked()
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(.red, in: RoundedRectangle(cornerRadius: 12))
+            }
+        }
+        .padding()
+    }
+}
+
 struct AccountView: View {
     let accountId: String
     let displayName: String
-    var body: some View {
+    
+    var onClick: () -> Void
+    var onTrashClicked: () -> Void
 
+    var body: some View {
         HStack {
-            Image(systemName: "person.crop.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
-            
-            VStack(alignment: .leading) {
-                Text(accountId)
-                    .font(.headline)
-                Text(displayName)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+            Group {
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                
+                VStack(alignment: .leading) {
+                    Text(accountId)
+                        .font(.headline)
+                    Text(displayName)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
+            .onTapGesture { onClick() }
             
             Spacer()
             Button(action: {
-                
+                onTrashClicked()
             }) {
                 Image(systemName: "trash")
                     .foregroundColor(Color.red)
@@ -57,20 +98,23 @@ struct PlatformSelectedView: View {
     var onAddNewClick: () -> Void
     var onAccountClicked: (Tokens?) -> Void
     var onClose: () -> Void
-    
+    var onRevoke: (Tokens) -> Void
+
     init(
         displayName: String,
         name: String,
         onAddNewClick: @escaping () -> Void,
         onAccountClicked: @escaping (Tokens?) -> Void,
-        onClose: @escaping () -> Void
+        onClose: @escaping () -> Void,
+        onRevoke: @escaping (Tokens) -> Void,
     ) {
         self.displayName = displayName
         self.name = name
         self.onAddNewClick = onAddNewClick
         self.onAccountClicked = onAccountClicked
         self.onClose = onClose
-        
+        self.onRevoke = onRevoke
+
         let predicate = #Predicate<Tokens> { token in
             return token.platformName == name
         }
@@ -117,10 +161,11 @@ struct PlatformSelectedView: View {
                         AccountView(
                             accountId: account.account,
                             displayName: account.platformName,
+                            onClick: { onAccountClicked(account) },
+                            onTrashClicked: {
+                                onRevoke(account)
+                            }
                         )
-                        .onTapGesture {
-                            onAccountClicked(account)
-                        }
                     }
                 }
             }
@@ -144,6 +189,8 @@ struct SupportedPlatformsView: View {
     @State private var platformSelected = false
     @State private var selectedPlatform: SupportedPlatforms? = nil
     
+    @State private var selectedAccount: Tokens? = nil
+
     @State private var pnbaPhoneNumber: String = ""
     @State private var pnbaCode: String = ""
     @State private var pnbaPassword: String = ""
@@ -169,13 +216,15 @@ struct SupportedPlatformsView: View {
         .sheet(item: $selectedPlatform, onDismiss: {
             viewModel.setIsStoring(isStoring: false)
             viewModel.setPnbaState(state: .idle)
-            
+            viewModel.setState(.idle)
+
             pnbaCode = ""
             pnbaPhoneNumber = ""
             pnbaPassword = ""
             
             oauthManager.reset()
             selectedPlatform = nil
+            selectedAccount = nil
         }) { platform in
             Group {
                 if viewModel.isStoring {
@@ -200,6 +249,19 @@ struct SupportedPlatformsView: View {
                         }
                     )
                     .presentationDetents([.medium])
+                } else if case .revoking = viewModel.fetchState {
+                    RevokeConfirmation(
+                        account: selectedAccount!.account,
+                        onCancelClick: {
+                            selectedPlatform = nil
+                        },
+                        onYesClicked: {
+                            Task {
+                                await revoke()
+                            }
+                        }
+                    )
+                    .presentationDetents([.medium])
                 }
                 else {
                     PlatformSelectedView(
@@ -215,11 +277,12 @@ struct SupportedPlatformsView: View {
                                 platformSelected = false
                             }
                         },
-                        onAccountClicked: { _ in
+                        onAccountClicked: { _ in },
+                        onClose: { dismiss() },
+                        onRevoke: { account in
+                            selectedAccount = account
+                            viewModel.setState(.revoking)
                         },
-                        onClose: {
-                            selectedPlatform = nil
-                        }
                     )
                     .presentationDetents([.medium, .large])
                 }
@@ -260,8 +323,6 @@ struct SupportedPlatformsView: View {
     
     private func pnbaRequested() async{
         do {
-            print("Auth provider: \(selectedPlatform!.authProvider)")
-            
             if selectedPlatform!.authProvider == "self" {
                 try await viewModel.requestPnba(
                     platform: selectedPlatform!,
@@ -272,6 +333,18 @@ struct SupportedPlatformsView: View {
                     into: modelContext.container
                 )
             }
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func revoke() async {
+        do {
+            try await viewModel.revoke(
+                selectedAccount!,
+                selectedPlatform!.protoId,
+                into: modelContext.container
+            )
         } catch {
             print(error)
         }
@@ -289,12 +362,23 @@ struct SupportedPlatformsView: View {
         onAddNewClick: {},
         onAccountClicked: { _ in },
         onClose: {},
+        onRevoke: { _ in },
     )
 }
 
 #Preview {
     AccountView(
         accountId: "developer@relaysms.org",
-        displayName: "relaysms"
+        displayName: "relaysms",
+        onClick: {},
+        onTrashClicked: {}
+    )
+}
+
+#Preview {
+    RevokeConfirmation(
+        account: "developer@relaysms.org",
+        onCancelClick: {},
+        onYesClicked: {}
     )
 }

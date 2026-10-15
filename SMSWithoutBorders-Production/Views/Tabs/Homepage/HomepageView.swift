@@ -86,7 +86,8 @@ struct PlatformsPresentedView: View {
                     },
                     onClose: {
                         selectedPlatform = nil
-                    }
+                    },
+                    onRevoke: { _ in },
                 )
             }
             .presentationDetents([.medium, .large])
@@ -163,6 +164,10 @@ struct HomepageView: View {
     }
 
     var body: some View {
+        VStack {
+            Text("RelaySMS")
+                .font(.title2)
+        }
         ZStack {
             Color.clear
                 .ignoresSafeArea()
@@ -192,8 +197,6 @@ struct HomepageView: View {
             }
             .padding() // Adds space from screen edges
         }
-        .navigationTitle("RelaySMS")
-        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(item: $selectedAccount) { account in
             ComposerManagerView(
                 account: account,

@@ -23,9 +23,15 @@ class PublisherImpl {
         case failedToFindServerPublicKey(keyId: Int)
         case failedToSaveLocalKeysToSwiftData
         case failedToInitializeContextCOntainer
+        case failedToGetRandomKey
     }
     
-    let publisherStub = Publisher_V3_Publisher.Client(wrapping: GRPCService.shared.client)
+    static let shared = try! GRPCService(
+        host: StaticVariables.GRPC.getUrl(),
+        port: StaticVariables.GRPC.getPort(),
+        onRequest: { nil }
+    )
+    let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
     
     var container: ModelContainer
     init(container: ModelContainer) {
@@ -305,5 +311,40 @@ class PublisherImpl {
             throw error
         }
         return nil
+    }
+    
+    public func revokeOAuth2(
+        tokenId: UUID,
+        into container: ModelContainer
+    ) async throws {
+        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+            tokenId: tokenId,
+            withAttachment: false,
+            into: container
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                return try v1TokenEncryptClient(
+                    ecKid: keypair.privateKey.rawRepresentation,
+                    ssKidPk: authenticationPublicKey,
+                    esKidPk: keypair.serverPublicKey,
+                    keyId: UInt8(serverKeyId),
+                    token: keypair.tokenHash
+                )
+            }
+        )
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+
+        let response = try await publisherStub.revokeOAuth2Token(.with{
+            $0.keyID = UInt32(serverKeyId)
+            $0.tokenID = keypair.tokenId
+        })
+        
+        // TODO: delete from database after successfully removing - 
     }
 }

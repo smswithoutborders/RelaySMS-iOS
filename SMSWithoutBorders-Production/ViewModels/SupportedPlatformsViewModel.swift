@@ -13,10 +13,11 @@ import SwiftData
 enum SupportedPlatformsFetchState {
     case loading
     case idle
+    case revoking
     case failure(data: String)
 }
 
-enum PnbaState {
+enum PnbaState : Equatable {
     case idle
     case complete
     case phoneNumberRequested
@@ -29,6 +30,7 @@ class SupportedPlatformsViewModel {
     enum SupportedPlatformsViewModelError: Error {
         case failedToGenerateRequestId
         case failedToGetOAuthUrl
+        case failedToRevokeOAuth2
     }
     
     private(set) var fetchState: SupportedPlatformsFetchState = .loading
@@ -212,5 +214,29 @@ class SupportedPlatformsViewModel {
         self.pnbaState = state
         self.pnbaStateFailure = ""
     }
-
+    
+    func setState(_ state: SupportedPlatformsFetchState) {
+        self.fetchState = state
+    }
+    
+    func revoke(
+        _ account: Tokens,
+        _ proto: Int,
+        into container: ModelContainer
+    ) async throws {
+        isStoring = true
+        let publisherImpl = PublisherImpl(container: container)
+        do {
+            if proto == V1PayloadsSupportedProtocols.oAuth20.rawValue {
+                try await publisherImpl.revokeOAuth2(
+                    tokenId: account.id,
+                    into: container
+                )
+            }
+        } catch {
+            isStoring = false
+            throw SupportedPlatformsViewModelError.failedToRevokeOAuth2
+        }
+        isStoring = false
+    }
 }
