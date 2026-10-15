@@ -15,6 +15,7 @@ class Keystore {
         case failedToGetStaticKey
         case failedToFetchPrivateKeyDataForKeyId(keyId: Int)
         case failedToDeleteKeyFromKeystore
+        case failedToQueryKeystore
     }
     
     public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
@@ -51,20 +52,37 @@ class Keystore {
         return status == errSecSuccess
     }
     
-    func deletePrivateKeyFromKeychain() throws -> Bool {
-        let query: [CFString: Any] = [
+    private var baseQuery: [CFString: Any] {
+        [
             kSecClass: kSecClassKey,
-            kSecAttrApplicationTag: accountTag.data(using: .utf8)!,
-            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom // match whatever you used when storing
+            kSecAttrApplicationTag: accountTag.data(using: .utf8)!
         ]
+    }
 
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            let message = SecCopyErrorMessageString(status, nil) as String? ?? "unknown"
-            print("Keychain delete failed: \(status) (\(message))")
+    func deletePrivateKeyFromKeychain() throws -> Bool {
+        let status = SecItemDelete(baseQuery as CFDictionary)
+        print("Keychain delete status: \(status)")   // temporary, to confirm
+        switch status {
+        case errSecSuccess:
+            return true
+        case errSecItemNotFound:
+            return false   // nothing was deleted; don't report success
+        default:
             throw KeystoreErrors.failedToDeleteKeyFromKeystore
         }
-        return true
+    }
+
+    func isAvailable() throws -> Bool {
+        var query = baseQuery
+        query[kSecReturnAttributes] = true
+        query[kSecMatchLimit] = kSecMatchLimitOne
+
+        let status = SecItemCopyMatching(query as CFDictionary, nil)
+        switch status {
+        case errSecSuccess, errSecInteractionNotAllowed: return true
+        case errSecItemNotFound: return false
+        default: throw KeystoreErrors.failedToQueryKeystore
+        }
     }
     
     func loadPrivateKeyFromKeychain() throws -> Data? {
@@ -90,10 +108,8 @@ class Keystore {
     public static func loadRandom(
         tokenId: UUID,
         withAttachment: Bool,
-        into container: ModelContainer
+        into context: ModelContext
     ) throws -> (LocalKeypair, Data, Int)? {
-        let context = ModelContext(container)
-        
         let descriptor = FetchDescriptor<LocalKeys>()
         do {
             let totalCount = try context.fetchCount(descriptor)
@@ -139,9 +155,6 @@ class Keystore {
                     throw KeystoreErrors.failedToFetchPrivateKeyDataForKeyId(keyId: serverKeyId)
                 }
                 
-                let oldItemsPredicate = #Predicate<Tokens> { $0.id == tokenId }
-                try? context.delete(model: Tokens.self, where: oldItemsPredicate)
-
                 let keypair = try LocalKeypair.deserialize(data: rawKeyData)
                 return (keypair, authenticationPublicKey, serverKeyId)
             } catch {

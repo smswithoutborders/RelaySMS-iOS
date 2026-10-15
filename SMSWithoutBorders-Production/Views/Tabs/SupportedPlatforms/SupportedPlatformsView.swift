@@ -8,83 +8,17 @@
 import SwiftUI
 import SwiftData
 
-struct RevokeConfirmation: View {
-    @State var account: String
-    
-    var onCancelClick: () -> Void
-    var onYesClicked: () -> Void
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(String(localized: "Are you sure you want to remove this account"))
-            Text("\(account)?")
-                .bold()
-
-            Spacer()
-                .frame(height: 50)
-            HStack {
-                Spacer()
-                Button(String(localized: "Cancel")) {
-                    onCancelClick()
-                }
-                
-                Spacer()
-                    .frame(width: 20)
-                Button(String(localized: "Yes, remove.")) {
-                    onYesClicked()
-                }
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .background(.red, in: RoundedRectangle(cornerRadius: 12))
-            }
-        }
-        .padding()
-    }
-}
-
-struct AccountView: View {
-    let accountId: String
-    let displayName: String
-    
-    var onClick: () -> Void
-    var onTrashClicked: () -> Void
-
-    var body: some View {
-        HStack {
-            Group {
-                Image(systemName: "person.crop.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50, height: 50)
-                
-                VStack(alignment: .leading) {
-                    Text(accountId)
-                        .font(.headline)
-                    Text(displayName)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-            }
-            .onTapGesture { onClick() }
-            
-            Spacer()
-            Button(action: {
-                onTrashClicked()
-            }) {
-                Image(systemName: "trash")
-                    .foregroundColor(Color.red)
-            }
-        }
-    
-    }
-}
-
 struct SupportedPlatformView: View {
     let displayName: String
+    @State var onClick: () -> Void
+    
     var body: some View {
         VStack {
-            Text(displayName)
+            Button(action: {
+                onClick()
+            }) {
+                Text(displayName)
+            }
         }
         .padding()
     }
@@ -96,7 +30,7 @@ struct PlatformSelectedView: View {
     let displayName: String
     let name: String
     var onAddNewClick: () -> Void
-    var onAccountClicked: (Tokens?) -> Void
+    var onAccountClicked: (Tokens) -> Void
     var onClose: () -> Void
     var onRevoke: (Tokens) -> Void
 
@@ -104,7 +38,7 @@ struct PlatformSelectedView: View {
         displayName: String,
         name: String,
         onAddNewClick: @escaping () -> Void,
-        onAccountClicked: @escaping (Tokens?) -> Void,
+        onAccountClicked: @escaping (Tokens) -> Void,
         onClose: @escaping () -> Void,
         onRevoke: @escaping (Tokens) -> Void,
     ) {
@@ -161,7 +95,9 @@ struct PlatformSelectedView: View {
                         AccountView(
                             accountId: account.account,
                             displayName: account.platformName,
-                            onClick: { onAccountClicked(account) },
+                            onClick: {
+                                onAccountClicked(account)
+                            },
                             onTrashClicked: {
                                 onRevoke(account)
                             }
@@ -187,6 +123,8 @@ struct SupportedPlatformsView: View {
     @State private var viewModel = SupportedPlatformsViewModel()
     
     @State private var platformSelected = false
+    @State private var showAccountStats = false
+    
     @State private var selectedPlatform: SupportedPlatforms? = nil
     
     @State private var selectedAccount: Tokens? = nil
@@ -201,16 +139,27 @@ struct SupportedPlatformsView: View {
         VStack {
             List {
                 ForEach(supportedPlatforms) { sp in
-                    SupportedPlatformView( displayName: sp.displayName )
-                    .onTapGesture {
-                        selectedPlatform = sp
-                    }
+                    SupportedPlatformView(
+                        displayName: sp.displayName,
+                        onClick: {
+                            selectedPlatform = sp
+                        }
+                    )
                 }
             }
             if case .loading = viewModel.fetchState {
                 ProgressView()
                     .progressViewStyle(LinearProgressViewStyle())
                     .padding()
+            }
+        }
+        .sheet(isPresented: $showAccountStats, onDismiss: {
+            showAccountStats = false
+            selectedAccount = nil
+        }) {
+            if selectedAccount != nil {
+                AccountStatsView(tokenId: selectedAccount!.id)
+                    .presentationDetents([.medium, .large])
             }
         }
         .sheet(item: $selectedPlatform, onDismiss: {
@@ -224,7 +173,6 @@ struct SupportedPlatformsView: View {
             
             oauthManager.reset()
             selectedPlatform = nil
-            selectedAccount = nil
         }) { platform in
             Group {
                 if viewModel.isStoring {
@@ -250,7 +198,7 @@ struct SupportedPlatformsView: View {
                     )
                     .presentationDetents([.medium])
                 } else if case .revoking = viewModel.fetchState {
-                    RevokeConfirmation(
+                    RevokeConfirmationView(
                         account: selectedAccount!.account,
                         onCancelClick: {
                             selectedPlatform = nil
@@ -277,7 +225,10 @@ struct SupportedPlatformsView: View {
                                 platformSelected = false
                             }
                         },
-                        onAccountClicked: { _ in },
+                        onAccountClicked: { account in
+                            selectedAccount = account
+                            showAccountStats = true
+                        },
                         onClose: { dismiss() },
                         onRevoke: { account in
                             selectedAccount = account
@@ -285,6 +236,9 @@ struct SupportedPlatformsView: View {
                         },
                     )
                     .presentationDetents([.medium, .large])
+                    .task {
+                        selectedAccount = nil
+                    }
                 }
             }
             .padding()
@@ -352,7 +306,10 @@ struct SupportedPlatformsView: View {
 }
 
 #Preview {
-    SupportedPlatformView(displayName: "RMail")
+    SupportedPlatformView(
+        displayName: "RMail",
+        onClick: {}
+    )
 }
 
 #Preview {
@@ -366,19 +323,3 @@ struct SupportedPlatformsView: View {
     )
 }
 
-#Preview {
-    AccountView(
-        accountId: "developer@relaysms.org",
-        displayName: "relaysms",
-        onClick: {},
-        onTrashClicked: {}
-    )
-}
-
-#Preview {
-    RevokeConfirmation(
-        account: "developer@relaysms.org",
-        onCancelClick: {},
-        onYesClicked: {}
-    )
-}

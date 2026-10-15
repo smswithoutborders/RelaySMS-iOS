@@ -27,7 +27,7 @@ class OnlineFirstPublisher {
             guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
                 tokenId: tokenId,
                 withAttachment: withAttachment,
-                into: container
+                into: ModelContext(container)
             ) else {
                 throw OnlineFirstPublisherError.failedToGenerateKeypair
             }

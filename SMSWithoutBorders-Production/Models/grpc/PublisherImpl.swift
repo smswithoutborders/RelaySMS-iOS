@@ -318,10 +318,11 @@ class PublisherImpl {
     }
     
     public func revokeOAuth2(tokenId: UUID) async throws {
+        let context = ModelContext(self.container)
         guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
             tokenId: tokenId,
             withAttachment: false,
-            into: container
+            into: context
         ) else {
             throw PublisherImplError.failedToGetRandomKey
         }
@@ -365,13 +366,18 @@ class PublisherImpl {
         if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
             throw PublisherImplError.failedToDeleteFromKeystore
         }
+        
+        let oldItemsPredicate = #Predicate<Tokens> { $0.id == tokenId }
+        try? context.delete(model: Tokens.self, where: oldItemsPredicate)
+
     }
     
     public func revokePnba(tokenId: UUID) async throws {
+        let context = ModelContext(self.container)
         guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
             tokenId: tokenId,
             withAttachment: false,
-            into: container
+            into: context
         ) else {
             throw PublisherImplError.failedToGetRandomKey
         }
