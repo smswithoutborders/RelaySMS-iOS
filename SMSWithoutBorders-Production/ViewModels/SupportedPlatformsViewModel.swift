@@ -190,6 +190,7 @@ class SupportedPlatformsViewModel {
                     password: password
                 )
                 pnbaState = .complete
+                fetchState = .idle
             } catch {
                 print(error)
                 if error.localizedDescription.hasPrefix("invalidArgument:") {
@@ -228,7 +229,9 @@ class SupportedPlatformsViewModel {
         let publisherImpl = PublisherImpl(container: container)
         do {
             if proto == V1PayloadsSupportedProtocols.oAuth20.rawValue {
-                try await publisherImpl.revokeOAuth2( tokenId: account.id, )
+                try await publisherImpl.revokeOAuth2(tokenId: account.id, )
+            } else if proto == V1PayloadsSupportedProtocols.pnba.rawValue {
+                try await publisherImpl.revokePnba(tokenId: account.id, )
             }
             
             fetchState = .idle

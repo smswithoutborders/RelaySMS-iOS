@@ -366,4 +366,54 @@ class PublisherImpl {
             throw PublisherImplError.failedToDeleteFromKeystore
         }
     }
+    
+    public func revokePnba(tokenId: UUID) async throws {
+        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+            tokenId: tokenId,
+            withAttachment: false,
+            into: container
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: keypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: keypair.serverPublicKey,
+                        keyId: UInt8(serverKeyId),
+                        token: keypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
+            }
+        )
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+
+        let response = try await publisherStub.revokePNBAToken(.with{
+            $0.keyID = UInt32(serverKeyId)
+            $0.tokenID = keypair.tokenId
+        })
+        
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        
+        let tag = Keystore.getLocalKeysAccountTag(
+            keyId: UInt8(serverKeyId),
+            tokenId: tokenId
+        )
+        if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
+            throw PublisherImplError.failedToDeleteFromKeystore
+        }
+    }
 }
