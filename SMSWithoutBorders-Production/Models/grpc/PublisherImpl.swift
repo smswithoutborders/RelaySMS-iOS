@@ -24,6 +24,10 @@ class PublisherImpl {
         case failedToSaveLocalKeysToSwiftData
         case failedToInitializeContextCOntainer
         case failedToGetRandomKey
+        case failedToDeleteFromKeystore
+        case failedToRevokeOAuth2
+        case failedToEncryptGrpc
+
     }
     
     static let shared = try! GRPCService(
@@ -313,10 +317,7 @@ class PublisherImpl {
         return nil
     }
     
-    public func revokeOAuth2(
-        tokenId: UUID,
-        into container: ModelContainer
-    ) async throws {
+    public func revokeOAuth2(tokenId: UUID) async throws {
         guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
             tokenId: tokenId,
             withAttachment: false,
@@ -329,13 +330,19 @@ class PublisherImpl {
             host: StaticVariables.GRPC.getUrl(),
             port: StaticVariables.GRPC.getPort(),
             onRequest: {
-                return try v1TokenEncryptClient(
-                    ecKid: keypair.privateKey.rawRepresentation,
-                    ssKidPk: authenticationPublicKey,
-                    esKidPk: keypair.serverPublicKey,
-                    keyId: UInt8(serverKeyId),
-                    token: keypair.tokenHash
-                )
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: keypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: keypair.serverPublicKey,
+                        keyId: UInt8(serverKeyId),
+                        token: keypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
             }
         )
         let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
@@ -345,6 +352,18 @@ class PublisherImpl {
             $0.tokenID = keypair.tokenId
         })
         
-        // TODO: delete from database after successfully removing - 
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        
+        let tag = Keystore.getLocalKeysAccountTag(
+            keyId: UInt8(serverKeyId),
+            tokenId: tokenId
+        )
+        if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
+            throw PublisherImplError.failedToDeleteFromKeystore
+        }
     }
 }

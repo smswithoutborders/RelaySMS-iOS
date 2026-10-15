@@ -38,7 +38,6 @@ class Keystore {
     func savePrivateKeyToKeychain(keyData: Data) -> Bool {
         let query: [CFString: Any] = [
             kSecClass: kSecClassKey,
-//            kSecAttrKeyType: kSecAttrKeyTypeEC, // Curve25519 maps to Elliptic Curve
             kSecAttrApplicationTag: accountTag.data(using: .utf8)!,
             kSecValueData: keyData,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly // Restricts data syncing/sharing if desired
@@ -50,6 +49,22 @@ class Keystore {
         // Save the new item
         let status = SecItemAdd(query as CFDictionary, nil)
         return status == errSecSuccess
+    }
+    
+    func deletePrivateKeyFromKeychain() throws -> Bool {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassKey,
+            kSecAttrApplicationTag: accountTag.data(using: .utf8)!,
+            kSecAttrKeyType: kSecAttrKeyTypeECSECPrimeRandom // match whatever you used when storing
+        ]
+
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            let message = SecCopyErrorMessageString(status, nil) as String? ?? "unknown"
+            print("Keychain delete failed: \(status) (\(message))")
+            throw KeystoreErrors.failedToDeleteKeyFromKeystore
+        }
+        return true
     }
     
     func loadPrivateKeyFromKeychain() throws -> Data? {
@@ -67,10 +82,7 @@ class Keystore {
             return nil
         }
         
-        let deleteStatus = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeystoreErrors.failedToDeleteKeyFromKeystore
-        }
+        try deletePrivateKeyFromKeychain()
         
         return data
     }
@@ -127,6 +139,9 @@ class Keystore {
                     throw KeystoreErrors.failedToFetchPrivateKeyDataForKeyId(keyId: serverKeyId)
                 }
                 
+                let oldItemsPredicate = #Predicate<Tokens> { $0.id == tokenId }
+                try? context.delete(model: Tokens.self, where: oldItemsPredicate)
+
                 let keypair = try LocalKeypair.deserialize(data: rawKeyData)
                 return (keypair, authenticationPublicKey, serverKeyId)
             } catch {

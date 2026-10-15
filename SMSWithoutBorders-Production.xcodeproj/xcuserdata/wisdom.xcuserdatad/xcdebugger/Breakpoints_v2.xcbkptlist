@@ -178,57 +178,13 @@
             endingLineNumber = "343"
             landmarkName = "revoke()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E248A24D-85A4-4793-B43B-3C0795219AC6 - cc1fc7b01722e9ff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsView.revoke() async -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343">
-               </Location>
-               <Location
-                  uuid = "E248A24D-85A4-4793-B43B-3C0795219AC6 - de467859666aded6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for SMSWithoutBorders.SupportedPlatformsView.revoke() async -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343">
-               </Location>
-               <Location
-                  uuid = "E248A24D-85A4-4793-B43B-3C0795219AC6 - 2fc074a09bf975c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsView.revoke() async -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F49F5763-72E2-44E0-857F-B5F41BB3B538"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
@@ -244,7 +200,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F1FC4F24-78AE-447A-8CBE-2C5B89D8FBDE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
@@ -254,48 +210,66 @@
             endingLineNumber = "231"
             landmarkName = "revoke(_:_:into:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C779F728-4D9B-4F53-BE39-24172F52D900"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "revoke(_:_:into:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3E5689D9-884C-4CCB-9D93-3B245DB72EAB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "deletePrivateKeyFromKeychain()"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F1FC4F24-78AE-447A-8CBE-2C5B89D8FBDE - 96f92ddef61e697e"
+                  uuid = "3E5689D9-884C-4CCB-9D93-3B245DB72EAB - b3685f66427d6d73"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsViewModel.revoke(_: SMSWithoutBorders.Tokens, _: Swift.Int, into: SwiftData.ModelContainer) async throws -&gt; ()"
+                  symbolName = "SMSWithoutBorders.Keystore.deletePrivateKeyFromKeychain() throws -&gt; Swift.Bool"
                   moduleName = "SMSWithoutBorders.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
+                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/Models/Keystore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231">
+                  startingLineNumber = "65"
+                  endingLineNumber = "65">
                </Location>
                <Location
-                  uuid = "F1FC4F24-78AE-447A-8CBE-2C5B89D8FBDE - 99e0c679fdb1458"
+                  uuid = "3E5689D9-884C-4CCB-9D93-3B245DB72EAB - b3685f66427d6d73"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for SMSWithoutBorders.SupportedPlatformsViewModel.revoke(_: SMSWithoutBorders.Tokens, _: Swift.Int, into: SwiftData.ModelContainer) async throws -&gt; ()"
+                  symbolName = "SMSWithoutBorders.Keystore.deletePrivateKeyFromKeychain() throws -&gt; Swift.Bool"
                   moduleName = "SMSWithoutBorders.debug.dylib"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
+                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/Models/Keystore.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231">
-               </Location>
-               <Location
-                  uuid = "F1FC4F24-78AE-447A-8CBE-2C5B89D8FBDE - 87734b71eb538f7b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsViewModel.revoke(_: SMSWithoutBorders.Tokens, _: Swift.Int, into: SwiftData.ModelContainer) async throws -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231">
+                  startingLineNumber = "65"
+                  endingLineNumber = "65">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -303,47 +277,193 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C779F728-4D9B-4F53-BE39-24172F52D900"
-            shouldBeEnabled = "Yes"
+            uuid = "CF0D2BCB-E0F7-41C0-AEE6-05B31B5CCC30"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "278AB4A8-D2AB-4464-A8F2-220B72613B74"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3BC2B27-D8B8-4F4F-9BD5-45ADAC95E93D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D4D6CCAA-50C8-478D-939A-3D327DCEE11D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32890603-65B0-4365-B024-33F7CD1E5958"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "revoke(_:_:into:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C779F728-4D9B-4F53-BE39-24172F52D900 - 96f92ddef61e6841"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsViewModel.revoke(_: SMSWithoutBorders.Tokens, _: Swift.Int, into: SwiftData.ModelContainer) async throws -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "240"
-                  endingLineNumber = "240">
-               </Location>
-               <Location
-                  uuid = "C779F728-4D9B-4F53-BE39-24172F52D900 - e80ab6cb18472c43"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for SMSWithoutBorders.SupportedPlatformsViewModel.revoke(_: SMSWithoutBorders.Tokens, _: Swift.Int, into: SwiftData.ModelContainer) async throws -&gt; ()"
-                  moduleName = "SMSWithoutBorders.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wisdom/Desktop/RelaySMS-iOS/SMSWithoutBorders-Production/ViewModels/SupportedPlatformsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "240"
-                  endingLineNumber = "240">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "426414C0-1D56-44F6-87AC-BB8F716E72ED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9839CDB7-9095-4B3D-8D33-C7FB61063A3F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/grpc/PublisherImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "revokeOAuth2(tokenId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E196FCE2-D672-4BF1-86A2-4D6995C92A3F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8834184-B19C-4633-96E8-395DC72A1CEC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "048A2204-46F3-4F24-9F39-75A0A3F8C7AA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "17F9DDBD-2D7D-4826-9E64-E0A250B8BFBE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F06BAB2-5A1B-4969-8BCA-B8134E1CC6A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

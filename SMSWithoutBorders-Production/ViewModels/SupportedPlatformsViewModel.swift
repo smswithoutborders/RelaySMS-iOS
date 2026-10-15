@@ -228,12 +228,13 @@ class SupportedPlatformsViewModel {
         let publisherImpl = PublisherImpl(container: container)
         do {
             if proto == V1PayloadsSupportedProtocols.oAuth20.rawValue {
-                try await publisherImpl.revokeOAuth2(
-                    tokenId: account.id,
-                    into: container
-                )
+                try await publisherImpl.revokeOAuth2( tokenId: account.id, )
             }
+            
+            fetchState = .idle
+            
         } catch {
+            print(error)
             isStoring = false
             throw SupportedPlatformsViewModelError.failedToRevokeOAuth2
         }
