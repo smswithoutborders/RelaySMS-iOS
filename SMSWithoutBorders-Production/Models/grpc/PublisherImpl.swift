@@ -114,17 +114,20 @@ class PublisherImpl {
         catId: V1ContentCategories,
         accountId: String,
         platformName: String,
+        account: Tokens? = nil
     ) throws {
         let context = ModelContext(self.container)
         context.autosaveEnabled = false
         
-        let token = Tokens(
+        let token = account ?? Tokens(
             catId: Int(catId.rawValue),
             account: accountId,
             platformName: platformName
         )
-        context.insert(token)
-        print("Token stored: \(token.id)")
+        if account == nil {
+            context.insert(token)
+            print("Token stored: \(token.id)")
+        }
         
         for keypair in keys {
             let (keyId, privateKey) = keypair
@@ -420,6 +423,79 @@ class PublisherImpl {
         )
         if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
             throw PublisherImplError.failedToDeleteFromKeystore
+        }
+    }
+    
+    func refreshKeys(account: Tokens) async throws {
+        let context = ModelContext(self.container)
+        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+            tokenId: account.id,
+            withAttachment: false,
+            into: context
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: keypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: keypair.serverPublicKey,
+                        keyId: UInt8(serverKeyId),
+                        token: keypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
+            }
+        )
+        
+        let (publisherKeys, keys) = try getKeys()
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+        let response = try await publisherStub.syncKeys(.with{
+            $0.keyID = UInt32(serverKeyId)
+            $0.tokenID = keypair.tokenId
+            $0.clientEphemeralPublicKeys = publisherKeys
+        })
+        
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        try await deleteStoredKeys(context, account: account)
+        
+        try storeKeys(
+            keys: keys,
+            serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
+            tokenId: keypair.tokenId,
+            tokenHash: keypair.tokenHash,
+            catId: v1ContentCategoryFromU8(value: UInt8(account.catId)),
+            accountId: account.account,
+            platformName: account.platformName,
+            account: account
+        )
+    }
+    
+    private func deleteStoredKeys(_ context: ModelContext, account: Tokens) async throws{
+        for i in 0...255 {
+            let tag = Keystore.getLocalKeysAccountTag(
+                keyId: UInt8(i),
+                tokenId: account.id
+            )
+            
+            let keystore = Keystore(accountTag: tag)
+            do {
+                try keystore.deletePrivateKeyFromKeychain()
+            } catch {
+                print(error)
+            }
         }
     }
 }

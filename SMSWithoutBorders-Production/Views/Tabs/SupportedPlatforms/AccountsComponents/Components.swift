@@ -10,15 +10,39 @@ import SwiftData
 
 struct AccountStatsView: View {
     @Environment(\.modelContext) private var modelContext
-    @State var tokenId: UUID
+    @State var account: Tokens
     
     @State private var numberOfKeys: Int = 0
     @State private var viewModel = TokensViewModel()
 
     var body: some View {
         VStack {
-            Button(String(localized: "Refresh keys")) {
-                
+            Button(action: {
+                Task {
+                    do {
+                        try await viewModel.refreshKeys(
+                            account: account,
+                            into: modelContext.container
+                        )
+                        
+                        numberOfKeys = viewModel.getCount(
+                            tokenId: account.id,
+                            into: modelContext.container
+                        )
+                    } catch {
+                        print(error)
+                    }
+                }
+            }) {
+                if case .loading = viewModel.tokenStates {
+                    ProgressView("")
+                        .progressViewStyle(.circular)
+                        .tint(.blue)
+                        .controlSize(.large)
+                        .presentationDetents([.medium])
+                } else {
+                    Text(String(localized: "Refresh keys"))
+                }
             }
             
             Text(String(localized: "Number of keys"))
@@ -27,7 +51,7 @@ struct AccountStatsView: View {
         .task {
             Task {
                 numberOfKeys = viewModel.getCount(
-                    tokenId: tokenId,
+                    tokenId: account.id,
                     into: modelContext.container
                 )
             }

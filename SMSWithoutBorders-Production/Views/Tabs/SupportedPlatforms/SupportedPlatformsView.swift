@@ -158,7 +158,7 @@ struct SupportedPlatformsView: View {
             selectedAccount = nil
         }) {
             if selectedAccount != nil {
-                AccountStatsView(tokenId: selectedAccount!.id)
+                AccountStatsView(account: selectedAccount!)
                     .presentationDetents([.medium, .large])
             }
         }
