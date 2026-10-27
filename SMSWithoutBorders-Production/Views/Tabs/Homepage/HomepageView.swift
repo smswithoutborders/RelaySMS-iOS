@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct PlatformView: View {
+    @State var displayName: String
+    
     var body: some View {
         GroupBox {
             VStack(alignment: .center, spacing: 8) {
@@ -16,9 +18,9 @@ struct PlatformView: View {
                 Image(systemName: "person.circle")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 40)
+                    .frame(width: 60, height: 40)
                 
-                Text("RMail")
+                Text(displayName)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -34,7 +36,8 @@ struct PlatformsPresentedView: View {
     @State private var selectedPlatform: SupportedPlatforms? = nil
     @State private var selectedAccount: Tokens? = nil
     
-    @State var onClick: (Tokens?) -> Void
+    @State var onClick: (SupportedPlatforms) -> Void
+    @State var onOfflineClick: () -> Void
 
     let columns = [
         GridItem(.flexible()),
@@ -64,36 +67,31 @@ struct PlatformsPresentedView: View {
             else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
-                        ForEach(groupedAccounts, id: \.self) { account in
-                            PlatformView()
+                        ForEach(groupedAccounts, id: \.self) { platform in
+                            PlatformView(displayName: platform.displayName)
                                 .onTapGesture {
-                                    selectedPlatform = account
+                                    onClick(platform)
                                 }
                         }
                     }
                 }
             }
+            
+            Text(String(localized: "Always available - No setup required."))
+            Button(action: onOfflineClick) {
+                HStack {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 40)
+                    
+                    Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me. You cannot get replies here."))
+                }
+                .background(Color(.secondary))
+                .foregroundColor(Color(.onSecondary))
+            }
         }
         .padding()
-        .sheet(item: $selectedPlatform) { platform in
-            Group {
-                PlatformSelectedView(
-                    displayName: platform.displayName,
-                    name: platform.name,
-                    onAddNewClick: {},
-                    onAccountClicked: { account in
-                        onClick(account)
-                    },
-                    onClose: {
-                        selectedPlatform = nil
-                    },
-                    onRevoke: { _ in },
-                )
-            }
-            .presentationDetents([.medium, .large])
-            .padding()
-        }
-        
     }
 }
 
@@ -141,7 +139,8 @@ private struct PayloadViews: View {
 
 struct HomepageView: View {
     @State private var isPlatformsPresented = false
-    @State private var selectedAccount: Tokens? = nil
+    @State private var isOfflinePresented = false
+    @State private var selectedPlatform: SupportedPlatforms? = nil
     
     @Query(sort: \Payloads.date, order: .reverse)
     private var payloads: [Payloads]
@@ -197,18 +196,31 @@ struct HomepageView: View {
             }
             .padding() // Adds space from screen edges
         }
-        .navigationDestination(item: $selectedAccount) { account in
+        .navigationDestination(isPresented: $isOfflinePresented) {
             ComposerManagerView(
-                account: account,
-                catId: getContentCategories(account)!
+                platformName: "rmail",
+                platformDisplayName: "R-Mail"
+            )
+        }
+        .navigationDestination(item: $selectedPlatform) { platform in
+            ComposerManagerView(
+                platformName: platform.name,
+                platformDisplayName: platform.displayName,
+                catId: getContentCategories(platform.catId)
             )
         }
         .sheet(isPresented: $isPlatformsPresented) {
             Group {
-                PlatformsPresentedView { account in
-                    isPlatformsPresented.toggle()
-                    selectedAccount = account
-                }
+                PlatformsPresentedView(
+                    onClick: { platform in
+                        isPlatformsPresented.toggle()
+                        selectedPlatform = platform
+                    },
+                    onOfflineClick: {
+                        isPlatformsPresented = false
+                        isOfflinePresented = true
+                    }
+                )
             }
             .presentationDetents([.medium, .large])
         }
@@ -216,9 +228,9 @@ struct HomepageView: View {
     
     }
     
-    private func getContentCategories(_ account: Tokens) -> V1ContentCategories?{
+    private func getContentCategories(_ catId: Int) -> V1ContentCategories?{
         do {
-            return try v1ContentCategoryFromU8(value: UInt8(account.catId))
+            return try v1ContentCategoryFromU8(value: UInt8(catId))
         } catch {
             print(error)
         }
@@ -241,10 +253,15 @@ struct HomepageView: View {
 }
 
 #Preview {
-    PlatformsPresentedView { _ in }
+    PlatformsPresentedView(
+        onClick: { _ in },
+        onOfflineClick: {}
+    )
 }
 
 #Preview {
-    PlatformView()
+    PlatformView(
+        displayName: "Bluesky"
+    )
 }
 

@@ -25,15 +25,21 @@ class OnlineFirstPublisherViewModel {
     private class GatewayClientRequests: Codable {
         var address: String
         var text: String
-        init(address: String, text: String) {
+        var tag: String
+        init(
+            address: String,
+            text: String,
+            tag: String,
+        ) {
             self.address = address
             self.text = text
+            self.tag = tag
         }
     }
     
     func sendJsonData(_ data: String) async throws {
         sendOnlineState = .loading
-        guard let url = URL(string: StaticVariables.Publisher.mimiGatewayClientUrl) else {
+        guard let url = URL(string: StaticVariables.Publisher.mimicGatewayClientUrl) else {
             sendOnlineState = .idle
             return
         }
@@ -44,7 +50,8 @@ class OnlineFirstPublisherViewModel {
         
         let payload = GatewayClientRequests(
             address: "address",
-            text: data
+            text: data,
+            tag: "13c5279b252d2583a048d9ae15a18fc6ac2fc283088168368334e22a23fb229e"
         )
         
         var request = URLRequest(url: url)

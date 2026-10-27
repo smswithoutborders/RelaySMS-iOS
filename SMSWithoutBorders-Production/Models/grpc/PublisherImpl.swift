@@ -260,8 +260,6 @@ class PublisherImpl {
         channel: String?,
     ) async throws -> Publisher_V3_GetPNBACodeResponse? {
         do {
-            let (publisherKeys, keys) = try getKeys()
-            
             let response = try await publisherStub.getPNBACode(.with {
                 $0.platform = platformName
                 $0.phoneNumber = phoneNumber
@@ -492,7 +490,7 @@ class PublisherImpl {
             
             let keystore = Keystore(accountTag: tag)
             do {
-                try keystore.deletePrivateKeyFromKeychain()
+                let _ = try keystore.deletePrivateKeyFromKeychain()
             } catch {
                 print(error)
             }

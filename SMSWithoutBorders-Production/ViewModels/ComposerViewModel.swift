@@ -22,7 +22,7 @@ class ComposerViewModel {
 
     var payload: String?
     
-    func publish(
+    func publishOnlineFirst(
         catId: V1ContentCategories,
         body: String,
         platformName: String,
@@ -40,6 +40,42 @@ class ComposerViewModel {
                 body: body,
                 platformName: platformName,
                 tokenId: tokenId,
+                to: to,
+                subject: subject,
+                into: container
+            ) { sp in
+                payload = sp
+            }
+            
+            let payload = Payloads(
+                plaformName: platformName,
+                content: try contentContainer.serializeForStorage(),
+                catId: Int(catId.rawValue)
+            )
+            let payloadsViewModel = PayloadsViewModel()
+            try payloadsViewModel.insert(payload: payload, into: container)
+            
+            composeState = .idle
+        } catch {
+            composeState = .failure(data: error.localizedDescription)
+            throw error
+        }
+    }
+    
+    func publishOfflineFirst(
+        platformName: String,
+        catId: V1ContentCategories,
+        body: String,
+        to: String?,
+        subject: String?,
+        into container: ModelContainer
+    ) async throws {
+        composeState = .loading
+        
+        let ofp = OfflineFirstPublisher()
+        do {
+            let contentContainer = try ofp.publish(
+                body: body,
                 to: to,
                 subject: subject,
                 into: container

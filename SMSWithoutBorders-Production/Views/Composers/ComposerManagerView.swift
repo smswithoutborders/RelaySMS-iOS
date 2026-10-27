@@ -6,6 +6,79 @@
 //
 
 import SwiftUI
+import SwiftData
+
+private struct FromViewComponent: View {
+    @State var accountName: String
+    @State var platformName: String
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            Image(systemName: "person.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 20)
+            
+            VStack(alignment: .leading) {
+                Text(accountName)
+                Text(platformName)
+            }
+        }
+    }
+}
+
+private struct FromView: View {
+    @Query private var accounts: [Tokens]
+    @Binding var selectedAccount: Tokens?
+    
+    let name: String
+    
+    private let fromText = String(localized: "From")
+
+    init(
+        name: String,
+        fromAccount: Binding<Tokens?>
+    ) {
+        self.name = name
+        _selectedAccount = fromAccount
+        
+        let predicate = #Predicate<Tokens> { token in
+            return token.platformName == name
+        }
+        
+        _accounts = Query(filter: predicate, sort: [SortDescriptor(\.date)])
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Menu {
+                Picker(fromText, selection: $selectedAccount) {
+                    ForEach(accounts, id: \.self) { account in
+                        FromViewComponent(
+                            accountName: account.account,
+                            platformName: account.platformName
+                        )
+                        .tag(account)
+                    }
+                }
+                .pickerStyle(.inline) // Removes the default picker section separation
+            } label: {
+                HStack {
+                    Text(selectedAccount?.account ?? fromText)
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.gray)
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .cornerRadius(8)
+                .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+            }
+        }
+        .padding()
+    }
+}
 
 private struct ComposerOnlineSender: View {
     @State var payload: String
@@ -72,54 +145,58 @@ extension String: Identifiable {
 
 struct ComposerManagerView: View {
     @Environment(\.modelContext) private var modelContext
-    @State var account: Tokens
-    @State var catId: V1ContentCategories
+    @State private var account: Tokens? = nil
+    @State var platformName: String
+    @State var platformDisplayName: String
+    @State var catId: V1ContentCategories? = nil
     @State private var viewModel = ComposerViewModel()
     
     @State private var to: String = ""
     @State private var subject: String = ""
     @State private var content: String = ""
 
-    init(
-        account: Tokens,
-        catId: V1ContentCategories,
-    ) {
-        self.account = account
-        self.catId = catId
-    }
-
     var body: some View {
         NavigationStack {
             VStack {
-                switch(self.catId) {
-                case V1ContentCategories.email:
+                if catId == nil {
                     EmailComposeView(
                         to: $to,
                         subject: $subject,
                         content: $content
                     )
-                case V1ContentCategories.message:
-                    MessagingComposeView(
-                        to: $to,
-                        content: $content
-                    )
-                case V1ContentCategories.text:
-                    TextComposeView(content: $content)
-                }
-                
-                if case .failure(let reason) = viewModel.composeState {
-                    Text(reason)
-                        .foregroundColor(.red)
-                }
-                
-                if case .loading = viewModel.composeState {
-                    ProgressView("Getting things ready..")
-                        .progressViewStyle(.circular)
-                        .tint(.blue)
-                        .controlSize(.large)
+                } else {
+                    FromView(name: platformName, fromAccount: $account)
+                    
+                    switch(self.catId!) {
+                    case V1ContentCategories.email:
+                        EmailComposeView(
+                            to: $to,
+                            subject: $subject,
+                            content: $content
+                        )
+                    case V1ContentCategories.message:
+                        MessagingComposeView(
+                            to: $to,
+                            content: $content
+                        )
+                    case V1ContentCategories.text:
+                        TextComposeView(content: $content)
+                    }
+                    
+                    if case .failure(let reason) = viewModel.composeState {
+                        Text(reason)
+                            .foregroundColor(.red)
+                    }
+                    
+                    if case .loading = viewModel.composeState {
+                        ProgressView("Getting things ready..")
+                            .progressViewStyle(.circular)
+                            .tint(.blue)
+                            .controlSize(.large)
+                    }
                 }
             }
-            .navigationTitle("Compose manager")
+            .navigationTitle(platformDisplayName + " " + String(localized: "compose"))
             .sheet( item: $viewModel.payload, onDismiss: { viewModel.payload = nil }) { item in
                 if !item.isEmpty {
                     VStack {
@@ -132,15 +209,26 @@ struct ComposerManagerView: View {
                 Button(action: {
                     Task {
                         do {
-                            try await viewModel.publish(
-                                catId: catId,
-                                body: content,
-                                platformName: account.platformName,
-                                tokenId: account.id,
-                                to: to,
-                                subject: subject,
-                                into: modelContext.container
-                            )
+                            if account != nil && catId != nil {
+                                try await viewModel.publishOnlineFirst(
+                                    catId: catId!,
+                                    body: content,
+                                    platformName: account!.platformName,
+                                    tokenId: account!.id,
+                                    to: to,
+                                    subject: subject,
+                                    into: modelContext.container
+                                )
+                            } else {
+                                try await viewModel.publishOfflineFirst(
+                                    platformName: "rmail",
+                                    catId: V1ContentCategories.email,
+                                    body: content,
+                                    to: to,
+                                    subject: subject,
+                                    into: modelContext.container
+                                )
+                            }
                         } catch {
                             print(error)
                         }
@@ -157,4 +245,8 @@ struct ComposerManagerView: View {
 
 #Preview {
     ComposerOnlineSender(payload: "Sample payload")
+}
+
+#Preview {
+    FromViewComponent(accountName: "person@relaysms.me", platformName: "relaysms")
 }

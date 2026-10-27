@@ -17,7 +17,7 @@ class TransportImpl {
         body: String,
         to: String?,
         subject: String?,
-        encrypt: ([UInt8]) throws -> (cipherText: Data, keyId: UInt8, tokenId: UInt32),
+        encrypt: ([UInt8]) throws -> (cipherText: Data, keyId: UInt8, tokenId: UInt32?),
         transmissionCallback: (String) -> (),
     ) throws -> V1ContentsContainer {
         let contentContainer = V1ContentsContainer(

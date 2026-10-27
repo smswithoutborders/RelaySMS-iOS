@@ -17,6 +17,10 @@ struct EmailComposeView: View {
             LabeledContent {
                 TextField("", text: $to)
                     .textFieldStyle(.roundedBorder)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled(true)
             } label: {
                 Text("To:")
             }
