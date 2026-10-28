@@ -34,10 +34,18 @@ struct MainView: View {
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
+    @AppStorage("isOnboarded") private var isOnboarded = false
+    
     var body: some Scene {
         WindowGroup {
             Group {
-                MainView()
+                if !isOnboarded {
+                    OnboardingView(onboardingCompletedCallback: {
+//                        isOnboarded = true
+                    })
+                } else {
+                    MainView()
+                }
             }
         }
         .modelContainer(for: [
