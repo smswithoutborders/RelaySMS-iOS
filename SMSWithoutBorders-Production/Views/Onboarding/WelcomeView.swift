@@ -9,11 +9,54 @@ import SwiftUI
 
 enum OnboardingPage: String, Identifiable, CaseIterable {
     case welcome
+    case privacy
     case saveAccess
 
     var id: String { rawValue }
 
     static var first: Self = .welcome
+}
+
+struct PrivacyView: View {
+    
+    @State var onComplete: () -> Void
+    @State var onPreviousClick: () -> Void
+    var body: some View {
+        VStack(alignment: .leading) {
+            Button(String(localized: "Previous")) {
+                onPreviousClick()
+            }
+            .padding()
+            
+            VStack {
+                Spacer()
+                VStack(spacing: 20) {
+                    Image("6")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+
+                    
+                    Text(String(localized: "RelaysSMS no longer asks you to login nor register because your privacy matters"))
+                        .multilineTextAlignment(.center)
+                    
+                }
+                
+                Spacer()
+                
+                Button(action: onComplete) {
+                    Text(String(localized: "Awesome!"))
+                        .foregroundColor(.white)
+                        .padding() // 1. Add inner padding first
+                        .frame(maxWidth: .infinity) // 2. Stretch to full width
+                }
+                .buttonStyle(.borderedProminent)
+                
+            }
+            .padding(.bottom, 20)
+        }
+        .padding()
+    }
 }
 
 struct SaveAccessView: View {
@@ -59,6 +102,7 @@ struct SaveAccessView: View {
 }
 
 struct WelcomeView: View {
+    @Environment(\.openURL) var openURL
     
     @State var onComplete: () -> Void
     var body: some View {
@@ -98,9 +142,11 @@ struct WelcomeView: View {
             .padding(.bottom, 20)
 
             Button(String(localized: "Read our privacy policy")) {
-                
+                if let url = URL(string: "https://smswithoutborders.com/privacy-policy") {
+                    openURL(url) // Opens in the default system browser
+                }
             }
-            .font(.caption)
+            .font(.caption2)
         }
         .padding()
     }
@@ -120,11 +166,20 @@ struct OnboardingView: View {
                         switch page {
                         case .welcome:
                             WelcomeView(onComplete: welcomeComplete)
+                        case .privacy:
+                            PrivacyView(
+                                onComplete: {
+                                    scrollToPage(.saveAccess)
+                                },
+                                onPreviousClick: {
+                                    scrollToPage(.welcome)
+                                }
+                            )
                         case .saveAccess:
                             SaveAccessView(
                                 onComplete: onboardingCompletedCallback,
                                 onPreviousClick: {
-                                    scrollToPage(.welcome)
+                                    scrollToPage(.privacy)
                                 }
                             )
                         }
@@ -159,6 +214,10 @@ struct OnboardingView: View {
 
 #Preview {
     WelcomeView(onComplete: {})
+}
+
+#Preview {
+    PrivacyView(onComplete: {}, onPreviousClick: {})
 }
 
 #Preview {

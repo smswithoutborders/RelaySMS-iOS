@@ -13,14 +13,22 @@ struct SupportedPlatformView: View {
     @State var onClick: () -> Void
     
     var body: some View {
-        VStack {
-            Button(action: {
-                onClick()
-            }) {
-                Text(displayName)
+        VStack(alignment: .leading) {
+            HStack {
+                Image(systemName: "person.crop.circle.fill")
+                    .font(.system(size: 44))
+                    .foregroundColor(.blue)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(displayName)
+                        .font(.headline)
+                    Text("Premium Member")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
+            .padding(.vertical, 4)
         }
-        .padding()
     }
 }
 
@@ -136,129 +144,137 @@ struct SupportedPlatformsView: View {
     @StateObject private var oauthManager = OAuthManager()
 
     var body: some View {
-        VStack {
-            List {
-                ForEach(supportedPlatforms) { sp in
-                    SupportedPlatformView(
-                        displayName: sp.displayName,
-                        onClick: {
-                            selectedPlatform = sp
-                        }
-                    )
-                }
-            }
-            if case .loading = viewModel.fetchState {
-                ProgressView()
-                    .progressViewStyle(LinearProgressViewStyle())
-                    .padding()
-            }
-        }
-        .sheet(isPresented: $showAccountStats, onDismiss: {
-            showAccountStats = false
-            selectedAccount = nil
-        }) {
-            if selectedAccount != nil {
-                AccountStatsView(account: selectedAccount!)
-                    .presentationDetents([.medium, .large])
-            }
-        }
-        .sheet(item: $selectedPlatform, onDismiss: {
-            viewModel.setIsStoring(isStoring: false)
-            viewModel.setPnbaState(state: .idle)
-            viewModel.setState(.idle)
-
-            pnbaCode = ""
-            pnbaPhoneNumber = ""
-            pnbaPassword = ""
-            
-            oauthManager.reset()
-            selectedPlatform = nil
-        }) { platform in
-            Group {
-                if viewModel.isStoring {
-                    ProgressView(String(localized: "Getting things ready.."))
-                        .progressViewStyle(.circular)
-                        .tint(.blue)
-                        .controlSize(.large)
-                        .presentationDetents([.medium])
-                } else if viewModel.pnbaState != .idle {
-                    PnbaComponentsView(
-                        phoneNumber: $pnbaPhoneNumber,
-                        code: $pnbaCode,
-                        password: $pnbaPassword,
-                        displayName: platform.displayName,
-                        showCode: viewModel.pnbaState == .authCodeRequested || viewModel.pnbaState == .passwordRequested,
-                        showPassword: viewModel.pnbaState == .passwordRequested,
-                        errorMessage: viewModel.pnbaStateFailure,
-                        onClick: {
-                            Task {
-                                await pnbaRequested()
+        NavigationStack {
+            VStack {
+                Form {
+                    Section {
+                        List {
+                            ForEach(supportedPlatforms) { sp in
+                                SupportedPlatformView(
+                                    displayName: sp.displayName,
+                                    onClick: {
+                                        selectedPlatform = sp
+                                    }
+                                )
                             }
                         }
-                    )
-                    .presentationDetents([.medium])
-                } else if case .revoking = viewModel.fetchState {
-                    RevokeConfirmationView(
-                        account: selectedAccount!.account,
-                        onCancelClick: {
-                            selectedPlatform = nil
-                        },
-                        onYesClicked: {
-                            Task {
-                                await revoke()
-                            }
-                        }
-                    )
-                    .presentationDetents([.medium])
-                }
-                else {
-                    PlatformSelectedView(
-                        displayName: platform.displayName,
-                        name: platform.name,
-                        onAddNewClick: {
-                            Task {
-                                if platform.catId == V1PayloadsSupportedProtocols.pnba.rawValue {
-                                    await pnbaRequested()
-                                } else {
-                                    await oauthRequested()
-                                }
-                                platformSelected = false
-                            }
-                        },
-                        onAccountClicked: { account in
-                            selectedAccount = account
-                            showAccountStats = true
-                        },
-                        onClose: { dismiss() },
-                        onRevoke: { account in
-                            selectedAccount = account
-                            viewModel.setState(.revoking)
-                        },
-                    )
-                    .presentationDetents([.medium, .large])
-                    .task {
-                        selectedAccount = nil
                     }
                 }
+                if case .loading = viewModel.fetchState {
+                    ProgressView()
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .padding()
+                }
             }
-            .padding()
-        }
-        .task {
-            await viewModel.fetch(into: modelContext.container)
-        }
-        .task(id: oauthManager.isCancelled) {
-            if oauthManager.isCancelled {
-                dismiss()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(String(localized: "Supported platforms"))
+            .sheet(isPresented: $showAccountStats, onDismiss: {
+                showAccountStats = false
+                selectedAccount = nil
+            }) {
+                if selectedAccount != nil {
+                    AccountStatsView(account: selectedAccount!)
+                        .presentationDetents([.medium, .large])
+                }
             }
-        }
-        .task(id: oauthManager.isAuthenticated) {
-            if oauthManager.isAuthenticated {
-                dismiss()
+            .sheet(item: $selectedPlatform, onDismiss: {
+                viewModel.setIsStoring(isStoring: false)
+                viewModel.setPnbaState(state: .idle)
+                viewModel.setState(.idle)
+                
+                pnbaCode = ""
+                pnbaPhoneNumber = ""
+                pnbaPassword = ""
+                
+                oauthManager.reset()
+                selectedPlatform = nil
+            }) { platform in
+                Group {
+                    if viewModel.isStoring {
+                        ProgressView(String(localized: "Getting things ready.."))
+                            .progressViewStyle(.circular)
+                            .tint(.blue)
+                            .controlSize(.large)
+                            .presentationDetents([.medium])
+                    } else if viewModel.pnbaState != .idle {
+                        PnbaComponentsView(
+                            phoneNumber: $pnbaPhoneNumber,
+                            code: $pnbaCode,
+                            password: $pnbaPassword,
+                            displayName: platform.displayName,
+                            showCode: viewModel.pnbaState == .authCodeRequested || viewModel.pnbaState == .passwordRequested,
+                            showPassword: viewModel.pnbaState == .passwordRequested,
+                            errorMessage: viewModel.pnbaStateFailure,
+                            onClick: {
+                                Task {
+                                    await pnbaRequested()
+                                }
+                            }
+                        )
+                        .presentationDetents([.medium])
+                    } else if case .revoking = viewModel.fetchState {
+                        RevokeConfirmationView(
+                            account: selectedAccount!.account,
+                            onCancelClick: {
+                                selectedPlatform = nil
+                            },
+                            onYesClicked: {
+                                Task {
+                                    await revoke()
+                                }
+                            }
+                        )
+                        .presentationDetents([.medium])
+                    }
+                    else {
+                        PlatformSelectedView(
+                            displayName: platform.displayName,
+                            name: platform.name,
+                            onAddNewClick: {
+                                Task {
+                                    if platform.catId == V1PayloadsSupportedProtocols.pnba.rawValue {
+                                        await pnbaRequested()
+                                    } else {
+                                        await oauthRequested()
+                                    }
+                                    platformSelected = false
+                                }
+                            },
+                            onAccountClicked: { account in
+                                selectedAccount = account
+                                showAccountStats = true
+                            },
+                            onClose: { dismiss() },
+                            onRevoke: { account in
+                                selectedAccount = account
+                                viewModel.setState(.revoking)
+                            },
+                        )
+                        .presentationDetents([.medium, .large])
+                        .task {
+                            selectedAccount = nil
+                        }
+                    }
+                }
+                .padding()
             }
-        }
-        .onChange(of: viewModel.pnbaState) { _, newState in
-            if case .complete = newState {
-                dismiss()
+            .task {
+                await viewModel.fetch(into: modelContext.container)
+            }
+            .task(id: oauthManager.isCancelled) {
+                if oauthManager.isCancelled {
+                    dismiss()
+                }
+            }
+            .task(id: oauthManager.isAuthenticated) {
+                if oauthManager.isAuthenticated {
+                    dismiss()
+                }
+            }
+            .onChange(of: viewModel.pnbaState) { _, newState in
+                if case .complete = newState {
+                    dismiss()
+                }
             }
         }
     }

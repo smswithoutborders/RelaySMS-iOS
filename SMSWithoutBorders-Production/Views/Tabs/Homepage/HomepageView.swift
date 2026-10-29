@@ -52,7 +52,7 @@ struct PlatformsPresentedView: View {
     }
 
     var body: some View {
-        VStack() {
+        VStack(spacing: 20) {
             HStack {
                 Text(String(localized: "Send with..."))
                     .font(.title2)
@@ -79,16 +79,24 @@ struct PlatformsPresentedView: View {
             
             Text(String(localized: "Always available - No setup required."))
             Button(action: onOfflineClick) {
-                HStack {
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 40)
-                    
-                    Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me. You cannot get replies here."))
+                Form {
+                    Section {
+                        HStack {
+                            Image(systemName: "person.crop.circle.fill")
+                                .font(.system(size: 44))
+                                .foregroundColor(.primary)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me."))
+                                    .font(.subheadline)
+                                Text(String(localized: "You cannot get replies here."))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
                 }
-                .background(Color(.secondary))
-                .foregroundColor(Color(.onSecondary))
             }
         }
         .padding()
@@ -163,69 +171,82 @@ struct HomepageView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("RelaySMS")
-                .font(.title2)
-        }
-        ZStack {
-            Color.clear
-                .ignoresSafeArea()
-            List {
-                ForEach(contents) { content in
-                    PayloadViews(contents: content)
-                        .padding()
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets())
-                        .frame(maxWidth: .infinity, alignment: .leading)
+        NavigationStack {
+            ZStack {
+                Color.clear
+                    .ignoresSafeArea()
+                List {
+                    ForEach(contents) { content in
+                        PayloadViews(contents: content)
+                            .padding()
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .listStyle(.plain)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("RelaySMS")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {}) {
+                        Image(systemName: "gearshape.circle")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
-            .scrollContentBackground(.hidden)
-            .listStyle(.plain)
-        }
-        .overlay(alignment: .bottomTrailing) {
-            Button(action: {
-                isPlatformsPresented.toggle()
-            }) {
-                Image(systemName: "square.and.pencil")
-                    .font(.title)
-                    .padding()
-                    .background(Color(.primary))
-                    .foregroundColor(Color(.onPrimary))
-                    .clipShape(Circle())
-                    .shadow(radius: 4)
+            .overlay(alignment: .bottomTrailing) {
+                Button(action: {
+                    isPlatformsPresented.toggle()
+                }) {
+                    Image(systemName: "square.and.pencil")
+                        .font(.title)
+                        .padding()
+                        .background(Color(.primary))
+                        .foregroundColor(Color(.onPrimary))
+                        .clipShape(Circle())
+                        .shadow(radius: 4)
+                }
+                .padding() // Adds space from screen edges
             }
-            .padding() // Adds space from screen edges
-        }
-        .navigationDestination(isPresented: $isOfflinePresented) {
-            ComposerManagerView(
-                platformName: "rmail",
-                platformDisplayName: "R-Mail"
-            )
-        }
-        .navigationDestination(item: $selectedPlatform) { platform in
-            ComposerManagerView(
-                platformName: platform.name,
-                platformDisplayName: platform.displayName,
-                catId: getContentCategories(platform.catId)
-            )
-        }
-        .sheet(isPresented: $isPlatformsPresented) {
-            Group {
-                PlatformsPresentedView(
-                    onClick: { platform in
-                        isPlatformsPresented.toggle()
-                        selectedPlatform = platform
-                    },
-                    onOfflineClick: {
-                        isPlatformsPresented = false
-                        isOfflinePresented = true
-                    }
+            .navigationDestination(isPresented: $isOfflinePresented) {
+                ComposerManagerView(
+                    platformName: "rmail",
+                    platformDisplayName: "R-Mail"
                 )
             }
-            .presentationDetents([.medium, .large])
+            .navigationDestination(item: $selectedPlatform) { platform in
+                ComposerManagerView(
+                    platformName: platform.name,
+                    platformDisplayName: platform.displayName,
+                    catId: getContentCategories(platform.catId)
+                )
+            }
+            .sheet(isPresented: $isPlatformsPresented) {
+                Group {
+                    PlatformsPresentedView(
+                        onClick: { platform in
+                            isPlatformsPresented.toggle()
+                            selectedPlatform = platform
+                        },
+                        onOfflineClick: {
+                            isPlatformsPresented = false
+                            isOfflinePresented = true
+                        }
+                    )
+                }
+                .presentationDetents([.medium, .large])
+            }
+            .padding()
+            
         }
-        .padding()
-    
     }
     
     private func getContentCategories(_ catId: Int) -> V1ContentCategories?{

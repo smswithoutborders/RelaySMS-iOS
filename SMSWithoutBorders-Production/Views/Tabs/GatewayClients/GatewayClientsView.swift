@@ -25,24 +25,42 @@ struct GatewayClientsView: View {
     @State private var viewModel = GatewayClientsViewModel()
 
     var body: some View {
-        VStack {
-            List {
-                ForEach(gatewayClients) { gc in
-                    GatewayClient(msisdn: gc.msisdn)
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(gatewayClients) { gc in
+                        GatewayClient(msisdn: gc.msisdn)
+                    }
+                }
+                if case .loading = viewModel.fetchState {
+                    ProgressView()
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .padding()
+                }
+                else if case .failure(let reason) = viewModel.fetchState {
+                    Text("Error: \(reason)")
+                        .foregroundColor(.red)
                 }
             }
-            if case .loading = viewModel.fetchState {
-                ProgressView()
-                    .progressViewStyle(LinearProgressViewStyle())
-                    .padding()
+            .task {
+                await viewModel.fetch(into: modelContext.container)
             }
-            else if case .failure(let reason) = viewModel.fetchState {
-                Text("Error: \(reason)")
-                    .foregroundColor(.red)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(String(localized: "Routing Countries"))
+//                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {}) {
+                        Image(systemName: "plus.circle")
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
-        }
-        .task {
-            await viewModel.fetch(into: modelContext.container)
         }
     }
 }

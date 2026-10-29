@@ -12,19 +12,17 @@ import SwiftData
 
 struct MainView: View {
     var body: some View {
-        NavigationStack {
-            TabView {
-                Tab("Recent", systemImage: "house.circle") {
-                    HomepageView()
-                }
-                
-                Tab("Platforms", systemImage: "server.rack") {
-                    SupportedPlatformsView()
-                }
-                
-                Tab("Routing numbers", systemImage: "phone.arrow.up.right.circle") {
-                    GatewayClientsView()
-                }
+        TabView {
+            Tab(String(localized: "Recent"), systemImage: "house.circle") {
+                HomepageView()
+            }
+            
+            Tab(String(localized: "Platforms"), systemImage: "server.rack") {
+                SupportedPlatformsView()
+            }
+            
+            Tab(String(localized: "Routing numbers"), systemImage: "phone.arrow.up.right.circle") {
+                GatewayClientsView()
             }
         }
     }
@@ -41,7 +39,7 @@ struct SMSWithoutBorders_ProductionApp: App {
             Group {
                 if !isOnboarded {
                     OnboardingView(onboardingCompletedCallback: {
-//                        isOnboarded = true
+                        isOnboarded = true
                     })
                 } else {
                     MainView()
