@@ -185,7 +185,7 @@ struct HomepageView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-                .listStyle(.plain)
+//                .listStyle(.plain)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -195,10 +195,34 @@ struct HomepageView: View {
                         .foregroundColor(.primary)
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}) {
-                        Image(systemName: "gearshape.circle")
-                            .foregroundColor(.secondary)
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    Button(action: {}) {
+//                        Image(systemName: "gearshape.circle")
+//                            .foregroundColor(.secondary)
+//                    }
+//                }
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(action: {
+                        }) {
+                            Label(String("Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                        }
+                        
+//                        Button(action: {
+//                            // Action for Option 2
+//                        }) {
+//                            Label("Share App", systemImage: "square.and.arrow.up")
+//                        }
+                        
+                        Divider() // Separator line
+                        
+                        Button(role: .destructive, action: {
+                        }) {
+                            Label(String(localized: "Delete All"), systemImage: "trash")
+                        }
+                    } label: {
+                        // The button icon or text that triggers the menu
+                        Image(systemName: "ellipsis.circle")
                     }
                 }
             }

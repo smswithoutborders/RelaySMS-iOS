@@ -196,6 +196,7 @@ struct ComposerManagerView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .navigationTitle(platformDisplayName + " " + String(localized: "compose"))
             .sheet( item: $viewModel.payload, onDismiss: { viewModel.payload = nil }) { item in
                 if !item.isEmpty {

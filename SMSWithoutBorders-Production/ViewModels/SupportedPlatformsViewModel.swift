@@ -41,7 +41,7 @@ class SupportedPlatformsViewModel {
 
     func fetch(into container: ModelContainer) async {
         fetchState = .loading
-        guard let url = URL(string: SupportedPlatforms.supportedUrl) else {
+        guard let url = URL(string: StaticVariables.SupportedPlatforms.supportedUrl) else {
             print("Invalid URL")
             return
         }

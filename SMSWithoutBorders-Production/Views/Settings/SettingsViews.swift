@@ -8,46 +8,36 @@
 import SwiftUI
 
 struct SettingsView: View {
-    // 1. Persistent State Management using AppStorage
-    @AppStorage("isDarkMode") private var isDarkMode = false
-    @AppStorage("notificationsEnabled") private var notificationsEnabled = true
-    @AppStorage("selectedTheme") private var selectedTheme = "Blue"
-    @AppStorage("username") private var username = "Apple Developer"
-    @AppStorage("syncOverWifiOnly") private var syncOverWifiOnly = false
-    
-    let themes = ["Blue", "Green", "Red", "Orange", "Dark"]
+    @State private var backupSelected: Bool = false
     
     var body: some View {
         NavigationStack {
             Form {
-                // MARK: - Profile Section
-                Section(header: Text("Account")) {
-                    HStack {
-                        Image(systemName: "person.crop.circle.fill")
-                            .font(.system(size: 44))
-                            .foregroundColor(.blue)
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            TextField("Username", text: $username)
-                                .font(.headline)
-                            Text("Premium Member")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
-                }
-                
+//                Section(header: Text("Account")) {
+//                    HStack {
+//                        Image(systemName: "person.crop.circle.fill")
+//                            .font(.system(size: 44))
+//                            .foregroundColor(.blue)
+//                        
+//                        VStack(alignment: .leading, spacing: 4) {
+//                            TextField("Username", text: $username)
+//                                .font(.headline)
+//                            Text("Premium Member")
+//                                .font(.caption)
+//                                .foregroundColor(.secondary)
+//                        }
+//                    }
+//                    .padding(.vertical, 4)
+//                }
+//                
+                // MARK: - Stored tokens
                 Section(header: Text(String(localized: "Stored tokens"))) {
                     Picker(
-                        selection: $selectedTheme,
+                        selection: $backupSelected,
                         label: Label(
                             String(localized: "Backups"),
-                            systemImage: ""
+                            systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90"
                         )) {
-//                        ForEach(themes, id: \.self) { theme in
-//                            Text(theme).tag(theme)
-//                        }
                     }
                     .pickerStyle(.navigationLink) // Pushes to a clean selection list sub-view
                 }
@@ -64,16 +54,16 @@ struct SettingsView: View {
 //                }
                 
                 // MARK: - App Info Section
-                Section(header: Text("About")) {
+                Section(header: Text(String(localized: "About"))) {
                     HStack {
-                        Label("Version", systemImage: "info.circle.fill")
+                        Label(String(localized: "Version"), systemImage: "info.circle.fill")
                         Spacer()
                         Text("1.0.0 (Build 42)")
                             .foregroundColor(.secondary)
                     }
                     
-                    Link(destination: URL(string: "https://example.com")!) {
-                        Label("Privacy Policy", systemImage: "lock.shield.fill")
+                    Link(destination: URL(string: StaticVariables.App.privacyPolicy)!) {
+                        Label(String(localized: "Privacy Policy"), systemImage: "lock.shield.fill")
                     }
                 }
             }

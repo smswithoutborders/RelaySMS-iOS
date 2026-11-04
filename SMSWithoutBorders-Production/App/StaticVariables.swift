@@ -58,4 +58,16 @@ class StaticVariables {
             return (domain: host, path: fullPath)
         }
     }
+    
+    class SupportedPlatforms {
+        #if DEBUG
+        static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/platforms"
+        #else
+        static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/platforms"
+        #endif
+    }
+    
+    class App {
+        static let privacyPolicy = "https://smswithoutborders.com/privacy-policy"
+    }
 }

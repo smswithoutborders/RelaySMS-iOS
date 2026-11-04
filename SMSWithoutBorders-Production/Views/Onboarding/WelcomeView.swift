@@ -142,7 +142,7 @@ struct WelcomeView: View {
             .padding(.bottom, 20)
 
             Button(String(localized: "Read our privacy policy")) {
-                if let url = URL(string: "https://smswithoutborders.com/privacy-policy") {
+                if let url = URL(string: StaticVariables.App.privacyPolicy) {
                     openURL(url) // Opens in the default system browser
                 }
             }
@@ -212,14 +212,14 @@ struct OnboardingView: View {
 
 }
 
-#Preview {
+#Preview("WelcomeView") {
     WelcomeView(onComplete: {})
 }
 
-#Preview {
+#Preview("PrivacyView") {
     PrivacyView(onComplete: {}, onPreviousClick: {})
 }
 
-#Preview {
+#Preview("SaveAccessView") {
     SaveAccessView(onComplete: {}, onPreviousClick: {})
 }

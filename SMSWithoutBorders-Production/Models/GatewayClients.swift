@@ -48,7 +48,6 @@ class GatewayClients {
     
     static func save(_ data: [GatewayClientsData], into container: ModelContainer) throws {
         let context = ModelContext(container)
-        context.autosaveEnabled = false
         
         data.forEach { item in
             let sp = GatewayClients(
@@ -67,7 +66,6 @@ class GatewayClients {
     
     static func save(_ data: [GatewayClients], into container: ModelContainer) throws {
         let context = ModelContext(container)
-        context.autosaveEnabled = false
         
         data.forEach { item in
             context.insert(item)
@@ -89,12 +87,6 @@ class GatewayClients {
             ),
             
             GatewayClients(
-                country: "Nigeria",
-                msisdn: "+2348131498393",
-                serviceProvider: "MTN Nigeria",
-            ),
-            
-            GatewayClients(
                 country: "Cameroon",
                 msisdn: "+237679466332",
                 serviceProvider: "MTN Cameroon",
@@ -108,7 +100,7 @@ class GatewayClients {
         ]
     }
     
-    static func getDefault(into container: ModelContainer) throws -> GatewayClients? {
+    static func getDefault(context: ModelContext) throws -> GatewayClients? {
         let predicate = #Predicate<GatewayClients> { gc in
             gc.isDefault == true
         }
@@ -116,31 +108,27 @@ class GatewayClients {
         descriptor.fetchLimit = 1
         
         do {
-            let context = ModelContext(container)
             return try context.fetch(descriptor).first
         } catch {
             throw error
         }
     }
     
-    func setDefault(into container: ModelContainer) throws {
+    func setDefault(into container: ModelContainer) throws -> GatewayClients{
         let context = ModelContext(container)
-        context.autosaveEnabled = false
-        
-        guard let defaultGc = try GatewayClients.getDefault(into: container) else {
-            throw GatewayClientErrors.noDefaultGatewayClientSet
+
+        if let defaultGc = try GatewayClients.getDefault(context: context), defaultGc !== self {
+            defaultGc.isDefault = false
         }
         
-        defaultGc.isDefault = false
         self.isDefault = true
         
-        context.insert(defaultGc)
-        context.insert(self)
-        
-        do {
-            try context.save()
-        } catch {
-            throw error
+        if self.modelContext == nil {
+            context.insert(self)
         }
+        
+        try context.save()
+        
+        return self
     }
 }

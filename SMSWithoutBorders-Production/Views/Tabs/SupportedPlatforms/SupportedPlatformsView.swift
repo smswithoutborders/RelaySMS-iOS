@@ -168,6 +168,20 @@ struct SupportedPlatformsView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String(localized: "Supported platforms"))
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Menu {
+                        Button(role: .destructive, action: {
+                            // TODO:
+                        }) {
+                            Label(String(localized: "Delete all tokens"), systemImage: "trash")
+                        }
+                    } label: {
+                        // The button icon or text that triggers the menu
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
             .sheet(isPresented: $showAccountStats, onDismiss: {
                 showAccountStats = false
                 selectedAccount = nil

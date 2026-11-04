@@ -23,12 +23,13 @@ class GatewayClientsViewModel {
     private(set) var defaultGatewayClient: GatewayClients?
     
     func fetch(into container: ModelContainer) async {
+        let hdv = GatewayClients.getHardCodedValues()
+        let context = ModelContext(container)
         do {
-            defaultGatewayClient = try GatewayClients.getDefault(into: container)
+            defaultGatewayClient = try GatewayClients.getDefault(context: context)
             if defaultGatewayClient == nil {
-                let hdv = GatewayClients.getHardCodedValues()
                 try GatewayClients.save(hdv, into: container)
-                defaultGatewayClient = try GatewayClients.getDefault(into: container)
+                defaultGatewayClient = try GatewayClients.getDefault(context: context)
             }
         } catch {
             print(error)
@@ -51,8 +52,10 @@ class GatewayClientsViewModel {
                 return
             }
 
-            let gatewayClients = try JSONDecoder().decode([GatewayClients.GatewayClientsData].self, from: data)
+            var gatewayClients = try JSONDecoder().decode([GatewayClients.GatewayClientsData].self, from: data)
             print("Successfully fetched \(gatewayClients.count) gateway clients.")
+            
+            gatewayClients = gatewayClients.filter{ gc in hdv.first { d in d.msisdn == gc.msisdn} == nil }
             
             try GatewayClients.save(gatewayClients, into: container)
             fetchState = .idle
@@ -65,8 +68,9 @@ class GatewayClientsViewModel {
     
     func setAsDefault(gatewayClient: GatewayClients, into container: ModelContainer) {
         do {
-            try gatewayClient.setDefault(into: container)
+            defaultGatewayClient = try gatewayClient.setDefault(into: container)
         } catch {
+            print(error)
             print("Failed to set Gateway client: \(gatewayClient)")
         }
     }

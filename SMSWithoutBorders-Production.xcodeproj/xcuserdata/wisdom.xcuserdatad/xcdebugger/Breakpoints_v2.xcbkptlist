@@ -62,8 +62,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "pnbaRequested()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "revoke()"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -398,8 +398,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -414,8 +414,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
