@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
+import SwiftData
 
 struct BackupInfoView: View {
     var onBackupClickedCallback: () -> Void
@@ -75,6 +77,7 @@ struct BackupInfoView: View {
 
 struct ChooseBackupFolderView: View {
     var onFolderClickedCallback: () -> Void
+    var onCancelCallback: () -> Void
     var body: some View {
         VStack {
             VStack {
@@ -105,7 +108,7 @@ struct ChooseBackupFolderView: View {
                 .buttonStyle(.borderedProminent)
                 .padding(.bottom, 10)
 
-                Button(action: {}) {
+                Button(action: onCancelCallback) {
                     Text("Cancel")
                         .fontWeight(.bold)
                         .padding()
@@ -188,12 +191,8 @@ struct RecoveryKeyView: View {
     var copyToClipboardCallback: () -> Void
     var saveToPasswordManagerCallback: () -> Void
     var saveManuallyCallback: () -> Void
-    
-    #if DEBUG
-    @State private var recoveryKey: String = "1234567890123456789012345678901234567890123456789012345678901234"
-    #else
-    @State private var recoveryKey: String = ""
-    #endif
+
+    @State var recoveryKey: String
 
     let columns = [
         GridItem(.flexible()),
@@ -292,9 +291,127 @@ struct RecoveryKeyView: View {
     }
 }
 
+
+enum BackupPage: String, Identifiable, CaseIterable {
+    case info
+    case recoveryKeyInfo
+    case recoveryKeyView
+
+    var id: String { rawValue }
+
+    static var first: Self = .info
+}
+
+private var folderContentType: UTType {
+    #if os(macOS)
+    return .directory
+    #else
+    return .folder
+    #endif
+}
+
 struct BackupView: View {
+    @Environment(\.modelContext) private var modelContext
+    
+    private let pages = BackupPage.allCases
+    @State private var position: ScrollPosition = .init(idType: BackupPage.ID.self)
+    @State private var backupFolderIsPresented: Bool = false
+    @State private var isShowingFolderPicker: Bool = false
+    
+    @State private var viewModel = BackupRestoreViewModel()
+
     var body: some View {
-        
+        ScrollView(.horizontal) {
+            HStack(spacing: 0) {
+                ForEach(pages) { page in
+                    Group {
+                        switch page {
+                        case .info:
+                            BackupInfoView(onBackupClickedCallback: {
+                                backupFolderIsPresented.toggle()
+                            })
+                            .sheet(
+                                isPresented: $backupFolderIsPresented,
+                                onDismiss: {
+                                    backupFolderIsPresented = false
+                                    isShowingFolderPicker = false
+                                }
+                            ) {
+                                if !viewModel.statusMessage.isEmpty {
+                                    Section(String(localized: "Status")) {
+                                        Text(viewModel.statusMessage)
+                                            .font(.footnote)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                                ChooseBackupFolderView(
+                                    onFolderClickedCallback: {
+                                        isShowingFolderPicker.toggle()
+                                    },
+                                    onCancelCallback: {
+                                        backupFolderIsPresented = false
+                                    }
+                                )
+                                .onChange(of: viewModel.recoveryKey) { _, newState in
+                                    if !newState.isEmpty {
+                                        scrollToPage(.recoveryKeyInfo)
+                                    }
+                                }
+                                .presentationDetents([.medium])
+                                .fileImporter(
+                                    isPresented: $isShowingFolderPicker,
+                                    allowedContentTypes: [folderContentType],
+                                    allowsMultipleSelection: false
+                                ) { result in
+                                    saveToSelectedFolder(result: result)
+                                }
+                            }
+                        case .recoveryKeyInfo:
+                            RecoveryKeyInfoView(onViewKeyClicked: {
+                                scrollToPage(.recoveryKeyView)
+                            })
+                        case .recoveryKeyView:
+                            RecoveryKeyView(
+                                copyToClipboardCallback: {},
+                                saveToPasswordManagerCallback: {},
+                                saveManuallyCallback: {},
+                                recoveryKey: viewModel.recoveryKey
+                            )
+                        }
+                    }
+                    .containerRelativeFrame([.horizontal])
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollPosition($position)
+        .scrollTargetBehavior(.paging)
+        .scrollIndicators(.hidden)
+        .scrollDisabled(true)
+        .onAppear {
+            position.scrollTo(id: BackupPage.first.id)
+        }
+    }
+    
+    private func scrollToPage(_ page: BackupPage) {
+        withAnimation {
+            position.scrollTo(id: page.id)
+        }
+    }
+    
+    private func saveToSelectedFolder(result: Result<[URL], Error>) {
+        switch result {
+        case .success(let urls):
+            Task {
+                await viewModel.backup(
+                    urls: urls,
+                    into: modelContext.container
+                )
+            }
+            
+        case .failure(let error):
+            print("Folder selection failed: \(error.localizedDescription)")
+        }
     }
 }
 
@@ -303,7 +420,10 @@ struct BackupView: View {
 }
 
 #Preview("ChooseBackupFolderView") {
-    ChooseBackupFolderView(onFolderClickedCallback: {})
+    ChooseBackupFolderView(
+        onFolderClickedCallback: {},
+        onCancelCallback: {}
+    )
 }
 
 #Preview("RecoveryKeyInfoView") {
@@ -311,9 +431,11 @@ struct BackupView: View {
 }
 
 #Preview("RecoveryKeyView") {
+    var recoveryKey: String = "1234567890123456789012345678901234567890123456789012345678901234"
     RecoveryKeyView(
         copyToClipboardCallback: {},
         saveToPasswordManagerCallback: {},
-        saveManuallyCallback: {}
+        saveManuallyCallback: {},
+        recoveryKey: recoveryKey
     )
 }

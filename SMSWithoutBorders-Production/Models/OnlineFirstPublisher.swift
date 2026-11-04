@@ -24,7 +24,7 @@ class OnlineFirstPublisher {
         into container: ModelContainer
     ) throws -> (Data, UInt8, UInt32)?{
         do {
-            guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+            guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
                 tokenId: tokenId,
                 withAttachment: withAttachment,
                 into: ModelContext(container)
@@ -33,14 +33,14 @@ class OnlineFirstPublisher {
             }
 
             let ciphertext = try v1PlatformPublisherEncrypt(
-                ecKid: keypair.privateKey.rawRepresentation,
+                ecKid: localKeypair.privateKey.rawRepresentation,
                 ssKidPk: authenticationPublicKey,
-                esKidPk: keypair.serverPublicKey,
-                keyId: UInt8(serverKeyId),
+                esKidPk: localKeypair.serverPublicKey,
+                keyId: localKeypair.keyId,
                 plaintext: plaintext
             )
             
-            return (ciphertext, UInt8(serverKeyId), keypair.tokenId)
+            return (ciphertext, localKeypair.keyId, localKeypair.tokenId)
         } catch {
             throw OnlineFirstPublisherError.failedToEncrypt
         }

@@ -16,6 +16,8 @@ class Keystore {
         case failedToFetchPrivateKeyDataForKeyId(keyId: Int)
         case failedToDeleteKeyFromKeystore
         case failedToQueryKeystore
+        case failedToGetAllKeys
+        case failedToDeserializeKey
     }
     
     public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
@@ -100,7 +102,7 @@ class Keystore {
             return nil
         }
         
-        try deletePrivateKeyFromKeychain()
+        let _ = try deletePrivateKeyFromKeychain()
         
         return data
     }
@@ -109,33 +111,34 @@ class Keystore {
         tokenId: UUID,
         withAttachment: Bool,
         into context: ModelContext
-    ) throws -> (LocalKeypair, Data, Int)? {
-        let descriptor = FetchDescriptor<LocalKeys>()
+    ) throws -> (LocalKeypair, Data)? {
         do {
-            let totalCount = try context.fetchCount(descriptor)
-            guard totalCount > 0 else { return nil }
+            let allTags = try getAllTags()
+            let randomOffset = Int.random(in: 0..<allTags.count)
             
-            let startRange = withAttachment ? 0 : 16
-            let endRange = withAttachment ? 16 : 256
-            let randomOffset = Int.random(in: startRange..<endRange)
-            
-            var randomDescriptor = FetchDescriptor<LocalKeys>()
-            randomDescriptor.fetchLimit = 1
-            randomDescriptor.fetchOffset = randomOffset
-            
-            guard let serverKeys = try context.fetch(randomDescriptor).first else {
-                throw KeystoreErrors.failedToFetchLocalKey
+//            var randomDescriptor = FetchDescriptor<LocalKeys>()
+//            randomDescriptor.fetchLimit = 1
+//            randomDescriptor.fetchOffset = randomOffset
+//            
+//            guard let serverKeys = try context.fetch(randomDescriptor).first else {
+//                throw KeystoreErrors.failedToFetchLocalKey
+//            }
+//            
+//            let serverKeyId = serverKeys.keyId
+//            let forKeyId = #Predicate<LocalKeys> { keys in
+//                keys.keyId == serverKeyId
+//            }
+//            
+//            let descriptor = FetchDescriptor<LocalKeys>( predicate: forKeyId )
+//            guard let localKey = try context.fetch(descriptor).first else {
+//                throw KeystoreErrors.failedToFetchLocalKey
+//            }
+            let keystore = Keystore(accountTag: allTags[randomOffset])
+            guard let keystoreData = try keystore.loadPrivateKeyFromKeychain() else {
+                throw KeystoreErrors.failedToFetchPrivateKeyDataForKeyId(keyId: randomOffset)
             }
             
-            let serverKeyId = serverKeys.keyId
-            let forKeyId = #Predicate<LocalKeys> { keys in
-                keys.keyId == serverKeyId
-            }
-            
-            let descriptor = FetchDescriptor<LocalKeys>( predicate: forKeyId )
-            guard let localKey = try context.fetch(descriptor).first else {
-                throw KeystoreErrors.failedToFetchLocalKey
-            }
+            let localKey = try LocalKeypair.deserialize(data: keystoreData)
             
             guard let staticKeys = try StaticKeys.getStaticKey(kid: Int(localKey.keyId)) else {
                 throw KeystoreErrors.failedToGetStaticKey
@@ -144,42 +147,88 @@ class Keystore {
                 throw KeystoreErrors.failedToGetStaticKey
             }
             
-            let accountTag = Keystore.getLocalKeysAccountTag(
-                keyId: UInt8(serverKeyId),
-                tokenId: tokenId,
-            )
-            let keystore = Keystore(accountTag: accountTag)
-            
-            do {
-                guard let rawKeyData = try keystore.loadPrivateKeyFromKeychain() else {
-                    throw KeystoreErrors.failedToFetchPrivateKeyDataForKeyId(keyId: serverKeyId)
-                }
-                
-                let keypair = try LocalKeypair.deserialize(data: rawKeyData)
-                return (keypair, authenticationPublicKey, serverKeyId)
-            } catch {
-                throw error
-            }
+            return (localKey, authenticationPublicKey)
         } catch {
             throw error
         }
+    }
+    
+    static func getAllTags() throws -> [String] {
+        var allItems: [String] = []
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecMatchLimit as String: kSecMatchLimitAll, // Return all matching items
+            kSecReturnAttributes as String: true,       // Return metadata (keys/accounts)
+            kSecReturnData as String: true              // Return the actual protected data
+        ]
+        
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        guard status == errSecSuccess, let items = result as? [[String: Any]] else {
+            throw KeystoreErrors.failedToGetAllKeys
+        }
+        
+        for item in items {
+            // Extract the Key name (Account attribute)
+            if let account = item[kSecAttrAccount as String] as? String {
+                allItems.append(account)
+            }
+        }
+        
+        return allItems
+    }
+    
+    static func getAllKeychainItems() throws -> [String: Data] {
+        var allItems: [String: Data] = [:]
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecMatchLimit as String: kSecMatchLimitAll, // Return all matching items
+            kSecReturnAttributes as String: true,       // Return metadata (keys/accounts)
+            kSecReturnData as String: true              // Return the actual protected data
+        ]
+        
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        guard status == errSecSuccess, let items = result as? [[String: Any]] else {
+            throw KeystoreErrors.failedToGetAllKeys
+        }
+        
+        for item in items {
+            // Extract the Key name (Account attribute)
+            if let account = item[kSecAttrAccount as String] as? String {
+                // Extract and decode the underlying Data value
+                guard let data = item[kSecValueData as String] as? Data else {
+                    throw KeystoreErrors.failedToFetchLocalKey
+                }
+                allItems[account] = data
+            }
+        }
+    
+        return allItems
     }
     
 }
 
 
 public class LocalKeypair {
+    let keyId: UInt8
     let privateKey: Curve25519.KeyAgreement.PrivateKey
     let serverPublicKey: Data
     let tokenId: UInt32
     let tokenHash: Data
     
     init(
+        keyId: UInt8,
         privateKey: Curve25519.KeyAgreement.PrivateKey,
         serverPublicKey: Data,
         tokenId: UInt32,
         tokenHash: Data,
     ) {
+        self.keyId = keyId
         self.privateKey = privateKey
         self.serverPublicKey = serverPublicKey
         self.tokenId = tokenId
@@ -187,22 +236,27 @@ public class LocalKeypair {
     }
     
     public func serialize() -> Data {
-        return privateKey.rawRepresentation
+        return Data([keyId])
+        + privateKey.rawRepresentation
         + serverPublicKey
         + withUnsafeBytes(of: tokenId) { Data($0) }
         + tokenHash
     }
     
     public static func deserialize(data: Data) throws -> LocalKeypair {
-        let rawPrivateKey = data.prefix(32)
-        let serverPublicKey = data.subdata(in: 32..<64)
-        let tokenId = data.subdata(in: 64..<68).withUnsafeBytes { pointer in
+        let keyId = data.prefix(1).withUnsafeBytes { pointer in
+            pointer.load(as: UInt8.self)
+        }
+        let rawPrivateKey = data.subdata(in: 1..<33)
+        let serverPublicKey = data.subdata(in: 33..<65)
+        let tokenId = data.subdata(in: 65..<69).withUnsafeBytes { pointer in
             pointer.load(as: UInt32.self)
         }
-        let tokenHash = Data(data[68...])
+        let tokenHash = Data(data[69...])
 
         let privateKey = try Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawPrivateKey)
         return LocalKeypair(
+            keyId: keyId,
             privateKey: privateKey,
             serverPublicKey: serverPublicKey,
             tokenId: tokenId,

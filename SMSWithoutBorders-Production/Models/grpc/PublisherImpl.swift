@@ -142,6 +142,7 @@ class PublisherImpl {
             }
             
             let localKeypair = LocalKeypair(
+                keyId: UInt8(keyId),
                 privateKey: privateKey,
                 serverPublicKey: serverPublicKey!.publicKey,
                 tokenId: tokenId,
@@ -152,13 +153,6 @@ class PublisherImpl {
                 .savePrivateKeyToKeychain(keyData: localKeypair)) {
                 throw PublisherImplError.failedToSaveLocalKey(keyId: keyId)
             }
-            
-
-            let localKeys = LocalKeys(
-                keyId: keyId,
-                tokenId: token.id
-            )
-            context.insert(localKeys)
         }
         print("Local keys stored: \(keys.count)")
 
@@ -320,7 +314,7 @@ class PublisherImpl {
     
     public func revokeOAuth2(tokenId: UUID) async throws {
         let context = ModelContext(self.container)
-        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
             tokenId: tokenId,
             withAttachment: false,
             into: context
@@ -334,11 +328,11 @@ class PublisherImpl {
             onRequest: {
                 do {
                     let ciphertext = try v1TokenEncryptClient(
-                        ecKid: keypair.privateKey.rawRepresentation,
+                        ecKid: localKeypair.privateKey.rawRepresentation,
                         ssKidPk: authenticationPublicKey,
-                        esKidPk: keypair.serverPublicKey,
-                        keyId: UInt8(serverKeyId),
-                        token: keypair.tokenHash
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
                     )
                     return ciphertext
                 } catch {
@@ -350,8 +344,8 @@ class PublisherImpl {
         let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
 
         let response = try await publisherStub.revokeOAuth2Token(.with{
-            $0.keyID = UInt32(serverKeyId)
-            $0.tokenID = keypair.tokenId
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
         })
         
         if !response.success {
@@ -359,9 +353,8 @@ class PublisherImpl {
             throw PublisherImplError.failedToRevokeOAuth2
         }
         
-        
         let tag = Keystore.getLocalKeysAccountTag(
-            keyId: UInt8(serverKeyId),
+            keyId: localKeypair.keyId,
             tokenId: tokenId
         )
         if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
@@ -375,7 +368,7 @@ class PublisherImpl {
     
     public func revokePnba(tokenId: UUID) async throws {
         let context = ModelContext(self.container)
-        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
             tokenId: tokenId,
             withAttachment: false,
             into: context
@@ -389,11 +382,11 @@ class PublisherImpl {
             onRequest: {
                 do {
                     let ciphertext = try v1TokenEncryptClient(
-                        ecKid: keypair.privateKey.rawRepresentation,
+                        ecKid: localKeypair.privateKey.rawRepresentation,
                         ssKidPk: authenticationPublicKey,
-                        esKidPk: keypair.serverPublicKey,
-                        keyId: UInt8(serverKeyId),
-                        token: keypair.tokenHash
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
                     )
                     return ciphertext
                 } catch {
@@ -405,8 +398,8 @@ class PublisherImpl {
         let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
 
         let response = try await publisherStub.revokePNBAToken(.with{
-            $0.keyID = UInt32(serverKeyId)
-            $0.tokenID = keypair.tokenId
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
         })
         
         if !response.success {
@@ -416,7 +409,7 @@ class PublisherImpl {
         
         
         let tag = Keystore.getLocalKeysAccountTag(
-            keyId: UInt8(serverKeyId),
+            keyId: localKeypair.keyId,
             tokenId: tokenId
         )
         if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
@@ -426,7 +419,7 @@ class PublisherImpl {
     
     func refreshKeys(account: Tokens) async throws {
         let context = ModelContext(self.container)
-        guard let (keypair, authenticationPublicKey, serverKeyId) = try Keystore.loadRandom(
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
             tokenId: account.id,
             withAttachment: false,
             into: context
@@ -440,11 +433,11 @@ class PublisherImpl {
             onRequest: {
                 do {
                     let ciphertext = try v1TokenEncryptClient(
-                        ecKid: keypair.privateKey.rawRepresentation,
+                        ecKid: localKeypair.privateKey.rawRepresentation,
                         ssKidPk: authenticationPublicKey,
-                        esKidPk: keypair.serverPublicKey,
-                        keyId: UInt8(serverKeyId),
-                        token: keypair.tokenHash
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
                     )
                     return ciphertext
                 } catch {
@@ -457,8 +450,8 @@ class PublisherImpl {
         let (publisherKeys, keys) = try getKeys()
         let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
         let response = try await publisherStub.syncKeys(.with{
-            $0.keyID = UInt32(serverKeyId)
-            $0.tokenID = keypair.tokenId
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
             $0.clientEphemeralPublicKeys = publisherKeys
         })
         
@@ -472,8 +465,8 @@ class PublisherImpl {
         try storeKeys(
             keys: keys,
             serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
-            tokenId: keypair.tokenId,
-            tokenHash: keypair.tokenHash,
+            tokenId: localKeypair.tokenId,
+            tokenHash: localKeypair.tokenHash,
             catId: v1ContentCategoryFromU8(value: UInt8(account.catId)),
             accountId: account.account,
             platformName: account.platformName,

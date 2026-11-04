@@ -79,23 +79,21 @@ struct PlatformsPresentedView: View {
             
             Text(String(localized: "Always available - No setup required."))
             Button(action: onOfflineClick) {
-                Form {
-                    Section {
-                        HStack {
-                            Image(systemName: "person.crop.circle.fill")
-                                .font(.system(size: 44))
-                                .foregroundColor(.primary)
-                            
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me."))
-                                    .font(.subheadline)
-                                Text(String(localized: "You cannot get replies here."))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
+                GroupBox {
+                    HStack {
+                        Image(systemName: "person.crop.circle.fill")
+                            .font(.system(size: 44))
+                            .foregroundColor(.primary)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me."))
+                                .font(.subheadline)
+                            Text(String(localized: "You cannot get replies here."))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
                         }
-                        .padding(.vertical, 4)
                     }
+                    .padding(.vertical, 4)
                 }
             }
         }
@@ -148,6 +146,7 @@ private struct PayloadViews: View {
 struct HomepageView: View {
     @State private var isPlatformsPresented = false
     @State private var isOfflinePresented = false
+    @State private var isBackupPresented = false
     @State private var selectedPlatform: SupportedPlatforms? = nil
     
     @Query(sort: \Payloads.date, order: .reverse)
@@ -195,24 +194,13 @@ struct HomepageView: View {
                         .foregroundColor(.primary)
                 }
                 
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    Button(action: {}) {
-//                        Image(systemName: "gearshape.circle")
-//                            .foregroundColor(.secondary)
-//                    }
-//                }
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button(action: {
+                            isBackupPresented.toggle()
                         }) {
                             Label(String("Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                         }
-                        
-//                        Button(action: {
-//                            // Action for Option 2
-//                        }) {
-//                            Label("Share App", systemImage: "square.and.arrow.up")
-//                        }
                         
                         Divider() // Separator line
                         
@@ -239,6 +227,9 @@ struct HomepageView: View {
                         .shadow(radius: 4)
                 }
                 .padding() // Adds space from screen edges
+            }
+            .navigationDestination(isPresented: $isBackupPresented) {
+                BackupView()
             }
             .navigationDestination(isPresented: $isOfflinePresented) {
                 ComposerManagerView(
@@ -283,7 +274,7 @@ struct HomepageView: View {
     }
 }
 
-#Preview {
+#Preview("PayloadViews") {
     let content = Contents(
         to: "developers@afkanerd.com",
         subject: "meeting reminder",
@@ -293,18 +284,18 @@ struct HomepageView: View {
     PayloadViews(contents: content)
 }
 
-#Preview {
+#Preview("HomepageView") {
     HomepageView()
 }
 
-#Preview {
+#Preview("PlatformsPresentedView") {
     PlatformsPresentedView(
         onClick: { _ in },
         onOfflineClick: {}
     )
 }
 
-#Preview {
+#Preview("PlatformView") {
     PlatformView(
         displayName: "Bluesky"
     )
