@@ -204,73 +204,74 @@ struct RecoveryKeyView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            VStack {
-                Image(systemName: "lock.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(.primary)
-                    .padding()
+            ScrollView {
+                VStack {
+                    Image(systemName: "lock.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(.primary)
+                        .padding()
+                    
+                    Text(String(localized: "Save Your Recovery Key"))
+                        .font(.title)
+                        .padding()
+                    
+                    Text(String(localized: "This key is required to recover your account and data. Store this key somewhere safe. If you lose it, you won't be able to recover your account."))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                    
+                }
+                .padding()
                 
-                Text(String(localized: "Save Your Recovery Key"))
-                    .font(.title)
-                    .padding()
-                
-                Text(String(localized: "This key is required to recover your account and data. Store this key somewhere safe. If you lose it, you won't be able to recover your account."))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
-                
-            }
-            .padding()
-            
 
-            VStack {
-                GroupBox {
-                    VStack {
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 8) {
-                                ForEach(Array(chunkByFours(recoveryKey).enumerated()), id: \.offset) { index, chunk in
-                                    VStack(spacing: 2) {
-                                        Text(chunk)
-                                            .font(.system(.body, design: .monospaced))
-                                            .padding(6)
-                                            .frame(maxWidth: .infinity)
-                                            .cornerRadius(6)
+                VStack {
+                    GroupBox {
+                        VStack {
+                            ScrollView {
+                                LazyVGrid(columns: columns, spacing: 8) {
+                                    ForEach(Array(chunkByFours(recoveryKey).enumerated()), id: \.offset) { index, chunk in
+                                        VStack(spacing: 2) {
+                                            Text(chunk)
+                                                .font(.system(.body, design: .monospaced))
+                                                .padding(6)
+                                                .frame(maxWidth: .infinity)
+                                                .cornerRadius(6)
+                                        }
                                     }
                                 }
                             }
+                            .frame(maxHeight: 155)
                         }
-                        .frame(maxHeight: 155)
                     }
+                    
+                    Button(action: copyToClipboardCallback) {
+                        Text(String(localized: "Copy to clipboard"))
+                            .multilineTextAlignment(.center)
+                    }
+                    .buttonStyle(.bordered)
+                    .padding()
                 }
+                Spacer()
                 
-                Button(action: copyToClipboardCallback) {
-                    Text(String(localized: "Copy to clipboard"))
-                        .multilineTextAlignment(.center)
+                VStack {
+                    Button(action: saveToPasswordManagerCallback ) {
+                        Text(String(localized: "Save to Password Manager"))
+                            .fontWeight(.bold)
+                            .padding(.all, 10)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button(action: saveToPasswordManagerCallback ) {
+                        Text(String(localized: "Continue"))
+                            .padding(.all, 10)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-                .buttonStyle(.bordered)
                 .padding()
             }
-            Spacer()
-            
-            VStack {
-                Button(action: saveToPasswordManagerCallback ) {
-                    Text(String(localized: "Save to Password Manager"))
-                        .fontWeight(.bold)
-                        .padding(.all, 10)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                
-                Button(action: saveToPasswordManagerCallback ) {
-                    Text(String(localized: "Continue"))
-                        .fontWeight(.bold)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            .padding()
         }
         .padding()
     }

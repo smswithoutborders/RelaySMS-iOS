@@ -51,7 +51,7 @@ struct EmailComposeView: View {
                 .stroke(Color.gray.opacity(0.3), lineWidth: 1)
         )
         
-        // 3. Content TextEditor Field
+        // MARK: 3. Content TextEditor Field
         ZStack(alignment: .topLeading) {
             TextEditor(text: $content)
                 .textInputAutocapitalization(.sentences)
