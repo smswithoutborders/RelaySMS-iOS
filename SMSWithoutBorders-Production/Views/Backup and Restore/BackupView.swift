@@ -190,9 +190,9 @@ struct RecoveryKeyInfoView: View {
 struct RecoveryKeyView: View {
     var copyToClipboardCallback: () -> Void
     var saveToPasswordManagerCallback: () -> Void
-    var saveManuallyCallback: () -> Void
-
-    @Binding var recoveryKey: String
+    var saveManuallyCallback: (() -> Void)?
+    
+    @State private var viewModel = BackupRestoreViewModel()
 
     let columns = [
         GridItem(.flexible()),
@@ -229,7 +229,7 @@ struct RecoveryKeyView: View {
                         VStack {
                             ScrollView {
                                 LazyVGrid(columns: columns, spacing: 8) {
-                                    ForEach(Array(chunkByFours(recoveryKey).enumerated()), id: \.offset) { index, chunk in
+                                    ForEach(Array(chunkByFours(viewModel.viewRecoveryKey()).enumerated()), id: \.offset) { index, chunk in
                                         VStack(spacing: 2) {
                                             Text(chunk)
                                                 .font(.system(.body, design: .monospaced))
@@ -254,20 +254,23 @@ struct RecoveryKeyView: View {
                 Spacer()
                 
                 VStack {
-                    Button(action: saveToPasswordManagerCallback ) {
-                        Text(String(localized: "Save to Password Manager"))
-                            .fontWeight(.bold)
-                            .padding(.all, 10)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
+//                    Button(action: saveToPasswordManagerCallback ) {
+//                        Text(String(localized: "Save to Password Manager"))
+//                            .fontWeight(.bold)
+//                            .padding(.all, 10)
+//                            .frame(maxWidth: .infinity)
+//                    }
+//                    .buttonStyle(.borderedProminent)
                     
-                    Button(action: saveManuallyCallback ) {
-                        Text(String(localized: "Continue"))
-                            .padding(.all, 10)
-                            .frame(maxWidth: .infinity)
+                    if saveManuallyCallback != nil {
+                        Button(action: saveManuallyCallback! ) {
+                            Text(String(localized: "Continue"))
+                                .fontWeight(.bold)
+                                .padding(.all, 10)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
                 .padding()
             }
@@ -311,6 +314,8 @@ private var folderContentType: UTType {
 }
 
 struct BackupView: View {
+    @AppStorage("backupFilenamePrefix") private var backupFilename: String?
+    @AppStorage("lastBackupDate") private var lastBackupDate: Date?
     @Environment(\.modelContext) private var modelContext
     
     private let pages = BackupPage.allCases
@@ -374,10 +379,11 @@ struct BackupView: View {
                             })
                         case .recoveryKeyView:
                             RecoveryKeyView(
-                                copyToClipboardCallback: {},
+                                copyToClipboardCallback: {
+                                    UIPasteboard.general.string = viewModel.recoveryKey
+                                },
                                 saveToPasswordManagerCallback: {},
-                                saveManuallyCallback: {},
-                                recoveryKey: $viewModel.recoveryKey
+                                saveManuallyCallback: onContinueCallback,
                             )
                         }
                     }
@@ -405,10 +411,19 @@ struct BackupView: View {
         switch result {
         case .success(let urls):
             Task {
-                await viewModel.backup(
-                    urls: urls,
+                guard let url = urls.first else {
+                    return
+                }
+                
+                guard let (name, date) = await viewModel.backup(
+                    url,
                     into: modelContext.container
-                )
+                ) else {
+                    // TODO: delete persisted data
+                    return
+                }
+                backupFilename = name
+                lastBackupDate = date
             }
             
         case .failure(let error):
@@ -438,6 +453,5 @@ struct BackupView: View {
         copyToClipboardCallback: {},
         saveToPasswordManagerCallback: {},
         saveManuallyCallback: {},
-        recoveryKey: $recoveryKey
     )
 }

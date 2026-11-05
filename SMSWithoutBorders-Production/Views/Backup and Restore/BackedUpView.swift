@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct BackedUpView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @AppStorage("backupFilenamePrefix") private var backupFilename: String?
+    @AppStorage("lastBackupDate") private var lastBackupDate: Date?
+    
     @State private var lastBackup: String = ""
+
     @State private var viewRecoveryKeySelected: Bool = false
+    @State private var deleteBackupSelected: Bool = false
+    @State private var showDeleteAlert: Bool = false
+
+    @State private var viewModel = BackupRestoreViewModel()
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -30,38 +41,91 @@ struct BackedUpView: View {
                         HStack {
                             Label(String(localized: "Last Backup"), systemImage: "")
                             Spacer()
-                            Text(lastBackup)
+                            if lastBackupDate != nil {
+                                Text(formattedDateString(from: lastBackupDate ?? Date()))
                                 .foregroundColor(.secondary)
+                            }
                         }
                         
                         
-                        Picker(
-                            selection: $viewRecoveryKeySelected,
-                            label: Label(
-                                String(localized: "View Recovery Key"),
-                                systemImage: ""
-                            )) {
+                        HStack {
+                            Label(String(localized: "View Recovery Key"), systemImage: "")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
+                            
                         }
-                        .pickerStyle(.navigationLink)
+                        .onTapGesture {
+                            viewRecoveryKeySelected = true
+                        }
                     }
                     
                     Section {
-                        HStack {
-                            Label(String(localized: "Turn Off & Delete Backup"), systemImage: "")
-                                .foregroundStyle(.red)
-                        }
+                        Text(String(localized: "Delete Backup"))
+                        .foregroundStyle(.red)
+                        .onTapGesture(perform: {
+                            showDeleteAlert = true
+                        })
+                        .frame(maxWidth: .infinity)
+                        .multilineTextAlignment(.leading)
                     } footer: {
                         Text(String(localized: "To restore a backup, install a new copy of RelaySMS. Open the app, tap \"Restore backup\"."))
                     }
-
                 }
+                .alert(String(localized: "Are you sure?"), isPresented: $showDeleteAlert) {
+                    Button(String(localized: "Delete"), role: .destructive) {
+                        if backupFilename != nil {
+                            viewModel.deleteBackup(named: backupFilename!)
+                            backupFilename = nil
+                            lastBackupDate = nil
+                            dismiss()
+                        }
+                    }
+                    Button(String(localized: "Cancel"), role: .cancel) { }
+                } message: {
+                    Text(String(localized: "This action cannot be undone, but you can create new backups later."))
+                }
+
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(String(localized: "On-Device Backups"))
+            .navigationDestination(isPresented: $viewRecoveryKeySelected) {
+                RecoveryKeyView(
+                    copyToClipboardCallback: {
+                        UIPasteboard.general.string = viewModel.viewRecoveryKey()
+                    },
+                    saveToPasswordManagerCallback: {},
+                    saveManuallyCallback: nil,
+                )
+            }
         }
+    }
+    
+    func formattedDateString(from date: Date) -> String {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        
+        // 1. Get the localizable ordinal day (e.g., "5th", "1er", etc.)
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .ordinal
+        let ordinalDay = numberFormatter.string(from: NSNumber(value: day)) ?? "\(day)"
+        
+        // 2. Get the weekday name and year
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current // Respects device language/region
+        
+        formatter.dateFormat = "EEEE"
+        let weekday = formatter.string(from: date)
+        
+        formatter.dateFormat = "yyyy"
+        let year = formatter.string(from: date)
+        
+        // 3. Combine them cleanly
+        return "\(weekday), \(ordinalDay) \(year)"
     }
 }
 
-#Preview {
+#Preview("BackedUpView") {
     BackedUpView()
 }

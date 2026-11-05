@@ -144,9 +144,12 @@ private struct PayloadViews: View {
 }
 
 struct HomepageView: View {
+    @AppStorage("backupFilenamePrefix") private var backupFilename: String?
+    
     @State private var isPlatformsPresented = false
     @State private var isOfflinePresented = false
     @State private var isBackupPresented = false
+    @State private var isBackedUpPresented = false
     @State private var selectedPlatform: SupportedPlatforms? = nil
     
     @Query(sort: \Payloads.date, order: .reverse)
@@ -228,8 +231,17 @@ struct HomepageView: View {
                 }
                 .padding() // Adds space from screen edges
             }
+            .navigationDestination(isPresented: $isBackedUpPresented) {
+                BackedUpView()
+            }
             .navigationDestination(isPresented: $isBackupPresented) {
-                BackupView()
+                if backupFilename != nil && !backupFilename!.isEmpty{
+                    BackedUpView()
+                } else {
+                    BackupView(onContinueCallback: {
+                        isBackedUpPresented.toggle()
+                    })
+                }
             }
             .navigationDestination(isPresented: $isOfflinePresented) {
                 ComposerManagerView(

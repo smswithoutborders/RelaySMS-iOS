@@ -407,32 +407,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "89D7F6B2-527A-404C-B0B6-24DF32CB1082"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMSWithoutBorders-Production/ViewModels/BackupRestoreViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "backup(urls:into:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "50967A96-DA87-4396-9C99-F267FEA2BCF3"
+            uuid = "893242E8-8263-43CC-8ACC-E9E7A19C5E54"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMSWithoutBorders-Production/Views/Backup and Restore/BackupView.swift"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "chunkByFours(_:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

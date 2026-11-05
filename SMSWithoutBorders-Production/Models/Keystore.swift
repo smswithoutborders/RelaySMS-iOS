@@ -159,21 +159,26 @@ class Keystore {
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecMatchLimit as String: kSecMatchLimitAll, // Return all matching items
-            kSecReturnAttributes as String: true,       // Return metadata (keys/accounts)
-            kSecReturnData as String: true              // Return the actual protected data
+            kSecReturnAttributes as String: true        // Return metadata attributes only
         ]
         
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        // Handle empty keychain gracefully instead of throwing an error
+        if status == errSecItemNotFound {
+            return []
+        }
         
         guard status == errSecSuccess, let items = result as? [[String: Any]] else {
             throw KeystoreErrors.failedToGetAllKeys
         }
         
         for item in items {
-            // Extract the Key name (Account attribute)
-            if let account = item[kSecAttrAccount as String] as? String {
-                allItems.append(account)
+            // Extract kSecAttrApplicationTag (stored as Data) and convert back to String
+            if let tagData = item[kSecAttrApplicationTag as String] as? Data,
+               let tagString = String(data: tagData, encoding: .utf8) {
+                allItems.append(tagString)
             }
         }
         
@@ -186,17 +191,21 @@ class Keystore {
         let query: [String: Any] = [
             kSecClass as String: kSecClassKey,
             kSecMatchLimit as String: kSecMatchLimitAll, // Return all matching items
-            kSecReturnAttributes as String: true,       // Return metadata (keys/accounts)
-            kSecReturnData as String: true              // Return the actual protected data
+            kSecReturnAttributes as String: true        // Return metadata attributes only
         ]
-        
+
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        // Handle empty keychain gracefully instead of throwing an error
+        if status == errSecItemNotFound {
+            return [:]
+        }
         
         guard status == errSecSuccess, let items = result as? [[String: Any]] else {
             throw KeystoreErrors.failedToGetAllKeys
         }
-        
+
         for item in items {
             // Extract the Key name (Account attribute)
             if let account = item[kSecAttrAccount as String] as? String {
@@ -209,6 +218,100 @@ class Keystore {
         }
     
         return allItems
+    }
+    
+    enum KeychainError: Error {
+        case invalidData
+        case itemNotFound
+        case unknown(OSStatus)
+    }
+    
+    static func savePassword(_ password: String, service: String, account: String) throws {
+        guard let data = password.data(using: .utf8) else {
+            throw KeychainError.invalidData
+        }
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+        ]
+        
+        // Attempt to add the item to the Keychain
+        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        if status == errSecDuplicateItem {
+            // Item already exists; update it instead
+            let updateQuery: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: service,
+                kSecAttrAccount as String: account
+            ]
+            let attributesToUpdate: [String: Any] = [
+                kSecValueData as String: data
+            ]
+            
+            let updateStatus = SecItemUpdate(updateQuery as CFDictionary, attributesToUpdate as CFDictionary)
+            guard updateStatus == errSecSuccess else {
+                throw KeychainError.unknown(updateStatus)
+            }
+        } else if status != errSecSuccess {
+            throw KeychainError.unknown(status)
+        }
+    }
+    
+    /// Retrieves a password from the Keychain.
+    /// - Parameters:
+    ///   - service: The unique identifier used when saving.
+    ///   - account: The specific account or username associated with the password.
+    /// - Returns: The decrypted password string.
+    static func retrievePassword(service: String, account: String) throws -> String {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+        guard status == errSecSuccess else {
+            if status == errSecItemNotFound {
+                throw KeychainError.itemNotFound
+            }
+            throw KeychainError.unknown(status)
+        }
+        
+        guard let data = item as? Data,
+              let password = String(data: data, encoding: .utf8) else {
+            throw KeychainError.invalidData
+        }
+        
+        return password
+    }
+    
+    /// Deletes a password from the Keychain.
+    /// - Parameters:
+    ///   - service: The unique identifier used when saving.
+    ///   - account: The specific account or username associated with the password.
+    static func deletePassword(service: String, account: String) throws {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+        
+        let status = SecItemDelete(query as CFDictionary)
+        
+        // Treat errSecItemNotFound as success to make deletion idempotent,
+        // or throw if you prefer strict tracking.
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw KeychainError.unknown(status)
+        }
     }
     
 }
