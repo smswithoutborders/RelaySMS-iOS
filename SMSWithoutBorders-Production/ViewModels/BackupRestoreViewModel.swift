@@ -12,7 +12,9 @@ import SwiftData
 @Observable
 class BackupRestoreViewModel {
     private(set) var statusMessage: String = ""
-    private(set) var recoveryKey: String = ""
+    var recoveryKey: String = ""
+    
+    private var filename: String = String(localized: "RelaySMS-Backup-")
 
     func backup(
         urls: [URL],
@@ -30,7 +32,15 @@ class BackupRestoreViewModel {
         }
         
         do {
-            let fileURL = selectedFolderURL.appending(path: "my_custom_file.txt")
+            var dateFormatter: DateFormatter {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                return formatter
+            }
+            
+            filename += dateFormatter.string(from: Date.now)
+            let fileURL = selectedFolderURL.appending(path: filename)
             
             let context = ModelContext(container)
             let (data, rk) = try BackupRestoreImpl.backup(into: context)

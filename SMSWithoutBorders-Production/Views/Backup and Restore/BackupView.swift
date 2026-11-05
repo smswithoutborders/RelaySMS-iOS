@@ -192,7 +192,7 @@ struct RecoveryKeyView: View {
     var saveToPasswordManagerCallback: () -> Void
     var saveManuallyCallback: () -> Void
 
-    @State var recoveryKey: String
+    @Binding var recoveryKey: String
 
     let columns = [
         GridItem(.flexible()),
@@ -262,7 +262,7 @@ struct RecoveryKeyView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     
-                    Button(action: saveToPasswordManagerCallback ) {
+                    Button(action: saveManuallyCallback ) {
                         Text(String(localized: "Continue"))
                             .padding(.all, 10)
                             .frame(maxWidth: .infinity)
@@ -319,6 +319,7 @@ struct BackupView: View {
     @State private var isShowingFolderPicker: Bool = false
     
     @State private var viewModel = BackupRestoreViewModel()
+    var onContinueCallback: () -> Void
 
     var body: some View {
         ScrollView(.horizontal) {
@@ -354,6 +355,7 @@ struct BackupView: View {
                                 )
                                 .onChange(of: viewModel.recoveryKey) { _, newState in
                                     if !newState.isEmpty {
+                                        backupFolderIsPresented = false
                                         scrollToPage(.recoveryKeyInfo)
                                     }
                                 }
@@ -375,7 +377,7 @@ struct BackupView: View {
                                 copyToClipboardCallback: {},
                                 saveToPasswordManagerCallback: {},
                                 saveManuallyCallback: {},
-                                recoveryKey: viewModel.recoveryKey
+                                recoveryKey: $viewModel.recoveryKey
                             )
                         }
                     }
@@ -431,11 +433,11 @@ struct BackupView: View {
 }
 
 #Preview("RecoveryKeyView") {
-    var recoveryKey: String = "1234567890123456789012345678901234567890123456789012345678901234"
+    @Previewable @State var recoveryKey: String = "1234567890123456789012345678901234567890123456789012345678901234"
     RecoveryKeyView(
         copyToClipboardCallback: {},
         saveToPasswordManagerCallback: {},
         saveManuallyCallback: {},
-        recoveryKey: recoveryKey
+        recoveryKey: $recoveryKey
     )
 }

@@ -29,6 +29,9 @@ struct SupportedPlatformView: View {
             }
             .padding(.vertical, 4)
         }
+        .onTapGesture {
+            onClick()
+        }
     }
 }
 
