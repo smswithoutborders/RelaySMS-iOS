@@ -14,6 +14,8 @@ class BackupRestoreViewModel {
     private let folderStore = PersistedFileStore(key: "backupFolderBookmark")
     
     private(set) var statusMessage: String = ""
+    private(set) var backingUp: Bool = false
+    
     var recoveryKey: String = ""
     
     private var filename: String {
@@ -46,22 +48,34 @@ class BackupRestoreViewModel {
     let serviceName = "com.afkanerd.smswithoutborders.relaysms"
     let account = "backup"
     
-    func backup(_ url: URL, into container: ModelContainer) async -> (String?, Date?)? {
+    func backup(_ url: URL?, into container: ModelContainer) async -> (String?, Date?)? {
+        backingUp = true
+        defer {
+            backingUp = false
+        }
         do {
-            let context = ModelContext(container)
-            let (data, rk) = try BackupRestoreImpl.backup(into: context)
-
-            try folderStore.persist(url)
+            var srk: Data? = nil
+            if url != nil {
+                try folderStore.persist(url!)
+            }
+            else {
+                srk = Data(viewRecoveryKey().utf8)
+            }
             
+            let context = ModelContext(container)
+            let (data, rk) = try BackupRestoreImpl.backup(into: context, recoveryKey: srk)
+
             let name = filename
             let _ = try folderStore.withAccess { folder in
                 try data.write(to: folder.appending(path: name), options: .atomic)
                 return folder
             }
 
-            recoveryKey = String(decoding: rk, as: UTF8.self)
+            if url != nil {
+                recoveryKey = String(decoding: rk, as: UTF8.self)
+                try Keystore.savePassword(recoveryKey, service: serviceName, account: account)
+            }
             
-            try Keystore.savePassword(recoveryKey, service: serviceName, account: account)
             return (name, Date())
         } catch PersistedFileStore.StoreError.noBookmark {
             statusMessage = String(localized: "Choose a backup folder first.")

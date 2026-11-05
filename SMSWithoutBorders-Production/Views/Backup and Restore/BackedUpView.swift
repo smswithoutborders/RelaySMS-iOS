@@ -9,7 +9,8 @@ import SwiftUI
 
 struct BackedUpView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.modelContext) private var modelContext
+
     @AppStorage("backupFilenamePrefix") private var backupFilename: String?
     @AppStorage("lastBackupDate") private var lastBackupDate: Date?
     
@@ -32,8 +33,23 @@ struct BackedUpView: View {
                     }
                     
                     Section {
-                        HStack {
-                            Label(String(localized: "Back Up Now"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                        Button(action: {
+                            Task {
+                                await viewModel.backup(
+                                    nil,
+                                    into: modelContext.container
+                                )
+                            }
+                        }) {
+                            HStack {
+                                Label(String(localized: "Back Up Now"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                            }
+                        }
+                    } footer: {
+                        if viewModel.backingUp {
+                            Text(String(localized: "backing up..."))
+                        } else {
+                            Text(String(localized: "click to update backup"))
                         }
                     }
                     
@@ -62,13 +78,11 @@ struct BackedUpView: View {
                     }
                     
                     Section {
-                        Text(String(localized: "Delete Backup"))
-                        .foregroundStyle(.red)
-                        .onTapGesture(perform: {
-                            showDeleteAlert = true
-                        })
-                        .frame(maxWidth: .infinity)
-                        .multilineTextAlignment(.leading)
+                        Button(action: {
+                        }) {
+                            Text(String(localized: "Delete Backup"))
+                                .foregroundStyle(.red)
+                        }
                     } footer: {
                         Text(String(localized: "To restore a backup, install a new copy of RelaySMS. Open the app, tap \"Restore backup\"."))
                     }

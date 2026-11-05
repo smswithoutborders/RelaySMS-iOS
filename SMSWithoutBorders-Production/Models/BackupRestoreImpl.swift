@@ -12,7 +12,10 @@ class BackupRestoreImpl {
     enum BackupRestoreImplError: Error {
         case failedToGetBackupRecoveryKey
     }
-    static func backup(into context: ModelContext) throws -> (Data, Data) {
+    static func backup(
+        into context: ModelContext,
+        recoveryKey: Data?
+    ) throws -> (Data, Data) {
         let allData = try Keystore.getAllKeychainItems()
         
         var compiledData: [String:String] = [:]
@@ -23,7 +26,10 @@ class BackupRestoreImpl {
         let encoder = JSONEncoder()
         let jsonEncoded = try encoder.encode(allData)
         
-        let backupData = try BackupRestore.v1BackupEncrypt(data: jsonEncoded, recoveryKey: nil)
+        let backupData = try BackupRestore.v1BackupEncrypt(
+            data: jsonEncoded,
+            recoveryKey: recoveryKey
+        )
         let serialized = try backupData.serialize()
         
         guard let rk = backupData.getRecoveryKey() else {
