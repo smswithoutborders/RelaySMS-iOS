@@ -28,7 +28,7 @@ class GatewayClientsViewModel {
         do {
             defaultGatewayClient = try GatewayClients.getDefault(context: context)
             if defaultGatewayClient == nil {
-                try GatewayClients.save(hdv, into: container)
+                try GatewayClients.insertAll(into: context, gatewayClients: hdv)
                 defaultGatewayClient = try GatewayClients.getDefault(context: context)
             }
         } catch {
@@ -36,7 +36,7 @@ class GatewayClientsViewModel {
         }
         
         fetchState = .loading
-        guard let url = URL(string: GatewayClients.supportedUrl) else {
+        guard let url = URL(string: StaticVariables.GatewayClients.supportedUrl) else {
             print("Invalid URL")
             return
         }

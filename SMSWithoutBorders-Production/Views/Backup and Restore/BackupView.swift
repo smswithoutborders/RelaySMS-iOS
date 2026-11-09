@@ -278,20 +278,6 @@ struct RecoveryKeyView: View {
         .padding()
     }
     
-    func chunkByFours(_ input: String) -> [String] {
-        var groups: [String] = []
-        var currentIndex = input.startIndex
-        let chunkSize = 4
-        
-        while currentIndex < input.endIndex {
-            let nextIndex = input.index(currentIndex, offsetBy: chunkSize, limitedBy: input.endIndex) ?? input.endIndex
-            let chunk = String(input[currentIndex..<nextIndex])
-            groups.append(chunk)
-            currentIndex = nextIndex
-        }
-        
-        return groups
-    }
 }
 
 
@@ -336,6 +322,12 @@ struct BackupView: View {
                             BackupInfoView(onBackupClickedCallback: {
                                 backupFolderIsPresented.toggle()
                             })
+                            .onChange(of: viewModel.recoveryKey) { _, newState in
+                                if !newState.isEmpty {
+                                    scrollToPage(.recoveryKeyInfo)
+//                                        backupFolderIsPresented = false
+                                }
+                            }
                             .sheet(
                                 isPresented: $backupFolderIsPresented,
                                 onDismiss: {
@@ -358,12 +350,6 @@ struct BackupView: View {
                                         backupFolderIsPresented = false
                                     }
                                 )
-                                .onChange(of: viewModel.recoveryKey) { _, newState in
-                                    if !newState.isEmpty {
-                                        backupFolderIsPresented = false
-                                        scrollToPage(.recoveryKeyInfo)
-                                    }
-                                }
                                 .presentationDetents([.medium])
                                 .fileImporter(
                                     isPresented: $isShowingFolderPicker,

@@ -10,17 +10,10 @@ import Foundation
 import SwiftData
 
 @Model
-class GatewayClients {
+class GatewayClients : Encodable, Decodable{
     enum GatewayClientErrors: Error {
         case noDefaultGatewayClientSet
     }
-    
-//    #if DEBUG
-//    static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/gateway-clients"
-//    #else
-//    static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/gateway-clients"
-//    #endif
-    static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/gateway-clients"
 
     @Attribute(.unique) var msisdn: String
     var country: String
@@ -46,6 +39,29 @@ class GatewayClients {
         self.isDefault = isDefault
     }
     
+    enum CodingKeys: String, CodingKey {
+        case country
+        case msisdn
+        case serviceProvider = "service_provider"
+        case isDefault = "is_default"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(country, forKey: .country)
+        try container.encode(msisdn, forKey: .msisdn)
+        try container.encode(serviceProvider, forKey: .serviceProvider)
+        try container.encode(isDefault, forKey: .isDefault)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.country = try container.decode(String.self, forKey: .country)
+        self.msisdn = try container.decode(String.self, forKey: .msisdn)
+        self.serviceProvider = try container.decode(String.self, forKey: .serviceProvider)
+        self.isDefault = try container.decode(Bool.self, forKey: .isDefault)
+    }
+
     static func save(_ data: [GatewayClientsData], into container: ModelContainer) throws {
         let context = ModelContext(container)
         
@@ -64,10 +80,8 @@ class GatewayClients {
         }
     }
     
-    static func save(_ data: [GatewayClients], into container: ModelContainer) throws {
-        let context = ModelContext(container)
-        
-        data.forEach { item in
+    static func insertAll(into context: ModelContext, gatewayClients: [GatewayClients]) throws {
+        gatewayClients.forEach { item in
             context.insert(item)
         }
         do {
@@ -130,5 +144,10 @@ class GatewayClients {
         try context.save()
         
         return self
+    }
+    
+    static func getAll(context: ModelContext) throws -> [GatewayClients]{
+        let randomDescriptor = FetchDescriptor<GatewayClients>()
+        return try context.fetch(randomDescriptor)
     }
 }

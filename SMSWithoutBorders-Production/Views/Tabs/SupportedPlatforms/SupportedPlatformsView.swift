@@ -10,6 +10,7 @@ import SwiftData
 
 struct SupportedPlatformView: View {
     let displayName: String
+    let name: String
     @State var onClick: () -> Void
     
     var body: some View {
@@ -22,7 +23,7 @@ struct SupportedPlatformView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(displayName)
                         .font(.headline)
-                    Text("Premium Member")
+                    Text(name)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -155,6 +156,7 @@ struct SupportedPlatformsView: View {
                             ForEach(supportedPlatforms) { sp in
                                 SupportedPlatformView(
                                     displayName: sp.displayName,
+                                    name: sp.name,
                                     onClick: {
                                         selectedPlatform = sp
                                     }
@@ -341,6 +343,7 @@ struct SupportedPlatformsView: View {
 #Preview {
     SupportedPlatformView(
         displayName: "RMail",
+        name: "rmail",
         onClick: {}
     )
 }

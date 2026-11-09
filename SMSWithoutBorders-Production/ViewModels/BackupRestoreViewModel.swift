@@ -11,13 +11,24 @@ import SwiftData
 
 @Observable
 class BackupRestoreViewModel {
+    enum BackupReadError: LocalizedError {
+        case accessDenied, invalidFormat
+        var errorDescription: String? {
+            switch self {
+            case .accessDenied: return "Could not access the selected file."
+            case .invalidFormat: return "The file isn't a valid backup."
+            }
+        }
+    }
+    
     private let folderStore = PersistedFileStore(key: "backupFolderBookmark")
     
-    private(set) var statusMessage: String = ""
+    var statusMessage: String = ""
     private(set) var backingUp: Bool = false
     
-    var recoveryKey: String = ""
-    
+    private(set) var recoveryKey: String = ""
+    var backupData: Data? = nil
+
     private var filename: String {
         let template = String(localized: "RelaySMS-Backup-")
         var raw = UserDefaults.standard.string(forKey: "backupFilenamePrefix")
@@ -109,6 +120,32 @@ class BackupRestoreViewModel {
             statusMessage = String(localized: "Choose a backup folder first.")
         } catch {
             statusMessage = String(localized: "Failed to delete: \(error.localizedDescription)")
+        }
+    }
+    
+    func readBackupFile(from url: URL) throws {
+        // The picked file is outside your persisted folder grant,
+        // so it needs its own security-scoped access.
+        guard url.startAccessingSecurityScopedResource() else { throw BackupReadError.accessDenied }
+        defer { url.stopAccessingSecurityScopedResource() }
+
+        backupData = try Data(contentsOf: url)
+    }
+    
+    func decryptBackup(
+        into container: ModelContainer,
+        data: Data,
+        recoveryKey: String
+    ) {
+        let context = ModelContext(container)
+        do {
+            guard let rk = recoveryKey.data(using: .utf8) else {
+                statusMessage = String(localized: "Failed to convert key")
+                return
+            }
+            try BackupRestoreImpl.recover(context: context, data: data, recoveryKey: rk)
+        } catch {
+            statusMessage = String(localized: "Failed to recover data: \(error.localizedDescription)")
         }
     }
 }

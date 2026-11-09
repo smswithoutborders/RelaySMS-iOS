@@ -104,7 +104,9 @@ struct SaveAccessView: View {
 struct WelcomeView: View {
     @Environment(\.openURL) var openURL
     
+    @Binding var isRestorePresented: Bool
     @State var onComplete: () -> Void
+    
     var body: some View {
         VStack {
             Spacer()
@@ -137,7 +139,7 @@ struct WelcomeView: View {
             .padding(.bottom, 10)
 
             Button(String(localized: "Restore backup")) {
-                
+                isRestorePresented = true
             }
             .padding(.bottom, 20)
 
@@ -154,54 +156,71 @@ struct WelcomeView: View {
 
 struct OnboardingView: View {
     private let pages = OnboardingPage.allCases
-    @State private var position: ScrollPosition = .init(idType: OnboardingPage.ID.self)
+    let startPosition: OnboardingPage
+    @State var position: ScrollPosition
     
+    @State var isRestorePresented: Bool = false
     @State var onboardingCompletedCallback: () -> Void
+    
+    init(
+        startPosition: OnboardingPage = .welcome,
+        onboardingCompletedCallback: @escaping () -> Void
+    ) {
+        self.startPosition = startPosition
+        self.onboardingCompletedCallback = onboardingCompletedCallback
+        _position = State(initialValue: ScrollPosition(id: startPosition.id))
+    }
 
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 0) {
-                ForEach(pages) { page in
-                    Group {
-                        switch page {
-                        case .welcome:
-                            WelcomeView(onComplete: welcomeComplete)
-                        case .privacy:
-                            PrivacyView(
-                                onComplete: {
-                                    scrollToPage(.saveAccess)
-                                },
-                                onPreviousClick: {
-                                    scrollToPage(.welcome)
-                                }
-                            )
-                        case .saveAccess:
-                            SaveAccessView(
-                                onComplete: onboardingCompletedCallback,
-                                onPreviousClick: {
-                                    scrollToPage(.privacy)
-                                }
-                            )
+        NavigationStack {
+            ScrollView(.horizontal) {
+                HStack(spacing: 0) {
+                    ForEach(pages) { page in
+                        Group {
+                            switch page {
+                            case .welcome:
+                                WelcomeView(
+                                    isRestorePresented: $isRestorePresented,
+                                    onComplete: welcomeComplete,
+                                )
+                            case .privacy:
+                                PrivacyView(
+                                    onComplete: {
+                                        scrollToPage(.saveAccess)
+                                    },
+                                    onPreviousClick: {
+                                        scrollToPage(.welcome)
+                                    }
+                                )
+                            case .saveAccess:
+                                SaveAccessView(
+                                    onComplete: onboardingCompletedCallback,
+                                    onPreviousClick: {
+                                        scrollToPage(.privacy)
+                                    }
+                                )
+                            }
                         }
+                        .containerRelativeFrame([.horizontal])
                     }
-                    .containerRelativeFrame([.horizontal])
                 }
+                .scrollTargetLayout()
             }
-            .scrollTargetLayout()
-        }
-        .scrollPosition($position)
-        .scrollTargetBehavior(.paging)
-        .scrollIndicators(.hidden)
-        .scrollDisabled(true)
-        .onAppear {
-            // Ensure the onboarding starts at the first page.
-            // If not set explicitly, position may be undefined.
-            position.scrollTo(id: OnboardingPage.first.id)
+            .scrollPosition($position)
+            .scrollTargetBehavior(.paging)
+            .scrollIndicators(.hidden)
+            .scrollDisabled(true)
+            .task {
+                position.scrollTo(id: startPosition.id)
+            }
+            .navigationDestination(isPresented: $isRestorePresented) {
+                RestoreBackupView()
+            }
         }
     }
     
     func welcomeComplete() {
-        scrollToPage(.saveAccess)
+        scrollToPage(.privacy)
     }
 
     private func scrollToPage(_ page: OnboardingPage) {
@@ -213,7 +232,11 @@ struct OnboardingView: View {
 }
 
 #Preview("WelcomeView") {
-    WelcomeView(onComplete: {})
+    @Previewable @State var restorePresented = true
+    WelcomeView(
+        isRestorePresented: $restorePresented,
+        onComplete: {},
+    )
 }
 
 #Preview("PrivacyView") {

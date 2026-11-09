@@ -70,4 +70,12 @@ class StaticVariables {
     class App {
         static let privacyPolicy = "https://smswithoutborders.com/privacy-policy"
     }
+    
+    class GatewayClients {
+        #if DEBUG
+        static let supportedUrl = "https://publisher.relaysms.afkanerd.de/v1/gateway-clients"
+        #else
+        static let supportedUrl = "https://relaysms.smswithoutborders.afkanerd.com/v1/gateway-clients"
+        #endif
+    }
 }

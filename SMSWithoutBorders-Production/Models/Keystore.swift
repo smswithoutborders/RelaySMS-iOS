@@ -18,6 +18,7 @@ class Keystore {
         case failedToQueryKeystore
         case failedToGetAllKeys
         case failedToDeserializeKey
+        case failedToImportKeys(name: String)
     }
     
     public static let PUBLISHER_SERVER_PUBLIC_KEY = "COM.AFKANERD.PUBLISHER_SERVER_PUBLIC_KEY"
@@ -38,6 +39,26 @@ class Keystore {
         return PUBLISHER_KEY_ID_PRIVATE_KEYS + "_" + tokenId.uuidString + "_" + String(keyId)
     }
     
+    static func importKeys(_ keyDatas: [String: Data]) throws {
+        for (name, value) in keyDatas {
+            let query: [CFString: Any] = [
+                kSecClass: kSecClassKey,
+                kSecAttrApplicationTag: name,
+                kSecValueData: value,
+                kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly // Restricts data syncing/sharing if desired
+            ]
+            
+            // First, delete any old instance of this specific key to avoid duplication conflicts
+            SecItemDelete(query as CFDictionary)
+            
+            // Save the new item
+            let status = SecItemAdd(query as CFDictionary, nil)
+            if status != errSecSuccess {
+                throw KeystoreErrors.failedToImportKeys(name: name)
+            }
+        }
+    }
+
     func savePrivateKeyToKeychain(keyData: Data) -> Bool {
         let query: [CFString: Any] = [
             kSecClass: kSecClassKey,
@@ -116,23 +137,6 @@ class Keystore {
             let allTags = try getAllTags()
             let randomOffset = Int.random(in: 0..<allTags.count)
             
-//            var randomDescriptor = FetchDescriptor<LocalKeys>()
-//            randomDescriptor.fetchLimit = 1
-//            randomDescriptor.fetchOffset = randomOffset
-//            
-//            guard let serverKeys = try context.fetch(randomDescriptor).first else {
-//                throw KeystoreErrors.failedToFetchLocalKey
-//            }
-//            
-//            let serverKeyId = serverKeys.keyId
-//            let forKeyId = #Predicate<LocalKeys> { keys in
-//                keys.keyId == serverKeyId
-//            }
-//            
-//            let descriptor = FetchDescriptor<LocalKeys>( predicate: forKeyId )
-//            guard let localKey = try context.fetch(descriptor).first else {
-//                throw KeystoreErrors.failedToFetchLocalKey
-//            }
             let keystore = Keystore(accountTag: allTags[randomOffset])
             guard let keystoreData = try keystore.loadPrivateKeyFromKeychain() else {
                 throw KeystoreErrors.failedToFetchPrivateKeyDataForKeyId(keyId: randomOffset)
@@ -186,40 +190,49 @@ class Keystore {
     }
     
     static func getAllKeychainItems() throws -> [String: Data] {
-        var allItems: [String: Data] = [:]
-        
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassKey,
-            kSecMatchLimit as String: kSecMatchLimitAll, // Return all matching items
-            kSecReturnAttributes as String: true        // Return metadata attributes only
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassKey,
+            kSecMatchLimit: kSecMatchLimitAll,
+            kSecReturnAttributes: true,
+            kSecReturnData: true
         ]
-
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
         
-        // Handle empty keychain gracefully instead of throwing an error
+        var itemResult: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &itemResult)
+        
+        // errSecItemNotFound means there are simply no keys saved yet
         if status == errSecItemNotFound {
             return [:]
         }
         
-        guard status == errSecSuccess, let items = result as? [[String: Any]] else {
-            throw KeystoreErrors.failedToGetAllKeys
+        guard status == errSecSuccess else {
+            throw KeystoreErrors.failedToFetchLocalKey
         }
-
+        
+        // SecItemCopyMatching returns an array of dictionaries when kSecMatchLimitAll is used
+        guard let items = itemResult as? [[String: Any]] else {
+            return [:]
+        }
+        
+        var allItems: [String: Data] = [:]
+        
         for item in items {
-            // Extract the Key name (Account attribute)
-            if let account = item[kSecAttrAccount as String] as? String {
-                // Extract and decode the underlying Data value
-                guard let data = item[kSecValueData as String] as? Data else {
+            // 1. kSecAttrApplicationTag returns Data, so we convert it to a String
+            if let tagData = item[kSecAttrApplicationTag as String] as? Data,
+               let account = String(data: tagData, encoding: .utf8) {
+                
+                // 2. Extract the underlying Data value
+                guard let keyData = item[kSecValueData as String] as? Data else {
                     throw KeystoreErrors.failedToFetchLocalKey
                 }
-                allItems[account] = data
+                
+                allItems[account] = keyData
             }
         }
-    
+        
         return allItems
     }
-    
+
     enum KeychainError: Error {
         case invalidData
         case itemNotFound

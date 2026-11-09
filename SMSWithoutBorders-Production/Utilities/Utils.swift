@@ -42,3 +42,18 @@ func generate32RandomBytes() -> Data? {
     
     return Data(bytes)
 }
+
+func chunkByFours(_ input: String) -> [String] {
+    var groups: [String] = []
+    var currentIndex = input.startIndex
+    let chunkSize = 4
+    
+    while currentIndex < input.endIndex {
+        let nextIndex = input.index(currentIndex, offsetBy: chunkSize, limitedBy: input.endIndex) ?? input.endIndex
+        let chunk = String(input[currentIndex..<nextIndex])
+        groups.append(chunk)
+        currentIndex = nextIndex
+    }
+    
+    return groups
+}

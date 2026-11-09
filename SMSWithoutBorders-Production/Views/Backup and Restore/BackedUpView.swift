@@ -45,6 +45,7 @@ struct BackedUpView: View {
                                 Label(String(localized: "Back Up Now"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                             }
                         }
+                        .buttonStyle(.plain)
                     } footer: {
                         if viewModel.backingUp {
                             Text(String(localized: "backing up..."))

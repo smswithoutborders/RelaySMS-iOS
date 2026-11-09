@@ -9,7 +9,7 @@ import SwiftData
 import Foundation
 
 @Model
-class SupportedPlatforms {
+class SupportedPlatforms : Encodable, Decodable{
     
     @Attribute(.unique) var name: String
     var displayName: String
@@ -51,6 +51,40 @@ class SupportedPlatforms {
         self.authProvider = authProvider
     }
     
+    enum CodingKeys: String, CodingKey {
+        case name
+        case displayName = "display_name"
+        case supportsOfflineFirst = "supports_offline_first"
+        case catId = "cat_id"
+        case protoId = "proto_id"
+        case iconSvg = "icon_svg"
+        case iconPng = "icon_png"
+        case authProvider = "auth_provider"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(displayName, forKey: .displayName)
+        try container.encode(supportsOfflineFirst, forKey: .supportsOfflineFirst)
+        try container.encode(catId, forKey: .catId)
+        try container.encode(protoId, forKey: .protoId)
+        try container.encode(iconSvg, forKey: .iconSvg)
+        try container.encode(iconPng, forKey: .iconPng)
+        try container.encode(authProvider, forKey: .authProvider)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.displayName = try container.decode(String.self, forKey: .displayName)
+        self.supportsOfflineFirst = try container.decode(Bool.self, forKey: .supportsOfflineFirst)
+        self.catId = try container.decode(Int.self, forKey: .catId)
+        self.protoId = try container.decode(Int.self, forKey: .protoId)
+        self.iconSvg = try container.decode(String.self, forKey: .iconSvg)
+        self.iconPng = try container.decode(String.self, forKey: .iconPng)
+    }
+
     
     static func save(data: [SupportPlatformsData], into container: ModelContainer) throws {
         let context = ModelContext(container)
@@ -74,5 +108,19 @@ class SupportedPlatforms {
         } catch {
             throw error
         }
+    }
+    
+    static func getAll(context: ModelContext) throws -> [SupportedPlatforms]{
+        var randomDescriptor = FetchDescriptor<SupportedPlatforms>()
+
+        return try context.fetch(randomDescriptor)
+    }
+    
+    static func insertAll(context: ModelContext, supportedPlatforms: [SupportedPlatforms]) throws {
+        for supportedPlatform in supportedPlatforms {
+            context.insert(supportedPlatform)
+        }
+        
+        try context.save()
     }
 }

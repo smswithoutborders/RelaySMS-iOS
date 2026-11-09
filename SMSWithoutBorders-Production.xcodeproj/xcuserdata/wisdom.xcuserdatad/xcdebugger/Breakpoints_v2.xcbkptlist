@@ -62,8 +62,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
             landmarkName = "pnbaRequested()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "revoke()"
             landmarkType = "7">
          </BreakpointContent>
@@ -302,26 +302,10 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "body"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B8834184-B19C-4633-96E8-395DC72A1CEC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "loadRandom(tokenId:withAttachment:into:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -334,8 +318,8 @@
             filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "loadRandom(tokenId:withAttachment:into:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -350,8 +334,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -366,8 +350,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -382,8 +366,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -398,8 +382,8 @@
             filePath = "SMSWithoutBorders-Production/Views/Tabs/SupportedPlatforms/SupportedPlatformsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -414,9 +398,105 @@
             filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "loadRandom(tokenId:withAttachment:into:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F854B78-50D9-4037-8086-59883C0905DF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/BackupRestoreImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "backup(into:recoveryKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1703FDDE-9407-47F8-9D58-3FD3F67AE777"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/Keystore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "getAllKeychainItems()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "18906803-BB89-4699-ABEC-C5987F681BAC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/BackupRestoreImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "recover(context:data:recoveryKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F4F26B8-A581-4DEB-AB85-0D3AEECE547C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Models/BackupRestoreImpl.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "recover(context:data:recoveryKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EA9977D1-82E3-42F5-BB25-5FAD64ADF847"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Views/Onboarding/WelcomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "OnboardingView"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7048672D-F9EE-47C0-BF41-445AA1ACE763"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMSWithoutBorders-Production/Views/Onboarding/WelcomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "init(startPosition:onboardingCompletedCallback:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
