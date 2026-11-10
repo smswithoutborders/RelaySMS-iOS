@@ -18,21 +18,28 @@ struct PnbaComponentsView: View {
     @State var errorMessage: String? = ""
 
     @State var onClick: () -> Void
+    
+    @State private var phoneNumberStr = String(localized: "Phone number")
 
     var body: some View {
         VStack {
-            Text(displayName)
-                .font(.headline)
-            
-            Text(errorMessage ?? "")
-                .font(.caption)
-                .foregroundColor(.red)
             
             Form {
-                TextField(text: $phoneNumber, prompt: Text(String(localized: "Phone number"))) {
-                    Text(String(localized: "Phone number"))
+                Section(displayName){}
+                
+                Section {
+                    TextField(text: $phoneNumber, prompt: Text(phoneNumberStr)) {
+                        Text(phoneNumberStr)
+                    }
+                    .disabled(showCode || showPassword)
+                } header: {
+                    Text(phoneNumberStr)
+                    Text(errorMessage ?? "")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                } footer: {
+                    Text(String(localized: "Enter phone number with dialing code e.g +237123456789"))
                 }
-                .disabled(showCode || showPassword)
                 
                 if showCode {
                     SecureField(text: $code, prompt: Text(String(localized: "Code"))) {
@@ -46,7 +53,6 @@ struct PnbaComponentsView: View {
                         Text(String(localized: "Password"))
                     }
                 }
-            
             }
             
             let buttonText = if !showCode && !showPassword {

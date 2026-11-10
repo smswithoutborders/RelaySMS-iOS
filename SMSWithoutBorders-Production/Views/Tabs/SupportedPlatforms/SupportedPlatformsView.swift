@@ -11,27 +11,36 @@ import SwiftData
 struct SupportedPlatformView: View {
     let displayName: String
     let name: String
+    let accountCount: Int
     @State var onClick: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Image(systemName: "person.crop.circle.fill")
-                    .font(.system(size: 44))
-                    .foregroundColor(.blue)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(displayName)
-                        .font(.headline)
-                    Text(name)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+            Button(action: onClick) {
+                HStack {
+                    Image(systemName: "person.crop.circle.fill")
+                        .font(.system(size: 44))
+                        .foregroundColor(.blue)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
+                            Text(displayName)
+                                .font(.headline)
+                            Spacer()
+                            
+                            if accountCount > 0 {
+                                Text(String(accountCount))
+                                    .font(.caption)
+                            }
+                        }
+                        Text(name)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
+                .padding(.vertical, 4)
             }
-            .padding(.vertical, 4)
-        }
-        .onTapGesture {
-            onClick()
+            .buttonStyle(.plain)
         }
     }
 }
@@ -128,7 +137,8 @@ extension String: LocalizedError {
 struct SupportedPlatformsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+    @Query private var accounts: [Tokens]
+
     @Query(sort: \SupportedPlatforms.name)
     private var supportedPlatforms: [SupportedPlatforms]
     
@@ -157,10 +167,12 @@ struct SupportedPlatformsView: View {
                                 SupportedPlatformView(
                                     displayName: sp.displayName,
                                     name: sp.name,
+                                    accountCount: getCount(accountName: sp.name),
                                     onClick: {
                                         selectedPlatform = sp
                                     }
                                 )
+                                .frame(maxWidth: .infinity)
                             }
                         }
                     }
@@ -297,6 +309,19 @@ struct SupportedPlatformsView: View {
             }
         }
     }
+    private func getCount(accountName: String) -> Int{
+        let descriptor = FetchDescriptor<Tokens>(
+            predicate: #Predicate<Tokens> { $0.platformName == accountName }
+        )
+        
+        do {
+            let count = try modelContext.fetchCount(descriptor)
+            return count
+        } catch {
+            print("Failed to fetch message count: \(error)")
+            return 0
+        }
+    }
 
     private func oauthRequested() async{
         do {
@@ -344,6 +369,7 @@ struct SupportedPlatformsView: View {
     SupportedPlatformView(
         displayName: "RMail",
         name: "rmail",
+        accountCount: 10,
         onClick: {}
     )
 }
