@@ -31,6 +31,9 @@ struct PnbaComponentsView: View {
                     TextField(text: $phoneNumber, prompt: Text(phoneNumberStr)) {
                         Text(phoneNumberStr)
                     }
+                    .keyboardType(.phonePad)
+                    .textContentType(.telephoneNumber)
+                    .autocorrectionDisabled(true)
                     .disabled(showCode || showPassword)
                 } header: {
                     Text(phoneNumberStr)

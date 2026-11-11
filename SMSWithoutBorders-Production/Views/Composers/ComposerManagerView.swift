@@ -145,10 +145,15 @@ extension String: Identifiable {
 
 struct ComposerManagerView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    @Query private var gatewayClients: [GatewayClients]
+
     @State private var account: Tokens? = nil
     @State var platformName: String
     @State var platformDisplayName: String
     @State var catId: V1ContentCategories? = nil
+    @State var debugSendIsPresented: Bool = false
+    
     @State private var viewModel = ComposerViewModel()
     
     @State private var to: String = ""
@@ -189,7 +194,7 @@ struct ComposerManagerView: View {
                     }
                     
                     if case .loading = viewModel.composeState {
-                        ProgressView("Getting things ready..")
+                        ProgressView(String(localized: "Getting things ready.."))
                             .progressViewStyle(.circular)
                             .tint(.blue)
                             .controlSize(.large)
@@ -198,46 +203,76 @@ struct ComposerManagerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .navigationTitle(platformDisplayName + " " + String(localized: "compose"))
-            .sheet( item: $viewModel.payload, onDismiss: { viewModel.payload = nil }) { item in
-                if !item.isEmpty {
+            .sheet(isPresented: $debugSendIsPresented, onDismiss: { viewModel.payload = nil }) {
+                if viewModel.payload != nil {
                     VStack {
-                        ComposerOnlineSender(payload: item)
+                        ComposerOnlineSender(payload: viewModel.payload!)
                     }
                     .presentationDetents([.medium, .large])
                 }
             }
-            .toolbar {
-                Button(action: {
-                    Task {
-                        do {
-                            if account != nil && catId != nil {
-                                try await viewModel.publishOnlineFirst(
-                                    catId: catId!,
-                                    body: content,
-                                    platformName: account!.platformName,
-                                    tokenId: account!.id,
-                                    to: to,
-                                    subject: subject,
-                                    into: modelContext.container
-                                )
-                            } else {
-                                try await viewModel.publishOfflineFirst(
-                                    platformName: "rmail",
-                                    catId: V1ContentCategories.email,
-                                    body: content,
-                                    to: to,
-                                    subject: subject,
-                                    into: modelContext.container
-                                )
-                            }
-                        } catch {
-                            print(error)
-                        }
+            .sheet(item: $viewModel.payload, onDismiss: { viewModel.payload = nil }) { item in
+                MessageComposer(
+                    body: viewModel.payload!,
+                    recipients: [gatewayClients.first{ $0.isDefault == true }?.msisdn ?? gatewayClients.first?.msisdn ?? ""],
+                ) { result in
+                    switch result {
+                        case .sent:
+                        print("Sent")
+                        dismiss()
+                        
+                        case .cancelled:
+                        print("Cancelled")
+                        case .failed:
+                        print("Failed")
+                        @unknown default: break
                     }
+                }
+            }
+            .toolbar {
+                #if DEBUG
+                Button(action: {
+                    sendTask()
+                    debugSendIsPresented = true
                 }) {
+                    Label("Send", systemImage: "cloud")
+                }
+                .disabled(viewModel.composeState == .loading)
+                #endif
+                
+                Button(action: sendTask) {
                     Label("Send", systemImage: "paperplane.circle")
                 }
                 .disabled(viewModel.composeState == .loading)
+            }
+        }
+    }
+    
+    private func sendTask() {
+        Task {
+            do {
+                if account != nil && catId != nil {
+                    try await viewModel.publishOnlineFirst(
+                        catId: catId!,
+                        body: content,
+                        platformName: account!.platformName,
+                        tokenId: account!.id,
+                        to: to,
+                        subject: subject,
+                        into: modelContext.container
+                    )
+                } else {
+                    try await viewModel.publishOfflineFirst(
+                        platformName: "rmail",
+                        catId: V1ContentCategories.email,
+                        body: content,
+                        to: to,
+                        subject: subject,
+                        into: modelContext.container
+                    )
+                }
+            } catch {
+                print(error)
             }
         }
     }

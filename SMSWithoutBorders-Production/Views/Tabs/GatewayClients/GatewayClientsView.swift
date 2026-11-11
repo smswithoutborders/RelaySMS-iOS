@@ -11,6 +11,7 @@ import SwiftData
 struct GatewayClient: View {
     let msisdn: String
     let country: String
+    let serviceProvider: String
 
     @State var onSetAsDefaultClicked: () -> Void
     
@@ -25,6 +26,8 @@ struct GatewayClient: View {
                     Text(msisdn)
                     Text(country)
                         .font(.caption)
+                    Text(serviceProvider)
+                        .font(.caption2)
 
                 }
             }
@@ -45,6 +48,8 @@ struct GatewayClient: View {
 struct DefaultGatewayClientView: View {
     let msisdn: String
     let country: String
+    let serviceProvider: String
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(msisdn)
@@ -52,6 +57,9 @@ struct DefaultGatewayClientView: View {
             
             Text(country)
                 .font(.caption)
+            
+            Text(serviceProvider)
+                .font(.caption2)
         }
         .padding()
     }
@@ -72,7 +80,8 @@ struct GatewayClientsView: View {
                     Section(String(localized: "Routing address")) {
                         DefaultGatewayClientView(
                             msisdn: viewModel.defaultGatewayClient?.msisdn ?? "",
-                            country: viewModel.defaultGatewayClient?.country ?? ""
+                            country: viewModel.defaultGatewayClient?.country ?? "",
+                            serviceProvider: viewModel.defaultGatewayClient?.serviceProvider ?? ""
                         )
                     }
                     Section(String(localized: "Available routing numbers")) {
@@ -82,6 +91,7 @@ struct GatewayClientsView: View {
                                     GatewayClient(
                                         msisdn: gc.msisdn,
                                         country: gc.country,
+                                        serviceProvider: gc.serviceProvider,
                                         onSetAsDefaultClicked: {
                                             viewModel.setAsDefault(
                                                 gatewayClient: gc,
@@ -134,6 +144,7 @@ struct GatewayClientsView: View {
     GatewayClient(
         msisdn: "+237123456789",
         country: "Cameroon",
+        serviceProvider: "MTN Cameroon",
         onSetAsDefaultClicked: {}
     )
 }
@@ -141,6 +152,7 @@ struct GatewayClientsView: View {
 #Preview {
     DefaultGatewayClientView(
         msisdn: "+123456789",
-        country: "Cameroon"
+        country: "Cameroon",
+        serviceProvider: "MTN Cameroon",
     )
 }

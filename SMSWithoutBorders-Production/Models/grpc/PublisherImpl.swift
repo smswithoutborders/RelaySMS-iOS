@@ -312,10 +312,10 @@ class PublisherImpl {
         return nil
     }
     
-    public func revokeOAuth2(tokenId: UUID) async throws {
+    public func revokeOAuth2(account: Tokens) async throws {
         let context = ModelContext(self.container)
         guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
-            tokenId: tokenId,
+            tokenId: account.id,
             withAttachment: false,
             into: context
         ) else {
@@ -353,23 +353,14 @@ class PublisherImpl {
             throw PublisherImplError.failedToRevokeOAuth2
         }
         
-        let tag = Keystore.getLocalKeysAccountTag(
-            keyId: localKeypair.keyId,
-            tokenId: tokenId
-        )
-        if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
-            throw PublisherImplError.failedToDeleteFromKeystore
-        }
-        
-        let oldItemsPredicate = #Predicate<Tokens> { $0.id == tokenId }
+        let oldItemsPredicate = #Predicate<Tokens> { $0.id == account.id }
         try? context.delete(model: Tokens.self, where: oldItemsPredicate)
-
     }
     
-    public func revokePnba(tokenId: UUID) async throws {
+    public func revokePnba(account: Tokens) async throws {
         let context = ModelContext(self.container)
         guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
-            tokenId: tokenId,
+            tokenId: account.id,
             withAttachment: false,
             into: context
         ) else {
@@ -407,14 +398,8 @@ class PublisherImpl {
             throw PublisherImplError.failedToRevokeOAuth2
         }
         
-        
-        let tag = Keystore.getLocalKeysAccountTag(
-            keyId: localKeypair.keyId,
-            tokenId: tokenId
-        )
-        if try !Keystore(accountTag: tag).deletePrivateKeyFromKeychain() {
-            throw PublisherImplError.failedToDeleteFromKeystore
-        }
+        let oldItemsPredicate = #Predicate<Tokens> { $0.id == account.id }
+        try? context.delete(model: Tokens.self, where: oldItemsPredicate)
     }
     
     func refreshKeys(account: Tokens) async throws {

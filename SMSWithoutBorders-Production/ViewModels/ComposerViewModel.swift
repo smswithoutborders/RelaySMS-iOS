@@ -21,7 +21,8 @@ class ComposerViewModel {
     private(set) var composeState: ComposeState = .idle
 
     var payload: String?
-    
+    var sendInDebug: Bool = false
+
     func publishOnlineFirst(
         catId: V1ContentCategories,
         body: String,
