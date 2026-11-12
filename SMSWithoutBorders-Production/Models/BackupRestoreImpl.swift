@@ -18,7 +18,7 @@ class BackupRestoreImpl {
         let keys: [String: Data]
         var tokens: [Tokens]
         var supportedPlatforms: [SupportedPlatforms]
-        var payloads: [Payloads]
+        var payloads: [Payloads]?
         var gatewayClients: [GatewayClients]
     }
     
@@ -66,7 +66,21 @@ class BackupRestoreImpl {
         try Keystore.importKeys(backupData.keys)
         try Tokens.insertAll(context: context, tokens: backupData.tokens)
         try SupportedPlatforms.insertAll(context: context, supportedPlatforms: backupData.supportedPlatforms)
-        try Payloads.insertAll(context: context, payloads: backupData.payloads)
         try GatewayClients.insertAll(into: context, gatewayClients: backupData.gatewayClients)
+        if backupData.payloads != nil {
+            try Payloads.insertAll(context: context, payloads: backupData.payloads!)
+        }
+        
+//        do {
+//        } catch let DecodingError.keyNotFound(key, context) {
+//            let path = context.codingPath.map { $0.stringValue }.joined(separator: " -> ")
+//            print("Missing key '\(key.stringValue)' at path: \(path)")
+//        } catch let DecodingError.valueNotFound(type, context) {
+//            let path = context.codingPath.map { $0.stringValue }.joined(separator: " -> ")
+//            print("Null value for '\(type)' at path: \(path)")
+//        } catch {
+//            print("Other error: \(error)")
+//        }
+
     }
 }

@@ -200,7 +200,11 @@ struct HomepageView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button(action: {
-                            isBackupPresented.toggle()
+                            if backupFilename != nil && !backupFilename!.isEmpty{
+                                isBackedUpPresented.toggle()
+                            } else {
+                                isBackupPresented.toggle()
+                            }
                         }) {
                             Label(String("Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                         }
@@ -235,13 +239,9 @@ struct HomepageView: View {
                 BackedUpView()
             }
             .navigationDestination(isPresented: $isBackupPresented) {
-                if backupFilename != nil && !backupFilename!.isEmpty{
-                    BackedUpView()
-                } else {
-                    BackupView(onContinueCallback: {
-                        isBackedUpPresented.toggle()
-                    })
-                }
+                BackupView(onContinueCallback: {
+                    isBackedUpPresented.toggle()
+                })
             }
             .navigationDestination(isPresented: $isOfflinePresented) {
                 ComposerManagerView(

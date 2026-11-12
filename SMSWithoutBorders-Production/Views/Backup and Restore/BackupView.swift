@@ -100,7 +100,7 @@ struct ChooseBackupFolderView: View {
             
             VStack {
                 Button(action: onFolderClickedCallback) {
-                    Text("Choose Folder")
+                    Text(String(localized: "Choose Folder"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -109,7 +109,7 @@ struct ChooseBackupFolderView: View {
                 .padding(.bottom, 10)
 
                 Button(action: onCancelCallback) {
-                    Text("Cancel")
+                    Text(String(localized: "Cancel"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -325,16 +325,9 @@ struct BackupView: View {
                             .onChange(of: viewModel.recoveryKey) { _, newState in
                                 if !newState.isEmpty {
                                     scrollToPage(.recoveryKeyInfo)
-//                                        backupFolderIsPresented = false
                                 }
                             }
-                            .sheet(
-                                isPresented: $backupFolderIsPresented,
-                                onDismiss: {
-                                    backupFolderIsPresented = false
-                                    isShowingFolderPicker = false
-                                }
-                            ) {
+                            .sheet( isPresented: $backupFolderIsPresented) {
                                 if !viewModel.statusMessage.isEmpty {
                                     Section(String(localized: "Status")) {
                                         Text(viewModel.statusMessage)
@@ -357,6 +350,7 @@ struct BackupView: View {
                                     allowsMultipleSelection: false
                                 ) { result in
                                     saveToSelectedFolder(result: result)
+                                    backupFolderIsPresented = false
                                 }
                             }
                         case .recoveryKeyInfo:
