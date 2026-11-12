@@ -134,7 +134,7 @@ class Keystore {
         into context: ModelContext
     ) throws -> (LocalKeypair, Data)? {
         do {
-            let allTags = try getAllTags()
+            let allTags = try getAllTags().filter { $0.starts(with: "\(PUBLISHER_KEY_ID_PRIVATE_KEYS)_\(tokenId.uuidString)_")}
             let randomOffset = Int.random(in: 0..<allTags.count)
             
             let keystore = Keystore(accountTag: allTags[randomOffset])

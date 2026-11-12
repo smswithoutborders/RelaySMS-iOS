@@ -95,9 +95,9 @@ struct PlatformSelectedView: View {
             }) {
                 Label(String(localized: "Add new"), systemImage: "plus")
                     .font(.subheadline)
-                    .foregroundColor(.white)
                     .padding()
-                    .background(Color.primary)
+                    .background(Color(.primary))
+                    .foregroundColor(Color(.onPrimary))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
@@ -365,7 +365,7 @@ struct SupportedPlatformsView: View {
     }
 }
 
-#Preview {
+#Preview("SupportedPlatformView") {
     SupportedPlatformView(
         displayName: "RMail",
         name: "rmail",
@@ -374,7 +374,7 @@ struct SupportedPlatformsView: View {
     )
 }
 
-#Preview {
+#Preview("PlatformSelectedView") {
     PlatformSelectedView(
         displayName: "RMail",
         name: "rmail",
