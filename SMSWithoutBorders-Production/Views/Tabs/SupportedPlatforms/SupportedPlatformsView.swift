@@ -12,35 +12,31 @@ struct SupportedPlatformView: View {
     let displayName: String
     let name: String
     let accountCount: Int
-    @State var onClick: () -> Void
     
     var body: some View {
         VStack(alignment: .leading) {
-            Button(action: onClick) {
-                HStack {
-                    Image(systemName: "person.crop.circle.fill")
-                        .font(.system(size: 44))
-                        .foregroundColor(.blue)
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text(displayName)
-                                .font(.headline)
-                            Spacer()
-                            
-                            if accountCount > 0 {
-                                Text(String(accountCount))
-                                    .font(.caption)
-                            }
+            HStack {
+                Image(systemName: "person.crop.circle.fill")
+                    .font(.system(size: 44))
+                    .foregroundColor(.blue)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Text(displayName)
+                            .font(.headline)
+                        Spacer()
+                        
+                        if accountCount > 0 {
+                            Text(String(accountCount))
+                                .font(.caption)
                         }
-                        Text(name)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
                     }
+                    Text(name)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-                .padding(.vertical, 4)
             }
-            .buttonStyle(.plain)
+            .padding(.vertical, 4)
         }
     }
 }
@@ -168,11 +164,11 @@ struct SupportedPlatformsView: View {
                                     displayName: sp.displayName,
                                     name: sp.name,
                                     accountCount: getCount(accountName: sp.name),
-                                    onClick: {
-                                        selectedPlatform = sp
-                                    }
                                 )
-                                .frame(maxWidth: .infinity)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    selectedPlatform = sp
+                                }
                             }
                         }
                     }
@@ -370,7 +366,6 @@ struct SupportedPlatformsView: View {
         displayName: "RMail",
         name: "rmail",
         accountCount: 10,
-        onClick: {}
     )
 }
 

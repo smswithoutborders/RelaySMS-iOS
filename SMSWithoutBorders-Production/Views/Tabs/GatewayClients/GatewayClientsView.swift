@@ -99,7 +99,7 @@ struct GatewayClientsView: View {
                                             )
                                         }
                                     )
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
                                 }
                             }
                         }

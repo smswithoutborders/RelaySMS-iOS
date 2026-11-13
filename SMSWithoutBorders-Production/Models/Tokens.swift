@@ -30,6 +30,7 @@ class Tokens : Encodable, Decodable {
     }
     
     enum CodingKeys: String, CodingKey {
+        case id
         case catId = "cat_id"
         case account
         case platformName = "platform_name"
@@ -37,7 +38,7 @@ class Tokens : Encodable, Decodable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = UUID()
+        self.id = try container.decode(UUID.self, forKey: .id)
         self.catId = try container.decode(Int.self, forKey: .catId)
         self.account = try container.decode(String.self, forKey: .account)
         self.platformName = try container.decode(String.self, forKey: .platformName)
@@ -47,6 +48,7 @@ class Tokens : Encodable, Decodable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(catId, forKey: .catId)
         try container.encode(account, forKey: .account)
         try container.encode(platformName, forKey: .platformName)

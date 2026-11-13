@@ -41,9 +41,10 @@ class Keystore {
     
     static func importKeys(_ keyDatas: [String: Data]) throws {
         for (name, value) in keyDatas {
+            let tag = name.data(using: .utf8)!
             let query: [CFString: Any] = [
                 kSecClass: kSecClassKey,
-                kSecAttrApplicationTag: name,
+                kSecAttrApplicationTag: tag,
                 kSecValueData: value,
                 kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly // Restricts data syncing/sharing if desired
             ]
