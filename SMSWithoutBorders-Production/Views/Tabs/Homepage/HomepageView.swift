@@ -14,7 +14,6 @@ struct PlatformView: View {
     var body: some View {
         GroupBox {
             VStack(alignment: .center, spacing: 8) {
-                
                 Image(systemName: "person.circle")
                     .resizable()
                     .scaledToFit()
@@ -102,42 +101,62 @@ struct PlatformsPresentedView: View {
 }
 
 private struct Contents : Identifiable {
-    let id: UUID = UUID()
+    let id: UUID
     var to: String
     var subject: String
     var content: String
     var date: Int64
+    var platformName: String
+    var platformDisplayName: String
+    var from: String
 }
 
 
 private struct PayloadViews: View {
+    let name: String
     @State var contents: Contents
 
     var body: some View {
         HStack(alignment: .top) {
-            Image(systemName: "person.circle")
+            Image(name)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 50, height: 50)
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date))
-                    Text("To:")
-                        .bold()
-                    Text(contents.to)
-                        .bold()
-                        .lineLimit(1)
-                    Spacer()
-                    Text(dateFromSeconds.formatted(date: .omitted, time: .shortened))
-                        .font(.caption2)
-                }
-                .padding(.bottom, 2)
-                Text(contents.subject)
+                .foregroundColor(.blue)
+                .frame(width: 30, height: 30)
+                .padding(.horizontal, 12)
+
+            if !contents.to.isEmpty {
+                VStack(alignment: .leading) {
+                    HStack {
+                        let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date))
+                        Text(String(localized: "To:"))
+                            .bold()
+                        Text(contents.to)
+                            .bold()
+                            .lineLimit(1)
+                        Spacer()
+                        Text(dateFromSeconds.formatted(date: .omitted, time: .shortened))
+                            .font(.caption2)
+                    }
                     .padding(.bottom, 2)
-                    .lineLimit(1)
-                Text(contents.content)
-                    .lineLimit(1)
+                    
+                    if !contents.subject.isEmpty {
+                        Text(contents.subject)
+                            .padding(.bottom, 2)
+                            .lineLimit(1)
+                    }
+                    
+                    Text(contents.content)
+                        .lineLimit(1)
+                    
+                }
+            }
+            else {
+                VStack(alignment: .center) {
+                    Text(contents.content)
+                        .lineLimit(2)
+                        .padding(.vertical, 8)
+                }
             }
         }
     }
@@ -160,10 +179,14 @@ struct HomepageView: View {
             do {
                 let cc = try V1ContentsContainer.deserializeFromStorage(bytes: payload.content)
                 return Contents(
+                    id: payload.id,
                     to: String(data: cc.getTo()!, encoding: .utf8) ?? "",
                     subject: String(data: cc.getSubject()!, encoding: .utf8) ?? "",
                     content: String(data: cc.getBody(), encoding: .utf8) ?? "",
-                    date: payload.date
+                    date: payload.date,
+                    platformName: payload.platformName,
+                    platformDisplayName: payload.platformDisplayName,
+                    from: payload.account
                 )
             } catch {
                 print("Failed to deserialize payload:", error)
@@ -177,17 +200,39 @@ struct HomepageView: View {
             ZStack {
                 Color.clear
                     .ignoresSafeArea()
-                List {
-                    ForEach(contents) { content in
-                        PayloadViews(contents: content)
-                            .padding()
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets())
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                if contents.isEmpty {
+                    VStack(alignment: .center) {
+                        Image("no_message")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                        Text(String(localized: "Compose your first message."))
+                            .font(.headline)
                     }
                 }
-                .scrollContentBackground(.hidden)
-//                .listStyle(.plain)
+                else {
+                    List {
+                        ForEach(contents) { content in
+                            NavigationLink {
+                                ContentView(
+                                    payloadId: content.id,
+                                    platformName: content.platformName,
+                                    platformDisplayName: content.platformDisplayName,
+                                    subject: content.subject,
+                                    from: content.from,
+                                    to: content.to,
+                                    text: content.content
+                                )
+                            } label: {
+                                PayloadViews(
+                                    name: content.platformName,
+                                    contents: content
+                                )
+                            }
+                        }
+                    }
+                    .scrollContentBackground(.hidden)
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -271,8 +316,6 @@ struct HomepageView: View {
                 }
                 .presentationDetents([.medium, .large])
             }
-            .padding()
-            
         }
     }
     
@@ -288,12 +331,19 @@ struct HomepageView: View {
 
 #Preview("PayloadViews") {
     let content = Contents(
+        id: UUID(),
         to: "developers@afkanerd.com",
         subject: "meeting reminder",
         content: "The design has to communicate indentity vs",
-        date: 0
+        date: 0,
+        platformName: "bluesky",
+        platformDisplayName: "Bluesky",
+        from: "developers@smswithoutborders.com"
     )
-    PayloadViews(contents: content)
+    PayloadViews(
+        name: "bluesky",
+        contents: content
+    )
 }
 
 #Preview("HomepageView") {

@@ -156,9 +156,9 @@ struct ComposerManagerView: View {
     
     @State private var viewModel = ComposerViewModel()
     
-    @State private var to: String = ""
-    @State private var subject: String = ""
-    @State private var content: String = ""
+    @State var to: String = ""
+    @State var subject: String = ""
+    @State var content: String = ""
 
     var body: some View {
         NavigationStack {
@@ -256,14 +256,17 @@ struct ComposerManagerView: View {
                         catId: catId!,
                         body: content,
                         platformName: account!.platformName,
+                        platformDisplayName: platformDisplayName,
                         tokenId: account!.id,
                         to: to,
                         subject: subject,
+                        account: account!.account,
                         into: modelContext.container
                     )
                 } else {
                     try await viewModel.publishOfflineFirst(
                         platformName: "rmail",
+                        platformDisplayName: platformDisplayName,
                         catId: V1ContentCategories.email,
                         body: content,
                         to: to,

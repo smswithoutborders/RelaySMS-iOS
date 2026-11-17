@@ -16,9 +16,12 @@ struct SupportedPlatformView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "person.crop.circle.fill")
-                    .font(.system(size: 44))
+                Image(name)
+                    .resizable()
+                    .scaledToFit()
                     .foregroundColor(.blue)
+                    .frame(width: 30, height: 30)
+                    .padding(.trailing, 12)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
@@ -159,7 +162,7 @@ struct SupportedPlatformsView: View {
                 Form {
                     Section {
                         List {
-                            ForEach(supportedPlatforms) { sp in
+                            ForEach(supportedPlatforms.filter{ !$0.supportsOfflineFirst }) { sp in
                                 SupportedPlatformView(
                                     displayName: sp.displayName,
                                     name: sp.name,

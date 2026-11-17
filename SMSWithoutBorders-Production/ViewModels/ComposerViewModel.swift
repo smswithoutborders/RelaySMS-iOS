@@ -27,9 +27,11 @@ class ComposerViewModel {
         catId: V1ContentCategories,
         body: String,
         platformName: String,
+        platformDisplayName: String,
         tokenId: UUID,
         to: String?,
         subject: String?,
+        account: String,
         into container: ModelContainer
     ) async throws {
         composeState = .loading
@@ -50,8 +52,10 @@ class ComposerViewModel {
             
             let payload = Payloads(
                 plaformName: platformName,
+                platformDisplayName: platformDisplayName,
                 content: try contentContainer.serializeForStorage(),
-                catId: Int(catId.rawValue)
+                catId: Int(catId.rawValue),
+                account: account
             )
             let payloadsViewModel = PayloadsViewModel()
             try payloadsViewModel.insert(payload: payload, into: container)
@@ -65,6 +69,7 @@ class ComposerViewModel {
     
     func publishOfflineFirst(
         platformName: String,
+        platformDisplayName: String,
         catId: V1ContentCategories,
         body: String,
         to: String?,
@@ -86,8 +91,10 @@ class ComposerViewModel {
             
             let payload = Payloads(
                 plaformName: platformName,
+                platformDisplayName: platformDisplayName,
                 content: try contentContainer.serializeForStorage(),
-                catId: Int(catId.rawValue)
+                catId: Int(catId.rawValue),
+                account: ""
             )
             let payloadsViewModel = PayloadsViewModel()
             try payloadsViewModel.insert(payload: payload, into: container)
