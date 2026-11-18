@@ -13,14 +13,16 @@ struct ContentView: View {
     @Environment(\.dismiss) private var dismiss
     
     let payloadId: UUID
-    
+    let catId: V1ContentCategories
+
     let platformName: String
     let platformDisplayName: String
     let subject: String
     let from: String
     let to: String
     let text: String
-    
+    let isOfflineFirst: Bool
+
     @State private var editIsPresented: Bool = false
 
     var body: some View {
@@ -50,9 +52,11 @@ struct ContentView: View {
             ComposerManagerView(
                 platformName: platformName,
                 platformDisplayName: platformDisplayName,
+                catId: catId,
+                isOfflineFirst: isOfflineFirst,
                 to: to,
                 subject: subject,
-                content: text
+                content: text,
             )
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -98,11 +102,13 @@ struct ContentView: View {
 #Preview {
     ContentView(
         payloadId: UUID(),
+        catId: V1ContentCategories.email,
         platformName: "bluesky",
         platformDisplayName: "Bluesky",
         subject: "Meeting Reminder",
         from: "okotsu@gmail.com",
         to: "developers@afkanerd.com",
-        text: "The design has to communicate identity vs anonymity as the core distinction, not just online vs offline."
+        text: "The design has to communicate identity vs anonymity as the core distinction, not just online vs offline.",
+        isOfflineFirst: true
     )
 }

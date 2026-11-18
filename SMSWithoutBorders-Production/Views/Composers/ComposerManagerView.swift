@@ -153,7 +153,8 @@ struct ComposerManagerView: View {
     @State var platformDisplayName: String
     @State var catId: V1ContentCategories? = nil
     @State var debugSendIsPresented: Bool = false
-    
+    @State var isOfflineFirst: Bool = false
+
     @State private var viewModel = ComposerViewModel()
     
     @State var to: String = ""
@@ -163,7 +164,7 @@ struct ComposerManagerView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                if catId == nil {
+                if isOfflineFirst {
                     EmailComposeView(
                         to: $to,
                         subject: $subject,

@@ -94,7 +94,8 @@ class ComposerViewModel {
                 platformDisplayName: platformDisplayName,
                 content: try contentContainer.serializeForStorage(),
                 catId: Int(catId.rawValue),
-                account: ""
+                account: "",
+                isOfflineFirst: true
             )
             let payloadsViewModel = PayloadsViewModel()
             try payloadsViewModel.insert(payload: payload, into: container)

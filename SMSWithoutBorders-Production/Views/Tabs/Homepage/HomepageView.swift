@@ -109,6 +109,8 @@ private struct Contents : Identifiable {
     var platformName: String
     var platformDisplayName: String
     var from: String
+    var catId: V1ContentCategories
+    var isOfflineFirst: Bool
 }
 
 
@@ -186,7 +188,9 @@ struct HomepageView: View {
                     date: payload.date,
                     platformName: payload.platformName,
                     platformDisplayName: payload.platformDisplayName,
-                    from: payload.account
+                    from: payload.account,
+                    catId: try v1ContentCategoryFromU8(value: UInt8(payload.catId)),
+                    isOfflineFirst: payload.isOfflineFirst
                 )
             } catch {
                 print("Failed to deserialize payload:", error)
@@ -216,12 +220,14 @@ struct HomepageView: View {
                             NavigationLink {
                                 ContentView(
                                     payloadId: content.id,
+                                    catId: content.catId,
                                     platformName: content.platformName,
                                     platformDisplayName: content.platformDisplayName,
                                     subject: content.subject,
                                     from: content.from,
                                     to: content.to,
-                                    text: content.content
+                                    text: content.content,
+                                    isOfflineFirst: content.isOfflineFirst
                                 )
                             } label: {
                                 PayloadViews(
@@ -291,7 +297,8 @@ struct HomepageView: View {
             .navigationDestination(isPresented: $isOfflinePresented) {
                 ComposerManagerView(
                     platformName: "rmail",
-                    platformDisplayName: "R-Mail"
+                    platformDisplayName: "R-Mail",
+                    isOfflineFirst: true
                 )
             }
             .navigationDestination(item: $selectedPlatform) { platform in
@@ -338,7 +345,9 @@ struct HomepageView: View {
         date: 0,
         platformName: "bluesky",
         platformDisplayName: "Bluesky",
-        from: "developers@smswithoutborders.com"
+        from: "developers@smswithoutborders.com",
+        catId: V1ContentCategories.email,
+        isOfflineFirst: true
     )
     PayloadViews(
         name: "bluesky",
