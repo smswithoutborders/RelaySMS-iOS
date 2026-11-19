@@ -70,7 +70,7 @@ class Payloads : Encodable, Decodable{
         self.content = try container.decode(Data.self, forKey: .content)
         self.platformName = try container.decode(String.self, forKey: .platformName)
         self.isOfflineFirst = try container.decode(Bool.self, forKey: .isOfflineFirst)
-        self.date = Int64(Date().timeIntervalSince1970 * 1000)
+        self.date = try container.decode(Int64.self, forKey: .date)
         self.catId = try container.decode(Int.self, forKey: .catId)
         self.account = try container.decode(String.self, forKey: .account)
         self.platformDisplayName = try container.decode(String.self, forKey: .platformDisplayName)

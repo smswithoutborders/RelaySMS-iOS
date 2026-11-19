@@ -102,6 +102,8 @@ struct SaveAccessView: View {
 }
 
 struct WelcomeView: View {
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
+    
     @Environment(\.openURL) var openURL
     
     @Binding var isRestorePresented: Bool
@@ -109,8 +111,6 @@ struct WelcomeView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            
             VStack(spacing: 20) {
                 Text(String(localized: "Welcome to RelaySMS!"))
                     .font(.title)
@@ -125,6 +125,24 @@ struct WelcomeView: View {
                 Text(String(localized: "Use SMS to make a post, send emails and messages with no internet connection."))
                     .multilineTextAlignment(.center)
                 
+                Menu {
+                    Picker(supportedLanguages[selectedLanguage] ?? "English", selection: $selectedLanguage) {
+                        ForEach(supportedLanguages.keys.sorted(), id: \.self) { tag in
+                            Text(supportedLanguages[tag]!).tag(tag)
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "globe")
+                        Text(supportedLanguages[selectedLanguage] ?? "English")
+                    }
+                    .font(.headline)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Color.secondary)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
             }
             
             Spacer()

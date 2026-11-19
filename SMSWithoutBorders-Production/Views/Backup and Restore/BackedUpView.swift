@@ -114,6 +114,7 @@ struct BackedUpView: View {
                     saveManuallyCallback: nil,
                 )
             }
+            .toolbar(.hidden, for: .tabBar)
         }
     }
     

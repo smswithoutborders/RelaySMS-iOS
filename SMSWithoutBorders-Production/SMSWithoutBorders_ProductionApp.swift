@@ -33,6 +33,7 @@ struct MainView: View {
 @main
 struct SMSWithoutBorders_ProductionApp: App {
     @AppStorage("isOnboarded") private var isOnboarded = false
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
     
     var body: some Scene {
         WindowGroup {
@@ -45,6 +46,18 @@ struct SMSWithoutBorders_ProductionApp: App {
                     MainView()
                 }
             }
+            .environment(\.locale, Locale(identifier: selectedLanguage))
+            .environment(
+                \.layoutDirection,
+                 (
+                    selectedLanguage == "ar" ||
+                    selectedLanguage == "fa"
+                 ) ? .rightToLeft : .leftToRight)
+            .transaction { transaction in
+                // Prevents SwiftUI from trying to animate layout shifts during a language change
+                transaction.animation = nil
+            }
+            .id(selectedLanguage)
         }
         .modelContainer(for: [
             SupportedPlatforms.self,

@@ -85,6 +85,9 @@ struct PlatformSelectedView: View {
                     onClose()
                 }) {
                     Image(systemName: "x.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
                 }
             }
             .padding()
@@ -126,6 +129,7 @@ struct PlatformSelectedView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 
@@ -274,7 +278,7 @@ struct SupportedPlatformsView: View {
                                 selectedAccount = account
                                 showAccountStats = true
                             },
-                            onClose: { dismiss() },
+                            onClose: { selectedPlatform = nil },
                             onRevoke: { account in
                                 selectedAccount = account
                                 viewModel.setState(.revoking)
@@ -303,7 +307,7 @@ struct SupportedPlatformsView: View {
             }
             .onChange(of: viewModel.pnbaState) { _, newState in
                 if case .complete = newState {
-                    dismiss()
+                    selectedPlatform = nil
                 }
             }
         }

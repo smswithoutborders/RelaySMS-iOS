@@ -85,6 +85,7 @@ class SupportedPlatformsViewModel {
                 availablePlatform: platform,
                 requestIdentifier: requestId
             )
+            print("OAuth url: \(response.authorizationURL)")
             
             let oAuthRequest = OAuthManager.OAuthRequest(
                 platformName: platform.name,

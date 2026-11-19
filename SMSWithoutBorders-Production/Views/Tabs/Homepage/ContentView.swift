@@ -40,7 +40,9 @@ struct ContentView: View {
                     .frame(width: 30, height: 30)
                 
                 VStack(alignment: .leading) {
-                    Text(from)
+                    if !from.isEmpty {
+                        Text(from)
+                    }
                     Text(String(localized: "to: \(to)"))
                 }
             }
@@ -60,7 +62,7 @@ struct ContentView: View {
             )
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(String(localized: "Supported platforms"))
+        .navigationTitle(platformDisplayName)
         .toolbar {
             ToolbarItem {
                 Button(role: .destructive, action: {

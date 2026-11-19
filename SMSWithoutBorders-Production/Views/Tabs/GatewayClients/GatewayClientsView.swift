@@ -72,6 +72,9 @@ struct GatewayClientsView: View {
     @State private var viewModel = GatewayClientsViewModel()
     
     @State private var toggleShowDefault: Bool = false
+    
+    var isSending: Bool = false
+    var isSendingCallback: () -> Void = {}
 
     var body: some View {
         NavigationStack {
@@ -135,6 +138,16 @@ struct GatewayClientsView: View {
                             .foregroundColor(.secondary)
                     }
                 }
+                
+                if isSending {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: isSendingCallback) {
+                            Image(systemName: "paperplane.circle.fill")
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -145,7 +158,7 @@ struct GatewayClientsView: View {
         msisdn: "+237123456789",
         country: "Cameroon",
         serviceProvider: "MTN Cameroon",
-        onSetAsDefaultClicked: {}
+        onSetAsDefaultClicked: {},
     )
 }
 

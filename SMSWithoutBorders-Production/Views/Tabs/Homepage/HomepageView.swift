@@ -9,12 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct PlatformView: View {
-    @State var displayName: String
+    let name: String
+    let displayName: String
     
     var body: some View {
         GroupBox {
             VStack(alignment: .center, spacing: 8) {
-                Image(systemName: "person.circle")
+                Image(name)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 40)
@@ -23,8 +24,9 @@ struct PlatformView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        .padding()
+        .frame(width: 75, height: 100)
     }
 }
 
@@ -67,10 +69,13 @@ struct PlatformsPresentedView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 8) {
                         ForEach(groupedAccounts, id: \.self) { platform in
-                            PlatformView(displayName: platform.displayName)
-                                .onTapGesture {
-                                    onClick(platform)
-                                }
+                            PlatformView(
+                                name: platform.name,
+                                displayName: platform.displayName
+                            )
+                            .onTapGesture {
+                                onClick(platform)
+                            }
                         }
                     }
                 }
@@ -86,7 +91,11 @@ struct PlatformsPresentedView: View {
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me."))
+                                .font(.headline)
+                                .multilineTextAlignment(.leading)
+                            Text(String(localized: "e.g 123abc@relaysms.me."))
                                 .font(.subheadline)
+                                .padding(.bottom, 8)
                             Text(String(localized: "You cannot get replies here."))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
@@ -95,6 +104,7 @@ struct PlatformsPresentedView: View {
                     .padding(.vertical, 4)
                 }
             }
+            .buttonStyle(.plain)
         }
         .padding()
     }
@@ -130,7 +140,7 @@ private struct PayloadViews: View {
             if !contents.to.isEmpty {
                 VStack(alignment: .leading) {
                     HStack {
-                        let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date))
+                        let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date) / 1000.0)
                         Text(String(localized: "To:"))
                             .bold()
                         Text(contents.to)
@@ -172,6 +182,7 @@ struct HomepageView: View {
     @State private var isBackupPresented = false
     @State private var isBackedUpPresented = false
     @State private var selectedPlatform: SupportedPlatforms? = nil
+    @State private var isSettingPresented = false
     
     @Query(sort: \Payloads.date, order: .reverse)
     private var payloads: [Payloads]
@@ -229,6 +240,7 @@ struct HomepageView: View {
                                     text: content.content,
                                     isOfflineFirst: content.isOfflineFirst
                                 )
+                                .toolbar(.hidden, for: .tabBar)
                             } label: {
                                 PayloadViews(
                                     name: content.platformName,
@@ -257,14 +269,17 @@ struct HomepageView: View {
                                 isBackupPresented.toggle()
                             }
                         }) {
-                            Label(String("Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                            Label(String(localized: "Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                         }
                         
-                        Divider() // Separator line
-                        
-                        Button(role: .destructive, action: {
-                        }) {
-                            Label(String(localized: "Delete All"), systemImage: "trash")
+    //                        Divider() // Separator line
+    //
+    //                        Button(role: .destructive, action: {
+    //                        }) {
+    //                            Label(String(localized: "Delete All"), systemImage: "trash")
+    //                        }
+                        Button(action: { isSettingPresented = true }) {
+                            Label(String(localized: "Settings"), systemImage: "gearshape")
                         }
                     } label: {
                         // The button icon or text that triggers the menu
@@ -288,11 +303,13 @@ struct HomepageView: View {
             }
             .navigationDestination(isPresented: $isBackedUpPresented) {
                 BackedUpView()
+                    .toolbar(.hidden, for: .tabBar)
             }
             .navigationDestination(isPresented: $isBackupPresented) {
                 BackupView(onContinueCallback: {
                     isBackedUpPresented.toggle()
                 })
+                .toolbar(.hidden, for: .tabBar)
             }
             .navigationDestination(isPresented: $isOfflinePresented) {
                 ComposerManagerView(
@@ -300,6 +317,7 @@ struct HomepageView: View {
                     platformDisplayName: "R-Mail",
                     isOfflineFirst: true
                 )
+                .toolbar(.hidden, for: .tabBar)
             }
             .navigationDestination(item: $selectedPlatform) { platform in
                 ComposerManagerView(
@@ -307,6 +325,7 @@ struct HomepageView: View {
                     platformDisplayName: platform.displayName,
                     catId: getContentCategories(platform.catId)
                 )
+                .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $isPlatformsPresented) {
                 Group {
@@ -323,8 +342,12 @@ struct HomepageView: View {
                 }
                 .presentationDetents([.medium, .large])
             }
+            .sheet(isPresented: $isSettingPresented) {
+                SettingsView()
+            }
         }
     }
+    
     
     private func getContentCategories(_ catId: Int) -> V1ContentCategories?{
         do {
@@ -356,6 +379,8 @@ struct HomepageView: View {
 }
 
 #Preview("HomepageView") {
+//    @Previewable @State var isBackupPresented = false
+//    @Previewable @State var isBackedUpPresented = false
     HomepageView()
 }
 
@@ -368,6 +393,7 @@ struct HomepageView: View {
 
 #Preview("PlatformView") {
     PlatformView(
+        name: "bluesky",
         displayName: "Bluesky"
     )
 }

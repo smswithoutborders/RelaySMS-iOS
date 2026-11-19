@@ -33,8 +33,6 @@ private struct FromView: View {
     
     let name: String
     
-    private let fromText = String(localized: "From")
-
     init(
         name: String,
         fromAccount: Binding<Tokens?>
@@ -52,7 +50,7 @@ private struct FromView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Menu {
-                Picker(fromText, selection: $selectedAccount) {
+                Picker(selectedAccount?.account ?? String(localized: "Select an account"), selection: $selectedAccount) {
                     ForEach(accounts, id: \.self) { account in
                         FromViewComponent(
                             accountName: account.account,
@@ -64,8 +62,9 @@ private struct FromView: View {
                 .pickerStyle(.inline) // Removes the default picker section separation
             } label: {
                 HStack {
-                    Text(selectedAccount?.account ?? fromText)
+                    Text(selectedAccount?.account ?? String(localized: "Select an account..."))
                         .foregroundColor(.primary)
+                        .fontWeight(.semibold)
                     Spacer()
                     Image(systemName: "chevron.down")
                         .foregroundColor(.gray)
@@ -154,6 +153,8 @@ struct ComposerManagerView: View {
     @State var catId: V1ContentCategories? = nil
     @State var debugSendIsPresented: Bool = false
     @State var isOfflineFirst: Bool = false
+    
+    @State private var isRoutingRequired: Bool = false
 
     @State private var viewModel = ComposerViewModel()
     
@@ -230,21 +231,39 @@ struct ComposerManagerView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isRoutingRequired, onDismiss: {
+            }) {
+                GatewayClientsView(
+                    isSending: true,
+                    isSendingCallback: {
+                        sendTask()
+                        #if DEBUG
+                        debugSendIsPresented = true
+                        #endif
+                        isRoutingRequired = false
+                    }
+                )
+            }
             .toolbar {
                 #if DEBUG
                 Button(action: {
-                    sendTask()
-                    debugSendIsPresented = true
+                    isRoutingRequired = true
                 }) {
                     Label("Send", systemImage: "cloud")
                 }
                 .disabled(viewModel.composeState == .loading)
                 #endif
                 
-                Button(action: sendTask) {
-                    Label("Send", systemImage: "paperplane.circle")
+                Button(action: {
+                    isRoutingRequired = true
+                }) {
+                    Label(String(localized: "Send"), systemImage: "paperplane.circle")
                 }
-                .disabled(viewModel.composeState == .loading)
+                .disabled(
+                    viewModel.composeState == .loading ||
+                    (!isOfflineFirst && account == nil) ||
+                    content.isEmpty
+                )
             }
         }
     }
