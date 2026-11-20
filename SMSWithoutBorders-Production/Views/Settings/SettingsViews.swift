@@ -9,11 +9,13 @@ import SwiftUI
 
 let supportedLanguages = [
     "en" : String(localized: "English"),
-    "fr" : String(localized: "French"),
     "ar" : String(localized: "Arabic"),
+    "fr" : String(localized: "French"),
     "de" : String(localized: "German"),
     "fa" : String(localized: "Persian"),
+    "sn" : String(localized: "Shona"),
     "es" : String(localized: "Spanish"),
+    "sw" : String(localized: "Swahili"),
     "tr" : String(localized: "Turkish"),
 ]
 

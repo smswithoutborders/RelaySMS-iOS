@@ -132,13 +132,6 @@ struct GatewayClientsView: View {
                         .foregroundColor(.primary)
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}) {
-                        Image(systemName: "plus.circle")
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
                 if isSending {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button(action: isSendingCallback) {

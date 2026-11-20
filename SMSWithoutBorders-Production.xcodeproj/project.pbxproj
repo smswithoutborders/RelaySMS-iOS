@@ -273,6 +273,7 @@
 				fa,
 				sw,
 				de,
+				sn,
 			);
 			mainGroup = 16F0E67628C6308600FDD12C;
 			packageReferences = (
