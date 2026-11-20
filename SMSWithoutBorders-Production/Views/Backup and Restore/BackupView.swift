@@ -21,11 +21,11 @@ struct BackupInfoView: View {
                     .foregroundStyle(.primary)
                     .padding()
                 
-                Text(String(localized: "On-Device Backup"))
+                Text(LocalizedStringResource("On-Device Backup"))
                     .font(.title)
                     .padding()
                 
-                Text(String(localized: "Back up your messages and stored accounts to a folder on your device. Your backup is end-to-end encrypted and can be restored by installing a new copy of RelaySMS and choosing \"Restore Backup\"."))
+                Text(LocalizedStringResource("Back up your messages and stored accounts to a folder on your device. Your backup is end-to-end encrypted and can be restored by installing a new copy of RelaySMS and choosing \"Restore Backup\"."))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                 
@@ -38,21 +38,21 @@ struct BackupInfoView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "End-to-end encrypted"))
+                    Text(LocalizedStringResource("End-to-end encrypted"))
                 }
                 HStack {
                     Image(systemName: "checkmark.square")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "Saved on your device"))
+                    Text(LocalizedStringResource("Saved on your device"))
                 }
                 HStack {
                     Image(systemName: "trash")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "Turn off backups anytime"))
+                    Text(LocalizedStringResource("Turn off backups anytime"))
                 }
             }
             .padding()
@@ -61,7 +61,7 @@ struct BackupInfoView: View {
             
             VStack {
                 Button(action: onBackupClickedCallback ) {
-                    Text(String(localized: "Continue"))
+                    Text(LocalizedStringResource("Continue"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -88,11 +88,11 @@ struct ChooseBackupFolderView: View {
                     .frame(width: 25, height: 25)
                     .padding()
                 
-                Text(String(localized: "Choose a Folder"))
+                Text(LocalizedStringResource("Choose a Folder"))
                     .font(.title)
                     .fontWeight(.bold)
 
-                Text(String(localized: "Choose a folder in your device's storage wher your backup will be stored."))
+                Text(LocalizedStringResource("Choose a folder in your device's storage wher your backup will be stored."))
                     .padding()
 
             }
@@ -100,7 +100,7 @@ struct ChooseBackupFolderView: View {
             
             VStack {
                 Button(action: onFolderClickedCallback) {
-                    Text(String(localized: "Choose Folder"))
+                    Text(LocalizedStringResource("Choose Folder"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -109,7 +109,7 @@ struct ChooseBackupFolderView: View {
                 .padding(.bottom, 10)
 
                 Button(action: onCancelCallback) {
-                    Text(String(localized: "Cancel"))
+                    Text(LocalizedStringResource("Cancel"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -134,7 +134,7 @@ struct RecoveryKeyInfoView: View {
                     .foregroundStyle(.primary)
                     .padding()
                 
-                Text(String(localized: "Recovery Key"))
+                Text(LocalizedStringResource("Recovery Key"))
                     .font(.title)
                     .padding()
             }
@@ -145,7 +145,7 @@ struct RecoveryKeyInfoView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "Your recovery key is a 64-character code that you will need to restore your backup."))
+                    Text(LocalizedStringResource("Your recovery key is a 64-character code that you will need to restore your backup."))
                 }
                 .padding()
                 
@@ -154,7 +154,7 @@ struct RecoveryKeyInfoView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "Store your recovery key somewhere safe like a password manager, and don't share it with anyone."))
+                    Text(LocalizedStringResource("Store your recovery key somewhere safe like a password manager, and don't share it with anyone."))
                 }
                 .padding()
                 
@@ -163,7 +163,7 @@ struct RecoveryKeyInfoView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-                    Text(String(localized: "If you lose it, you won't be able to recover your messages."))
+                    Text(LocalizedStringResource("If you lose it, you won't be able to recover your messages."))
                 }
                 .padding()
             }
@@ -173,7 +173,7 @@ struct RecoveryKeyInfoView: View {
             
             VStack {
                 Button(action: onViewKeyClicked ) {
-                    Text(String(localized: "View Recovery Key"))
+                    Text(LocalizedStringResource("View Recovery Key"))
                         .fontWeight(.bold)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -212,11 +212,11 @@ struct RecoveryKeyView: View {
                         .foregroundStyle(.primary)
                         .padding()
                     
-                    Text(String(localized: "Save Your Recovery Key"))
+                    Text(LocalizedStringResource("Save Your Recovery Key"))
                         .font(.title)
                         .padding()
                     
-                    Text(String(localized: "This key is required to recover your account and data. Store this key somewhere safe. If you lose it, you won't be able to recover your account."))
+                    Text(LocalizedStringResource("This key is required to recover your account and data. Store this key somewhere safe. If you lose it, you won't be able to recover your account."))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
                     
@@ -245,7 +245,7 @@ struct RecoveryKeyView: View {
                     }
                     
                     Button(action: copyToClipboardCallback) {
-                        Text(String(localized: "Copy to clipboard"))
+                        Text(LocalizedStringResource("Copy to clipboard"))
                             .multilineTextAlignment(.center)
                     }
                     .buttonStyle(.bordered)
@@ -255,7 +255,7 @@ struct RecoveryKeyView: View {
                 
                 VStack {
 //                    Button(action: saveToPasswordManagerCallback ) {
-//                        Text(String(localized: "Save to Password Manager"))
+//                        Text(LocalizedStringResource("Save to Password Manager"))
 //                            .fontWeight(.bold)
 //                            .padding(.all, 10)
 //                            .frame(maxWidth: .infinity)
@@ -264,7 +264,7 @@ struct RecoveryKeyView: View {
                     
                     if saveManuallyCallback != nil {
                         Button(action: saveManuallyCallback! ) {
-                            Text(String(localized: "Continue"))
+                            Text(LocalizedStringResource("Continue"))
                                 .fontWeight(.bold)
                                 .padding(.all, 10)
                                 .frame(maxWidth: .infinity)
@@ -328,8 +328,8 @@ struct BackupView: View {
                                 }
                             }
                             .sheet( isPresented: $backupFolderIsPresented) {
-                                if !viewModel.statusMessage.isEmpty {
-                                    Section(String(localized: "Status")) {
+                                if !String(localized: viewModel.statusMessage).isEmpty {
+                                    Section(LocalizedStringResource("Status")) {
                                         Text(viewModel.statusMessage)
                                             .font(.footnote)
                                             .foregroundStyle(.secondary)

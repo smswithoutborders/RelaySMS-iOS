@@ -47,10 +47,14 @@ private struct FromView: View {
         _accounts = Query(filter: predicate, sort: [SortDescriptor(\.date)])
     }
     
+    let selectAnAccountLabel = LocalizedStringResource("Select an account")
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Menu {
-                Picker(selectedAccount?.account ?? String(localized: "Select an account"), selection: $selectedAccount) {
+                Picker(selectedAccount != nil ?
+                       LocalizedStringResource(stringLiteral: selectedAccount!.account) :
+                        selectAnAccountLabel, selection: $selectedAccount) {
                     ForEach(accounts, id: \.self) { account in
                         FromViewComponent(
                             accountName: account.account,
@@ -62,7 +66,9 @@ private struct FromView: View {
                 .pickerStyle(.inline) // Removes the default picker section separation
             } label: {
                 HStack {
-                    Text(selectedAccount?.account ?? String(localized: "Select an account..."))
+                    Text(selectedAccount != nil ?
+                       LocalizedStringResource(stringLiteral: selectedAccount!.account) :
+                        selectAnAccountLabel)
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
                     Spacer()
@@ -196,7 +202,7 @@ struct ComposerManagerView: View {
                     }
                     
                     if case .loading = viewModel.composeState {
-                        ProgressView(String(localized: "Getting things ready.."))
+                        ProgressView(LocalizedStringResource("Getting things ready.."))
                             .progressViewStyle(.circular)
                             .tint(.blue)
                             .controlSize(.large)
@@ -204,7 +210,7 @@ struct ComposerManagerView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .navigationTitle(platformDisplayName + " " + String(localized: "compose"))
+            .navigationTitle(LocalizedStringResource("\(platformDisplayName) compose"))
             .sheet(isPresented: $debugSendIsPresented, onDismiss: { viewModel.payload = nil }) {
                 if viewModel.payload != nil {
                     VStack {
@@ -257,7 +263,7 @@ struct ComposerManagerView: View {
                 Button(action: {
                     isRoutingRequired = true
                 }) {
-                    Label(String(localized: "Send"), systemImage: "paperplane.circle")
+                    Label(LocalizedStringResource("Send"), systemImage: "paperplane.circle")
                 }
                 .disabled(
                     viewModel.composeState == .loading ||

@@ -35,7 +35,7 @@ class SupportedPlatformsViewModel {
     
     private(set) var fetchState: SupportedPlatformsFetchState = .loading
     private(set) var pnbaState: PnbaState = .idle
-    private(set) var pnbaStateFailure: String = ""
+    private(set) var pnbaStateFailure: LocalizedStringResource = ""
     
     private(set) var isStoring: Bool = false
 
@@ -153,9 +153,9 @@ class SupportedPlatformsViewModel {
             } catch {
                 print(error)
                 if error.localizedDescription.hasPrefix("invalidArgument:") {
-                    pnbaStateFailure = String(localized: "The phone number has a problem")
+                    pnbaStateFailure = LocalizedStringResource("The phone number has a problem")
                 } else {
-                    pnbaStateFailure = error.localizedDescription
+                    pnbaStateFailure = LocalizedStringResource("An error occured!")
                 }
             }
             
@@ -176,9 +176,9 @@ class SupportedPlatformsViewModel {
             } catch {
                 print(error)
                 if error.localizedDescription.hasPrefix("invalidArgument:") {
-                    pnbaStateFailure = String(localized: "Invalid or wrong code")
+                    pnbaStateFailure = LocalizedStringResource("Invalid or wrong code")
                 } else {
-                    pnbaStateFailure = error.localizedDescription
+                    pnbaStateFailure = LocalizedStringResource("An error occured!")
                 }
             }
         case .passwordRequested:
@@ -195,9 +195,9 @@ class SupportedPlatformsViewModel {
             } catch {
                 print(error)
                 if error.localizedDescription.hasPrefix("invalidArgument:") {
-                    pnbaStateFailure = String(localized: "Invalid or wrong password")
+                    pnbaStateFailure = LocalizedStringResource("Invalid or wrong password")
                 } else {
-                    pnbaStateFailure = error.localizedDescription
+                    pnbaStateFailure = LocalizedStringResource("An error occured!")
                 }
             }
         case .idle, .complete:

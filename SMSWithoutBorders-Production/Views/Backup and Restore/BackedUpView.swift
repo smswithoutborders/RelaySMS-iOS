@@ -28,7 +28,7 @@ struct BackedUpView: View {
                 Form {
                     Section {
                     } header: {
-                        Text(String(localized: "Backups are end-to-end encrypted and stored on your device."))
+                        Text(LocalizedStringResource("Backups are end-to-end encrypted and stored on your device."))
                             .font(.callout)
                     }
                     
@@ -42,21 +42,21 @@ struct BackedUpView: View {
                             }
                         }) {
                             HStack {
-                                Label(String(localized: "Back Up Now"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                                Label(LocalizedStringResource("Back Up Now"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                             }
                         }
                         .buttonStyle(.plain)
                     } footer: {
                         if viewModel.backingUp {
-                            Text(String(localized: "backing up..."))
+                            Text(LocalizedStringResource("backing up..."))
                         } else {
-                            Text(String(localized: "click to update backup"))
+                            Text(LocalizedStringResource("click to update backup"))
                         }
                     }
                     
                     Section {
                         HStack {
-                            Label(String(localized: "Last Backup"), systemImage: "")
+                            Label(LocalizedStringResource("Last Backup"), systemImage: "")
                             Spacer()
                             if lastBackupDate != nil {
                                 Text(formattedDateString(from: lastBackupDate ?? Date()))
@@ -66,7 +66,7 @@ struct BackedUpView: View {
                         
                         
                         HStack {
-                            Label(String(localized: "View Recovery Key"), systemImage: "")
+                            Label(LocalizedStringResource("View Recovery Key"), systemImage: "")
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .foregroundStyle(.secondary)
@@ -81,15 +81,15 @@ struct BackedUpView: View {
                     Section {
                         Button(action: {
                         }) {
-                            Text(String(localized: "Delete Backup"))
+                            Text(LocalizedStringResource("Delete Backup"))
                                 .foregroundStyle(.red)
                         }
                     } footer: {
-                        Text(String(localized: "To restore a backup, install a new copy of RelaySMS. Open the app, tap \"Restore backup\"."))
+                        Text(LocalizedStringResource("To restore a backup, install a new copy of RelaySMS. Open the app, tap \"Restore backup\"."))
                     }
                 }
-                .alert(String(localized: "Are you sure?"), isPresented: $showDeleteAlert) {
-                    Button(String(localized: "Delete"), role: .destructive) {
+                .alert(LocalizedStringResource("Are you sure?"), isPresented: $showDeleteAlert) {
+                    Button(LocalizedStringResource("Delete"), role: .destructive) {
                         if backupFilename != nil {
                             viewModel.deleteBackup(named: backupFilename!)
                             backupFilename = nil
@@ -97,14 +97,14 @@ struct BackedUpView: View {
                             dismiss()
                         }
                     }
-                    Button(String(localized: "Cancel"), role: .cancel) { }
+                    Button(LocalizedStringResource("Cancel"), role: .cancel) { }
                 } message: {
-                    Text(String(localized: "This action cannot be undone, but you can create new backups later."))
+                    Text(LocalizedStringResource("This action cannot be undone, but you can create new backups later."))
                 }
 
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(String(localized: "On-Device Backups"))
+            .navigationTitle(LocalizedStringResource("On-Device Backups"))
             .navigationDestination(isPresented: $viewRecoveryKeySelected) {
                 RecoveryKeyView(
                     copyToClipboardCallback: {

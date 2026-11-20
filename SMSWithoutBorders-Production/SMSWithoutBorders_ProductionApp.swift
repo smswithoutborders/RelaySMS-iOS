@@ -10,18 +10,42 @@ import Foundation
 import CoreData
 import SwiftData
 
+enum AppTab: Hashable {
+    case recent
+    case platforms
+    case gatewayClients
+
+    var titleKey: LocalizedStringKey {
+        switch self {
+        case .recent: "Recent"
+        case .platforms: "Platforms"
+        case .gatewayClients: "Routing numbers"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .recent: "house.circle"
+        case .platforms: "server.rack"
+        case .gatewayClients: "phone.arrow.up.right.circle"
+        }
+    }
+}
+
 struct MainView: View {
+    @State private var selectedTab: AppTab = .recent
+    
     var body: some View {
-        TabView {
-            Tab(String(localized: "Recent"), systemImage: "house.circle") {
+        TabView(selection: $selectedTab) {
+            Tab(AppTab.recent.titleKey, systemImage: AppTab.recent.systemImage, value: AppTab.recent) {
                 HomepageView()
             }
             
-            Tab(String(localized: "Platforms"), systemImage: "server.rack") {
+            Tab(AppTab.platforms.titleKey, systemImage: AppTab.platforms.systemImage, value: AppTab.platforms) {
                 SupportedPlatformsView()
             }
             
-            Tab(String(localized: "Routing numbers"), systemImage: "phone.arrow.up.right.circle") {
+            Tab(AppTab.gatewayClients.titleKey, systemImage: AppTab.gatewayClients.systemImage, value: AppTab.gatewayClients) {
                 GatewayClientsView()
             }
         }

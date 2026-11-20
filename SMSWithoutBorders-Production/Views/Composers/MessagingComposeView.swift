@@ -11,15 +11,19 @@ struct MessagingComposeView: View {
     @Binding var to: String
     @Binding var content: String
     
+    let exampleLabel = LocalizedStringResource("e.g +237123456789", comment: "Label for where the examples goes")
+
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
                 HStack(spacing: 8) {
-                    Text(String(localized: "To:"))
+                    Text(LocalizedStringResource("To:"))
                         .foregroundColor(.secondary)
                         .frame(width: 70, alignment: .leading)
                     
-                    TextField(String(localized: "e.g +237123456789"), text: $to)
+                    TextField(text: $to, prompt: Text(exampleLabel)) {
+                        Text(exampleLabel)
+                    }
                         .keyboardType(.phonePad)
                         .textContentType(.telephoneNumber)
                         .autocorrectionDisabled(true)
@@ -33,7 +37,7 @@ struct MessagingComposeView: View {
                         .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                 )
                 
-                Text(String(localized: "Enter the receipient number in international format. e.g +237123456789"))
+                Text(LocalizedStringResource("Enter the receipient number in international format. e.g +237123456789"))
                     .foregroundStyle(.secondary)
                     .font(.caption)
                     .multilineTextAlignment(.leading)
@@ -48,7 +52,7 @@ struct MessagingComposeView: View {
                     .padding(8)
                 
                 if content.isEmpty {
-                    Text(String(localized: "Content"))
+                    Text(LocalizedStringResource("Content"))
                         .foregroundColor(Color(.systemGray3))
                         .padding(.top, 16)
                         .padding(.leading, 12)

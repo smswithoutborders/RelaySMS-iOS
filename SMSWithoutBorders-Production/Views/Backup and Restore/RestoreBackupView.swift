@@ -21,11 +21,11 @@ struct RestoreRecoveryKeyView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Enter your recovery key"))
+            Text(LocalizedStringResource("Enter your recovery key"))
                 .font(.title)
                 .padding()
             
-            Text(String(localized: "Your recovery key is a 64-character code required to recover your data."))
+            Text(LocalizedStringResource("Your recovery key is a 64-character code required to recover your data."))
                 .padding(.bottom, 20)
             
             ZStack(alignment: .topLeading) {
@@ -37,7 +37,7 @@ struct RestoreRecoveryKeyView: View {
                     .disabled(recoveryKey.count == 64)
                 
                 if recoveryKey.isEmpty {
-                    Text(String(localized: "Recovery key"))
+                    Text(LocalizedStringResource("Recovery key"))
                         .foregroundColor(Color(.systemGray3))
                         .padding(.top, 16)
                         .padding(.leading, 12)
@@ -57,14 +57,14 @@ struct RestoreRecoveryKeyView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.gray.opacity(0.3), lineWidth: 1)
             )
-            if !viewModel.statusMessage.isEmpty {
+            if !String(localized: viewModel.statusMessage).isEmpty {
                 Text(viewModel.statusMessage)
                     .foregroundStyle(.red)
             }
 
             HStack {
                 Spacer()
-                Button(String(localized: "Next")) {
+                Button(LocalizedStringResource("Next")) {
                     onNextCallback()
                 }
                 .buttonStyle(.borderedProminent)
@@ -73,7 +73,7 @@ struct RestoreRecoveryKeyView: View {
             .padding(.top, 20)
         }
         .padding()
-        .navigationTitle(String(localized: "Restore Backup"))
+        .navigationTitle(LocalizedStringResource("Restore Backup"))
         .navigationBarTitleDisplayMode(.inline)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onChange(of: recoveryKey) {
@@ -89,7 +89,7 @@ struct RestoreRecoveryKeyView: View {
                     enableNext = true
                 }
             } else {
-                viewModel.statusMessage = String(localized: "Recovery key is a 64-characters long")
+                viewModel.statusMessage = LocalizedStringResource("Recovery key is a 64-characters long")
             }
         }
     
@@ -120,11 +120,11 @@ struct RestoreBackupView: View {
             }
         } else {
             VStack(alignment: .leading) {
-                Text(String(localized: "Restore on-device backup"))
+                Text(LocalizedStringResource("Restore on-device backup"))
                     .font(.title)
                     .padding()
                 
-                Text(String(localized: "Restore your saved accounts from the backup you saved on your device. If you don't restore now, you won't be able to restore later."))
+                Text(LocalizedStringResource("Restore your saved accounts from the backup you saved on your device. If you don't restore now, you won't be able to restore later."))
                     .padding(.bottom, 20)
                 
                 Button(action: { showPicker = true }){
@@ -135,9 +135,9 @@ struct RestoreBackupView: View {
                                 .scaledToFit()
                                 .frame(width: 50, height: 50)
                             VStack(alignment: .leading) {
-                                Text(String(localized: "Choose your backup file"))
+                                Text(LocalizedStringResource("Choose your backup file"))
                                     .font(.headline)
-                                Text(String(localized: "Select the file on your device where your backup is stored"))
+                                Text(LocalizedStringResource("Select the file on your device where your backup is stored"))
                             }
                             .multilineTextAlignment(.leading)
                         }
@@ -157,7 +157,7 @@ struct RestoreBackupView: View {
                 }
             }
             .padding()
-            .navigationTitle(String(localized: "Restore Backup"))
+            .navigationTitle(LocalizedStringResource("Restore Backup"))
             .navigationBarTitleDisplayMode(.inline)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }

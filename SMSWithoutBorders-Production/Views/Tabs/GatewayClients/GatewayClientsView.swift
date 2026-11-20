@@ -34,7 +34,7 @@ struct GatewayClient: View {
             .buttonStyle(.plain)
             
             if showSetAsDefault {
-                Button(String(localized: "Set as default")) {
+                Button(LocalizedStringResource("Set as default")) {
                     onSetAsDefaultClicked()
                 }
                 .buttonStyle(.bordered)
@@ -80,14 +80,14 @@ struct GatewayClientsView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Form {
-                    Section(String(localized: "Routing address")) {
+                    Section(LocalizedStringResource("Routing address")) {
                         DefaultGatewayClientView(
                             msisdn: viewModel.defaultGatewayClient?.msisdn ?? "",
                             country: viewModel.defaultGatewayClient?.country ?? "",
                             serviceProvider: viewModel.defaultGatewayClient?.serviceProvider ?? ""
                         )
                     }
-                    Section(String(localized: "Available routing numbers")) {
+                    Section(LocalizedStringResource("Available routing numbers")) {
                         List {
                             ForEach(gatewayClients) { gc in
                                 if gc.msisdn != viewModel.defaultGatewayClient?.msisdn {
@@ -126,7 +126,7 @@ struct GatewayClientsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(String(localized: "Routing Countries"))
+                    Text(LocalizedStringResource("Routing Countries"))
 //                        .font(.system(size: 24, weight: .bold, design: .rounded))
                         .font(.headline)
                         .foregroundColor(.primary)

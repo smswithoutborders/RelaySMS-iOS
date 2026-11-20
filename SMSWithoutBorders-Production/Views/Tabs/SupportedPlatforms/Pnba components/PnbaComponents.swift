@@ -15,11 +15,11 @@ struct PnbaComponentsView: View {
     @State var displayName: String
     @State var showCode: Bool
     @State var showPassword: Bool
-    @State var errorMessage: String? = ""
+    @State var errorMessage: LocalizedStringResource? = ""
 
     @State var onClick: () -> Void
     
-    @State private var phoneNumberStr = String(localized: "Phone number")
+    @State private var phoneNumberStr = LocalizedStringResource("Phone number")
 
     var body: some View {
         VStack {
@@ -41,27 +41,27 @@ struct PnbaComponentsView: View {
                         .font(.caption)
                         .foregroundColor(.red)
                 } footer: {
-                    Text(String(localized: "Enter phone number with dialing code e.g +237123456789"))
+                    Text(LocalizedStringResource("Enter phone number with dialing code e.g +237123456789"))
                 }
                 
                 if showCode {
-                    SecureField(text: $code, prompt: Text(String(localized: "Code"))) {
-                        Text(String(localized: "Code"))
+                    SecureField(text: $code, prompt: Text(LocalizedStringResource("Code"))) {
+                        Text(LocalizedStringResource("Code"))
                     }
                     .disabled(showPassword)
                 }
                 
                 if showPassword {
-                    SecureField(text: $password, prompt: Text(String(localized: "Password"))) {
-                        Text(String(localized: "Password"))
+                    SecureField(text: $password, prompt: Text(LocalizedStringResource("Password"))) {
+                        Text(LocalizedStringResource("Password"))
                     }
                 }
             }
             
             let buttonText = if !showCode && !showPassword {
-                String(localized: "Request code")
+                LocalizedStringResource("Request code")
             } else {
-                String(localized: "Submit")
+                LocalizedStringResource("Submit")
             }
             
             Button(buttonText) {
@@ -73,7 +73,7 @@ struct PnbaComponentsView: View {
             .clipShape(Capsule())
             
             if phoneNumber.count > 4 {
-                Button(String(localized: "Already have code")) {
+                Button(LocalizedStringResource("Already have code")) {
                     showCode = true
                 }
             }

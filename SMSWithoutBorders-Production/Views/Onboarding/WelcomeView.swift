@@ -23,7 +23,7 @@ struct PrivacyView: View {
     @State var onPreviousClick: () -> Void
     var body: some View {
         VStack(alignment: .leading) {
-            Button(String(localized: "Previous")) {
+            Button(LocalizedStringResource("Previous")) {
                 onPreviousClick()
             }
             .padding()
@@ -37,7 +37,7 @@ struct PrivacyView: View {
                         .frame(width: 150, height: 150)
 
                     
-                    Text(String(localized: "RelaysSMS no longer asks you to login nor register because your privacy matters"))
+                    Text(LocalizedStringResource("RelaysSMS no longer asks you to login nor register because your privacy matters"))
                         .multilineTextAlignment(.center)
                     
                 }
@@ -45,8 +45,8 @@ struct PrivacyView: View {
                 Spacer()
                 
                 Button(action: onComplete) {
-                    Text(String(localized: "Awesome!"))
-                        .foregroundColor(.white)
+                    Text(LocalizedStringResource("Awesome!"))
+                        .foregroundColor(Color(.onPrimary))
                         .padding() // 1. Add inner padding first
                         .frame(maxWidth: .infinity) // 2. Stretch to full width
                 }
@@ -65,7 +65,7 @@ struct SaveAccessView: View {
     @State var onPreviousClick: () -> Void
     var body: some View {
         VStack(alignment: .leading) {
-            Button(String(localized: "Previous")) {
+            Button(LocalizedStringResource("Previous")) {
                 onPreviousClick()
             }
             .padding()
@@ -79,7 +79,7 @@ struct SaveAccessView: View {
                         .frame(width: 250, height: 250)
 
                     
-                    Text(String(localized: "Save access to your accounts. It is stored securely on your device so you can send messages as yourself."))
+                    Text(LocalizedStringResource("Save access to your accounts. It is stored securely on your device so you can send messages as yourself."))
                         .multilineTextAlignment(.center)
                     
                 }
@@ -87,8 +87,8 @@ struct SaveAccessView: View {
                 Spacer()
                 
                 Button(action: onComplete) {
-                    Text(String(localized: "Done"))
-                        .foregroundColor(.white)
+                    Text(LocalizedStringResource("Done"))
+                        .foregroundColor(Color(.onPrimary))
                         .padding() // 1. Add inner padding first
                         .frame(maxWidth: .infinity) // 2. Stretch to full width
                 }
@@ -111,20 +111,7 @@ struct WelcomeView: View {
     
     var body: some View {
         VStack {
-            VStack(spacing: 20) {
-                Text(String(localized: "Welcome to RelaySMS!"))
-                    .font(.title)
-                    .fontWeight(.bold)
-
-                Image("1")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 250)
-                    .padding(.bottom, 40)
-                
-                Text(String(localized: "Use SMS to make a post, send emails and messages with no internet connection."))
-                    .multilineTextAlignment(.center)
-                
+            VStack(alignment: .trailing) {
                 Menu {
                     Picker(supportedLanguages[selectedLanguage] ?? "English", selection: $selectedLanguage) {
                         ForEach(supportedLanguages.keys.sorted(), id: \.self) { tag in
@@ -139,29 +126,48 @@ struct WelcomeView: View {
                     .font(.headline)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
-                    .background(Color.secondary)
-                    .foregroundStyle(.white)
+                    .background(Color(.primary))
+                    .foregroundStyle(Color(.onPrimary))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            Spacer()
+            
+            VStack(spacing: 20) {
+                Text(LocalizedStringResource("Welcome to RelaySMS!"))
+                    .font(.title)
+                    .fontWeight(.bold)
+
+                Image("1")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250, height: 250)
+                    .padding(.bottom, 40)
+                
+                Text(LocalizedStringResource("Use SMS to make a post, send emails and messages with no internet connection."))
+                    .multilineTextAlignment(.center)
+                
             }
             
             Spacer()
             
             Button(action: onComplete) {
-                Text(String(localized: "Learn how it works"))
-                    .foregroundColor(.white)
+                Text(LocalizedStringResource("Learn how it works"))
+                    .foregroundColor(Color(.onPrimary))
                     .padding() // 1. Add inner padding first
                     .frame(maxWidth: .infinity) // 2. Stretch to full width
             }
             .buttonStyle(.borderedProminent)
             .padding(.bottom, 10)
 
-            Button(String(localized: "Restore backup")) {
+            Button(LocalizedStringResource("Restore backup")) {
                 isRestorePresented = true
             }
             .padding(.bottom, 20)
 
-            Button(String(localized: "Read our privacy policy")) {
+            Button(LocalizedStringResource("Read our privacy policy")) {
                 if let url = URL(string: StaticVariables.App.privacyPolicy) {
                     openURL(url) // Opens in the default system browser
                 }

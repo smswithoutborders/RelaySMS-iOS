@@ -41,11 +41,11 @@ struct AccountStatsView: View {
                         .controlSize(.large)
                         .presentationDetents([.medium])
                 } else {
-                    Text(String(localized: "Refresh keys"))
+                    Text(LocalizedStringResource("Refresh keys"))
                 }
             }
             
-            Text(String(localized: "Number of keys"))
+            Text(LocalizedStringResource("Number of keys"))
             Text(String(numberOfKeys))
         }
         .task {
@@ -67,7 +67,7 @@ struct RevokeConfirmationView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(String(localized: "Are you sure you want to remove this account"))
+            Text(LocalizedStringResource("Are you sure you want to remove this account"))
             Text("\(account)?")
                 .bold()
 
@@ -75,13 +75,13 @@ struct RevokeConfirmationView: View {
                 .frame(height: 50)
             HStack {
                 Spacer()
-                Button(String(localized: "Cancel")) {
+                Button(LocalizedStringResource("Cancel")) {
                     onCancelClick()
                 }
                 
                 Spacer()
                     .frame(width: 20)
-                Button(String(localized: "Yes, remove.")) {
+                Button(LocalizedStringResource("Yes, remove.")) {
                     onYesClicked()
                 }
                 .font(.headline)

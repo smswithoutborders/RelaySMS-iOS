@@ -79,7 +79,7 @@ struct PlatformSelectedView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(String(localized: "Your \(displayName) account(s)"))
+                Text(LocalizedStringResource("Your \(displayName) account(s)"))
                 Spacer()
                 Button(action: {
                     onClose()
@@ -95,7 +95,7 @@ struct PlatformSelectedView: View {
             Button(action: {
                 onAddNewClick()
             }) {
-                Label(String(localized: "Add new"), systemImage: "plus")
+                Label(LocalizedStringResource("Add new"), systemImage: "plus")
                     .font(.subheadline)
                     .padding()
                     .background(Color(.primary))
@@ -109,7 +109,7 @@ struct PlatformSelectedView: View {
                 Spacer()
                     .frame(maxHeight: 50)
                 
-                Text(String(localized: "You have not saved any account yet. Click the add button to connect your \(displayName) account."))
+                Text(LocalizedStringResource("You have not saved any account yet. Click the add button to connect your \(displayName) account."))
             } else {
                 Spacer()
                     .frame(maxHeight: 30)
@@ -187,14 +187,14 @@ struct SupportedPlatformsView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(String(localized: "Supported platforms"))
+            .navigationTitle(LocalizedStringResource("Supported platforms"))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Menu {
                         Button(role: .destructive, action: {
                             // TODO:
                         }) {
-                            Label(String(localized: "Delete all tokens"), systemImage: "trash")
+                            Label(LocalizedStringResource("Delete all tokens"), systemImage: "trash")
                         }
                     } label: {
                         // The button icon or text that triggers the menu
@@ -225,7 +225,7 @@ struct SupportedPlatformsView: View {
             }) { platform in
                 Group {
                     if viewModel.isStoring {
-                        ProgressView(String(localized: "Getting things ready.."))
+                        ProgressView(LocalizedStringKey("Getting things ready.."))
                             .progressViewStyle(.circular)
                             .tint(.blue)
                             .controlSize(.large)
@@ -312,6 +312,7 @@ struct SupportedPlatformsView: View {
             }
         }
     }
+    
     private func getCount(accountName: String) -> Int{
         let descriptor = FetchDescriptor<Tokens>(
             predicate: #Predicate<Tokens> { $0.platformName == accountName }

@@ -55,14 +55,14 @@ struct PlatformsPresentedView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text(String(localized: "Send with..."))
+                Text(LocalizedStringResource("Send with..."))
                     .font(.title2)
                 Spacer()
             }
             .padding()
             
             if accounts.isEmpty {
-                Text(String(localized: "You do not have any platformed saved. Go to platforms to save one, or use the no account option below."))
+                Text(LocalizedStringResource("You do not have any platformed saved. Go to platforms to save one, or use the no account option below."))
                     .padding()
             }
             else {
@@ -81,7 +81,7 @@ struct PlatformsPresentedView: View {
                 }
             }
             
-            Text(String(localized: "Always available - No setup required."))
+            Text(LocalizedStringResource("Always available - No setup required."))
             Button(action: onOfflineClick) {
                 GroupBox {
                     HStack {
@@ -90,13 +90,13 @@ struct PlatformsPresentedView: View {
                             .foregroundColor(.primary)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(String(localized: "No account. Sends from a random address e.g 123abc@relaysms.me."))
+                            Text(LocalizedStringResource("No account. Sends from a random address e.g 123abc@relaysms.me."))
                                 .font(.headline)
                                 .multilineTextAlignment(.leading)
-                            Text(String(localized: "e.g 123abc@relaysms.me."))
+                            Text(LocalizedStringResource("e.g 123abc@relaysms.me."))
                                 .font(.subheadline)
                                 .padding(.bottom, 8)
-                            Text(String(localized: "You cannot get replies here."))
+                            Text(LocalizedStringResource("You cannot get replies here."))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -141,7 +141,7 @@ private struct PayloadViews: View {
                 VStack(alignment: .leading) {
                     HStack {
                         let dateFromSeconds = Date(timeIntervalSince1970: TimeInterval(contents.date) / 1000.0)
-                        Text(String(localized: "To:"))
+                        Text(LocalizedStringResource("To:"))
                             .bold()
                         Text(contents.to)
                             .bold()
@@ -221,7 +221,7 @@ struct HomepageView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 200, height: 200)
-                        Text(String(localized: "Compose your first message."))
+                        Text(LocalizedStringResource("Compose your first message."))
                             .font(.headline)
                     }
                 }
@@ -269,17 +269,17 @@ struct HomepageView: View {
                                 isBackupPresented.toggle()
                             }
                         }) {
-                            Label(String(localized: "Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                            Label(LocalizedStringResource("Backups"), systemImage: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                         }
                         
     //                        Divider() // Separator line
     //
     //                        Button(role: .destructive, action: {
     //                        }) {
-    //                            Label(String(localized: "Delete All"), systemImage: "trash")
+    //                            Label(LocalizedStringResource("Delete All"), systemImage: "trash")
     //                        }
                         Button(action: { isSettingPresented = true }) {
-                            Label(String(localized: "Settings"), systemImage: "gearshape")
+                            Label(LocalizedStringResource("Settings"), systemImage: "gearshape")
                         }
                     } label: {
                         // The button icon or text that triggers the menu

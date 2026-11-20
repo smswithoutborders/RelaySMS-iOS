@@ -20,7 +20,7 @@ struct TextComposeView: View {
                     .padding(8)
                 
                 if content.isEmpty {
-                    Text(String(localized: "Content"))
+                    Text(LocalizedStringResource("Content"))
                         .foregroundColor(Color(.systemGray3))
                         .padding(.top, 16)
                         .padding(.leading, 12)

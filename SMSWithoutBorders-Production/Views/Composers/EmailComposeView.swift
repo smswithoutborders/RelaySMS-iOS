@@ -12,14 +12,19 @@ struct EmailComposeView: View {
     @Binding var subject: String
     @Binding var content: String
     
+    let recipientLabel = LocalizedStringResource("Recipients", comment: "Label for where the receipient emails go")
+    let subjectLabel = LocalizedStringResource("Subject", comment: "Label for where the subject goes")
+
     var body: some View {VStack(spacing: 12) {
         // 1. "To" Field
         HStack(spacing: 8) {
-            Text(String(localized: "To:"))
+            Text(LocalizedStringResource("To:"))
                 .foregroundColor(.secondary)
                 .frame(width: 70, alignment: .leading)
             
-            TextField(String(localized: "Recipients"), text: $to)
+            TextField(text: $to, prompt: Text(recipientLabel)) {
+                Text(recipientLabel)
+            }
                 .keyboardType(.emailAddress)
                 .textContentType(.emailAddress)
                 .textInputAutocapitalization(.never)
@@ -36,11 +41,13 @@ struct EmailComposeView: View {
         
         // 2. "Subject" Field
         HStack(spacing: 8) {
-            Text(String(localized: "Subject:"))
+            Text(LocalizedStringResource("Subject:"))
                 .foregroundColor(.secondary)
                 .frame(width: 70, alignment: .leading)
             
-            TextField(String(localized: "Subject"), text: $subject)
+            TextField(text: $subject, prompt: Text(subjectLabel)) {
+                Text(subjectLabel)
+            }
         }
         .padding(.horizontal, 12)
         .frame(height: 44)
@@ -60,7 +67,7 @@ struct EmailComposeView: View {
                 .padding(8)
             
             if content.isEmpty {
-                Text(String(localized: "Content"))
+                Text(LocalizedStringResource("Content"))
                     .foregroundColor(Color(.systemGray3))
                     .padding(.top, 16)
                     .padding(.leading, 12)

@@ -23,14 +23,14 @@ class BackupRestoreViewModel {
     
     private let folderStore = PersistedFileStore(key: "backupFolderBookmark")
     
-    var statusMessage: String = ""
+    var statusMessage: LocalizedStringResource = ""
     private(set) var backingUp: Bool = false
     
     private(set) var recoveryKey: String = ""
     var backupData: Data? = nil
 
     private var filename: String {
-        let template = String(localized: "RelaySMS-Backup-")
+        let template = LocalizedStringResource("RelaySMS-Backup-")
         var raw = UserDefaults.standard.string(forKey: "backupFilenamePrefix")
         
         if raw != nil {
@@ -43,13 +43,13 @@ class BackupRestoreViewModel {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd"
                 formatter.locale = Locale(identifier: "en_US_POSIX")
-                raw = template + formatter.string(from: .now)
+                raw = String(localized: template) + formatter.string(from: .now)
             }
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             formatter.locale = Locale(identifier: "en_US_POSIX")
-            raw = template + formatter.string(from: .now)
+            raw = String(localized: template) + formatter.string(from: .now)
         }
         
         return raw!
@@ -89,9 +89,9 @@ class BackupRestoreViewModel {
             
             return (name, Date())
         } catch PersistedFileStore.StoreError.noBookmark {
-            statusMessage = String(localized: "Choose a backup folder first.")
+            statusMessage = LocalizedStringResource("Choose a backup folder first.")
         } catch {
-            statusMessage = String(localized: "Failed to write: \(error.localizedDescription)")
+            statusMessage = LocalizedStringResource("Failed to write: \(error.localizedDescription)")
         }
         return (nil, nil)
     }
@@ -101,7 +101,7 @@ class BackupRestoreViewModel {
             let rk = try Keystore.retrievePassword(service: serviceName, account: account)
             return rk
         } catch {
-            statusMessage = String(localized: "Failed to fetch recovery key: \(error.localizedDescription)")
+            statusMessage = LocalizedStringResource("Failed to fetch recovery key: \(error.localizedDescription)")
         }
         return ""
     }
@@ -117,9 +117,9 @@ class BackupRestoreViewModel {
             folderStore.clear()
             try Keystore.deletePassword(service: serviceName, account: account)
         } catch PersistedFileStore.StoreError.noBookmark {
-            statusMessage = String(localized: "Choose a backup folder first.")
+            statusMessage = LocalizedStringResource("Choose a backup folder first.")
         } catch {
-            statusMessage = String(localized: "Failed to delete: \(error.localizedDescription)")
+            statusMessage = LocalizedStringResource("Failed to delete: \(error.localizedDescription)")
         }
     }
     
@@ -140,12 +140,12 @@ class BackupRestoreViewModel {
         let context = ModelContext(container)
         do {
             guard let rk = recoveryKey.data(using: .utf8) else {
-                statusMessage = String(localized: "Failed to convert key")
+                statusMessage = LocalizedStringResource("Failed to convert key")
                 return
             }
             try BackupRestoreImpl.recover(context: context, data: data, recoveryKey: rk)
         } catch {
-            statusMessage = String(localized: "Failed to recover data: \(error.localizedDescription)")
+            statusMessage = LocalizedStringResource("Failed to recover data: \(error.localizedDescription)")
         }
     }
 }

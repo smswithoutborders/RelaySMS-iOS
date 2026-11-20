@@ -43,7 +43,7 @@ struct ContentView: View {
                     if !from.isEmpty {
                         Text(from)
                     }
-                    Text(String(localized: "to: \(to)"))
+                    Text(LocalizedStringResource("to: \(to)"))
                 }
             }
             .padding(.bottom, 30)
@@ -69,7 +69,7 @@ struct ContentView: View {
                     deleteItem(with: payloadId)
                     dismiss()
                 }) {
-                    Label(String(localized: "Delete"), systemImage: "trash")
+                    Label(LocalizedStringResource("Delete"), systemImage: "trash")
                 }
                 .tint(.red)
             }
@@ -78,7 +78,7 @@ struct ContentView: View {
                 Button(action: {
                     editIsPresented = true
                 }) {
-                    Label(String(localized: "Edit"), systemImage: "pencil.circle")
+                    Label(LocalizedStringResource("Edit"), systemImage: "pencil.circle")
                 }
             }
             

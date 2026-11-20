@@ -8,15 +8,15 @@
 import SwiftUI
 
 let supportedLanguages = [
-    "en" : String(localized: "English"),
-    "ar" : String(localized: "Arabic"),
-    "fr" : String(localized: "French"),
-    "de" : String(localized: "German"),
-    "fa" : String(localized: "Persian"),
-    "sn" : String(localized: "Shona"),
-    "es" : String(localized: "Spanish"),
-    "sw" : String(localized: "Swahili"),
-    "tr" : String(localized: "Turkish"),
+    "en" : LocalizedStringResource("English"),
+    "ar" : LocalizedStringResource("Arabic"),
+    "fr" : LocalizedStringResource("French"),
+    "de" : LocalizedStringResource("German"),
+    "fa" : LocalizedStringResource("Persian"),
+    "sn" : LocalizedStringResource("Shona"),
+    "es" : LocalizedStringResource("Spanish"),
+    "sw" : LocalizedStringResource("Swahili"),
+    "tr" : LocalizedStringResource("Turkish"),
 ]
 
 
@@ -49,16 +49,16 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: Text(String(localized: "About"))) {
+                Section(header: Text(LocalizedStringResource("About"))) {
                     HStack {
-                        Label(String(localized: "Version"), systemImage: "info.circle.fill")
+                        Label(LocalizedStringResource("Version"), systemImage: "info.circle.fill")
                         Spacer()
                         Text("1.0.0 (Build \(Bundle.main.buildNumber))")
                             .foregroundColor(.secondary)
                     }
                     
                     Link(destination: URL(string: StaticVariables.App.privacyPolicy)!) {
-                        Label(String(localized: "Privacy Policy"), systemImage: "lock.shield.fill")
+                        Label(LocalizedStringResource("Privacy Policy"), systemImage: "lock.shield.fill")
                     }
                 }
             }
