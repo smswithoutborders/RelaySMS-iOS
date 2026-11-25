@@ -1,0 +1,477 @@
+//
+//  PublisherImpl.swift
+//  SMSWithoutBorders-Production
+//
+//  Created by Sherlock on 23/09/2026.
+//
+
+import CryptoKit
+import Foundation
+import SwiftData
+
+class PublisherImpl {
+    enum PublisherImplError: Error {
+        case failedToGenerateKeys
+        case failedToGetAuthUrl(status: String)
+        case failedToGenerateRequestIdentifier
+        case failedToSendOAuthAuthorizationCode
+        case invalidDecryptionKeyRequested(keyId: UInt32)
+        case failedToFindStaticKeyForId(keyId: UInt32)
+        case failedToDecryptClientToken
+        case failedToDeserializeData
+        case failedToSaveLocalKey(keyId: Int)
+        case failedToFindServerPublicKey(keyId: Int)
+        case failedToSaveLocalKeysToSwiftData
+        case failedToInitializeContextCOntainer
+        case failedToGetRandomKey
+        case failedToDeleteFromKeystore
+        case failedToRevokeOAuth2
+        case failedToEncryptGrpc
+
+    }
+    
+    static let shared = try! GRPCService(
+        host: StaticVariables.GRPC.getUrl(),
+        port: StaticVariables.GRPC.getPort(),
+        onRequest: { nil }
+    )
+    let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+    
+    var container: ModelContainer
+    init(container: ModelContainer) {
+        self.container = container
+    }
+
+    public func getAuthUrl(
+        availablePlatform: SupportedPlatforms,
+        requestIdentifier: String,
+        autogenerateCodeVerifier: Bool = true,
+        supportsUrlScheme: Bool = false,
+    ) async throws -> Publisher_V3_GetOAuth2AuthorizationUrlResponse {
+        let scheme = supportsUrlScheme ? "true" : "false"
+        
+        let reply = try await publisherStub.getOAuth2AuthorizationUrl(.with {
+            $0.platform = availablePlatform.name
+            $0.state = (availablePlatform.name + "," + scheme)
+                .data(using: .utf8)!.base64EncodedString()
+            $0.redirectURL = StaticVariables.Publisher.getRedirectUrl()
+            $0.autogenerateCodeVerifier = autogenerateCodeVerifier
+            $0.requestIdentifier = requestIdentifier
+        })
+        return reply
+    }
+    
+    private func getKeys() throws -> (
+        [Publisher_V3_PublicKey],
+        [(Int, Curve25519.KeyAgreement.PrivateKey)]
+    ){
+        var keys = [(Int, Curve25519.KeyAgreement.PrivateKey)]()
+        var publisherKeys = [Publisher_V3_PublicKey]()
+        for i in 0...255 {
+            guard let privateKey = generateNewKeypair() else {
+                throw PublisherImplError.failedToGenerateKeys
+            }
+            let ppKey: Publisher_V3_PublicKey = .with {
+                $0.keyID = UInt32(i)
+                $0.publicKey = privateKey.publicKey.rawRepresentation
+            }
+            keys.append((i, privateKey))
+            publisherKeys.append(ppKey)
+        }
+        
+        return (publisherKeys, keys)
+    }
+    
+    private class PublisherKeys {
+        let keyId: UInt8
+        let privateKey: Data
+        
+        init(keyId: UInt8, privateKey: Data) {
+            self.keyId = keyId
+            self.privateKey = privateKey
+        }
+        
+        func serialize() -> Data {
+            return [keyId] + privateKey
+        }
+        
+        public static func deserialize(data: Data) throws -> PublisherKeys {
+            guard let keyId: UInt8 = data.first else {
+                throw PublisherImplError.failedToDeserializeData
+            }
+            return PublisherKeys(
+                keyId: keyId,
+                privateKey: data.dropFirst()
+            )
+        }
+    }
+    
+    private func storeKeys(
+        keys: [(Int, Curve25519.KeyAgreement.PrivateKey)],
+        serverEphemeralPublicKeys: [Publisher_V3_PublicKey],
+        tokenId: UInt32,
+        tokenHash: Data,
+        catId: V1ContentCategories,
+        accountId: String,
+        platformName: String,
+        account: Tokens? = nil
+    ) throws {
+        let context = ModelContext(self.container)
+        context.autosaveEnabled = false
+        
+        let token = account ?? Tokens(
+            catId: Int(catId.rawValue),
+            account: accountId,
+            platformName: platformName
+        )
+        if account == nil {
+            context.insert(token)
+            print("Token stored: \(token.id)")
+        }
+        
+        for keypair in keys {
+            let (keyId, privateKey) = keypair
+            let accountTag = Keystore.getLocalKeysAccountTag(
+                keyId: UInt8(keyId),
+                tokenId: token.id,
+            )
+            let serverPublicKey = serverEphemeralPublicKeys.first{ $0.keyID == keyId }
+            
+            if serverPublicKey == nil {
+                throw PublisherImplError.failedToFindServerPublicKey(keyId: keyId)
+            }
+            
+            let localKeypair = LocalKeypair(
+                keyId: UInt8(keyId),
+                privateKey: privateKey,
+                serverPublicKey: serverPublicKey!.publicKey,
+                tokenId: tokenId,
+                tokenHash: tokenHash
+            ).serialize()
+            
+            if(!Keystore(accountTag: accountTag)
+                .savePrivateKeyToKeychain(keyData: localKeypair)) {
+                throw PublisherImplError.failedToSaveLocalKey(keyId: keyId)
+            }
+        }
+        print("Local keys stored: \(keys.count)")
+
+        do {
+            try context.save()
+        } catch {
+            throw PublisherImplError.failedToSaveLocalKeysToSwiftData
+        }
+    }
+    
+    private func processEphemeralKeys(
+        keyId: UInt32,
+        serverEphemeralPublicKeys: [Publisher_V3_PublicKey],
+        keys: [(Int, Curve25519.KeyAgreement.PrivateKey)],
+        tokenCipherText: Data,
+        catId: V1ContentCategories,
+        accountId: String,
+        platformName: String,
+        tokenId: UInt32,
+    ) throws {
+        let ecKid = keys.first { v in v.0 == keyId }?.1.rawRepresentation
+        if ecKid == nil {
+            throw PublisherImplError.invalidDecryptionKeyRequested(keyId: keyId)
+        }
+        
+        let esKidPk = serverEphemeralPublicKeys.first { v in v.keyID == keyId }?.publicKey
+        if esKidPk == nil {
+            throw PublisherImplError.invalidDecryptionKeyRequested(keyId: keyId)
+        }
+        
+        guard let ssKidPk = try StaticKeys.getStaticKey(kid: Int(keyId))?.getKey() else {
+            throw PublisherImplError.failedToFindStaticKeyForId(keyId: keyId)
+        }
+        
+        do {
+            let tokenHash = try v1TokenDecryptClient(
+                ecKid: ecKid!,
+                ssKidPk: ssKidPk,
+                esKidPk: esKidPk!,
+                keyId: UInt8(keyId),
+                receivedPayload: Data(tokenCipherText)
+            )
+            
+            try storeKeys(
+                keys: keys,
+                serverEphemeralPublicKeys: serverEphemeralPublicKeys,
+                tokenId: tokenId,
+                tokenHash: tokenHash,
+                catId: catId,
+                accountId: accountId,
+                platformName: platformName
+            )
+            
+        } catch {
+            throw PublisherImplError.failedToDecryptClientToken
+        }
+        
+    }
+    
+    
+    public func sendOAuthAuthorizationCode(
+        platformName: String,
+        code: String,
+        codeVerifier: String,
+        requestIdentifier: String,
+    ) async throws -> Publisher_V3_ExchangeOAuth2CodeAndStoreResponse {
+        do {
+            let (publisherKeys, keys) = try getKeys()
+            
+            let response = try await publisherStub.exchangeOAuth2CodeAndStore(.with {
+                $0.platform = platformName
+                $0.authorizationCode = code
+                $0.codeVerifier = codeVerifier
+                $0.redirectURL = StaticVariables.Publisher.getRedirectUrl()
+                $0.requestIdentifier = requestIdentifier
+                $0.clientEphemeralPublicKeys = publisherKeys
+            })
+            
+            try processEphemeralKeys(
+                keyId: response.keyID,
+                serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
+                keys: keys,
+                tokenCipherText: response.tokenCiphertext,
+                catId: v1ContentCategoryFromU8(value: UInt8(response.catID)),
+                accountId: response.accountIdentifier,
+                platformName: response.platform,
+                tokenId: response.tokenID
+            )
+            
+            return response
+        } catch {
+            throw error
+        }
+    }
+    
+    public func requestPnbaCode(
+        phoneNumber: String,
+        platformName: String,
+        channel: String?,
+    ) async throws -> Publisher_V3_GetPNBACodeResponse? {
+        do {
+            let response = try await publisherStub.getPNBACode(.with {
+                $0.platform = platformName
+                $0.phoneNumber = phoneNumber
+                if channel != nil {
+                    $0.channel = channel!
+                }
+            })
+            
+            return response
+        } catch {
+            throw error
+        }
+    }
+
+    public func sendPnbaAuthorizationExchange(
+        code: String,
+        phoneNumber: String,
+        platformName: String,
+        channel: String?,
+        password: String?,
+    ) async throws -> Publisher_V3_ExchangePNBACodeAndStoreResponse? {
+        do {
+            let (publisherKeys, keys) = try getKeys()
+            
+            let response = try await publisherStub.exchangePNBACodeAndStore(.with {
+                $0.platform = platformName
+                $0.authorizationCode = code
+                $0.phoneNumber = phoneNumber
+                $0.clientEphemeralPublicKeys = publisherKeys
+                if password != nil {
+                    $0.password = password!
+                }
+                if channel != nil {
+                    $0.channel = channel!
+                }
+            })
+            
+            if !response.twoStepVerificationEnabled {
+                try processEphemeralKeys(
+                    keyId: response.keyID,
+                    serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
+                    keys: keys,
+                    tokenCipherText: response.tokenCiphertext,
+                    catId: v1ContentCategoryFromU8(value: UInt8(response.catID)),
+                    accountId: response.accountIdentifier,
+                    platformName: response.platform,
+                    tokenId: response.tokenID
+                )
+            }
+            else {
+                return response
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
+    
+    public func revokeOAuth2(account: Tokens) async throws {
+        let context = ModelContext(self.container)
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
+            tokenId: account.id,
+            withAttachment: false,
+            into: context
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: localKeypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
+            }
+        )
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+
+        let response = try await publisherStub.revokeOAuth2Token(.with{
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
+        })
+        
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        let oldItemsPredicate = #Predicate<Tokens> { $0.id == account.id }
+        try? context.delete(model: Tokens.self, where: oldItemsPredicate)
+    }
+    
+    public func revokePnba(account: Tokens) async throws {
+        let context = ModelContext(self.container)
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
+            tokenId: account.id,
+            withAttachment: false,
+            into: context
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: localKeypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
+            }
+        )
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+
+        let response = try await publisherStub.revokePNBAToken(.with{
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
+        })
+        
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        let oldItemsPredicate = #Predicate<Tokens> { $0.id == account.id }
+        try? context.delete(model: Tokens.self, where: oldItemsPredicate)
+    }
+    
+    func refreshKeys(account: Tokens) async throws {
+        let context = ModelContext(self.container)
+        guard let (localKeypair, authenticationPublicKey) = try Keystore.loadRandom(
+            tokenId: account.id,
+            withAttachment: false,
+            into: context
+        ) else {
+            throw PublisherImplError.failedToGetRandomKey
+        }
+        
+        let shared = try! GRPCService(
+            host: StaticVariables.GRPC.getUrl(),
+            port: StaticVariables.GRPC.getPort(),
+            onRequest: {
+                do {
+                    let ciphertext = try v1TokenEncryptClient(
+                        ecKid: localKeypair.privateKey.rawRepresentation,
+                        ssKidPk: authenticationPublicKey,
+                        esKidPk: localKeypair.serverPublicKey,
+                        keyId: localKeypair.keyId,
+                        token: localKeypair.tokenHash
+                    )
+                    return ciphertext
+                } catch {
+                    print(error)
+                    throw PublisherImplError.failedToEncryptGrpc
+                }
+            }
+        )
+        
+        let (publisherKeys, keys) = try getKeys()
+        let publisherStub = Publisher_V3_Publisher.Client(wrapping: shared.client)
+        let response = try await publisherStub.syncKeys(.with{
+            $0.keyID = UInt32(localKeypair.keyId)
+            $0.tokenID = localKeypair.tokenId
+            $0.clientEphemeralPublicKeys = publisherKeys
+        })
+        
+        if !response.success {
+            print(response.message)
+            throw PublisherImplError.failedToRevokeOAuth2
+        }
+        
+        try await deleteStoredKeys(context, account: account)
+        
+        try storeKeys(
+            keys: keys,
+            serverEphemeralPublicKeys: response.serverEphemeralPublicKeys,
+            tokenId: localKeypair.tokenId,
+            tokenHash: localKeypair.tokenHash,
+            catId: v1ContentCategoryFromU8(value: UInt8(account.catId)),
+            accountId: account.account,
+            platformName: account.platformName,
+            account: account
+        )
+    }
+    
+    private func deleteStoredKeys(_ context: ModelContext, account: Tokens) async throws{
+        for i in 0...255 {
+            let tag = Keystore.getLocalKeysAccountTag(
+                keyId: UInt8(i),
+                tokenId: account.id
+            )
+            
+            let keystore = Keystore(accountTag: tag)
+            do {
+                let _ = try keystore.deletePrivateKeyFromKeychain()
+            } catch {
+                print(error)
+            }
+        }
+    }
+}

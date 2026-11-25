@@ -1,0 +1,164 @@
+//
+//  GatewayClientsView.swift
+//  SMSWithoutBorders-Production
+//
+//  Created by Sherlock on 30/09/2026.
+//
+
+import SwiftUI
+import SwiftData
+
+struct GatewayClient: View {
+    let msisdn: String
+    let country: String
+    let serviceProvider: String
+
+    @State var onSetAsDefaultClicked: () -> Void
+    
+    @State private var showSetAsDefault = false
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Button(action: {
+                showSetAsDefault.toggle()
+            }) {
+                VStack(alignment: .leading) {
+                    Text(msisdn)
+                    Text(country)
+                        .font(.caption)
+                    Text(serviceProvider)
+                        .font(.caption2)
+
+                }
+            }
+            .buttonStyle(.plain)
+            
+            if showSetAsDefault {
+                Button(LocalizedStringResource("Set as default")) {
+                    onSetAsDefaultClicked()
+                }
+                .buttonStyle(.bordered)
+                .padding(.top, 10)
+            }
+        }
+        .padding()
+    }
+}
+
+struct DefaultGatewayClientView: View {
+    let msisdn: String
+    let country: String
+    let serviceProvider: String
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(msisdn)
+                .font(.headline)
+            
+            Text(country)
+                .font(.caption)
+            
+            Text(serviceProvider)
+                .font(.caption2)
+        }
+        .padding()
+    }
+}
+
+struct GatewayClientsView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var gatewayClients: [GatewayClients]
+    
+    @State private var viewModel = GatewayClientsViewModel()
+    
+    @State private var toggleShowDefault: Bool = false
+    
+    var isSending: Bool = false
+    var isSendingCallback: () -> Void = {}
+
+    var body: some View {
+        NavigationStack {
+            VStack(alignment: .leading) {
+                Form {
+                    Section(LocalizedStringResource("Routing address")) {
+                        DefaultGatewayClientView(
+                            msisdn: viewModel.defaultGatewayClient?.msisdn ?? "",
+                            country: viewModel.defaultGatewayClient?.country ?? "",
+                            serviceProvider: viewModel.defaultGatewayClient?.serviceProvider ?? ""
+                        )
+                    }
+                    Section(LocalizedStringResource("Available routing numbers")) {
+                        List {
+                            ForEach(gatewayClients) { gc in
+                                if gc.msisdn != viewModel.defaultGatewayClient?.msisdn {
+                                    GatewayClient(
+                                        msisdn: gc.msisdn,
+                                        country: gc.country,
+                                        serviceProvider: gc.serviceProvider,
+                                        onSetAsDefaultClicked: {
+                                            viewModel.setAsDefault(
+                                                gatewayClient: gc,
+                                                into: modelContext.container
+                                            )
+                                        }
+                                    )
+                                    .contentShape(Rectangle())
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if case .loading = viewModel.fetchState {
+                    ProgressView()
+                        .progressViewStyle(LinearProgressViewStyle())
+                        .padding()
+                }
+                else if case .failure(let reason) = viewModel.fetchState {
+                    Text("Error: \(reason)")
+                        .foregroundColor(.red)
+                }
+                
+            }
+            .task {
+                await viewModel.fetch(into: modelContext.container)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(LocalizedStringResource("Routing Countries"))
+//                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                }
+                
+                if isSending {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: isSendingCallback) {
+                            Image(systemName: "paperplane.circle.fill")
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+#Preview {
+    GatewayClient(
+        msisdn: "+237123456789",
+        country: "Cameroon",
+        serviceProvider: "MTN Cameroon",
+        onSetAsDefaultClicked: {},
+    )
+}
+
+#Preview {
+    DefaultGatewayClientView(
+        msisdn: "+123456789",
+        country: "Cameroon",
+        serviceProvider: "MTN Cameroon",
+    )
+}
