@@ -1,0 +1,272 @@
+//
+//  WelcomeView.swift
+//  SMSWithoutBorders-Production
+//
+//  Created by Sherlock on 28/10/2026.
+//
+
+import SwiftUI
+
+enum OnboardingPage: String, Identifiable, CaseIterable {
+    case welcome
+    case privacy
+    case saveAccess
+
+    var id: String { rawValue }
+
+    static var first: Self = .welcome
+}
+
+struct PrivacyView: View {
+    
+    @State var onComplete: () -> Void
+    @State var onPreviousClick: () -> Void
+    var body: some View {
+        VStack(alignment: .leading) {
+            Button(LocalizedStringResource("Previous")) {
+                onPreviousClick()
+            }
+            .padding()
+            
+            VStack {
+                Spacer()
+                VStack(spacing: 20) {
+                    Image("6")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+
+                    
+                    Text(LocalizedStringResource("RelaysSMS no longer asks you to login nor register because your privacy matters"))
+                        .multilineTextAlignment(.center)
+                    
+                }
+                
+                Spacer()
+                
+                Button(action: onComplete) {
+                    Text(LocalizedStringResource("Awesome!"))
+                        .foregroundColor(Color(.onPrimary))
+                        .padding() // 1. Add inner padding first
+                        .frame(maxWidth: .infinity) // 2. Stretch to full width
+                }
+                .buttonStyle(.borderedProminent)
+                
+            }
+            .padding(.bottom, 20)
+        }
+        .padding()
+    }
+}
+
+struct SaveAccessView: View {
+    
+    @State var onComplete: () -> Void
+    @State var onPreviousClick: () -> Void
+    var body: some View {
+        VStack(alignment: .leading) {
+            Button(LocalizedStringResource("Previous")) {
+                onPreviousClick()
+            }
+            .padding()
+            
+            VStack {
+                Spacer()
+                VStack(spacing: 20) {
+                    Image("3")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250, height: 250)
+
+                    
+                    Text(LocalizedStringResource("Save access to your accounts. It is stored securely on your device so you can send messages as yourself."))
+                        .multilineTextAlignment(.center)
+                    
+                }
+                
+                Spacer()
+                
+                Button(action: onComplete) {
+                    Text(LocalizedStringResource("Done"))
+                        .foregroundColor(Color(.onPrimary))
+                        .padding() // 1. Add inner padding first
+                        .frame(maxWidth: .infinity) // 2. Stretch to full width
+                }
+                .buttonStyle(.borderedProminent)
+                
+            }
+            .padding(.bottom, 20)
+        }
+        .padding()
+    }
+}
+
+struct WelcomeView: View {
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
+    
+    @Environment(\.openURL) var openURL
+    
+    @Binding var isRestorePresented: Bool
+    @State var onComplete: () -> Void
+    
+    var body: some View {
+        VStack {
+            VStack(alignment: .trailing) {
+                Menu {
+                    Picker(supportedLanguages[selectedLanguage] ?? "English", selection: $selectedLanguage) {
+                        ForEach(supportedLanguages.keys.sorted(), id: \.self) { tag in
+                            Text(supportedLanguages[tag]!).tag(tag)
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "globe")
+                        Text(supportedLanguages[selectedLanguage] ?? "English")
+                    }
+                    .font(.headline)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Color(.primary))
+                    .foregroundStyle(Color(.onPrimary))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            Spacer()
+            
+            VStack(spacing: 20) {
+                Text(LocalizedStringResource("Welcome to RelaySMS!"))
+                    .font(.title)
+                    .fontWeight(.bold)
+
+                Image("1")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250, height: 250)
+                    .padding(.bottom, 40)
+                
+                Text(LocalizedStringResource("Use SMS to make a post, send emails and messages with no internet connection."))
+                    .multilineTextAlignment(.center)
+                
+            }
+            
+            Spacer()
+            
+            Button(action: onComplete) {
+                Text(LocalizedStringResource("Learn how it works"))
+                    .foregroundColor(Color(.onPrimary))
+                    .padding() // 1. Add inner padding first
+                    .frame(maxWidth: .infinity) // 2. Stretch to full width
+            }
+            .buttonStyle(.borderedProminent)
+            .padding(.bottom, 10)
+
+            Button(LocalizedStringResource("Restore backup")) {
+                isRestorePresented = true
+            }
+            .padding(.bottom, 20)
+
+            Button(LocalizedStringResource("Read our privacy policy")) {
+                if let url = URL(string: StaticVariables.App.privacyPolicy) {
+                    openURL(url) // Opens in the default system browser
+                }
+            }
+            .font(.caption2)
+        }
+        .padding()
+    }
+}
+
+struct OnboardingView: View {
+    private let pages = OnboardingPage.allCases
+    let startPosition: OnboardingPage
+    @State var position: ScrollPosition
+    
+    @State var isRestorePresented: Bool = false
+    @State var onboardingCompletedCallback: () -> Void
+    
+    init(
+        startPosition: OnboardingPage = .welcome,
+        onboardingCompletedCallback: @escaping () -> Void
+    ) {
+        self.startPosition = startPosition
+        self.onboardingCompletedCallback = onboardingCompletedCallback
+        _position = State(initialValue: ScrollPosition(id: startPosition.id))
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView(.horizontal) {
+                HStack(spacing: 0) {
+                    ForEach(pages) { page in
+                        Group {
+                            switch page {
+                            case .welcome:
+                                WelcomeView(
+                                    isRestorePresented: $isRestorePresented,
+                                    onComplete: welcomeComplete,
+                                )
+                            case .privacy:
+                                PrivacyView(
+                                    onComplete: {
+                                        scrollToPage(.saveAccess)
+                                    },
+                                    onPreviousClick: {
+                                        scrollToPage(.welcome)
+                                    }
+                                )
+                            case .saveAccess:
+                                SaveAccessView(
+                                    onComplete: onboardingCompletedCallback,
+                                    onPreviousClick: {
+                                        scrollToPage(.privacy)
+                                    }
+                                )
+                            }
+                        }
+                        .containerRelativeFrame([.horizontal])
+                    }
+                }
+                .scrollTargetLayout()
+            }
+            .scrollPosition($position)
+            .scrollTargetBehavior(.paging)
+            .scrollIndicators(.hidden)
+            .scrollDisabled(true)
+            .task {
+                position.scrollTo(id: startPosition.id)
+            }
+            .navigationDestination(isPresented: $isRestorePresented) {
+                RestoreBackupView()
+            }
+        }
+    }
+    
+    func welcomeComplete() {
+        scrollToPage(.privacy)
+    }
+
+    private func scrollToPage(_ page: OnboardingPage) {
+        withAnimation {
+            position.scrollTo(id: page.id)
+        }
+    }
+
+}
+
+#Preview("WelcomeView") {
+    @Previewable @State var restorePresented = true
+    WelcomeView(
+        isRestorePresented: $restorePresented,
+        onComplete: {},
+    )
+}
+
+#Preview("PrivacyView") {
+    PrivacyView(onComplete: {}, onPreviousClick: {})
+}
+
+#Preview("SaveAccessView") {
+    SaveAccessView(onComplete: {}, onPreviousClick: {})
+}

@@ -8,140 +8,92 @@
 import SwiftUI
 import Foundation
 import CoreData
+import SwiftData
+
+enum AppTab: Hashable {
+    case recent
+    case platforms
+    case gatewayClients
+
+    var titleKey: LocalizedStringKey {
+        switch self {
+        case .recent: "Recent"
+        case .platforms: "Platforms"
+        case .gatewayClients: "Routing numbers"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .recent: "house.circle"
+        case .platforms: "server.rack"
+        case .gatewayClients: "phone.arrow.up.right.circle"
+        }
+    }
+}
+
+struct MainView: View {
+    @State private var selectedTab: AppTab = .recent
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            Tab(AppTab.recent.titleKey, systemImage: AppTab.recent.systemImage, value: AppTab.recent) {
+                HomepageView()
+            }
+            
+            Tab(AppTab.platforms.titleKey, systemImage: AppTab.platforms.systemImage, value: AppTab.platforms) {
+                SupportedPlatformsView()
+            }
+            
+            Tab(AppTab.gatewayClients.titleKey, systemImage: AppTab.gatewayClients.systemImage, value: AppTab.gatewayClients) {
+                GatewayClientsView()
+            }
+        }
+    }
+}
+
 
 
 @main
 struct SMSWithoutBorders_ProductionApp: App {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.scenePhase) var scenePhase
-    @StateObject private var dataController: DataController
-
-    @AppStorage(OnboardingView.ONBOARDING_COMPLETED)
-    private var onboardingCompleted: Bool = false
-
-    @State private var alreadyLoggedIn: Bool = false
-    @State private var isLoggedIn: Bool = false
+    @AppStorage("isOnboarded") private var isOnboarded = false
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
     
-    init() {
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-            // RUNNING TESTS
-            self._dataController = StateObject(wrappedValue: DataController(forTesting: true))
-            print("Test initialization: Test launch. Initializing standard DataController." )
-        } else {
-            self._dataController = StateObject(wrappedValue: DataController())
-            print("App initialization: Normal launch. Initializing standard DataController." )
-        }
-        
-    }
-
     var body: some Scene {
         WindowGroup {
             Group {
-                if(!onboardingCompleted) {
-                    OnboardingView()
-                        .environment(\.managedObjectContext, dataController.container.viewContext)
-                }
-                else {
-                    HomepageView(isLoggedIn: $isLoggedIn)
-                    .environment(\.managedObjectContext, dataController.container.viewContext)
-                    .alert("You are being logged out!", isPresented: $alreadyLoggedIn) {
-                        Button("Get me out!") {
-                            getMeOut()
-                        }
-                    } message: {
-                        Text(String(localized:"It seems you logged into another device. You can use RelaySMS on only one device at a time.", comment: "Explains that you cannot be logged in on multiple devices at a time"))
-                    }
-                    .onAppear() {
-                        validateLLT()
-                    }
-                    .onChange(of: scenePhase) { newPhase in
-                        if newPhase == .active {
-                            validateLLT()
-                        }
-                    }
+                if !isOnboarded {
+                    OnboardingView(onboardingCompletedCallback: {
+                        isOnboarded = true
+                    })
+                } else {
+                    MainView()
                 }
             }
-            .onAppear {
-                Task {
-                    Publisher.refreshPlatforms(context: dataController.container.viewContext) { success in
-                        DispatchQueue.main.async {
-                            if success {
-                                print("[App Init]: Successfully fetched platforms")
-                            }
-                        }
-                    }
-                    
-
-                    if(ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] != "1") {
-                        print("Is searching for default....")
-                        do {
-                            try await GatewayClients.refresh(context: dataController.container.viewContext)
-                        } catch {
-                            print("Error refreshing gateways: \(error)")
-                        }
-                    }
-                }
+            .environment(\.locale, Locale(identifier: selectedLanguage))
+            .environment(
+                \.layoutDirection,
+                 (
+                    selectedLanguage == "ar" ||
+                    selectedLanguage == "fa"
+                 ) ? .rightToLeft : .leftToRight)
+            .transaction { transaction in
+                // Prevents SwiftUI from trying to animate layout shifts during a language change
+                transaction.animation = nil
             }
-            
+            .id(selectedLanguage)
         }
+        .modelContainer(for: [
+            SupportedPlatforms.self,
+            GatewayClients.self,
+            Tokens.self,
+            Payloads.self,
+        ])
     }
-
-    func getMeOut() {
-        logoutAccount(context: dataController.container.viewContext)
-        do {
-            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print(error)
-        }
-    }
-
-    func validateLLT() {
-        print("Validating LLT for continuation...")
-        DispatchQueue.background(background: {
-            do {
-                let vault = Vault()
-                let llt = try Vault.getLongLivedToken()
-                if llt.isEmpty{
-                    return
-                }
-
-                let result = try vault.validateLLT(
-                    llt: llt,
-                    context: dataController.container.viewContext
-                )
-                if !result {
-                    alreadyLoggedIn = true
-                }
-//                else {
-//                    let vault = Vault()
-//                    try vault.refreshStoredTokens(
-//                        llt: llt,
-//                        context: dataController.container.viewContext,
-//                        storedTokenEntities: <#FetchedResults<StoredPlatformsEntity>#>
-//                    )
-//                }
-            } catch {
-                print(error)
-            }
-        }, completion: {
-
-        })
-    }
-
-    func getIsLoggedIn() -> Bool {
-        do {
-            isLoggedIn = try !Vault.getLongLivedToken().isEmpty
-        } catch {
-            print("Failed to check if llt exist: \(error)")
-        }
-        return false
-    }
-
+    
 }
+
 
 #Preview {
-    @State var isLoggedIn: Bool = false
-    HomepageView(isLoggedIn: $isLoggedIn)
+    MainView()
 }
-
-

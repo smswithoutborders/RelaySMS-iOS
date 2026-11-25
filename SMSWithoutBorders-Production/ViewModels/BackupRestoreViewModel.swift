@@ -1,0 +1,151 @@
+//
+//  BackupRestoreViewModel.swift
+//  SMSWithoutBorders-Production
+//
+//  Created by Sherlock on 04/11/2026.
+//
+
+import Observation
+import Foundation
+import SwiftData
+
+@Observable
+class BackupRestoreViewModel {
+    enum BackupReadError: LocalizedError {
+        case accessDenied, invalidFormat
+        var errorDescription: String? {
+            switch self {
+            case .accessDenied: return "Could not access the selected file."
+            case .invalidFormat: return "The file isn't a valid backup."
+            }
+        }
+    }
+    
+    private let folderStore = PersistedFileStore(key: "backupFolderBookmark")
+    
+    var statusMessage: LocalizedStringResource = ""
+    private(set) var backingUp: Bool = false
+    
+    private(set) var recoveryKey: String = ""
+    var backupData: Data? = nil
+
+    private var filename: String {
+        let template = LocalizedStringResource("RelaySMS-Backup-")
+        var raw = UserDefaults.standard.string(forKey: "backupFilenamePrefix")
+        
+        if raw != nil {
+            // Strip path separators so a user can't write outside the chosen folder
+            raw = raw!
+                .replacingOccurrences(of: "/", with: "-")
+                .replacingOccurrences(of: ":", with: "-")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            if raw?.isEmpty == true {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                raw = String(localized: template) + formatter.string(from: .now)
+            }
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            raw = String(localized: template) + formatter.string(from: .now)
+        }
+        
+        return raw!
+    }
+    
+
+    let serviceName = "com.afkanerd.smswithoutborders.relaysms"
+    let account = "backup"
+    
+    func backup(_ url: URL?, into container: ModelContainer) async -> (String?, Date?)? {
+        backingUp = true
+        defer {
+            backingUp = false
+        }
+        do {
+            var srk: Data? = nil
+            if url != nil {
+                try folderStore.persist(url!)
+            }
+            else {
+                srk = Data(viewRecoveryKey().utf8)
+            }
+            
+            let context = ModelContext(container)
+            let (data, rk) = try BackupRestoreImpl.backup(into: context, recoveryKey: srk)
+
+            let name = filename
+            let _ = try folderStore.withAccess { folder in
+                try data.write(to: folder.appending(path: name), options: .atomic)
+                return folder
+            }
+
+            if url != nil {
+                recoveryKey = String(decoding: rk, as: UTF8.self)
+                try Keystore.savePassword(recoveryKey, service: serviceName, account: account)
+            }
+            
+            return (name, Date())
+        } catch PersistedFileStore.StoreError.noBookmark {
+            statusMessage = LocalizedStringResource("Choose a backup folder first.")
+        } catch {
+            statusMessage = LocalizedStringResource("Failed to write: \(error.localizedDescription)")
+        }
+        return (nil, nil)
+    }
+    
+    func viewRecoveryKey() -> String {
+        do {
+            let rk = try Keystore.retrievePassword(service: serviceName, account: account)
+            return rk
+        } catch {
+            statusMessage = LocalizedStringResource("Failed to fetch recovery key: \(error.localizedDescription)")
+        }
+        return ""
+    }
+    
+    func deleteBackup(named name: String) {
+        do {
+            try folderStore.withAccess { folder in
+                let fileURL = folder.appending(path: name)
+                if FileManager.default.fileExists(atPath: fileURL.path) {
+                    try FileManager.default.removeItem(at: fileURL)
+                }
+            }
+            folderStore.clear()
+            try Keystore.deletePassword(service: serviceName, account: account)
+        } catch PersistedFileStore.StoreError.noBookmark {
+            statusMessage = LocalizedStringResource("Choose a backup folder first.")
+        } catch {
+            statusMessage = LocalizedStringResource("Failed to delete: \(error.localizedDescription)")
+        }
+    }
+    
+    func readBackupFile(from url: URL) throws {
+        // The picked file is outside your persisted folder grant,
+        // so it needs its own security-scoped access.
+        guard url.startAccessingSecurityScopedResource() else { throw BackupReadError.accessDenied }
+        defer { url.stopAccessingSecurityScopedResource() }
+
+        backupData = try Data(contentsOf: url)
+    }
+    
+    func decryptBackup(
+        into container: ModelContainer,
+        data: Data,
+        recoveryKey: String
+    ) {
+        let context = ModelContext(container)
+        do {
+            guard let rk = recoveryKey.data(using: .utf8) else {
+                statusMessage = LocalizedStringResource("Failed to convert key")
+                return
+            }
+            try BackupRestoreImpl.recover(context: context, data: data, recoveryKey: rk)
+        } catch {
+            statusMessage = LocalizedStringResource("Failed to recover data: \(error.localizedDescription)")
+        }
+    }
+}

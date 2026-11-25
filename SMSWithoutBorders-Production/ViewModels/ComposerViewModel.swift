@@ -1,0 +1,109 @@
+//
+//  ComposerViewModel.swift
+//  SMSWithoutBorders-Production
+//
+//  Created by Sherlock on 01/10/2026.
+//
+
+import Observation
+import Foundation
+import SwiftData
+
+enum ComposeState : Equatable{
+    case loading
+    case idle
+    case failure(data: String)
+}
+
+@Observable
+class ComposerViewModel {
+    
+    private(set) var composeState: ComposeState = .idle
+
+    var payload: String?
+    var sendInDebug: Bool = false
+
+    func publishOnlineFirst(
+        catId: V1ContentCategories,
+        body: String,
+        platformName: String,
+        platformDisplayName: String,
+        tokenId: UUID,
+        to: String?,
+        subject: String?,
+        account: String,
+        into container: ModelContainer
+    ) async throws {
+        composeState = .loading
+        
+        let ofp = OnlineFirstPublisher()
+        do {
+            let contentContainer = try ofp.publish(
+                catId: catId,
+                body: body,
+                platformName: platformName,
+                tokenId: tokenId,
+                to: to,
+                subject: subject,
+                into: container
+            ) { sp in
+                payload = sp
+            }
+            
+            let payload = Payloads(
+                plaformName: platformName,
+                platformDisplayName: platformDisplayName,
+                content: try contentContainer.serializeForStorage(),
+                catId: Int(catId.rawValue),
+                account: account
+            )
+            let payloadsViewModel = PayloadsViewModel()
+            try payloadsViewModel.insert(payload: payload, into: container)
+            
+            composeState = .idle
+        } catch {
+            composeState = .failure(data: error.localizedDescription)
+            throw error
+        }
+    }
+    
+    func publishOfflineFirst(
+        platformName: String,
+        platformDisplayName: String,
+        catId: V1ContentCategories,
+        body: String,
+        to: String?,
+        subject: String?,
+        into container: ModelContainer
+    ) async throws {
+        composeState = .loading
+        
+        let ofp = OfflineFirstPublisher()
+        do {
+            let contentContainer = try ofp.publish(
+                body: body,
+                to: to,
+                subject: subject,
+                into: container
+            ) { sp in
+                payload = sp
+            }
+            
+            let payload = Payloads(
+                plaformName: platformName,
+                platformDisplayName: platformDisplayName,
+                content: try contentContainer.serializeForStorage(),
+                catId: Int(catId.rawValue),
+                account: "",
+                isOfflineFirst: true
+            )
+            let payloadsViewModel = PayloadsViewModel()
+            try payloadsViewModel.insert(payload: payload, into: container)
+            
+            composeState = .idle
+        } catch {
+            composeState = .failure(data: error.localizedDescription)
+            throw error
+        }
+    }
+}

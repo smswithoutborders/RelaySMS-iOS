@@ -1,0 +1,4 @@
+module relaysms_spec_payloadFFI {
+    header "relaysms_spec_payloadFFI.h"
+    export *
+}
